@@ -5,7 +5,12 @@ import numpy as np
 from finiteblock_bem import cli
 from finiteblock_bem.case import load_case
 from finiteblock_bem.constraints import build_constraints
-from finiteblock_bem.dynamics import event16_schedule, initialize_restart, simulate
+from finiteblock_bem.dynamics import (
+    cold_smoke_schedule,
+    event16_schedule,
+    initialize_restart,
+    simulate,
+)
 
 CASE = Path(__file__).resolve().parents[1] / "src/finiteblock_bem/resources/cases/pmma_event16.toml"
 
@@ -52,3 +57,25 @@ def test_original_fem_resolution_is_rejected_before_dense_kernel_allocation(tmp_
     )
     assert status == 2
     assert (tmp_path / "outputs/memory-guard/summary.json").exists()
+
+
+def test_fft_and_dense_history_give_same_nonlinear_sliding_trajectory(tmp_path):
+    case = load_case(CASE, max_panel_length=80)
+    answers = [
+        simulate(
+            case,
+            8e-6,
+            64,
+            schedule=cold_smoke_schedule(case),
+            history_method=method,
+            cache_directory=tmp_path,
+        )
+        for method in ("direct", "fft")
+    ]
+    for result in answers:
+        assert result.diagnostics["status"] == "completed_requested_horizon"
+        assert result.cumulative_slip[-1].max() > 0.1
+    for field in ("displacement", "pressure", "shear", "cumulative_slip"):
+        np.testing.assert_allclose(
+            getattr(answers[0], field), getattr(answers[1], field), atol=1e-9, rtol=1e-10
+        )

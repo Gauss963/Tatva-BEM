@@ -3,6 +3,7 @@ import pytest
 
 from finiteblock_bem.cq import (
     BoundaryHistory,
+    OnlineConvolution,
     ResourceBudgetError,
     bdf2_symbol,
     convolution_weights,
@@ -47,3 +48,30 @@ def test_resource_guard_prevents_large_allocations():
     with pytest.raises(ValueError):
         plan_cq(2, -0.1, 10)
     assert np.real(bdf2_symbol(0.8 + 0j)) > 0
+
+
+@pytest.mark.parametrize("steps", [1, 31, 64, 137])
+def test_online_fft_matches_every_dense_history_term(steps):
+    rng = np.random.default_rng(83)
+    plan = plan_cq(6, 0.01, steps)
+    weights = rng.normal(size=(steps + 1, 6, 6))
+    # Noncommuting matrix kernels and nonzero initial data detect indexing errors.
+    reference = BoundaryHistory(plan, weights)
+    online = OnlineConvolution(reference, direct_block=2)
+    u = rng.normal(size=(steps + 1, 6))
+    for step in range(steps + 1):
+        np.testing.assert_allclose(online.past(step), reference.past_traction(u, step), atol=2e-13)
+        online.append(u[step])
+    with pytest.raises(ValueError, match="complete"):
+        online.append(u[0])
+
+
+def test_parallel_frequency_sampling_preserves_weights():
+    plan = plan_cq(2, 0.03, 20)
+
+    def transfer(s):
+        return np.array([[1, 2], [-3, 4]]) / (s + 2)
+
+    serial = convolution_weights(transfer, plan)
+    parallel = convolution_weights(transfer, plan, workers=4)
+    np.testing.assert_array_equal(serial, parallel)

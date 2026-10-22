@@ -134,6 +134,7 @@ class ContactEquilibrium:
             norm = float(np.max(np.abs(residual)))
             if norm < tolerance:
                 return NewtonResult(z, contact, norm, iteration, True)
+            merit = np.linalg.norm(residual)
             direction = solve(jacobian, -residual, check_finite=False)
             accepted = False
             alpha = 1.0
@@ -143,7 +144,7 @@ class ContactEquilibrium:
                     trial, past, normal_pressure, actuator, old, frozen=frozen, jacobian=False
                 )
                 error = np.max(np.abs(r))
-                if error < (1 - 1e-4 * alpha) * norm or error < tolerance:
+                if np.linalg.norm(r) < (1 - 1e-4 * alpha) * merit or error < tolerance:
                     z = trial
                     accepted = True
                     break

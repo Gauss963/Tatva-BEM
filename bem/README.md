@@ -3,7 +3,9 @@
 二維平面應變、有限區域的 **fully elastodynamic BEM** 研究實作，目標是與 Tatva 的雙 PMMA block 摩擦模型交叉驗證。
 
 此版本已實作彈性波核、完整時間歷史、有限區域邊界、單向接觸、線性滑移弱化與剛性 platen／彈簧耦合。
-**尚未完成原模型 45 ms、第 16 次事件的收斂重現。** 目前驗證包括解析波傳／反射、雙 block 強載入短程滑動，以及原載入速度的重啟短程推進。
+**已完成原載入歷程的 45 ms 粗網格推進，尚未完成原解析度的收斂重現。**
+目前驗證包括解析波傳／反射、雙 block 非線性滑動、完整時間範圍的原載入對照，以及 JAX 接觸參數梯度。
+數值與執行條件見 [事件比較](docs/event16_comparison.md) 和 [AD 設計](docs/autodiff.md)。
 
 程式與 Tatva、Bem2d.jl 獨立，不需要讀取或修改外接磁碟，也不需要上層 repository 的 Julia 環境。
 可以把本資料夾獨立放進新的 GitHub repository。
@@ -30,12 +32,34 @@
 
 ```sh
 python -m venv .venv
-.venv/bin/python -m pip install -e '.[test,plot]'
+.venv/bin/python -m pip install -e '.[test,plot,jax]'
 .venv/bin/python -m pytest
 .venv/bin/finiteblock-bem benchmark
 ```
 
-NumPy、SciPy 是求解器依賴；Matplotlib 僅供產圖。套件包含預設 case 與小型重啟界面資料，wheel 不依賴外部 Tatva 路徑。
+NumPy、SciPy、threadpoolctl 是核心依賴；JAX 為可選的 AD 後端，Matplotlib 供產圖。
+套件包含預設 case 與小型重啟界面資料，wheel 不依賴外部 Tatva 路徑。
+
+## 4 核心完整時間範圍對照
+
+以下從 repository 根目錄執行，完整歷史 FFT 是預設值：
+
+```sh
+FDBEM_CORES=4 bem/run.sh event16 --h 40 --dt 8e-6 --duration .045 \
+  --workers 4 --backend jax --max-memory-mb 4096 \
+  --cache bem/outputs/cq-cache --name event16-4c-h40-dt8-fixed
+FDBEM_CORES=4 bem/run.sh event16 --h 40 --dt 4e-6 --duration .045 \
+  --workers 4 --backend jax --max-memory-mb 8192 \
+  --cache bem/outputs/cq-cache --name event16-4c-h40-dt4
+FDBEM_CORES=4 bem/run.sh ad-benchmark
+FDBEM_CORES=4 bem/run.sh static-refinement
+bem/run.sh compare bem/outputs/event16-4c-h40-dt8-fixed bem/outputs/event16-4c-h40-dt4
+```
+
+頻率核心以 4 worker 組裝，各 worker 的 BLAS 限為 1 thread；時間推進則以
+`FDBEM_CORES` 設定 BLAS／XLA 相關 thread 限制。macOS 不提供此處可用的硬 CPU affinity，
+這是計算 worker 與 thread 設定，並非宣稱鎖住四個實體核心。JSON 會記錄設定、CPU 與 wall time。
+CQ 快取含輸入和核心程式的 SHA256；只在同一離散問題重用，不會沿用不相符的權重。
 
 ## 已實作的方法
 
@@ -43,8 +67,10 @@ NumPy、SciPy 是求解器依賴；Matplotlib 僅供產圖。套件包含預設 
 2. **直接 interior BEM**：`(1/2 I + K(s)) u = V(s) t`，未知量是物理邊界位移與 traction。
 3. **BDF2 convolution quadrature**：對 `V(s)^-1 H(s)` 取反變換，保留所有邊界位移歷史，計算當步 traction。
 4. **兩個有限 block 的獨立邊界 operator**，耦合接觸；外邊界與支承造成的波反射由動態方程處理。
-5. **單向 penalty contact、LSW、剛性 platen 與彈簧**，以解析切線、Newton 和 line search 求解。
+5. **單向 penalty contact、LSW、剛性 platen 與彈簧**，以解析或局部 AD 切線、Newton 和 L2 line search 求解。
 6. **靜態 lift 初始化**：由原 FEM 的塑性滑移建立 BEM 自身的平衡場，再對零初始擾動解完整動態。
+7. **線上 dyadic FFT 卷積**，逐步包含全部已接受位移；以直接歷史加總獨立核對。
+8. **JAX 隱式根微分與短程可微分 rollout**，檢查摩擦參數、狀態與歷史依賴的梯度。
 
 沒有把靜態 Bem2d.jl 矩陣加上人工質量，也沒有用局部 radiation damping 代替波傳。
 
@@ -104,8 +130,8 @@ Newton trial 不會改寫舊狀態；整步收斂後才 commit。
 這一版是可以檢查公式的 **dense reference implementation**：
 
 - CQ 權重儲存約 O(Nt Nb²)。
-- 目前直接累加完整歷史，時間工作量約 O(Nt² Nb²)。
-- 尚未實作 fast/oblivious CQ、時空壓縮或階層矩陣。
+- 預設 dyadic FFT 的時間工作量上界約 O(Nt log²(Nt) Nb²)。`--history direct` 保留 O(Nt² Nb²) 參考算法。
+- 頻率核心可平行組裝與快取，但仍儲存 dense 空間／時間權重；尚未實作 oblivious CQ 或階層矩陣。
 - `preflight` 在分配大型權重前檢查記憶體預估，預設 512 MiB 上限。它是工作陣列預估，不是作業系統 RSS 的硬限制。
 
 先檢查成本：
@@ -145,13 +171,15 @@ src/finiteblock_bem/
   friction.py       接觸狀態、LSW、局部返回映射及切線
   constraints.py    支承、界面配對與 work-conjugate platen
   nonlinear.py      單步 Newton 與 line search
+  jax_backend.py    局部 AD 切線、JIT Newton、隱式解梯度、可微分短程 scan
   dynamics.py       靜態 lift、雙區域完整動態時間推進
   case.py           獨立 case adapter
   benchmarks.py     有解析解的波傳／反射
   io.py / cli.py    結果、來源指紋與命令列
+  comparison.py     FEM 節點場投影到 P0 面板及誤差
   resources/        可隨套件攜帶的小型 case／參考資料
 tests/              物理公式、歷史、接觸、耦合與波反射檢查
-tools/              科學圖輸出
+tools/              封存 FEM 執行、AD 計時、初始狀態加密、比較與科學圖
 docs/               公式、驗證紀錄、後續工作
 ../.github/workflows/ Python 3.11/3.12 測試及 Ruff 檢查
 ```

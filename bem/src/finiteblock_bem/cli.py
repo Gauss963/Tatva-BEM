@@ -3,6 +3,7 @@
 import argparse
 import json
 import math
+import os
 import re
 import sys
 from dataclasses import asdict
@@ -59,6 +60,10 @@ def parser():
     p.add_argument("--max-memory-mb", type=float, default=512)
     p.add_argument("--name", help="Local output subdirectory name")
     p.add_argument("--allow-restart-relaxation", action="store_true")
+    p.add_argument("--workers", type=int, default=int(os.environ.get("FDBEM_CORES", "1")))
+    p.add_argument("--backend", choices=["numpy", "jax"], default="numpy")
+    p.add_argument("--history", choices=["direct", "fft"], default="fft")
+    p.add_argument("--cache", type=Path, help="Directory for reusable, fingerprinted CQ weights")
     return p
 
 
@@ -88,6 +93,17 @@ def main(argv=None):
                 {"h": h, "dt": dt, "duration": duration, "quadrature": args.quadrature},
             )
         else:
+            start_environment = environment_record(args.case)
+            write_json(
+                output / "run_manifest.json",
+                {
+                    "environment": start_environment,
+                    "arguments": {
+                        key: str(value) if isinstance(value, Path) else value
+                        for key, value in vars(args).items()
+                    },
+                },
+            )
             case = load_case(args.case, max_panel_length=args.h)
             d = case.payload["diagnostic"]
             dt = d["dt"] if args.dt is None else args.dt
@@ -150,8 +166,14 @@ def main(argv=None):
                         quadrature=args.quadrature,
                         max_memory_mb=args.max_memory_mb,
                         progress=_progress,
+                        workers=args.workers,
+                        backend=args.backend,
+                        history_method=args.history,
+                        cache_directory=args.cache,
                     )
-                    summary = save_dynamic(output, case, result, args.case)
+                    summary = save_dynamic(
+                        output, case, result, args.case, start_environment=start_environment
+                    )
         print(json.dumps(summary, indent=2, allow_nan=False), flush=True)
         print(f"Artifacts: {output}", flush=True)
         return 0 if summary["status"] != "nonlinear_step_failed" else 3

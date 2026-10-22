@@ -6,11 +6,17 @@ The complete displacement history is retained. No local radiation-damping
 replacement or unreported history truncation is used.
 """
 
+import hashlib
 import math
+import os
 from collections.abc import Callable
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
+from pathlib import Path
 
 import numpy as np
+from scipy.fft import irfft, rfft
+from threadpoolctl import threadpool_limits
 
 from .material import ElasticMaterial
 from .mesh import BoundaryMesh
@@ -77,20 +83,32 @@ def bdf2_symbol(zeta):
     return 1.5 - 2 * zeta + 0.5 * zeta * zeta
 
 
-def convolution_weights(transfer: Callable, plan: CQPlan, *, progress=None):
+def convolution_weights(transfer: Callable, plan: CQPlan, *, progress=None, workers=1):
     """Sample a real causal transfer function, using conjugate symmetry."""
     spectrum = np.empty((plan.fft_size, plan.dofs, plan.dofs), dtype=complex)
     half = plan.fft_size // 2
-    for k in range(half + 1):
+
+    def sample(k):
         zeta = plan.radius * np.exp(-2j * np.pi * k / plan.fft_size)
         value = transfer(bdf2_symbol(zeta) / plan.dt)
         if np.shape(value) != (plan.dofs, plan.dofs) or not np.all(np.isfinite(value)):
             raise FloatingPointError("Nonfinite or incorrectly sized Laplace transfer matrix")
-        spectrum[k] = value
-        if k not in (0, half):
-            spectrum[-k] = np.conjugate(value)
-        if progress is not None:
-            progress(k + 1, half + 1)
+        return value
+
+    if not isinstance(workers, int) or workers < 1:
+        raise ValueError("workers must be a positive integer")
+    # Bound submitted work: executor.map otherwise retains thousands of matrices.
+    # Each independent frequency has one BLAS thread, avoiding nested parallelism.
+    with threadpool_limits(limits=1, user_api="blas"), ThreadPoolExecutor(workers) as pool:
+        for first in range(0, half + 1, workers):
+            ids = range(first, min(first + workers, half + 1))
+            values = map(sample, ids) if workers == 1 else pool.map(sample, ids)
+            for k, value in zip(ids, values, strict=True):
+                spectrum[k] = value
+                if k not in (0, half):
+                    spectrum[-k] = np.conjugate(value)
+                if progress is not None:
+                    progress(k + 1, half + 1)
     # Positive real s at k=0 and Nyquist must produce real matrices.
     for k in (0, half):
         if np.linalg.norm(spectrum[k].imag) > 1e-10 * max(np.linalg.norm(spectrum[k].real), 1):
@@ -129,6 +147,60 @@ class BoundaryHistory:
         )
 
 
+class OnlineConvolution:
+    """Exact dyadic FFT updates for a causal matrix convolution.
+
+    Every source/target pair belongs to one adjacent dyadic block pair.
+    Completed left blocks update their future right blocks, so no future
+    displacement is needed and no memory tail is truncated. Complexity is
+    O(N log²(N) d²), with O(N d²) cached kernel transforms. The small-block
+    direct path avoids FFT overhead. W[0] stays in the implicit equation.
+    """
+
+    def __init__(self, history: BoundaryHistory, *, direct_block=16):
+        self.history = history
+        self.pending = np.zeros((history.plan.steps + 1, history.plan.dofs))
+        self.inputs = np.zeros_like(self.pending)
+        self.transforms = {}
+        self.next_step = 0
+        self.direct_block = direct_block
+
+    def past(self, step):
+        if step != self.next_step or step > self.history.plan.steps:
+            raise ValueError("Online history must be consumed in order, once per accepted step")
+        return self.pending[step].copy()
+
+    def append(self, displacement):
+        n = self.next_step
+        if n > self.history.plan.steps:
+            raise ValueError("Online history is already complete")
+        value = np.asarray(displacement)
+        if value.shape != (self.history.plan.dofs,) or not np.all(np.isfinite(value)):
+            raise ValueError("Invalid accepted boundary displacement")
+        self.inputs[n] = value
+        self.next_step += 1
+        # Largest dyadic block ending here whose sibling has not been processed.
+        b = (n + 1) & -(n + 1)
+        start = n + 1 - b
+        count = min(b, len(self.pending) - n - 1)
+        if count <= 0:
+            return
+        if b <= self.direct_block:
+            for j in range(b):
+                lag = b - j
+                self.pending[n + 1 : n + 1 + count] += np.einsum(
+                    "kij,j->ki", self.history.weights[lag : lag + count], self.inputs[start + j]
+                )
+        else:
+            if b not in self.transforms:
+                kernel = self.history.weights[: min(2 * b, len(self.history.weights))]
+                self.transforms[b] = rfft(kernel, n=2 * b, axis=0)
+            source = rfft(self.inputs[start : n + 1], n=2 * b, axis=0)
+            product = np.einsum("kij,kj->ki", self.transforms[b], source, optimize=False)
+            # Circular aliases only affect indices < b, which are discarded.
+            self.pending[n + 1 : n + 1 + count] += irfft(product, n=2 * b, axis=0)[b : b + count]
+
+
 def build_history(
     mesh: BoundaryMesh,
     material: ElasticMaterial,
@@ -139,13 +211,39 @@ def build_history(
     alias_tolerance=1e-10,
     max_memory_mb=512,
     progress=None,
+    workers=1,
+    cache_directory=None,
 ):
     plan = plan_cq(
         mesh.dofs, dt, steps, alias_tolerance=alias_tolerance, max_memory_mb=max_memory_mb
     )
+    cached = None
+    if cache_directory is not None:
+        digest = hashlib.sha256()
+        digest.update(repr((plan, material, quadrature)).encode())
+        for value in (mesh.starts, mesh.ends):
+            digest.update(value.tobytes())
+        for filename in ("cq.py", "operators.py", "kernels.py", "material.py", "mesh.py"):
+            digest.update(Path(__file__).with_name(filename).read_bytes())
+        directory = Path(cache_directory)
+        directory.mkdir(parents=True, exist_ok=True)
+        cached = directory / f"{digest.hexdigest()}.npy"
+        if cached.is_file():
+            weights = np.load(cached, mmap_mode="r", allow_pickle=False)
+            if weights.shape != (steps + 1, mesh.dofs, mesh.dofs) or weights.dtype != np.float64:
+                raise ValueError("Invalid cached CQ weights")
+            if progress is not None:
+                progress(1, 1)
+            return BoundaryHistory(plan, weights)
     weights = convolution_weights(
         lambda s: assemble_operators(mesh, material, s, quadrature=quadrature).impedance(),
         plan,
         progress=progress,
+        workers=workers,
     )
+    if cached is not None:
+        temporary = cached.with_suffix(f".{os.getpid()}.tmp")
+        with temporary.open("wb") as stream:
+            np.save(stream, weights, allow_pickle=False)
+        temporary.replace(cached)
     return BoundaryHistory(plan, weights)

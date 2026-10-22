@@ -7,7 +7,7 @@ of the complete original event.
 
 ## Automated checks
 
-**22 BEM tests passed.** Ruff check and formatting checks passed. The package
+**33 BEM tests passed.** Ruff check and formatting checks passed. The package
 wheel built successfully; an installed-wheel CLI preflight found its bundled
 case and restart data without a source-checkout import path.
 
@@ -17,6 +17,14 @@ density dependence, CQ timing and rational recurrence, full history,
 resource guards, friction return maps/tangents, supports/platen, a static
 lift, a short two-domain transient, analytic wave arrival/reflection and
 paired spatial/temporal refinement.
+
+New checks also cover exact online FFT vs dense history, a sliding trajectory
+with both history methods, the long-run contact-switch line-search regression,
+custom JAX contact tangents and implicit/trajectory gradients. Full-horizon
+coarse runs, 4-core measurements and the remaining differences are documented
+in [event16_comparison.md](event16_comparison.md); AD scope is in
+[autodiff.md](autodiff.md). The older `validation_results.json` records the
+initial reference diagnostics; `event16_results.json` records the later runs.
 
 The earlier static Julia experiment also passed its 238 checks after moving
 to the self-contained vendored environment. This does not establish dynamic

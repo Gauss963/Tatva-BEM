@@ -13,16 +13,20 @@ gates. A short successful diagnostic does not close the later gates.
 - [x] Admissible static lift using the archived event-16 plastic slip.
 - [x] Nonlinear short sliding diagnostic and original-rate short transient.
 - [x] Standalone package structure, local artifacts, provenance and CI configuration.
+- [x] Exact online dyadic FFT history, parallel frequency assembly and fingerprinted weights cache.
+- [x] JAX local AD tangents, implicit root gradients and a bounded differentiable full-history scan.
+- [x] Coarse 45 ms run with original loading schedule and archived FEM comparison.
 - [ ] Certified energy/passivity or a quantified stable-resolution envelope for nonlinear P0 collocation.
 - [ ] Independent spatial refinement at the contact ends and process-zone resolution.
 - [ ] Validate static-lift error against original FEM interior fields and quantify zero-initial-velocity assumptions.
-- [ ] Fast/oblivious CQ or another verified history compression method; enforce error tolerances against the dense reference.
+- [ ] Oblivious CQ or space-time compression to remove dense weight storage; online FFT is implemented but retains it.
 - [ ] Production memory/time benchmarks for a 45 ms run at a physically justified h and dt.
 - [ ] Boundary-history-aware checkpoint/resume; no state-only CQ restart.
 - [ ] Interior displacement, stress and velocity reconstruction with independent tests.
 - [ ] Full 45 ms event-16 loading and rupture with temporal/spatial convergence.
 - [ ] Compare nucleation time/location, rupture speed, stress drop, slip, loading reaction and energy budget with FEM.
 - [ ] Integrate a tested backend interface into a separate Tatva checkout if requested.
+- [ ] Production-length discrete adjoint/checkpoint schedule, load-hold event-time sensitivity and material/geometry kernel derivatives.
 
 ## Suggested next implementation order
 

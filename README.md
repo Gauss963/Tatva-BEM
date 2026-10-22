@@ -4,8 +4,9 @@ Fully elastodynamic boundary elements for finite-block frictional contact,
 developed alongside the Tatva-based PMMA finite-element model.
 
 **Research implementation: the full 45 ms event-16 FEM rupture has not yet
-been reproduced or shown to converge.** The current BEM engine has analytic
-wave/reflection verification and short nonlinear two-block diagnostics.
+been reproduced or shown to converge.** Coarse BEM runs now complete the
+45 ms loading history at two time steps, with substantial nucleation/slip
+differences from the archived FEM. See the [measured comparison](bem/docs/event16_comparison.md).
 
 This repository preserves the existing Tatva/PMMA Git history. Its upstream
 is [smec-ethz/tatva](https://github.com/smec-ethz/tatva); the inherited PMMA
@@ -20,9 +21,11 @@ baseline comes from [Gauss963/PMMA-RSF](https://github.com/Gauss963/PMMA-RSF).
 - Unilateral penalty contact and cumulative linear slip weakening.
 - Static-lift initialization using a local snapshot of event-16 plastic slip.
 - Explicit failure states, memory preflight, local artifacts and provenance.
+- Exact online FFT history, parallel kernels and reusable fingerprinted weights.
+- JAX local AD tangents, JIT Newton and verified short-trajectory implicit gradients.
 
 The BEM package is independent of the Tatva FEM time integrator. A shared
-backend interface and a production-scale accelerated history solver remain
+backend interface and memory-compressed production history remain
 future work. No files in the external original Tatva checkout are modified.
 
 ## Quick start
@@ -31,7 +34,7 @@ Python 3.11 or newer:
 
 ```sh
 python -m venv .venv
-.venv/bin/python -m pip install -e './bem[test,plot]'
+.venv/bin/python -m pip install -e './bem[test,plot,jax]'
 .venv/bin/python -m pytest bem/tests
 .venv/bin/finiteblock-bem benchmark --name bar-reference
 .venv/bin/finiteblock-bem smoke --name smoke-reference
@@ -54,6 +57,8 @@ See [BEM usage and current results](bem/README.md),
 [formulation](bem/docs/formulation.md),
 [validation](bem/docs/validation.md), and
 [remaining acceptance gates](bem/docs/roadmap.md).
+The [AD design](bem/docs/autodiff.md) distinguishes contact gradients from
+material/geometry, initialization and full-event adjoints that remain open.
 
 ## Repository layout
 

@@ -2,6 +2,7 @@
 
 import hashlib
 import json
+import os
 import platform
 import sys
 import tomllib
@@ -9,6 +10,7 @@ from pathlib import Path
 
 import numpy as np
 import scipy
+from threadpoolctl import threadpool_info
 
 from . import __version__
 
@@ -25,8 +27,28 @@ def environment_record(case_path=None):
         "numpy": np.__version__,
         "scipy": scipy.__version__,
         "platform": platform.platform(),
+        "available_logical_cpus": os.cpu_count(),
+        "hard_cpu_affinity_enforced": False,
+        "thread_environment": {
+            key: os.environ.get(key)
+            for key in (
+                "FDBEM_CORES",
+                "OPENBLAS_NUM_THREADS",
+                "OMP_NUM_THREADS",
+                "VECLIB_MAXIMUM_THREADS",
+                "XLA_FLAGS",
+                "JAX_ENABLE_X64",
+            )
+        },
+        "blas_threadpools": threadpool_info(),
         "source_sha256": {p.name: fingerprint(p) for p in sorted(package.glob("*.py"))},
     }
+    if "jax" in sys.modules:
+        import jax
+
+        record["jax"] = jax.__version__
+        record["jax_x64"] = jax.config.x64_enabled
+        record["jax_devices"] = [str(d) for d in jax.devices()]
     if case_path is not None:
         record["case_sha256"] = fingerprint(case_path)
         with Path(case_path).open("rb") as stream:
@@ -76,7 +98,7 @@ def save_bar(output, result, parameters):
     return summary
 
 
-def save_dynamic(output, case, result, case_path):
+def save_dynamic(output, case, result, case_path, *, start_environment=None):
     output.mkdir(parents=True, exist_ok=True)
     np.savez(
         output / "trajectory.npz",
@@ -122,7 +144,16 @@ def save_dynamic(output, case, result, case_path):
         header="time_s,normal_load_mpa,mean_contact_pressure_mpa,mean_contact_shear_mpa,max_cumulative_slip_mm,actuator_mm,platen_mm,applied_shear_mpa,residual_mpa,newton_iterations",
     )
     summary = dict(result.diagnostics)
-    summary["environment"] = environment_record(case_path)
+    end_environment = environment_record(case_path)
+    summary["environment"] = end_environment if start_environment is None else start_environment
+    summary["source_changed_during_run"] = (
+        start_environment is not None
+        and start_environment["source_sha256"] != end_environment["source_sha256"]
+    )
+    # JAX is imported lazily after kernels; record its actual runtime too.
+    for key in ("jax", "jax_x64", "jax_devices"):
+        if key in end_environment:
+            summary["environment"][key] = end_environment[key]
     summary["case"] = case.payload
     write_json(output / "summary.json", summary)
     return summary

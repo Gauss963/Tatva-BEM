@@ -5,8 +5,11 @@ retains all past boundary increments and never substitutes a static matrix
 or local damping for the elastodynamic Dirichlet-to-Neumann map.
 """
 
+import resource
+import sys
 from collections.abc import Callable
 from dataclasses import dataclass
+from time import perf_counter, process_time
 
 import numpy as np
 from scipy.linalg import block_diag
@@ -14,7 +17,7 @@ from scipy.linalg import block_diag
 from .benchmarks import smooth_step
 from .case import TwoBlockCase
 from .constraints import build_constraints
-from .cq import build_history, plan_domains
+from .cq import OnlineConvolution, build_history, plan_domains
 from .friction import ContactState
 from .nonlinear import ContactEquilibrium
 from .operators import assemble_operators
@@ -156,7 +159,14 @@ def simulate(
     quadrature=20,
     max_memory_mb=512,
     progress=None,
+    workers=1,
+    history_method="fft",
+    backend="numpy",
+    cache_directory=None,
 ):
+    started, cpu_started = perf_counter(), process_time()
+    if history_method not in ("direct", "fft") or backend not in ("numpy", "jax"):
+        raise ValueError("Unknown history method or nonlinear backend")
     con = build_constraints(case)
     meshes = (case.moving, case.stationary)
     plans, peak = plan_domains(
@@ -174,9 +184,12 @@ def simulate(
                 quadrature=quadrature,
                 max_memory_mb=max_memory_mb,
                 progress=callback,
+                workers=workers,
+                cache_directory=cache_directory,
             )
         )
     w0 = block_diag(*(history.instantaneous for history in histories))
+    kernel_seconds = perf_counter() - started
     size = w0.shape[0]
     base_u = np.zeros(size) if lift is None else lift.displacement
     base_t = np.zeros(size) if lift is None else lift.traction
@@ -186,6 +199,19 @@ def simulate(
         else lift.state
     )
     system = ContactEquilibrium(case, con, w0, base_displacement=base_u, base_traction=base_t)
+    if backend == "jax":
+        try:
+            from .jax_backend import JaxContactEquilibrium
+        except ModuleNotFoundError as exc:
+            if exc.name == "jax":
+                raise ValueError("JAX backend requires installation with the [jax] extra") from exc
+            raise
+
+        system = JaxContactEquilibrium(system)
+    online = [OnlineConvolution(h) for h in histories] if history_method == "fft" else None
+    if online is not None:
+        for h in online:
+            h.append(np.zeros(h.history.plan.dofs))
     perturbation = np.zeros((steps + 1, size))
     u = np.zeros_like(perturbation)
     u[0] = base_u
@@ -224,21 +250,32 @@ def simulate(
     held_actuator = None
     stop_time = None
     offset = case.moving.dofs
+    history_seconds = 0.0
+    newton_seconds = 0.0
+    step_started = perf_counter()
     for step in range(1, steps + 1):
         if held_actuator is not None:
             actuator[step] = held_actuator
-        past = np.concatenate(
-            (
-                histories[0].past_traction(perturbation[:, :offset], step),
-                histories[1].past_traction(perturbation[:, offset:], step),
+        tick = perf_counter()
+        past = (
+            np.concatenate([h.past(step) for h in online])
+            if online is not None
+            else np.concatenate(
+                (
+                    histories[0].past_traction(perturbation[:, :offset], step),
+                    histories[1].past_traction(perturbation[:, offset:], step),
+                )
             )
         )
+        history_seconds += perf_counter() - tick
+        tick = perf_counter()
         try:
             result = system.solve(normal[step], actuator[step], old, past=past, guess=reduced)
         except (FloatingPointError, np.linalg.LinAlgError) as exc:
             valid = step
             failure = {"step": step, "time_s": float(time[step]), "reason": str(exc)}
             break
+        newton_seconds += perf_counter() - tick
         if not result.converged:
             valid = step
             failure = {
@@ -249,6 +286,11 @@ def simulate(
             break
         reduced = result.reduced_displacement
         perturbation[step] = con.prolongation @ reduced
+        tick = perf_counter()
+        if online is not None:
+            online[0].append(perturbation[step, :offset])
+            online[1].append(perturbation[step, offset:])
+        history_seconds += perf_counter() - tick
         u[step] = base_u + perturbation[step]
         traction[step] = base_t + w0 @ perturbation[step] + past
         response = result.contact
@@ -300,6 +342,19 @@ def simulate(
         "panels": [mesh.count for mesh in meshes],
         "cq_fft_size": plans[0].fft_size,
         "all_history_retained": True,
+        "history_method": history_method,
+        "nonlinear_backend": backend,
+        "kernel_workers": workers,
+        "timing_seconds": {
+            "kernel_build_or_cache_load": kernel_seconds,
+            "time_stepping": perf_counter() - step_started,
+            "history_updates": history_seconds,
+            "nonlinear_solves_including_jit": newton_seconds,
+            "total_excluding_static_lift_and_output": perf_counter() - started,
+            "process_cpu": process_time() - cpu_started,
+        },
+        "peak_process_rss_mb": resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
+        / (1024**2 if sys.platform == "darwin" else 1024),
         "dense_peak_estimate_mb": peak / 1024**2,
         "weakening_evaluation": case.contact.weakening_evaluation,
         "max_contact_strength_ratio": float(np.max(ratio)),
@@ -311,9 +366,9 @@ def simulate(
         "initialization": {"kind": "zero_initial_fields"} if lift is None else lift.diagnostics,
         "full_original_event_reproduced": False,
         "limitations": [
-            "P0 collocation and dense reference history; production acceleration not implemented",
+            "P0 collocation with dense spatial kernels; spatial refinement still required",
             "No certified energy/passivity estimate for the nonlinear collocation scheme",
-            "Finite diagnostic horizon is not a complete event-16 reproduction",
+            "Static lift differs from the FEM interior initial field",
         ],
     }
     return DynamicResult(*(array[:valid] for array in data), diagnostics)

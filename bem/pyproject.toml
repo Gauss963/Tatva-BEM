@@ -8,11 +8,12 @@ version = "0.1.0"
 description = "Research implementation of 2D transient elastodynamic boundary elements with finite-block frictional contact"
 requires-python = ">=3.11"
 license = "MIT"
-dependencies = ["numpy>=1.26", "scipy>=1.11"]
+dependencies = ["numpy>=1.26", "scipy>=1.11", "threadpoolctl>=3.5"]
 
 [project.optional-dependencies]
 test = ["pytest>=8"]
 plot = ["matplotlib>=3.8"]
+jax = ["jax>=0.4.35"]
 
 [project.scripts]
 finiteblock-bem = "finiteblock_bem.cli:main"
