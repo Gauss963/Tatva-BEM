@@ -20,7 +20,7 @@ from .constraints import build_constraints
 from .cq import OnlineConvolution, build_history, plan_domains
 from .friction import ContactState
 from .nonlinear import ContactEquilibrium
-from .operators import assemble_operators
+from .statics import assemble_static_operators
 
 
 class RestartProjectionError(ValueError):
@@ -46,7 +46,7 @@ def initialize_restart(case: TwoBlockCase, *, quadrature=20, allow_relaxation=Fa
     """
     con = build_constraints(case)
     matrices = [
-        assemble_operators(mesh, case.material, quadrature=quadrature).impedance()
+        assemble_static_operators(mesh, case.material, quadrature=quadrature).impedance()
         for mesh in (case.moving, case.stationary)
     ]
     system = ContactEquilibrium(case, con, block_diag(*matrices))
@@ -134,8 +134,8 @@ def event16_schedule(case):
 @dataclass(frozen=True)
 class DynamicResult:
     time: np.ndarray
-    displacement: np.ndarray
-    traction: np.ndarray
+    displacement: np.ndarray | None
+    traction: np.ndarray | None
     pressure: np.ndarray
     shear: np.ndarray
     friction_coefficient: np.ndarray
@@ -147,6 +147,7 @@ class DynamicResult:
     residual_mpa: np.ndarray
     newton_iterations: np.ndarray
     diagnostics: dict
+    contact_jumps: np.ndarray | None = None
 
 
 def simulate(
@@ -163,17 +164,31 @@ def simulate(
     history_method="fft",
     backend="numpy",
     cache_directory=None,
+    formulation="full",
 ):
     started, cpu_started = perf_counter(), process_time()
     if history_method not in ("direct", "fft") or backend not in ("numpy", "jax"):
         raise ValueError("Unknown history method or nonlinear backend")
+    if formulation not in ("full", "interface"):
+        raise ValueError("Unknown boundary formulation")
+    if formulation == "interface" and lift is None:
+        raise ValueError("Interface formulation requires a static lift")
+    if formulation == "interface" and any(
+        schedule.pressure(float(n * dt)) != case.normal_pressure for n in range(steps + 1)
+    ):
+        raise ValueError("Interface formulation requires constant external normal pressure")
     con = build_constraints(case)
     meshes = (case.moving, case.stationary)
-    plans, peak = plan_domains(
-        [mesh.dofs for mesh in meshes], dt, steps, max_memory_mb=max_memory_mb
-    )
+    if formulation == "interface":
+        from .condensation import plan_interface
+
+        plans, peak = plan_interface(
+            case, dt, steps, quadrature=quadrature, workers=workers, max_memory_mb=max_memory_mb
+        )
+    else:
+        plans, peak = plan_domains([m.dofs for m in meshes], dt, steps, max_memory_mb=max_memory_mb)
     histories = []
-    for domain, mesh in enumerate(meshes):
+    for domain, mesh in enumerate(meshes if formulation == "full" else []):
         callback = None if progress is None else lambda i, n, d=domain: progress("kernel", d, i, n)
         histories.append(
             build_history(
@@ -188,6 +203,21 @@ def simulate(
                 cache_directory=cache_directory,
             )
         )
+    if formulation == "interface":
+        from .condensation import InterfaceContactEquilibrium, build_condensed_history
+
+        histories.append(
+            build_condensed_history(
+                case,
+                dt,
+                steps,
+                quadrature=quadrature,
+                max_memory_mb=max_memory_mb,
+                workers=workers,
+                cache_directory=cache_directory,
+                progress=None if progress is None else lambda i, n: progress("kernel", 0, i, n),
+            )
+        )
     w0 = block_diag(*(history.instantaneous for history in histories))
     kernel_seconds = perf_counter() - started
     size = w0.shape[0]
@@ -198,7 +228,15 @@ def simulate(
         if lift is None
         else lift.state
     )
-    system = ContactEquilibrium(case, con, w0, base_displacement=base_u, base_traction=base_t)
+    if formulation == "interface":
+        system = InterfaceContactEquilibrium(case, lift, w0)
+        con = system.constraints
+        base_u, base_t = system.base_u, system.base_t
+        domain_slices = [slice(None)]
+    else:
+        system = ContactEquilibrium(case, con, w0, base_displacement=base_u, base_traction=base_t)
+        domain_slices = [slice(0, case.moving.dofs), slice(case.moving.dofs, None)]
+    base_jumps = np.r_[system.base_dn, system.base_ds]
     if backend == "jax":
         try:
             from .jax_backend import JaxContactEquilibrium
@@ -249,7 +287,6 @@ def simulate(
     valid = steps + 1
     held_actuator = None
     stop_time = None
-    offset = case.moving.dofs
     history_seconds = 0.0
     newton_seconds = 0.0
     step_started = perf_counter()
@@ -261,10 +298,10 @@ def simulate(
             np.concatenate([h.past(step) for h in online])
             if online is not None
             else np.concatenate(
-                (
-                    histories[0].past_traction(perturbation[:, :offset], step),
-                    histories[1].past_traction(perturbation[:, offset:], step),
-                )
+                [
+                    h.past_traction(perturbation[:, part], step)
+                    for h, part in zip(histories, domain_slices, strict=True)
+                ]
             )
         )
         history_seconds += perf_counter() - tick
@@ -288,8 +325,8 @@ def simulate(
         perturbation[step] = con.prolongation @ reduced
         tick = perf_counter()
         if online is not None:
-            online[0].append(perturbation[step, :offset])
-            online[1].append(perturbation[step, offset:])
+            for h, part in zip(online, domain_slices, strict=True):
+                h.append(perturbation[step, part])
         history_seconds += perf_counter() - tick
         u[step] = base_u + perturbation[step]
         traction[step] = base_t + w0 @ perturbation[step] + past
@@ -305,7 +342,11 @@ def simulate(
         old = response.state
         # Match the original load-hold criterion only in the warm event mode.
         if schedule.name.startswith("event16") and held_actuator is None:
-            coverage = float(np.mean(cum[step] >= case.contact.characteristic_slip))
+            coverage = float(
+                np.average(
+                    cum[step] >= case.contact.characteristic_slip, weights=con.contact_weights
+                )
+            )
             if coverage >= case.payload["loading"]["stop_coverage"]:
                 held_actuator = float(actuator[step])
                 stop_time = float(time[step])
@@ -342,6 +383,11 @@ def simulate(
         "panels": [mesh.count for mesh in meshes],
         "cq_fft_size": plans[0].fft_size,
         "all_history_retained": True,
+        "boundary_formulation": formulation,
+        "history_dofs": [h.plan.dofs for h in histories],
+        "contact_panel_length_min_mm": float(np.min(case.moving.lengths[case.moving_contact])),
+        "contact_panel_length_max_mm": float(np.max(case.moving.lengths[case.moving_contact])),
+        "full_boundary_fields_saved": formulation == "full",
         "history_method": history_method,
         "nonlinear_backend": backend,
         "kernel_workers": workers,
@@ -371,4 +417,14 @@ def simulate(
             "Static lift differs from the FEM interior initial field",
         ],
     }
-    return DynamicResult(*(array[:valid] for array in data), diagnostics)
+    result = DynamicResult(*(array[:valid] for array in data), diagnostics)
+    if formulation == "interface":
+        from dataclasses import replace
+
+        return replace(
+            result,
+            displacement=None,
+            traction=None,
+            contact_jumps=u[:valid, : 2 * count] + base_jumps,
+        )
+    return result

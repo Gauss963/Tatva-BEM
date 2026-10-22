@@ -62,7 +62,27 @@ class BoundaryMesh:
         return np.flatnonzero(self.labels == label)
 
 
-def polygon_boundary(vertices, labels, max_length):
+def graded_fractions(length, max_length, end_length, *, growth=1.4):
+    """Symmetric end grading with exact shared coordinates on paired interfaces."""
+    if not (np.isfinite(end_length) and 0 < end_length <= max_length and growth > 1):
+        raise ValueError("Require 0 < end_length <= max_length and growth > 1")
+    if length <= 2 * end_length:
+        return np.linspace(0, 1, max(1, int(np.ceil(length / max_length))) + 1)
+    half, total, size = length / 2, 0.0, end_length
+    sizes = []
+    while total + size + end_length < half and size < max_length:
+        sizes.append(size)
+        total += size
+        size = min(size * growth, max_length)
+    remainder = half - total
+    sizes.extend(
+        [remainder / np.ceil(remainder / max_length)] * int(np.ceil(remainder / max_length))
+    )
+    left = np.concatenate(([0.0], np.cumsum(sizes)))
+    return np.concatenate((left, length - left[-2::-1])) / length
+
+
+def polygon_boundary(vertices, labels, max_length, *, edge_fractions=None, corner_length=None):
     vertices = np.asarray(vertices, dtype=float)
     if vertices.ndim != 2 or vertices.shape[1] != 2 or len(vertices) != len(labels):
         raise ValueError("Expected polygon vertices and one label per edge")
@@ -70,8 +90,26 @@ def polygon_boundary(vertices, labels, max_length):
         raise ValueError("max_length must be finite and positive")
     starts, ends, panel_labels = [], [], []
     for a, b, label in zip(vertices, np.roll(vertices, -1, axis=0), labels):
-        count = max(1, int(np.ceil(np.linalg.norm(b - a) / max_length - 1e-12)))
-        points = np.linspace(a, b, count + 1)
+        if edge_fractions is not None and label in edge_fractions:
+            fractions = np.asarray(edge_fractions[label])
+            if (
+                fractions.ndim != 1
+                or len(fractions) < 2
+                or fractions[0] != 0
+                or fractions[-1] != 1
+                or np.any(np.diff(fractions) <= 0)
+            ):
+                raise ValueError("Edge fractions must increase strictly from 0 to 1")
+            points = a + fractions[:, None] * (b - a)
+            count = len(points) - 1
+        else:
+            if corner_length is not None:
+                fractions = graded_fractions(np.linalg.norm(b - a), max_length, corner_length)
+                points = a + fractions[:, None] * (b - a)
+                count = len(points) - 1
+            else:
+                count = max(1, int(np.ceil(np.linalg.norm(b - a) / max_length - 1e-12)))
+                points = np.linspace(a, b, count + 1)
         starts.extend(points[:-1])
         ends.extend(points[1:])
         panel_labels.extend([label] * count)

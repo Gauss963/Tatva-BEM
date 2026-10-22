@@ -69,12 +69,12 @@ def plot_blocks(folder, summary):
         slip = data["cumulative_slip"]
         fig, axes = plt.subplots(2, 3, figsize=(14, 8), layout="constrained")
         name = (
-            "Original-rate event-16 short transient"
+            "Original-rate event-16 transient"
             if summary["schedule"].startswith("event16")
             else "Cold-start accelerated-loading diagnostic"
         )
         fig.suptitle(
-            f"{name}\nFully elastodynamic finite blocks; this is not the complete 45 ms FEM event"
+            f"{name}\nFully elastodynamic finite blocks; spatial/temporal convergence remains unverified"
         )
         for ax, field, title, units in [
             (axes[0, 0], p, "Contact pressure", "MPa"),

@@ -16,6 +16,9 @@ gates. A short successful diagnostic does not close the later gates.
 - [x] Exact online dyadic FFT history, parallel frequency assembly and fingerprinted weights cache.
 - [x] JAX local AD tangents, implicit root gradients and a bounded differentiable full-history scan.
 - [x] Coarse 45 ms run with original loading schedule and archived FEM comparison.
+- [x] Exact frequency-domain boundary condensation and paired contact/corner grading.
+- [x] Prepared radial traction assembly, near-panel subdivision and streamed static initialization.
+- [x] Reverse CQ discrete adjoint with JAX VJPs, checked against scan AD and actuator finite differences.
 - [ ] Certified energy/passivity or a quantified stable-resolution envelope for nonlinear P0 collocation.
 - [ ] Independent spatial refinement at the contact ends and process-zone resolution.
 - [ ] Validate static-lift error against original FEM interior fields and quantify zero-initial-velocity assumptions.
@@ -26,7 +29,7 @@ gates. A short successful diagnostic does not close the later gates.
 - [ ] Full 45 ms event-16 loading and rupture with temporal/spatial convergence.
 - [ ] Compare nucleation time/location, rupture speed, stress drop, slip, loading reaction and energy budget with FEM.
 - [ ] Integrate a tested backend interface into a separate Tatva checkout if requested.
-- [ ] Production-length discrete adjoint/checkpoint schedule, load-hold event-time sensitivity and material/geometry kernel derivatives.
+- [ ] Checkpoint/oblivious adjoint, load-hold event-time sensitivity and material/geometry/lift derivatives.
 
 ## Suggested next implementation order
 

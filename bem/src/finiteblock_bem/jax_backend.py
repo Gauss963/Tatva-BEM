@@ -104,31 +104,46 @@ class JaxContactEquilibrium:
                     direction = jnp.linalg.solve(tangent(z, plastic, cumulative, parameters), -f(z))
                     merit = jnp.linalg.norm(f(z))
 
-                    def line_condition(state):
-                        alpha, trial_merit, trial_error, tries = state
-                        return (
-                            (trial_merit >= (1 - 1e-4 * alpha) * merit)
-                            & (trial_error >= tolerance)
-                            & (tries < 24)
+                    def line_search(direction):
+                        def line_condition(state):
+                            alpha, trial_merit, trial_error, tries = state
+                            return (
+                                (trial_merit >= (1 - 1e-4 * alpha) * merit)
+                                & (trial_error >= tolerance)
+                                & (tries < 24)
+                            )
+
+                        def line_iteration(state):
+                            alpha, _, _, tries = state
+                            alpha *= 0.5
+                            r = f(z + alpha * direction)
+                            return alpha, jnp.linalg.norm(r), jnp.max(jnp.abs(r)), tries + 1
+
+                        r = f(z + direction)
+                        alpha, trial_merit, error, _ = jax.lax.while_loop(
+                            line_condition,
+                            line_iteration,
+                            (1.0, jnp.linalg.norm(r), jnp.max(jnp.abs(r)), 0),
                         )
+                        accepted = (
+                            (trial_merit < (1 - 1e-4 * alpha) * merit) | (error < tolerance)
+                        ) & jnp.isfinite(error)
+                        return z + alpha * direction, error, accepted
 
-                    def line_iteration(state):
-                        alpha, _, _, tries = state
-                        alpha = alpha * 0.5
-                        r = f(z + alpha * direction)
-                        return alpha, jnp.linalg.norm(r), jnp.max(jnp.abs(r)), tries + 1
+                    trial, trial_error, accepted = line_search(direction)
 
-                    r = f(z + direction)
-                    alpha, trial_merit, trial_error, _ = jax.lax.while_loop(
-                        line_condition,
-                        line_iteration,
-                        (1.0, jnp.linalg.norm(r), jnp.max(jnp.abs(r)), 0),
+                    def lookahead(_):
+                        probe = z + direction
+                        second = jnp.linalg.solve(
+                            tangent(probe, plastic, cumulative, parameters), -f(probe)
+                        )
+                        return line_search(direction + second)
+
+                    trial, trial_error, accepted = jax.lax.cond(
+                        accepted, lambda _: (trial, trial_error, accepted), lookahead, operand=None
                     )
-                    accepted = (
-                        (trial_merit < (1 - 1e-4 * alpha) * merit) | (trial_error < tolerance)
-                    ) & jnp.isfinite(trial_error)
                     return (
-                        jnp.where(accepted, z + alpha * direction, z),
+                        jnp.where(accepted, trial, z),
                         trial_error,
                         count + 1,
                         accepted,

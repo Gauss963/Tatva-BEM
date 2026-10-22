@@ -6,6 +6,8 @@
 **已完成原載入歷程的 45 ms 粗網格推進，尚未完成原解析度的收斂重現。**
 目前驗證包括解析波傳／反射、雙 block 非線性滑動、完整時間範圍的原載入對照，以及 JAX 接觸參數梯度。
 數值與執行條件見 [事件比較](docs/event16_comparison.md) 和 [AD 設計](docs/autodiff.md)。
+新增 [接觸座標縮減](docs/condensation.md) 可降低完整歷史儲存，並提供端點與角落加密。
+最新 [空間加密與完整歷史 adjoint 結果](docs/refinement.md) 說明改善與仍未收斂的部分。
 
 程式與 Tatva、Bem2d.jl 獨立，不需要讀取或修改外接磁碟，也不需要上層 repository 的 Julia 環境。
 可以把本資料夾獨立放進新的 GitHub repository。
@@ -57,7 +59,7 @@ bem/run.sh compare bem/outputs/event16-4c-h40-dt8-fixed bem/outputs/event16-4c-h
 ```
 
 頻率核心以 4 worker 組裝，各 worker 的 BLAS 限為 1 thread；時間推進則以
-`FDBEM_CORES` 設定 BLAS／XLA 相關 thread 限制。macOS 不提供此處可用的硬 CPU affinity，
+`FDBEM_CORES` 設定 XLA thread，BLAS 在匯入前固定為 1 thread。macOS 不提供此處可用的硬 CPU affinity，
 這是計算 worker 與 thread 設定，並非宣稱鎖住四個實體核心。JSON 會記錄設定、CPU 與 wall time。
 CQ 快取含輸入和核心程式的 SHA256；只在同一離散問題重用，不會沿用不相符的權重。
 
@@ -171,6 +173,9 @@ src/finiteblock_bem/
   friction.py       接觸狀態、LSW、局部返回映射及切線
   constraints.py    支承、界面配對與 work-conjugate platen
   nonlinear.py      單步 Newton 與 line search
+  condensation.py   頻率域消去線性邊界、接觸座標 impedance
+  statics.py        不建立頻率幾何快取的串流靜態初始化
+  adjoint.py        完整 reverse-CQ、JAX VJP、固定載入歷程的條件式梯度
   jax_backend.py    局部 AD 切線、JIT Newton、隱式解梯度、可微分短程 scan
   dynamics.py       靜態 lift、雙區域完整動態時間推進
   case.py           獨立 case adapter

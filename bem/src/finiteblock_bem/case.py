@@ -8,7 +8,7 @@ import numpy as np
 
 from .friction import ContactState, SlipWeakeningContact
 from .material import ElasticMaterial
-from .mesh import BoundaryMesh, polygon_boundary
+from .mesh import BoundaryMesh, graded_fractions, polygon_boundary
 
 
 @dataclass(frozen=True)
@@ -27,7 +27,14 @@ class TwoBlockCase:
     payload: dict
 
 
-def load_case(path, *, max_panel_length=None):
+def load_case(
+    path,
+    *,
+    max_panel_length=None,
+    contact_panel_length=None,
+    contact_end_length=None,
+    corner_panel_length=None,
+):
     path = Path(path).resolve()
     with path.open("rb") as stream:
         c = tomllib.load(stream)
@@ -39,6 +46,15 @@ def load_case(path, *, max_panel_length=None):
     stationary_width, stationary_height = g["stationary_size"]
     cut = moving_y + moving_height - g["chamfer_length"]
     depth = g["chamfer_depth"]
+    contact_h = h if contact_panel_length is None else contact_panel_length
+    if not np.isfinite(contact_h) or contact_h <= 0:
+        raise ValueError("Positive finite contact panel length required")
+    edge_fractions = None
+    length = cut - moving_y
+    if contact_end_length is not None:
+        edge_fractions = {"contact": graded_fractions(length, contact_h, contact_end_length)}
+    elif contact_panel_length is not None:
+        edge_fractions = {"contact": np.linspace(0, 1, int(np.ceil(length / contact_h)) + 1)}
     if (
         min(moving_width, moving_height, stationary_width, stationary_height) <= 0
         or abs(stationary_x - moving_x - moving_width) > 1e-10
@@ -61,6 +77,8 @@ def load_case(path, *, max_panel_length=None):
         ],
         ["platen", "contact", "chamfer", "free", "normal"],
         h,
+        edge_fractions=edge_fractions,
+        corner_length=corner_panel_length,
     )
     stationary = polygon_boundary(
         [
@@ -72,6 +90,8 @@ def load_case(path, *, max_panel_length=None):
         ],
         ["free", "support_x", "support_y", "free", "contact"],
         h,
+        edge_fractions=edge_fractions,
+        corner_length=corner_panel_length,
     )
     im = moving.indices("contact")
     im = im[np.argsort(moving.centers[im, 1])]

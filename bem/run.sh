@@ -13,10 +13,12 @@ fi
 export PYTHONDONTWRITEBYTECODE=1
 export PYTHONPATH="$FDBEM_ROOT/src${PYTHONPATH:+:$PYTHONPATH}"
 export FDBEM_CORES=${FDBEM_CORES:-1}
-export OPENBLAS_NUM_THREADS=$FDBEM_CORES
-export OMP_NUM_THREADS=$FDBEM_CORES
-export MKL_NUM_THREADS=$FDBEM_CORES
-export VECLIB_MAXIMUM_THREADS=$FDBEM_CORES
+# Frequency workers provide CPU parallelism. Set BLAS limits before import,
+# including Accelerate, which threadpoolctl may not discover at runtime.
+export OPENBLAS_NUM_THREADS=1
+export OMP_NUM_THREADS=1
+export MKL_NUM_THREADS=1
+export VECLIB_MAXIMUM_THREADS=1
 export TF_NUM_INTRAOP_THREADS=$FDBEM_CORES
 export TF_NUM_INTEROP_THREADS=1
 export JAX_ENABLE_X64=true
@@ -31,6 +33,15 @@ elif [ "${1:-}" = plot ]; then
 elif [ "${1:-}" = ad-benchmark ]; then
     shift
     exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/benchmark_ad.py" "$@"
+elif [ "${1:-}" = condensation-benchmark ]; then
+    shift
+    exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/benchmark_condensation.py" "$@"
+elif [ "${1:-}" = elastic-onset ]; then
+    shift
+    exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/elastic_onset.py" "$@"
+elif [ "${1:-}" = adjoint ]; then
+    shift
+    exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/run_adjoint.py" "$@"
 elif [ "${1:-}" = static-refinement ]; then
     shift
     exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/static_refinement.py" "$@"

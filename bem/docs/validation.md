@@ -1,13 +1,13 @@
 # Verification status
 
-Local verification on 2026-10-22, using Python 3.12, NumPy 2.4.4 and SciPy
+Updated local verification on 2026-10-23, using Python 3.12, NumPy 2.4.4 and SciPy
 1.17.1. Full per-run method, input and source fingerprints are in
 `validation_results.json`. These are diagnostic results, not certification
 of the complete original event.
 
 ## Automated checks
 
-**33 BEM tests passed.** Ruff check and formatting checks passed. The package
+**44 BEM tests passed.** Ruff check and formatting checks passed. The package
 wheel built successfully; an installed-wheel CLI preflight found its bundled
 case and restart data without a source-checkout import path.
 
@@ -25,6 +25,13 @@ coarse runs, 4-core measurements and the remaining differences are documented
 in [event16_comparison.md](event16_comparison.md); AD scope is in
 [autodiff.md](autodiff.md). The older `validation_results.json` records the
 initial reference diagnostics; `event16_results.json` records the later runs.
+
+The new [refinement and adjoint report](refinement.md) covers exact frequency-domain
+condensation, graded corners, adaptive near-panel quadrature, streamed static
+initialization and a complete reverse-CQ adjoint. New tests compare full and
+condensed trajectories/gradients, check the reverse adjoint against scan AD and
+an independent actuator perturbation, and reproduce a graded contact-switch
+Newton failure. These additions do not establish spatial convergence of event 16.
 
 The earlier static Julia experiment also passed its 238 checks after moving
 to the self-contained vendored environment. This does not establish dynamic
@@ -76,7 +83,8 @@ exact import of the FEM interior displacement/velocity field.
 
 ## Explicit remaining limitations
 
-- Dense CQ storage and direct history accumulation are not production-scale.
+- Dense CQ weights remain a scaling limit. Exact online FFT and interface
+  condensation reduce work/storage; oblivious history compression remains open.
 - Nonlinear P0-collocation energy/passivity and independent spatial
   convergence at contact ends remain unverified.
 - The default uses Tatva's previous-cumulative-slip strength update. The

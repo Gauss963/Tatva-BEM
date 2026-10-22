@@ -100,11 +100,8 @@ def save_bar(output, result, parameters):
 
 def save_dynamic(output, case, result, case_path, *, start_environment=None):
     output.mkdir(parents=True, exist_ok=True)
-    np.savez(
-        output / "trajectory.npz",
+    payload = dict(
         time=result.time,
-        displacement=result.displacement,
-        traction=result.traction,
         pressure=result.pressure,
         shear=result.shear,
         friction_coefficient=result.friction_coefficient,
@@ -121,6 +118,11 @@ def save_dynamic(output, case, result, case_path, *, start_environment=None):
         moving_contact=case.moving_contact,
         stationary_contact=case.stationary_contact,
     )
+    if result.displacement is not None:
+        payload.update(displacement=result.displacement, traction=result.traction)
+    if result.contact_jumps is not None:
+        payload["contact_jumps"] = result.contact_jumps
+    np.savez(output / "trajectory.npz", **payload)
     weights = case.moving.lengths[case.moving_contact]
     columns = np.column_stack(
         (

@@ -150,6 +150,27 @@ class ContactEquilibrium:
                     break
                 alpha *= 0.5
             if not accepted:
+                # A kink can make every scaled Newton direction fail the merit
+                # test. Probe the next active set and safeguard the COMBINED
+                # two-step correction; neither trial commits contact state.
+                r1, j1, _ = self.evaluate(
+                    z + direction, past, normal_pressure, actuator, old, frozen=frozen
+                )
+                corrected = direction + solve(j1, -r1, check_finite=False)
+                alpha = 1.0
+                for _ in range(24):
+                    trial = z + alpha * corrected
+                    r, _, _ = self.evaluate(
+                        trial, past, normal_pressure, actuator, old, frozen=frozen, jacobian=False
+                    )
+                    if (
+                        np.linalg.norm(r) < (1 - 1e-4 * alpha) * merit
+                        or np.max(np.abs(r)) < tolerance
+                    ):
+                        z, accepted = trial, True
+                        break
+                    alpha *= 0.5
+            if not accepted:
                 return NewtonResult(z, contact, norm, iteration, False)
         r, _, contact = self.evaluate(
             z, past, normal_pressure, actuator, old, frozen=frozen, jacobian=False

@@ -3,7 +3,7 @@
 Use Python 3.11 or newer and an editable installation:
 
 ```sh
-python -m pip install -e '.[test,plot]' ruff==0.17.1
+python -m pip install -e '.[test,plot,jax]' ruff==0.17.1
 ruff check .
 ruff format --check .
 python -m pytest

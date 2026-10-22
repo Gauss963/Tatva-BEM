@@ -23,6 +23,7 @@ baseline comes from [Gauss963/PMMA-RSF](https://github.com/Gauss963/PMMA-RSF).
 - Explicit failure states, memory preflight, local artifacts and provenance.
 - Exact online FFT history, parallel kernels and reusable fingerprinted weights.
 - JAX local AD tangents, JIT Newton and verified short-trajectory implicit gradients.
+- Exact contact-coordinate condensation, contact/corner grading and a full-history conditional adjoint.
 
 The BEM package is independent of the Tatva FEM time integrator. A shared
 backend interface and memory-compressed production history remain
@@ -57,8 +58,10 @@ See [BEM usage and current results](bem/README.md),
 [formulation](bem/docs/formulation.md),
 [validation](bem/docs/validation.md), and
 [remaining acceptance gates](bem/docs/roadmap.md).
-The [AD design](bem/docs/autodiff.md) distinguishes contact gradients from
-material/geometry, initialization and full-event adjoints that remain open.
+The [AD design](bem/docs/autodiff.md) explains conditional contact gradients;
+material/geometry, initialization and load-hold event-time derivatives remain open.
+See the [latest refinement and adjoint results](bem/docs/refinement.md) for
+45 ms conditional gradients and the remaining physical solution differences.
 
 ## Repository layout
 

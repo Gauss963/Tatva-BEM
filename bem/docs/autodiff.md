@@ -60,19 +60,63 @@ dL/dtheta = L_theta - lambda.T R_theta
 3. **切換與事件時間**：開閉、yield、`c=Dc` 和全界面停止載入都不光滑。
    現有梯度是選定分支上的局部導數；跨越切換點的差分不保證一致。
    不能為了讓 AD 好算而默默平滑或更改原摩擦律。
-4. **長時間 production 反向**：45 ms 前向已用完整歷史 FFT；它的 Python／NumPy
-   線上狀態尚未接入 AD。完整事件的反向還沒有完成，也未宣稱可用來反演原事件。
+4. **完整事件策略的反向**：新增的 reverse-CQ adjoint 已可對 45 ms、固定記錄載入歷程
+   求局部梯度。自動停止載入的事件時間、初始場與材料／幾何的導數仍未包含。
 
 ## 高效利用的下一步
 
 先保留固定 bulk 預計算，讓摩擦參數掃描重用同一 CQ 權重；這次冷啟動成本主要在
 頻率核心，對它們反覆 AD 不會加速同材料／同幾何的摩擦校準。
 
-production 反向需對 dyadic FFT 的線性卷積實作可檢查的轉置，再串接各步隱式接觸
-adjoint，按區塊 checkpoint／重算狀態。dense BEM 沒有 FEM 那種局部稀疏性，不能
+reverse-CQ 已對 dyadic FFT 做完整轉置卷積並串接每步隱式接觸 adjoint，
+區塊 checkpoint／重算狀態仍待實作。dense BEM 沒有 FEM 那種局部稀疏性，不能
 直接照搬稀疏著色；大系統應使用 `Jv = W0 v + 接觸局部項` 的 matrix-free JVP／VJP，
 搭配固定 bulk 預條件器，避免每次完整 dense Jacobian 分解。
 
 如果要反演材料，對 `W=V^-1 H` 使用 `dW=V^-1(dH-dV W)`，重用頻率 LU，
 再對 Bessel kernel 提供解析 JVP 或可微分實作；仍需以材料擾動與獨立波速解核對。
 等前向的時間／空間精度及切換敏感度建立後，再把梯度用於原事件參數識別。
+
+## 2026-10-23：完整歷史的條件式離散 adjoint
+
+`adjoint.py` 使用 JAX VJP 對接觸 residual 和狀態更新求局部導數，
+把未來步的 bulk contribution 寫成反向 CQ 權重轉置卷積。
+這保留了整段位移歷史的敏感度，不需要儲存或反傳 Newton／line-search trials。
+`differentiable_rollout` 的 256 步上限只限制驗證用直接 scan，並不限制這個 adjoint。
+
+對 `R_n(q_n, state_old, theta)=0`、`state_n=g_n(...)`，
+當目標為末平均累積滑移，從最後一步往回計算
+
+```text
+a_n = g_q.T eta_n - sum_{m>n} W[m-n].T lambda_m
+R_q.T lambda_n = a_n
+eta_(n-1) = g_old.T eta_n - R_old.T lambda_n
+dJ/dtheta += g_theta.T eta_n - R_theta.T lambda_n
+```
+
+末 `eta` 的累積滑移分量為面板長度的正規化權重。
+residual 的 traction 縮放也轉換到 cotangent 中，另以 actuator 單步擾動差分檢查權重與符號。
+
+角落加密案例共 5625 步、45 ms，反向計算包含 JIT 的本機量測約 2–4 秒。
+目標是 **末面板加權平均累積滑移 0.380606 mm**，不是最大滑移。
+bulk、static lift 以及該 run 記錄的 actuator 時序保持固定。
+
+|參數|條件式 dJ/dtheta|差分步長|與中央差分相對差|
+|---|---:|---:|---:|
+|mu_s|48.2713145|1e-7|3.6e-8|
+|mu_k|-7.34349946|1e-7|1.9e-6|
+|Dc|19.8917745|1e-8|9.6e-6|
+
+較大的 mu_s 差分步長 1e-6 會改變 5／7 個滑動時空分支，差異增加到 2.55%。
+這個目標對成核很敏感，局部梯度不保證較大參數步長仍可靠。
+此案例的前向解尚未通過空間／時間收斂，因此上述數值僅驗證離散求導，
+不能當作已驗證的物理參數識別結果。
+
+```sh
+FDBEM_CORES=4 bem/run.sh adjoint bem/outputs/interface-corners-dt8-final \
+  --finite-difference --fd-scale .1
+```
+
+檢查器會核對全部數值程式指紋、原 case、restart snapshot 及保存的 mesh，
+並拒絕不完整或開發中變更 source 的前向結果。詳細向量與每步 actuator sensitivity
+保存在 run 的 `adjoint.npz`，數值核對在 `adjoint.json`。

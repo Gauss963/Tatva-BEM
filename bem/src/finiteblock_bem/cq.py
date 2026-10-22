@@ -20,7 +20,7 @@ from threadpoolctl import threadpool_limits
 
 from .material import ElasticMaterial
 from .mesh import BoundaryMesh
-from .operators import assemble_operators
+from .operators import PreparedBoundaryOperators
 
 
 class ResourceBudgetError(ValueError):
@@ -50,7 +50,8 @@ def plan_cq(dofs, dt, steps, *, alias_tolerance=1e-10, max_memory_mb=512):
     fft_size = 1 << math.ceil(math.log2(2 * (steps + 1)))
     radius = alias_tolerance ** (1 / fft_size)
     weight_bytes = (steps + 1) * dofs * dofs * 8
-    # Spectrum, complex IFFT result, retained real weights, plus kernel/LU work.
+    # Conservative bound also covers online cached kernel FFTs. Assembly itself
+    # now uses a half spectrum and row-wise real inversion, with a lower peak.
     peak = 2 * fft_size * dofs * dofs * 16 + weight_bytes + 16 * dofs * dofs * 16
     if peak > max_memory_mb * 1024**2:
         raise ResourceBudgetError(
@@ -85,8 +86,8 @@ def bdf2_symbol(zeta):
 
 def convolution_weights(transfer: Callable, plan: CQPlan, *, progress=None, workers=1):
     """Sample a real causal transfer function, using conjugate symmetry."""
-    spectrum = np.empty((plan.fft_size, plan.dofs, plan.dofs), dtype=complex)
     half = plan.fft_size // 2
+    spectrum = np.empty((half + 1, plan.dofs, plan.dofs), dtype=complex)
 
     def sample(k):
         zeta = plan.radius * np.exp(-2j * np.pi * k / plan.fft_size)
@@ -105,8 +106,6 @@ def convolution_weights(transfer: Callable, plan: CQPlan, *, progress=None, work
             values = map(sample, ids) if workers == 1 else pool.map(sample, ids)
             for k, value in zip(ids, values, strict=True):
                 spectrum[k] = value
-                if k not in (0, half):
-                    spectrum[-k] = np.conjugate(value)
                 if progress is not None:
                     progress(k + 1, half + 1)
     # Positive real s at k=0 and Nyquist must produce real matrices.
@@ -114,12 +113,13 @@ def convolution_weights(transfer: Callable, plan: CQPlan, *, progress=None, work
         if np.linalg.norm(spectrum[k].imag) > 1e-10 * max(np.linalg.norm(spectrum[k].real), 1):
             raise FloatingPointError("Real-axis transfer violates conjugate symmetry")
         spectrum[k] = spectrum[k].real
-    transformed = np.fft.ifft(spectrum, axis=0)[: plan.steps + 1]
     amplification = plan.radius ** (-np.arange(plan.steps + 1))
-    weights = transformed.real * amplification[:, None, None]
-    imaginary = np.max(np.abs(transformed.imag * amplification[:, None, None]))
-    if imaginary > 1e-10 * max(np.max(np.abs(weights)), 1):
-        raise FloatingPointError("CQ inversion has a significant imaginary remainder")
+    weights = np.empty((plan.steps + 1, plan.dofs, plan.dofs))
+    # Real causal kernels have a Hermitian spectrum. Invert a few output rows
+    # at a time instead of materializing the full complex IFFT and real copy.
+    for first in range(0, plan.dofs, 4):
+        transformed = irfft(spectrum[:, first : first + 4], n=plan.fft_size, axis=0)
+        weights[:, first : first + 4] = transformed[: plan.steps + 1] * amplification[:, None, None]
     return weights
 
 
@@ -235,8 +235,9 @@ def build_history(
             if progress is not None:
                 progress(1, 1)
             return BoundaryHistory(plan, weights)
+    prepared = PreparedBoundaryOperators(mesh, material, quadrature=quadrature)
     weights = convolution_weights(
-        lambda s: assemble_operators(mesh, material, s, quadrature=quadrature).impedance(),
+        lambda s: prepared.evaluate(s).impedance(),
         plan,
         progress=progress,
         workers=workers,

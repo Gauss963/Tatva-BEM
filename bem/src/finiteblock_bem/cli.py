@@ -52,6 +52,12 @@ def parser():
     )
     p.add_argument("--case", type=Path, default=DEFAULT_CASE)
     p.add_argument("--h", type=float, help="Maximum panel length, in the case unit system")
+    p.add_argument("--contact-h", type=float, help="Separate maximum contact panel length")
+    p.add_argument(
+        "--contact-end-h", type=float, help="Symmetric geometric grading at contact ends"
+    )
+    p.add_argument("--formulation", choices=["full", "interface"], default="full")
+    p.add_argument("--corner-h", type=float, help="Grade all other polygon corners as well")
     p.add_argument("--dt", type=float)
     span = p.add_mutually_exclusive_group()
     span.add_argument("--steps", type=int)
@@ -104,7 +110,13 @@ def main(argv=None):
                     },
                 },
             )
-            case = load_case(args.case, max_panel_length=args.h)
+            case = load_case(
+                args.case,
+                max_panel_length=args.h,
+                contact_panel_length=args.contact_h,
+                contact_end_length=args.contact_end_h,
+                corner_panel_length=args.corner_h,
+            )
             d = case.payload["diagnostic"]
             dt = d["dt"] if args.dt is None else args.dt
             steps = d["steps"] if args.steps is None else args.steps
@@ -126,12 +138,24 @@ def main(argv=None):
                 write_json(output / "summary.json", summary)
             else:
                 # Preflight even before static initialization or any kernel allocation.
-                plans, peak = plan_domains(
-                    [mesh.dofs for mesh in (case.moving, case.stationary)],
-                    dt,
-                    steps,
-                    max_memory_mb=args.max_memory_mb,
-                )
+                if args.formulation == "interface":
+                    from .condensation import plan_interface
+
+                    plans, peak = plan_interface(
+                        case,
+                        dt,
+                        steps,
+                        quadrature=args.quadrature,
+                        workers=args.workers,
+                        max_memory_mb=args.max_memory_mb,
+                    )
+                else:
+                    plans, peak = plan_domains(
+                        [mesh.dofs for mesh in (case.moving, case.stationary)],
+                        dt,
+                        steps,
+                        max_memory_mb=args.max_memory_mb,
+                    )
                 if args.command == "preflight":
                     summary = {
                         "status": "preflight_only",
@@ -170,6 +194,7 @@ def main(argv=None):
                         backend=args.backend,
                         history_method=args.history,
                         cache_directory=args.cache,
+                        formulation=args.formulation,
                     )
                     summary = save_dynamic(
                         output, case, result, args.case, start_environment=start_environment
