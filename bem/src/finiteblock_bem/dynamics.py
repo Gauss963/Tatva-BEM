@@ -165,12 +165,15 @@ def simulate(
     backend="numpy",
     cache_directory=None,
     formulation="full",
+    sampling=None,
 ):
     started, cpu_started = perf_counter(), process_time()
     if history_method not in ("direct", "fft") or backend not in ("numpy", "jax"):
         raise ValueError("Unknown history method or nonlinear backend")
     if formulation not in ("full", "interface"):
         raise ValueError("Unknown boundary formulation")
+    if sampling is not None and formulation != "interface":
+        raise ValueError("Experimental frequency sampling requires the interface formulation")
     if formulation == "interface" and lift is None:
         raise ValueError("Interface formulation requires a static lift")
     if formulation == "interface" and any(
@@ -183,11 +186,18 @@ def simulate(
         from .condensation import plan_interface
 
         plans, peak = plan_interface(
-            case, dt, steps, quadrature=quadrature, workers=workers, max_memory_mb=max_memory_mb
+            case,
+            dt,
+            steps,
+            quadrature=quadrature,
+            workers=workers,
+            max_memory_mb=max_memory_mb,
+            sampling=sampling,
         )
     else:
         plans, peak = plan_domains([m.dofs for m in meshes], dt, steps, max_memory_mb=max_memory_mb)
     histories = []
+    sampling_diagnostics = {"method": "dense"}
     for domain, mesh in enumerate(meshes if formulation == "full" else []):
         callback = None if progress is None else lambda i, n, d=domain: progress("kernel", d, i, n)
         histories.append(
@@ -216,6 +226,8 @@ def simulate(
                 workers=workers,
                 cache_directory=cache_directory,
                 progress=None if progress is None else lambda i, n: progress("kernel", 0, i, n),
+                sampling=sampling,
+                diagnostics=sampling_diagnostics,
             )
         )
     w0 = block_diag(*(history.instantaneous for history in histories))
@@ -391,6 +403,7 @@ def simulate(
         "history_method": history_method,
         "nonlinear_backend": backend,
         "kernel_workers": workers,
+        "frequency_sampling": sampling_diagnostics,
         "timing_seconds": {
             "kernel_build_or_cache_load": kernel_seconds,
             "time_stepping": perf_counter() - step_started,

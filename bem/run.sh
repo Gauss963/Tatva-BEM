@@ -39,6 +39,9 @@ elif [ "${1:-}" = condensation-benchmark ]; then
 elif [ "${1:-}" = elastic-onset ]; then
     shift
     exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/elastic_onset.py" "$@"
+elif [ "${1:-}" = passivity ]; then
+    shift
+    exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/audit_passivity.py" "$@"
 elif [ "${1:-}" = adjoint ]; then
     shift
     exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/run_adjoint.py" "$@"

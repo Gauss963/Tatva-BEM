@@ -7,7 +7,7 @@ of the complete original event.
 
 ## Automated checks
 
-**44 BEM tests passed.** Ruff check and formatting checks passed. The package
+**49 BEM tests passed.** Ruff check and formatting checks passed. The package
 wheel built successfully; an installed-wheel CLI preflight found its bundled
 case and restart data without a source-checkout import path.
 
@@ -32,6 +32,12 @@ initialization and a complete reverse-CQ adjoint. New tests compare full and
 condensed trajectories/gradients, check the reverse adjoint against scan AD and
 an independent actuator perturbation, and reproduce a graded contact-switch
 Newton failure. These additions do not establish spatial convergence of event 16.
+
+The [literature-driven checks](literature.md) additionally compare adaptive
+frequency sampling with dense CQ on rational and resonant wave kernels and a
+nonlinear two-block trajectory, verify cache reuse, and count SciPy's transient
+FFT-padding storage. Full-horizon sampling/gradient comparisons and sampled
+bulk passivity failures are reported separately in `literature_results.json`.
 
 The earlier static Julia experiment also passed its 238 checks after moving
 to the self-contained vendored environment. This does not establish dynamic

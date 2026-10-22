@@ -13,6 +13,7 @@ from finiteblock_bem.case import load_case
 from finiteblock_bem.condensation import build_condensed_history
 from finiteblock_bem.dynamics import LoadingSchedule, initialize_restart, simulate
 from finiteblock_bem.io import environment_record, fingerprint, write_json
+from finiteblock_bem.sampling import SamplingOptions
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -83,6 +84,13 @@ def main():
         workers=manifest["workers"],
         max_memory_mb=manifest["max_memory_mb"],
         cache_directory=manifest["cache"],
+        sampling=(
+            SamplingOptions(
+                relative_tolerance=manifest["sampling_rtol"], degree=manifest["sampling_degree"]
+            )
+            if manifest.get("sampling") == "adaptive"
+            else None
+        ),
     )
     history = build_condensed_history(case, summary["dt_s"], summary["completed_steps"], **kwargs)
     answer = trajectory_adjoint(case, lift, history, result)

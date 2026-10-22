@@ -57,6 +57,9 @@ def parser():
         "--contact-end-h", type=float, help="Symmetric geometric grading at contact ends"
     )
     p.add_argument("--formulation", choices=["full", "interface"], default="full")
+    p.add_argument("--sampling", choices=["dense", "adaptive"], default="dense")
+    p.add_argument("--sampling-rtol", type=float, default=1e-12)
+    p.add_argument("--sampling-degree", type=int, default=16)
     p.add_argument("--corner-h", type=float, help="Grade all other polygon corners as well")
     p.add_argument("--dt", type=float)
     span = p.add_mutually_exclusive_group()
@@ -138,6 +141,17 @@ def main(argv=None):
                 write_json(output / "summary.json", summary)
             else:
                 # Preflight even before static initialization or any kernel allocation.
+                sampling = None
+                if args.sampling == "adaptive":
+                    from .sampling import SamplingOptions
+
+                    if args.formulation != "interface":
+                        raise ValueError(
+                            "Adaptive frequency sampling requires --formulation interface"
+                        )
+                    sampling = SamplingOptions(
+                        relative_tolerance=args.sampling_rtol, degree=args.sampling_degree
+                    )
                 if args.formulation == "interface":
                     from .condensation import plan_interface
 
@@ -148,6 +162,7 @@ def main(argv=None):
                         quadrature=args.quadrature,
                         workers=args.workers,
                         max_memory_mb=args.max_memory_mb,
+                        sampling=sampling,
                     )
                 else:
                     plans, peak = plan_domains(
@@ -195,6 +210,7 @@ def main(argv=None):
                         history_method=args.history,
                         cache_directory=args.cache,
                         formulation=args.formulation,
+                        sampling=sampling,
                     )
                     summary = save_dynamic(
                         output, case, result, args.case, start_environment=start_environment

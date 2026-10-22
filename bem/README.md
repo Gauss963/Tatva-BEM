@@ -8,6 +8,7 @@
 數值與執行條件見 [事件比較](docs/event16_comparison.md) 和 [AD 設計](docs/autodiff.md)。
 新增 [接觸座標縮減](docs/condensation.md) 可降低完整歷史儲存，並提供端點與角落加密。
 最新 [空間加密與完整歷史 adjoint 結果](docs/refinement.md) 說明改善與仍未收斂的部分。
+新增 [2024–2026 文獻與實作決策](docs/literature.md)，以及可選的頻率插值與 bulk 被動性檢查。
 
 程式與 Tatva、Bem2d.jl 獨立，不需要讀取或修改外接磁碟，也不需要上層 repository 的 Julia 環境。
 可以把本資料夾獨立放進新的 GitHub repository。

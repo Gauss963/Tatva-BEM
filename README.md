@@ -62,6 +62,8 @@ The [AD design](bem/docs/autodiff.md) explains conditional contact gradients;
 material/geometry, initialization and load-hold event-time derivatives remain open.
 See the [latest refinement and adjoint results](bem/docs/refinement.md) for
 45 ms conditional gradients and the remaining physical solution differences.
+The [2024–2026 literature review](bem/docs/literature.md) records the next
+accuracy/stability gates and measured adaptive-frequency experiments.
 
 ## Repository layout
 

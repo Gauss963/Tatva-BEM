@@ -117,7 +117,7 @@ class InterfaceContactEquilibrium(ContactEquilibrium):
         return np.zeros(len(self.base_u))
 
 
-def plan_interface(case, dt, steps, *, quadrature=20, workers=1, max_memory_mb=512):
+def plan_interface(case, dt, steps, *, quadrature=20, workers=1, max_memory_mb=512, sampling=None):
     """Include full spatial assembly even though time histories are condensed."""
     if not isinstance(workers, int) or workers < 1:
         raise ValueError("workers must be a positive integer")
@@ -129,6 +129,8 @@ def plan_interface(case, dt, steps, *, quadrature=20, workers=1, max_memory_mb=5
         for n in counts
     )
     peak = plan.estimated_peak_bytes + geometry + frequency
+    if sampling is not None:
+        peak += (4 * sampling.degree + 2 * sampling.check_points + 16) * plan.dofs**2 * 16
     if peak > max_memory_mb * 1024**2:
         raise ResourceBudgetError(
             f"Interface CQ plus full spatial assembly needs about "
@@ -147,14 +149,22 @@ def build_condensed_history(
     max_memory_mb=512,
     cache_directory=None,
     progress=None,
+    sampling=None,
+    diagnostics=None,
 ):
     plans, _ = plan_interface(
-        case, dt, steps, quadrature=quadrature, workers=workers, max_memory_mb=max_memory_mb
+        case,
+        dt,
+        steps,
+        quadrature=quadrature,
+        workers=workers,
+        max_memory_mb=max_memory_mb,
+        sampling=sampling,
     )
     plan, size = plans[0], plans[0].dofs
     cached = None
     if cache_directory is not None:
-        digest = hashlib.sha256(repr((plan, case.material, quadrature)).encode())
+        digest = hashlib.sha256(repr((plan, case.material, quadrature, sampling)).encode())
         # Only the frequency transfer determines these weights. Contact/Newton
         # changes must not force rebuilding an identical linear wave kernel.
         digest.update(inspect.getsource(InterfaceTransfer).encode())
@@ -170,16 +180,48 @@ def build_condensed_history(
             "constraints.py",
         ):
             digest.update(Path(__file__).with_name(name).read_bytes())
+        if sampling is not None:
+            digest.update(Path(__file__).with_name("sampling.py").read_bytes())
         directory = Path(cache_directory)
         directory.mkdir(parents=True, exist_ok=True)
         cached = directory / f"interface-{digest.hexdigest()}.npy"
-        if cached.exists():
+        if cached.exists() and (sampling is None or cached.with_suffix(".json").exists()):
             weights = np.load(cached, mmap_mode="r", allow_pickle=False)
             if weights.shape != (steps + 1, size, size) or weights.dtype != np.float64:
                 raise ValueError("Invalid condensed CQ cache")
+            if diagnostics is not None:
+                import json
+
+                diagnostics.update(
+                    {"method": "dense"}
+                    if sampling is None
+                    else json.loads(cached.with_suffix(".json").read_text())
+                )
+                diagnostics["cache_hit"] = True
             return BoundaryHistory(plan, weights)
     transfer = InterfaceTransfer(case, quadrature=quadrature)
-    weights = convolution_weights(transfer.evaluate, plan, workers=workers, progress=progress)
+    metadata = {"method": "dense", "transfer_evaluations": plan.fft_size // 2 + 1}
+    if sampling is None:
+        weights = convolution_weights(transfer.evaluate, plan, workers=workers, progress=progress)
+    else:
+        from .sampling import parsimonious_weights
+
+        n = len(case.moving_contact)
+        width = transfer.constraints.platen_width
+        row_weights = np.r_[
+            case.moving.lengths[case.moving_contact],
+            case.moving.lengths[case.moving_contact],
+            width,
+        ]
+        assert len(row_weights) == 2 * n + 1
+        weights, metadata = parsimonious_weights(
+            transfer.evaluate,
+            plan,
+            options=sampling,
+            row_scale=1 / row_weights,
+            workers=workers,
+            progress=progress,
+        )
     if cached is not None:
         import os
 
@@ -187,4 +229,14 @@ def build_condensed_history(
         with temporary.open("wb") as stream:
             np.save(stream, weights, allow_pickle=False)
         temporary.replace(cached)
+        if sampling is not None:
+            import json
+
+            metadata_path = cached.with_suffix(".json")
+            temporary = metadata_path.with_suffix(f".{os.getpid()}.tmp")
+            temporary.write_text(json.dumps(metadata, indent=2, allow_nan=False) + "\n")
+            temporary.replace(metadata_path)
+    if diagnostics is not None:
+        diagnostics.update(metadata)
+        diagnostics["cache_hit"] = False
     return BoundaryHistory(plan, weights)

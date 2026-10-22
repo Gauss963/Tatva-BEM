@@ -50,9 +50,19 @@ def plan_cq(dofs, dt, steps, *, alias_tolerance=1e-10, max_memory_mb=512):
     fft_size = 1 << math.ceil(math.log2(2 * (steps + 1)))
     radius = alias_tolerance ** (1 / fft_size)
     weight_bytes = (steps + 1) * dofs * dofs * 8
-    # Conservative bound also covers online cached kernel FFTs. Assembly itself
-    # now uses a half spectrum and row-wise real inversion, with a lower peak.
-    peak = 2 * fft_size * dofs * dofs * 16 + weight_bytes + 16 * dofs * dofs * 16
+    # Assembly and online stepping are separate phases. Count the actual half
+    # spectrum, bounded row-IFFT work and every possible dyadic kernel FFT.
+    # Include small vector histories/workspaces and matrix copies conservatively.
+    spectrum = (fft_size // 2 + 1) * dofs**2 * 16
+    inversion = 2 * fft_size * min(dofs, 4) * dofs * 8
+    levels = int(steps).bit_length()
+    cached = ((1 << levels) - 1 + levels) * dofs**2 * 16
+    # scipy.fft pads a short real input before returning the new complex FFT.
+    # At the largest dyadic level this copy can coexist with all cached levels.
+    largest = 1 << (levels - 1)
+    padding = 2 * largest * dofs**2 * 8 if 2 * largest > steps + 1 else 0
+    vectors = 8 * (steps + 1) * dofs * 8
+    peak = weight_bytes + max(spectrum + inversion, cached + vectors + padding) + 64 * dofs**2
     if peak > max_memory_mb * 1024**2:
         raise ResourceBudgetError(
             f"Dense CQ needs about {peak / 1024**2:.1f} MiB peak for {steps} steps and "
@@ -108,6 +118,14 @@ def convolution_weights(transfer: Callable, plan: CQPlan, *, progress=None, work
                 spectrum[k] = value
                 if progress is not None:
                     progress(k + 1, half + 1)
+    return invert_spectrum(spectrum, plan)
+
+
+def invert_spectrum(spectrum, plan):
+    """Invert a sampled half spectrum; shared by dense and experimental sampling."""
+    half = plan.fft_size // 2
+    if spectrum.shape != (half + 1, plan.dofs, plan.dofs):
+        raise ValueError("Incorrect CQ half-spectrum shape")
     # Positive real s at k=0 and Nyquist must produce real matrices.
     for k in (0, half):
         if np.linalg.norm(spectrum[k].imag) > 1e-10 * max(np.linalg.norm(spectrum[k].real), 1):
