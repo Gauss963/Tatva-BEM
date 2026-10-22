@@ -1,0 +1,47 @@
+# Consistent units: mm, s, MPa, tonne/mm^3.
+# Physical parameters from archived local-mus08-muk06-gap0-v2-ev16.
+# Diagnostic time horizon and boundary mesh are deliberately coarse.
+[material]
+young = 7662.0
+poisson = 0.2
+density = 1.148e-9
+
+[geometry]
+moving_origin = [0.0, 0.0]
+moving_size = [200.0, 500.0]
+stationary_origin = [200.0, 0.0]
+stationary_size = [145.0, 550.0]
+chamfer_length = 20.0
+chamfer_depth = 5.0
+
+[contact]
+normal_penalty = 76620.0
+tangential_penalty = 7662.0
+static_friction = 0.8
+kinetic_friction = 0.6
+characteristic_slip = 0.0125959
+
+[loading]
+normal_pressure = 16.0
+spring_stiffness = 25.0
+restart_actuator = 10.806226665707777
+actuator_rate = 20.0
+stop_coverage = 1.0
+
+[diagnostic]
+max_panel_length = 40.0
+dt = 4.0e-6
+steps = 128
+quadrature = 20
+max_memory_mb = 512.0
+normal_rise = 8.0e-5
+shear_start = 1.2e-4
+shear_rise = 2.4e-4
+shear_amplitude = 4.0
+
+[source]
+run = "local-mus08-muk06-gap0-v2-ev16"
+revision = "933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d"
+original_fem_dt = 1.2492928633545953e-8
+original_shear_duration = 0.045
+restart_interface = "../data/ev16_restart_interface.csv"

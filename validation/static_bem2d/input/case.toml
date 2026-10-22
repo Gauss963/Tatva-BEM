@@ -1,0 +1,77 @@
+# Uniform LSW along the whole fault: the 0114 configuration with the loading-edge
+# nucleation zone and the leading-edge creep relaxation removed, on Quad4 elements.
+[case]
+name = "lsw-h2-chamfer-gap0-mus0.8-muk0.6-restart"
+reference = "Archived 0116 stats/summary.json; archived Disp notebook confirms 0114 equivalence"
+
+[geometry.moving]
+origin = [0.0, 0.0]
+dimensions = [200.0, 500.0]
+
+[geometry.stationary]
+origin = [200.0, 0.0]
+dimensions = [145.0, 550.0]
+
+[material]
+density = 1.148e-9
+young_modulus = 7662.0
+poisson_ratio = 0.2
+
+[friction]
+mu_s = 0.80
+mu_k = 0.60
+d_c = 0.012595900 # keeps X_c ~ 13.9 mm
+
+[solver]
+mesh_size = 2.0
+element_type = "quad4"
+moving_leading_chamfer_along_fault = 20.0
+moving_leading_chamfer_perpendicular = 5.0
+simulation_time = 0.03
+cfl = 0.35
+dtype = "float64"
+normal_penalty = 76620.0
+tangential_penalty = 7662.0
+contact_safety_factor = 0.25
+# Preserve the archived timestep instead of increasing it for CPU performance.
+time_step_override = 1.2492928633545953e-8
+friction_law = "slip-weakening"
+normal_loading_mode = "stress"
+normal_stress_override = 16.0
+normal_displacement_override = 0.691620986687549 # Inactive in stress mode.
+normal_phase_time = 0.002
+normal_ramp_time = 0.0
+normal_phase_mode = "static"
+reset_slip_weakening_at_shear_start = true
+restart_from_file = "/Volumes/Gauss-T7/tatva/runs/local-mus08-muk06-gap0-v2-ev15/data/simulation.h5"
+healing_fraction = 1.0
+shear_loading_mode = "spring-displacement"
+shear_loading_stiffness = 25.0 # K ~ 250 kN/mm (t0151/t0153 events) over a 200 x 50 mm face
+shear_spring_rigid_face = true
+shear_loading_face_gap = 0.0
+shear_displacement_k_override = 0.0
+shear_displacement_s_override = 0.0
+shear_tau_k_override = 19.0 # Inactive in displacement mode.
+shear_tau_s_override = 19.0
+tau_k_start_fraction_override = 1.0
+tau_k_full_fraction_override = 1.0
+shear_phase_time = 0.045
+shear_ramp_time = 0.0
+shear_ramp_shape = "half-cosine"
+shear_post_ramp_rate = 20.0
+lock_shear_edge_during_normal = false
+relax_tangential_contact_during_normal = false
+stop_shear_loading_on_rupture = true
+shear_loading_stop_coverage_fraction = 1.0
+shear_loading_stop_min_y = 0.0
+shear_loading_stop_max_y = 480.0
+# Omitted stop_slip means each station uses its local D_c, as in 0114.
+
+[output]
+frames_per_phase = 40
+shear_frames_per_phase = 9000
+include_initial_frame = false
+compression = "lzf"
+store_bulk_strain = false
+store_bulk_velocity = true
+checkpoint_interval_seconds = 600.0

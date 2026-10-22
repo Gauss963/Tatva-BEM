@@ -1,0 +1,168 @@
+{
+  "case": {
+    "moving": {
+      "name": "moving-block",
+      "origin": [
+        0.0,
+        0.0
+      ],
+      "dimensions": [
+        200.0,
+        500.0
+      ],
+      "tag_prefix": 1
+    },
+    "stationary": {
+      "name": "stationary-block",
+      "origin": [
+        200.0,
+        0.0
+      ],
+      "dimensions": [
+        145.0,
+        550.0
+      ],
+      "tag_prefix": 2
+    },
+    "materials": {
+      "moving-block": {
+        "name": "moving-block",
+        "rho": 1.148e-09,
+        "E": 7662.0,
+        "nu": 0.2
+      },
+      "stationary-block": {
+        "name": "stationary-block",
+        "rho": 1.148e-09,
+        "E": 7662.0,
+        "nu": 0.2
+      }
+    },
+    "friction": {
+      "mu_s": 0.8,
+      "mu_k": 0.6,
+      "d_c": 0.0125959
+    },
+    "simulation": {
+      "simulation_time": 0.02,
+      "time_factor": 0.02,
+      "normal_stress": 16.0,
+      "rise_fraction": 0.3,
+      "tau_k_start_fraction": 0.99,
+      "normal_dir": 0,
+      "slave_surface": "stationary-block-back",
+      "master_surface": "moving-block-front"
+    }
+  },
+  "solver": {
+    "mesh_size": 2.0,
+    "simulation_time": 0.03,
+    "cfl": 0.35,
+    "dtype": "float64",
+    "normal_penalty": 76620.0,
+    "tangential_penalty": 7662.0,
+    "contact_safety_factor": 0.25,
+    "element_type": "quad4",
+    "time_step_override": 1.2492928633545953e-08,
+    "operator_batch_size": null,
+    "moving_loading_extension_length": 0.0,
+    "moving_leading_chamfer_along_fault": 20.0,
+    "moving_leading_chamfer_perpendicular": 5.0,
+    "moving_leading_fault_fillet_radius": 0.0,
+    "moving_loading_fault_fillet_radius": 0.0,
+    "fault_end_refinement_size": null,
+    "shear_loading_face_gap": 0.0,
+    "fault_end_refinement_growth": 1.2,
+    "normal_loading_mode": "stress",
+    "normal_displacement_override": 0.691620986687549,
+    "normal_displacement_loading_fraction": 1.0,
+    "normal_displacement_leading_fraction": 1.0,
+    "shear_loading_mode": "spring-displacement",
+    "shear_loading_stiffness": 25.0,
+    "shear_spring_rigid_face": true,
+    "reset_slip_weakening_at_shear_start": true,
+    "healing_fraction": 1.0,
+    "normal_phase_mode": "static",
+    "restart_from_file": "/Volumes/Gauss-T7/tatva/runs/local-mus08-muk06-gap0-v2-ev15/data/simulation.h5",
+    "mu_k_override": null,
+    "critical_slip_override": null,
+    "loading_edge_nucleation_length": 0.0,
+    "loading_edge_critical_slip": null,
+    "shear_displacement_k_override": 0.0,
+    "shear_displacement_s_override": 0.0,
+    "output_prefix": null,
+    "normal_phase_time": 0.002,
+    "shear_phase_time": 0.045,
+    "normal_ramp_time": 0.0,
+    "tau_k_start_fraction_override": 1.0,
+    "tau_k_full_fraction_override": 1.0,
+    "shear_ramp_time": 0.0,
+    "shear_ramp_shape": "half-cosine",
+    "shear_post_ramp_rate": 20.0,
+    "normal_relaxation_time": null,
+    "normal_relaxation_start_time": 0.0,
+    "prestress_shear_displacement": null,
+    "quasistatic_shear_fraction": 0.0,
+    "quasistatic_shear_start_time": 0.0,
+    "quasistatic_shear_ramp_time": 0.0,
+    "quasistatic_damping_time": null,
+    "stop_shear_loading_on_rupture": true,
+    "shear_loading_stop_slip": null,
+    "shear_loading_stop_velocity": null,
+    "shear_loading_stop_min_y": 0.0,
+    "shear_loading_stop_max_y": 480.0,
+    "shear_loading_stop_coverage_fraction": 1.0,
+    "relax_tangential_contact_during_normal": false,
+    "lock_shear_edge_during_normal": false,
+    "shear_scale": 1.0,
+    "mu_s_start_fraction": 1.0,
+    "mu_s_end_fraction": 1.0,
+    "pw_length": 0.0,
+    "pw_mu_s_ratio": 1.0,
+    "pw_transition_length": 0.0,
+    "leading_edge_guard_length": 0.0,
+    "leading_edge_guard_mu_s_ratio": 1.0,
+    "leading_edge_guard_transition_length": 0.0,
+    "leading_edge_tangential_taper_length": 0.0,
+    "leading_edge_tangential_plateau_length": 0.0,
+    "leading_edge_tangential_taper_ratio": 1.0,
+    "friction_law": "slip-weakening",
+    "rsf_reference_friction": 0.285,
+    "rsf_direct_effect": 0.005,
+    "rsf_state_effect": 0.0214,
+    "rsf_reference_velocity": 0.0001,
+    "rsf_reference_state": 0.00033,
+    "rsf_characteristic_slip": 0.0005,
+    "rsf_initial_state": null,
+    "rsf_initial_state_mode": "steady-state",
+    "rsf_initialization_velocity": 0.0001,
+    "rsf_target_normalized_prestress": null,
+    "rsf_profile_spec": null,
+    "leading_edge_creep_length": 0.0,
+    "leading_edge_creep_transition_length": 0.0,
+    "leading_edge_creep_mu": 0.7,
+    "leading_edge_creep_mu_k": null,
+    "leading_edge_creep_relaxation_time": 0.0,
+    "dimension": 2,
+    "thickness": 0.0,
+    "normal_stress_override": 16.0,
+    "shear_tau_k_override": 19.0,
+    "shear_tau_s_override": 19.0
+  },
+  "output": {
+    "frames_per_phase": 40,
+    "shear_frames_per_phase": 9000,
+    "include_initial_frame": false,
+    "compression": "lzf",
+    "store_bulk_strain": false,
+    "store_bulk_velocity": true,
+    "checkpoint_interval_seconds": 600.0
+  },
+  "description": {
+    "name": "lsw-h2-chamfer-gap0-mus0.8-muk0.6-restart",
+    "reference": "Archived 0116 stats/summary.json; archived Disp notebook confirms 0114 equivalence"
+  },
+  "benchmark": false,
+  "git_revision": "933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d",
+  "input_sha256": "6f8cf492023c3928dc5c4d89672dec668077d5092f479a57580ab3aeb1a15f02"
+}

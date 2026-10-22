@@ -1,0 +1,10 @@
+outputs/*
+!outputs/.gitkeep
+__pycache__/
+.pytest_cache/
+*.egg-info/
+build/
+dist/
+.venv/
+!src/finiteblock_bem/resources/data/
+!src/finiteblock_bem/resources/data/*

@@ -1,0 +1,160 @@
+# finiteblock-bem
+
+二維平面應變、有限區域的 **fully elastodynamic BEM** 研究實作，目標是與 Tatva 的雙 PMMA block 摩擦模型交叉驗證。
+
+此版本已實作彈性波核、完整時間歷史、有限區域邊界、單向接觸、線性滑移弱化與剛性 platen／彈簧耦合。
+**尚未完成原模型 45 ms、第 16 次事件的收斂重現。** 目前驗證包括解析波傳／反射、雙 block 強載入短程滑動，以及原載入速度的重啟短程推進。
+
+程式與 Tatva、Bem2d.jl 獨立，不需要讀取或修改外接磁碟，也不需要上層 repository 的 Julia 環境。
+可以把本資料夾獨立放進新的 GitHub repository。
+
+## 快速執行
+
+此電腦可直接使用現有 Python，所有輸出存到本資料夾的 `outputs/`：
+
+```sh
+./run.sh test -q
+./run.sh benchmark --name bar-reference
+./run.sh smoke --name smoke-reference
+./run.sh smoke --dt 2e-6 --steps 256 --name smoke-refined
+./run.sh event16 --name event16-short
+./run.sh plot --name bar-reference
+./run.sh plot --name smoke-reference
+./run.sh plot --name event16-short
+```
+
+`run.sh` 優先使用本資料夾的 `.venv/bin/python`，否則使用此電腦現有的 conda Python。
+可用 `FDBEM_PYTHON` 指定其他 Python。
+
+新電腦安裝方式（Python 3.11+）：
+
+```sh
+python -m venv .venv
+.venv/bin/python -m pip install -e '.[test,plot]'
+.venv/bin/python -m pytest
+.venv/bin/finiteblock-bem benchmark
+```
+
+NumPy、SciPy 是求解器依賴；Matplotlib 僅供產圖。套件包含預設 case 與小型重啟界面資料，wheel 不依賴外部 Tatva 路徑。
+
+## 已實作的方法
+
+1. **Laplace 域二維 Navier 彈性波 Green tensor**，包含材料密度、P/S 波速與 source traction kernel。
+2. **直接 interior BEM**：`(1/2 I + K(s)) u = V(s) t`，未知量是物理邊界位移與 traction。
+3. **BDF2 convolution quadrature**：對 `V(s)^-1 H(s)` 取反變換，保留所有邊界位移歷史，計算當步 traction。
+4. **兩個有限 block 的獨立邊界 operator**，耦合接觸；外邊界與支承造成的波反射由動態方程處理。
+5. **單向 penalty contact、LSW、剛性 platen 與彈簧**，以解析切線、Newton 和 line search 求解。
+6. **靜態 lift 初始化**：由原 FEM 的塑性滑移建立 BEM 自身的平衡場，再對零初始擾動解完整動態。
+
+沒有把靜態 Bem2d.jl 矩陣加上人工質量，也沒有用局部 radiation damping 代替波傳。
+
+詳見 [數學公式與離散方式](docs/formulation.md)、[驗證與限制](docs/validation.md)、[後續工作](docs/roadmap.md)。
+
+## 三類執行要分清楚
+
+### 解析波傳與反射
+
+`benchmark`：對 ν=0 的有限長桿施加平滑壓力，右端固定、側面自由。
+解析解由延遲入射／反射波組成，測試波到達、固定端反射及速度反向。
+預設 h=0.1、dt=0.02，時間 3.6L/cp，會涵蓋第一個往返反射。
+
+初步測得 loading-face 位移相對 L2 誤差約 1.21%、probe 約 1.38%；波到達前訊號約為峰值的 0.0064%。
+測試也檢查 h、dt 同時加密後誤差降低。這是獨立解析驗證，不以 FEM 曲線當正確答案。
+
+### 雙 block 強載入診斷
+
+`smoke`：使用原雙 block 幾何、材料、摩擦參數，但從靜止開始，採加速載入以在短時間內觸發滑動。
+**載入歷程與原事件不同**。預設 h=40 mm、dt=4 µs、128 steps，共 0.512 ms。
+2 µs／256 steps 為同一物理載入的時間加密；未宣稱 h=40 mm 已解析約 13.9 mm 的原模型 process-zone 尺度。
+
+目前兩個時間步都完成，最大累積滑移分別約 1.740、1.768 mm。
+這證明求解器已能推進非線性接觸滑動，但尚不是原事件的驗證結果。
+
+### 原事件重啟後的短程推進
+
+`event16`：保留原塑性滑移、μs=0.8、μk=0.6、Dc=0.0125959 mm、16 MPa 壓力、25 MPa/mm 彈簧及 20 mm/s actuator 速度。
+先建立 BEM 的靜態 lift，再以零擾動速度開始；時間原點是剪切階段起點，不包含原先的 2 ms 法向階段。
+預設只推進 0.512 ms，尚未到原模型約 25.7 ms 的首次滑移，因此不應看到完整破裂。
+
+目前 h=40、20、10 mm 的初始化都可保持原塑性滑移，滿足摩擦界限，不需要人工新增滑移。
+這個 lift 沒有匯入 FEM 的整個體積位移／速度場，也不是重建第 15 次事件的波歷史。
+它假設剪切起點可視為靜態平衡且擾動速度為零。
+
+## 摩擦更新
+
+預設 `weakening_evaluation="previous"`，與來源 Tatva 的單步 LSW 更新一致：
+
+```text
+p = kn * max(umx - usx, 0)
+mu_applied = mus - (mus-muk) * min(cumulative_old / Dc, 1)
+trial = kt * (umy - usy - plastic_old)
+tau = clip(trial, -mu_applied*p, mu_applied*p)
+plastic_new = plastic_old + (trial - tau) / kt    # 僅閉合接觸
+cumulative_new = cumulative_old + abs(plastic_new - plastic_old)
+```
+
+Newton trial 不會改寫舊狀態；整步收斂後才 commit。
+`trajectory.npz` 另存當步實際使用的 `friction_coefficient`。不可拿更新後 c 的強度，誤判當步依舊 c 計算的 τ 超限。
+整體時間積分仍是 BDF2-CQ，與 Tatva explicit leapfrog 不同，需要做時間收斂比較。
+
+可選 `weakening_evaluation="updated"` 使用步末弱化；高法向壓力時可能有多個局部返回解，程式會回報失敗，不會靜默切換分支。
+
+## 資源限制與原模型解析度
+
+這一版是可以檢查公式的 **dense reference implementation**：
+
+- CQ 權重儲存約 O(Nt Nb²)。
+- 目前直接累加完整歷史，時間工作量約 O(Nt² Nb²)。
+- 尚未實作 fast/oblivious CQ、時空壓縮或階層矩陣。
+- `preflight` 在分配大型權重前檢查記憶體預估，預設 512 MiB 上限。它是工作陣列預估，不是作業系統 RSS 的硬限制。
+
+先檢查成本：
+
+```sh
+./run.sh preflight
+./run.sh preflight --h 2 --dt 1.2492928633545953e-8 --duration .045 --name original-resolution
+```
+
+第二個指令會拒絕不合理的 dense 配置並回傳 exit code 2，不會開始大量配置。
+不能以縮短歷史或粗化到未解析的時間步，宣稱完成原事件。
+
+## 產物與失敗處理
+
+每個 run 都有獨立子資料夾：
+
+```text
+outputs/<name>/summary.json       方法、狀態、參數、版本及程式 SHA256
+outputs/<name>/history.csv        接觸／載入／Newton 殘差
+outputs/<name>/trajectory.npz     邊界場、接觸狀態與完整有效時間序列
+outputs/<name>/verification.png   產圖後的驗證圖
+```
+
+時間步不收斂時，exit code 3，保存截至最後收斂步的有效前綴，並記錄失敗時間；不能視為完整 run。
+輸入、資源或重啟轉移失敗時，exit code 2，說明存在 `summary.json`。
+NPZ 是診斷資料，目前尚未提供通用跨 run resume API。重啟動態 CQ 必須保留歷史，不能只拿最後一個位移／滑移狀態繼續。
+
+## 程式結構
+
+```text
+src/finiteblock_bem/
+  material.py       plane-strain 常數與 P/S 波速
+  mesh.py           有方向、標籤的 P0 邊界元素
+  kernels.py        Laplace Green tensor、空間導數與 traction
+  operators.py      奇異積分、直接 interior BEM 與 impedance
+  cq.py             BDF2 symbol、反變換、完整歷史與記憶體檢查
+  friction.py       接觸狀態、LSW、局部返回映射及切線
+  constraints.py    支承、界面配對與 work-conjugate platen
+  nonlinear.py      單步 Newton 與 line search
+  dynamics.py       靜態 lift、雙區域完整動態時間推進
+  case.py           獨立 case adapter
+  benchmarks.py     有解析解的波傳／反射
+  io.py / cli.py    結果、來源指紋與命令列
+  resources/        可隨套件攜帶的小型 case／參考資料
+tests/              物理公式、歷史、接觸、耦合與波反射檢查
+tools/              科學圖輸出
+docs/               公式、驗證紀錄、後續工作
+../.github/workflows/ Python 3.11/3.12 測試及 Ruff 檢查
+```
+
+核心是獨立推導的數值實作；來源模型資料與來源指紋保留在 resources 中。
+尚未修改或整合進 `/Volumes/Gauss-T7/tatva`；所有工作都在本資料夾。

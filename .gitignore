@@ -43,3 +43,5 @@ runs/
 stats/
 *.mp4
 *.png
+!bem/docs/figures/
+!bem/docs/figures/*.png

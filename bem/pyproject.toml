@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "finiteblock-bem"
+version = "0.1.0"
+description = "Research implementation of 2D transient elastodynamic boundary elements with finite-block frictional contact"
+requires-python = ">=3.11"
+license = "MIT"
+dependencies = ["numpy>=1.26", "scipy>=1.11"]
+
+[project.optional-dependencies]
+test = ["pytest>=8"]
+plot = ["matplotlib>=3.8"]
+
+[project.scripts]
+finiteblock-bem = "finiteblock_bem.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+finiteblock_bem = ["resources/cases/*.toml", "resources/data/*.csv", "resources/data/*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I", "UP", "RUF"]

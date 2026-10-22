@@ -1,0 +1,423 @@
+{
+  "bar-reference": {
+    "status": "completed_analytic_wave_benchmark",
+    "parameters": {
+      "h": 0.1,
+      "dt": 0.02,
+      "duration": 3.6,
+      "quadrature": 20
+    },
+    "loading_relative_l2": 0.012056240470105667,
+    "probe_relative_l2": 0.01383531525696941,
+    "precursor_relative_max": 6.385207120373292e-05,
+    "boundary_residual": 8.526512829121202e-14,
+    "probe_x": 0.45,
+    "panels": 30,
+    "full_original_event_reproduced": false,
+    "environment": {
+      "package_version": "0.1.0",
+      "python": "3.12.13",
+      "numpy": "2.4.4",
+      "scipy": "1.17.1",
+      "platform": "macOS-15.7.9-arm64-arm-64bit",
+      "source_sha256": {
+        "__init__.py": "984855d6ff3848411c946ecca174ac08baf7afe6f1d2c3be00284da9b8dbf288",
+        "benchmarks.py": "c24b97264ca60d0da1dab2095d50e9ef1b88b7208fba2d46178b8cf9038eb571",
+        "case.py": "0fe3d7053ae4c150cec235f4396a15219d4074e8cb98ef195b596d5465f21c8d",
+        "cli.py": "7629751e443d5ba6d1735aa37f6cb1b21f3742423fc84ef68f7169f23b9817b6",
+        "constraints.py": "830071941c6df0f70e455530fe094242042fb0c1e31498e8f9b75c9aa825cb91",
+        "cq.py": "670c4c2b282ed45fe591e339b279d71a492737c56d1b94909472f4b5629e2848",
+        "dynamics.py": "242a25db17a4174d8123e0fa6dfd204fffc59adf0f550124376570007ef0fd3d",
+        "friction.py": "1424c1639cdc1eb4dd8f780bfdc0433f33cf29752b07a17814a3a2f326d81086",
+        "io.py": "a13ca377769a59ecae7e7e58d5e609d2728af474520f44d84ebcf52b093dd076",
+        "kernels.py": "7bbb4c0f702687f30ee5cfddecb8efb34924f50248afc87fb33574be643602df",
+        "linear.py": "3a4d7c2259fd3e67b507d0c9dcd18082c24ffda30fccb12749976c97fa5a577c",
+        "material.py": "7c4d34d911831f12e3bc99bda2e13e76d468acdf80038dcb60310a568a5342d1",
+        "mesh.py": "dc0a166c811c3c11b4a5d3adad11a546ed57a056cdead4002b20da830e3927ba",
+        "nonlinear.py": "1e37702828465fee346f74f6ee068b687c523b46c727e51342bffa4947af373d",
+        "operators.py": "2cff12cf9c92e4fc88cb1c52ea2399075df866377467d8d50c18aeb723252284"
+      }
+    }
+  },
+  "smoke-reference": {
+    "status": "completed_requested_horizon",
+    "formulation": "2D plane-strain direct elastodynamic BEM, BDF2 convolution quadrature",
+    "schedule": "cold_start_accelerated_loading_diagnostic",
+    "requested_steps": 128,
+    "completed_steps": 128,
+    "dt_s": 4e-06,
+    "duration_s": 0.000512,
+    "wave_speeds": {
+      "cp": 2723195.840648868,
+      "cs": 1667610.069814804
+    },
+    "panels": [
+      36,
+      36
+    ],
+    "cq_fft_size": 512,
+    "all_history_retained": true,
+    "dense_peak_estimate_mb": 92.4697265625,
+    "weakening_evaluation": "previous",
+    "max_contact_strength_ratio": 1.0,
+    "max_boundary_contact_residual_mpa": 1.223051535337309e-11,
+    "max_cumulative_slip_mm": 1.740197481835381,
+    "friction_work_per_unit_thickness_mpa_mm2": 4636.171267387948,
+    "actuator_hold_time_s": null,
+    "failure": null,
+    "initialization": {
+      "kind": "zero_initial_fields"
+    },
+    "full_original_event_reproduced": false,
+    "limitations": [
+      "P0 collocation and dense reference history; production acceleration not implemented",
+      "No certified energy/passivity estimate for the nonlinear collocation scheme",
+      "Finite diagnostic horizon is not a complete event-16 reproduction"
+    ],
+    "environment": {
+      "package_version": "0.1.0",
+      "python": "3.12.13",
+      "numpy": "2.4.4",
+      "scipy": "1.17.1",
+      "platform": "macOS-15.7.9-arm64-arm-64bit",
+      "source_sha256": {
+        "__init__.py": "984855d6ff3848411c946ecca174ac08baf7afe6f1d2c3be00284da9b8dbf288",
+        "benchmarks.py": "c24b97264ca60d0da1dab2095d50e9ef1b88b7208fba2d46178b8cf9038eb571",
+        "case.py": "0fe3d7053ae4c150cec235f4396a15219d4074e8cb98ef195b596d5465f21c8d",
+        "cli.py": "7629751e443d5ba6d1735aa37f6cb1b21f3742423fc84ef68f7169f23b9817b6",
+        "constraints.py": "830071941c6df0f70e455530fe094242042fb0c1e31498e8f9b75c9aa825cb91",
+        "cq.py": "670c4c2b282ed45fe591e339b279d71a492737c56d1b94909472f4b5629e2848",
+        "dynamics.py": "242a25db17a4174d8123e0fa6dfd204fffc59adf0f550124376570007ef0fd3d",
+        "friction.py": "1424c1639cdc1eb4dd8f780bfdc0433f33cf29752b07a17814a3a2f326d81086",
+        "io.py": "a13ca377769a59ecae7e7e58d5e609d2728af474520f44d84ebcf52b093dd076",
+        "kernels.py": "7bbb4c0f702687f30ee5cfddecb8efb34924f50248afc87fb33574be643602df",
+        "linear.py": "3a4d7c2259fd3e67b507d0c9dcd18082c24ffda30fccb12749976c97fa5a577c",
+        "material.py": "7c4d34d911831f12e3bc99bda2e13e76d468acdf80038dcb60310a568a5342d1",
+        "mesh.py": "dc0a166c811c3c11b4a5d3adad11a546ed57a056cdead4002b20da830e3927ba",
+        "nonlinear.py": "1e37702828465fee346f74f6ee068b687c523b46c727e51342bffa4947af373d",
+        "operators.py": "2cff12cf9c92e4fc88cb1c52ea2399075df866377467d8d50c18aeb723252284"
+      },
+      "case_sha256": "82d8f491a63ca1c348507678f08406dccbc62ed1d4abea8882879f7894d2315d",
+      "restart_data_sha256": "cae42101ff5a57004fa803ea5ce928eb8079e5be0ab887d108689e37754c25f6"
+    },
+    "case": {
+      "material": {
+        "young": 7662.0,
+        "poisson": 0.2,
+        "density": 1.148e-09
+      },
+      "geometry": {
+        "moving_origin": [
+          0.0,
+          0.0
+        ],
+        "moving_size": [
+          200.0,
+          500.0
+        ],
+        "stationary_origin": [
+          200.0,
+          0.0
+        ],
+        "stationary_size": [
+          145.0,
+          550.0
+        ],
+        "chamfer_length": 20.0,
+        "chamfer_depth": 5.0
+      },
+      "contact": {
+        "normal_penalty": 76620.0,
+        "tangential_penalty": 7662.0,
+        "static_friction": 0.8,
+        "kinetic_friction": 0.6,
+        "characteristic_slip": 0.0125959
+      },
+      "loading": {
+        "normal_pressure": 16.0,
+        "spring_stiffness": 25.0,
+        "restart_actuator": 10.806226665707777,
+        "actuator_rate": 20.0,
+        "stop_coverage": 1.0
+      },
+      "diagnostic": {
+        "max_panel_length": 40.0,
+        "dt": 4e-06,
+        "steps": 128,
+        "quadrature": 20,
+        "max_memory_mb": 512.0,
+        "normal_rise": 8e-05,
+        "shear_start": 0.00012,
+        "shear_rise": 0.00024,
+        "shear_amplitude": 4.0
+      },
+      "source": {
+        "run": "local-mus08-muk06-gap0-v2-ev16",
+        "revision": "933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d",
+        "original_fem_dt": 1.2492928633545953e-08,
+        "original_shear_duration": 0.045,
+        "restart_interface": "../data/ev16_restart_interface.csv"
+      }
+    }
+  },
+  "smoke-refined": {
+    "status": "completed_requested_horizon",
+    "formulation": "2D plane-strain direct elastodynamic BEM, BDF2 convolution quadrature",
+    "schedule": "cold_start_accelerated_loading_diagnostic",
+    "requested_steps": 256,
+    "completed_steps": 256,
+    "dt_s": 2e-06,
+    "duration_s": 0.000512,
+    "wave_speeds": {
+      "cp": 2723195.840648868,
+      "cs": 1667610.069814804
+    },
+    "panels": [
+      36,
+      36
+    ],
+    "cq_fft_size": 1024,
+    "all_history_retained": true,
+    "dense_peak_estimate_mb": 183.5947265625,
+    "weakening_evaluation": "previous",
+    "max_contact_strength_ratio": 1.0,
+    "max_boundary_contact_residual_mpa": 7.441090970962449e-08,
+    "max_cumulative_slip_mm": 1.7676884160887012,
+    "friction_work_per_unit_thickness_mpa_mm2": 4738.070185975782,
+    "actuator_hold_time_s": null,
+    "failure": null,
+    "initialization": {
+      "kind": "zero_initial_fields"
+    },
+    "full_original_event_reproduced": false,
+    "limitations": [
+      "P0 collocation and dense reference history; production acceleration not implemented",
+      "No certified energy/passivity estimate for the nonlinear collocation scheme",
+      "Finite diagnostic horizon is not a complete event-16 reproduction"
+    ],
+    "environment": {
+      "package_version": "0.1.0",
+      "python": "3.12.13",
+      "numpy": "2.4.4",
+      "scipy": "1.17.1",
+      "platform": "macOS-15.7.9-arm64-arm-64bit",
+      "source_sha256": {
+        "__init__.py": "984855d6ff3848411c946ecca174ac08baf7afe6f1d2c3be00284da9b8dbf288",
+        "benchmarks.py": "c24b97264ca60d0da1dab2095d50e9ef1b88b7208fba2d46178b8cf9038eb571",
+        "case.py": "0fe3d7053ae4c150cec235f4396a15219d4074e8cb98ef195b596d5465f21c8d",
+        "cli.py": "7629751e443d5ba6d1735aa37f6cb1b21f3742423fc84ef68f7169f23b9817b6",
+        "constraints.py": "830071941c6df0f70e455530fe094242042fb0c1e31498e8f9b75c9aa825cb91",
+        "cq.py": "670c4c2b282ed45fe591e339b279d71a492737c56d1b94909472f4b5629e2848",
+        "dynamics.py": "242a25db17a4174d8123e0fa6dfd204fffc59adf0f550124376570007ef0fd3d",
+        "friction.py": "1424c1639cdc1eb4dd8f780bfdc0433f33cf29752b07a17814a3a2f326d81086",
+        "io.py": "a13ca377769a59ecae7e7e58d5e609d2728af474520f44d84ebcf52b093dd076",
+        "kernels.py": "7bbb4c0f702687f30ee5cfddecb8efb34924f50248afc87fb33574be643602df",
+        "linear.py": "3a4d7c2259fd3e67b507d0c9dcd18082c24ffda30fccb12749976c97fa5a577c",
+        "material.py": "7c4d34d911831f12e3bc99bda2e13e76d468acdf80038dcb60310a568a5342d1",
+        "mesh.py": "dc0a166c811c3c11b4a5d3adad11a546ed57a056cdead4002b20da830e3927ba",
+        "nonlinear.py": "1e37702828465fee346f74f6ee068b687c523b46c727e51342bffa4947af373d",
+        "operators.py": "2cff12cf9c92e4fc88cb1c52ea2399075df866377467d8d50c18aeb723252284"
+      },
+      "case_sha256": "82d8f491a63ca1c348507678f08406dccbc62ed1d4abea8882879f7894d2315d",
+      "restart_data_sha256": "cae42101ff5a57004fa803ea5ce928eb8079e5be0ab887d108689e37754c25f6"
+    },
+    "case": {
+      "material": {
+        "young": 7662.0,
+        "poisson": 0.2,
+        "density": 1.148e-09
+      },
+      "geometry": {
+        "moving_origin": [
+          0.0,
+          0.0
+        ],
+        "moving_size": [
+          200.0,
+          500.0
+        ],
+        "stationary_origin": [
+          200.0,
+          0.0
+        ],
+        "stationary_size": [
+          145.0,
+          550.0
+        ],
+        "chamfer_length": 20.0,
+        "chamfer_depth": 5.0
+      },
+      "contact": {
+        "normal_penalty": 76620.0,
+        "tangential_penalty": 7662.0,
+        "static_friction": 0.8,
+        "kinetic_friction": 0.6,
+        "characteristic_slip": 0.0125959
+      },
+      "loading": {
+        "normal_pressure": 16.0,
+        "spring_stiffness": 25.0,
+        "restart_actuator": 10.806226665707777,
+        "actuator_rate": 20.0,
+        "stop_coverage": 1.0
+      },
+      "diagnostic": {
+        "max_panel_length": 40.0,
+        "dt": 4e-06,
+        "steps": 128,
+        "quadrature": 20,
+        "max_memory_mb": 512.0,
+        "normal_rise": 8e-05,
+        "shear_start": 0.00012,
+        "shear_rise": 0.00024,
+        "shear_amplitude": 4.0
+      },
+      "source": {
+        "run": "local-mus08-muk06-gap0-v2-ev16",
+        "revision": "933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d",
+        "original_fem_dt": 1.2492928633545953e-08,
+        "original_shear_duration": 0.045,
+        "restart_interface": "../data/ev16_restart_interface.csv"
+      }
+    }
+  },
+  "event16-short": {
+    "status": "completed_requested_horizon",
+    "formulation": "2D plane-strain direct elastodynamic BEM, BDF2 convolution quadrature",
+    "schedule": "event16_static_lift_then_original_actuator_rate",
+    "requested_steps": 128,
+    "completed_steps": 128,
+    "dt_s": 4e-06,
+    "duration_s": 0.000512,
+    "wave_speeds": {
+      "cp": 2723195.840648868,
+      "cs": 1667610.069814804
+    },
+    "panels": [
+      36,
+      36
+    ],
+    "cq_fft_size": 512,
+    "all_history_retained": true,
+    "dense_peak_estimate_mb": 92.4697265625,
+    "weakening_evaluation": "previous",
+    "max_contact_strength_ratio": 0.814312307098225,
+    "max_boundary_contact_residual_mpa": 1.3569945167546393e-11,
+    "max_cumulative_slip_mm": 0.0,
+    "friction_work_per_unit_thickness_mpa_mm2": 0.0,
+    "actuator_hold_time_s": null,
+    "failure": null,
+    "initialization": {
+      "status": "admissible_static_lift",
+      "initial_max_strength_ratio": 0.8129658188234646,
+      "static_residual_mpa": 4.687592536356533e-11,
+      "relaxation_allowed": false,
+      "imported_fem_interior_field": false,
+      "zero_initial_perturbation_velocity": true,
+      "introduced_cumulative_slip_mm": 0.0,
+      "max_plastic_slip_change_mm": 0.0,
+      "platen_displacement_mm": 9.952268886857453,
+      "mean_pressure_mpa": 16.586755113236446,
+      "mean_shear_mpa": 8.97050815954489
+    },
+    "full_original_event_reproduced": false,
+    "limitations": [
+      "P0 collocation and dense reference history; production acceleration not implemented",
+      "No certified energy/passivity estimate for the nonlinear collocation scheme",
+      "Finite diagnostic horizon is not a complete event-16 reproduction"
+    ],
+    "environment": {
+      "package_version": "0.1.0",
+      "python": "3.12.13",
+      "numpy": "2.4.4",
+      "scipy": "1.17.1",
+      "platform": "macOS-15.7.9-arm64-arm-64bit",
+      "source_sha256": {
+        "__init__.py": "984855d6ff3848411c946ecca174ac08baf7afe6f1d2c3be00284da9b8dbf288",
+        "benchmarks.py": "c24b97264ca60d0da1dab2095d50e9ef1b88b7208fba2d46178b8cf9038eb571",
+        "case.py": "0fe3d7053ae4c150cec235f4396a15219d4074e8cb98ef195b596d5465f21c8d",
+        "cli.py": "7629751e443d5ba6d1735aa37f6cb1b21f3742423fc84ef68f7169f23b9817b6",
+        "constraints.py": "830071941c6df0f70e455530fe094242042fb0c1e31498e8f9b75c9aa825cb91",
+        "cq.py": "670c4c2b282ed45fe591e339b279d71a492737c56d1b94909472f4b5629e2848",
+        "dynamics.py": "242a25db17a4174d8123e0fa6dfd204fffc59adf0f550124376570007ef0fd3d",
+        "friction.py": "1424c1639cdc1eb4dd8f780bfdc0433f33cf29752b07a17814a3a2f326d81086",
+        "io.py": "a13ca377769a59ecae7e7e58d5e609d2728af474520f44d84ebcf52b093dd076",
+        "kernels.py": "7bbb4c0f702687f30ee5cfddecb8efb34924f50248afc87fb33574be643602df",
+        "linear.py": "3a4d7c2259fd3e67b507d0c9dcd18082c24ffda30fccb12749976c97fa5a577c",
+        "material.py": "7c4d34d911831f12e3bc99bda2e13e76d468acdf80038dcb60310a568a5342d1",
+        "mesh.py": "dc0a166c811c3c11b4a5d3adad11a546ed57a056cdead4002b20da830e3927ba",
+        "nonlinear.py": "1e37702828465fee346f74f6ee068b687c523b46c727e51342bffa4947af373d",
+        "operators.py": "2cff12cf9c92e4fc88cb1c52ea2399075df866377467d8d50c18aeb723252284"
+      },
+      "case_sha256": "82d8f491a63ca1c348507678f08406dccbc62ed1d4abea8882879f7894d2315d",
+      "restart_data_sha256": "cae42101ff5a57004fa803ea5ce928eb8079e5be0ab887d108689e37754c25f6"
+    },
+    "case": {
+      "material": {
+        "young": 7662.0,
+        "poisson": 0.2,
+        "density": 1.148e-09
+      },
+      "geometry": {
+        "moving_origin": [
+          0.0,
+          0.0
+        ],
+        "moving_size": [
+          200.0,
+          500.0
+        ],
+        "stationary_origin": [
+          200.0,
+          0.0
+        ],
+        "stationary_size": [
+          145.0,
+          550.0
+        ],
+        "chamfer_length": 20.0,
+        "chamfer_depth": 5.0
+      },
+      "contact": {
+        "normal_penalty": 76620.0,
+        "tangential_penalty": 7662.0,
+        "static_friction": 0.8,
+        "kinetic_friction": 0.6,
+        "characteristic_slip": 0.0125959
+      },
+      "loading": {
+        "normal_pressure": 16.0,
+        "spring_stiffness": 25.0,
+        "restart_actuator": 10.806226665707777,
+        "actuator_rate": 20.0,
+        "stop_coverage": 1.0
+      },
+      "diagnostic": {
+        "max_panel_length": 40.0,
+        "dt": 4e-06,
+        "steps": 128,
+        "quadrature": 20,
+        "max_memory_mb": 512.0,
+        "normal_rise": 8e-05,
+        "shear_start": 0.00012,
+        "shear_rise": 0.00024,
+        "shear_amplitude": 4.0
+      },
+      "source": {
+        "run": "local-mus08-muk06-gap0-v2-ev16",
+        "revision": "933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d",
+        "original_fem_dt": 1.2492928633545953e-08,
+        "original_shear_duration": 0.045,
+        "restart_interface": "../data/ev16_restart_interface.csv"
+      }
+    }
+  },
+  "checks": {
+    "bem_tests_passed": 22,
+    "legacy_julia_checks_passed": 238,
+    "ruff_check": "passed",
+    "ruff_format": "passed",
+    "wheel_install_and_preflight": "passed",
+    "full_original_event_reproduced": false
+  }
+}

@@ -1,0 +1,44 @@
+# Roadmap to a validated finite-block event-16 reproduction
+
+The first implementation is a fully elastodynamic **reference engine**. The
+complete original event is still an open objective, with these acceptance
+gates. A short successful diagnostic does not close the later gates.
+
+- [x] Independent Laplace-domain plane-strain Green tensor and source traction.
+- [x] Direct finite-interior boundary operators, jump term and singular integration.
+- [x] BDF2-CQ weights and complete causal boundary history.
+- [x] Analytic finite-bar arrival/reflection and paired mesh/time refinement.
+- [x] Two finite blocks, chamfer, original supports, rigid platen and spring.
+- [x] Unilateral contact and previous-state LSW update matching the source law.
+- [x] Admissible static lift using the archived event-16 plastic slip.
+- [x] Nonlinear short sliding diagnostic and original-rate short transient.
+- [x] Standalone package structure, local artifacts, provenance and CI configuration.
+- [ ] Certified energy/passivity or a quantified stable-resolution envelope for nonlinear P0 collocation.
+- [ ] Independent spatial refinement at the contact ends and process-zone resolution.
+- [ ] Validate static-lift error against original FEM interior fields and quantify zero-initial-velocity assumptions.
+- [ ] Fast/oblivious CQ or another verified history compression method; enforce error tolerances against the dense reference.
+- [ ] Production memory/time benchmarks for a 45 ms run at a physically justified h and dt.
+- [ ] Boundary-history-aware checkpoint/resume; no state-only CQ restart.
+- [ ] Interior displacement, stress and velocity reconstruction with independent tests.
+- [ ] Full 45 ms event-16 loading and rupture with temporal/spatial convergence.
+- [ ] Compare nucleation time/location, rupture speed, stress drop, slip, loading reaction and energy budget with FEM.
+- [ ] Integrate a tested backend interface into a separate Tatva checkout if requested.
+
+## Suggested next implementation order
+
+First isolate spatial errors and contact-end singularities while the dense
+engine is small enough to audit. Then add accelerated history evaluation
+that reproduces every dense-reference benchmark within a declared tolerance.
+Use those tolerances to size a production event run. Keep the dense engine
+and analytic benchmark in CI as an independent regression reference.
+
+Increasing the dense memory budget or taking very large time steps is not
+a substitute for resolving the relevant waves and weakening scale.
+
+## Separation from the original repository
+
+No code under `/Volumes/Gauss-T7/tatva` was changed. All model-specific data
+used by this package are local snapshots under `resources/`. Future Tatva
+integration should use a separate checkout and an explicit boundary-backend
+interface; the friction law can be shared, while elastodynamics and history
+remain backend-specific.

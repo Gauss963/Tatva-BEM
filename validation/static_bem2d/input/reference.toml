@@ -1,0 +1,7 @@
+normal_frame = 39
+first_slip_frame = 5186
+actuator_initial = 10.80622673034668
+frames = [39, 40, 400, 2000, 4000, 5185, 5186, 9039]
+normal_time = 0.0020000054500997066
+normal_phase_time = 0.002
+restart_actuator_exact = 10.806226665707777
