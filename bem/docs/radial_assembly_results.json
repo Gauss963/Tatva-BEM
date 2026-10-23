@@ -1,0 +1,201 @@
+{
+  "paired_kernel": {
+    "source": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/radial-traction-coarse4-serialized/summary.json",
+    "sha256": "4e4e267aafddce478e08eaa829d2cfe286234a88e1dd592f9154e687bab98d70",
+    "values": {
+      "samples": [
+        {
+          "s_real": 175.67327226299113,
+          "s_imag": 0.0,
+          "relative_frobenius_difference": 1.0734389603028475e-12,
+          "maximum_absolute_difference": 1.3794334563499433e-09,
+          "timing_seconds": {
+            "original": [
+              1.206658166833222,
+              1.217535332776606,
+              1.2193945841863751,
+              1.2349920831620693
+            ],
+            "radial": [
+              0.9944441244006157,
+              1.004049832932651,
+              1.0164118334650993,
+              1.0143353752791882
+            ]
+          }
+        },
+        {
+          "s_real": 183.65752096989596,
+          "s_imag": 25082.854547329694,
+          "relative_frobenius_difference": 3.216470013177318e-14,
+          "maximum_absolute_difference": 5.104015551390772e-09,
+          "timing_seconds": {
+            "original": [
+              2.194233000278473,
+              2.215942082926631,
+              2.1868991246446967,
+              2.2057216251268983
+            ],
+            "radial": [
+              2.0849600825458765,
+              2.0837229592725635,
+              2.0529960840940475,
+              2.047133458778262
+            ]
+          }
+        },
+        {
+          "s_real": 501336.5523292909,
+          "s_imag": 548796.8023729621,
+          "relative_frobenius_difference": 3.668124286374066e-17,
+          "maximum_absolute_difference": 4.1179124028246485e-12,
+          "timing_seconds": {
+            "original": [
+              1.348434125073254,
+              1.3574375426396728,
+              1.363056874834001,
+              1.3564806655049324
+            ],
+            "radial": [
+              1.2125394167378545,
+              1.2153077088296413,
+              1.223528458736837,
+              1.2081675007939339
+            ]
+          }
+        },
+        {
+          "s_real": 999473.226898665,
+          "s_imag": 9.17625001727161e-11,
+          "relative_frobenius_difference": 1.8534054455893135e-16,
+          "maximum_absolute_difference": 1.1641532182693481e-10,
+          "timing_seconds": {
+            "original": [
+              1.3073106668889523,
+              1.2985251657664776,
+              1.304846209473908,
+              1.2975814994424582
+            ],
+            "radial": [
+              1.1598772089928389,
+              1.1609485000371933,
+              1.151418624445796,
+              1.1633535828441381
+            ]
+          }
+        }
+      ],
+      "source_run": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/galerkin-corners-dt4-storage-baseline",
+      "validator_sha256": "a5af8bef9ceba11d7b81ee3ddabb9436931d9ca6f897ccdae2b4dffbb2fcb0fe",
+      "assembler_sha256": "e6167f6c553e15697b6d67a3a33f559574d22fd49db4aad49c8262d68224b614",
+      "kernel_workers": 1,
+      "series_evaluation": "horner",
+      "scope": "Single-frequency exact contraction experiment; alternating local timings may be contended; no full-trajectory, AD, passivity or whole-solver speed claim"
+    }
+  },
+  "native32": {
+    "source": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/radial-horner-native32/equivalence.json",
+    "sha256": "e3f0888b4335a4b8cbc029db66dd24da32867b8847f976b87cdd33499e6eed74",
+    "values": {
+      "maximum_absolute_field_difference": {
+        "pressure": 4.973799150320701e-14,
+        "shear": 3.9612757518625585e-13,
+        "plastic_slip": 5.329070518200751e-15,
+        "cumulative_slip": 5.384581669432009e-15,
+        "actuator": 0.0,
+        "platen": 1.7763568394002505e-15,
+        "contact_jumps": 5.329070518200751e-15
+      },
+      "gradient_comparisons": {
+        "gradient_max_abs_difference": 4.846123502488808e-14,
+        "parameter_relative_differences": [
+          5.080819245612305e-13,
+          1.5740451435369163e-13,
+          6.737498285377709e-15,
+          4.256336851118041e-15,
+          9.80744909800138e-14
+        ],
+        "actuator_gradient_max_abs_difference": 1.942890293094024e-16,
+        "initial_plastic_slip_gradient_max_abs_difference": 5.370703881624195e-15,
+        "initial_cumulative_slip_gradient_max_abs_difference": 1.0658141036401503e-14
+      },
+      "exact_branch_changes": {
+        "exact_sliding_entries": 0,
+        "exact_opening_entries": 0,
+        "weakening_clip_entries": 0,
+        "weakening_clip_tie_entries": 0
+      },
+      "source_run": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/galerkin-disk-native-cli32",
+      "source_trajectory_sha256": "d3c6ba620e8309e863c8c91ad118ba9e0bf8bfaabe5d11ea23fe955d675be846",
+      "source_adjoint_sha256": "8c5995a6d30e7a4c10c425a6a3410680540ca4d2ced02cfdfa5971b17ed86bb7",
+      "experimental_operator_sha256": "a5af8bef9ceba11d7b81ee3ddabb9436931d9ca6f897ccdae2b4dffbb2fcb0fe",
+      "validator_sha256": "d9d3c485f9ccaf35e855401d424066b36dd0fdc0698df0adae92d9ca22b5f114",
+      "scope": "Full requested reference horizon, fresh experimental dense CQ weights, original local solver and conditional adjoint; a short diagnostic is not the original 45 ms event"
+    }
+  },
+  "native64": {
+    "source": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/radial-horner-native64/equivalence.json",
+    "sha256": "ffc50e2808baf805e157a072909e07241e72fad6a868e5722bd3d971ba4dfceb",
+    "values": {
+      "maximum_absolute_field_difference": {
+        "pressure": 1.0125233984581428e-13,
+        "shear": 1.3610446103484719e-11,
+        "plastic_slip": 8.881784197001252e-15,
+        "cumulative_slip": 8.992806499463768e-15,
+        "actuator": 0.0,
+        "platen": 1.7763568394002505e-15,
+        "contact_jumps": 8.881784197001252e-15
+      },
+      "gradient_comparisons": {
+        "gradient_max_abs_difference": 1.5987211554602254e-14,
+        "parameter_relative_differences": [
+          8.366288836948804e-14,
+          2.916592222114646e-12,
+          1.2174916547203583e-14,
+          8.614490807396406e-16,
+          2.0382440189980744e-14
+        ],
+        "actuator_gradient_max_abs_difference": 8.118505867571457e-16,
+        "initial_plastic_slip_gradient_max_abs_difference": 1.7985612998927536e-14,
+        "initial_cumulative_slip_gradient_max_abs_difference": 5.062616992290714e-14
+      },
+      "exact_branch_changes": {
+        "exact_sliding_entries": 0,
+        "exact_opening_entries": 0,
+        "weakening_clip_entries": 0,
+        "weakening_clip_tie_entries": 0
+      },
+      "source_run": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/native64-dt4-zreference",
+      "source_trajectory_sha256": "b8528907bc9c38f4af376e7cf7d496da51a8e0198b7b3a7198a652eba2a6d316",
+      "source_adjoint_sha256": "6f3fec9dbb7112daf1b21f2443b5352e44a72628a86c1dfdd6ed8ad360b70a70",
+      "experimental_operator_sha256": "a5af8bef9ceba11d7b81ee3ddabb9436931d9ca6f897ccdae2b4dffbb2fcb0fe",
+      "validator_sha256": "e7a40d93b41e827f2242d776c59ca6ee816cc29258607577e81910f9620a72a9",
+      "scope": "Full requested reference horizon, fresh experimental dense CQ weights, original local solver and conditional adjoint; a short diagnostic is not the original 45 ms event"
+    }
+  },
+  "timing_summary": {
+    "median_original_over_variant_by_frequency": [
+      1.207366119731895,
+      1.0636339038931997,
+      1.1178291168189767,
+      1.1217435954414865
+    ],
+    "ratio_of_sum_of_frequency_medians": 1.114675587156183,
+    "method": "Four alternating one-worker evaluations per implementation/frequency; event kernel process stopped for 48.10 s and resumed; OS background work uncontrolled; no complete-solver or FEM timing claim"
+  },
+  "event_kernel_execution_notes": {
+    "source": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/direct-resolvent-fine2-q12/execution_notes.json",
+    "sha256": "70c32bfd7ce0d8f02b4bb25d0b7acf74d3711de89ed120cebf3e9c80353cc446",
+    "values": {
+      "controlled_full_solver_timing": false,
+      "full_kernel_timing_includes_other_diagnostics": true,
+      "paused_pid": 73878,
+      "pause_start_utc": "2026-10-23T18:43:14.050419+00:00",
+      "reason": "Serialize a paired one-worker kernel assembly benchmark; the four-worker event kernel resumes afterward",
+      "pause_end_utc": "2026-10-23T18:44:02.146128+00:00",
+      "pause_seconds": 48.09575925022364,
+      "benchmark_returncode": 0
+    }
+  },
+  "scope": "Exact arithmetic refactoring prototype outside the production package. Full 45 ms validation on this operator and same-accuracy FEM speed/stability advantage remain unproven."
+}

@@ -19,6 +19,8 @@ Galerkin CLI 可用 `--spectrum-directory` 把完整半頻譜存到磁碟，降�
 [彈性 resolvent 分解原型](docs/resolvent.md)，均保留獨立驗證與尚未通過的條件。
 resolvent 現可直接建立新時間網格，並核對參數、載入及初始狀態的條件式 adjoint；
 小型解與梯度驗證已通過，完整案例的誤差與成本仍需進一步比較。
+另有 [徑向 traction／Horner 組裝實驗](docs/radial_assembly.md)，保留相同積分與物理模型；
+目前只證實抽樣單頻率改善及短程解／梯度等價，尚未切換預設 backend。
 
 程式與 Tatva、Bem2d.jl 獨立，不需要讀取或修改外接磁碟，也不需要上層 repository 的 Julia 環境。
 可以把本資料夾獨立放進新的 GitHub repository。
