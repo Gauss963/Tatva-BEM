@@ -41,7 +41,7 @@ def _difference_derivatives_series(r, ks, kp):
     return f1, f2, f3
 
 
-def _radial(r, s, material):
+def _radial(r, s, material, *, scalars=False):
     ks, kp = complex(s) / material.cs, complex(s) / material.cp
     zs, zp = ks * r, kp * r
     k0s, k1s, k0p, k1p = kv(0, zs), kv(1, zs), kv(0, zp), kv(1, zp)
@@ -57,7 +57,10 @@ def _radial(r, s, material):
     da = -ks * k1s - (f2 / r - f1 / r**2) / (ks * ks)
     db = -(f3 - f2 / r + f1 / r**2) / (ks * ks)
     scale = 1 / (2 * np.pi * material.mu)
-    return a * scale, b * scale, da * scale, db * scale
+    result = (a * scale, b * scale, da * scale, db * scale)
+    if scalars:
+        return (*result, k0s / (2 * np.pi), k0p / (2 * np.pi), f1 / (2 * np.pi))
+    return result
 
 
 def _tensor_from_radial(vector, r, a, b, da, db):

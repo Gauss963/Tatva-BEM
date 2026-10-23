@@ -98,8 +98,30 @@ def save_bar(output, result, parameters):
     return summary
 
 
-def save_dynamic(output, case, result, case_path, *, start_environment=None):
+def save_dynamic(
+    output,
+    case,
+    result,
+    case_path,
+    *,
+    start_environment=None,
+    contact_y=None,
+    contact_weights=None,
+):
     output.mkdir(parents=True, exist_ok=True)
+    weights = (
+        case.moving.lengths[case.moving_contact]
+        if contact_weights is None
+        else np.asarray(contact_weights)
+    )
+    if (
+        weights.shape != (len(case.moving_contact),)
+        or not np.all(np.isfinite(weights))
+        or np.any(weights <= 0)
+    ):
+        raise ValueError(
+            "Positive finite contact weights matching the contact coordinates required"
+        )
     payload = dict(
         time=result.time,
         pressure=result.pressure,
@@ -114,16 +136,16 @@ def save_dynamic(output, case, result, case_path, *, start_environment=None):
         moving_ends=case.moving.ends,
         stationary_starts=case.stationary.starts,
         stationary_ends=case.stationary.ends,
-        contact_y=case.moving.centers[case.moving_contact, 1],
+        contact_y=case.moving.centers[case.moving_contact, 1] if contact_y is None else contact_y,
         moving_contact=case.moving_contact,
         stationary_contact=case.stationary_contact,
+        contact_weights=weights,
     )
     if result.displacement is not None:
         payload.update(displacement=result.displacement, traction=result.traction)
     if result.contact_jumps is not None:
         payload["contact_jumps"] = result.contact_jumps
     np.savez(output / "trajectory.npz", **payload)
-    weights = case.moving.lengths[case.moving_contact]
     columns = np.column_stack(
         (
             result.time,

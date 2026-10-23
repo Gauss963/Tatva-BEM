@@ -18,8 +18,8 @@ from .cq import BoundaryHistory, OnlineConvolution
 from .jax_backend import JaxContactEquilibrium
 
 
-def trajectory_adjoint(case, lift, history, result):
-    """Differentiate final panel-weighted mean cumulative slip.
+def trajectory_adjoint(case, lift, history, result, *, equilibrium=None):
+    """Differentiate final contact-weighted mean cumulative slip.
 
     Returns all five LSW parameter derivatives and per-step prescribed actuator
     derivatives, plus initial interface-state cotangents. The forward trajectory
@@ -34,7 +34,11 @@ def trajectory_adjoint(case, lift, history, result):
         or np.max(result.residual_mpa) >= 1e-7
     ):
         raise ValueError("Adjoint requires a complete, converged interface trajectory")
-    reference = InterfaceContactEquilibrium(case, lift, history.instantaneous)
+    reference = (
+        InterfaceContactEquilibrium(case, lift, history.instantaneous)
+        if equilibrium is None
+        else equilibrium
+    )
     system = JaxContactEquilibrium(reference)
     scale = jnp.array(reference.constraints.reduced_weights)
     n = len(case.moving_contact)
@@ -82,7 +86,7 @@ def trajectory_adjoint(case, lift, history, result):
         actuator_gradient[index] = reference.spring * raw[-1]
         reverse.append(raw)
     return {
-        "objective": "final panel-weighted mean cumulative slip",
+        "objective": "final contact-weighted mean cumulative slip",
         "value_mm": float(np.average(result.cumulative_slip[-1], weights=weights)),
         "parameter_order": ["normal_penalty", "tangential_penalty", "mu_s", "mu_k", "Dc"],
         "gradient": gradient,

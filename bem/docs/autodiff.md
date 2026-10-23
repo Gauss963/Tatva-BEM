@@ -120,3 +120,11 @@ FDBEM_CORES=4 bem/run.sh adjoint bem/outputs/interface-corners-dt8-final \
 檢查器會核對全部數值程式指紋、原 case、restart snapshot 及保存的 mesh，
 並拒絕不完整或開發中變更 source 的前向結果。詳細向量與每步 actuator sensitivity
 保存在 run 的 `adjoint.npz`，數值核對在 `adjoint.json`。
+
+## Galerkin nodal-force backend
+
+`run.sh adjoint` 也辨識新的 Galerkin run，使用對應的靜態 lift、nodal
+接觸權重與完整 nodal-force CQ，不把節點誤當面板中點。
+短程非線性診斷的 NumPy／JAX 軌跡、scan AD、reverse-CQ 及中央差分已核對。
+目標是末接觸加權平均累積滑移；端點權重與壓板共用自由度一併納入。
+這項改動保留上述固定 bulk、初始場、載入和分支條件，沒有補上事件時間導數。

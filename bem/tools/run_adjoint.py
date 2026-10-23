@@ -13,6 +13,12 @@ from finiteblock_bem.case import load_case
 from finiteblock_bem.condensation import build_condensed_history
 from finiteblock_bem.dynamics import LoadingSchedule, initialize_restart, simulate
 from finiteblock_bem.io import environment_record, fingerprint, write_json
+from finiteblock_bem.nodal import (
+    NodalInterfaceEquilibrium,
+    initialize_nodal_restart,
+    load_nodal_model,
+)
+from finiteblock_bem.nodal_dynamics import build_nodal_history, simulate_nodal
 from finiteblock_bem.sampling import SamplingOptions
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -46,15 +52,17 @@ def main():
         raise ValueError("Restart snapshot differs from this run; rerun forward first")
     if summary.get("source_changed_during_run"):
         raise ValueError("Rerun forward from a frozen source before validating gradients")
-    case = load_case(
+    nodal = summary.get("boundary_formulation", "").startswith("P1/P0")
+    model = (load_nodal_model if nodal else load_case)(
         case_path,
         max_panel_length=manifest.get("h"),
         contact_panel_length=manifest.get("contact_h"),
         contact_end_length=manifest.get("contact_end_h"),
         corner_panel_length=manifest.get("corner_h"),
     )
+    case = model.contact_case() if nodal else model
     quadrature = manifest["quadrature"]
-    lift = initialize_restart(case, quadrature=quadrature)
+    lift = (initialize_nodal_restart if nodal else initialize_restart)(model, quadrature=quadrature)
     with np.load(folder / "trajectory.npz", allow_pickle=False) as data:
         if "contact_jumps" not in data:
             raise ValueError("Adjoint requires --formulation interface output")
@@ -86,14 +94,18 @@ def main():
         cache_directory=manifest["cache"],
         sampling=(
             SamplingOptions(
-                relative_tolerance=manifest["sampling_rtol"], degree=manifest["sampling_degree"]
+                relative_tolerance=manifest["sampling_rtol"],
+                degree=manifest.get("sampling_degree", 16),
             )
             if manifest.get("sampling") == "adaptive"
             else None
         ),
     )
-    history = build_condensed_history(case, summary["dt_s"], summary["completed_steps"], **kwargs)
-    answer = trajectory_adjoint(case, lift, history, result)
+    history = (build_nodal_history if nodal else build_condensed_history)(
+        model, summary["dt_s"], summary["completed_steps"], **kwargs
+    )
+    equilibrium = NodalInterfaceEquilibrium(model, lift, history.instantaneous) if nodal else None
+    answer = trajectory_adjoint(case, lift, history, result, equilibrium=equilibrium)
     np.savez(
         folder / "adjoint.npz",
         **{key: value for key, value in answer.items() if isinstance(value, np.ndarray)},
@@ -126,16 +138,22 @@ def main():
                         case.contact, **{field: getattr(case.contact, field) + sign * epsilon}
                     ),
                 )
-                trial = simulate(
-                    varied,
-                    summary["dt_s"],
-                    summary["completed_steps"],
-                    schedule=schedule,
-                    lift=lift,
-                    formulation="interface",
-                    backend="jax",
-                    **kwargs,
-                )
+                forward_options = dict(schedule=schedule, lift=lift, backend="jax", **kwargs)
+                if nodal:
+                    trial = simulate_nodal(
+                        replace(model, reference=replace(model.reference, contact=varied.contact)),
+                        summary["dt_s"],
+                        summary["completed_steps"],
+                        **forward_options,
+                    )
+                else:
+                    trial = simulate(
+                        varied,
+                        summary["dt_s"],
+                        summary["completed_steps"],
+                        formulation="interface",
+                        **forward_options,
+                    )
                 if trial.diagnostics["status"] != "completed_requested_horizon":
                     raise RuntimeError(
                         "Perturbed forward failed; difference is not a gradient check"
@@ -144,7 +162,11 @@ def main():
                     float(
                         np.average(
                             trial.cumulative_slip[-1],
-                            weights=case.moving.lengths[case.moving_contact],
+                            weights=(
+                                model.constraints.contact_weights
+                                if nodal
+                                else case.moving.lengths[case.moving_contact]
+                            ),
                         )
                     )
                 )

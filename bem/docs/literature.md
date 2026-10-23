@@ -23,7 +23,7 @@
 
 ## 從文獻到目前程式
 
-目前 bulk 使用 `V^-1(1/2 I+K)` 的 P0 collocation。
+原 backend 使用 `V^-1(1/2 I+K)` 的 P0 collocation。
 它在連續層級與能量相關的表示等價，但離散後不能把兩者視為同一方法。
 把數值矩陣直接取對稱或裁掉負特徵值，也不能替代推導 Galerkin 式。
 
@@ -79,6 +79,12 @@
 此結果沒有證明目前特定載入軌跡必然發散，卻已排除對這些離散算子作
 無條件被動性宣稱。穩定性路線因此優先轉向一致的 P1／Galerkin 能量形式，
 而不是僅加密 P0 後就宣告完成。新的 sampling 可繼續服務於兩種離散的成本控制。
+
+後續已實作 [P1/P0 對稱 Galerkin 與 nodal-force 接觸](galerkin.md)，
+接回完整 CQ 與 JAX adjoint。hypersingular regularization 另依據
+[Bao、Xu、Yin (2017)](https://arxiv.org/html/1608.08759v1)，
+以獨立 traction 有限差分核對。此頁的 P0 數值保留作歷史紀錄；
+新方法的被動性、解析波、組裝效能與 FEM 差異記錄於新報告。
 
 完整 reverse-CQ adjoint 也已重跑：相對 dense CQ 的五參數梯度最大絕對差
 約 5e-10；mu_s、mu_k、Dc 的小步長差分相對差均低於 1e-5。

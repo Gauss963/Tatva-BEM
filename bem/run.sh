@@ -42,6 +42,24 @@ elif [ "${1:-}" = elastic-onset ]; then
 elif [ "${1:-}" = passivity ]; then
     shift
     exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/audit_passivity.py" "$@"
+elif [ "${1:-}" = galerkin-audit ]; then
+    shift
+    exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/galerkin_audit.py" "$@"
+elif [ "${1:-}" = galerkin ]; then
+    shift
+    exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/run_galerkin.py" "$@"
+elif [ "${1:-}" = galerkin-wave ]; then
+    shift
+    exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/galerkin_wave.py" "$@"
+elif [ "${1:-}" = galerkin-benchmark ]; then
+    shift
+    exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/benchmark_galerkin.py" "$@"
+elif [ "${1:-}" = galerkin-quadrature ]; then
+    shift
+    exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/galerkin_quadrature.py" "$@"
+elif [ "${1:-}" = galerkin-report ]; then
+    shift
+    exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/report_galerkin.py" "$@"
 elif [ "${1:-}" = adjoint ]; then
     shift
     exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/run_adjoint.py" "$@"

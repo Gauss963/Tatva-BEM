@@ -24,6 +24,7 @@ baseline comes from [Gauss963/PMMA-RSF](https://github.com/Gauss963/PMMA-RSF).
 - Exact online FFT history, parallel kernels and reusable fingerprinted weights.
 - JAX local AD tangents, JIT Newton and verified short-trajectory implicit gradients.
 - Exact contact-coordinate condensation, contact/corner grading and a full-history conditional adjoint.
+- Symmetric P1/P0 Galerkin nodal-force backend with regularized hypersingular integrals and batched assembly.
 
 The BEM package is independent of the Tatva FEM time integrator. A shared
 backend interface and memory-compressed production history remain
@@ -64,6 +65,8 @@ See the [latest refinement and adjoint results](bem/docs/refinement.md) for
 45 ms conditional gradients and the remaining physical solution differences.
 The [2024–2026 literature review](bem/docs/literature.md) records the next
 accuracy/stability gates and measured adaptive-frequency experiments.
+The [Galerkin implementation and validation](bem/docs/galerkin.md) addresses
+the sampled passivity failures of the original collocation backend.
 
 ## Repository layout
 

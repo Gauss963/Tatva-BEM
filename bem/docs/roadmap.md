@@ -20,7 +20,9 @@ gates. A short successful diagnostic does not close the later gates.
 - [x] Prepared radial traction assembly, near-panel subdivision and streamed static initialization.
 - [x] Reverse CQ discrete adjoint with JAX VJPs, checked against scan AD and actuator finite differences.
 - [x] Literature-driven optional adaptive frequency sampling, dense-CQ trajectory comparison and sampled passivity audit.
-- [ ] Certified energy/passivity or a quantified stable-resolution envelope for nonlinear P0 collocation.
+- [x] Symmetric P1/P0 Galerkin bulk, continuous nodal contact/platen trace, independent weak-D and wave checks.
+- [x] Shared prepared Galerkin geometry and same-matrix four-worker benchmark.
+- [ ] Quantified nonlinear stability and temporal/spatial convergence for Galerkin.
 - [ ] Independent spatial refinement at the contact ends and process-zone resolution.
 - [ ] Validate static-lift error against original FEM interior fields and quantify zero-initial-velocity assumptions.
 - [ ] Oblivious CQ or space-time compression to remove dense weight storage; online FFT is implemented but retains it.
@@ -34,13 +36,12 @@ gates. A short successful diagnostic does not close the later gates.
 
 ## Suggested next implementation order
 
-The [2024–2026 literature review](literature.md) prioritizes a consistent
-P1/Galerkin energy formulation: sampled bulk passivity failures persist under
-higher quadrature and are confirmed by full boundary work. Optional frequency
-sampling reproduces the dense reference, but does not repair its spatial
-discretization. Keep the dense engine and analytic benchmark in CI, quantify
-the static-lift discrepancy, and resolve the process zone before claiming
-an event reproduction or a same-accuracy speed advantage over FEM.
+The [2024–2026 literature review](literature.md) led to the implemented
+[P1/P0 Galerkin energy formulation](galerkin.md). It removes the previously
+observed negative bulk directions at the sampled frequencies. Keep the
+independent pair assembler and analytic benchmark in CI, quantify the
+remaining endpoint/static-lift discrepancy, and resolve the process zone
+before claiming an event reproduction or a same-accuracy speed advantage over FEM.
 
 Increasing the dense memory budget or taking very large time steps is not
 a substitute for resolving the relevant waves and weakening scale.
