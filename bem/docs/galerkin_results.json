@@ -5820,6 +5820,36 @@
         "trajectory_sha256": "12408361d0fb435bd37ea369885564d84286b6f88ab317af5d78c7bc6c7c145c"
       },
       {
+        "name": "galerkin-corners-dt4-q8",
+        "dt_s": 4e-06,
+        "pressure_mean_initial_mpa": 16.66666666665863,
+        "uses_previous_cumulative_strength": true,
+        "maximum_increment_over_Dc": 4.4866378722889175,
+        "maximum_increment_while_weakening_over_Dc": 2.0149122730304136,
+        "maximum_weakening_progress_in_one_step": 0.8761043012905296,
+        "per_node_maximum_progress_quantiles": {
+          "50_percent": 0.6401576652540332,
+          "90_percent": 0.7674855295196993,
+          "100_percent": 0.8761043012905296
+        },
+        "lumped_line_weighted_maximum_progress_quantiles": {
+          "50_percent": 0.6464043409761911,
+          "90_percent": 0.7531588420664002,
+          "100_percent": 0.8761043012905296
+        },
+        "nodes_skipping_10_to_90_percent": 0,
+        "total_nodes": 35,
+        "line_fraction_skipping_10_to_90_percent": 0.0,
+        "skipping_positions_mm": [],
+        "applied_friction_work_mpa_mm2": 2049.8340877035425,
+        "fixed_pressure_integrated_strength_work_mpa_mm2": 2041.0087265499476,
+        "fixed_pressure_work_gap_mpa_mm2": 8.825361153594105,
+        "gap_fraction_of_applied_work": 0.004305402669677174,
+        "initial_pressure_weakening_excess_scale_mpa_mm2": 10.076719999995145,
+        "gap_over_initial_weakening_excess_scale": 0.8758168484981579,
+        "trajectory_sha256": "9d09fb2cf57ee4d98a64dc3724c65e790502693b156995144633331f9d5b2200"
+      },
+      {
         "name": "galerkin-patch5-dt8-q6-streamed",
         "dt_s": 8e-06,
         "pressure_mean_initial_mpa": 16.666666668150494,
@@ -5902,5 +5932,759 @@
     ],
     "scope": "Exact mu(c) integral with endpoint pressure held fixed; not total energy or coupled error bound",
     "reference_integral": "mu_k*(c_new-c_old) + (mu_s-mu_k)*[b-a-(b*b-a*a)/(2*Dc)], a=min(c_old,Dc), b=min(c_new,Dc)"
+  },
+  "temporal_dt4": {
+    "status": "completed_requested_horizon",
+    "boundary_formulation": "P1/P0 symmetric Galerkin; nodal-force interface condensation",
+    "schedule": "event16_static_lift_then_original_actuator_rate",
+    "dt_s": 4e-06,
+    "requested_steps": 11250,
+    "completed_steps": 11250,
+    "duration_s": 0.045,
+    "history_dofs": [
+      71
+    ],
+    "cq_fft_size": 32768,
+    "all_history_retained": true,
+    "full_boundary_fields_saved": false,
+    "nonlinear_backend": "jax",
+    "panels": [
+      102,
+      112
+    ],
+    "contact_nodes": 35,
+    "quadrature": 8,
+    "kernel_workers": 4,
+    "frequency_sampling": {
+      "method": "adaptive_piecewise_chebyshev",
+      "options": {
+        "relative_tolerance": 1e-08,
+        "absolute_tolerance": 1e-08,
+        "degree": 16,
+        "check_points": 7
+      },
+      "dense_grid_evaluations": 16385,
+      "transfer_evaluations": 5645,
+      "interpolated_grid_points": 13836,
+      "direct_grid_points": 2549,
+      "accepted_intervals": 27,
+      "rejected_intervals": 102,
+      "max_accepted_normalized_check_error": 0.0005104667997517445,
+      "max_accepted_normalized_tail": 0.14827022149961133,
+      "certified_error_bound": false,
+      "evaluation_ratio": 0.34452242905096125,
+      "cache_hit": false
+    },
+    "max_cumulative_slip_mm": 0.442914589377127,
+    "max_boundary_contact_residual_mpa": 1.2056955047307068e-10,
+    "actuator_hold_time_s": 0.028895999999999998,
+    "failure": null,
+    "initialization": {
+      "status": "admissible_nodal_static_lift",
+      "basis": "P1 displacement / P0 auxiliary density; symmetric Galerkin",
+      "residual_mpa": 1.587960088708556e-10,
+      "initial_max_strength_ratio": 0.7126075461999638,
+      "max_cumulative_slip_change_mm": 0.0,
+      "platen_mm": 9.959594035511008,
+      "mean_pressure_mpa": 16.66666666665863,
+      "mean_shear_mpa": 8.819089897855173,
+      "quadrature": 8
+    },
+    "estimated_array_peak_mb": 2007.8006057739258,
+    "peak_process_rss_mb": 2093.265625,
+    "timing_seconds": {
+      "static_lift": 2.2877914998680353,
+      "kernel_build_or_cache_load": 3492.2758897496387,
+      "time_stepping": 5.273260583169758,
+      "total_excluding_output": 3500.2160883741453
+    },
+    "wave_speeds": {
+      "cp": 2723195.840648868,
+      "cs": 1667610.069814804
+    },
+    "sampling_options": {
+      "relative_tolerance": 1e-08,
+      "absolute_tolerance": 1e-08,
+      "degree": 16,
+      "check_points": 7
+    },
+    "full_original_event_reproduced": false,
+    "environment": {
+      "package_version": "0.1.0",
+      "python": "3.12.13",
+      "numpy": "2.4.4",
+      "scipy": "1.17.1",
+      "platform": "macOS-15.7.9-arm64-arm-64bit",
+      "available_logical_cpus": 10,
+      "hard_cpu_affinity_enforced": false,
+      "thread_environment": {
+        "FDBEM_CORES": "4",
+        "OPENBLAS_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "VECLIB_MAXIMUM_THREADS": "1",
+        "XLA_FLAGS": "--xla_cpu_multi_thread_eigen=false intra_op_parallelism_threads=4",
+        "JAX_ENABLE_X64": "true"
+      },
+      "blas_threadpools": [],
+      "source_sha256": {
+        "__init__.py": "984855d6ff3848411c946ecca174ac08baf7afe6f1d2c3be00284da9b8dbf288",
+        "adjoint.py": "7863386b78318e6502d6257469322ee82746f2384ee915c16cbb98cda69c5bc0",
+        "benchmarks.py": "c24b97264ca60d0da1dab2095d50e9ef1b88b7208fba2d46178b8cf9038eb571",
+        "case.py": "4f0c91b18309a2eae5ce5a78da3bac9fde0be9fb1c0a4d2d5e5e1fc84bd85fa7",
+        "cli.py": "82e53ce34714809933dbe456ef403bce27c6b60b20ac4481f2feded9eeadfcea",
+        "comparison.py": "631c111752342fac7d0f64553620e04940e7888b1ab2fc52566a23b5c35ee24c",
+        "condensation.py": "12010fb51d8490ae5c3a9a2cf5b04e414cb7e6205b409ce7891b454e384de7d2",
+        "constraints.py": "830071941c6df0f70e455530fe094242042fb0c1e31498e8f9b75c9aa825cb91",
+        "cq.py": "b81d6b042b943416eb23a423485a7c2978e89d92d9c67883ddb99047229450fe",
+        "dynamics.py": "b6d84d8d2c1ac6fc465565c289d1249f378f3424e00cb93441791960b3c180f8",
+        "friction.py": "1424c1639cdc1eb4dd8f780bfdc0433f33cf29752b07a17814a3a2f326d81086",
+        "galerkin.py": "85541ddfe5020debde77b2bf2d4a045fe9a52b6183d4af2f762f577be18ab66d",
+        "galerkin_fast.py": "e6167f6c553e15697b6d67a3a33f559574d22fd49db4aad49c8262d68224b614",
+        "io.py": "d292e6338381aa7935dbbfcadc0df884e89f10b7096fa70cf1b05a83c1c12b03",
+        "jax_backend.py": "4de0aadb88b73ef6792ff36894134ee31bc412b1a54b177a4d1aaaa43328d547",
+        "kernels.py": "4008ae38c62c3022034d654a13da75369bd67309af4614006942398e22c1ad08",
+        "linear.py": "3a4d7c2259fd3e67b507d0c9dcd18082c24ffda30fccb12749976c97fa5a577c",
+        "material.py": "7c4d34d911831f12e3bc99bda2e13e76d468acdf80038dcb60310a568a5342d1",
+        "mesh.py": "a37e853ed57dd80633c44805b6c13158643ac65db3e4a4cfc12520bbdfa15c4c",
+        "nodal.py": "632f1a755bb09d784c125d3198f662213ea60045ada9db1555e1b47b3ab39856",
+        "nodal_dynamics.py": "56f2b55f1dab50ed9811775b8e759349c150cd030a16182585fb2bd658f67560",
+        "nonlinear.py": "019c5fc176c70964c89f9e7c74147ad48b4235267dd2faf0ee22f789a2b97590",
+        "operators.py": "bb77a3b2c66dce871c9e71cc2cdc02488e90ad32278cc9a67fea8b909b722825",
+        "sampling.py": "4a89762b70989774b5df44560efdafb59cd41881fd16e070ebb55bee204817a1",
+        "statics.py": "9f81cbd95a1ff1f742387ee4ae94251304177999208a95703371272ac79dc250"
+      },
+      "case_sha256": "82d8f491a63ca1c348507678f08406dccbc62ed1d4abea8882879f7894d2315d",
+      "restart_data_sha256": "cae42101ff5a57004fa803ea5ce928eb8079e5be0ab887d108689e37754c25f6",
+      "jax": "0.9.2",
+      "jax_x64": true,
+      "jax_devices": [
+        "TFRT_CPU_0"
+      ]
+    },
+    "source_changed_during_run": false,
+    "case": {
+      "material": {
+        "young": 7662.0,
+        "poisson": 0.2,
+        "density": 1.148e-09
+      },
+      "geometry": {
+        "moving_origin": [
+          0.0,
+          0.0
+        ],
+        "moving_size": [
+          200.0,
+          500.0
+        ],
+        "stationary_origin": [
+          200.0,
+          0.0
+        ],
+        "stationary_size": [
+          145.0,
+          550.0
+        ],
+        "chamfer_length": 20.0,
+        "chamfer_depth": 5.0
+      },
+      "contact": {
+        "normal_penalty": 76620.0,
+        "tangential_penalty": 7662.0,
+        "static_friction": 0.8,
+        "kinetic_friction": 0.6,
+        "characteristic_slip": 0.0125959
+      },
+      "loading": {
+        "normal_pressure": 16.0,
+        "spring_stiffness": 25.0,
+        "restart_actuator": 10.806226665707777,
+        "actuator_rate": 20.0,
+        "stop_coverage": 1.0
+      },
+      "diagnostic": {
+        "max_panel_length": 40.0,
+        "dt": 4e-06,
+        "steps": 128,
+        "quadrature": 20,
+        "max_memory_mb": 512.0,
+        "normal_rise": 8e-05,
+        "shear_start": 0.00012,
+        "shear_rise": 0.00024,
+        "shear_amplitude": 4.0
+      },
+      "source": {
+        "run": "local-mus08-muk06-gap0-v2-ev16",
+        "revision": "933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d",
+        "original_fem_dt": 1.2492928633545953e-08,
+        "original_shear_duration": 0.045,
+        "restart_interface": "../data/ev16_restart_interface.csv"
+      }
+    }
+  },
+  "temporal_comparison": {
+    "fem": {
+      "first_stored_slip_over_1e-7_mm_s": 0.025732864022254942,
+      "actuator_hold_s": 0.02978831934928894,
+      "final_max_cumulative_slip_mm": 0.644122838973999,
+      "final_mean_pressure_mpa": 17.58409881591797,
+      "final_mean_shear_mpa": 8.912893295288086,
+      "final_platen_mm": 10.580398559570312,
+      "final_applied_shear_mpa": 20.538515090942383,
+      "original_recorded_wall_seconds": 6969.130398500711,
+      "original_recorded_shear_steady_seconds": 6630.270908067934,
+      "original_core_count": "not recorded; these are not controlled 4-core timings"
+    },
+    "bem": [
+      {
+        "name": "galerkin-corners-dt8-q8-final",
+        "status": "completed_requested_horizon",
+        "duration_s": 0.045,
+        "panels": [
+          102,
+          112
+        ],
+        "dt_s": 8e-06,
+        "first_stored_slip_over_1e-7_mm_s": 0.024215999999999998,
+        "actuator_hold_s": 0.029023999999999998,
+        "endpoint": {
+          "max_cumulative_slip_mm": {
+            "bem": 0.40025798818671837,
+            "fem_at_same_time": 0.644122838973999,
+            "difference": -0.24386485078728065
+          },
+          "mean_contact_shear_mpa": {
+            "bem": 9.705162049785,
+            "fem_at_same_time": 8.912963031805669,
+            "difference": 0.7921990179793319
+          },
+          "mean_contact_pressure_mpa": {
+            "bem": 16.447792411005974,
+            "fem_at_same_time": 17.58405314185841,
+            "difference": -1.1362607308524346
+          },
+          "platen_mm": {
+            "bem": 10.499612168236256,
+            "fem_at_same_time": 10.580400123675606,
+            "difference": -0.0807879554393498
+          },
+          "applied_shear_mpa": {
+            "bem": 22.17736243678803,
+            "fem_at_same_time": 20.53847595735571,
+            "difference": 1.638886479432319
+          },
+          "actuator_mm": {
+            "bem": 11.386706665707777,
+            "fem_at_same_time": 11.401939392089844,
+            "difference": -0.01523272638206663
+          }
+        },
+        "history_relative_l2": {
+          "max_cumulative_slip_mm": 0.3916264836601051,
+          "mean_contact_shear_mpa": 0.05146164300992628,
+          "mean_contact_pressure_mpa": 0.024387424380741533,
+          "platen_mm": 0.005480284303630125,
+          "applied_shear_mpa": 0.05309070398339992,
+          "actuator_mm": 0.0007969294774288912
+        },
+        "timing_seconds": {
+          "static_lift": 2.4132358748465776,
+          "kernel_build_or_cache_load": 0.012538958340883255,
+          "time_stepping": 2.7855631671845913,
+          "total_excluding_output": 5.614702332764864
+        },
+        "max_residual_mpa": 1.2056955047307068e-10,
+        "max_strength_ratio": 1.0,
+        "friction_work_mpa_mm2": 1823.1744376568813,
+        "final_p1_profile_relative_l2": {
+          "cumulative_slip": 0.39246276893526044,
+          "pressure": 0.10026596125403014,
+          "shear": 0.10392291838950525
+        },
+        "environment": {
+          "package_version": "0.1.0",
+          "python": "3.12.13",
+          "numpy": "2.4.4",
+          "scipy": "1.17.1",
+          "platform": "macOS-15.7.9-arm64-arm-64bit",
+          "available_logical_cpus": 10,
+          "hard_cpu_affinity_enforced": false,
+          "thread_environment": {
+            "FDBEM_CORES": "4",
+            "OPENBLAS_NUM_THREADS": "1",
+            "OMP_NUM_THREADS": "1",
+            "VECLIB_MAXIMUM_THREADS": "1",
+            "XLA_FLAGS": "--xla_cpu_multi_thread_eigen=false intra_op_parallelism_threads=4",
+            "JAX_ENABLE_X64": "true"
+          },
+          "blas_threadpools": [],
+          "source_sha256": {
+            "__init__.py": "984855d6ff3848411c946ecca174ac08baf7afe6f1d2c3be00284da9b8dbf288",
+            "adjoint.py": "7863386b78318e6502d6257469322ee82746f2384ee915c16cbb98cda69c5bc0",
+            "benchmarks.py": "c24b97264ca60d0da1dab2095d50e9ef1b88b7208fba2d46178b8cf9038eb571",
+            "case.py": "4f0c91b18309a2eae5ce5a78da3bac9fde0be9fb1c0a4d2d5e5e1fc84bd85fa7",
+            "cli.py": "82e53ce34714809933dbe456ef403bce27c6b60b20ac4481f2feded9eeadfcea",
+            "comparison.py": "631c111752342fac7d0f64553620e04940e7888b1ab2fc52566a23b5c35ee24c",
+            "condensation.py": "12010fb51d8490ae5c3a9a2cf5b04e414cb7e6205b409ce7891b454e384de7d2",
+            "constraints.py": "830071941c6df0f70e455530fe094242042fb0c1e31498e8f9b75c9aa825cb91",
+            "cq.py": "8fbb2a7d964145b18522c9703faa082b12d749b68bb34a9f0328d232321de60a",
+            "dynamics.py": "b6d84d8d2c1ac6fc465565c289d1249f378f3424e00cb93441791960b3c180f8",
+            "friction.py": "1424c1639cdc1eb4dd8f780bfdc0433f33cf29752b07a17814a3a2f326d81086",
+            "galerkin.py": "85541ddfe5020debde77b2bf2d4a045fe9a52b6183d4af2f762f577be18ab66d",
+            "galerkin_fast.py": "e6167f6c553e15697b6d67a3a33f559574d22fd49db4aad49c8262d68224b614",
+            "io.py": "d292e6338381aa7935dbbfcadc0df884e89f10b7096fa70cf1b05a83c1c12b03",
+            "jax_backend.py": "4de0aadb88b73ef6792ff36894134ee31bc412b1a54b177a4d1aaaa43328d547",
+            "kernels.py": "4008ae38c62c3022034d654a13da75369bd67309af4614006942398e22c1ad08",
+            "linear.py": "3a4d7c2259fd3e67b507d0c9dcd18082c24ffda30fccb12749976c97fa5a577c",
+            "material.py": "7c4d34d911831f12e3bc99bda2e13e76d468acdf80038dcb60310a568a5342d1",
+            "mesh.py": "a37e853ed57dd80633c44805b6c13158643ac65db3e4a4cfc12520bbdfa15c4c",
+            "nodal.py": "632f1a755bb09d784c125d3198f662213ea60045ada9db1555e1b47b3ab39856",
+            "nodal_dynamics.py": "14eefed9b749decd644ff85ac317b98656334e560b949be582872992c53e4274",
+            "nonlinear.py": "019c5fc176c70964c89f9e7c74147ad48b4235267dd2faf0ee22f789a2b97590",
+            "operators.py": "bb77a3b2c66dce871c9e71cc2cdc02488e90ad32278cc9a67fea8b909b722825",
+            "sampling.py": "4a89762b70989774b5df44560efdafb59cd41881fd16e070ebb55bee204817a1",
+            "statics.py": "9f81cbd95a1ff1f742387ee4ae94251304177999208a95703371272ac79dc250"
+          },
+          "case_sha256": "82d8f491a63ca1c348507678f08406dccbc62ed1d4abea8882879f7894d2315d",
+          "restart_data_sha256": "cae42101ff5a57004fa803ea5ce928eb8079e5be0ab887d108689e37754c25f6",
+          "jax": "0.9.2",
+          "jax_x64": true,
+          "jax_devices": [
+            "TFRT_CPU_0"
+          ]
+        },
+        "source_changed_during_run": false,
+        "state_checks": {
+          "all_saved_fields_finite": true,
+          "minimum_contact_pressure_mpa": 9.319220310001247,
+          "minimum_cumulative_increment_mm": 0.0
+        }
+      },
+      {
+        "name": "galerkin-corners-dt4-q8",
+        "status": "completed_requested_horizon",
+        "duration_s": 0.045,
+        "panels": [
+          102,
+          112
+        ],
+        "dt_s": 4e-06,
+        "first_stored_slip_over_1e-7_mm_s": 0.0242,
+        "actuator_hold_s": 0.028895999999999998,
+        "endpoint": {
+          "max_cumulative_slip_mm": {
+            "bem": 0.442914589377127,
+            "fem_at_same_time": 0.644122838973999,
+            "difference": -0.201208249596872
+          },
+          "mean_contact_shear_mpa": {
+            "bem": 9.397644492799639,
+            "fem_at_same_time": 8.912963031805669,
+            "difference": 0.48468146099397025
+          },
+          "mean_contact_pressure_mpa": {
+            "bem": 16.892556068578525,
+            "fem_at_same_time": 17.58405314185841,
+            "difference": -0.6914970732798835
+          },
+          "platen_mm": {
+            "bem": 10.497307012277146,
+            "fem_at_same_time": 10.580400123675606,
+            "difference": -0.0830931113984601
+          },
+          "applied_shear_mpa": {
+            "bem": 22.170991335765812,
+            "fem_at_same_time": 20.53847595735571,
+            "difference": 1.6325153784101012
+          },
+          "actuator_mm": {
+            "bem": 11.384146665707778,
+            "fem_at_same_time": 11.401939392089844,
+            "difference": -0.017792726382065638
+          }
+        },
+        "history_relative_l2": {
+          "max_cumulative_slip_mm": 0.3426181492079562,
+          "mean_contact_shear_mpa": 0.04343068883669862,
+          "mean_contact_pressure_mpa": 0.018855902309708312,
+          "platen_mm": 0.004675098023617059,
+          "applied_shear_mpa": 0.04309967068040598,
+          "actuator_mm": 0.0009321437930737733
+        },
+        "timing_seconds": {
+          "static_lift": 2.2877914998680353,
+          "kernel_build_or_cache_load": 3492.2758897496387,
+          "time_stepping": 5.273260583169758,
+          "total_excluding_output": 3500.2160883741453
+        },
+        "max_residual_mpa": 1.2056955047307068e-10,
+        "max_strength_ratio": 1.0,
+        "friction_work_mpa_mm2": 2049.8340877035425,
+        "final_p1_profile_relative_l2": {
+          "cumulative_slip": 0.3190225537368445,
+          "pressure": 0.0920658114872362,
+          "shear": 0.09207796712364287
+        },
+        "environment": {
+          "package_version": "0.1.0",
+          "python": "3.12.13",
+          "numpy": "2.4.4",
+          "scipy": "1.17.1",
+          "platform": "macOS-15.7.9-arm64-arm-64bit",
+          "available_logical_cpus": 10,
+          "hard_cpu_affinity_enforced": false,
+          "thread_environment": {
+            "FDBEM_CORES": "4",
+            "OPENBLAS_NUM_THREADS": "1",
+            "OMP_NUM_THREADS": "1",
+            "VECLIB_MAXIMUM_THREADS": "1",
+            "XLA_FLAGS": "--xla_cpu_multi_thread_eigen=false intra_op_parallelism_threads=4",
+            "JAX_ENABLE_X64": "true"
+          },
+          "blas_threadpools": [],
+          "source_sha256": {
+            "__init__.py": "984855d6ff3848411c946ecca174ac08baf7afe6f1d2c3be00284da9b8dbf288",
+            "adjoint.py": "7863386b78318e6502d6257469322ee82746f2384ee915c16cbb98cda69c5bc0",
+            "benchmarks.py": "c24b97264ca60d0da1dab2095d50e9ef1b88b7208fba2d46178b8cf9038eb571",
+            "case.py": "4f0c91b18309a2eae5ce5a78da3bac9fde0be9fb1c0a4d2d5e5e1fc84bd85fa7",
+            "cli.py": "82e53ce34714809933dbe456ef403bce27c6b60b20ac4481f2feded9eeadfcea",
+            "comparison.py": "631c111752342fac7d0f64553620e04940e7888b1ab2fc52566a23b5c35ee24c",
+            "condensation.py": "12010fb51d8490ae5c3a9a2cf5b04e414cb7e6205b409ce7891b454e384de7d2",
+            "constraints.py": "830071941c6df0f70e455530fe094242042fb0c1e31498e8f9b75c9aa825cb91",
+            "cq.py": "b81d6b042b943416eb23a423485a7c2978e89d92d9c67883ddb99047229450fe",
+            "dynamics.py": "b6d84d8d2c1ac6fc465565c289d1249f378f3424e00cb93441791960b3c180f8",
+            "friction.py": "1424c1639cdc1eb4dd8f780bfdc0433f33cf29752b07a17814a3a2f326d81086",
+            "galerkin.py": "85541ddfe5020debde77b2bf2d4a045fe9a52b6183d4af2f762f577be18ab66d",
+            "galerkin_fast.py": "e6167f6c553e15697b6d67a3a33f559574d22fd49db4aad49c8262d68224b614",
+            "io.py": "d292e6338381aa7935dbbfcadc0df884e89f10b7096fa70cf1b05a83c1c12b03",
+            "jax_backend.py": "4de0aadb88b73ef6792ff36894134ee31bc412b1a54b177a4d1aaaa43328d547",
+            "kernels.py": "4008ae38c62c3022034d654a13da75369bd67309af4614006942398e22c1ad08",
+            "linear.py": "3a4d7c2259fd3e67b507d0c9dcd18082c24ffda30fccb12749976c97fa5a577c",
+            "material.py": "7c4d34d911831f12e3bc99bda2e13e76d468acdf80038dcb60310a568a5342d1",
+            "mesh.py": "a37e853ed57dd80633c44805b6c13158643ac65db3e4a4cfc12520bbdfa15c4c",
+            "nodal.py": "632f1a755bb09d784c125d3198f662213ea60045ada9db1555e1b47b3ab39856",
+            "nodal_dynamics.py": "56f2b55f1dab50ed9811775b8e759349c150cd030a16182585fb2bd658f67560",
+            "nonlinear.py": "019c5fc176c70964c89f9e7c74147ad48b4235267dd2faf0ee22f789a2b97590",
+            "operators.py": "bb77a3b2c66dce871c9e71cc2cdc02488e90ad32278cc9a67fea8b909b722825",
+            "sampling.py": "4a89762b70989774b5df44560efdafb59cd41881fd16e070ebb55bee204817a1",
+            "statics.py": "9f81cbd95a1ff1f742387ee4ae94251304177999208a95703371272ac79dc250"
+          },
+          "case_sha256": "82d8f491a63ca1c348507678f08406dccbc62ed1d4abea8882879f7894d2315d",
+          "restart_data_sha256": "cae42101ff5a57004fa803ea5ce928eb8079e5be0ab887d108689e37754c25f6",
+          "jax": "0.9.2",
+          "jax_x64": true,
+          "jax_devices": [
+            "TFRT_CPU_0"
+          ]
+        },
+        "source_changed_during_run": false,
+        "state_checks": {
+          "all_saved_fields_finite": true,
+          "minimum_contact_pressure_mpa": 9.320004825417483,
+          "minimum_cumulative_increment_mm": 0.0
+        }
+      }
+    ],
+    "comparison_scope": "45 ms physical loading; BEM resolution and initial field differ from FEM",
+    "full_original_event_reproduced": false
+  },
+  "temporal_bulk_work": {
+    "scope": "Bulk perturbation work about fixed lift; not total nonlinear energy",
+    "method": "Independent offline zero-padded FFT and BDF2 velocity",
+    "minimum_cumulative_work_mpa_mm2": 0.0,
+    "final_cumulative_work_mpa_mm2": 39.09258778627142,
+    "completed_steps": 11250,
+    "max_force_difference_from_direct_sum": 2.0234258713003328e-11,
+    "environment": {
+      "package_version": "0.1.0",
+      "python": "3.12.13",
+      "numpy": "2.4.4",
+      "scipy": "1.17.1",
+      "platform": "macOS-15.7.9-arm64-arm-64bit",
+      "available_logical_cpus": 10,
+      "hard_cpu_affinity_enforced": false,
+      "thread_environment": {
+        "FDBEM_CORES": "4",
+        "OPENBLAS_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "VECLIB_MAXIMUM_THREADS": "1",
+        "XLA_FLAGS": "--xla_cpu_multi_thread_eigen=false intra_op_parallelism_threads=4",
+        "JAX_ENABLE_X64": "true"
+      },
+      "blas_threadpools": [],
+      "source_sha256": {
+        "__init__.py": "984855d6ff3848411c946ecca174ac08baf7afe6f1d2c3be00284da9b8dbf288",
+        "adjoint.py": "7863386b78318e6502d6257469322ee82746f2384ee915c16cbb98cda69c5bc0",
+        "benchmarks.py": "c24b97264ca60d0da1dab2095d50e9ef1b88b7208fba2d46178b8cf9038eb571",
+        "case.py": "4f0c91b18309a2eae5ce5a78da3bac9fde0be9fb1c0a4d2d5e5e1fc84bd85fa7",
+        "cli.py": "82e53ce34714809933dbe456ef403bce27c6b60b20ac4481f2feded9eeadfcea",
+        "comparison.py": "631c111752342fac7d0f64553620e04940e7888b1ab2fc52566a23b5c35ee24c",
+        "condensation.py": "12010fb51d8490ae5c3a9a2cf5b04e414cb7e6205b409ce7891b454e384de7d2",
+        "constraints.py": "830071941c6df0f70e455530fe094242042fb0c1e31498e8f9b75c9aa825cb91",
+        "cq.py": "b81d6b042b943416eb23a423485a7c2978e89d92d9c67883ddb99047229450fe",
+        "dynamics.py": "b6d84d8d2c1ac6fc465565c289d1249f378f3424e00cb93441791960b3c180f8",
+        "friction.py": "1424c1639cdc1eb4dd8f780bfdc0433f33cf29752b07a17814a3a2f326d81086",
+        "galerkin.py": "85541ddfe5020debde77b2bf2d4a045fe9a52b6183d4af2f762f577be18ab66d",
+        "galerkin_fast.py": "e6167f6c553e15697b6d67a3a33f559574d22fd49db4aad49c8262d68224b614",
+        "io.py": "d292e6338381aa7935dbbfcadc0df884e89f10b7096fa70cf1b05a83c1c12b03",
+        "jax_backend.py": "4de0aadb88b73ef6792ff36894134ee31bc412b1a54b177a4d1aaaa43328d547",
+        "kernels.py": "4008ae38c62c3022034d654a13da75369bd67309af4614006942398e22c1ad08",
+        "linear.py": "3a4d7c2259fd3e67b507d0c9dcd18082c24ffda30fccb12749976c97fa5a577c",
+        "material.py": "7c4d34d911831f12e3bc99bda2e13e76d468acdf80038dcb60310a568a5342d1",
+        "mesh.py": "a37e853ed57dd80633c44805b6c13158643ac65db3e4a4cfc12520bbdfa15c4c",
+        "nodal.py": "632f1a755bb09d784c125d3198f662213ea60045ada9db1555e1b47b3ab39856",
+        "nodal_dynamics.py": "56f2b55f1dab50ed9811775b8e759349c150cd030a16182585fb2bd658f67560",
+        "nonlinear.py": "019c5fc176c70964c89f9e7c74147ad48b4235267dd2faf0ee22f789a2b97590",
+        "operators.py": "bb77a3b2c66dce871c9e71cc2cdc02488e90ad32278cc9a67fea8b909b722825",
+        "sampling.py": "4a89762b70989774b5df44560efdafb59cd41881fd16e070ebb55bee204817a1",
+        "statics.py": "9f81cbd95a1ff1f742387ee4ae94251304177999208a95703371272ac79dc250"
+      },
+      "case_sha256": "82d8f491a63ca1c348507678f08406dccbc62ed1d4abea8882879f7894d2315d",
+      "restart_data_sha256": "cae42101ff5a57004fa803ea5ce928eb8079e5be0ab887d108689e37754c25f6"
+    }
+  },
+  "temporal_adjoint": {
+    "objective": "final contact-weighted mean cumulative slip",
+    "value_mm": 0.43102304624148335,
+    "parameter_order": [
+      "normal_penalty",
+      "tangential_penalty",
+      "mu_s",
+      "mu_k",
+      "Dc"
+    ],
+    "seconds_including_jit": 4.0748220840469,
+    "steps": 11250,
+    "scope": "Fixed bulk, static lift and recorded loading; active-branch discrete derivatives",
+    "event_time_derivative_included": false,
+    "gradient": [
+      -3.4965798641310414e-08,
+      -0.0001048885227233988,
+      34.69341309021293,
+      0.2353952162920837,
+      135.049859370191
+    ],
+    "finite_difference_checks": [
+      {
+        "parameter": "mu_s",
+        "epsilon": 1e-09,
+        "adjoint": 34.69341309021293,
+        "central_difference": 34.690647104929084,
+        "relative_error": 7.973288233793034e-05,
+        "branch_changes_minus_plus": [
+          {
+            "sliding_entries": 0,
+            "opening_entries": 0
+          },
+          {
+            "sliding_entries": 0,
+            "opening_entries": 0
+          }
+        ]
+      },
+      {
+        "parameter": "mu_k",
+        "epsilon": 1e-09,
+        "adjoint": 0.2353952162920837,
+        "central_difference": 0.23629737055941288,
+        "relative_error": 0.0038178768777384423,
+        "branch_changes_minus_plus": [
+          {
+            "sliding_entries": 0,
+            "opening_entries": 0
+          },
+          {
+            "sliding_entries": 0,
+            "opening_entries": 0
+          }
+        ]
+      },
+      {
+        "parameter": "Dc",
+        "epsilon": 1e-10,
+        "adjoint": 135.049859370191,
+        "central_difference": 135.06331636436997,
+        "relative_error": 9.963470867739173e-05,
+        "branch_changes_minus_plus": [
+          {
+            "sliding_entries": 0,
+            "opening_entries": 0
+          },
+          {
+            "sliding_entries": 0,
+            "opening_entries": 0
+          }
+        ]
+      }
+    ],
+    "environment": {
+      "package_version": "0.1.0",
+      "python": "3.12.13",
+      "numpy": "2.4.4",
+      "scipy": "1.17.1",
+      "platform": "macOS-15.7.9-arm64-arm-64bit",
+      "available_logical_cpus": 10,
+      "hard_cpu_affinity_enforced": false,
+      "thread_environment": {
+        "FDBEM_CORES": "4",
+        "OPENBLAS_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "VECLIB_MAXIMUM_THREADS": "1",
+        "XLA_FLAGS": "--xla_cpu_multi_thread_eigen=false intra_op_parallelism_threads=4",
+        "JAX_ENABLE_X64": "true"
+      },
+      "blas_threadpools": [],
+      "source_sha256": {
+        "__init__.py": "984855d6ff3848411c946ecca174ac08baf7afe6f1d2c3be00284da9b8dbf288",
+        "adjoint.py": "7863386b78318e6502d6257469322ee82746f2384ee915c16cbb98cda69c5bc0",
+        "benchmarks.py": "c24b97264ca60d0da1dab2095d50e9ef1b88b7208fba2d46178b8cf9038eb571",
+        "case.py": "4f0c91b18309a2eae5ce5a78da3bac9fde0be9fb1c0a4d2d5e5e1fc84bd85fa7",
+        "cli.py": "82e53ce34714809933dbe456ef403bce27c6b60b20ac4481f2feded9eeadfcea",
+        "comparison.py": "631c111752342fac7d0f64553620e04940e7888b1ab2fc52566a23b5c35ee24c",
+        "condensation.py": "12010fb51d8490ae5c3a9a2cf5b04e414cb7e6205b409ce7891b454e384de7d2",
+        "constraints.py": "830071941c6df0f70e455530fe094242042fb0c1e31498e8f9b75c9aa825cb91",
+        "cq.py": "b81d6b042b943416eb23a423485a7c2978e89d92d9c67883ddb99047229450fe",
+        "dynamics.py": "b6d84d8d2c1ac6fc465565c289d1249f378f3424e00cb93441791960b3c180f8",
+        "friction.py": "1424c1639cdc1eb4dd8f780bfdc0433f33cf29752b07a17814a3a2f326d81086",
+        "galerkin.py": "85541ddfe5020debde77b2bf2d4a045fe9a52b6183d4af2f762f577be18ab66d",
+        "galerkin_fast.py": "e6167f6c553e15697b6d67a3a33f559574d22fd49db4aad49c8262d68224b614",
+        "io.py": "d292e6338381aa7935dbbfcadc0df884e89f10b7096fa70cf1b05a83c1c12b03",
+        "jax_backend.py": "4de0aadb88b73ef6792ff36894134ee31bc412b1a54b177a4d1aaaa43328d547",
+        "kernels.py": "4008ae38c62c3022034d654a13da75369bd67309af4614006942398e22c1ad08",
+        "linear.py": "3a4d7c2259fd3e67b507d0c9dcd18082c24ffda30fccb12749976c97fa5a577c",
+        "material.py": "7c4d34d911831f12e3bc99bda2e13e76d468acdf80038dcb60310a568a5342d1",
+        "mesh.py": "a37e853ed57dd80633c44805b6c13158643ac65db3e4a4cfc12520bbdfa15c4c",
+        "nodal.py": "632f1a755bb09d784c125d3198f662213ea60045ada9db1555e1b47b3ab39856",
+        "nodal_dynamics.py": "56f2b55f1dab50ed9811775b8e759349c150cd030a16182585fb2bd658f67560",
+        "nonlinear.py": "019c5fc176c70964c89f9e7c74147ad48b4235267dd2faf0ee22f789a2b97590",
+        "operators.py": "bb77a3b2c66dce871c9e71cc2cdc02488e90ad32278cc9a67fea8b909b722825",
+        "sampling.py": "4a89762b70989774b5df44560efdafb59cd41881fd16e070ebb55bee204817a1",
+        "statics.py": "9f81cbd95a1ff1f742387ee4ae94251304177999208a95703371272ac79dc250"
+      },
+      "jax": "0.9.2",
+      "jax_x64": true,
+      "jax_devices": [
+        "TFRT_CPU_0"
+      ],
+      "case_sha256": "82d8f491a63ca1c348507678f08406dccbc62ed1d4abea8882879f7894d2315d",
+      "restart_data_sha256": "cae42101ff5a57004fa803ea5ce928eb8079e5be0ab887d108689e37754c25f6"
+    }
+  },
+  "temporal_fronts": {
+    "reference": {
+      "thresholds_mm": {
+        "micro": 1e-07,
+        "Dc10": 0.00125959,
+        "Dc": 0.0125959
+      },
+      "source_hdf5": {
+        "path": "/Volumes/Gauss-T7/tatva/runs/local-mus08-muk06-gap0-v2-ev16/data/simulation.h5",
+        "bytes": 12734535431,
+        "mtime_ns": 1792165113653703298
+      },
+      "source_hdf5_unchanged": true,
+      "time_origin_s": 0.002,
+      "frame_spacing_max_s": 5.010515451431274e-06,
+      "scope": "First cumulative-slip passage at saved FEM interface nodes"
+    },
+    "results": [
+      {
+        "name": "galerkin-corners-dt8-q8-final",
+        "metrics": {
+          "micro": {
+            "common_reached_nodes": 241,
+            "fem_unreached_nodes": 0,
+            "bem_unreached_nodes": 0,
+            "max_abs_difference_ms": 1.5195130160673074,
+            "rms_difference_ms": 0.9072292644199218,
+            "bem_first_passage_ms": 24.20897081183799,
+            "fem_first_passage_ms": 25.728483827905297
+          },
+          "Dc10": {
+            "common_reached_nodes": 241,
+            "fem_unreached_nodes": 0,
+            "bem_unreached_nodes": 0,
+            "max_abs_difference_ms": 2.166713376842995,
+            "rms_difference_ms": 0.9191768165731211,
+            "bem_first_passage_ms": 25.082969683880656,
+            "fem_first_passage_ms": 27.24968306072365
+          },
+          "Dc": {
+            "common_reached_nodes": 241,
+            "fem_unreached_nodes": 0,
+            "bem_unreached_nodes": 0,
+            "max_abs_difference_ms": 1.010158735842398,
+            "rms_difference_ms": 0.9048003073726214,
+            "bem_first_passage_ms": 28.51154367179895,
+            "fem_first_passage_ms": 29.52170240764135
+          }
+        }
+      },
+      {
+        "name": "galerkin-corners-dt4-q8",
+        "metrics": {
+          "micro": {
+            "common_reached_nodes": 241,
+            "fem_unreached_nodes": 0,
+            "bem_unreached_nodes": 0,
+            "max_abs_difference_ms": 1.531404781440409,
+            "rms_difference_ms": 0.9687282981331968,
+            "bem_first_passage_ms": 24.197079046464886,
+            "fem_first_passage_ms": 25.728483827905297
+          },
+          "Dc10": {
+            "common_reached_nodes": 241,
+            "fem_unreached_nodes": 0,
+            "bem_unreached_nodes": 0,
+            "max_abs_difference_ms": 2.09242395192508,
+            "rms_difference_ms": 0.9835143189001156,
+            "bem_first_passage_ms": 25.157259108798574,
+            "fem_first_passage_ms": 27.24968306072365
+          },
+          "Dc": {
+            "common_reached_nodes": 241,
+            "fem_unreached_nodes": 0,
+            "bem_unreached_nodes": 0,
+            "max_abs_difference_ms": 1.0586325875080183,
+            "rms_difference_ms": 0.9744221194516687,
+            "bem_first_passage_ms": 28.46306982013333,
+            "fem_first_passage_ms": 29.52170240764135
+          }
+        }
+      },
+      {
+        "name": "galerkin-patch5-dt8-q6-streamed",
+        "metrics": {
+          "micro": {
+            "common_reached_nodes": 241,
+            "fem_unreached_nodes": 0,
+            "bem_unreached_nodes": 0,
+            "max_abs_difference_ms": 3.11151668802178,
+            "rms_difference_ms": 0.6916219188604604,
+            "bem_first_passage_ms": 26.40378273086054,
+            "fem_first_passage_ms": 25.728483827905297
+          },
+          "Dc10": {
+            "common_reached_nodes": 241,
+            "fem_unreached_nodes": 0,
+            "bem_unreached_nodes": 0,
+            "max_abs_difference_ms": 1.5968155051566817,
+            "rms_difference_ms": 0.6177980714034507,
+            "bem_first_passage_ms": 28.797691831864462,
+            "fem_first_passage_ms": 27.24968306072365
+          },
+          "Dc": {
+            "common_reached_nodes": 241,
+            "fem_unreached_nodes": 0,
+            "bem_unreached_nodes": 0,
+            "max_abs_difference_ms": 0.6794609602611899,
+            "rms_difference_ms": 0.6046477106969007,
+            "bem_first_passage_ms": 28.844786124208113,
+            "fem_first_passage_ms": 29.52170240764135
+          }
+        }
+      }
+    ],
+    "scope": "Saved-frame crossing estimates; not instantaneous front speed or sub-step accuracy"
   }
 }

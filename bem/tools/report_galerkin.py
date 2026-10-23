@@ -123,6 +123,11 @@ def main():
         "disk_spectrum_bem": "disk-spectrum-bem32/summary.json",
         "disk_spectrum_reference_failure": "disk-spectrum-bem-adaptive/reference_failure.json",
         "weakening_resolution": "weakening-resolution/summary.json",
+        "temporal_dt4": "galerkin-corners-dt4-q8/summary.json",
+        "temporal_comparison": "galerkin-temporal-comparison/event16_results.json",
+        "temporal_bulk_work": "galerkin-corners-dt4-q8/bulk_work.json",
+        "temporal_adjoint": "galerkin-corners-dt4-q8/adjoint.json",
+        "temporal_fronts": "front-temporal-comparison/summary.json",
     }
     results = {
         "date": "2026-10-23",
@@ -133,7 +138,12 @@ def main():
         target = ROOT / "outputs" / path
         if target.exists():
             item = json.loads(target.read_text())
-            if key in ["event16_comparison", "fine_event_comparison", "fem_loading_comparison"]:
+            if key in [
+                "event16_comparison",
+                "fine_event_comparison",
+                "fem_loading_comparison",
+                "temporal_comparison",
+            ]:
                 item = {
                     k: item[k]
                     for k in ["fem", "bem", "comparison_scope", "full_original_event_reproduced"]
@@ -197,6 +207,9 @@ def main():
     source = ROOT / "outputs/galerkin-loading-comparison/figures/event16_comparison.png"
     if source.exists():
         shutil.copyfile(source, figures / "galerkin_loading_diagnostic.png")
+    source = ROOT / "outputs/galerkin-temporal-comparison/figures/event16_comparison.png"
+    if source.exists():
+        shutil.copyfile(source, figures / "galerkin_temporal_event16.png")
     for name, target in [
         ("event16_comparison.png", "galerkin_space_event16.png"),
         ("event16_profiles.png", "galerkin_space_profiles.png"),
