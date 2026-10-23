@@ -10,10 +10,13 @@
 最新 [空間加密與完整歷史 adjoint 結果](docs/refinement.md) 說明改善與仍未收斂的部分。
 新增 [2024–2026 文獻與實作決策](docs/literature.md)，以及可選的頻率插值與 bulk 被動性檢查。
 新的 [P1/P0 對稱 Galerkin backend](docs/galerkin.md) 已接回完整歷史與 JAX，
-提供一致的 nodal forces、端點接觸與批次組裝。較細網格已完成 45 ms，最大滑移仍比 FEM 低約 31%。
+提供一致的 nodal forces、端點接觸與批次組裝。較細網格已完成 45 ms，
+時間步由 8 降至 4 us 後，最大滑移偏差由約 31% 降至約 25%；前緣仍未吻合。
 完整歷史 FFT 改為只快取可重用的區塊；同一較細軌跡及 adjoint 逐位相同，程序峰值 RSS 約減半。
 Galerkin CLI 可用 `--spectrum-directory` 把完整半頻譜存到磁碟，降低建立權重時的 RAM 需求；
 時間權重和全部歷史仍保留，原本的取樣及 IFFT 公式不變。
+新增 [Radau 時間積分研究](docs/radau_experiment.md) 與
+[彈性 resolvent 分解原型](docs/resolvent.md)，均保留獨立驗證與尚未通過的條件。
 
 程式與 Tatva、Bem2d.jl 獨立，不需要讀取或修改外接磁碟，也不需要上層 repository 的 Julia 環境。
 可以把本資料夾獨立放進新的 GitHub repository。

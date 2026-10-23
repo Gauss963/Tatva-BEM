@@ -141,9 +141,19 @@ def main():
         "disk_cache_migration_coarse4": "disk-migration-coarse4.json",
         "outer_resolution": "outer-resolution/summary.json",
         "temporal_forward_sensitivity": "coarse4-forward-sensitivity/summary.json",
+        "fine_temporal_dt4": "galerkin-patch5-dt4-q6-disk/summary.json",
+        "fine_temporal_comparison": "galerkin-fine-temporal-comparison/event16_results.json",
+        "fine_temporal_fronts": "front-fine-temporal-comparison/summary.json",
+        "fine_temporal_weakening": "weakening-fine-temporal-resolution/summary.json",
+        "fine_temporal_bulk_work": "galerkin-patch5-dt4-q6-disk/bulk_work.json",
+        "fine_temporal_adjoint": "galerkin-patch5-dt4-q6-disk/adjoint.json",
+        "fine_temporal_quadrature": "galerkin-fine4-quadrature/summary.json",
+        "fine_temporal_forward_sensitivity": "fine4-forward-sensitivity-streamed/summary.json",
+        "coarse_streamed_forward_sensitivity": "coarse4-forward-sensitivity-streamed/summary.json",
+        "resolvent_native32": "resolvent-native32-current/summary.json",
     }
     results = {
-        "date": "2026-10-23",
+        "date": "2026-10-24",
         "scope": "Galerkin bulk/short dynamics and ongoing event validation; no equal-accuracy FEM speed claim",
         "full_original_event_reproduced": False,
     }
@@ -156,6 +166,7 @@ def main():
                 "fine_event_comparison",
                 "fem_loading_comparison",
                 "temporal_comparison",
+                "fine_temporal_comparison",
             ]:
                 item = {
                     k: item[k]
@@ -163,6 +174,24 @@ def main():
                 }
             results[key] = item
     write_json(ROOT / "docs/galerkin_results.json", results)
+    radau = {
+        "date": "2026-10-24",
+        "full_original_event_reproduced": False,
+        "scope": "Experimental short RK-CQ and analytic transfer checks; includes failed quadrature refinement",
+    }
+    for key, path in {
+        "analytic": "radau-analytic-current/summary.json",
+        "contact": "radau-bem-contact-current/summary.json",
+        "finer": "radau-bem-contact-finer/summary.json",
+        "q24": "radau-bem-contact-q24/summary.json",
+        "ad_r8": "radau-bem-contact-finer/adjoint-r8.json",
+        "ad_q24": "radau-bem-contact-q24/adjoint-r16.json",
+        "ad_q24_small_step": "radau-bem-contact-q24/adjoint-r16-small-penalty-step.json",
+    }.items():
+        target = ROOT / "outputs" / path
+        if target.is_file():
+            radau[key] = json.loads(target.read_text())
+    write_json(ROOT / "docs/radau_results.json", radau)
     fig, axes = plt.subplots(2, 2, figsize=(11, 7), layout="constrained")
     for h, dt in [(0.2, 0.04), (0.1, 0.02)]:
         with np.load(ROOT / f"outputs/galerkin-wave/h{h}-dt{dt}.npz") as data:
@@ -223,6 +252,12 @@ def main():
     source = ROOT / "outputs/galerkin-temporal-comparison/figures/event16_comparison.png"
     if source.exists():
         shutil.copyfile(source, figures / "galerkin_temporal_event16.png")
+    source = ROOT / "outputs/galerkin-fine-temporal-comparison/figures/event16_comparison.png"
+    if source.exists():
+        shutil.copyfile(source, figures / "galerkin_fine_temporal_event16.png")
+    source = ROOT / "outputs/front-fine-temporal-comparison/fronts.png"
+    if source.exists():
+        shutil.copyfile(source, figures / "galerkin_fine_temporal_fronts.png")
     for name, target in [
         ("event16_comparison.png", "galerkin_space_event16.png"),
         ("event16_profiles.png", "galerkin_space_profiles.png"),

@@ -33,7 +33,7 @@ from finiteblock_bem.sampling import SamplingOptions
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def forward_gradient(system, history, result, reference):
+def forward_gradient(system, history, result, reference, *, fft_rows=4):
     steps, dofs = history.plan.steps, history.plan.dofs
     n = len(reference.constraints.contact_weights)
     q = np.column_stack(
@@ -70,9 +70,10 @@ def forward_gradient(system, history, result, reference):
         return q_dot, state_dot[:, :, 0].T, state_dot[:, :, 1].T
 
     # The five independent source vectors reuse the SAME matrix-kernel FFTs.
-    # Cache-all is deliberate here and explicitly budgeted by this validator.
+    # Last-use row streaming bounds the large levels. All five streams still
+    # share the transforms of levels that need reuse.
     transforms = {}
-    online = [OnlineConvolution(history, fft_rows=None) for _ in range(5)]
+    online = [OnlineConvolution(history, fft_rows=fft_rows) for _ in range(5)]
     for stream in online:
         stream.transforms = transforms
         stream.append(np.zeros(dofs))
@@ -97,6 +98,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("run", type=Path)
     parser.add_argument("--max-memory-mb", type=float, default=8192)
+    parser.add_argument("--cache-all-reference", action="store_true")
     parser.add_argument("--output", type=Path, default=ROOT / "outputs/forward-sensitivity-check")
     args = parser.parse_args()
     args.output.mkdir(parents=True, exist_ok=True)
@@ -110,11 +112,21 @@ def main():
     if summary["status"] != "completed_requested_horizon" or summary["source_changed_during_run"]:
         raise ValueError("A complete source-frozen trajectory is required")
     steps, dofs = summary["completed_steps"], summary["history_dofs"][0]
-    levels = int(steps).bit_length()
-    largest = 1 << (levels - 1)
-    cached = ((1 << levels) - 1 + levels) * dofs**2 * 16
-    padding = 2 * largest * dofs**2 * 8 if 2 * largest > steps + 1 else 0
-    estimate = (steps + 1) * dofs**2 * 8 + cached + padding + 40 * (steps + 1) * dofs * 8 + 1024**3
+    if args.cache_all_reference:
+        levels = int(steps).bit_length()
+        largest = 1 << (levels - 1)
+        cached = ((1 << levels) - 1 + levels) * dofs**2 * 16
+        padding = 2 * largest * dofs**2 * 8 if 2 * largest > steps + 1 else 0
+        kernel_peak = (steps + 1) * dofs**2 * 8 + cached + padding
+    else:
+        kernel_peak = plan_cq(
+            dofs,
+            summary["dt_s"],
+            steps,
+            max_memory_mb=65536,
+            disk_spectrum=options.get("spectrum_directory") is not None,
+        ).estimated_peak_bytes
+    estimate = kernel_peak + 40 * (steps + 1) * dofs * 8 + 1024**3
     if estimate > args.max_memory_mb * 1024**2:
         raise ValueError(f"Shared-FFT forward validator needs about {estimate / 1024**2:.1f} MiB")
     model = load_nodal_model(
@@ -159,7 +171,9 @@ def main():
     table = np.genfromtxt(folder / "history.csv", delimiter=",", names=True)
     result = SimpleNamespace(**saved, diagnostics=summary, residual_mpa=table["residual_mpa"])
     started = perf_counter()
-    forward = forward_gradient(system, history, result, reference)
+    forward = forward_gradient(
+        system, history, result, reference, fft_rows=None if args.cache_all_reference else 4
+    )
     forward_seconds = perf_counter() - started
     reverse = trajectory_adjoint(model.contact_case(), lift, history, result, equilibrium=reference)
     absolute = abs(forward - reverse["gradient"])
@@ -176,6 +190,7 @@ def main():
         peak_rss_mib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
         / (1024**2 if sys.platform == "darwin" else 1024),
         source_run=str(folder),
+        history_fft_rows=None if args.cache_all_reference else 4,
         environment=environment_record(options["case"]),
         validator_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
         scope="Fixed bulk/lift/recorded loading and active branches; full forward JVP/CQ vs reverse VJP/CQ; timings may overlap other jobs",

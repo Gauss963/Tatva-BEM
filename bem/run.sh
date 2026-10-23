@@ -84,6 +84,15 @@ elif [ "${1:-}" = adjoint ]; then
 elif [ "${1:-}" = forward-sensitivity-check ]; then
     shift
     exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/check_forward_sensitivity.py" "$@"
+elif [ "${1:-}" = radau-experiment ]; then
+    shift
+    exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/radau_experiment.py" "$@"
+elif [ "${1:-}" = radau-ad-check ]; then
+    shift
+    exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/check_radau_ad.py" "$@"
+elif [ "${1:-}" = resolvent-replay ]; then
+    shift
+    exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/replay_resolvent.py" "$@"
 elif [ "${1:-}" = static-refinement ]; then
     shift
     exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/static_refinement.py" "$@"

@@ -1,6 +1,6 @@
 # 近期文獻與 FEM 對照的實作決策
 
-檢索／閱讀日期：2026-10-23。範圍是有限彈性體的 fully dynamic 接觸、
+檢索／閱讀日期：2026-10-24。範圍是有限彈性體的 fully dynamic 接觸、
 時間域 BEM、卷積歷史加速與角落誤差；以下不是整個 BEM 領域的完整系統性回顧。
 目標是在相同物理模型與可量化誤差下重現 FEM，然後證明穩定性或總時間的優勢。
 目前尚未達成這個目標。
@@ -59,6 +59,24 @@ log(rcrit) = theta^4/4 + O(theta^6).
 現有程式使用獨立點、係數尾端、細分與直接取樣 fallback，仍需以 dense 軌跡核對。
 
 ## 從文獻到目前程式
+
+補讀高階時間積分的基礎分析：Banjai、Lubich
+[Runge–Kutta convolution coercivity and its use for time-dependent boundary integral equations](https://arxiv.org/html/1702.08385)，
+IMA J. Numer. Anal. 39 (2019), 1134–1157。兩階段 Radau IIA 的 b 加權 coercivity
+使它值得獨立測試；非線性誤差分析的 strict monotonicity 不能涵蓋本案的 slip weakening。
+已建立 [Radau 原型與反例紀錄](radau_experiment.md)，時間加密時必須同步核對空間積分。
+
+縮減歷史方面，補讀 Poussot-Vassal 等
+[Data-driven port-Hamiltonian structured identification for non-strictly passive systems](https://arxiv.org/html/2211.16250v2)
+（ECC 2023），尤其演算法及多通道實驗。它採資料位移與穩定性修正處理非嚴格被動系統，
+但原文連大型 MIMO 都仍未得到滿意結果，少通道的非對角 transfer 也有誤差。
+不能直接把本案 275 通道套入一般 Loewner 擬合，再由頻率曲線相近就宣稱保持能量。
+
+另讀 Xie、Wu（2025）
+[Adaptive data-driven method for modeling of frequency-dependent multiport systems](https://doi.org/10.1016/j.ymssp.2025.112381)
+的摘要、引言與章節預覽，未取得全文。其 tangential Loewner／自適應頻率選點適合後續比較，
+但目前沒有據此實作完整接觸 ROM。先驗證完整彈性 resolvent 的等價變數分解，
+再考慮有誤差控制及被動性檢查的近似，避免把新的模型誤差混入時間加密結果。
 
 原 backend 使用 `V^-1(1/2 I+K)` 的 P0 collocation。
 它在連續層級與能量相關的表示等價，但離散後不能把兩者視為同一方法。
