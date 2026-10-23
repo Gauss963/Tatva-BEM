@@ -113,6 +113,8 @@ def main():
             f"BEM {summary['panels'][0]}+{summary['panels'][1]} panels, "
             f"dt={summary['dt_s'] * 1e6:g} us"
         )
+        if summary.get("schedule") == "recorded_fem_actuator_diagnostic":
+            label += ", FEM actuator replay"
         history = read_history(run / "history.csv")
         with np.load(run / "trajectory.npz", allow_pickle=False) as trajectory:
             strength = trajectory["friction_coefficient"] * trajectory["pressure"]

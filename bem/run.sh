@@ -60,6 +60,15 @@ elif [ "${1:-}" = galerkin-quadrature ]; then
 elif [ "${1:-}" = galerkin-report ]; then
     shift
     exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/report_galerkin.py" "$@"
+elif [ "${1:-}" = fem-loading-replay ]; then
+    shift
+    exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/replay_fem_loading.py" "$@"
+elif [ "${1:-}" = weakening-audit ]; then
+    shift
+    exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/audit_weakening_resolution.py" "$@"
+elif [ "${1:-}" = disk-spectrum-benchmark ]; then
+    shift
+    exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/benchmark_disk_spectrum.py" "$@"
 elif [ "${1:-}" = galerkin-work ]; then
     shift
     exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/audit_nodal_work.py" "$@"

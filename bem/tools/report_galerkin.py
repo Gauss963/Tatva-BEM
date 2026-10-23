@@ -116,6 +116,13 @@ def main():
         "bessel_prototype": "bessel-experiment.json",
         "front_comparison": "front-comparison/summary.json",
         "front_table_replay": "front-comparison-replay/summary.json",
+        "fem_loading_replay": "galerkin-patch5-dt8-fem-loading-final/summary.json",
+        "fem_loading_comparison": "galerkin-loading-comparison/event16_results.json",
+        "disk_spectrum_dense": "disk-spectrum-bounded/summary.json",
+        "disk_spectrum_adaptive": "disk-spectrum-adaptive-final/summary.json",
+        "disk_spectrum_bem": "disk-spectrum-bem32/summary.json",
+        "disk_spectrum_reference_failure": "disk-spectrum-bem-adaptive/reference_failure.json",
+        "weakening_resolution": "weakening-resolution/summary.json",
     }
     results = {
         "date": "2026-10-23",
@@ -126,7 +133,7 @@ def main():
         target = ROOT / "outputs" / path
         if target.exists():
             item = json.loads(target.read_text())
-            if key in ["event16_comparison", "fine_event_comparison"]:
+            if key in ["event16_comparison", "fine_event_comparison", "fem_loading_comparison"]:
                 item = {
                     k: item[k]
                     for k in ["fem", "bem", "comparison_scope", "full_original_event_reproduced"]
@@ -187,6 +194,9 @@ def main():
     source = ROOT / "outputs/front-comparison/fronts.png"
     if source.exists():
         shutil.copyfile(source, figures / "galerkin_fronts.png")
+    source = ROOT / "outputs/galerkin-loading-comparison/figures/event16_comparison.png"
+    if source.exists():
+        shutil.copyfile(source, figures / "galerkin_loading_diagnostic.png")
     for name, target in [
         ("event16_comparison.png", "galerkin_space_event16.png"),
         ("event16_profiles.png", "galerkin_space_profiles.png"),

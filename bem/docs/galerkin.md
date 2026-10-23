@@ -229,6 +229,58 @@ Git source hash、所有算子檔案、CQ 數學函式 AST、幾何與 metadata�
 已另外啟動同一粗網格、Gauss 8、45 ms、dt=4 us 的四 worker 計算，
 固定其餘設定以分離時間誤差。產生完整 summary 前不列為已完成或已收斂。
 
+## 分離載入停止與摩擦時間解析度
+
+固定較細網格、同一組 CQ 權重、摩擦參數及 static lift，改為指定 FEM 已保存的
+actuator 歷程，關閉 BEM 自己的 coverage hold。這是用於分離誤差的診斷，
+不能替代原停止政策的驗收。t=0 使用 static lift 的精確 actuator，
+其後沿用 FEM 記錄的線性內插值；完整來源指紋寫入 manifest。
+
+最大滑移由 0.443675 增至 0.451780 mm，增加約 0.0081 mm，仍比 FEM 低約 29.86%。
+末滑移分布 L2 差由 31.53% 降至 30.39%，成核保存時間仍為 26.408 ms。
+載入停止差異只解釋原最大滑移差距的約 4%；空間／時間誤差仍須繼續處理。
+
+![同一 BEM 核心的 FEM 載入歷程診斷](figures/galerkin_loading_diagnostic.png)
+
+另直接檢查每個接受步的累積滑移。較細 8 us 案例中，
+仍在弱化的節點最大單步增量約為 2.97 Dc；9／137 個節點曾在一步內跨過
+10%→90% 的弱化區間，對應 lumped line measure 約 2.61%。
+各節點最大單步弱化進度的節點中位數約 60.5%，局部整段弱化會在一步內完成。
+這顯示弱化轉換只由少數時間步表示，仍須以時間加密驗證；平衡殘差很小並不能替代此項檢查。
+
+沿每步保存的壓力固定不變，把 `mu(c)` 對該步塑性增量精確積分，
+可比較 previous-state 係數的矩形積分差。較細案例差約 11.92 MPa mm²，
+約為已計算摩擦功的 0.577%。這是局部固定壓力的積分診斷，
+沒有把它當成整個耦合問題的能量誤差界或 FEM 滑移偏差的已證明原因。
+工具 `audit_weakening_resolution.py` 保存逐節點結果，供 4 us 案例完成後直接比較。
+
+## 磁碟頻譜原型
+
+時間步再縮小時，半頻譜與實數權重會同時佔用大量 RAM。
+`tools/benchmark_disk_spectrum.py` 在隔離程序中，保留原 sampler 的程式碼，
+只把半頻譜配置換成磁碟陣列。每次最多映射 64 個頻率矩陣，讀取時複製所需列，
+映射隨即關閉；原本的四列 IFFT、radius 修正與 dense 權重配置均保留。
+目前用 private function copy 注入配置器，沒有改寫 NumPy globals 或主套件；
+正式接入仍需明確的 storage API 與資源預估。
+
+4097 步、64 DOFs 的有理 transfer 測試中，adaptive 取樣決策、全部權重逐位相同，
+峰值 RSS 約 821→338 MiB。磁碟 I/O 有額外成本，不能由此宣稱速度優勢。
+既有 h=80 mm／32 步強載入 BEM 診斷也完成：最大滑移 0.906945 mm，
+解、五參數梯度、actuator 梯度與初始狀態 cotangent 逐位相同。
+這個短診斷不是原 45 ms event-16；較細 4 us 的完整磁碟版本尚未執行。
+
+另有 h=160 mm／128 步強載入的 reference 在第 104 步 Newton 失敗，
+當時尚未執行 disk variant。失敗條件與殘差亦保存，未把它列為通過的儲存或穩定性測試。
+
+```sh
+FDBEM_CORES=1 bem/run.sh fem-loading-replay \
+  bem/outputs/galerkin-patch5-dt8-q6-streamed --name prescribed-loading-diagnostic
+FDBEM_CORES=1 bem/run.sh weakening-audit bem/outputs/galerkin-patch5-dt8-q6-streamed
+FDBEM_CORES=1 bem/run.sh disk-spectrum-benchmark --adaptive
+FDBEM_CORES=1 bem/run.sh disk-spectrum-benchmark --bem --adaptive \
+  --output bem/outputs/disk-spectrum-bem32
+```
+
 ## 重跑
 
 從 repository 根目錄執行，所有輸出留在 `bem/outputs`：
