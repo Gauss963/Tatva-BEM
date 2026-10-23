@@ -81,6 +81,9 @@ elif [ "${1:-}" = bdf2-domain ]; then
 elif [ "${1:-}" = adjoint ]; then
     shift
     exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/run_adjoint.py" "$@"
+elif [ "${1:-}" = forward-sensitivity-check ]; then
+    shift
+    exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/check_forward_sensitivity.py" "$@"
 elif [ "${1:-}" = static-refinement ]; then
     shift
     exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/static_refinement.py" "$@"

@@ -237,7 +237,7 @@ Git source hash、所有算子檔案、CQ 數學函式 AST、幾何與 metadata�
 最大平衡殘差約 1.21e-10 MPa，獨立 bulk 擾動功最小值 0、末值 39.09 MPa mm²。
 冷權重建立約 3492 s、推進約 5.3 s；期間與診斷重疊，並非受控速度比較。
 此案例的小擾動差分未改變保存的滑動／開閉分支，mu_s、Dc 梯度相對差約 1e-4，
-mu_k 約 0.38%；尚需獨立 tangent 檢查釐清小敏感度下的差分／求解誤差。
+mu_k 約 0.38%；下述獨立正向 tangent 檢查已通過，差分／求解誤差的來源仍待釐清。
 
 ![固定空間網格的時間步對照](figures/galerkin_temporal_event16.png)
 
@@ -279,7 +279,7 @@ actuator 歷程，關閉 BEM 自己的 coverage hold。這是用於分離誤差�
 峰值 RSS 約 821→338 MiB。磁碟 I/O 有額外成本，不能由此宣稱速度優勢。
 既有 h=80 mm／32 步強載入 BEM 診斷也完成：最大滑移 0.906945 mm，
 解、五參數梯度、actuator 梯度與初始狀態 cotangent 逐位相同。
-這個短診斷不是原 45 ms event-16；較細 4 us 的完整磁碟版本尚未執行。
+這個短診斷不是原 45 ms event-16；較細 4 us 的完整磁碟版本正在建立動態核心。
 
 另有 h=160 mm／128 步強載入的 reference 在第 104 步 Newton 失敗，
 當時尚未執行 disk variant。失敗條件與殘差亦保存，未把它列為通過的儲存或穩定性測試。
@@ -345,6 +345,21 @@ FDBEM_CORES=4 bem/run.sh adjoint bem/outputs/galerkin-sliding-32 \
 AD 重用固定材料／幾何的 CQ 權重，高效計算摩擦參數的條件式梯度。
 SciPy bulk、靜態 lift 和停止載入事件時間的參數導數仍未串接；
 這些限制對新 backend 同樣成立。原 `/Volumes/Gauss-T7/tatva` 保持只讀。
+
+另以獨立的正向敏感度傳播，核對粗網格 4 us／11250 步的完整軌跡。
+每步用 JAX JVP 和隱式切線解傳遞五組狀態導數，再以正向 CQ 保留全部歷史；
+五組卷積共用同一份 kernel FFT，沒有對 Newton 迭代逐步微分。
+與反向 VJP／轉置 CQ 的五參數梯度相比，最大相對差約 2.55e-13。
+這支持固定 bulk、lift、記錄載入及接觸分支下的導數實作；
+先前 mu_k 小差分約 0.38% 的差距仍保留，不能僅由此判定其全部原因。
+工具會拒絕不相符的 source／case／restart 指紋，並要求已存在的 CQ 權重；
+目前採用有資源預檢的 cache-all 參考歷史，適用於粗網格的獨立核對。
+
+```sh
+FDBEM_CORES=1 bem/run.sh forward-sensitivity-check \
+  bem/outputs/galerkin-corners-dt4-storage-baseline \
+  --output bem/outputs/coarse4-forward-sensitivity
+```
 
 FEM 靜態 study 的小型設定已包入 `resources/data/fem_static_onset_input.json`，
 原 solver revision 保存在 repository 的 `codex/fem-event16-reference` 分支。

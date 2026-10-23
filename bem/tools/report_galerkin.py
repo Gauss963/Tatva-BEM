@@ -140,6 +140,7 @@ def main():
         "disk_cache_migration_fine8": "disk-migration-fine8.json",
         "disk_cache_migration_coarse4": "disk-migration-coarse4.json",
         "outer_resolution": "outer-resolution/summary.json",
+        "temporal_forward_sensitivity": "coarse4-forward-sensitivity/summary.json",
     }
     results = {
         "date": "2026-10-23",
