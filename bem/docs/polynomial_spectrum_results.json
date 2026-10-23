@@ -1,0 +1,143 @@
+{
+  "compression": {
+    "source": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/polynomial-spectrum-coarse4/summary.json",
+    "sha256": "ba54d3d4c4f9b42380550d79ff1da9e3fc0a06bfc973b635e3a0ae00603230af",
+    "values": {
+      "shape": [
+        16385,
+        71,
+        71
+      ],
+      "degree": 16,
+      "relative_tolerance": 1e-13,
+      "absolute_tolerance": 1e-18,
+      "direct_grid_points": 3136,
+      "polynomial_grid_points": 13249,
+      "maximum_normalized_grid_error": 0.8987426620721188,
+      "all_grid_points_checked": true,
+      "certified_continuous_frequency_bound": false,
+      "raw_array_bytes": 1321548560,
+      "stored_array_bytes": 309333680,
+      "provenance": {
+        "source_kernel": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/direct-resolvent-coarse4",
+        "source_summary_sha256": "d71e082fca449f333d63c6f4a45808ff8147a5967b7c9d35ba774d27f062b85c",
+        "source_spectrum": {
+          "backend": "disk_half_spectrum",
+          "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/direct-resolvent-coarse4/work-resolvent.npy",
+          "shape": [
+            16385,
+            71,
+            71
+          ],
+          "bytes": 1321548688,
+          "sha256": "a5b6d82cd2446d08401fcda903e9b0f9a4e77377da7aa33a7300e7df113eda64",
+          "implementation_sha256": "da2534ef95e95813a464ff04f78a092be374110650d1866cbc1fb8ea5b5105b2",
+          "all_frequency_matrices_written": true,
+          "coordinates": "diag(sqrt(w)) * L * diag(sqrt(w))"
+        },
+        "plan": {
+          "dt": 4e-06,
+          "steps": 5500,
+          "dofs": 71,
+          "fft_size": 32768,
+          "radius": 0.9992975536264019,
+          "estimated_peak_bytes": 468999304,
+          "weight_bytes": 221844328
+        }
+      },
+      "implementation_sha256": "685b1f6d0294524c970c7e1af35da609f0d74851a43e6bbc50820acd05158f29"
+    }
+  },
+  "rebuild": {
+    "source": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/polynomial-kernel-coarse4/summary.json",
+    "sha256": "87954cb839eccd672b76029016ee219bee68f840fee9744f1e2b6f205c3a24af",
+    "values": {
+      "maximum_time_weight_difference": 4.989664297121945e-18,
+      "maximum_elastic_startup_difference": 1.4593222463776812e-12,
+      "initial_composition_inf_error": 2.1515670748224745e-11,
+      "timing_components": {
+        "source_build_seconds": 3541.513544875197,
+        "compression_process_seconds": 6.9993632500991225,
+        "rebuild_seconds": 8.421009249985218
+      },
+      "timing_scope": "Dependency-inclusive observed times, source build may overlap diagnostics; not a controlled cold benchmark"
+    }
+  },
+  "trajectory_vs_original_Z": {
+    "source": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/polynomial-replay-coarse4/summary.json",
+    "sha256": "2e73a34ed1fab71bea04429dd47cc06dcba92c4686bd22c0191b724ddd934a5c",
+    "values": {
+      "maximum_absolute_field_difference": {
+        "pressure": 1.1262110319876228e-06,
+        "shear": 7.237399586301763e-06,
+        "plastic_slip": 3.041762397515413e-08,
+        "cumulative_slip": 3.041762199063047e-08,
+        "actuator": 0.0,
+        "platen": 2.234624929542406e-09,
+        "contact_jumps": 2.998637960160977e-08
+      },
+      "max_cumulative_slip_mm": 0.44291458882136775,
+      "maximum_residual_mpa": 1.383567635555061e-11,
+      "actuator_hold_time_s": 0.028895999999999998,
+      "strict_field_comparison_passed": true,
+      "first_correction_step": 6050,
+      "total_steps": 11250
+    }
+  },
+  "original_balance": {
+    "source": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/polynomial-replay-coarse4/original_residual.json",
+    "sha256": "dcf5e271676c2cd68cbf24646531778745944ca5827beaf32d2c861ca21544fd",
+    "values": {
+      "residual_plus_static_bound_mpa": 1.6929619036117393e-08,
+      "passes_original_balance_tolerance": true,
+      "maximum_force_fft_direct_difference": 4.672529030358419e-11,
+      "exact_branch_changes": {
+        "exact_sliding_entries": 0,
+        "exact_opening_entries": 0,
+        "weakening_clip_entries": 0,
+        "weakening_clip_tie_entries": 0
+      }
+    }
+  },
+  "adjoint_vs_original_Z": {
+    "source": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/polynomial-replay-coarse4/resolvent_adjoint.json",
+    "sha256": "2299772d9d5b47ef664064412f9665cbeac962f3ecac55b1c1d0d23962531209",
+    "values": {
+      "comparisons": {
+        "gradient_max_abs_difference": 8.236993238597279e-06,
+        "gradient_relative_difference": [
+          4.8949168475334705e-08,
+          5.344501513072204e-08,
+          5.4368660989858114e-08,
+          2.2308152737020634e-06,
+          6.099223854812392e-08
+        ]
+      },
+      "exact_branch_changes": {
+        "exact_sliding_entries": 0,
+        "exact_opening_entries": 0,
+        "weakening_clip_entries": 0,
+        "weakening_clip_tie_entries": 0
+      },
+      "steps": 11250,
+      "scope": "Fixed bulk/lift/recorded loading and active branches; complete correction transpose plus affine startup cotangents"
+    }
+  },
+  "compression_only_field_differences": {
+    "pressure": 4.0016514901708433e-07,
+    "shear": 2.7676103400153806e-06,
+    "cumulative_slip": 1.0849136186652508e-08,
+    "plastic_slip": 1.0849138476487497e-08,
+    "actuator": 0.0,
+    "platen": 7.404441504377246e-10,
+    "contact_jumps": 1.0695334395904865e-08
+  },
+  "compression_only_gradient_relative_differences": [
+    1.652816954564276e-08,
+    1.8511644510965038e-08,
+    1.8809291834345426e-08,
+    7.786084105944126e-07,
+    2.1413725062271408e-08
+  ],
+  "scope": "Discrete frequency storage verification and full coarse 45 ms primal/conditional five-parameter AD; no full FEM fidelity, certified continuum bound, online time-history compression or same-accuracy speed advantage claimed."
+}

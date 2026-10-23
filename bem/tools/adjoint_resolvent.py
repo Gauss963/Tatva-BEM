@@ -292,12 +292,29 @@ def main():
         source_plan = CQPlan(**original["spectrum_storage"]["cq_plan"])
         plan = replace(plan, fft_size=source_plan.fft_size, radius=source_plan.radius)
     storage = replay["spectrum_storage"] if standalone else replay["resolvent_storage"]
-    if (
-        not storage["all_frequency_matrices_written"]
-        or helper["digest_file"](storage["path"]) != storage["sha256"]
-    ):
-        raise ValueError("The complete resolvent spectrum is required")
-    spectrum = helper["SavedDiskSpectrum"](storage["path"], plan)
+    if storage["backend"] == "polynomial_half_spectrum":
+        folder = Path(storage["path"])
+        if (
+            not storage["all_frequencies_represented"]
+            or fingerprint(folder / "summary.json") != storage["sha256"]
+        ):
+            raise ValueError("The complete compressed spectrum is required")
+        compressed = runpy.run_path(str(Path(__file__).with_name("polynomial_spectrum.py")))
+        spectrum = compressed["PolynomialSpectrum"](folder)
+        if spectrum.shape != (plan.fft_size // 2 + 1, d, d):
+            raise ValueError("Compressed spectrum contour dimensions differ")
+        saved_plan = spectrum.metadata["provenance"]["plan"]
+        if any(
+            saved_plan[name] != getattr(plan, name) for name in ["dt", "dofs", "fft_size", "radius"]
+        ):
+            raise ValueError("Compressed spectrum uses a different CQ contour")
+    else:
+        if (
+            not storage["all_frequency_matrices_written"]
+            or helper["digest_file"](storage["path"]) != storage["sha256"]
+        ):
+            raise ValueError("The complete resolvent spectrum is required")
+        spectrum = helper["SavedDiskSpectrum"](storage["path"], plan)
     if prepared_path is None:
         history = BoundaryHistory(plan, invert_spectrum(spectrum, plan))
     if standalone:
