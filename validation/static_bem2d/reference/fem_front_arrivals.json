@@ -1,0 +1,16 @@
+{
+  "thresholds_mm": {
+    "micro": 1e-07,
+    "Dc10": 0.00125959,
+    "Dc": 0.0125959
+  },
+  "source_hdf5": {
+    "path": "/Volumes/Gauss-T7/tatva/runs/local-mus08-muk06-gap0-v2-ev16/data/simulation.h5",
+    "bytes": 12734535431,
+    "mtime_ns": 1792165113653703298
+  },
+  "source_hdf5_unchanged": true,
+  "time_origin_s": 0.002,
+  "frame_spacing_max_s": 5.010515451431274e-06,
+  "scope": "First cumulative-slip passage at saved FEM interface nodes"
+}

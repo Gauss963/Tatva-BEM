@@ -104,6 +104,18 @@ def main():
         "patch_preflight": "galerkin-patch-preflight.json",
         "fine_run_configuration": "galerkin-patch5-dt8-q6/run_manifest.json",
         "fine_run_result_if_completed": "galerkin-patch5-dt8-q6/summary.json",
+        "fine_event_comparison": "galerkin-space-comparison/event16_results.json",
+        "fine_bulk_work": "galerkin-patch5-dt8-q6/bulk_work.json",
+        "fine_adjoint": "galerkin-patch5-dt8-q6/adjoint.json",
+        "fine_streamed_replay": "galerkin-patch5-dt8-q6-streamed/summary.json",
+        "fine_streamed_adjoint": "galerkin-patch5-dt8-q6-streamed/adjoint.json",
+        "history_streaming_equivalence": "history-streaming-fine-equivalence.json",
+        "history_storage_coarse": "history-storage-dynamic-final/summary.json",
+        "history_storage_fine": "history-storage-fine-production/summary.json",
+        "cache_migration_fine": "history-migration-fine.json",
+        "bessel_prototype": "bessel-experiment.json",
+        "front_comparison": "front-comparison/summary.json",
+        "front_table_replay": "front-comparison-replay/summary.json",
     }
     results = {
         "date": "2026-10-23",
@@ -114,7 +126,7 @@ def main():
         target = ROOT / "outputs" / path
         if target.exists():
             item = json.loads(target.read_text())
-            if key == "event16_comparison":
+            if key in ["event16_comparison", "fine_event_comparison"]:
                 item = {
                     k: item[k]
                     for k in ["fem", "bem", "comparison_scope", "full_original_event_reproduced"]
@@ -170,6 +182,16 @@ def main():
         ("event16_profiles.png", "galerkin_profiles.png"),
     ]:
         source = ROOT / "outputs/galerkin-comparison-final/figures" / name
+        if source.exists():
+            shutil.copyfile(source, figures / target)
+    source = ROOT / "outputs/front-comparison/fronts.png"
+    if source.exists():
+        shutil.copyfile(source, figures / "galerkin_fronts.png")
+    for name, target in [
+        ("event16_comparison.png", "galerkin_space_event16.png"),
+        ("event16_profiles.png", "galerkin_space_profiles.png"),
+    ]:
+        source = ROOT / "outputs/galerkin-space-comparison/figures" / name
         if source.exists():
             shutil.copyfile(source, figures / target)
 

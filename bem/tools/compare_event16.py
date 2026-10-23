@@ -109,6 +109,10 @@ def main():
     profile_figure, profile_axes = None, None
     for run in args.runs:
         summary = json.loads((run / "summary.json").read_text())
+        label = (
+            f"BEM {summary['panels'][0]}+{summary['panels'][1]} panels, "
+            f"dt={summary['dt_s'] * 1e6:g} us"
+        )
         history = read_history(run / "history.csv")
         with np.load(run / "trajectory.npz", allow_pickle=False) as trajectory:
             strength = trajectory["friction_coefficient"] * trajectory["pressure"]
@@ -160,15 +164,18 @@ def main():
                     for ax, other in zip(profile_axes, reference_fields, strict=True):
                         ax.plot(reference["y"], reference[other], "k-", label="FEM h=2")
                 for ax, key in zip(profile_axes, fields, strict=True):
-                    ax.plot(trajectory["contact_y"], trajectory[key][-1], label=run.name)
-                    ax.set(xlabel="Interface y [mm]", title=key)
+                    ax.plot(trajectory["contact_y"], trajectory[key][-1], label=label)
+                    ax.set(
+                        xlabel="Interface y [mm]",
+                        ylabel={
+                            "cumulative_slip": "Cumulative slip [mm]",
+                            "pressure": "Pressure [MPa]",
+                            "shear": "Shear [MPa]",
+                        }[key],
+                    )
                     ax.grid(alpha=0.2)
                     ax.legend(fontsize=7)
         time = history["time_s"]
-        label = (
-            f"BEM {summary['panels'][0]}+{summary['panels'][1]} panels, "
-            f"dt={summary['dt_s'] * 1e6:g} us"
-        )
         errors = {}
         for ax, (bem_key, fem_key, _) in zip(axes.flat, mappings, strict=True):
             ax.plot(time * 1e3, history[bem_key], lw=1.1, label=label)
@@ -213,7 +220,7 @@ def main():
         ax.set_xlabel("Time from shear-phase start [ms]")
     axes[0, 0].legend(fontsize=8)
     fig.suptitle(
-        "Event 16: full-horizon coarse BEM vs archived FEM\n"
+        "Event 16: full-horizon BEM vs archived FEM\n"
         "Different spatial/temporal discretization and static restart projection"
     )
     fig.savefig(figures / "event16_comparison.png", dpi=170)

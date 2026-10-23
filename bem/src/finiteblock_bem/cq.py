@@ -6,6 +6,7 @@ The complete displacement history is retained. No local radiation-damping
 replacement or unreported history truncation is used.
 """
 
+import ast
 import hashlib
 import math
 import os
@@ -50,19 +51,20 @@ def plan_cq(dofs, dt, steps, *, alias_tolerance=1e-10, max_memory_mb=512):
     fft_size = 1 << math.ceil(math.log2(2 * (steps + 1)))
     radius = alias_tolerance ** (1 / fft_size)
     weight_bytes = (steps + 1) * dofs * dofs * 8
-    # Assembly and online stepping are separate phases. Count the actual half
-    # spectrum, bounded row-IFFT work and every possible dyadic kernel FFT.
-    # Include small vector histories/workspaces and matrix copies conservatively.
+    # Assembly and online stepping are separate phases. Only levels that can
+    # reuse their kernel FFT are cached. Last-use levels stream four output
+    # rows, retaining every history term. Count consecutive row FFTs plus
+    # scipy's zero-padding copy conservatively.
     spectrum = (fft_size // 2 + 1) * dofs**2 * 16
     inversion = 2 * fft_size * min(dofs, 4) * dofs * 8
     levels = int(steps).bit_length()
-    cached = ((1 << levels) - 1 + levels) * dofs**2 * 16
-    # scipy.fft pads a short real input before returning the new complex FFT.
-    # At the largest dyadic level this copy can coexist with all cached levels.
+    cached = sum((1 << k) + 1 for k in range(levels) if 3 * (1 << k) <= steps)
+    cached *= dofs**2 * 16
     largest = 1 << (levels - 1)
-    padding = 2 * largest * dofs**2 * 8 if 2 * largest > steps + 1 else 0
+    rows = min(dofs, 4)
+    streamed = 2 * (largest + 1) * rows * dofs * 16 + 2 * largest * rows * dofs * 8
     vectors = 8 * (steps + 1) * dofs * 8
-    peak = weight_bytes + max(spectrum + inversion, cached + vectors + padding) + 64 * dofs**2
+    peak = weight_bytes + max(spectrum + inversion, cached + vectors + streamed) + 64 * dofs**2
     if peak > max_memory_mb * 1024**2:
         raise ResourceBudgetError(
             f"Dense CQ needs about {peak / 1024**2:.1f} MiB peak for {steps} steps and "
@@ -92,6 +94,33 @@ def plan_domains(dofs, dt, steps, *, max_memory_mb=512):
 
 def bdf2_symbol(zeta):
     return 1.5 - 2 * zeta + 0.5 * zeta * zeta
+
+
+def cq_plan_signature(plan):
+    """Mathematical contour, independent of workspace estimates and budgets."""
+    return plan.dt, plan.steps, plan.dofs, plan.fft_size, plan.radius
+
+
+def cq_math_signature(source=None):
+    """Hash weight-generating code, separately from online history storage.
+
+    These three functions contain the complete contour/sampling/inversion
+    operations in this module. Operator and adaptive-sampling files are hashed
+    separately by their cache builders. Historical migration checks the same AST.
+    """
+    source = Path(__file__).read_text() if source is None else source
+    names = ["bdf2_symbol", "convolution_weights", "invert_spectrum"]
+    nodes = {
+        node.name: node
+        for node in ast.parse(source).body
+        if isinstance(node, ast.FunctionDef) and node.name in names
+    }
+    if set(nodes) != set(names):
+        raise ValueError("Incomplete CQ weight-generating source")
+    digest = hashlib.sha256()
+    for name in names:
+        digest.update(ast.dump(nodes[name], include_attributes=False).encode())
+    return digest.hexdigest()
 
 
 def convolution_weights(transfer: Callable, plan: CQPlan, *, progress=None, workers=1):
@@ -171,17 +200,24 @@ class OnlineConvolution:
     Every source/target pair belongs to one adjacent dyadic block pair.
     Completed left blocks update their future right blocks, so no future
     displacement is needed and no memory tail is truncated. Complexity is
-    O(N log²(N) d²), with O(N d²) cached kernel transforms. The small-block
-    direct path avoids FFT overhead. W[0] stays in the implicit equation.
+    O(N log²(N) d²). Reused levels cache their kernel transforms; a level
+    without another future use streams a bounded number of output rows.
+    The small-block direct path avoids FFT overhead. W[0] stays implicit.
+    fft_rows=None restores the cache-all diagnostic reference and is not
+    covered by the default memory planner.
     """
 
-    def __init__(self, history: BoundaryHistory, *, direct_block=16):
+    def __init__(self, history: BoundaryHistory, *, direct_block=16, fft_rows=4):
+        if fft_rows is not None and (not isinstance(fft_rows, int) or fft_rows < 1):
+            raise ValueError("fft_rows must be a positive integer or None")
         self.history = history
         self.pending = np.zeros((history.plan.steps + 1, history.plan.dofs))
         self.inputs = np.zeros_like(self.pending)
         self.transforms = {}
         self.next_step = 0
         self.direct_block = direct_block
+        self.fft_rows = fft_rows
+        self.streamed_levels = []
 
     def past(self, step):
         if step != self.next_step or step > self.history.plan.steps:
@@ -210,10 +246,28 @@ class OnlineConvolution:
                     "kij,j->ki", self.history.weights[lag : lag + count], self.inputs[start + j]
                 )
         else:
+            source = rfft(self.inputs[start : n + 1], n=2 * b, axis=0)
+            # Same-level blocks end at n+2*b. At steps there are no future
+            # targets, so only n+2*b < steps can reuse a newly built FFT.
+            if (
+                self.fft_rows is not None
+                and b not in self.transforms
+                and n + 2 * b >= self.history.plan.steps
+            ):
+                self.streamed_levels.append(b)
+                for row in range(0, self.history.plan.dofs, self.fft_rows):
+                    kernel = self.history.weights[
+                        : min(2 * b, len(self.history.weights)), row : row + self.fft_rows
+                    ]
+                    transform = rfft(kernel, n=2 * b, axis=0)
+                    product = np.einsum("kij,kj->ki", transform, source, optimize=False)
+                    self.pending[n + 1 : n + 1 + count, row : row + self.fft_rows] += irfft(
+                        product, n=2 * b, axis=0
+                    )[b : b + count]
+                return
             if b not in self.transforms:
                 kernel = self.history.weights[: min(2 * b, len(self.history.weights))]
                 self.transforms[b] = rfft(kernel, n=2 * b, axis=0)
-            source = rfft(self.inputs[start : n + 1], n=2 * b, axis=0)
             product = np.einsum("kij,kj->ki", self.transforms[b], source, optimize=False)
             # Circular aliases only affect indices < b, which are discarded.
             self.pending[n + 1 : n + 1 + count] += irfft(product, n=2 * b, axis=0)[b : b + count]

@@ -1,3 +1,5 @@
+from dataclasses import replace
+
 import numpy as np
 import pytest
 
@@ -7,6 +9,8 @@ from finiteblock_bem.cq import (
     ResourceBudgetError,
     bdf2_symbol,
     convolution_weights,
+    cq_math_signature,
+    cq_plan_signature,
     plan_cq,
 )
 
@@ -50,20 +54,38 @@ def test_resource_guard_prevents_large_allocations():
     assert np.real(bdf2_symbol(0.8 + 0j)) > 0
 
 
-@pytest.mark.parametrize("steps", [1, 31, 64, 137])
-def test_online_fft_matches_every_dense_history_term(steps):
+@pytest.mark.parametrize("steps", [1, 31, 64, 137, 257])
+@pytest.mark.parametrize("fft_rows", [1, 4, None])
+def test_online_fft_matches_every_dense_history_term(steps, fft_rows):
     rng = np.random.default_rng(83)
     plan = plan_cq(6, 0.01, steps)
-    weights = rng.normal(size=(steps + 1, 6, 6))
+    weights = rng.normal(size=(steps + 1, 6, 6)).transpose(0, 2, 1)
     # Noncommuting matrix kernels and nonzero initial data detect indexing errors.
     reference = BoundaryHistory(plan, weights)
-    online = OnlineConvolution(reference, direct_block=2)
+    online = OnlineConvolution(reference, direct_block=2, fft_rows=fft_rows)
     u = rng.normal(size=(steps + 1, 6))
     for step in range(steps + 1):
         np.testing.assert_allclose(online.past(step), reference.past_traction(u, step), atol=2e-13)
         online.append(u[step])
+    if fft_rows is not None:
+        assert all(3 * level <= steps for level in online.transforms)
+        assert not set(online.streamed_levels).intersection(online.transforms)
     with pytest.raises(ValueError, match="complete"):
         online.append(u[0])
+
+
+def test_cq_cache_signature_excludes_resources_but_tracks_mathematics():
+    from pathlib import Path
+
+    import finiteblock_bem.cq as cq
+
+    plan = plan_cq(5, 0.02, 80)
+    assert cq_plan_signature(plan) == cq_plan_signature(replace(plan, estimated_peak_bytes=123))
+    assert cq_plan_signature(plan) != cq_plan_signature(replace(plan, dt=0.01))
+    source = Path(cq.__file__).read_text()
+    signature = cq_math_signature(source)
+    assert signature == cq_math_signature(source.replace("direct_block=16", "direct_block=8"))
+    assert signature != cq_math_signature(source.replace("1.5 - 2 * zeta", "1.6 - 2 * zeta"))
 
 
 def test_parallel_frequency_sampling_preserves_weights():

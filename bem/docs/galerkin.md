@@ -94,7 +94,7 @@ traction-scaled 矩陣差最大約 `3.45e-6`／`2.86e-7`。
 階數 8 的完整動態對照仍須核對更高階積分與更嚴格的頻率插值。
 這是取樣檢查，不是全頻誤差界。
 
-目前本機 58 項 BEM tests 與 Ruff 通過。短程 Galerkin 滑動診斷的
+目前本機 70 項 BEM tests 通過。短程 Galerkin 滑動診斷的
 mu_s 梯度與中央差分相對差約 `2.21e-9`，兩側差分沒有改變保存的接觸分支；
 該診斷使用加速載入，不是 event-16 的物理參數識別。
 
@@ -158,12 +158,76 @@ seed 在 2 mm 節點存在斜率轉折，漸變網格會重新近似這些特徵
 
 ![靜態屈服的網格與 seed 特徵敏感度](figures/galerkin_static_onset.png)
 
-下一組採 contact 5 mm、corner 0.5 mm、端點 8 mm 區間的 0.5 mm patch，
-250+254 面板、137 接觸節點、Gauss 6。記憶體陣列預估約 18333 MiB；
-靜態 lift 與 1／5／10 kHz 的取樣被動性預檢通過，現以 4 workers 建立完整權重。
-其 Gauss 6／16 靜態屈服預估差約 0.08 us；完整動態精度尚未驗證。
-執行設定保存在 `outputs/galerkin-patch5-dt8-q6/run_manifest.json`，
-在產生完整 summary 前不列為已完成的事件。
+較細一組採 contact 5 mm、corner 0.5 mm、端點 8 mm 區間的 0.5 mm patch，
+250+254 面板、137 接觸節點、Gauss 6。四 workers 完成原載入的 45 ms／5625 步。
+其 Gauss 6／16 靜態屈服預估差約 0.08 us；動態積分與時間收斂仍須另行驗證。
+
+|量|粗 Galerkin|較細 Galerkin|原 FEM|
+|---|---:|---:|---:|
+|首次保存滑移|24.216 ms|26.408 ms|25.733 ms|
+|停止載入|29.024 ms|29.272 ms|29.788 ms|
+|最大累積滑移|0.400258 mm|0.443675 mm|0.644123 mm|
+|末滑移分布相對 L2 差|39.25%|31.53%|—|
+|末壓力／剪力分布相對 L2 差|10.03%／10.39%|20.27%／22.31%|—|
+
+較細網格改善成核與滑移，但最大滑移仍低約 31.12%，端點峰值也使壓力／剪力的
+分布差增大。不能把這兩組當成已收斂解，更不能宣稱與 FEM 等價。
+此次冷建立約 7938 s、推進約 22.3 s；頻率評估 3210 次，完整歷史保留。
+冷計算期間有短程診斷重疊，因此不是與 FEM 的受控速度比較。
+
+最大平衡殘差約 2.06e-10 MPa，累積滑移非遞減，壓力保持正值，強度比不超過 1。
+獨立 FFT／直接加總的 bulk 力最大差約 3.25e-11，累積 bulk 擾動功最小值 0、
+末值 37.80 MPa mm²；這仍不是總非線性能量證明。
+全歷史 adjoint 的 mu_k、Dc 中央差分相對差約 8.8e-8、8.5e-6。
+mu_s 以 1e-8 擾動時改變一個滑動狀態；改用 1e-9 後兩側分支均不變，
+相對差約 2.9e-6。這些仍是固定 bulk、lift 與記錄載入的條件式導數。
+
+![空間解析度與 FEM 的完整歷程](figures/galerkin_space_event16.png)
+![包含端點的末界面分布](figures/galerkin_space_profiles.png)
+
+另以原 FEM 的 241 個界面位置，比對累積滑移第一次跨越 1e-7、0.1 Dc、Dc 的時間。
+BEM 在空間上作 P1 插值；兩邊都記錄原 frame 的左右時間括號，線性內插僅為括號內估計。
+FEM 保存間距約 5 us、BEM 為 8 us，不能由內插小數位宣稱更高時間解析度。
+達到 Dc 的節點到達時間 RMS 差，粗／較細網格約 0.905／0.605 ms，
+最大差約 1.010／0.679 ms。但 1e-7 門檻在下端點的最大差，較細網格仍達 3.112 ms。
+因此第一個成核點接近，不等於整段微滑移前緣已吻合。
+這三個門檻的 FEM 小型 arrival table 已保存，可不讀外接 HDF5 重跑此項對照。
+
+![累積滑移門檻的前緣對照](figures/galerkin_fronts.png)
+
+## 完整歷史的記憶體改良
+
+`OnlineConvolution` 現在只快取之後還會使用的 dyadic kernel FFT；
+只使用一次的大區塊改為每四個輸出列計算。若目前區塊結束於 n、長度 b，
+同層下一區塊結束於 n+2b；只有它仍有未來目標時才需要重用 FFT。
+沒有刪除 CQ 權重或歷史項，正向和轉置 adjoint 共用同一規則。
+
+六種短／非整齊長度、非對稱矩陣、轉置 strided 權重與不同列數，都逐步核對直接加總。
+完整粗網格 event-16 的 forward、五參數梯度、每步 actuator 梯度與初始狀態 cotangent，
+和原 cache-all 規則逐項相同；此段 forward+adjoint 峰值 RSS 約 1520→804 MiB。
+較細網格也重跑完整 forward 與 adjoint，所有保存物理欄位及梯度逐位相同，峰值 RSS 約
+12819→6358 MiB。兩次 cold／warm 的配置不同，此數字是程序峰值記憶體觀察，
+不是同成本的速度比。較細案例的陣列預估降至約 13774 MiB；半頻譜仍限制更小 dt。
+
+再以分開的 child processes、相同已保存權重和完整 forward+adjoint 作配對測試，
+137 接觸節點的峰值 RSS 為 15188→6417 MiB（約減少 58%），
+所有物理欄位、摩擦／actuator／初始狀態梯度仍逐位相同。
+此測試期間另有核心建立工作，因此不採用其 wall time 作速度結論。
+
+CQ cache key 現在分開記錄數學 contour／權重函式，避免僅調整記憶體預估就重建核心。
+舊 cache 不會自動沿用：`tools/migrate_galerkin_cache.py` 必須先核對原 run 的
+Git source hash、所有算子檔案、CQ 數學函式 AST、幾何與 metadata，才建立有 provenance
+的 hard link。較細案例遷移後已完成上述逐位相同的重跑。
+
+另一個隔離原型針對程序取樣中的 Bessel 成本，依
+[NIST DLMF 10.40.10–12](https://dlmf.nist.gov/10.40.iii) 的右半平面餘項界，
+測試 K0／K1 的 16 項展開，|z|<25 保留 SciPy。約十萬個複數點的 scaled K 相對差
+低於 1e-15，八個 CQ contour 點的縮減矩陣相對差低於 6e-15。
+它仍在 `tools/benchmark_bessel.py`，沒有接入主核心；單點計時重疊其他工作，
+不能由此聲稱總速度優勢，也還沒有完整軌跡核對。
+
+已另外啟動同一粗網格、Gauss 8、45 ms、dt=4 us 的四 worker 計算，
+固定其餘設定以分離時間誤差。產生完整 summary 前不列為已完成或已收斂。
 
 ## 重跑
 
@@ -194,6 +258,8 @@ FEM 靜態 study 的小型設定已包入 `resources/data/fem_static_onset_input
 ```sh
 git fetch origin codex/fem-event16-reference
 python -B bem/tools/fem_static_onset.py
+python -B bem/tools/compare_fronts.py bem/outputs/galerkin-patch5-dt8-q6-streamed \
+  --reference-table validation/static_bem2d/reference/fem_front_arrivals.csv
 FDBEM_CORES=1 bem/run.sh galerkin-density
 FDBEM_CORES=1 bem/run.sh galerkin-audit --refine-corners --static-only \
   --restart-window 8 --restart-subdivisions 4 --end-values .5

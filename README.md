@@ -4,9 +4,10 @@ Fully elastodynamic boundary elements for finite-block frictional contact,
 developed alongside the Tatva-based PMMA finite-element model.
 
 **Research implementation: the full 45 ms event-16 FEM rupture has not yet
-been reproduced or shown to converge.** Coarse BEM runs now complete the
-45 ms loading history at two time steps, with substantial nucleation/slip
-differences from the archived FEM. See the [measured comparison](bem/docs/event16_comparison.md).
+been reproduced or shown to converge.** A refined Galerkin run completes the
+45 ms history, but its maximum slip remains about 31% below the archived FEM.
+See the [latest Galerkin comparison](bem/docs/galerkin.md) and the
+[earlier collocation comparison](bem/docs/event16_comparison.md).
 
 This repository preserves the existing Tatva/PMMA Git history. Its upstream
 is [smec-ethz/tatva](https://github.com/smec-ethz/tatva); the inherited PMMA
@@ -25,6 +26,7 @@ baseline comes from [Gauss963/PMMA-RSF](https://github.com/Gauss963/PMMA-RSF).
 - JAX local AD tangents, JIT Newton and verified short-trajectory implicit gradients.
 - Exact contact-coordinate condensation, contact/corner grading and a full-history conditional adjoint.
 - Symmetric P1/P0 Galerkin nodal-force backend with regularized hypersingular integrals and batched assembly.
+- Exact last-use FFT row streaming, with identical full-event forward/adjoint results and lower peak memory.
 
 The BEM package is independent of the Tatva FEM time integrator. A shared
 backend interface and memory-compressed production history remain

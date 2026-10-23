@@ -21,12 +21,41 @@ from .cq import (
     OnlineConvolution,
     ResourceBudgetError,
     convolution_weights,
+    cq_math_signature,
+    cq_plan_signature,
     plan_cq,
 )
 from .dynamics import DynamicResult, event16_schedule
 from .galerkin_fast import prepared_geometry_bytes
 from .nodal import NodalInterfaceEquilibrium, NodalInterfaceTransfer, initialize_nodal_restart
 from .sampling import parsimonious_weights
+
+
+def nodal_cache_key(model, plan, quadrature, sampling):
+    """Fingerprint matrix construction and contour, independent of storage policy."""
+    digest = hashlib.sha256(
+        repr((cq_plan_signature(plan), model.reference.material, quadrature, sampling)).encode()
+    )
+    for mesh in [model.reference.moving, model.reference.stationary]:
+        for data in [mesh.starts, mesh.ends, mesh.labels]:
+            digest.update(data.tobytes())
+    digest.update(model.constraints.prolongation.tobytes())
+    for name in [
+        "galerkin.py",
+        "galerkin_fast.py",
+        "nodal.py",
+        "cq.py",
+        "sampling.py",
+        "kernels.py",
+        "material.py",
+        "mesh.py",
+    ]:
+        digest.update(
+            cq_math_signature().encode()
+            if name == "cq.py"
+            else Path(__file__).with_name(name).read_bytes()
+        )
+    return digest.hexdigest()
 
 
 def plan_nodal_history(
@@ -79,27 +108,9 @@ def build_nodal_history(
     )
     cached = None
     if cache_directory is not None:
-        digest = hashlib.sha256(
-            repr((plan, model.reference.material, quadrature, sampling)).encode()
-        )
-        for mesh in [model.reference.moving, model.reference.stationary]:
-            for data in [mesh.starts, mesh.ends, mesh.labels]:
-                digest.update(data.tobytes())
-        digest.update(model.constraints.prolongation.tobytes())
-        for name in [
-            "galerkin.py",
-            "galerkin_fast.py",
-            "nodal.py",
-            "cq.py",
-            "sampling.py",
-            "kernels.py",
-            "material.py",
-            "mesh.py",
-        ]:
-            digest.update(Path(__file__).with_name(name).read_bytes())
         directory = Path(cache_directory)
         directory.mkdir(parents=True, exist_ok=True)
-        cached = directory / f"galerkin-{digest.hexdigest()}.npy"
+        cached = directory / f"galerkin-{nodal_cache_key(model, plan, quadrature, sampling)}.npy"
         metadata_path = cached.with_suffix(".json")
         if cached.exists() and metadata_path.exists():
             weights = np.load(cached, mmap_mode="r", allow_pickle=False)
