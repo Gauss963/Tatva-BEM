@@ -94,7 +94,7 @@ traction-scaled 矩陣差最大約 `3.45e-6`／`2.86e-7`。
 階數 8 的完整動態對照仍須核對更高階積分與更嚴格的頻率插值。
 這是取樣檢查，不是全頻誤差界。
 
-目前本機 70 項 BEM tests 通過。短程 Galerkin 滑動診斷的
+目前本機 86 項 BEM tests 通過。短程 Galerkin 滑動診斷的
 mu_s 梯度與中央差分相對差約 `2.21e-9`，兩側差分沒有改變保存的接觸分支；
 該診斷使用加速載入，不是 event-16 的物理參數識別。
 
@@ -272,8 +272,8 @@ actuator 歷程，關閉 BEM 自己的 coverage hold。這是用於分離誤差�
 `tools/benchmark_disk_spectrum.py` 在隔離程序中，保留原 sampler 的程式碼，
 只把半頻譜配置換成磁碟陣列。每次最多映射 64 個頻率矩陣，讀取時複製所需列，
 映射隨即關閉；原本的四列 IFFT、radius 修正與 dense 權重配置均保留。
-目前用 private function copy 注入配置器，沒有改寫 NumPy globals 或主套件；
-正式接入仍需明確的 storage API 與資源預估。
+原型使用 private function copy 注入配置器；正式版本已改成明確的 `spectrum`
+參數與 `DiskSpectrum` 儲存物件，沒有改寫函式或 NumPy globals。
 
 4097 步、64 DOFs 的有理 transfer 測試中，adaptive 取樣決策、全部權重逐位相同，
 峰值 RSS 約 821→338 MiB。磁碟 I/O 有額外成本，不能由此宣稱速度優勢。
@@ -283,6 +283,37 @@ actuator 歷程，關閉 BEM 自己的 coverage hold。這是用於分離誤差�
 
 另有 h=160 mm／128 步強載入的 reference 在第 104 步 Newton 失敗，
 當時尚未執行 disk variant。失敗條件與殘差亦保存，未把它列為通過的儲存或穩定性測試。
+
+正式介面另重跑大型有理 transfer、既有 BEM 32 步與完整較細 8 us 基準，
+權重、物理欄位與已檢查的梯度仍逐位相同。原生 CLI 的 mu_s 中央差分相對差約
+2.21e-9，兩側分支不變。完整 86 項測試涵蓋磁碟／RAM 一致性、未完成頻譜、
+磁碟空間不足、快取重用與拒絕過時的 storage implementation。
+
+較細 4 us 的陣列預估為約 12631 MiB；時間權重約 6492 MiB 仍留在 RAM，
+約 18907 MiB 的完整半頻譜改存磁碟。預估包含分塊映射、列複製、IFFT 暫存、
+線上 FFT cache 與 Galerkin workspace；沒有截短歷史。
+已完成頻譜保存 SHA-256、shape、CQ plan 與完成標記，供後續獨立分析使用。
+
+舊權重須明確遷移：工具核對原 Git source、所有算子、contour 與 metadata，
+只允許經固定 AST 範本驗證的配置介面變更。BDF2／取樣／IFFT 的其餘數學 AST
+必須一致；更改係數、dtype 或預設值的反例測試會被拒絕。遷移後的完整 8 us 重跑已逐位核對。
+
+啟動時間加密前，另固定 137 個接觸節點，比較 outer h=20／10／5 mm，
+在 4 us CQ contour 上取五組頻率索引及五種 closed-stick 線性探測。
+相對 h=5，outer20 的 traction-scaled 矩陣 Frobenius 差最大約 0.333%，
+探測位移的 line L2 差最大約 0.668%；outer10 的最大探測差約 0.098%。
+因此這次仍固定 outer20 做時間對照；這些有限取樣不構成全域空間誤差界。
+
+較細 4 us 完整案例命令如下，完成前不列為重現或收斂成果：
+
+```sh
+FDBEM_CORES=4 bem/run.sh galerkin --h 20 --contact-h 5 \
+  --contact-end-h .5 --corner-h .5 --restart-knot-window 8 \
+  --restart-knot-subdivisions 4 --quadrature 6 --dt 4e-6 --duration .045 \
+  --sampling adaptive --sampling-rtol 1e-8 --workers 4 --max-memory-mb 20480 \
+  --spectrum-directory bem/outputs/galerkin-patch5-dt4-spectra \
+  --name galerkin-patch5-dt4-q6-disk
+```
 
 ```sh
 FDBEM_CORES=1 bem/run.sh fem-loading-replay \

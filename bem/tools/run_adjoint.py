@@ -103,6 +103,8 @@ def main():
             else None
         ),
     )
+    if nodal:
+        kwargs["spectrum_directory"] = manifest.get("spectrum_directory")
     history = (build_nodal_history if nodal else build_condensed_history)(
         model, summary["dt_s"], summary["completed_steps"], **kwargs
     )

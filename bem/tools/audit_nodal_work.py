@@ -56,6 +56,7 @@ def main():
             else None
         ),
         cache_directory=manifest["cache"],
+        spectrum_directory=manifest.get("spectrum_directory"),
         max_memory_mb=manifest["max_memory_mb"],
     )
     with np.load(folder / "trajectory.npz", allow_pickle=False) as data:

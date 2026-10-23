@@ -39,7 +39,7 @@ class CQPlan:
     weight_bytes: int
 
 
-def plan_cq(dofs, dt, steps, *, alias_tolerance=1e-10, max_memory_mb=512):
+def plan_cq(dofs, dt, steps, *, alias_tolerance=1e-10, max_memory_mb=512, disk_spectrum=False):
     if not isinstance(steps, (int, np.integer)) or steps < 1:
         raise ValueError("steps must be a positive integer")
     if not isinstance(dofs, (int, np.integer)) or dofs < 2 or not np.isfinite(dt) or dt <= 0:
@@ -57,6 +57,11 @@ def plan_cq(dofs, dt, steps, *, alias_tolerance=1e-10, max_memory_mb=512):
     # scipy's zero-padding copy conservatively.
     spectrum = (fft_size // 2 + 1) * dofs**2 * 16
     inversion = 2 * fft_size * min(dofs, 4) * dofs * 8
+    if disk_spectrum:
+        # One bounded file map plus copied row spectra and consecutive IFFTs.
+        # The time weights and online history still reside in memory.
+        spectrum = min(64, fft_size // 2 + 1) * dofs**2 * 16
+        inversion = 4 * fft_size * min(dofs, 4) * dofs * 8
     levels = int(steps).bit_length()
     cached = sum((1 << k) + 1 for k in range(levels) if 3 * (1 << k) <= steps)
     cached *= dofs**2 * 16
@@ -104,12 +109,17 @@ def cq_plan_signature(plan):
 def cq_math_signature(source=None):
     """Hash weight-generating code, separately from online history storage.
 
-    These three functions contain the complete contour/sampling/inversion
+    These functions contain the complete contour/sampling/inversion
     operations in this module. Operator and adaptive-sampling files are hashed
     separately by their cache builders. Historical migration checks the same AST.
     """
     source = Path(__file__).read_text() if source is None else source
     names = ["bdf2_symbol", "convolution_weights", "invert_spectrum"]
+    if any(
+        isinstance(node, ast.FunctionDef) and node.name == "spectrum_buffer"
+        for node in ast.parse(source).body
+    ):
+        names.append("spectrum_buffer")
     nodes = {
         node.name: node
         for node in ast.parse(source).body
@@ -123,10 +133,22 @@ def cq_math_signature(source=None):
     return digest.hexdigest()
 
 
-def convolution_weights(transfer: Callable, plan: CQPlan, *, progress=None, workers=1):
+def spectrum_buffer(plan, provided=None):
+    """Allocate a RAM spectrum, or validate an explicitly supplied storage object."""
+    shape = (plan.fft_size // 2 + 1, plan.dofs, plan.dofs)
+    if provided is None:
+        return np.empty(shape, dtype=complex)
+    if provided.shape != shape or provided.dtype != np.dtype("complex128"):
+        raise ValueError("Incorrect half-spectrum shape or dtype")
+    return provided
+
+
+def convolution_weights(
+    transfer: Callable, plan: CQPlan, *, progress=None, workers=1, spectrum=None
+):
     """Sample a real causal transfer function, using conjugate symmetry."""
     half = plan.fft_size // 2
-    spectrum = np.empty((half + 1, plan.dofs, plan.dofs), dtype=complex)
+    spectrum = spectrum_buffer(plan, spectrum)
 
     def sample(k):
         zeta = plan.radius * np.exp(-2j * np.pi * k / plan.fft_size)

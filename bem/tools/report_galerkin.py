@@ -128,6 +128,18 @@ def main():
         "temporal_bulk_work": "galerkin-corners-dt4-q8/bulk_work.json",
         "temporal_adjoint": "galerkin-corners-dt4-q8/adjoint.json",
         "temporal_fronts": "front-temporal-comparison/summary.json",
+        "disk_native_rational": "disk-spectrum-native-rational/summary.json",
+        "disk_native_bem": "disk-spectrum-native-bem32/summary.json",
+        "disk_native_cli": "galerkin-disk-native-cli32/summary.json",
+        "disk_native_cli_adjoint": "galerkin-disk-native-cli32/adjoint.json",
+        "disk_native_cli_work": "galerkin-disk-native-cli32/bulk_work.json",
+        "disk_native_cli_equivalence": "disk-native-cli-equivalence.json",
+        "disk_default_replay": "galerkin-patch5-dt8-storage-baseline/summary.json",
+        "disk_default_equivalence": "disk-storage-baseline-equivalence.json",
+        "disk_fine4_preflight": "disk-fine4-preflight.json",
+        "disk_cache_migration_fine8": "disk-migration-fine8.json",
+        "disk_cache_migration_coarse4": "disk-migration-coarse4.json",
+        "outer_resolution": "outer-resolution/summary.json",
     }
     results = {
         "date": "2026-10-23",

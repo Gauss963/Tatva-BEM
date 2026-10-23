@@ -12,6 +12,8 @@
 新的 [P1/P0 對稱 Galerkin backend](docs/galerkin.md) 已接回完整歷史與 JAX，
 提供一致的 nodal forces、端點接觸與批次組裝。較細網格已完成 45 ms，最大滑移仍比 FEM 低約 31%。
 完整歷史 FFT 改為只快取可重用的區塊；同一較細軌跡及 adjoint 逐位相同，程序峰值 RSS 約減半。
+Galerkin CLI 可用 `--spectrum-directory` 把完整半頻譜存到磁碟，降低建立權重時的 RAM 需求；
+時間權重和全部歷史仍保留，原本的取樣及 IFFT 公式不變。
 
 程式與 Tatva、Bem2d.jl 獨立，不需要讀取或修改外接磁碟，也不需要上層 repository 的 Julia 環境。
 可以把本資料夾獨立放進新的 GitHub repository。

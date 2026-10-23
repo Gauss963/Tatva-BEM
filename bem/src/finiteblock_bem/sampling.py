@@ -15,7 +15,7 @@ from scipy.fft import dct
 from scipy.interpolate import BarycentricInterpolator
 from threadpoolctl import threadpool_limits
 
-from .cq import bdf2_symbol, invert_spectrum
+from .cq import bdf2_symbol, invert_spectrum, spectrum_buffer
 
 
 @dataclass(frozen=True)
@@ -36,7 +36,9 @@ class SamplingOptions:
             raise ValueError("At least three independent check points required")
 
 
-def parsimonious_weights(transfer, plan, *, options=None, row_scale=None, workers=1, progress=None):
+def parsimonious_weights(
+    transfer, plan, *, options=None, row_scale=None, workers=1, progress=None, spectrum=None
+):
     """Return weights and measured interpolation diagnostics.
 
     Point checks are empirical, not an operator-norm certificate. Validate the
@@ -51,7 +53,7 @@ def parsimonious_weights(transfer, plan, *, options=None, row_scale=None, worker
         raise ValueError("Positive finite row scales required")
     half = plan.fft_size // 2
     theta = 2 * np.pi * np.arange(half + 1) / plan.fft_size
-    spectrum = np.empty((half + 1, plan.dofs, plan.dofs), dtype=complex)
+    spectrum = spectrum_buffer(plan, spectrum)
     records = {
         "method": "adaptive_piecewise_chebyshev",
         "options": asdict(options),

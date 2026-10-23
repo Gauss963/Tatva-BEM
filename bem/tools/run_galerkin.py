@@ -55,8 +55,16 @@ def main():
         help="Explicit accelerated sliding diagnostic; not original event-16 loading",
     )
     parser.add_argument("--cache", type=Path, default=ROOT / "outputs/galerkin-cache")
+    parser.add_argument(
+        "--spectrum-directory",
+        type=Path,
+        help="Store the complete half spectrum on disk; time weights remain in RAM",
+    )
     parser.add_argument("--name", default="galerkin-event16")
     args = parser.parse_args()
+    args.case, args.cache = args.case.resolve(), args.cache.resolve()
+    if args.spectrum_directory is not None:
+        args.spectrum_directory = args.spectrum_directory.resolve()
     if (
         any(
             c not in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-"
@@ -110,6 +118,7 @@ def main():
         backend=args.backend,
         sampling=sampling,
         cache_directory=args.cache,
+        spectrum_directory=args.spectrum_directory,
         schedule=schedule,
         progress=progress,
     )

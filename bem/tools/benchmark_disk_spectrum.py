@@ -1,4 +1,4 @@
-"""Exact disk-backed half-spectrum prototype, outside production numerical code.
+"""Benchmark the exact disk-backed half-spectrum backend.
 
 The original invert_spectrum function consumes bounded row copies from a
 file-backed spectrum. Public mmap mappings close after each operation so
@@ -8,141 +8,34 @@ resident spectrum pages do not accumulate. Weights remain dense in RAM.
 import argparse
 import hashlib
 import json
-import mmap
 import os
 import resource
 import subprocess
 import sys
 from pathlib import Path
 from time import perf_counter
-from types import FunctionType
 
 import numpy as np
 
 from finiteblock_bem.cq import convolution_weights, plan_cq
+from finiteblock_bem.cq_storage import DiskSpectrum
 from finiteblock_bem.io import environment_record, write_json
 from finiteblock_bem.sampling import SamplingOptions, parsimonious_weights
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
-class DiskSpectrum:
-    """Minimal spectrum storage: first-axis writes and copied arbitrary reads."""
-
-    def __init__(self, path, plan):
-        self.path = path
-        self.shape = (plan.fft_size // 2 + 1, plan.dofs, plan.dofs)
-        self.dtype = np.dtype("complex128")
-        self.written = np.zeros(self.shape[0], dtype=bool)
-        self.pending_writes = 0
-        with path.open("w+b") as stream:
-            np.lib.format.write_array_header_2_0(
-                stream,
-                dict(descr=self.dtype.str, fortran_order=False, shape=self.shape),
-            )
-            self.offset = stream.tell()
-            stream.truncate(self.offset + int(np.prod(self.shape)) * self.dtype.itemsize)
-
-    def sync(self):
-        if self.pending_writes:
-            with self.path.open("r+b") as stream:
-                os.fsync(stream.fileno())
-            self.pending_writes = 0
-
-    def _mapped(self, operation, first, last, *, write=False):
-        matrix_bytes = self.shape[1] * self.shape[2] * self.dtype.itemsize
-        offset = self.offset + first * matrix_bytes
-        aligned = offset // mmap.ALLOCATIONGRANULARITY * mmap.ALLOCATIONGRANULARITY
-        length = offset - aligned + (last - first) * matrix_bytes
-        with self.path.open("r+b" if write else "rb") as stream:
-            mapping = mmap.mmap(
-                stream.fileno(),
-                length,
-                offset=aligned,
-                access=mmap.ACCESS_WRITE if write else mmap.ACCESS_READ,
-            )
-            array = np.ndarray(
-                (last - first, *self.shape[1:]), self.dtype, buffer=mapping, offset=offset - aligned
-            )
-            try:
-                # Read operations MUST copy their result; no array views escape.
-                result = operation(array)
-            finally:
-                del array
-                mapping.close()
-        return result
-
-    def __setitem__(self, key, value):
-        if not isinstance(key, (int, slice)):
-            raise ValueError("Spectrum writes must contain complete matrices")
-        if isinstance(key, int):
-            if not -self.shape[0] <= key < self.shape[0]:
-                raise IndexError("Frequency index outside spectrum")
-            key %= self.shape[0]
-        first, last = (key, key + 1) if isinstance(key, int) else key.indices(self.shape[0])[:2]
-        if isinstance(key, slice) and key.step not in [None, 1]:
-            raise ValueError("Only unit-stride spectrum writes supported")
-        if first < last:
-            self._mapped(
-                lambda array: array.__setitem__(0 if isinstance(key, int) else slice(None), value),
-                first,
-                last,
-                write=True,
-            )
-        self.written[key] = True
-        self.pending_writes += last - first
-        if self.pending_writes >= 64:
-            self.sync()
-
-    def __getitem__(self, key):
-        if not np.all(self.written):
-            raise ValueError("Complete the entire half spectrum before inversion")
-        self.sync()
-        key = key if isinstance(key, tuple) else (key,)
-        first_axis, tail = key[0], key[1:]
-        if isinstance(first_axis, int):
-            if not -self.shape[0] <= first_axis < self.shape[0]:
-                raise IndexError("Frequency index outside spectrum")
-            first = first_axis % self.shape[0]
-            return self._mapped(
-                lambda array: np.array(array[(0, *tail)], copy=True), first, first + 1
-            )
-        first, last, stride = first_axis.indices(self.shape[0])
-        if stride != 1:
-            raise ValueError("Only unit-stride frequency reads supported")
-        # Reading all frequency rows through one huge map lets OS fault-around
-        # pull unrelated spectrum pages into RSS. Map at most 64 matrices.
-        shape = np.broadcast_to(np.empty((), self.dtype), self.shape[1:])[tail].shape
-        result = np.empty((max(last - first, 0), *shape), self.dtype)
-        for begin in range(first, last, 64):
-            end = min(begin + 64, last)
-            result[begin - first : end - first] = self._mapped(
-                lambda array: np.array(array[(slice(None), *tail)], copy=True), begin, end
-            )
-        return result
-
-
 def disk_weights(transfer, plan, path, *, adaptive=False):
-    spectrum = DiskSpectrum(path, plan)
-
-    class ArrayAllocation:
-        # This isolated prototype substitutes only the spectrum allocation in
-        # a private function copy. It does not monkeypatch NumPy or a module.
-        def __getattr__(self, name):
-            return getattr(np, name)
-
-        def empty(self, shape, dtype=float):
-            if shape != spectrum.shape or np.dtype(dtype) != spectrum.dtype:
-                raise ValueError("Unexpected allocation in the experimental sampler")
-            return spectrum
-
-    original = parsimonious_weights if adaptive else convolution_weights
-    bindings = dict(original.__globals__, np=ArrayAllocation())
-    sampler = FunctionType(original.__code__, bindings, original.__name__, original.__defaults__)
-    sampler.__kwdefaults__ = original.__kwdefaults__
-    # All sampler code, checks and the original inversion remain unchanged.
-    # A production API would make this storage injection explicit.
-    return sampler(transfer, plan, **({"options": SamplingOptions()} if adaptive else {}))
+    spectrum = DiskSpectrum(path, plan, overwrite=True)
+    sampler = parsimonious_weights if adaptive else convolution_weights
+    result = sampler(
+        transfer,
+        plan,
+        spectrum=spectrum,
+        **({"options": SamplingOptions()} if adaptive else {}),
+    )
+    write_json(path.with_suffix(".json"), spectrum.record())
+    return result
 
 
 def worker(args):
@@ -253,7 +146,7 @@ def dynamic_check(model, plan, weights, args):
 
 def small_checks(output):
     plan = plan_cq(3, 0.01, 4)
-    spectrum = DiskSpectrum(output / "mapping-check.npy", plan)
+    spectrum = DiskSpectrum(output / "mapping-check.npy", plan, overwrite=True)
     values = np.arange(np.prod(spectrum.shape)).reshape(spectrum.shape) * (1 + 2j)
     spectrum[:2] = values[:2]
     try:
@@ -345,9 +238,9 @@ def main():
             environment=environment_record(),
             prototype_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
             scope=(
-                "Exact storage prototype with short accelerated BEM sliding/adjoint; not event-16"
+                "Production disk storage with short accelerated BEM sliding/adjoint; not event-16"
                 if args.bem
-                else "Exact storage prototype with rational transfer; no BEM trajectory or speed claim"
+                else "Production disk storage with rational transfer; no BEM trajectory or speed claim"
             ),
         ),
     )

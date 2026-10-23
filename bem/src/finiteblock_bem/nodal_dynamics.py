@@ -9,10 +9,12 @@ import hashlib
 import json
 import os
 import resource
+import shutil
 import sys
 from dataclasses import asdict
 from pathlib import Path
 from time import perf_counter
+from uuid import uuid4
 
 import numpy as np
 
@@ -25,6 +27,7 @@ from .cq import (
     cq_plan_signature,
     plan_cq,
 )
+from .cq_storage import DiskSpectrum, implementation_signature, spectrum_bytes
 from .dynamics import DynamicResult, event16_schedule
 from .galerkin_fast import prepared_geometry_bytes
 from .nodal import NodalInterfaceEquilibrium, NodalInterfaceTransfer, initialize_nodal_restart
@@ -59,11 +62,25 @@ def nodal_cache_key(model, plan, quadrature, sampling):
 
 
 def plan_nodal_history(
-    model, dt, steps, *, workers=1, quadrature=12, sampling=None, max_memory_mb=1024
+    model,
+    dt,
+    steps,
+    *,
+    workers=1,
+    quadrature=12,
+    sampling=None,
+    max_memory_mb=1024,
+    spectrum_directory=None,
 ):
     if not isinstance(workers, int) or workers < 1:
         raise ValueError("workers must be a positive integer")
-    plan = plan_cq(2 * len(model.moving_contact) + 1, dt, steps, max_memory_mb=max_memory_mb)
+    plan = plan_cq(
+        2 * len(model.moving_contact) + 1,
+        dt,
+        steps,
+        max_memory_mb=max_memory_mb,
+        disk_spectrum=spectrum_directory is not None,
+    )
     sizes = [model.reference.moving.dofs, model.reference.stationary.dofs]
     # Read-only quadrature geometry is shared by frequency workers. Count it
     # once, then bounded batch temporaries and dense factorizations per worker.
@@ -94,6 +111,7 @@ def build_nodal_history(
     sampling=None,
     max_memory_mb=1024,
     cache_directory=None,
+    spectrum_directory=None,
     progress=None,
     diagnostics=None,
 ):
@@ -105,6 +123,7 @@ def build_nodal_history(
         quadrature=quadrature,
         sampling=sampling,
         max_memory_mb=max_memory_mb,
+        spectrum_directory=spectrum_directory,
     )
     cached = None
     if cache_directory is not None:
@@ -113,15 +132,41 @@ def build_nodal_history(
         cached = directory / f"galerkin-{nodal_cache_key(model, plan, quadrature, sampling)}.npy"
         metadata_path = cached.with_suffix(".json")
         if cached.exists() and metadata_path.exists():
-            weights = np.load(cached, mmap_mode="r", allow_pickle=False)
-            if weights.shape != (steps + 1, plan.dofs, plan.dofs) or weights.dtype != np.float64:
-                raise ValueError("Invalid Galerkin history cache")
-            if diagnostics is not None:
-                diagnostics.update(json.loads(metadata_path.read_text()), cache_hit=True)
-            return BoundaryHistory(plan, weights)
+            metadata = json.loads(metadata_path.read_text())
+            stored = metadata.get("spectrum_storage")
+            valid = stored is None or stored["implementation_sha256"] == implementation_signature()
+            if valid:
+                weights = np.load(cached, mmap_mode="r", allow_pickle=False)
+                if (
+                    weights.shape != (steps + 1, plan.dofs, plan.dofs)
+                    or weights.dtype != np.float64
+                ):
+                    raise ValueError("Invalid Galerkin history cache")
+                if diagnostics is not None:
+                    diagnostics.update(metadata, cache_hit=True)
+                return BoundaryHistory(plan, weights)
+    spectrum = None
+    if spectrum_directory is not None:
+        scratch = Path(spectrum_directory)
+        scratch.mkdir(parents=True, exist_ok=True)
+        required = spectrum_bytes(plan) + 64 * 1024**2
+        if cached is not None and cached.parent.stat().st_dev == scratch.stat().st_dev:
+            required += plan.weight_bytes
+        if shutil.disk_usage(scratch).free < required:
+            raise ResourceBudgetError(
+                f"CQ spectrum/cache needs at least {required / 1024**3:.2f} GiB free disk space"
+            )
+        if (
+            cached is not None
+            and shutil.disk_usage(cached.parent).free < plan.weight_bytes + 64 * 1024**2
+        ):
+            raise ResourceBudgetError("Insufficient disk space for the CQ weight cache")
+        spectrum = DiskSpectrum(scratch / f"half-spectrum-{uuid4().hex}.npy", plan)
     transfer = NodalInterfaceTransfer(model, quadrature=quadrature)
     if sampling is None:
-        weights = convolution_weights(transfer.evaluate, plan, workers=workers, progress=progress)
+        weights = convolution_weights(
+            transfer.evaluate, plan, workers=workers, progress=progress, spectrum=spectrum
+        )
         metadata = {"method": "dense", "transfer_evaluations": plan.fft_size // 2 + 1}
     else:
         wc = model.constraints.contact_weights
@@ -133,6 +178,13 @@ def build_nodal_history(
             row_scale=scale,
             workers=workers,
             progress=progress,
+            spectrum=spectrum,
+        )
+    if spectrum is not None:
+        metadata["spectrum_storage"] = spectrum.record()
+        metadata["spectrum_storage"]["cq_plan"] = asdict(plan)
+        spectrum.path.with_suffix(".json").write_text(
+            json.dumps(metadata, indent=2, allow_nan=False) + "\n"
         )
     if cached is not None:
         temporary = cached.with_suffix(f".{os.getpid()}.tmp")
@@ -160,6 +212,7 @@ def simulate_nodal(
     sampling=None,
     max_memory_mb=1024,
     cache_directory=None,
+    spectrum_directory=None,
     progress=None,
 ):
     start = perf_counter()
@@ -174,6 +227,7 @@ def simulate_nodal(
         quadrature=quadrature,
         sampling=sampling,
         max_memory_mb=max_memory_mb,
+        spectrum_directory=spectrum_directory,
     )
     schedule = event16_schedule(ref) if schedule is None else schedule
     time = np.arange(steps + 1) * dt
@@ -197,6 +251,7 @@ def simulate_nodal(
         sampling=sampling,
         max_memory_mb=max_memory_mb,
         cache_directory=cache_directory,
+        spectrum_directory=spectrum_directory,
         progress=progress,
         diagnostics=sampling_diagnostics,
     )
@@ -292,6 +347,9 @@ def simulate_nodal(
         "quadrature": quadrature,
         "kernel_workers": workers,
         "frequency_sampling": sampling_diagnostics,
+        "spectrum_storage": sampling_diagnostics.get(
+            "spectrum_storage", {"backend": "ram_half_spectrum"}
+        ),
         "max_cumulative_slip_mm": float(np.max(c[:valid])),
         "max_boundary_contact_residual_mpa": float(np.max(residual[:valid])),
         "actuator_hold_time_s": None if hold_time is None else float(hold_time),

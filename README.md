@@ -27,6 +27,7 @@ baseline comes from [Gauss963/PMMA-RSF](https://github.com/Gauss963/PMMA-RSF).
 - Exact contact-coordinate condensation, contact/corner grading and a full-history conditional adjoint.
 - Symmetric P1/P0 Galerkin nodal-force backend with regularized hypersingular integrals and batched assembly.
 - Exact last-use FFT row streaming, with identical full-event forward/adjoint results and lower peak memory.
+- Optional disk-backed CQ half spectra with explicit storage, resource checks and unchanged sampling/IFFT formulas.
 
 The BEM package is independent of the Tatva FEM time integrator. A shared
 backend interface and memory-compressed production history remain

@@ -110,6 +110,7 @@ def main():
         sampling=sampling,
         max_memory_mb=options["max_memory_mb"],
         cache_directory=options["cache"],
+        spectrum_directory=options.get("spectrum_directory"),
     )
     result.diagnostics.update(loading_diagnostic=loading, actuator_hold_time_s=prescribed_hold)
     summary = save_dynamic(
