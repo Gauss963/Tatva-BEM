@@ -60,6 +60,15 @@ elif [ "${1:-}" = galerkin-quadrature ]; then
 elif [ "${1:-}" = galerkin-report ]; then
     shift
     exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/report_galerkin.py" "$@"
+elif [ "${1:-}" = galerkin-work ]; then
+    shift
+    exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/audit_nodal_work.py" "$@"
+elif [ "${1:-}" = galerkin-density ]; then
+    shift
+    exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/galerkin_density.py" "$@"
+elif [ "${1:-}" = bdf2-domain ]; then
+    shift
+    exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/bdf2_domain.py" "$@"
 elif [ "${1:-}" = adjoint ]; then
     shift
     exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/run_adjoint.py" "$@"

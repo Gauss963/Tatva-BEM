@@ -21,10 +21,11 @@ from finiteblock_bem.nodal import (
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def static_record(model, quadrature, output):
+def static_record(model, quadrature, output, *, stiffness=None):
     start = perf_counter()
     ref, con = model.reference, model.constraints
-    stiffness = nodal_body_stiffness(model, quadrature=quadrature)
+    if stiffness is None:
+        stiffness = nodal_body_stiffness(model, quadrature=quadrature)
     lift = initialize_nodal_restart(model, quadrature=quadrature, stiffness=stiffness)
     system = NodalContactEquilibrium(model, stiffness)
     guess = con.prolongation.T @ lift.displacement / np.sum(con.prolongation**2, axis=0)
@@ -88,11 +89,22 @@ def main():
     parser.add_argument("--static-only", action="store_true")
     parser.add_argument("--quick", action="store_true")
     parser.add_argument("--refine-corners", action="store_true")
+    parser.add_argument("--restart-window", type=float)
+    parser.add_argument("--restart-subdivisions", type=int, default=1)
+    parser.add_argument("--end-values", nargs="+", type=float)
     args = parser.parse_args()
     case_path = ROOT / "src/finiteblock_bem/resources/cases/pmma_event16.toml"
     folder = "galerkin-corner-refinement" if args.refine_corners else "galerkin-audit"
     if args.quick:
         folder += "-quick"
+    if args.restart_window is not None:
+        folder += f"-aligned{args.restart_window:g}"
+        if args.restart_subdivisions != 1:
+            folder += f"-sub{args.restart_subdivisions}"
+    if args.end_values is not None:
+        if not args.refine_corners:
+            raise ValueError("--end-values requires --refine-corners")
+        folder += "-end" + "-".join(f"{v:g}" for v in args.end_values)
     output = ROOT / "outputs" / folder
     output.mkdir(parents=True, exist_ok=True)
     controls = [
@@ -142,11 +154,14 @@ def main():
                 ),
                 16,
             )
-            for end in [2, 1, 0.5]
+            for end in (args.end_values or [2, 1, 0.5])
         ]
     records = []
     with threadpool_limits(limits=1):
         for name, mesh_options, quadrature in controls[:2] if args.quick else controls:
+            if args.restart_window is not None:
+                mesh_options = dict(mesh_options, restart_knot_window=args.restart_window)
+                mesh_options["restart_knot_subdivisions"] = args.restart_subdivisions
             model = load_nodal_model(case_path, **mesh_options)
             record = {
                 "name": name,

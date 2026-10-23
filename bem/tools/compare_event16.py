@@ -27,6 +27,19 @@ def first_crossing(time, values, threshold):
     return float(time[found[0]]) if len(found) else None
 
 
+def p1_profile_error(y, values, reference_y, reference):
+    """Exact L2 norm of two piecewise-linear profiles on their common knots."""
+    knots = np.union1d(y, reference_y)
+    if not np.allclose([y[0], y[-1]], [reference_y[0], reference_y[-1]], atol=1e-8):
+        raise ValueError("P1 profiles must cover the same physical interval")
+    actual, target = np.interp(knots, y, values), np.interp(knots, reference_y, reference)
+
+    def square_integral(v):
+        return np.sum(np.diff(knots) * (v[:-1] ** 2 + v[:-1] * v[1:] + v[1:] ** 2) / 3)
+
+    return float(np.sqrt(square_integral(actual - target) / square_integral(target)))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("runs", nargs="+", type=Path)
@@ -93,10 +106,27 @@ def main():
             tt, coarse["max_slip"][keep], 1e-7
         )
     records = []
+    profile_figure, profile_axes = None, None
     for run in args.runs:
         summary = json.loads((run / "summary.json").read_text())
         history = read_history(run / "history.csv")
         with np.load(run / "trajectory.npz", allow_pickle=False) as trajectory:
+            strength = trajectory["friction_coefficient"] * trajectory["pressure"]
+            max_strength_ratio = float(
+                np.max(abs(trajectory["shear"]) / np.maximum(strength, 1e-20))
+            )
+            weights = (
+                trajectory["contact_weights"]
+                if "contact_weights" in trajectory
+                else np.linalg.norm(
+                    trajectory["moving_ends"] - trajectory["moving_starts"], axis=1
+                )[trajectory["moving_contact"]]
+            )
+            friction_work = float(
+                np.sum(
+                    trajectory["shear"][1:] * np.diff(trajectory["plastic_slip"], axis=0) * weights
+                )
+            )
             state_checks = {
                 "all_saved_fields_finite": all(
                     np.all(np.isfinite(trajectory[key])) for key in trajectory.files
@@ -106,6 +136,34 @@ def main():
                     np.min(np.diff(trajectory["cumulative_slip"], axis=0))
                 ),
             }
+            profile_errors = None
+            if (
+                summary.get("boundary_formulation", "").startswith("P1/P0")
+                and abs(trajectory["time"][-1] - 0.045) < 1e-8
+            ):
+                reference = read_history(REFERENCE / "frame_09039.csv")
+                fields = ["cumulative_slip", "pressure", "shear"]
+                reference_fields = ["cumulative_slip", "p", "tau"]
+                profile_errors = {
+                    key: p1_profile_error(
+                        trajectory["contact_y"],
+                        trajectory[key][-1],
+                        reference["y"],
+                        reference[other],
+                    )
+                    for key, other in zip(fields, reference_fields, strict=True)
+                }
+                if profile_figure is None:
+                    profile_figure, profile_axes = plt.subplots(
+                        1, 3, figsize=(12, 4), layout="constrained"
+                    )
+                    for ax, other in zip(profile_axes, reference_fields, strict=True):
+                        ax.plot(reference["y"], reference[other], "k-", label="FEM h=2")
+                for ax, key in zip(profile_axes, fields, strict=True):
+                    ax.plot(trajectory["contact_y"], trajectory[key][-1], label=run.name)
+                    ax.set(xlabel="Interface y [mm]", title=key)
+                    ax.grid(alpha=0.2)
+                    ax.legend(fontsize=7)
         time = history["time_s"]
         label = (
             f"BEM {summary['panels'][0]}+{summary['panels'][1]} panels, "
@@ -143,8 +201,9 @@ def main():
                 "history_relative_l2": errors,
                 "timing_seconds": summary["timing_seconds"],
                 "max_residual_mpa": summary["max_boundary_contact_residual_mpa"],
-                "max_strength_ratio": summary["max_contact_strength_ratio"],
-                "friction_work_mpa_mm2": summary["friction_work_per_unit_thickness_mpa_mm2"],
+                "max_strength_ratio": max_strength_ratio,
+                "friction_work_mpa_mm2": friction_work,
+                "final_p1_profile_relative_l2": profile_errors,
                 "environment": summary["environment"],
                 "source_changed_during_run": summary.get("source_changed_during_run"),
                 "state_checks": state_checks,
@@ -159,6 +218,9 @@ def main():
     )
     fig.savefig(figures / "event16_comparison.png", dpi=170)
     plt.close(fig)
+    if profile_figure is not None:
+        profile_figure.savefig(figures / "event16_profiles.png", dpi=160)
+        plt.close(profile_figure)
     record = {
         "fem": fem_metrics,
         "bem": records,

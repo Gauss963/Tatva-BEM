@@ -2,6 +2,7 @@
 
 import tomllib
 from dataclasses import dataclass
+from itertools import pairwise
 from pathlib import Path
 
 import numpy as np
@@ -27,6 +28,37 @@ class TwoBlockCase:
     payload: dict
 
 
+def _restart_fractions(base, y, start, end, window, subdivisions, maximum, end_size):
+    """Preserve selected seed features, with conforming local P1 refinement.
+
+    Subdivided endpoint patches replace the overlapping graded mesh. This
+    avoids short slivers from superposing two otherwise reasonable meshes.
+    Unselected interior intervals keep a graded transition at the requested h.
+    """
+    if not np.isfinite(window) or window <= 0:
+        raise ValueError("Positive finite restart-knot window required")
+    if not isinstance(subdivisions, int) or subdivisions < 1:
+        raise ValueError("Restart-knot subdivisions must be a positive integer")
+    selected = ((y - start <= window) | (end - y <= window)) & (y >= start) & (y <= end)
+    ids = np.flatnonzero(selected)
+    knots = list(y[selected])
+    if subdivisions == 1:
+        knots.extend(start + (end - start) * base)
+    else:
+        smallest = min(maximum, np.min(np.diff(y)) / subdivisions)
+        if end_size is not None:
+            smallest = min(smallest, end_size)
+        for left, right in pairwise(ids):
+            length = y[right] - y[left]
+            local_h = min(maximum, length / subdivisions) if right == left + 1 else maximum
+            fractions = graded_fractions(length, local_h, min(smallest, local_h))
+            knots.extend(y[left] + length * fractions)
+    fractions = np.sort((np.asarray(knots) - start) / (end - start))
+    fractions = fractions[(fractions > 1e-12) & (fractions < 1 - 1e-12)]
+    fractions = fractions[np.r_[True, np.diff(fractions) > 1e-12]] if len(fractions) else fractions
+    return np.r_[0.0, fractions, 1.0]
+
+
 def load_case(
     path,
     *,
@@ -34,6 +66,8 @@ def load_case(
     contact_panel_length=None,
     contact_end_length=None,
     corner_panel_length=None,
+    restart_knot_window=None,
+    restart_knot_subdivisions=1,
 ):
     path = Path(path).resolve()
     with path.open("rb") as stream:
@@ -55,6 +89,33 @@ def load_case(
         edge_fractions = {"contact": graded_fractions(length, contact_h, contact_end_length)}
     elif contact_panel_length is not None:
         edge_fractions = {"contact": np.linspace(0, 1, int(np.ceil(length / contact_h)) + 1)}
+    seed = Path(c["source"]["restart_interface"])
+    if not seed.is_absolute():
+        seed = path.parent / seed
+    reference = np.genfromtxt(seed, delimiter=",", names=True)
+    stationary_fractions = edge_fractions
+    if restart_knot_window is not None:
+        base = (
+            edge_fractions["contact"]
+            if edge_fractions is not None
+            else np.linspace(0, 1, int(np.ceil(length / contact_h)) + 1)
+        )
+        fractions = _restart_fractions(
+            base,
+            reference["y"],
+            moving_y,
+            cut,
+            restart_knot_window,
+            restart_knot_subdivisions,
+            contact_h,
+            contact_end_length,
+        )
+        edge_fractions = {"contact": fractions}
+        # The stationary contact edge runs from top to bottom. Arbitrary seed
+        # knots are not necessarily symmetric about the contact midpoint.
+        stationary_fractions = {"contact": 1 - fractions[::-1]}
+    elif restart_knot_subdivisions != 1:
+        raise ValueError("Subdividing seed intervals requires a restart-knot window")
     if (
         min(moving_width, moving_height, stationary_width, stationary_height) <= 0
         or abs(stationary_x - moving_x - moving_width) > 1e-10
@@ -90,7 +151,7 @@ def load_case(
         ],
         ["free", "support_x", "support_y", "free", "contact"],
         h,
-        edge_fractions=edge_fractions,
+        edge_fractions=stationary_fractions,
         corner_length=corner_panel_length,
     )
     im = moving.indices("contact")
@@ -105,10 +166,6 @@ def load_case(
         raise ValueError("Paired contact panels must have equal lengths")
     material = ElasticMaterial(**c["material"])
     contact = SlipWeakeningContact(**c["contact"])
-    seed = Path(c["source"]["restart_interface"])
-    if not seed.is_absolute():
-        seed = path.parent / seed
-    reference = np.genfromtxt(seed, delimiter=",", names=True)
     yy = moving.centers[im, 1]
     restart = ContactState(
         np.interp(yy, reference["y"], reference["plastic_slip"]),

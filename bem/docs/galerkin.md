@@ -94,9 +94,76 @@ traction-scaled 矩陣差最大約 `3.45e-6`／`2.86e-7`。
 階數 8 的完整動態對照仍須核對更高階積分與更嚴格的頻率插值。
 這是取樣檢查，不是全頻誤差界。
 
-目前本機 57 項 BEM tests 與 Ruff 通過。短程 Galerkin 滑動診斷的
+目前本機 58 項 BEM tests 與 Ruff 通過。短程 Galerkin 滑動診斷的
 mu_s 梯度與中央差分相對差約 `2.21e-9`，兩側差分沒有改變保存的接觸分支；
 該診斷使用加速載入，不是 event-16 的物理參數識別。
+
+## 完整 45 ms：已完成一組四 worker 對照
+
+102+112 面板、35 接觸節點、dt=8 us、Gauss 8、adaptive tolerance 1e-8，
+使用原載入及停止政策，完成 5625 步。此組是較粗空間解析度的結果。
+
+|量|Galerkin BEM|原 FEM h=2 mm|
+|---|---:|---:|
+|首次保存滑移 >1e-7 mm|24.216 ms|25.733 ms|
+|停止載入|29.024 ms|29.788 ms|
+|末最大累積滑移|0.400258 mm|0.644123 mm|
+
+最大滑移偏低 37.86%，共同 P1 插值網格的末滑移分布相對 L2 差為 39.25%；
+壓力／剪力分布差約 10.03%／10.39%。**尚未達成 FEM 等價驗收。**
+末界面的 [滑移、壓力與剪力分布](figures/galerkin_profiles.png) 另存供比較。
+這也顯示修正先前的負 bulk 方向，並未單獨消除這組載入下的主要滑移差異。
+
+最大接觸平衡殘差約 1.21e-10 MPa，保存狀態皆有限，累積滑移非遞減，
+按當步實際摩擦係數計算的最大強度比為 1。塑性摩擦功為 1823.17 MPa mm²。
+另以獨立的整段 zero-padded FFT 重建 bulk 力，和直接歷史加總的最大差約
+1.50e-11；BDF2 速度的累積 bulk 擾動功最小值為 0，末值 56.27 MPa mm²。
+這是固定靜態 lift 周圍的擾動功檢查，沒有把它當作整個非線性系統的能量證明。
+
+冷權重建立 2100.24 s，實際推進約 2.75 s；重用相同權重後，全程約 5.7 s。
+冷建立期間有少量報告整理與打包，列為探索性 wall time；
+它與未知核心數的 FEM 歷史耗時不構成同精度四核心速度比。
+3336 次 transfer 評估取代 8193 個 dense 頻率點；這個新方法的完整 dense／
+更嚴格 tolerance 與時間加密軌跡仍需核對。
+
+同一完整軌跡的條件式 adjoint 已檢查 mu_s、mu_k、Dc，
+中央差分相對差分別約 1.8e-7、1.5e-5、3.3e-7，兩側差分均未改變保存的接觸分支。
+微分範圍維持固定 bulk、lift 與記錄的載入；並未包含停止事件時間。
+
+![完整時間歷程對照](figures/galerkin_event16.png)
+
+## 端點、初始場與下一組網格
+
+使用同一 archived FEM solver 與同一 piecewise-linear 塑性滑移 seed，
+frozen-plastic 靜態屈服預估並不隨網格單調收斂：
+
+|FEM 網格|預估時間|預估位置|
+|---|---:|---:|
+|2 mm|25.803 ms|y=0 mm|
+|1 mm|28.123 ms|y=22 mm|
+|0.5 mm|23.227 ms|y=2 mm|
+
+這些是靜態預估，不是加密 FEM 的完整動態事件。原 2 mm 曲線仍保留作比較基準；
+目前資料不能把它或任一加密結果當成已收斂真值。
+seed 在 2 mm 節點存在斜率轉折，漸變網格會重新近似這些特徵。
+新增 `--restart-knot-window` 保留指定端點區間的原節點，
+`--restart-knot-subdivisions` 可再細分該區間。
+細分 patch 與中段採一致的漸變銜接，避免把兩套網格疊加成過短的面板。
+
+另固定 P1 trace、只把角落附近 P0 density 加密 2／4 倍：
+原 hypersingular 弱式限制回原 trace 後的相對差低於 4.5e-12，
+壓力／剪力初始分布誤差由約 12.1%／15.0% 降到 9.85%／11.75%，
+但屈服預估由 24.25 ms 移到 22.82 ms，未改善原 FEM 時間對照。
+因此目前保留為誤差分離實驗，未升為動態預設值。
+
+![靜態屈服的網格與 seed 特徵敏感度](figures/galerkin_static_onset.png)
+
+下一組採 contact 5 mm、corner 0.5 mm、端點 8 mm 區間的 0.5 mm patch，
+250+254 面板、137 接觸節點、Gauss 6。記憶體陣列預估約 18333 MiB；
+靜態 lift 與 1／5／10 kHz 的取樣被動性預檢通過，現以 4 workers 建立完整權重。
+其 Gauss 6／16 靜態屈服預估差約 0.08 us；完整動態精度尚未驗證。
+執行設定保存在 `outputs/galerkin-patch5-dt8-q6/run_manifest.json`，
+在產生完整 summary 前不列為已完成的事件。
 
 ## 重跑
 
@@ -119,3 +186,26 @@ FDBEM_CORES=4 bem/run.sh adjoint bem/outputs/galerkin-sliding-32 \
 AD 重用固定材料／幾何的 CQ 權重，高效計算摩擦參數的條件式梯度。
 SciPy bulk、靜態 lift 和停止載入事件時間的參數導數仍未串接；
 這些限制對新 backend 同樣成立。原 `/Volumes/Gauss-T7/tatva` 保持只讀。
+
+FEM 靜態 study 的小型設定已包入 `resources/data/fem_static_onset_input.json`，
+原 solver revision 保存在 repository 的 `codex/fem-event16-reference` 分支。
+需要 Tatva/FEM 依賴；一般完整 clone 已有此 Git object，若是單分支 clone 可先 fetch：
+
+```sh
+git fetch origin codex/fem-event16-reference
+python -B bem/tools/fem_static_onset.py
+FDBEM_CORES=1 bem/run.sh galerkin-density
+FDBEM_CORES=1 bem/run.sh galerkin-audit --refine-corners --static-only \
+  --restart-window 8 --restart-subdivisions 4 --end-values .5
+```
+
+此 FEM study 不需要外部原 HDF5；以包入設定重跑 2 mm 的預估時間與先前結果相同。
+完整動態較細案例的目前命令為：
+
+```sh
+FDBEM_CORES=4 bem/run.sh galerkin --h 20 --contact-h 5 \
+  --contact-end-h .5 --corner-h .5 --restart-knot-window 8 \
+  --restart-knot-subdivisions 4 --quadrature 6 --dt 8e-6 --duration .045 \
+  --sampling adaptive --sampling-rtol 1e-8 --max-memory-mb 20480 \
+  --name galerkin-patch5-dt8-q6
+```

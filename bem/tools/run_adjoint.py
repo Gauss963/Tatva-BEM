@@ -59,6 +59,8 @@ def main():
         contact_panel_length=manifest.get("contact_h"),
         contact_end_length=manifest.get("contact_end_h"),
         corner_panel_length=manifest.get("corner_h"),
+        restart_knot_window=manifest.get("restart_knot_window"),
+        restart_knot_subdivisions=manifest.get("restart_knot_subdivisions", 1),
     )
     case = model.contact_case() if nodal else model
     quadrature = manifest["quadrature"]

@@ -142,6 +142,34 @@ def test_nodal_contact_and_loading_share_endpoint_and_positive_line_weights():
     np.testing.assert_array_equal(con.full_weights, 1)
 
 
+def test_seed_knot_alignment_preserves_physical_pairing_and_piecewise_seed_values():
+    model = load_nodal_model(
+        CASE,
+        max_panel_length=20,
+        contact_panel_length=5,
+        contact_end_length=0.5,
+        corner_panel_length=0.5,
+        restart_knot_window=8,
+        restart_knot_subdivisions=4,
+    )
+    y = model.reference.moving.starts[model.moving_contact, 1]
+    reference = np.genfromtxt(
+        CASE.parent / "../data/ev16_restart_interface.csv", delimiter=",", names=True
+    )
+    for knot in [0, 0.5, 1, 1.5, 2, 4, 6, 8, 472, 474, 476, 478, 480]:
+        index = np.flatnonzero(abs(y - knot) < 1e-10)
+        assert len(index) == 1
+        np.testing.assert_allclose(
+            model.restart.plastic_slip[index[0]],
+            np.interp(knot, reference["y"], reference["plastic_slip"]),
+            atol=1e-13,
+        )
+    assert np.min(np.diff(y)) > 1e-8
+    np.testing.assert_allclose(np.diff(y[y <= 8 + 1e-10]), 0.5, atol=1e-10)
+    np.testing.assert_allclose(np.diff(y[y >= 472 - 1e-10]), 0.5, atol=1e-10)
+    np.testing.assert_allclose(model.constraints.contact_weights.sum(), 480)
+
+
 def test_galerkin_condensation_preserves_force_work_and_sampled_passivity():
     model = load_nodal_model(CASE, max_panel_length=80)
     transfer = NodalInterfaceTransfer(model)

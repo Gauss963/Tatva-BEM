@@ -21,6 +21,43 @@
 [出版資料](https://epubs.siam.org/doi/10.1137/24M1642524) 亦列為後續閱讀，
 目前不據此宣稱對不光滑摩擦歷程有指數收斂。
 
+補檢索取得 Zhou、Chen (2026)
+[mCCSR 平行 TDBEM 的摘要、引言與章節預覽](https://doi.org/10.1016/j.advengsoft.2026.104190)，
+尚未取得完整公式與實驗章節。其重點是 3D 波因果性、block sparsity 與 CPU 排程，
+不能把 48-thread 結果當成本機四核心的速度保證；2D 波具有長尾，亦不能直接沿用
+3D 時間支撐造成的零區塊。此項目前只作方法篩選，沒有宣稱已實作 mCCSR。
+
+為釐清長尾記憶體的適用條件，另讀 Banjai、López-Fernández、Schädle
+[Fast and oblivious algorithms for dissipative and 2D wave equations](https://arxiv.org/pdf/1604.04135)，
+SIAM J. Numer. Anal. 55(2), 621–639 (2017)，尤其式 (2.1)、§4.2。
+該方法把波前附近的直接歷史與通過最大傳播時間後的平滑長尾分開，
+在 shifted-sectorial 條件下以輪廓積分和 ODE 狀態壓縮後者；這不是任意刪除長尾。
+本問題的 raw layer kernels 值得沿此路線研究。經全域消去的 `Z(s)` 含有限體共振，
+仍須另證解析延拓與界，不能直接套用這篇定理或其記憶體複雜度。
+
+2026 的 3D-ACA 同樣有一項實作限制：目前 `Z(s)` 的單一 entry 也依賴全域求解，
+不能假設 fiber 可像 raw Green kernel 一樣便宜取得。
+後續需比較對 V/H/D 做分塊壓縮、保留 mixed 歷史，或對已建立權重作受控壓縮。
+這些是針對目前架構的實作推論，尚未量測；每條路線都需保留對應的轉置歷史以驗證 adjoint。
+
+### BDF2 解析域的獨立核對
+
+對本程式的標準符號 `delta(z)=3/2-2*z+z*z/2`，令 `z=r*exp(-i*theta)`，
+直接解 `Re(delta)=0`、取靠近 `r=1` 的分支可得
+
+```text
+rcrit = 3 / (2*cos(theta) + sqrt(4*cos(theta)^2 - 3*cos(2*theta)))
+log(rcrit) = theta^4/4 + O(theta^6).
+```
+
+這與 [Melenk、Nick v1 §5.1](https://arxiv.org/pdf/2410.15079#page=9)
+所列的二次邊界展開不一致。本處是對既定符號的代數／數值核對，
+沒有據此提出完整的替代插值定理或複雜度結論。
+`tools/bdf2_domain.py` 重算精確根與直接代入值；例如 `theta=.1`，
+精確額外 log-radius 約 `2.4713e-5`，沿 `0.3*theta^2` 半徑延伸已得到
+`Re(delta)=-.003005`。因此不以該二次展開替目前 BDF2 實作的取樣數或誤差背書。
+現有程式使用獨立點、係數尾端、細分與直接取樣 fallback，仍需以 dense 軌跡核對。
+
 ## 從文獻到目前程式
 
 原 backend 使用 `V^-1(1/2 I+K)` 的 P0 collocation。

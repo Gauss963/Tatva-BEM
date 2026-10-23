@@ -33,6 +33,12 @@ def main():
     parser.add_argument("--contact-h", type=float)
     parser.add_argument("--contact-end-h", type=float)
     parser.add_argument("--corner-h", type=float)
+    parser.add_argument(
+        "--restart-knot-window",
+        type=float,
+        help="Retain seed knots within this many mm of each contact end",
+    )
+    parser.add_argument("--restart-knot-subdivisions", type=int, default=1)
     parser.add_argument("--dt", type=float, default=8e-6)
     span = parser.add_mutually_exclusive_group()
     span.add_argument("--steps", type=int, default=None)
@@ -68,6 +74,8 @@ def main():
         contact_panel_length=args.contact_h,
         contact_end_length=args.contact_end_h,
         corner_panel_length=args.corner_h,
+        restart_knot_window=args.restart_knot_window,
+        restart_knot_subdivisions=args.restart_knot_subdivisions,
     )
     environment = environment_record(args.case)
     write_json(
