@@ -331,7 +331,10 @@ actuator 歷程，關閉 BEM 自己的 coverage hold。這是用於分離誤差�
 這排除了取樣點上的大幅積分差，並非完整軌跡的積分誤差界。
 本組 mu_s 的 1e-9 中央差分與 adjoint 相差約 3.86%，mu_k、Dc 約
 0.024%／0.080%；舊有 sliding/opening proxy 都未變更。
-因此尚不把本組有限差分視為全部通過，正向 tangent 與更完整的分支檢查仍在進行。
+因此尚不把本組有限差分視為全部通過。獨立正向 JVP／CQ 已核對完整
+11250 步的五參數梯度，與反向 VJP／CQ 的最大相對差約 1.19e-13，
+程序峰值 RSS 約 11361 MiB。這支持固定分支下的導數實作；有限差分差距的原因
+與 weakening clip 等更完整的分支檢查仍待釐清。
 
 ![較細網格的時間加密與 FEM 對照](figures/galerkin_fine_temporal_event16.png)
 
