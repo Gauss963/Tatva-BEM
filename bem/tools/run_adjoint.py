@@ -24,10 +24,32 @@ from finiteblock_bem.sampling import SamplingOptions
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def exact_contact_branches(case, result):
+    """Predicates at each accepted q using the PREVIOUS constitutive state.
+
+    Plastic increments below 1e-10 can still select a different tangent.
+    Weakening clip changes are independent of the stick/slip predicate.
+    """
+    n = result.plastic_slip.shape[1]
+    closure, relative = result.contact_jumps[1:, :n], result.contact_jumps[1:, n : 2 * n]
+    law = case.contact
+    pressure = law.normal_penalty * np.maximum(closure, 0)
+    trial = law.tangential_penalty * (relative - result.plastic_slip[:-1])
+    mu = law.coefficient(result.cumulative_slip[:-1])
+    active = closure > 0
+    return {
+        "exact_sliding_entries": active & (abs(trial) > mu * pressure),
+        "exact_opening_entries": ~active,
+        "weakening_clip_entries": result.cumulative_slip[:-1] < law.characteristic_slip,
+        "weakening_clip_tie_entries": result.cumulative_slip[:-1] == law.characteristic_slip,
+    }
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("run", type=Path)
     parser.add_argument("--case", type=Path)
+    parser.add_argument("--output", type=Path, help="Separate JSON for a diagnostic FD step")
     parser.add_argument("--finite-difference", action="store_true")
     parser.add_argument(
         "--fd-scale", type=float, default=1.0, help="Scale all central-difference steps"
@@ -38,6 +60,10 @@ def main():
     args = parser.parse_args()
     folder = args.run.resolve()
     summary = json.loads((folder / "summary.json").read_text())
+    if summary.get("history_representation") == "elastic_resolvent":
+        raise ValueError(
+            "Use the experimental resolvent adjoint; this tool requires original Z histories"
+        )
     manifest = json.loads((folder / "run_manifest.json").read_text())["arguments"]
     case_path = args.case or Path(manifest["case"])
     if not case_path.is_file():
@@ -125,6 +151,7 @@ def main():
             "fixed_recorded_loading",
         )
         checks = []
+        base_predicates = exact_contact_branches(case, result)
         for index, field, epsilon in [
             (2, "static_friction", 1e-6),
             (3, "kinetic_friction", 1e-6),
@@ -176,12 +203,17 @@ def main():
                 )
                 base_slide = np.abs(np.diff(result.plastic_slip, axis=0)) > 1e-10
                 trial_slide = np.abs(np.diff(trial.plastic_slip, axis=0)) > 1e-10
+                predicates = exact_contact_branches(varied, trial)
                 branch_changes.append(
                     {
                         "sliding_entries": int(np.count_nonzero(base_slide != trial_slide)),
                         "opening_entries": int(
                             np.count_nonzero((base_pressure > 1e-10) != (trial.pressure > 1e-10))
                         ),
+                        **{
+                            name: int(np.count_nonzero(value != base_predicates[name]))
+                            for name, value in predicates.items()
+                        },
                     }
                 )
             finite = (losses[1] - losses[0]) / (2 * epsilon)
@@ -199,7 +231,7 @@ def main():
             print(json.dumps(checks[-1]), flush=True)
         record["finite_difference_checks"] = checks
     record["environment"] = environment_record(case_path)
-    write_json(folder / "adjoint.json", record)
+    write_json(args.output or folder / "adjoint.json", record)
     print(json.dumps(record, indent=2))
 
 

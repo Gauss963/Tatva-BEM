@@ -18,6 +18,7 @@ arguments-*
 *jax-cache*
 *egg-info*
 *build*
+!bem/tools/build_resolvent_history.py
 uv.lock
 .pytest_cache/
 .ruff_cache/

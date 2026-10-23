@@ -40,6 +40,25 @@ def test_rebasing_refuses_to_discard_an_unexpected_nonzero_source():
         history.append(1, np.ones(2), active=False)
 
 
+def test_elastic_baseline_has_no_future_forcing_wraparound():
+    plan = plan_cq(2, 0.04, 11, alias_tolerance=1e-4, max_memory_mb=32)
+    zeta = plan.radius * np.exp(-2j * np.pi * np.arange(plan.fft_size // 2 + 1) / plan.fft_size)
+    scalar = 1 / (bdf2_symbol(zeta) / plan.dt + 2)
+    spectrum = np.column_stack((scalar, 2 * scalar))
+    forcing = np.zeros(plan.steps + 1)
+    forcing[8:] = np.arange(4) + 1
+    actual = TOOL["causal_elastic_baseline"](spectrum, plan, forcing)
+    np.testing.assert_allclose(actual[:8], 0, atol=1e-14)
+    from scipy.fft import irfft
+
+    weights = irfft(spectrum, n=plan.fft_size, axis=0)[: plan.steps + 1]
+    weights /= plan.radius ** np.arange(plan.steps + 1)[:, None]
+    expected = np.array(
+        [sum(weights[j] * forcing[n - j] for j in range(n + 1)) for n in range(plan.steps + 1)]
+    )
+    np.testing.assert_allclose(actual, expected, atol=1e-14)
+
+
 @pytest.mark.parametrize("version", [(1, 0), (2, 0)])
 def test_noncommuting_matrix_inverse_has_cq_composition_property(tmp_path, version):
     plan = plan_cq(2, 0.04, 11, alias_tolerance=1e-12, max_memory_mb=32)
@@ -60,6 +79,12 @@ def test_noncommuting_matrix_inverse_has_cq_composition_property(tmp_path, versi
     np.testing.assert_allclose(spectrum[:], expected, rtol=1e-13, atol=1e-15)
     np.testing.assert_allclose(response, expected[:, :, -1] * forcing[:, None], rtol=1e-13)
     inverse = invert_spectrum(spectrum, plan)
+    stat = spectrum.path.stat()
+    reopened = TOOL["SavedDiskSpectrum"](spectrum.path, plan)
+    np.testing.assert_array_equal(invert_spectrum(reopened, plan), inverse)
+    assert spectrum.path.stat().st_mtime_ns == stat.st_mtime_ns
+    with pytest.raises(ValueError, match="read-only"):
+        reopened[1] = np.eye(2)
     coefficients = np.zeros_like(inverse)
     coefficients[0] = 1.5 * mass / plan.dt + stiffness + contact
     coefficients[1] = -2 * mass / plan.dt

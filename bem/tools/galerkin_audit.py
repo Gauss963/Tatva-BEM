@@ -92,6 +92,7 @@ def main():
     parser.add_argument("--restart-window", type=float)
     parser.add_argument("--restart-subdivisions", type=int, default=1)
     parser.add_argument("--end-values", nargs="+", type=float)
+    parser.add_argument("--contact-values", nargs="+", type=float)
     args = parser.parse_args()
     case_path = ROOT / "src/finiteblock_bem/resources/cases/pmma_event16.toml"
     folder = "galerkin-corner-refinement" if args.refine_corners else "galerkin-audit"
@@ -105,6 +106,10 @@ def main():
         if not args.refine_corners:
             raise ValueError("--end-values requires --refine-corners")
         folder += "-end" + "-".join(f"{v:g}" for v in args.end_values)
+    if args.contact_values is not None:
+        if not args.refine_corners:
+            raise ValueError("--contact-values requires --refine-corners")
+        folder += "-contact" + "-".join(f"{v:g}" for v in args.contact_values)
     output = ROOT / "outputs" / folder
     output.mkdir(parents=True, exist_ok=True)
     controls = [
@@ -145,16 +150,17 @@ def main():
     if args.refine_corners:
         controls = [
             (
-                f"corner{end}-contact5",
+                f"corner{end}-contact{contact}",
                 dict(
                     max_panel_length=20,
-                    contact_panel_length=5,
+                    contact_panel_length=contact,
                     contact_end_length=end,
                     corner_panel_length=end,
                 ),
                 16,
             )
             for end in (args.end_values or [2, 1, 0.5])
+            for contact in (args.contact_values or [5])
         ]
     records = []
     with threadpool_limits(limits=1):

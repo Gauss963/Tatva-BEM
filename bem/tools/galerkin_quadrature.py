@@ -28,6 +28,8 @@ def main():
     )
     parser.add_argument("--orders", type=int, nargs="+")
     parser.add_argument("--output", type=Path)
+    parser.add_argument("--dt", type=float, help="Audit a proposed timestep on the saved mesh")
+    parser.add_argument("--duration", type=float, help="Full contour horizon for --dt")
     args = parser.parse_args()
     if args.run is not None:
         original = json.loads((args.run / "run_manifest.json").read_text())["arguments"]
@@ -40,8 +42,10 @@ def main():
             restart_knot_window=original.get("restart_knot_window"),
             restart_knot_subdivisions=original.get("restart_knot_subdivisions", 1),
         )
-        dt = original["dt"]
-        steps = original["steps"] or round(original["duration"] / dt)
+        dt = original["dt"] if args.dt is None else args.dt
+        original_steps = original["steps"] or round(original["duration"] / original["dt"])
+        duration = original_steps * original["dt"] if args.duration is None else args.duration
+        steps = round(duration / dt)
         plan = plan_cq(2 * len(model.moving_contact) + 1, dt, steps, max_memory_mb=65536)
         radius = plan.radius
     else:
@@ -52,6 +56,8 @@ def main():
             contact_end_length=2,
             corner_panel_length=2,
         )
+        if args.dt is not None or args.duration is not None:
+            raise ValueError("Timestep/horizon overrides require --run for an exact source mesh")
         radius, dt = 1e-10 ** (1 / 16384), 8e-6
     angles = np.array([0, 0.025, 0.05, 0.1, 0.2, 0.5, 1, 2, np.pi])
     frequencies = bdf2_symbol(radius * np.exp(-1j * angles)) / dt
@@ -97,6 +103,7 @@ def main():
             angles=angles.tolist(),
             actual_s_real=frequencies.real.tolist(),
             actual_s_imag=frequencies.imag.tolist(),
+            dt_s=dt,
             source_run=None if args.run is None else str(args.run.resolve()),
             **{f"errors_relative_to_{reference_order}": errors},
             scope="Sampled traction-scaled matrix differences; not a global quadrature error bound",

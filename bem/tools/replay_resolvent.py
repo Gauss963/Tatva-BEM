@@ -9,6 +9,7 @@ prototype, not a production cache migration or a model-order approximation.
 """
 
 import argparse
+import ast
 import hashlib
 import json
 import shutil
@@ -42,6 +43,79 @@ def digest_file(path):
         for block in iter(lambda: stream.read(1024 * 1024), b""):
             digest.update(block)
     return digest.hexdigest()
+
+
+class SavedDiskSpectrum(DiskSpectrum):
+    """Read a completed spectrum through the same bounded mappings, without writes."""
+
+    def __init__(self, path, plan):
+        self.path = Path(path)
+        self.shape = (plan.fft_size // 2 + 1, plan.dofs, plan.dofs)
+        self.dtype = np.dtype("complex128")
+        self.written = np.ones(self.shape[0], dtype=bool)
+        self.pending_writes = 0
+        with self.path.open("rb") as stream:
+            version = np.lib.format.read_magic(stream)
+            reader = {
+                (1, 0): np.lib.format.read_array_header_1_0,
+                (2, 0): np.lib.format.read_array_header_2_0,
+            }.get(version)
+            if reader is None:
+                raise ValueError("Unsupported saved spectrum format")
+            shape, fortran, dtype = reader(stream)
+            self.offset = stream.tell()
+        if shape != self.shape or fortran or dtype != self.dtype:
+            raise ValueError("Saved spectrum does not match the source contour")
+
+    def __setitem__(self, key, value):
+        # invert_spectrum enforces real endpoint matrices. An already real
+        # saved endpoint needs no write; all actual mutations remain rejected.
+        if isinstance(key, (int, np.integer)) and key in [0, self.shape[0] - 1]:
+            if np.array_equal(self[key], value):
+                return
+        raise ValueError("Saved spectrum is read-only")
+
+
+def causal_elastic_baseline(column_spectrum, plan, force):
+    """Invert CQ coefficients, then apply a zero-padded CAUSAL convolution.
+
+    Multiplying the damped frequency samples by a finite forcing FFT directly
+    introduces a small periodic response from future forcing. This two-step
+    operation implements the same finite causal sum as the online CQ solver.
+    """
+    impulse = irfft(column_spectrum, n=plan.fft_size, axis=0)[: plan.steps + 1]
+    impulse /= plan.radius ** np.arange(plan.steps + 1)[:, None]
+    return irfft(
+        rfft(impulse, n=plan.fft_size, axis=0) * rfft(force, n=plan.fft_size)[:, None],
+        n=plan.fft_size,
+        axis=0,
+    )[: plan.steps + 1]
+
+
+def reuse_elastic_spectrum(record, storage, plan, tangent, environment):
+    previous = json.loads(Path(record).read_text())
+    if previous["source_spectrum_sha256"] != storage["sha256"]:
+        raise ValueError("Resolvent was built from a different source spectrum")
+    for name in ["source_sha256", "case_sha256", "restart_data_sha256"]:
+        if previous["environment"][name] != environment[name]:
+            raise ValueError(f"Saved resolvent differs in {name}")
+    saved = previous["resolvent_storage"]
+    if "coordinates" in saved:
+        raise ValueError("Use --prepared-kernel for work-coordinate spectra")
+    if not saved["all_frequency_matrices_written"] or digest_file(saved["path"]) != saved["sha256"]:
+        raise ValueError("Saved resolvent is incomplete or its digest differs")
+    source = SavedDiskSpectrum(storage["path"], plan)
+    target = SavedDiskSpectrum(saved["path"], plan)
+    maximum = 0.0
+    # Verify the inverse identity at EVERY stored frequency. This also verifies
+    # C/Kspring compatibility independently of the old prototype's source text.
+    for first in range(0, target.shape[0], 64):
+        last = min(first + 64, target.shape[0])
+        error = (source[first:last] + tangent) @ target[first:last] - np.eye(plan.dofs)
+        maximum = max(maximum, float(np.max(np.sum(abs(error), axis=2))))
+        if maximum > 1e-8:
+            raise ValueError(f"Saved inverse failed its frequency residual: {maximum}")
+    return target, target[:, :, -1], maximum
 
 
 def invert_elastic_spectrum(path, source_plan, output, tangent, forcing):
@@ -105,7 +179,17 @@ def main():
         "--history-steps", type=int, help="Maximum duration AFTER the first correction"
     )
     parser.add_argument("--max-memory-mb", type=float, default=2048)
+    parser.add_argument(
+        "--prepared-kernel", type=Path, help="Directory produced by build_resolvent_history.py"
+    )
+    parser.add_argument(
+        "--reuse-resolvent",
+        type=Path,
+        help="Previous summary; all frequency inverse residuals are checked",
+    )
     args = parser.parse_args()
+    if args.prepared_kernel is not None and args.reuse_resolvent is not None:
+        raise ValueError("Select either a prepared kernel or a saved physical resolvent")
     started = perf_counter()
     folder = args.run.resolve()
     summary = json.loads((folder / "summary.json").read_text())
@@ -117,11 +201,51 @@ def main():
         if environment[name] != summary["environment"][name]:
             raise ValueError(f"{name} differs from the source trajectory")
     storage = summary["spectrum_storage"]
-    if storage["backend"] != "disk_half_spectrum" or not storage["all_frequency_matrices_written"]:
-        raise ValueError("A completed disk half spectrum is required")
-    original_plan = CQPlan(**storage["cq_plan"])
+    prepared = None
+    if args.prepared_kernel is not None:
+        prepared = json.loads((args.prepared_kernel / "summary.json").read_text())
+        if prepared["status"] != "completed_resolvent_kernel_only" or prepared["source_run"] != str(
+            folder
+        ):
+            raise ValueError("Prepared kernel must reference this completed source run")
+        if (
+            prepared["dt_s"] != summary["dt_s"]
+            or prepared["full_steps"] != summary["completed_steps"]
+        ):
+            raise ValueError("Replay validation requires the same timestep and horizon")
+        for name in ["source_sha256", "case_sha256", "restart_data_sha256"]:
+            if prepared["environment"][name] != environment[name]:
+                raise ValueError(f"Prepared kernel differs in {name}")
+        math_node = next(
+            node
+            for node in ast.parse(Path(__file__).read_text()).body
+            if isinstance(node, ast.FunctionDef) and node.name == "causal_elastic_baseline"
+        )
+        math_digest = hashlib.sha256(
+            ast.dump(math_node, include_attributes=False).encode()
+        ).hexdigest()
+        if prepared["helper_math_sha256"] != math_digest:
+            raise ValueError("Prepared elastic baseline used different CQ math")
+        original_plan = plan_cq(
+            summary["history_dofs"][0],
+            summary["dt_s"],
+            summary["completed_steps"],
+            max_memory_mb=65536,
+            disk_spectrum=True,
+        )
+    else:
+        if (
+            storage["backend"] != "disk_half_spectrum"
+            or not storage["all_frequency_matrices_written"]
+        ):
+            raise ValueError("A completed disk half spectrum is required")
+        original_plan = CQPlan(**storage["cq_plan"])
     steps, dt, d = original_plan.steps, original_plan.dt, original_plan.dofs
-    history_steps = steps if args.history_steps is None else args.history_steps
+    history_steps = prepared["correction_steps"] if prepared is not None else steps
+    if args.history_steps is not None:
+        if prepared is not None and args.history_steps != history_steps:
+            raise ValueError("Prepared correction horizon cannot be changed at replay")
+        history_steps = args.history_steps
     if not 1 <= history_steps <= steps:
         raise ValueError("Correction history horizon must be between 1 and total steps")
     planned = plan_cq(d, dt, history_steps, max_memory_mb=args.max_memory_mb, disk_spectrum=True)
@@ -132,7 +256,7 @@ def main():
     if peak > args.max_memory_mb * 1024**2:
         raise ValueError(f"Resolvent arrays need about {peak / 1024**2:.1f} MiB")
     plan = replace(planned, fft_size=original_plan.fft_size, radius=original_plan.radius)
-    if digest_file(storage["path"]) != storage["sha256"]:
+    if prepared is None and digest_file(storage["path"]) != storage["sha256"]:
         raise ValueError("Completed source spectrum SHA-256 differs")
     model = load_nodal_model(
         options["case"],
@@ -183,24 +307,56 @@ def main():
         )
     ramp = np.array([schedule.actuator(float(t)) for t in time])
     force = reference.spring * (ramp - ramp[0])
-    transformed_force = rfft(
-        force * original_plan.radius ** np.arange(steps + 1), n=original_plan.fft_size
-    )
     args.output.mkdir(parents=True, exist_ok=True)
-    disk_required = (original_plan.fft_size // 2 + 1) * d * d * 16 + 64 * 1024**2
-    if shutil.disk_usage(args.output).free < disk_required:
-        raise ValueError("Insufficient disk space for the complete resolvent half spectrum")
-    spectrum, elastic_spectrum = invert_elastic_spectrum(
-        storage["path"],
-        original_plan,
-        args.output / f"resolvent-{uuid4().hex}.npy",
-        tangent,
-        transformed_force,
-    )
-    elastic = irfft(elastic_spectrum, n=original_plan.fft_size, axis=0)[: steps + 1]
-    elastic /= original_plan.radius ** np.arange(steps + 1)[:, None]
-    del elastic_spectrum
-    history = BoundaryHistory(plan, invert_spectrum(spectrum, plan))
+    inverse_residual = None
+    if prepared is not None:
+        for filename, key in [("weights.npy", "weights_sha256"), ("elastic.npz", "elastic_sha256")]:
+            if digest_file(args.prepared_kernel / filename) != prepared[key]:
+                raise ValueError(f"Prepared data differs: {filename}")
+        prepared_plan = CQPlan(**prepared["plan"])
+        if (
+            prepared_plan.dt,
+            prepared_plan.steps,
+            prepared_plan.dofs,
+            prepared_plan.fft_size,
+            prepared_plan.radius,
+        ) != (plan.dt, plan.steps, plan.dofs, plan.fft_size, plan.radius):
+            raise ValueError("Prepared contour differs from original CQ discretization")
+        prepared_weights = np.load(
+            args.prepared_kernel / "weights.npy", mmap_mode="r", allow_pickle=False
+        )
+        if (
+            prepared_weights.shape != (history_steps + 1, d, d)
+            or prepared_weights.dtype != np.float64
+        ):
+            raise ValueError("Invalid physical resolvent weights")
+        history = BoundaryHistory(plan, prepared_weights)
+        with np.load(args.prepared_kernel / "elastic.npz", allow_pickle=False) as data:
+            np.testing.assert_array_equal(data["time"], time)
+            elastic = data["elastic"]
+        if elastic.shape != (steps + 1, d):
+            raise ValueError("Invalid elastic startup shape")
+        spectrum_record = prepared["spectrum_storage"]
+    elif args.reuse_resolvent is not None:
+        spectrum, elastic_spectrum, inverse_residual = reuse_elastic_spectrum(
+            args.reuse_resolvent, storage, original_plan, tangent, environment
+        )
+    else:
+        disk_required = (original_plan.fft_size // 2 + 1) * d * d * 16 + 64 * 1024**2
+        if shutil.disk_usage(args.output).free < disk_required:
+            raise ValueError("Insufficient disk space for the complete resolvent half spectrum")
+        spectrum, elastic_spectrum = invert_elastic_spectrum(
+            storage["path"],
+            original_plan,
+            args.output / f"resolvent-{uuid4().hex}.npy",
+            tangent,
+            np.ones(original_plan.fft_size // 2 + 1),
+        )
+    if prepared is None:
+        elastic = causal_elastic_baseline(elastic_spectrum, original_plan, force)
+        del elastic_spectrum
+        history = BoundaryHistory(plan, invert_spectrum(spectrum, plan))
+        spectrum_record = spectrum.record()
     composition_error = float(np.linalg.norm(history.instantaneous @ a0 - np.eye(d), ord=np.inf))
     if composition_error > 1e-6:
         raise ValueError(f"CQ inverse composition error is too large: {composition_error}")
@@ -274,6 +430,8 @@ def main():
         max_cumulative_slip_mm=float(c.max()),
         maximum_residual_mpa=float(residual.max()),
         inverse_cq_composition_inf_error=composition_error,
+        elastic_baseline="Causal CQ coefficients followed by zero-padded forcing convolution",
+        reused_inverse_frequency_max_inf_residual=inverse_residual,
         first_correction_step=memory.start,
         correction_history_steps=history_steps,
         total_steps=steps,
@@ -281,8 +439,13 @@ def main():
         estimated_array_peak_mib=peak / 1024**2,
         kernel_and_initialization_seconds=kernel_seconds,
         total_seconds=perf_counter() - started,
-        resolvent_storage=spectrum.record(),
-        source_spectrum_sha256=storage["sha256"],
+        resolvent_storage=spectrum_record,
+        source_spectrum_sha256=storage.get("sha256"),
+        prepared_kernel=None
+        if args.prepared_kernel is None
+        else str(args.prepared_kernel.resolve()),
+        completed_requested_horizon=True,
+        strict_field_comparison_passed=max(differences.values()) <= 1e-5,
         environment=environment,
         prototype_sha256=digest_file(Path(__file__)),
         scope="Equivalent elastic-resolvent validation with full elastic startup, original loading policy and complete correction memory after activation; no rational fit",

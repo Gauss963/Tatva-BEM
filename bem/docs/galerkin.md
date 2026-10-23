@@ -420,3 +420,20 @@ FDBEM_CORES=4 bem/run.sh galerkin --h 20 --contact-h 5 \
   --sampling adaptive --sampling-rtol 1e-8 --max-memory-mb 20480 \
   --name galerkin-patch5-dt8-q6
 ```
+
+## 接觸座標完全匹配 FEM 的靜態診斷
+
+另將接觸 hat functions 的間距設為 2 mm，共 241 個節點，與原 FEM 接觸位置相同；
+其餘使用 outer 20 mm、角落／接觸端點 2 mm、Gauss 16，兩體共 322+328 個面板。
+初始平衡 residual 為 4.75e-10 MPa，frozen-plastic 預估 yield 在 y=0、24.6221 ms；
+原 FEM h=2 的同類靜態預估為約 25.803 ms。初始壓力／剪力分布的相對 L2 差
+仍約 12.64%／15.39%。因此，僅讓接觸節點匹配 FEM 尚未解決初始場差距。
+本項只做靜態診斷，沒有執行其完整動態事件，亦不代表兩法的空間收斂證明。
+
+```sh
+FDBEM_CORES=1 bem/run.sh galerkin-audit --refine-corners --static-only \
+  --end-values 2 --contact-values 2
+```
+
+原始輸出為 `outputs/galerkin-corner-refinement-end2-contact2/summary.json`；
+可藉 `--contact-values` 指定額外接觸尺度，輸出資料夾會包含此控制值。

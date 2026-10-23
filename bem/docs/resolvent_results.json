@@ -1,0 +1,375 @@
+{
+  "native32_adjoint": {
+    "source": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/direct-resolvent-native32-replay/resolvent_adjoint.json",
+    "sha256": "a8c4b40ceac2d89b111cf0c3aa6b0a5b7535e69689e6b7fc3b3b3b4752a9a794",
+    "values": {
+      "comparisons": {
+        "gradient_max_abs_difference": 4.175599310762834e-10,
+        "gradient_relative_difference": [
+          2.2711757986381692e-10,
+          3.7396435014196665e-09,
+          2.0137385225247736e-10,
+          4.9188435640998446e-11,
+          8.450461007220423e-10
+        ],
+        "actuator_gradient_max_abs_difference": 4.186696128671841e-12,
+        "initial_plastic_slip_gradient_max_abs_difference": 2.657275788298108e-11,
+        "initial_cumulative_slip_gradient_max_abs_difference": 5.249987111710652e-10
+      },
+      "prefix_parameter_gradient": [
+        6.732001321908049e-10,
+        -2.9017940286322395e-08,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "exact_branch_changes": {
+        "exact_sliding_entries": 0,
+        "exact_opening_entries": 0,
+        "weakening_clip_entries": 0
+      },
+      "reference_gradient_sha256": "8f33edc50dc221a232b372ec201b4ab228b9eb3309c0e34f001ab15a0fe3a886",
+      "reference_arrays_sha256": "8c5995a6d30e7a4c10c425a6a3410680540ca4d2ced02cfdfa5971b17ed86bb7"
+    }
+  },
+  "native64_new_grid": {
+    "source": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/direct-resolvent-native64-dt4-standalone/independent_comparison.json",
+    "sha256": "67bd162c65d17e7a69dbc8b6b67ecb5b84393b92b6d923b7e8e49cff08827e3f",
+    "values": {
+      "original": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/native64-dt4-zreference",
+      "standalone": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/direct-resolvent-native64-dt4-standalone",
+      "maximum_absolute_field_difference": {
+        "pressure": 4.053966051742464e-09,
+        "shear": 3.6475995557339047e-09,
+        "plastic_slip": 2.6135538178095885e-11,
+        "cumulative_slip": 2.6136939834664474e-11,
+        "actuator": 0.0,
+        "platen": 4.263966957296361e-11,
+        "contact_jumps": 2.609112925711088e-11
+      },
+      "gradient_comparisons": {
+        "gradient_max_abs_difference": 5.914472245294178e-10,
+        "parameter_relative_differences": [
+          8.004658612810787e-11,
+          2.4421757653699875e-09,
+          2.684757256459574e-10,
+          4.169241260963713e-11,
+          7.540487994625083e-10
+        ],
+        "actuator_gradient_max_abs_difference": 3.1503376296537766e-12,
+        "initial_plastic_slip_gradient_max_abs_difference": 3.1999458638409806e-11,
+        "initial_cumulative_slip_gradient_max_abs_difference": 6.261893226167103e-10
+      },
+      "exact_branch_changes": {
+        "exact_sliding_entries": 0,
+        "exact_opening_entries": 0,
+        "weakening_clip_entries": 0
+      },
+      "scope": "Independent original Z versus standalone direct L, changed dt=4 us from the kernel geometry source at 8 us; short accelerated diagnostic, not original event-16"
+    }
+  },
+  "native64_original_balance": {
+    "source": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/direct-resolvent-native64-dt4-standalone/original_residual.json",
+    "sha256": "5ca1f202dd9bcffc4e3971f494ed23fb3f268dd6a1d10c82ac21ab02c19e8953",
+    "values": {
+      "maximum_original_perturbation_residual_mpa": 4.548434517914757e-09,
+      "residual_plus_static_bound_mpa": 4.564326516742767e-09,
+      "passes_original_balance_tolerance": true,
+      "exact_branch_changes": {
+        "exact_sliding_entries": 0,
+        "exact_opening_entries": 0,
+        "weakening_clip_entries": 0
+      },
+      "maximum_force_fft_direct_difference": 2.3391066861222498e-11
+    }
+  },
+  "fine4_causal_replay": {
+    "source": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/resolvent-fine4-causal/summary.json",
+    "sha256": "fd1e600cc7d212b7eb24c1a8ba68ff266460a26fcf786cbccfde41aaf7093dd7",
+    "values": {
+      "maximum_absolute_field_difference": {
+        "pressure": 2.5748570635641954e-05,
+        "shear": 0.0003375755557613047,
+        "plastic_slip": 1.4779251067409405e-07,
+        "cumulative_slip": 1.4779251007041028e-07,
+        "actuator": 0.0,
+        "platen": 4.575429812803122e-09,
+        "contact_jumps": 1.037340986442814e-07
+      },
+      "max_cumulative_slip_mm": 0.48145000051480075,
+      "maximum_residual_mpa": 1.504218971604132e-11,
+      "first_correction_step": 6599,
+      "actuator_hold_time_s": 0.029216,
+      "reused_inverse_frequency_max_inf_residual": 9.058491414882606e-15
+    },
+    "legacy_strict_field_guard_passed": false
+  },
+  "fine4_original_balance": {
+    "source": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/resolvent-fine4-causal/original_residual.json",
+    "sha256": "eec5003b7179b6a92304d6e0c74690e4dd6539aed1eedefe9d36ec4de2cbadda",
+    "values": {
+      "maximum_original_perturbation_residual_mpa": 2.706044099909377e-08,
+      "residual_plus_static_bound_mpa": 2.7266581173854267e-08,
+      "passes_original_balance_tolerance": true,
+      "exact_branch_changes": {
+        "exact_sliding_entries": 0,
+        "exact_opening_entries": 0,
+        "weakening_clip_entries": 0
+      },
+      "maximum_force_fft_direct_difference": 4.709477252617944e-11
+    }
+  },
+  "fine4_mus_clip_branch": {
+    "source": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/galerkin-patch5-dt4-q6-disk/adjoint-exact-branches-mus.json",
+    "sha256": "5c62980d2c37d580bac724a9fb1b5706a69c9a2fab887fc1ff2e0531871435ae",
+    "values": {
+      "finite_difference_checks": [
+        {
+          "parameter": "mu_s",
+          "epsilon": 1e-09,
+          "adjoint": -132.63390586650593,
+          "central_difference": -137.96298228840874,
+          "relative_error": 0.03862685724466646,
+          "branch_changes_minus_plus": [
+            {
+              "sliding_entries": 0,
+              "opening_entries": 0,
+              "exact_sliding_entries": 0,
+              "exact_opening_entries": 0,
+              "weakening_clip_entries": 0
+            },
+            {
+              "sliding_entries": 0,
+              "opening_entries": 0,
+              "exact_sliding_entries": 0,
+              "exact_opening_entries": 0,
+              "weakening_clip_entries": 1
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "scope": "Experimental algebra, original-equation and conditional AD validation; no FEM equality, full stability theorem or same-accuracy speed advantage established",
+  "matched_contact2_static": {
+    "source": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/galerkin-corner-refinement-end2-contact2/summary.json",
+    "sha256": "492bfbc9cdd8df511b838a18b0510afa4514e06306566ee3bdb8a11b44483c4d",
+    "values": {
+      "name": "corner2.0-contact2.0",
+      "mesh_options": {
+        "max_panel_length": 20,
+        "contact_panel_length": 2.0,
+        "contact_end_length": 2.0,
+        "corner_panel_length": 2.0
+      },
+      "quadrature": 16,
+      "panels": [
+        322,
+        328
+      ],
+      "contact_nodes": 241,
+      "initialization": {
+        "status": "admissible_nodal_static_lift",
+        "basis": "P1 displacement / P0 auxiliary density; symmetric Galerkin",
+        "residual_mpa": 4.742268799873273e-10,
+        "initial_max_strength_ratio": 0.7153765420765245,
+        "max_cumulative_slip_change_mm": 0.0,
+        "platen_mm": 9.959591307623684,
+        "mean_pressure_mpa": 16.66666666666719,
+        "mean_shear_mpa": 8.819118313386792,
+        "quadrature": 16
+      },
+      "predicted_first_y_mm": 0.0,
+      "predicted_shear_time_s": 0.024622074695127984,
+      "prediction_valid": true,
+      "initial_profile_relative_l2": {
+        "p": 0.12636722263905495,
+        "tau": 0.1538505497966658
+      },
+      "seconds": 41.562071584165096
+    },
+    "scope": "Static lift only; no dynamic event or convergence proof"
+  },
+  "fine2_quadrature": {
+    "source": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/galerkin-fine2-quadrature/summary.json",
+    "sha256": "6c770db3f9157d2e08191a31b2926d72a9aae1b6f2be7488c9c1fbea5a487735",
+    "values": {
+      "records": [
+        {
+          "order": 6,
+          "seconds": 56.68911274988204
+        },
+        {
+          "order": 12,
+          "seconds": 197.9187634587288
+        },
+        {
+          "order": 18,
+          "seconds": 425.035604625009
+        }
+      ],
+      "angles": [
+        0.0,
+        0.025,
+        0.05,
+        0.1,
+        0.2,
+        0.5,
+        1.0,
+        2.0,
+        3.141592653589793
+      ],
+      "actual_s_real": [
+        175.6732939355299,
+        175.83181492797362,
+        176.89253033525975,
+        189.89805500990718,
+        381.2042480824951,
+        7706.412719192118,
+        105923.86523877263,
+        1002704.5326344232,
+        1999473.1035192655
+      ],
+      "actual_s_imag": [
+        0.0,
+        12502.599311187587,
+        25020.790087496807,
+        50165.90261528433,
+        101313.34206000515,
+        269037.1495163563,
+        614010.715231381,
+        1098045.7249164374,
+        1.8361098744566665e-10
+      ],
+      "dt_s": 2e-06,
+      "source_run": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/galerkin-patch5-dt4-q6-disk",
+      "errors_relative_to_18": {
+        "6": [
+          1.6308670688463858e-08,
+          2.452102949115134e-08,
+          6.088153682207206e-08,
+          7.242823492949945e-08,
+          7.265899648012996e-06,
+          3.6113668720176805e-06,
+          7.4614485176524525e-06,
+          0.00017919169312948207,
+          6.298098572919672e-05
+        ],
+        "12": [
+          2.164655266155546e-12,
+          2.5060990064914066e-11,
+          1.1961698330155497e-09,
+          1.2326850450422654e-09,
+          1.2746367658344553e-07,
+          5.639293122299869e-08,
+          5.6038518136779736e-08,
+          3.9953483204750927e-07,
+          8.481317889781627e-07
+        ]
+      },
+      "scope": "Sampled traction-scaled matrix differences; not a global quadrature error bound"
+    },
+    "scope": "Nine sampled angles on the proposed 2 us/full 45 ms contour, actual fine mesh; not a global error bound"
+  },
+  "coarse4_direct_kernel": {
+    "source": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/direct-resolvent-coarse4/summary.json",
+    "sha256": "d71e082fca449f333d63c6f4a45808ff8147a5967b7c9d35ba774d27f062b85c",
+    "values": {
+      "status": "completed_resolvent_kernel_only",
+      "total_seconds": 3541.513544875197,
+      "frequency_sampling": {
+        "method": "adaptive_piecewise_chebyshev",
+        "options": {
+          "relative_tolerance": 1e-08,
+          "absolute_tolerance": 1e-14,
+          "degree": 16,
+          "check_points": 7
+        },
+        "dense_grid_evaluations": 16385,
+        "transfer_evaluations": 5326,
+        "interpolated_grid_points": 13963,
+        "direct_grid_points": 2422,
+        "accepted_intervals": 25,
+        "rejected_intervals": 96,
+        "max_accepted_normalized_check_error": 0.0014799536279253877,
+        "max_accepted_normalized_tail": 0.1690135782280955,
+        "certified_error_bound": false,
+        "evaluation_ratio": 0.3250534025022887
+      },
+      "initial_composition_inf_error": 2.151566904427304e-11,
+      "estimated_array_peak_mib": 1173.727638244629,
+      "weights_sha256": "2769f2ad69312dbf71fcf826444e3d7dd7b7ffe8d7e4f0ed65367605f032fc38",
+      "elastic_sha256": "454ef11f2042fbb059b0b6f3b09d7090ed868bb537bc819fc04b138b7cc0dc41"
+    }
+  },
+  "coarse4_direct_replay": {
+    "source": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/direct-resolvent-coarse4-replay/summary.json",
+    "sha256": "369b4ad049e93474319eb9da11530c1fbc818e0a850311e3fb25e58c660b9a3a",
+    "values": {
+      "maximum_absolute_field_difference": {
+        "pressure": 7.260458829705385e-07,
+        "shear": 4.469789246286382e-06,
+        "plastic_slip": 1.9568485498666632e-08,
+        "cumulative_slip": 1.9568485803977964e-08,
+        "actuator": 0.0,
+        "platen": 1.4941807791046813e-09,
+        "contact_jumps": 1.9291045205704904e-08
+      },
+      "max_cumulative_slip_mm": 0.44291458893084923,
+      "maximum_residual_mpa": 1.4029666317583178e-11,
+      "first_correction_step": 6050,
+      "correction_history_steps": 5500,
+      "total_steps": 11250,
+      "strict_field_comparison_passed": true,
+      "actuator_hold_time_s": 0.028895999999999998
+    }
+  },
+  "coarse4_original_balance": {
+    "source": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/direct-resolvent-coarse4-replay/original_residual.json",
+    "sha256": "7e9918bea9298be26edb43fb9ecfeb9536155ea7fad00842343cc18d6002965a",
+    "values": {
+      "maximum_original_perturbation_residual_mpa": 1.1456798176823213e-08,
+      "residual_plus_static_bound_mpa": 1.1577367727296283e-08,
+      "passes_original_balance_tolerance": true,
+      "exact_branch_changes": {
+        "exact_sliding_entries": 0,
+        "exact_opening_entries": 0,
+        "weakening_clip_entries": 0,
+        "weakening_clip_tie_entries": 0
+      },
+      "maximum_force_fft_direct_difference": 4.6838977141305804e-11
+    }
+  },
+  "coarse4_resolvent_adjoint": {
+    "source": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/direct-resolvent-coarse4-replay/resolvent_adjoint.json",
+    "sha256": "482347cd58c7333346af320df69ba2c9c8afd0ded394ec7ea543c5121ead261d",
+    "values": {
+      "comparisons": {
+        "gradient_max_abs_difference": 5.345072565887676e-06,
+        "gradient_relative_difference": [
+          3.2420998393832186e-08,
+          3.493336997308288e-08,
+          3.555936848666615e-08,
+          1.4522057324080536e-06,
+          3.957851263832913e-08
+        ]
+      },
+      "prefix_parameter_gradient": [
+        7.316981319014754e-08,
+        1.382166577561501e-07,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "exact_branch_changes": {
+        "exact_sliding_entries": 0,
+        "exact_opening_entries": 0,
+        "weakening_clip_entries": 0,
+        "weakening_clip_tie_entries": 0
+      },
+      "reference_gradient_sha256": "c018278474b684d1a501aabf7556e16d990c57d4fe0a7b14177c9533104f917f",
+      "independent_reference_compared": true,
+      "steps": 11250
+    }
+  }
+}

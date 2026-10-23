@@ -21,6 +21,15 @@
 [出版資料](https://epubs.siam.org/doi/10.1137/24M1642524) 亦列為後續閱讀，
 目前不據此宣稱對不光滑摩擦歷程有指數收斂。
 
+補讀 Hoonhout、Löscher、Steinbach、Urzúa–Torres（2026）
+[Stable least-squares space-time boundary element methods for the wave equation](https://doi.org/10.1007/s10444-026-10282-y)，
+重點為混合離散、Lemma 7、§4.4 與結論。其可靠誤差指標需要 nested spaces、
+discrete inf-sup 與 saturation assumption；論文的具體分析／實驗是空間一維純量波，
+高維 elastodynamics 仍列為延伸方向。因此，不能把目前 Newton residual 很小視為
+已證明與 FEM 一致，也不能直接把該指標移植成 slip-weakening 接觸的誤差上界。
+本專案目前分開記錄原始方程 residual、空間／時間加密差與 FEM 差；
+新 resolvent 也須經原始完整 Z 歷史的獨立核對，詳見 [驗證紀錄](resolvent.md)。
+
 補檢索取得 Zhou、Chen (2026)
 [mCCSR 平行 TDBEM 的摘要、引言與章節預覽](https://doi.org/10.1016/j.advengsoft.2026.104190)，
 尚未取得完整公式與實驗章節。其重點是 3D 波因果性、block sparsity 與 CPU 排程，
@@ -34,6 +43,13 @@ SIAM J. Numer. Anal. 55(2), 621–639 (2017)，尤其式 (2.1)、§4.2。
 在 shifted-sectorial 條件下以輪廓積分和 ODE 狀態壓縮後者；這不是任意刪除長尾。
 本問題的 raw layer kernels 值得沿此路線研究。經全域消去的 `Z(s)` 含有限體共振，
 仍須另證解析延拓與界，不能直接套用這篇定理或其記憶體複雜度。
+
+補讀 Guo、López-Fernández（2025）
+[Runge–Kutta generalized Convolution Quadrature for sectorial problems](https://arxiv.org/html/2506.21242v1)
+的 Assumption 1 與 §5 fast/oblivious 分解。該文要求 transfer 在
+`|arg(z)| < pi` 解析，並有 `M*|z|^(-alpha)` 的界，`0 < alpha < 1`。
+本案有限體 resolvent 可能有虛軸模態極點；尚未證明它滿足這些條件。
+因此目前不直接移植其長尾壓縮或沿用複雜度結論，而先保留完整的非零修正記憶。
 
 2026 的 3D-ACA 同樣有一項實作限制：目前 `Z(s)` 的單一 entry 也依賴全域求解，
 不能假設 fiber 可像 raw Green kernel 一樣便宜取得。
