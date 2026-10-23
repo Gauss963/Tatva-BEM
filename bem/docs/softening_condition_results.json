@@ -1,0 +1,85 @@
+{
+  "source": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/weakening-local-condition-candidates/summary.json",
+  "source_sha256": "a3e8f53619eaf8c9cfeb1abb1a2eea93b03b3b97a7bb1e9845a923df2d33a2fc",
+  "validator_sha256": "bfad82e8ba96f2518ccc0d0f403dc45120c5df63f51ec876b36b9e3f9dfca90a",
+  "bem": [
+    {
+      "name": "galerkin-corners-dt4-storage-baseline",
+      "dt_s": 4e-06,
+      "trajectory_sha256": "9d09fb2cf57ee4d98a64dc3724c65e790502693b156995144633331f9d5b2200",
+      "updated_local_map_condition": {
+        "maximum_eta_while_weakening": 0.6605619484908684,
+        "maximum_eta_while_weakening_and_sliding": 0.6501907514127607,
+        "minimum_denominator_while_weakening_and_sliding": 2680.2384626754274,
+        "nonpositive_denominator_weakening_sliding_entries": 0,
+        "nonpositive_denominator_nodes": 0,
+        "critical_pressure_min_mpa": 482.5489289999998,
+        "interpretation": "Sufficient monotonicity check used by the optional updated-state path; failure does not itself prove multiple roots at the accepted q or instability of the previous-state method",
+        "branch_activity_scope": "Accepted jumps and previous state, exact sliding predicate",
+        "accepted_q_with_multiple_updated_endpoint_candidates": 0,
+        "accepted_q_with_no_updated_endpoint_candidate": 0,
+        "accepted_q_with_flat_updated_endpoint_continuum": 0,
+        "first_entries": [],
+        "entry_list_truncated": false
+      }
+    },
+    {
+      "name": "galerkin-patch5-dt4-q6-disk",
+      "dt_s": 4e-06,
+      "trajectory_sha256": "efdfee28adcb1417c9f1dfa711c1a8f62e4529a3a7f2acf7cf9db19cc67ca918",
+      "updated_local_map_condition": {
+        "maximum_eta_while_weakening": 1.2800117832890432,
+        "maximum_eta_while_weakening_and_sliding": 1.2364707809023667,
+        "minimum_denominator_while_weakening_and_sliding": -1811.839123273934,
+        "nonpositive_denominator_weakening_sliding_entries": 2,
+        "nonpositive_denominator_nodes": 1,
+        "critical_pressure_min_mpa": 482.5489289999998,
+        "interpretation": "Sufficient monotonicity check used by the optional updated-state path; failure does not itself prove multiple roots at the accepted q or instability of the previous-state method",
+        "branch_activity_scope": "Accepted jumps and previous state, exact sliding predicate",
+        "accepted_q_with_multiple_updated_endpoint_candidates": 0,
+        "accepted_q_with_no_updated_endpoint_candidate": 0,
+        "accepted_q_with_flat_updated_endpoint_continuum": 0,
+        "first_entries": [
+          {
+            "time_s": 0.029212,
+            "y_mm": 480.0,
+            "pressure_mpa": 596.6576510642305,
+            "eta": 1.2364707809023667,
+            "prior_c_over_Dc": 0.0,
+            "new_c_over_Dc": 0.37888228754382186
+          },
+          {
+            "time_s": 0.029216,
+            "y_mm": 480.0,
+            "pressure_mpa": 594.8617864794032,
+            "eta": 1.232749159162269,
+            "prior_c_over_Dc": 0.37888228754382186,
+            "new_c_over_Dc": 2.5837065571876736
+          }
+        ],
+        "entry_list_truncated": false
+      }
+    }
+  ],
+  "fem": {
+    "maximum_eta_while_weakening": 0.8015049695878044,
+    "maximum_eta_while_weakening_and_sliding": 0.2130907791915768,
+    "minimum_denominator_while_weakening_and_sliding": 6029.298449834138,
+    "nonpositive_denominator_weakening_sliding_entries": 0,
+    "nonpositive_denominator_nodes": 0,
+    "critical_pressure_min_mpa": 482.54897057370664,
+    "interpretation": "Sufficient monotonicity check used by the optional updated-state path; failure does not itself prove multiple roots at the accepted q or instability of the previous-state method",
+    "maximum_saved_pressure_mpa": 386.7653979843051,
+    "saved_frames": 9000,
+    "pressure_reconstruction": "saved friction_strength / applied friction_coefficient; source uses strength=mu*normal_traction for this law",
+    "branch_activity_scope": "Saved applied mu identifies weakening; saved plastic increments are only a sliding proxy, not every FEM microstep",
+    "scope": "Saved frames only, including float32 storage error; maxima between frames unknown; not a global or microstep stability proof",
+    "source_hdf5": {
+      "path": "/Volumes/Gauss-T7/tatva/runs/local-mus08-muk06-gap0-v2-ev16/data/simulation.h5",
+      "bytes": 12734535431,
+      "mtime_ns": 1792165113653703298
+    },
+    "source_hdf5_unchanged": true
+  },
+  "scope": "Current saved trajectories only. Nonpositive updated local denominators are not proof of multiple endpoint roots, previous-state instability, or an explanation of the entire FEM discrepancy."
+}

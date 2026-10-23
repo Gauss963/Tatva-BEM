@@ -437,3 +437,50 @@ FDBEM_CORES=1 bem/run.sh galerkin-audit --refine-corners --static-only \
 
 原始輸出為 `outputs/galerkin-corner-refinement-end2-contact2/summary.json`；
 可藉 `--contact-values` 指定額外接觸尺度，輸出資料夾會包含此控制值。
+
+## 弱化更新的局部條件與端點壓力
+
+進一步檢查 optional updated-state return 的充分單調性條件：
+
+```text
+eta = p*(mu_s-mu_k)/(kt*Dc)
+denominator = kt*(1-eta)
+critical pressure = kt*Dc/(mu_s-mu_k) = 482.55 MPa.
+```
+
+這不是目前 previous-state 路徑的穩定性判據。
+現有 optional updated 實作在滑動、仍弱化且 denominator 非正時拒絕繼續；
+但此充分條件失敗，不代表每一組給定位移都存在多個 endpoint 根。
+
+|已記錄資料|弱化時最大 eta|弱化／滑動時 denominator 非正的紀錄數|
+|---|---:|---:|
+|粗網格 4 us，35 contact nodes|0.661|0|
+|細網格 4 us，137 contact nodes|1.280|2，均在 y=480 mm|
+|FEM h=2，9000 shear-phase saved frames|0.802|0；滑動判斷僅為影格增量 proxy|
+
+細網格兩筆資料為 29.212／29.216 ms，p 約 596.66／594.86 MPa。
+其 c/Dc 由 0 進至 0.379，再進至 2.584；後一筆正好在 coverage hold 當步。
+在所有已接受的粗／細網格 jumps 上，另外枚舉 stick、softening、kinetic
+endpoint 候選，**沒有找到多根或無根的紀錄**。上述兩筆雖違反充分單調性檢查，
+各自仍只有一個 kinetic 候選。測試另含相同負 denominator、分別有三根與一根的
+例子，避免把門檻失敗誤報為已證明不唯一。
+
+FEM 壓力由該 slip-weakening 路徑儲存的 `friction_strength / friction_coefficient`
+重建，最大約 386.77 MPa。依實際存檔 dtype 比較 mu_k，避免將 float32 的
+0.6 誤判為尚在弱化。這只涵蓋已儲存影格；影格間的 microstep 峰值未知。
+原 HDF5 以 read-only 開啟，大小與 mtime 維持不變。
+
+![Saved local softening condition](figures/galerkin_softening_condition.png)
+
+這項結果顯示不同空間解析度下的端點壓力，會影響可採用的弱化時間更新，
+不能直接切換更新方式當成與 FEM 吻合的修正。
+它尚未證明兩個端點紀錄造成全部約 25% 滑移差距，也未否定目前完整解的平衡檢查。
+接續的 2 us 案例將保留相同 previous-state law，再比較時間解析度與端點影響。
+[數據與來源指紋](softening_condition_results.json) 保留完整診斷範圍。
+
+```sh
+FDBEM_CORES=1 bem/run.sh weakening-audit \
+  bem/outputs/galerkin-corners-dt4-storage-baseline \
+  bem/outputs/galerkin-patch5-dt4-q6-disk \
+  --fem-local-condition --plot-softening-condition --output NEW_DIAGNOSTIC_DIR
+```
