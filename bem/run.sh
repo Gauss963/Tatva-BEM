@@ -117,6 +117,9 @@ elif [ "${1:-}" = cauchy-reuse-audit ]; then
 elif [ "${1:-}" = reused-resolvent-kernel ]; then
     shift
     exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/prepare_reused_resolvent.py" "$@"
+elif [ "${1:-}" = fmm2d-library ]; then
+    shift
+    exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/build_fmm2d_library.py" "$@"
 elif [ "${1:-}" = native-spectrum-check ]; then
     shift
     exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/check_radial_rollout.py" "$@"

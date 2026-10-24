@@ -19,6 +19,7 @@ arguments-*
 *egg-info*
 *build*
 !bem/tools/build_resolvent_history.py
+!bem/tools/build_fmm2d_library.py
 !bem/tools/rebuild_polynomial_kernel.py
 uv.lock
 .pytest_cache/

@@ -27,8 +27,22 @@ FMM2D未列為套件必要依賴，尚未在本機進行大型重用量測。
 此處FMM作用在複數頻率平面的Cauchy加總，並未實作
 [2026 elastodynamics論文](https://arxiv.org/html/2607.15292v1)的3D-ACA或空間FMM。
 
+可選建置工具固定FMM2D revision `550dae5b77b1e006c8ffae37fc832f8c2b536871`，
+在新資料夾保存source archive、編譯器／flags、log與library SHA256，
+並以小型直接加總核對實際Cauchy值／導數。它不安裝系統套件或Python extension。
+本機已有gfortran與C compiler時可執行：
+
+```sh
+FDBEM_CORES=4 bem/run.sh fmm2d-library --cores 4 \
+  --output bem/outputs/fmm2d-local-library
+```
+
 半頻譜按 Hermitian symmetry 補全，兩個實軸端點採與 IRFFT 相同的實數投影。
-剛好落在原節點時直接取樣本，導數使用節點處的 barycentric 公式。
+剛好落在原節點時直接取樣本。對極靠近節點的導數，改用同一DFT多項式的
+局部Taylor展開，避免Cauchy商法則的奇異項互相抵消。
+normalized falling factorials避免高次N冪；只需求原節點導數時改用FFT，
+避免逐節點全circle加總。獨立解析函數測試涵蓋此分支，
+仍沒有據此保證真實BEM transfer導數的插值誤差。
 新座標必須滿足 `abs(h)<1`，並限制
 `max(1,abs(h)/radius)^N <= 4`；後者只是外推放大 guard，沒有保證 transfer 誤差。
 因此不能直接用這條路徑外推所有更細時間網格的高頻值。
