@@ -4,6 +4,12 @@ The first implementation is a fully elastodynamic **reference engine**. The
 complete original event is still an open objective, with these acceptance
 gates. A short successful diagnostic does not close the later gates.
 
+Latest completed result: [2 us / Q12, full 45 ms](fine2_event.md), maximum
+slip 0.511082 mm versus archived FEM 0.644123 mm (20.65% low).
+The earlier 4 us result uses Q6, so this pair does not establish temporal convergence.
+The original-mesh four-core FEM rerun is still running. A serialized study will
+check identical one-substep fields before comparing 4 and 16 constitutive substeps.
+
 - [x] Independent Laplace-domain plane-strain Green tensor and source traction.
 - [x] Direct finite-interior boundary operators, jump term and singular integration.
 - [x] BDF2-CQ weights and complete causal boundary history.
@@ -24,7 +30,10 @@ gates. A short successful diagnostic does not close the later gates.
 - [x] Shared prepared Galerkin geometry and same-matrix four-worker benchmark.
 - [x] Native adaptive-interpolant storage and disk time weights, with real-BEM diagnostic field/cotangent checks.
 - [x] Capacity-limited exact forward/transpose histories: full coarse 45 ms equality and fine4 adjoint cache equality; original-Z fine4 guard remains open.
-- [x] Isolated fixed near/far quadrature: sampled finite-block contour, work passivity and short nonlinear/conditional-adjoint checks; full-horizon validation remains open.
+- [x] Isolated fixed near/far quadrature: sampled contour and short nonlinear/AD checks; full coarse 45 ms fields and original-equation balance pass, one actuator cotangent still fails its unchanged guard.
+- [x] Constrained trace Schur formulation and sampled low-frequency conditioning checks; full-event validation remains open.
+- [x] Local constitutive substeps with previous-displacement cotangents, checked against an independent small original-Z/JAX scan; full-event accuracy study remains open.
+- [x] Guarded circle-reuse prototype and analytic kernel/startup regression; large FMM and nonlinear validation remain open.
 - [ ] Quantified nonlinear stability and temporal/spatial convergence for Galerkin.
 - [ ] Independent spatial refinement at the contact ends and process-zone resolution.
 - [ ] Validate static-lift error against original FEM interior fields and quantify zero-initial-velocity assumptions.
@@ -48,6 +57,13 @@ before claiming an event reproduction or a same-accuracy speed advantage over FE
 
 Increasing the dense memory budget or taking very large time steps is not
 a substitute for resolving the relevant waves and weakening scale.
+
+The current order is to finish the isolated FEM baseline, inspect the contact
+substep study, then use [guarded spectral reuse](cauchy_reuse.md) for the missing
+same-Q12 time-grid control if its independent BEM checks pass. Keep residual,
+physical error, cold setup and cached rollout costs separate. Material/geometry
+AD and event-time derivatives remain open rather than being inferred from
+successful contact-only derivatives.
 
 ## Separation from the original repository
 

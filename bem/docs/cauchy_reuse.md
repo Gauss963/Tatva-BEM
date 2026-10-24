@@ -24,6 +24,8 @@ h(s) = 2 - sqrt(1 + 2 dt_source s)
 多 density 後端，以及對新座標的解析導數。另可直接呼叫官方 Fortran wrappers，
 避免依賴特定 Python／NumPy ABI；該介面限定官方預設的32-bit INTEGER。
 FMM2D未列為套件必要依賴，尚未在本機進行大型重用量測。
+此處FMM作用在複數頻率平面的Cauchy加總，並未實作
+[2026 elastodynamics論文](https://arxiv.org/html/2607.15292v1)的3D-ACA或空間FMM。
 
 半頻譜按 Hermitian symmetry 補全，兩個實軸端點採與 IRFFT 相同的實數投影。
 剛好落在原節點時直接取樣本，導數使用節點處的 barycentric 公式。

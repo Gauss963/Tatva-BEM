@@ -1,5 +1,11 @@
 # JAX 自動微分的現況與設計
 
+2026-10-24新增[接觸子步的完整條件式adjoint](substepped_contact.md)：
+局部JAX scan配合平衡根隱式微分，反向另傳前一步位移的cotangent。
+20步獨立原始Z-history／JAX scan已核對五參數、初始z/c與全部actuator導數，
+Python3.11／3.12 CI通過；完整事件子步與其獨立梯度對照仍待完成。
+最新2 us／Q12原律完整adjoint已算出，但沒有獨立參考，因此不列為本組驗證通過。
+
 Tatva 原 FEM 已使用 `jit(value_and_grad(elastic_energy_total))` 從能量計算內力，
 靜態初始化用稀疏著色的能量 Hessian。這保留了材料模型由能量導出的優勢。
 但「內力可微分」不等於 HDF5 runner 已能對完整事件直接求參數梯度；
