@@ -29,6 +29,7 @@ def main():
     parser.add_argument("--dt", type=float)
     parser.add_argument("--duration", type=float)
     parser.add_argument("--max-memory-mb", type=float, default=4096)
+    parser.add_argument("--formulation", choices=["joint", "trace"], default="joint")
     parser.add_argument(
         "--frequencies", type=complex, nargs="+", default=[0, 1e-3, 1, 100, 200 + 2000j, 1e6 + 3e5j]
     )
@@ -40,8 +41,14 @@ def main():
     if any(not np.isfinite(s) or (s != 0 and s.real <= 0) for s in args.frequencies):
         raise ValueError("Use zero for static or positive-real Laplace frequencies")
     tools = Path(__file__).resolve().parent
-    helper = tools / "schur_condensation_experiment.py"
+    helper = tools / (
+        "schur_condensation_experiment.py"
+        if args.formulation == "joint"
+        else "trace_schur_experiment.py"
+    )
     paths = [Path(__file__), helper, tools / "audit_passivity.py"]
+    if args.formulation == "trace":
+        paths.append(tools / "schur_condensation_experiment.py")
     paths += [args.source / name for name in ["summary.json", "run_manifest.json"]]
     frozen = {str(path): fingerprint(path) for path in paths}
     source = json.loads((args.source / "summary.json").read_text())
@@ -87,7 +94,8 @@ def main():
     args.output.mkdir(parents=True, exist_ok=True)
     begin = perf_counter()
     with threadpool_limits(limits=1, user_api="blas"):
-        operator = runpy.run_path(str(helper))["ConstrainedSchurTransfer"](model, quadrature=order)
+        name = "ConstrainedSchurTransfer" if args.formulation == "joint" else "TraceSchurTransfer"
+        operator = runpy.run_path(str(helper))[name](model, quadrature=order)
         for s in frequencies:
             tick = perf_counter()
             k, parts = operator.assemble_reduced(None if s == 0 else s)
@@ -114,6 +122,14 @@ def main():
                 supported_stiffness_condition=float(np.linalg.cond(k)),
                 body_stiffness_conditions=[float(np.linalg.cond(block)) for _, block in parts],
                 eliminated_stiffness_condition=float(np.linalg.cond(eliminated)),
+                all_elimination_block_conditions=[
+                    float(np.linalg.cond(block))
+                    for block in (
+                        operator.elimination_blocks(k, eliminated)
+                        if hasattr(operator, "elimination_blocks")
+                        else [eliminated]
+                    )
+                ],
                 full_equilibrium_relative_residual=float(residual),
                 retained_jump_inf_error=float(
                     np.linalg.norm(operator.jump @ u - np.eye(d), ord=np.inf)
@@ -151,6 +167,7 @@ def main():
             source_mesh_arguments=options,
             contour_plan=asdict(plan),
             retained_dofs=d,
+            formulation=args.formulation,
             full_reduced_dofs=m,
             nullspace_dofs=m - d,
             records=records,
