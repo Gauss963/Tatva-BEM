@@ -46,6 +46,24 @@ FDBEM_CORES=1 bem/run.sh cauchy-reuse-audit \
 大型 circle 重用須使用FMM等快速加總，
 直接加總只保留作少量目標點的獨立參考。
 
+另提供 `reused-resolvent-kernel`，限定已有matching且容差不大於1e-6的獨立operator audit。
+它先以小型直接加總檢查實際FMM library的值／導數，再逐row重建完整新circle，
+核對audit點的新BEM矩陣，最後以既有分row IFFT寫出所有correction weights及完整elastic startup。
+每row結束即關閉來源／輸出的mmap，避免把整個數十GB頻譜保留為程序resident mapping。
+它還會以新算出的瞬時BEM矩陣檢查CQ inverse composition；沒有修改摩擦律或刪除歷史。
+這條producer已有解析矩陣的完整權重／startup回歸測試，大型FMM實測仍待執行。
+
+```sh
+FDBEM_CORES=4 bem/run.sh reused-resolvent-kernel \
+  bem/outputs/direct-resolvent-fine2-q12 --dt 4e-6 \
+  --operator-audit bem/outputs/cauchy-fine2-to4-audit \
+  --fmm-library /path/to/libfmm2d.so --threads 4 --max-memory-mb 8192 \
+  --output bem/outputs/reused-q12-dt4-kernel
+```
+
+FMM外部workspace目前採顯式reserve估計，沒有硬RSS保證；OpenMP thread數亦非硬CPU affinity。
+大型結果及完整非線性／AD對照通過前，不能把此prototype列為已達成速度或精度優勢。
+
 這個導數也為固定幾何的材料 AD 提供一條後續路徑。固定 Poisson ratio 時，
 `Z_new(s)=alpha*Z_old(s*sqrt(beta/alpha))`，
 `alpha=E_new/E_old`、`beta=rho_new/rho_old`。但保存的是 resolvent，

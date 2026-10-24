@@ -147,6 +147,7 @@ def main():
         relative_frobenius_errors=errors,
         relative_tolerance=args.relative_tolerance,
         maximum_relative_error=max(errors),
+        operator_arrays_sha256=fingerprint(args.output / "operators.npz"),
         resampling_seconds=resampling_seconds,
         fresh_bem_seconds=direct_seconds,
         total_seconds=perf_counter() - started,
