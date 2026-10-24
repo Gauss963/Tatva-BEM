@@ -32,7 +32,17 @@ HELPER = runpy.run_path(str(HELPER_PATH))
 
 
 def simulate_prepared(
-    model, reference, state, history, elastic, time, ramp, *, diagnostic=False, history_factory=None
+    model,
+    reference,
+    state,
+    history,
+    elastic,
+    time,
+    ramp,
+    *,
+    diagnostic=False,
+    history_factory=None,
+    equilibrium_factory=None,
 ):
     """Preserve original Newton roots, loading stop rule, and every nonzero lag."""
     from finiteblock_bem.jax_backend import JaxContactEquilibrium
@@ -50,7 +60,9 @@ def simulate_prepared(
     composition = float(np.linalg.norm(history.instantaneous @ a0 - np.eye(d), ord=np.inf))
     if not np.isfinite(composition) or composition > 1e-6:
         raise ValueError(f"Instantaneous CQ composition failed: {composition}")
-    system = JaxContactEquilibrium(reference)
+    system = (JaxContactEquilibrium if equilibrium_factory is None else equilibrium_factory)(
+        reference
+    )
     initial, _, contact = reference.evaluate(
         np.zeros(d), np.zeros(d), model.reference.normal_pressure, ramp[0], state, jacobian=False
     )
@@ -141,6 +153,18 @@ def simulate_prepared(
     )
     if memory.online is not None and hasattr(memory.online, "statistics"):
         diagnostics["online_fft_cache"] = memory.online.statistics()
+    if hasattr(system, "substeps"):
+        micro_work = float(np.sum(np.asarray(system.accepted_micro_work) * weights))
+        integrated = float(np.sum(np.asarray(system.accepted_integrated_strength_work) * weights))
+        diagnostics.update(
+            constitutive_substeps=system.substeps,
+            constitutive_path="Linear interpolation of jump within the unchanged bulk CQ step",
+            micro_friction_work_mpa_mm2=micro_work,
+            micro_fixed_pressure_integrated_strength_work_mpa_mm2=integrated,
+            micro_fixed_pressure_work_gap_mpa_mm2=micro_work - integrated,
+            micro_work_scope="Pressure frozen separately at each local substep; not a total energy balance",
+            full_trajectory_substep_ad_validated=False,
+        )
     return DynamicResult(
         time,
         None,
@@ -169,9 +193,16 @@ def main():
         "--fft-cache-mb", type=float, help="Cap retained kernel FFTs; zero streams all"
     )
     parser.add_argument("--fft-rows", type=int, default=4)
+    parser.add_argument(
+        "--constitutive-substeps",
+        type=int,
+        help="Experimental linear-path contact updates inside each unchanged bulk CQ step",
+    )
     args = parser.parse_args()
     if not np.isfinite(args.max_memory_mb) or args.max_memory_mb <= 0:
         raise ValueError("A finite positive memory budget is required")
+    if args.constitutive_substeps is not None and args.constitutive_substeps < 1:
+        raise ValueError("A positive constitutive substep count is required")
     started = perf_counter()
     if args.output.exists() and any(args.output.iterdir()):
         raise ValueError("Choose a new empty output directory")
@@ -242,6 +273,14 @@ def main():
     lift = initialize_nodal_restart(model, quadrature=options["quadrature"])
     reference = NodalInterfaceEquilibrium(model, lift, impedance)
     solver_sha, helper_sha = fingerprint(Path(__file__)), fingerprint(HELPER_PATH)
+    substep_path = Path(__file__).with_name("substepped_contact_experiment.py")
+    substep_sha, equilibrium_factory = None, None
+    if args.constitutive_substeps is not None:
+        from functools import partial
+
+        substep_sha = fingerprint(substep_path)
+        substep = runpy.run_path(str(substep_path))["SubsteppedContactEquilibrium"]
+        equilibrium_factory = partial(substep, substeps=args.constitutive_substeps)
     initialization_seconds = perf_counter() - started
     result = simulate_prepared(
         model,
@@ -253,17 +292,21 @@ def main():
         ramp,
         diagnostic=diagnostic is not None,
         history_factory=history_factory,
+        equilibrium_factory=equilibrium_factory,
     )
     if solver_sha != fingerprint(Path(__file__)) or helper_sha != fingerprint(HELPER_PATH):
         raise ValueError("Experimental solver source changed during simulation")
     if bounded_sha is not None and bounded_sha != fingerprint(bounded_path):
         raise ValueError("Bounded history implementation changed during simulation")
+    if substep_sha is not None and substep_sha != fingerprint(substep_path):
+        raise ValueError("Constitutive substep implementation changed during simulation")
     result.diagnostics.update(
         prepared_kernel=str(args.kernel.resolve()),
         kernel_summary_sha256=fingerprint(args.kernel / "summary.json"),
         initial_impedance_sha256=fingerprint(args.kernel / "initial_impedance.npy"),
         solver_sha256=solver_sha,
         helper_sha256=helper_sha,
+        constitutive_substep_sha256=substep_sha,
         bounded_history_sha256=bounded_sha,
         fft_cache_mb=args.fft_cache_mb,
         estimated_solver_array_peak_mib=estimate / 1024**2,

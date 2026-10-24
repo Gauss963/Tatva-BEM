@@ -289,6 +289,11 @@ def main():
     options = json.loads((args.original / "run_manifest.json").read_text())["arguments"]
     environment = environment_record(options["case"])
     for record in [original, replay]:
+        if record.get("constitutive_substeps", 1) != 1:
+            raise ValueError(
+                "Substepped contact requires an extra previous-displacement cotangent; "
+                "the endpoint-law trajectory adjoint is not applicable"
+            )
         for name in ["source_sha256", "case_sha256", "restart_data_sha256"]:
             if record["environment"][name] != environment[name]:
                 raise ValueError(f"Saved run differs in {name}")

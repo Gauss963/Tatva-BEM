@@ -11,7 +11,8 @@
 新增 [2024–2026 文獻與實作決策](docs/literature.md)，以及可選的頻率插值與 bulk 被動性檢查。
 新的 [P1/P0 對稱 Galerkin backend](docs/galerkin.md) 已接回完整歷史與 JAX，
 提供一致的 nodal forces、端點接觸與批次組裝。較細網格已完成 45 ms，
-時間步由 8 降至 4 us 後，最大滑移偏差由約 31% 降至約 25%；前緣仍未吻合。
+[最新 2 us／Q12 完整結果](docs/fine2_event.md) 的最大滑移為0.5111 mm，
+相對 FEM 的偏差約20.7%；前緣仍未吻合。上一組4 us使用Q6，這次不能作純時間收斂結論。
 完整歷史 FFT 改為只快取可重用的區塊；同一較細軌跡及 adjoint 逐位相同，程序峰值 RSS 約減半。
 Galerkin CLI 可用 `--spectrum-directory` 把完整半頻譜存到磁碟，降低建立權重時的 RAM 需求；
 時間權重和全部歷史仍保留，原本的取樣及 IFFT 公式不變。

@@ -38,7 +38,7 @@ def main():
     record = dict(
         goal_achieved=False,
         same_accuracy_speed_advantage_over_fem_demonstrated=False,
-        reason="Best completed fine BEM still has about 25% maximum-slip discrepancy from archived FEM; quadrature equivalence alone does not remove it",
+        reason="Best completed 2us/Q12 fine BEM still has about 20.7% maximum-slip discrepancy from archived FEM; quadrature equivalence alone does not remove it",
         records={},
     )
     for name, relative in paths.items():

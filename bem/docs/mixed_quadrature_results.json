@@ -1,7 +1,7 @@
 {
   "goal_achieved": false,
   "same_accuracy_speed_advantage_over_fem_demonstrated": false,
-  "reason": "Best completed fine BEM still has about 25% maximum-slip discrepancy from archived FEM; quadrature equivalence alone does not remove it",
+  "reason": "Best completed 2us/Q12 fine BEM still has about 20.7% maximum-slip discrepancy from archived FEM; quadrature equivalence alone does not remove it",
   "records": {
     "fine2_contour": {
       "path": "outputs/mixed-quadrature-fine2-q12-near12/summary.json",

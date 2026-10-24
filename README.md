@@ -5,8 +5,10 @@ developed alongside the Tatva-based PMMA finite-element model.
 
 **Research implementation: the full 45 ms event-16 FEM rupture has not yet
 been reproduced or shown to converge.** A refined Galerkin run completes the
-45 ms history, but its maximum slip remains about 31% below the archived FEM.
-See the [latest Galerkin comparison](bem/docs/galerkin.md) and the
+45 ms history at 2 us / Q12, but its maximum slip remains about 20.7% below
+the archived FEM. This run changes both time step and quadrature relative to
+the previous 4 us study; it does not establish temporal convergence.
+See the [latest full-event comparison](bem/docs/fine2_event.md) and the
 [earlier collocation comparison](bem/docs/event16_comparison.md).
 
 This repository preserves the existing Tatva/PMMA Git history. Its upstream
