@@ -28,6 +28,8 @@ resolvent 現可直接建立新時間網格，並核對參數、載入及初始�
 新增 [指定容量的 FFT 歷史快取](docs/bounded_history.md)：完整粗網格 45 ms 的解與各種 cotangent
 在 0／8 MiB 設定下逐位元相同。較細網格 adjoint 亦與原快取規則逐位元相同，
 但既有 L／原 Z 的單一載入梯度 guard 仍未通過，保留原容差與失敗紀錄。
+新增 [FEM 四核心參考與獨立界面輸出](docs/fem_reference.md)：完整粗 FEM 事件的 9000 筆
+shear 資料與最後狀態逐位元相同，bulk 輸出可大幅減少；原 h2 參考已排在現行 BEM 工作之後，尚未完成。
 
 程式與 Tatva、Bem2d.jl 獨立，不需要讀取或修改外接磁碟，也不需要上層 repository 的 Julia 環境。
 可以把本資料夾獨立放進新的 GitHub repository。

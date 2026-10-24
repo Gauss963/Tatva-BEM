@@ -1,0 +1,84 @@
+{
+  "scope": "Full h40 FEM storage-cadence regression, not the original h2 accuracy/speed benchmark",
+  "history_differences": {
+    "time": 0.0,
+    "applied_shear": 0.0,
+    "avg_tau": 0.0,
+    "avg_sigma_n": 0.0,
+    "max_penetration": 0.0,
+    "max_slip": 0.0,
+    "mu_eff_mean": 0.0,
+    "elastic_energy": 0.0,
+    "interface_energy": 0.0,
+    "kinetic_energy": 0.0,
+    "applied_shear_displacement": 0.0,
+    "shear_loading_stopped": 0.0,
+    "loading_face_displacement": 0.0,
+    "shear_boundary_reaction": 0.0,
+    "extension_elastic_energy": 0.0,
+    "normal_loading_coordinate": 0.0,
+    "normal_external_force": 0.0
+  },
+  "interface_field_differences": {
+    "plastic_slip": 0.0,
+    "cumulative_slip": 0.0,
+    "friction_strength": 0.0,
+    "friction_coefficient": 0.0
+  },
+  "final_state_differences": {
+    "cumulative_slip": 0.0,
+    "plastic_slip": 0.0,
+    "u": 0.0,
+    "v_half": 0.0
+  },
+  "old_bytes": 35361659,
+  "new_bytes": 5819953,
+  "date": "2026-10-24",
+  "source_revision": "933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d",
+  "source_archive_sha256": "ab7c09b46dc617795235e8356365d13210f1c0f0c9be40747bbddd9aefae628e",
+  "executed_runner_sha256": "27793da4f7343760deb5d7f64f585b1ef3385322ff8747bf9f338ffff157c22b",
+  "reference_manifest_sha256": "1e4bbbe81e1323effd123c10e893492b4e686187e6f52a6e7705da787fa829a1",
+  "old_run": "bem/outputs/fem-4c-h40-full",
+  "new_run": "bem/outputs/fem-interface-storage-h40-full",
+  "new_output_options": {
+    "frames_per_phase": 4,
+    "shear_frames_per_phase": 32,
+    "interface_frames_per_phase": 40,
+    "shear_interface_frames_per_phase": 9000,
+    "compression": "lzf",
+    "include_initial_frame": true,
+    "store_bulk_strain": false,
+    "store_bulk_velocity": false
+  },
+  "comparison_reader_sha256": "767d970d36ebb446d838af2bd3c5b252e38614cab8a374e2bcf376f5a6564264",
+  "all_9000_shear_history_rows_bitwise_equal": true,
+  "validated_interface_fields": [
+    "plastic_slip",
+    "cumulative_slip",
+    "friction_strength",
+    "friction_coefficient"
+  ],
+  "all_saved_final_state_arrays_bitwise_equal": true,
+  "source_and_protected_input_unchanged": true,
+  "new_shear_frames": 9000,
+  "new_total_interface_frames": 9041,
+  "new_comparison_group": "interface_high_rate",
+  "observed_solver_call_seconds": 48.52742450032383,
+  "controlled_performance_comparison": false,
+  "original_h2_fem_rerun_completed": false,
+  "original_h2_command_queued_after_bem": [
+    "python -B bem/tools/run_fem_reference.py --cores 4 --normal-duration .002 --shear-duration .045 --normal-frames 4 --shear-frames 32 --interface-normal-frames 40 --interface-shear-frames 9000 --output bem/outputs/fem-event16-original-h2-4c-interface"
+  ],
+  "queue_status_file": "bem/outputs/fem2mm-after-bem-20261024.json",
+  "protected_original_source_checks": {
+    "/Volumes/Gauss-T7/tatva/runs/local-mus08-muk06-gap0-v2-ev16/input/case.toml": true,
+    "/Volumes/Gauss-T7/tatva/runs/local-mus08-muk06-gap0-v2-ev16/input/resolved.json": true,
+    "/Volumes/Gauss-T7/tatva/tatva/pmma/dynamics.py": true,
+    "/Volumes/Gauss-T7/tatva/tatva/friction.py": true,
+    "hdf5_size_and_mtime_unchanged": true
+  },
+  "local_tests": {
+    "passed": 156,
+    "seconds": 63.13
+  }
+}

@@ -7,8 +7,10 @@ This imports an exact local Git snapshot, not the evolved root FEM runner.
 """
 
 import argparse
+import hashlib
 import io
 import json
+import math
 import os
 import subprocess
 import sys
@@ -18,6 +20,53 @@ from time import perf_counter, process_time
 
 PROJECT = Path(__file__).resolve().parents[2]
 REVISION = "933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d"
+
+
+def digest(path):
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def verify_snapshot(snapshot, expected):
+    """A cached directory must still contain the exact archived Python source."""
+    for name, record in expected.items():
+        path = Path(snapshot) / name
+        if path.is_symlink() or not path.is_file() or digest(path) != record["sha256"]:
+            raise ValueError(f"FEM source snapshot differs from Git archive: {name}")
+    unexpected = {
+        str(path.relative_to(snapshot))
+        for path in Path(snapshot).rglob("*.py")
+        if str(path.relative_to(snapshot)) not in expected
+    }
+    if unexpected:
+        raise ValueError(f"Unexpected Python modules in FEM snapshot: {sorted(unexpected)}")
+
+
+def stage_snapshot(project, snapshot, *, revision=REVISION):
+    archive = subprocess.run(
+        ["git", "-C", str(project), "archive", revision, "tatva"],
+        check=True,
+        capture_output=True,
+    ).stdout
+    with tarfile.open(fileobj=io.BytesIO(archive)) as stream:
+        expected = {}
+        for member in stream.getmembers():
+            if member.isdir():
+                continue
+            if not member.isfile():
+                raise ValueError("FEM source archive must contain ordinary files only")
+            expected[member.name] = {
+                "sha256": hashlib.sha256(stream.extractfile(member).read()).hexdigest(),
+                "bytes": member.size,
+            }
+        if not Path(snapshot).exists():
+            Path(snapshot).mkdir(parents=True)
+            stream.extractall(snapshot, filter="data")
+    verify_snapshot(snapshot, expected)
+    return dict(
+        revision=revision,
+        archive_sha256=hashlib.sha256(archive).hexdigest(),
+        files=expected,
+    )
 
 
 def main():
@@ -33,7 +82,10 @@ def main():
     parser.add_argument("--shear-duration", type=float, default=5e-5)
     parser.add_argument("--normal-duration", type=float, default=5e-8)
     parser.add_argument("--mesh-size", type=float, help="Optional coarse FEM comparison mesh")
+    parser.add_argument("--normal-frames", type=int, default=4)
     parser.add_argument("--shear-frames", type=int, default=32)
+    parser.add_argument("--interface-normal-frames", type=int)
+    parser.add_argument("--interface-shear-frames", type=int)
     parser.add_argument("--time-step", type=float, help="0 selects FEM's assembled stability limit")
     args = parser.parse_args()
     output = args.output.resolve()
@@ -41,7 +93,33 @@ def main():
         raise ValueError(
             "FEM outputs must stay in this checkout's bem/outputs; cores must be positive"
         )
+    for value in [args.normal_duration, args.shear_duration, args.mesh_size]:
+        if value is not None and (not math.isfinite(value) or value <= 0):
+            raise ValueError("Durations and optional mesh size must be finite and positive")
+    if args.time_step is not None and (not math.isfinite(args.time_step) or args.time_step < 0):
+        raise ValueError("Time step must be finite and nonnegative")
+    for value in [
+        args.normal_frames,
+        args.shear_frames,
+        args.interface_normal_frames,
+        args.interface_shear_frames,
+    ]:
+        if value is not None and value < 1:
+            raise ValueError("Frame targets must be positive")
+    if (output / "simulation.h5").exists() or (output / "summary.json").exists():
+        raise ValueError(
+            "Choose a new output directory; existing FEM results are never overwritten"
+        )
     output.mkdir(parents=True, exist_ok=True)
+    total_started, total_cpu = perf_counter(), process_time()
+    runner_sha = digest(Path(__file__))
+    protected = {
+        str(path): digest(path)
+        for path in [
+            args.reference_run / "stats/summary.json",
+            args.reference_run / "input/case.toml",
+        ]
+    }
     for name in (
         "OPENBLAS_NUM_THREADS",
         "OMP_NUM_THREADS",
@@ -57,15 +135,7 @@ def main():
     os.environ["PYTHONDONTWRITEBYTECODE"] = "1"
     sys.dont_write_bytecode = True
     snapshot = PROJECT / "bem/outputs/fem-source" / REVISION
-    if not snapshot.is_dir():
-        archive = subprocess.run(
-            ["git", "-C", str(PROJECT), "archive", REVISION, "tatva"],
-            check=True,
-            capture_output=True,
-        ).stdout
-        snapshot.mkdir(parents=True)
-        with tarfile.open(fileobj=io.BytesIO(archive)) as stream:
-            stream.extractall(snapshot, filter="data")
+    archived_source = stage_snapshot(PROJECT, snapshot)
     sys.path.insert(0, str(snapshot))
     # Imports deliberately follow CPU setup and source selection.
     from dataclasses import asdict, fields, replace
@@ -140,21 +210,47 @@ def main():
             group.attrs["applied_shear_displacement"] = 10.806226665707777
         config = replace(config, restart_from_file=str(restart_path))
     (output / "resolved_run_config.json").write_text(json.dumps(asdict(config), indent=2) + "\n")
-    if args.prepare_only:
-        print(f"Archived FEM source and resolved settings ready: {output}")
-        return
-    started, cpu = perf_counter(), process_time()
-    simulation = run_simulation_dumped(
-        case,
-        config,
-        output / "simulation.h5",
-        frames_per_phase=4,
+    output_options = dict(
+        frames_per_phase=args.normal_frames,
         shear_frames_per_phase=args.shear_frames,
+        interface_frames_per_phase=args.interface_normal_frames,
+        shear_interface_frames_per_phase=args.interface_shear_frames,
         compression="lzf",
         include_initial_frame=True,
         store_bulk_strain=False,
         store_bulk_velocity=False,
     )
+    manifest = dict(
+        status="prepared_not_simulated",
+        runner_sha256=runner_sha,
+        source=archived_source,
+        protected_input_sha256=protected,
+        output_options=output_options,
+        requested_cores=args.cores,
+        source_snapshot_path=str(snapshot),
+        arguments={
+            key: str(value) if isinstance(value, Path) else value
+            for key, value in vars(args).items()
+        },
+    )
+    (output / "reference_manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
+    if args.prepare_only:
+        print(f"Archived FEM source and resolved settings ready: {output}")
+        return
+    started, cpu = perf_counter(), process_time()
+    preparation_seconds = started - total_started
+    simulation = run_simulation_dumped(
+        case,
+        config,
+        output / "simulation.h5",
+        **output_options,
+    )
+    solver_seconds, solver_cpu = perf_counter() - started, process_time() - cpu
+    verify_snapshot(snapshot, archived_source["files"])
+    if runner_sha != digest(Path(__file__)) or any(
+        digest(path) != checksum for path, checksum in protected.items()
+    ):
+        raise ValueError("FEM runner or protected input changed during simulation")
     summary = simulation["summary"]
     record = {
         "status": "completed",
@@ -166,8 +262,23 @@ def main():
         "jax_version": jax.__version__,
         "devices": [str(d) for d in jax.devices()],
         "blas_threadpools": threadpool_info(),
-        "wall_seconds": perf_counter() - started,
-        "process_cpu_seconds": process_time() - cpu,
+        "wall_seconds": solver_seconds,
+        "process_cpu_seconds": solver_cpu,
+        "timing_seconds": {
+            "source_and_config_preparation": preparation_seconds,
+            "simulation_including_outputs": solver_seconds,
+            "total_before_reporting": perf_counter() - total_started,
+        },
+        "total_process_cpu_seconds": process_time() - total_cpu,
+        "timing_control": "Not established by this runner; concurrent jobs must be recorded separately",
+        "runner_sha256": runner_sha,
+        "reference_manifest_sha256": digest(output / "reference_manifest.json"),
+        "source_archive_sha256": archived_source["archive_sha256"],
+        "source_and_protected_input_unchanged": True,
+        "output_options": output_options,
+        "comparison_history_group": "interface_high_rate"
+        if args.interface_normal_frames is not None or args.interface_shear_frames is not None
+        else "/",
         "summary": summary,
         "full_original_horizon": args.shear_duration == 0.045 and args.normal_duration == 0.002,
         "output_frames_reduced": True,

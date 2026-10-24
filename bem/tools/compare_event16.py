@@ -3,6 +3,7 @@
 
 import argparse
 import json
+import runpy
 from pathlib import Path
 
 import matplotlib
@@ -45,7 +46,11 @@ def main():
     parser.add_argument("runs", nargs="+", type=Path)
     parser.add_argument("--report-dir", type=Path, default=ROOT / "docs")
     parser.add_argument(
-        "--coarse-fem", type=Path, help="Optional local archived FEM rerun directory"
+        "--coarse-fem",
+        "--fem-rerun",
+        dest="coarse_fem",
+        type=Path,
+        help="Optional local archived FEM rerun directory, at any mesh size",
     )
     args = parser.parse_args()
     args.report_dir.mkdir(parents=True, exist_ok=True)
@@ -83,15 +88,15 @@ def main():
         ax.grid(alpha=0.25)
     coarse_record = None
     if args.coarse_fem is not None:
-        import h5py
-
         coarse_record = json.loads((args.coarse_fem / "summary.json").read_text())
-        with h5py.File(args.coarse_fem / "simulation.h5", "r") as stream:
-            values = stream["history"][:]
-        names = read_history(REFERENCE / "fem_history.csv").dtype.names
-        coarse = {key: values[:, i] for i, key in enumerate(names)}
+        reader = runpy.run_path(str(Path(__file__).with_name("fem_reference_io.py")))
+        trace = reader["read_fem_trace"](args.coarse_fem / "simulation.h5")
+        coarse = trace["history"]
+        coarse_record["comparison_trace"] = trace["provenance"]
         normal_time = coarse_record["summary"]["pressure_time"]
-        keep = coarse["time"] >= normal_time
+        # A rounded normal-end timestamp can exceed pressure_time. Phase IDs
+        # exclude its pre-reset cumulative slip from shear nucleation metrics.
+        keep = trace["phase_id"] == 2
         tt = coarse["time"][keep] - normal_time
         for ax, (_, fem_key, _) in zip(axes.flat, mappings, strict=True):
             ax.plot(

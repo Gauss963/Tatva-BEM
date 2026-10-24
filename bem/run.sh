@@ -63,6 +63,9 @@ elif [ "${1:-}" = galerkin-report ]; then
 elif [ "${1:-}" = fem-loading-replay ]; then
     shift
     exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/replay_fem_loading.py" "$@"
+elif [ "${1:-}" = fem-reference ]; then
+    shift
+    exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/run_fem_reference.py" "$@"
 elif [ "${1:-}" = weakening-audit ]; then
     shift
     exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/audit_weakening_resolution.py" "$@"

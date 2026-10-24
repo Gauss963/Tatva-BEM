@@ -11,7 +11,7 @@ license = "MIT"
 dependencies = ["numpy>=1.26", "scipy>=1.11", "threadpoolctl>=3.5"]
 
 [project.optional-dependencies]
-test = ["pytest>=8"]
+test = ["pytest>=8", "h5py>=3.11"]
 plot = ["matplotlib>=3.8"]
 jax = ["jax>=0.4.35"]
 
