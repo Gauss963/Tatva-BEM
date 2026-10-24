@@ -33,6 +33,9 @@ shear 資料與最後狀態逐位元相同，bulk 輸出可大幅減少；原 h2
 新增 [固定幾何近遠場積分](docs/mixed_quadrature.md)：細網格近 Q12／遠 Q8
 減少約 53% 積分點，九個頻率點的額外算子差約 1e-12；短程解與條件式 AD 已核對。
 完整 45 ms 等價性仍在驗證，尚未切換預設 backend 或宣稱整體加速倍數。
+另有 [避免反轉剛體模態的 Schur 消去](docs/schur_condensation.md)：
+細網格實際 CQ 端點的消去矩陣條件數約由 320 萬降至 304，算子仍相差約 1e-12。
+這改善低頻線性代數，尚未證明完整摩擦軌跡或整體效能優勢。
 
 程式與 Tatva、Bem2d.jl 獨立，不需要讀取或修改外接磁碟，也不需要上層 repository 的 Julia 環境。
 可以把本資料夾獨立放進新的 GitHub repository。

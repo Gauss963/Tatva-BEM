@@ -1,0 +1,587 @@
+{
+  "goal_achieved": false,
+  "scope": "Finite-frequency condensation diagnostics, not complete event/FEM equivalence or a speed advantage",
+  "records": {
+    "coarse": {
+      "path": "bem/outputs/schur-condensation-h80/summary.json",
+      "sha256": "0734813a78803657f75ca4bce6142da71237470be31d373f7b856be27bf5b14f",
+      "data": {
+        "status": "completed_sampled_condensation_audit",
+        "source_run": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/native64-dt4-zreference",
+        "source_mesh_arguments": {
+          "case": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/cases/pmma_event16.toml",
+          "h": 80.0,
+          "contact_h": null,
+          "contact_end_h": null,
+          "corner_h": null,
+          "restart_knot_window": null,
+          "restart_knot_subdivisions": 1,
+          "dt": 4e-06,
+          "steps": 64,
+          "duration": 0.045,
+          "quadrature": 12,
+          "workers": 1,
+          "max_memory_mb": 2048,
+          "backend": "jax",
+          "sampling": "dense",
+          "sampling_rtol": 1e-12,
+          "diagnostic_actuator_increment": 2.0,
+          "cache": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/native64-dt4-zcache",
+          "spectrum_directory": null,
+          "name": "native64-dt4-zreference"
+        },
+        "contour_plan": {
+          "dt": 2e-06,
+          "steps": 22500,
+          "dofs": 15,
+          "fft_size": 65536,
+          "radius": 0.999648715112665,
+          "estimated_peak_bytes": 166575720,
+          "weight_bytes": 40501800
+        },
+        "retained_dofs": 15,
+        "full_reduced_dofs": 62,
+        "nullspace_dofs": 47,
+        "records": [
+          {
+            "s_real": 0,
+            "s_imag": 0,
+            "actual_cq_endpoint": false,
+            "supported_stiffness_condition": 1.3426487903819018e+17,
+            "body_stiffness_conditions": [
+              2.4980422737213576e+16,
+              28.57157719213289
+            ],
+            "eliminated_stiffness_condition": 22.593934865863908,
+            "full_equilibrium_relative_residual": 7.676465818436111e-16,
+            "retained_jump_inf_error": 9.044712432283463e-16,
+            "schur_reciprocity_relative": 3.477334644979214e-16,
+            "original_compliance_relative_difference": 0.1002587482194128,
+            "original_compliance_failure": null,
+            "original_compliance_warnings": [
+              "An ill-conditioned matrix detected: slice 0 has rcond = 1.264603360322812e-17.",
+              "An ill-conditioned matrix detected: slice 0 has rcond = 1.3343702196889525e-16."
+            ],
+            "static_stiffness_metrics": {
+              "min_hermitian_eigenvalue": 3.5121968307210744e-15,
+              "max_hermitian_eigenvalue": 51.2481727994373,
+              "min_over_spectral_radius": 6.853311325783771e-17,
+              "reciprocity_relative_frobenius": 3.7858967333745086e-16,
+              "negative_directions_below_relative_1e_8": 0
+            },
+            "velocity_impedance_metrics": null,
+            "seconds": 0.05234566703438759
+          },
+          {
+            "s_real": 0.001,
+            "s_imag": 0.0,
+            "actual_cq_endpoint": false,
+            "supported_stiffness_condition": 1074501724057735.4,
+            "body_stiffness_conditions": [
+              1050680661650625.2,
+              28.571516594854444
+            ],
+            "eliminated_stiffness_condition": 22.594180300623073,
+            "full_equilibrium_relative_residual": 7.840452326153059e-16,
+            "retained_jump_inf_error": 9.044711658158607e-16,
+            "schur_reciprocity_relative": 4.956220844127006e-16,
+            "original_compliance_relative_difference": 0.0030877352486439647,
+            "original_compliance_failure": null,
+            "original_compliance_warnings": [],
+            "static_stiffness_metrics": null,
+            "velocity_impedance_metrics": {
+              "min_hermitian_eigenvalue": 3.577053395913142e-10,
+              "max_hermitian_eigenvalue": 51241.00493526284,
+              "min_over_spectral_radius": 6.980841613922952e-15,
+              "reciprocity_relative_frobenius": 4.2145490019134145e-16,
+              "negative_directions_below_relative_1e_8": 0
+            },
+            "seconds": 0.1084940005093813
+          },
+          {
+            "s_real": 1,
+            "s_imag": 0,
+            "actual_cq_endpoint": false,
+            "supported_stiffness_condition": 2510951308.1993456,
+            "body_stiffness_conditions": [
+              2510951548.336798,
+              28.571519575968935
+            ],
+            "eliminated_stiffness_condition": 22.59416641294211,
+            "full_equilibrium_relative_residual": 7.261536418843714e-16,
+            "retained_jump_inf_error": 9.04471185919283e-16,
+            "schur_reciprocity_relative": 6.454836614790992e-16,
+            "original_compliance_relative_difference": 8.007887175426266e-09,
+            "original_compliance_failure": null,
+            "original_compliance_warnings": [],
+            "static_stiffness_metrics": null,
+            "velocity_impedance_metrics": {
+              "min_hermitian_eigenvalue": 1.6873916874147736e-07,
+              "max_hermitian_eigenvalue": 51.241475480752854,
+              "min_over_spectral_radius": 3.2930193199619825e-09,
+              "reciprocity_relative_frobenius": 5.39970243437558e-16,
+              "negative_directions_below_relative_1e_8": 0
+            },
+            "seconds": 0.10600766632705927
+          },
+          {
+            "s_real": 100,
+            "s_imag": 0,
+            "actual_cq_endpoint": false,
+            "supported_stiffness_condition": 251111.9760950794,
+            "body_stiffness_conditions": [
+              251111.97609552648,
+              28.56670583083524
+            ],
+            "eliminated_stiffness_condition": 22.59249330441517,
+            "full_equilibrium_relative_residual": 8.022450126790511e-16,
+            "retained_jump_inf_error": 9.044691628350553e-16,
+            "schur_reciprocity_relative": 3.547131663640187e-16,
+            "original_compliance_relative_difference": 6.909098236798676e-13,
+            "original_compliance_failure": null,
+            "original_compliance_warnings": [],
+            "static_stiffness_metrics": null,
+            "velocity_impedance_metrics": {
+              "min_hermitian_eigenvalue": 1.6868429954948762e-05,
+              "max_hermitian_eigenvalue": 0.5124362407427479,
+              "min_over_spectral_radius": 3.291810495389419e-05,
+              "reciprocity_relative_frobenius": 3.1586238482157025e-16,
+              "negative_directions_below_relative_1e_8": 0
+            },
+            "seconds": 0.1104345005005598
+          },
+          {
+            "s_real": 200.0,
+            "s_imag": 2000.0,
+            "actual_cq_endpoint": false,
+            "supported_stiffness_condition": 827.1885622024613,
+            "body_stiffness_conditions": [
+              827.1885622024785,
+              30.6222500733154
+            ],
+            "eliminated_stiffness_condition": 23.268016484428617,
+            "full_equilibrium_relative_residual": 1.147613732692581e-15,
+            "retained_jump_inf_error": 9.443143724878107e-16,
+            "schur_reciprocity_relative": 5.751131941575496e-16,
+            "original_compliance_relative_difference": 2.6695025317171317e-15,
+            "original_compliance_failure": null,
+            "original_compliance_warnings": [],
+            "static_stiffness_metrics": null,
+            "velocity_impedance_metrics": {
+              "min_hermitian_eigenvalue": 3.2971406348843476e-05,
+              "max_hermitian_eigenvalue": 0.002563427259836752,
+              "min_over_spectral_radius": 0.012862235985952342,
+              "reciprocity_relative_frobenius": 4.932475841777881e-16,
+              "negative_directions_below_relative_1e_8": 0
+            },
+            "seconds": 0.11416099965572357
+          },
+          {
+            "s_real": 1000000.0,
+            "s_imag": 300000.0,
+            "actual_cq_endpoint": false,
+            "supported_stiffness_condition": 28.551305633373087,
+            "body_stiffness_conditions": [
+              28.55130563337312,
+              8.474492182089264
+            ],
+            "eliminated_stiffness_condition": 9.4508330099556,
+            "full_equilibrium_relative_residual": 2.5431262783843386e-16,
+            "retained_jump_inf_error": 5.859767908470267e-16,
+            "schur_reciprocity_relative": 3.5616586939235974e-17,
+            "original_compliance_relative_difference": 6.666042012845619e-16,
+            "original_compliance_failure": null,
+            "original_compliance_warnings": [],
+            "static_stiffness_metrics": null,
+            "velocity_impedance_metrics": {
+              "min_hermitian_eigenvalue": 0.0001944680443544909,
+              "max_hermitian_eigenvalue": 0.004087123521146271,
+              "min_over_spectral_radius": 0.04758066237742444,
+              "reciprocity_relative_frobenius": 6.816482801859906e-17,
+              "negative_directions_below_relative_1e_8": 0
+            },
+            "seconds": 0.12380287516862154
+          },
+          {
+            "s_real": 175.6732939355299,
+            "s_imag": 0.0,
+            "actual_cq_endpoint": true,
+            "supported_stiffness_condition": 81379.42605007192,
+            "body_stiffness_conditions": [
+              81379.42605013533,
+              28.556653605180838
+            ],
+            "eliminated_stiffness_condition": 22.589062038582924,
+            "full_equilibrium_relative_residual": 7.861814984959853e-16,
+            "retained_jump_inf_error": 9.044648701125007e-16,
+            "schur_reciprocity_relative": 4.3710928983594833e-16,
+            "original_compliance_relative_difference": 2.63627008514737e-13,
+            "original_compliance_failure": null,
+            "original_compliance_warnings": [],
+            "static_stiffness_metrics": null,
+            "velocity_impedance_metrics": {
+              "min_hermitian_eigenvalue": 2.9613268523413085e-05,
+              "max_hermitian_eigenvalue": 0.29171288637633663,
+              "min_over_spectral_radius": 0.0001015151195110703,
+              "reciprocity_relative_frobenius": 3.988643868325868e-16,
+              "negative_directions_below_relative_1e_8": 0
+            },
+            "seconds": 0.12539950013160706
+          }
+        ],
+        "environment": {
+          "package_version": "0.1.0",
+          "python": "3.12.13",
+          "numpy": "2.4.4",
+          "scipy": "1.17.1",
+          "platform": "macOS-15.7.9-arm64-arm-64bit",
+          "available_logical_cpus": 10,
+          "hard_cpu_affinity_enforced": false,
+          "thread_environment": {
+            "FDBEM_CORES": "1",
+            "OPENBLAS_NUM_THREADS": "1",
+            "OMP_NUM_THREADS": "1",
+            "VECLIB_MAXIMUM_THREADS": "1",
+            "XLA_FLAGS": null,
+            "JAX_ENABLE_X64": "true"
+          },
+          "blas_threadpools": [],
+          "source_sha256": {
+            "__init__.py": "984855d6ff3848411c946ecca174ac08baf7afe6f1d2c3be00284da9b8dbf288",
+            "adjoint.py": "7863386b78318e6502d6257469322ee82746f2384ee915c16cbb98cda69c5bc0",
+            "benchmarks.py": "c24b97264ca60d0da1dab2095d50e9ef1b88b7208fba2d46178b8cf9038eb571",
+            "case.py": "4f0c91b18309a2eae5ce5a78da3bac9fde0be9fb1c0a4d2d5e5e1fc84bd85fa7",
+            "cli.py": "82e53ce34714809933dbe456ef403bce27c6b60b20ac4481f2feded9eeadfcea",
+            "comparison.py": "631c111752342fac7d0f64553620e04940e7888b1ab2fc52566a23b5c35ee24c",
+            "condensation.py": "12010fb51d8490ae5c3a9a2cf5b04e414cb7e6205b409ce7891b454e384de7d2",
+            "constraints.py": "830071941c6df0f70e455530fe094242042fb0c1e31498e8f9b75c9aa825cb91",
+            "cq.py": "e9af920593db01f56f1f7138832f0aa603daf07cbf1d688fba8a806f712c1e15",
+            "cq_storage.py": "da2534ef95e95813a464ff04f78a092be374110650d1866cbc1fb8ea5b5105b2",
+            "dynamics.py": "b6d84d8d2c1ac6fc465565c289d1249f378f3424e00cb93441791960b3c180f8",
+            "friction.py": "1424c1639cdc1eb4dd8f780bfdc0433f33cf29752b07a17814a3a2f326d81086",
+            "galerkin.py": "85541ddfe5020debde77b2bf2d4a045fe9a52b6183d4af2f762f577be18ab66d",
+            "galerkin_fast.py": "e6167f6c553e15697b6d67a3a33f559574d22fd49db4aad49c8262d68224b614",
+            "io.py": "d292e6338381aa7935dbbfcadc0df884e89f10b7096fa70cf1b05a83c1c12b03",
+            "jax_backend.py": "4de0aadb88b73ef6792ff36894134ee31bc412b1a54b177a4d1aaaa43328d547",
+            "kernels.py": "4008ae38c62c3022034d654a13da75369bd67309af4614006942398e22c1ad08",
+            "linear.py": "3a4d7c2259fd3e67b507d0c9dcd18082c24ffda30fccb12749976c97fa5a577c",
+            "material.py": "7c4d34d911831f12e3bc99bda2e13e76d468acdf80038dcb60310a568a5342d1",
+            "mesh.py": "a37e853ed57dd80633c44805b6c13158643ac65db3e4a4cfc12520bbdfa15c4c",
+            "nodal.py": "632f1a755bb09d784c125d3198f662213ea60045ada9db1555e1b47b3ab39856",
+            "nodal_dynamics.py": "839db57190f62795aebef30545fcc9c1b41fdef503f038cc7f425068962eb39d",
+            "nonlinear.py": "019c5fc176c70964c89f9e7c74147ad48b4235267dd2faf0ee22f789a2b97590",
+            "operators.py": "bb77a3b2c66dce871c9e71cc2cdc02488e90ad32278cc9a67fea8b909b722825",
+            "sampling.py": "c518d2298b167aaa1d5ca327a612426276901876a50322a7fe4595c7ee4f1f11",
+            "statics.py": "9f81cbd95a1ff1f742387ee4ae94251304177999208a95703371272ac79dc250"
+          },
+          "case_sha256": "82d8f491a63ca1c348507678f08406dccbc62ed1d4abea8882879f7894d2315d",
+          "restart_data_sha256": "cae42101ff5a57004fa803ea5ce928eb8079e5be0ab887d108689e37754c25f6"
+        },
+        "frozen_inputs_sha256": {
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/audit_schur_condensation.py": "e6f81a4f980284f07952df58007ad64e66352dd0d20d24c41f5103fa36c6ed95",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/schur_condensation_experiment.py": "3aabbab386cca2ae04afc973a28559f61c372c57f73a4a02634110e705811205",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/audit_passivity.py": "1c33f5a8dc44c0dd2c3205414833211e98aeedc2e7248e071fa4d3dbaaf8ccea",
+          "bem/outputs/native64-dt4-zreference/summary.json": "4bf88f07c73678107e37187d8fe81c69214bc02bbaf5e0f80bec8a0092973166",
+          "bem/outputs/native64-dt4-zreference/run_manifest.json": "2d457a75c74b5f90b383e0e44fae32edd47c51e82c607c76045626f34e715bd3"
+        },
+        "matrices_sha256": "634ed8a127497d9e60a2d5a275e5a26afa3ed03ba208b61e4733b7c1cd8d70a5",
+        "estimated_array_peak_mib": 136.771240234375,
+        "total_seconds": 0.7890842091292143,
+        "scope": "Same body matrices, fixed-jump Schur condensation; finite samples only, no trajectory/FEM equivalence or nonlinear stability certificate",
+        "timing_scope": "May overlap other jobs; not a controlled speed comparison"
+      }
+    },
+    "fine": {
+      "path": "bem/outputs/schur-condensation-fine2/summary.json",
+      "sha256": "b5cb9ccc68764927d45c9d02fb856a081566540b536c3243864f9b4bd38aaf63",
+      "data": {
+        "status": "completed_sampled_condensation_audit",
+        "source_run": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/galerkin-fine2-q12-kernel-seed8",
+        "source_mesh_arguments": {
+          "case": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/cases/pmma_event16.toml",
+          "h": 20.0,
+          "contact_h": 5.0,
+          "contact_end_h": 0.5,
+          "corner_h": 0.5,
+          "restart_knot_window": 8.0,
+          "restart_knot_subdivisions": 4,
+          "dt": 2e-06,
+          "steps": 8,
+          "duration": 0.045,
+          "quadrature": 12,
+          "workers": 4,
+          "max_memory_mb": 8192.0,
+          "backend": "jax",
+          "sampling": "dense",
+          "sampling_rtol": 1e-12,
+          "diagnostic_actuator_increment": null,
+          "cache": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fine2-q12-seed-cache",
+          "spectrum_directory": null,
+          "name": "galerkin-fine2-q12-kernel-seed8"
+        },
+        "contour_plan": {
+          "dt": 2e-06,
+          "steps": 22500,
+          "dofs": 275,
+          "fft_size": 65536,
+          "radius": 0.999648715112665,
+          "estimated_peak_bytes": 24805913000,
+          "weight_bytes": 13613105000
+        },
+        "retained_dofs": 275,
+        "full_reduced_dofs": 906,
+        "nullspace_dofs": 631,
+        "records": [
+          {
+            "s_real": 0,
+            "s_imag": 0,
+            "actual_cq_endpoint": false,
+            "supported_stiffness_condition": 7.0922983063202696e+16,
+            "body_stiffness_conditions": [
+              4.6350549454286637e+17,
+              472.3274853825858
+            ],
+            "eliminated_stiffness_condition": 303.89540433360094,
+            "full_equilibrium_relative_residual": 1.849478925811797e-15,
+            "retained_jump_inf_error": 2.0636826970866443e-15,
+            "schur_reciprocity_relative": 1.2038866312545432e-15,
+            "original_compliance_relative_difference": 0.07812194830557039,
+            "original_compliance_failure": null,
+            "original_compliance_warnings": [
+              "An ill-conditioned matrix detected: slice 0 has rcond = 1.2138144058903572e-18.",
+              "An ill-conditioned matrix detected: slice 0 has rcond = 3.5967677286591494e-17."
+            ],
+            "static_stiffness_metrics": {
+              "min_hermitian_eigenvalue": -2.6038368148123863e-13,
+              "max_hermitian_eigenvalue": 8240.452157943677,
+              "min_over_spectral_radius": -3.159822743831266e-17,
+              "reciprocity_relative_frobenius": 7.566343376348091e-16,
+              "negative_directions_below_relative_1e_8": 0
+            },
+            "velocity_impedance_metrics": null,
+            "seconds": 8.137296499684453
+          },
+          {
+            "s_real": 0.001,
+            "s_imag": 0.0,
+            "actual_cq_endpoint": false,
+            "supported_stiffness_condition": 5.0089262138822816e+17,
+            "body_stiffness_conditions": [
+              1.22777860134203e+17,
+              472.3274851284205
+            ],
+            "eliminated_stiffness_condition": 303.8954041701849,
+            "full_equilibrium_relative_residual": 1.4632944046603658e-15,
+            "retained_jump_inf_error": 1.9399477006352625e-15,
+            "schur_reciprocity_relative": 7.965192702557057e-15,
+            "original_compliance_relative_difference": 350.36559020934993,
+            "original_compliance_failure": null,
+            "original_compliance_warnings": [
+              "An ill-conditioned matrix detected: slice 0 has rcond = 9.47883663945404e-20.",
+              "An ill-conditioned matrix detected: slice 0 has rcond = 7.269477147187396e-22."
+            ],
+            "static_stiffness_metrics": null,
+            "velocity_impedance_metrics": {
+              "min_hermitian_eigenvalue": -1.99745673049508e-10,
+              "max_hermitian_eigenvalue": 8240451.007313529,
+              "min_over_spectral_radius": -2.4239653008340274e-17,
+              "reciprocity_relative_frobenius": 5.107105327215361e-15,
+              "negative_directions_below_relative_1e_8": 0
+            },
+            "seconds": 16.10025158431381
+          },
+          {
+            "s_real": 1,
+            "s_imag": 0,
+            "actual_cq_endpoint": false,
+            "supported_stiffness_condition": 98610934564.2562,
+            "body_stiffness_conditions": [
+              98611006283.01106,
+              472.3274795344933
+            ],
+            "eliminated_stiffness_condition": 303.8954024442044,
+            "full_equilibrium_relative_residual": 1.1695351344336611e-15,
+            "retained_jump_inf_error": 2.125414034766064e-15,
+            "schur_reciprocity_relative": 4.504507277649746e-15,
+            "original_compliance_relative_difference": 5.113085774303553e-08,
+            "original_compliance_failure": null,
+            "original_compliance_warnings": [],
+            "static_stiffness_metrics": null,
+            "velocity_impedance_metrics": {
+              "min_hermitian_eigenvalue": 1.6873748116651517e-07,
+              "max_hermitian_eigenvalue": 8240.451080480972,
+              "min_over_spectral_radius": 2.0476728703141143e-11,
+              "reciprocity_relative_frobenius": 2.9786744964896474e-15,
+              "negative_directions_below_relative_1e_8": 0
+            },
+            "seconds": 16.572104582563043
+          },
+          {
+            "s_real": 100,
+            "s_imag": 0,
+            "actual_cq_endpoint": false,
+            "supported_stiffness_condition": 9862018.255103469,
+            "body_stiffness_conditions": [
+              9862018.25507802,
+              472.27139875046385
+            ],
+            "eliminated_stiffness_condition": 303.87805532067654,
+            "full_equilibrium_relative_residual": 1.7711065974629031e-15,
+            "retained_jump_inf_error": 1.9580127958178286e-15,
+            "schur_reciprocity_relative": 3.159186174978068e-15,
+            "original_compliance_relative_difference": 3.546683983294281e-12,
+            "original_compliance_failure": null,
+            "original_compliance_warnings": [],
+            "static_stiffness_metrics": null,
+            "velocity_impedance_metrics": {
+              "min_hermitian_eigenvalue": 1.6868426325279937e-05,
+              "max_hermitian_eigenvalue": 82.40451965675584,
+              "min_over_spectral_radius": 2.0470268373073394e-07,
+              "reciprocity_relative_frobenius": 1.7058588279362658e-15,
+              "negative_directions_below_relative_1e_8": 0
+            },
+            "seconds": 16.71803900040686
+          },
+          {
+            "s_real": 200.0,
+            "s_imag": 2000.0,
+            "actual_cq_endpoint": false,
+            "supported_stiffness_condition": 35043.623749598104,
+            "body_stiffness_conditions": [
+              35043.62374958939,
+              496.4426375735582
+            ],
+            "eliminated_stiffness_condition": 311.01708721069105,
+            "full_equilibrium_relative_residual": 1.2965292718923867e-15,
+            "retained_jump_inf_error": 2.171701302639332e-15,
+            "schur_reciprocity_relative": 2.858003449402303e-15,
+            "original_compliance_relative_difference": 1.8809621059010282e-14,
+            "original_compliance_failure": null,
+            "original_compliance_warnings": [],
+            "static_stiffness_metrics": null,
+            "velocity_impedance_metrics": {
+              "min_hermitian_eigenvalue": 3.3063573692220755e-05,
+              "max_hermitian_eigenvalue": 0.4079594855562628,
+              "min_over_spectral_radius": 8.104621871247277e-05,
+              "reciprocity_relative_frobenius": 1.6178180131250002e-15,
+              "negative_directions_below_relative_1e_8": 0
+            },
+            "seconds": 16.527829666621983
+          },
+          {
+            "s_real": 1000000.0,
+            "s_imag": 300000.0,
+            "actual_cq_endpoint": false,
+            "supported_stiffness_condition": 1353.752627667816,
+            "body_stiffness_conditions": [
+              1228.555373430073,
+              79.65051248501106
+            ],
+            "eliminated_stiffness_condition": 110.15875880655776,
+            "full_equilibrium_relative_residual": 1.9255618542082745e-16,
+            "retained_jump_inf_error": 8.219370313973771e-16,
+            "schur_reciprocity_relative": 1.3953981964315403e-17,
+            "original_compliance_relative_difference": 9.129070761042216e-15,
+            "original_compliance_failure": null,
+            "original_compliance_warnings": [],
+            "static_stiffness_metrics": null,
+            "velocity_impedance_metrics": {
+              "min_hermitian_eigenvalue": 0.000286498680379962,
+              "max_hermitian_eigenvalue": 0.008009358131811788,
+              "min_over_spectral_radius": 0.035770491925194194,
+              "reciprocity_relative_frobenius": 2.0405152133388247e-16,
+              "negative_directions_below_relative_1e_8": 0
+            },
+            "seconds": 18.0477875424549
+          },
+          {
+            "s_real": 175.6732939355299,
+            "s_imag": 0.0,
+            "actual_cq_endpoint": true,
+            "supported_stiffness_condition": 3196322.261922134,
+            "body_stiffness_conditions": [
+              3196322.262012714,
+              472.1544704281042
+            ],
+            "eliminated_stiffness_condition": 303.841873820322,
+            "full_equilibrium_relative_residual": 2.044614739595911e-15,
+            "retained_jump_inf_error": 2.2785999432770043e-15,
+            "schur_reciprocity_relative": 8.194342292424628e-16,
+            "original_compliance_relative_difference": 1.590650132678832e-12,
+            "original_compliance_failure": null,
+            "original_compliance_warnings": [],
+            "static_stiffness_metrics": null,
+            "velocity_impedance_metrics": {
+              "min_hermitian_eigenvalue": 2.9613249992868236e-05,
+              "max_hermitian_eigenvalue": 46.907832854875394,
+              "min_over_spectral_radius": 6.313071440432227e-07,
+              "reciprocity_relative_frobenius": 6.404208579940929e-16,
+              "negative_directions_below_relative_1e_8": 0
+            },
+            "seconds": 17.085497583262622
+          }
+        ],
+        "environment": {
+          "package_version": "0.1.0",
+          "python": "3.12.13",
+          "numpy": "2.4.4",
+          "scipy": "1.17.1",
+          "platform": "macOS-15.7.9-arm64-arm-64bit",
+          "available_logical_cpus": 10,
+          "hard_cpu_affinity_enforced": false,
+          "thread_environment": {
+            "FDBEM_CORES": "1",
+            "OPENBLAS_NUM_THREADS": "1",
+            "OMP_NUM_THREADS": "1",
+            "VECLIB_MAXIMUM_THREADS": "1",
+            "XLA_FLAGS": null,
+            "JAX_ENABLE_X64": "true"
+          },
+          "blas_threadpools": [],
+          "source_sha256": {
+            "__init__.py": "984855d6ff3848411c946ecca174ac08baf7afe6f1d2c3be00284da9b8dbf288",
+            "adjoint.py": "7863386b78318e6502d6257469322ee82746f2384ee915c16cbb98cda69c5bc0",
+            "benchmarks.py": "c24b97264ca60d0da1dab2095d50e9ef1b88b7208fba2d46178b8cf9038eb571",
+            "case.py": "4f0c91b18309a2eae5ce5a78da3bac9fde0be9fb1c0a4d2d5e5e1fc84bd85fa7",
+            "cli.py": "82e53ce34714809933dbe456ef403bce27c6b60b20ac4481f2feded9eeadfcea",
+            "comparison.py": "631c111752342fac7d0f64553620e04940e7888b1ab2fc52566a23b5c35ee24c",
+            "condensation.py": "12010fb51d8490ae5c3a9a2cf5b04e414cb7e6205b409ce7891b454e384de7d2",
+            "constraints.py": "830071941c6df0f70e455530fe094242042fb0c1e31498e8f9b75c9aa825cb91",
+            "cq.py": "e9af920593db01f56f1f7138832f0aa603daf07cbf1d688fba8a806f712c1e15",
+            "cq_storage.py": "da2534ef95e95813a464ff04f78a092be374110650d1866cbc1fb8ea5b5105b2",
+            "dynamics.py": "b6d84d8d2c1ac6fc465565c289d1249f378f3424e00cb93441791960b3c180f8",
+            "friction.py": "1424c1639cdc1eb4dd8f780bfdc0433f33cf29752b07a17814a3a2f326d81086",
+            "galerkin.py": "85541ddfe5020debde77b2bf2d4a045fe9a52b6183d4af2f762f577be18ab66d",
+            "galerkin_fast.py": "e6167f6c553e15697b6d67a3a33f559574d22fd49db4aad49c8262d68224b614",
+            "io.py": "d292e6338381aa7935dbbfcadc0df884e89f10b7096fa70cf1b05a83c1c12b03",
+            "jax_backend.py": "4de0aadb88b73ef6792ff36894134ee31bc412b1a54b177a4d1aaaa43328d547",
+            "kernels.py": "4008ae38c62c3022034d654a13da75369bd67309af4614006942398e22c1ad08",
+            "linear.py": "3a4d7c2259fd3e67b507d0c9dcd18082c24ffda30fccb12749976c97fa5a577c",
+            "material.py": "7c4d34d911831f12e3bc99bda2e13e76d468acdf80038dcb60310a568a5342d1",
+            "mesh.py": "a37e853ed57dd80633c44805b6c13158643ac65db3e4a4cfc12520bbdfa15c4c",
+            "nodal.py": "632f1a755bb09d784c125d3198f662213ea60045ada9db1555e1b47b3ab39856",
+            "nodal_dynamics.py": "839db57190f62795aebef30545fcc9c1b41fdef503f038cc7f425068962eb39d",
+            "nonlinear.py": "019c5fc176c70964c89f9e7c74147ad48b4235267dd2faf0ee22f789a2b97590",
+            "operators.py": "bb77a3b2c66dce871c9e71cc2cdc02488e90ad32278cc9a67fea8b909b722825",
+            "sampling.py": "c518d2298b167aaa1d5ca327a612426276901876a50322a7fe4595c7ee4f1f11",
+            "statics.py": "9f81cbd95a1ff1f742387ee4ae94251304177999208a95703371272ac79dc250"
+          },
+          "case_sha256": "82d8f491a63ca1c348507678f08406dccbc62ed1d4abea8882879f7894d2315d",
+          "restart_data_sha256": "cae42101ff5a57004fa803ea5ce928eb8079e5be0ab887d108689e37754c25f6"
+        },
+        "frozen_inputs_sha256": {
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/audit_schur_condensation.py": "e6f81a4f980284f07952df58007ad64e66352dd0d20d24c41f5103fa36c6ed95",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/schur_condensation_experiment.py": "3aabbab386cca2ae04afc973a28559f61c372c57f73a4a02634110e705811205",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/audit_passivity.py": "1c33f5a8dc44c0dd2c3205414833211e98aeedc2e7248e071fa4d3dbaaf8ccea",
+          "bem/outputs/galerkin-fine2-q12-kernel-seed8/summary.json": "a8a9db802ca1e4a2e71589bb755e397c489caa08b0aa02e6ecf1c085cf83b509",
+          "bem/outputs/galerkin-fine2-q12-kernel-seed8/run_manifest.json": "a4afc13ae0a8f9076abec6d22a12da630ad3547fc03a5c345e84d50e71a0894d"
+        },
+        "matrices_sha256": "ad20c32eba90a399a1161b8afcc52fecc47b69ab74456efd6ba6b8fb480ba860",
+        "estimated_array_peak_mib": 1569.298095703125,
+        "total_seconds": 116.0816927915439,
+        "scope": "Same body matrices, fixed-jump Schur condensation; finite samples only, no trajectory/FEM equivalence or nonlinear stability certificate",
+        "timing_scope": "May overlap other jobs; not a controlled speed comparison"
+      }
+    }
+  }
+}
