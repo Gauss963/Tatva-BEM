@@ -30,6 +30,52 @@ from finiteblock_bem.sampling import SamplingOptions
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def prepared_impedance(folder, expected_sha256, dofs):
+    """Use the forward solver's actual instantaneous operator in its adjoint."""
+    path = Path(folder) / "initial_impedance.npy"
+    if fingerprint(path) != expected_sha256:
+        raise ValueError("The prepared instantaneous impedance changed")
+    matrix = np.load(path, allow_pickle=False)
+    if (
+        matrix.shape != (dofs, dofs)
+        or matrix.dtype != np.float64
+        or not np.all(np.isfinite(matrix))
+    ):
+        raise ValueError("Invalid prepared instantaneous impedance")
+    return matrix
+
+
+def primal_field_differences(original, candidate):
+    """Check the full time grid and all seven fields before comparing gradients."""
+    fields = [
+        "pressure",
+        "shear",
+        "plastic_slip",
+        "cumulative_slip",
+        "actuator",
+        "platen",
+        "contact_jumps",
+    ]
+    differences = {}
+    with (
+        np.load(Path(original) / "trajectory.npz", allow_pickle=False) as source,
+        np.load(Path(candidate) / "trajectory.npz", allow_pickle=False) as target,
+    ):
+        np.testing.assert_array_equal(source["time"], target["time"])
+        if not np.all(np.isfinite(source["time"])):
+            raise ValueError("Nonfinite trajectory time grid")
+        for name in fields:
+            expected, actual = source[name], target[name]
+            if (
+                expected.shape != actual.shape
+                or not np.all(np.isfinite(expected))
+                or not np.all(np.isfinite(actual))
+            ):
+                raise ValueError(f"Invalid trajectory field: {name}")
+            differences[name] = float(np.max(abs(actual - expected)))
+    return differences
+
+
 def load_gradient_reference(path, original, environment, *, steps, value, nodes):
     """Reject a different objective/run before comparing saved cotangents."""
     target = json.loads(Path(path).read_text())
@@ -257,6 +303,7 @@ def main():
         raise ValueError("A complete converged source/replay is required")
     if standalone and original.get("history_representation") != "elastic_resolvent":
         raise ValueError("Standalone adjoint requires a saved elastic-resolvent trajectory")
+    differences = None if standalone else primal_field_differences(args.original, args.replay)
     steps, d, dt = original["completed_steps"], original["history_dofs"][0], original["dt_s"]
     correction_steps = replay["correction_history_steps"]
     plan = plan_cq(
@@ -360,14 +407,11 @@ def main():
         spectrum = helper["SavedDiskSpectrum"](storage["path"], plan)
     if prepared_path is None:
         history = BoundaryHistory(plan, invert_spectrum(spectrum, plan))
-    if standalone:
-        if prepared_path is None:
-            raise ValueError("Standalone adjoint requires its prepared kernel")
-        impedance_path = prepared_path / "initial_impedance.npy"
-        if fingerprint(impedance_path) != original["initial_impedance_sha256"]:
-            raise ValueError("The standalone instantaneous impedance changed")
-        matrix = np.load(impedance_path, allow_pickle=False).copy()
+    if prepared_path is not None:
+        matrix = prepared_impedance(prepared_path, replay["initial_impedance_sha256"], d)
     else:
+        if standalone:
+            raise ValueError("Standalone adjoint requires its prepared kernel")
         original_plan = plan_cq(d, dt, steps, max_memory_mb=65536, disk_spectrum=True)
         sampling = (
             SamplingOptions(relative_tolerance=options["sampling_rtol"])
@@ -481,6 +525,14 @@ def main():
     record = dict(
         **serializable,
         comparisons=comparisons,
+        maximum_absolute_field_difference=differences,
+        strict_field_comparison_passed=None
+        if differences is None
+        else max(differences.values()) <= 1e-5,
+        field_absolute_tolerance=1e-5,
+        instantaneous_operator_source="prepared_kernel"
+        if prepared_path is not None
+        else "original_Z",
         exact_branch_changes=branch_changes,
         environment=environment,
         validator_sha256=validator_sha,
@@ -512,6 +564,8 @@ def main():
         )
     for actual, expected in checks:
         np.testing.assert_allclose(actual, expected, rtol=1e-5, atol=1e-12)
+    if differences is not None and max(differences.values()) > 1e-5:
+        raise ValueError("Resolvent candidate differs from original fields by more than 1e-5")
 
 
 if __name__ == "__main__":

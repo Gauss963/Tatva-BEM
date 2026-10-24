@@ -1,0 +1,2738 @@
+{
+  "goal_achieved": false,
+  "same_accuracy_speed_advantage_over_fem_demonstrated": false,
+  "reason": "Best completed fine BEM still has about 25% maximum-slip discrepancy from archived FEM; quadrature equivalence alone does not remove it",
+  "records": {
+    "fine2_contour": {
+      "path": "mixed-quadrature-fine2-q12-near12/summary.json",
+      "sha256": "24ca163129a3cf1d185c69eb6e859f1cb95a58ea3181e2a252b87f499254aef1",
+      "data": {
+        "status": "completed_sampled_quadrature_audit",
+        "source_run": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/galerkin-fine2-q12-kernel-seed8",
+        "source_mesh_arguments": {
+          "case": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/cases/pmma_event16.toml",
+          "h": 20.0,
+          "contact_h": 5.0,
+          "contact_end_h": 0.5,
+          "corner_h": 0.5,
+          "restart_knot_window": 8.0,
+          "restart_knot_subdivisions": 4,
+          "dt": 2e-06,
+          "steps": 8,
+          "duration": 0.045,
+          "quadrature": 12,
+          "workers": 4,
+          "max_memory_mb": 8192.0,
+          "backend": "jax",
+          "sampling": "dense",
+          "sampling_rtol": 1e-12,
+          "diagnostic_actuator_increment": null,
+          "cache": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fine2-q12-seed-cache",
+          "spectrum_directory": null,
+          "name": "galerkin-fine2-q12-kernel-seed8"
+        },
+        "plan": {
+          "dt": 2e-06,
+          "steps": 22500,
+          "dofs": 275,
+          "fft_size": 65536,
+          "radius": 0.999648715112665,
+          "estimated_peak_bytes": 24805913000,
+          "weight_bytes": 13613105000
+        },
+        "angles": [
+          0.0,
+          0.025,
+          0.05,
+          0.1,
+          0.2,
+          0.5,
+          1.0,
+          2.0,
+          3.141592653589793
+        ],
+        "actual_s_real": [
+          175.6732939355299,
+          175.83181492797362,
+          176.89253033525975,
+          189.89805500990718,
+          381.2042480824951,
+          7706.412719192118,
+          105923.86523877263,
+          1002704.5326344232,
+          1999473.1035192655
+        ],
+        "actual_s_imag": [
+          0.0,
+          12502.599311187587,
+          25020.790087496807,
+          50165.90261528433,
+          101313.34206000515,
+          269037.1495163563,
+          614010.715231381,
+          1098045.7249164374,
+          1.8361098744566665e-10
+        ],
+        "records": [
+          {
+            "name": "reference",
+            "preparation_seconds": 8.70598379150033,
+            "frequency_seconds": [
+              34.46950320806354,
+              56.25002000015229,
+              62.34194304142147,
+              58.307432250119746,
+              51.6405619578436,
+              44.18602712452412,
+              39.09113537427038,
+              37.47352470923215,
+              36.35108883399516
+            ],
+            "geometry": [],
+            "matrices_sha256": "c4676f6ae0ab0b60a0bd12688cd559284514f1fac2e7167a73fd05d3fd879fc4"
+          },
+          {
+            "name": "uniform_near",
+            "preparation_seconds": 7.413865459151566,
+            "frequency_seconds": [
+              19.238128541968763,
+              27.24674908258021,
+              30.921137084253132,
+              28.919988000765443,
+              25.0374992499128,
+              21.87194349989295,
+              19.433447375893593,
+              17.93527341540903,
+              17.355265791527927
+            ],
+            "geometry": [],
+            "matrices_sha256": "5fa7a237a21e7a60569b10decb3e4312cc13c3d02ccd6cbea0aecd28971dee62"
+          },
+          {
+            "name": "mixed_far6",
+            "preparation_seconds": 5.902940749190748,
+            "frequency_seconds": [
+              7.878833916969597,
+              9.935854790732265,
+              9.766328958794475,
+              8.732061250135303,
+              8.071455833502114,
+              6.852267208509147,
+              6.774346124380827,
+              6.456350666470826,
+              5.998773166909814
+            ],
+            "geometry": [
+              {
+                "near_order": 12,
+                "far_order": 6,
+                "separation": 2,
+                "near_pairs": 1140,
+                "far_pairs": 30235,
+                "quadrature_points": 1288620,
+                "uniform_near_order_points": 4554000,
+                "point_count_ratio": 3.5340131303254645,
+                "retained_geometry_array_bytes": 98276680,
+                "pair_selection_depends_on_frequency": false
+              },
+              {
+                "near_order": 12,
+                "far_order": 6,
+                "separation": 2,
+                "near_pairs": 1154,
+                "far_pairs": 31231,
+                "quadrature_points": 1327068,
+                "uniform_near_order_points": 4700016,
+                "point_count_ratio": 3.5416542332420042,
+                "retained_geometry_array_bytes": 101246264,
+                "pair_selection_depends_on_frequency": false
+              }
+            ],
+            "matrices_sha256": "25b4869cdc49077e1512d20fcbd3d1515ede7eb3e378aa6cb64ce94a6fd0b644"
+          },
+          {
+            "name": "mixed_far8",
+            "preparation_seconds": 6.8802839163690805,
+            "frequency_seconds": [
+              9.93722950015217,
+              12.830912458710372,
+              14.6353689590469,
+              13.915957416407764,
+              11.311475874856114,
+              10.326578833162785,
+              9.65626204200089,
+              8.258862833492458,
+              8.26470575015992
+            ],
+            "geometry": [
+              {
+                "near_order": 12,
+                "far_order": 8,
+                "separation": 2,
+                "near_pairs": 1140,
+                "far_pairs": 30235,
+                "quadrature_points": 2135200,
+                "uniform_near_order_points": 4554000,
+                "point_count_ratio": 2.1328212813787935,
+                "retained_geometry_array_bytes": 152457800,
+                "pair_selection_depends_on_frequency": false
+              },
+              {
+                "near_order": 12,
+                "far_order": 8,
+                "separation": 2,
+                "near_pairs": 1154,
+                "far_pairs": 31231,
+                "quadrature_points": 2201536,
+                "uniform_near_order_points": 4700016,
+                "point_count_ratio": 2.134880374429489,
+                "retained_geometry_array_bytes": 157212216,
+                "pair_selection_depends_on_frequency": false
+              }
+            ],
+            "matrices_sha256": "e6f33f9a662d44632c26d344240240798479c8e6e075130bbd6e101b414d568d"
+          }
+        ],
+        "errors_relative_to_reference": {
+          "reference": {
+            "traction_scaled_impedance_relative": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "work_resolvent_relative": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "sampled_tolerance_satisfied": true
+          },
+          "uniform_near": {
+            "traction_scaled_impedance_relative": [
+              2.164655266155543e-12,
+              2.506099006491403e-11,
+              1.196169833015552e-09,
+              1.2326850450422662e-09,
+              1.2746367658344545e-07,
+              5.63929312229987e-08,
+              5.6038518136779656e-08,
+              3.9953483204750794e-07,
+              8.481317889781616e-07
+            ],
+            "work_resolvent_relative": [
+              2.0876913253760346e-13,
+              7.675940997136547e-11,
+              1.5999719034302928e-09,
+              8.136728329779344e-09,
+              9.340228786128154e-08,
+              7.82267662892018e-09,
+              5.7903623344562537e-08,
+              3.619941540591239e-07,
+              6.458610287391245e-07
+            ],
+            "sampled_tolerance_satisfied": true
+          },
+          "mixed_far6": {
+            "traction_scaled_impedance_relative": [
+              2.1458091234471e-12,
+              2.5062311243582322e-11,
+              1.1961856927223017e-09,
+              1.2326863741763836e-09,
+              1.2746362855349374e-07,
+              5.639144313588809e-08,
+              5.619495762998751e-08,
+              3.9953486804021936e-07,
+              8.481317880446926e-07
+            ],
+            "work_resolvent_relative": [
+              8.207513038499495e-14,
+              7.677102899344125e-11,
+              1.5999921923088065e-09,
+              8.13674002691185e-09,
+              9.3402252405116e-08,
+              7.83131233413756e-09,
+              5.740462417270807e-08,
+              3.619942068677619e-07,
+              6.458610284246366e-07
+            ],
+            "sampled_tolerance_satisfied": true
+          },
+          "mixed_far8": {
+            "traction_scaled_impedance_relative": [
+              2.1925242621803558e-12,
+              2.5061612314973674e-11,
+              1.1961764007931254e-09,
+              1.232682726316413e-09,
+              1.2746367151978117e-07,
+              5.639293137038362e-08,
+              5.603853031673446e-08,
+              3.9953483202578435e-07,
+              8.481317889777831e-07
+            ],
+            "work_resolvent_relative": [
+              7.037885316458443e-14,
+              7.676237805526463e-11,
+              1.5999868091338474e-09,
+              8.136717771864864e-09,
+              9.340228881873062e-08,
+              7.82267785912694e-09,
+              5.7903679422922975e-08,
+              3.619941540348167e-07,
+              6.458610287391437e-07
+            ],
+            "sampled_tolerance_satisfied": true
+          }
+        },
+        "errors_relative_to_uniform_near": {
+          "reference": {
+            "traction_scaled_impedance_relative": [
+              2.1646552661554697e-12,
+              2.506099006482123e-11,
+              1.196169832898893e-09,
+              1.2326850449238133e-09,
+              1.274636761403035e-07,
+              5.639293135324709e-08,
+              5.6038517997768824e-08,
+              3.9953486271815586e-07,
+              8.481317429419823e-07
+            ],
+            "work_resolvent_relative": [
+              2.087691325375617e-13,
+              7.675940997631195e-11,
+              1.5999719028226703e-09,
+              8.136728394138545e-09,
+              9.340227940450817e-08,
+              7.822676607569415e-09,
+              5.790362277996107e-08,
+              3.6199413851514093e-07,
+              6.458610779150275e-07
+            ],
+            "sampled_tolerance_satisfied": true
+          },
+          "uniform_near": {
+            "traction_scaled_impedance_relative": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "work_resolvent_relative": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "sampled_tolerance_satisfied": true
+          },
+          "mixed_far6": {
+            "traction_scaled_impedance_relative": [
+              2.1875642896307656e-12,
+              1.3261592217320011e-13,
+              2.225255057107726e-13,
+              1.0080307580987593e-13,
+              1.3640415558811004e-13,
+              2.0808290831518498e-11,
+              2.5856855928596932e-09,
+              1.77180162312128e-12,
+              1.1723478505604912e-13
+            ],
+            "work_resolvent_relative": [
+              2.631968179584299e-13,
+              1.7208024805009433e-14,
+              3.738944782518185e-14,
+              1.5434254170929937e-14,
+              1.402079377135747e-13,
+              2.0152371816081272e-11,
+              9.726348162126348e-10,
+              2.540652042855698e-13,
+              9.784959213332769e-15
+            ],
+            "sampled_tolerance_satisfied": true
+          },
+          "mixed_far8": {
+            "traction_scaled_impedance_relative": [
+              2.14157778068228e-12,
+              3.073220959983596e-14,
+              6.460118772169174e-14,
+              1.395969814685231e-14,
+              2.1574859749048243e-14,
+              1.6568033728680483e-14,
+              3.4762763418874113e-13,
+              7.250631150070878e-16,
+              2.4578078118622097e-16
+            ],
+            "work_resolvent_relative": [
+              2.5222880880934624e-13,
+              4.090987417010898e-15,
+              2.8261667522279057e-14,
+              1.1359042559145453e-14,
+              7.817567108763435e-15,
+              4.872189697545517e-15,
+              1.5081362207520703e-13,
+              1.227212334125214e-16,
+              5.126120163511128e-17
+            ],
+            "sampled_tolerance_satisfied": true
+          }
+        },
+        "sampled_relative_tolerance": 1e-06,
+        "environment": {
+          "package_version": "0.1.0",
+          "python": "3.12.13",
+          "numpy": "2.4.4",
+          "scipy": "1.17.1",
+          "platform": "macOS-15.7.9-arm64-arm-64bit",
+          "available_logical_cpus": 10,
+          "hard_cpu_affinity_enforced": false,
+          "thread_environment": {
+            "FDBEM_CORES": "1",
+            "OPENBLAS_NUM_THREADS": "1",
+            "OMP_NUM_THREADS": "1",
+            "VECLIB_MAXIMUM_THREADS": "1",
+            "XLA_FLAGS": null,
+            "JAX_ENABLE_X64": "true"
+          },
+          "blas_threadpools": [],
+          "source_sha256": {
+            "__init__.py": "984855d6ff3848411c946ecca174ac08baf7afe6f1d2c3be00284da9b8dbf288",
+            "adjoint.py": "7863386b78318e6502d6257469322ee82746f2384ee915c16cbb98cda69c5bc0",
+            "benchmarks.py": "c24b97264ca60d0da1dab2095d50e9ef1b88b7208fba2d46178b8cf9038eb571",
+            "case.py": "4f0c91b18309a2eae5ce5a78da3bac9fde0be9fb1c0a4d2d5e5e1fc84bd85fa7",
+            "cli.py": "82e53ce34714809933dbe456ef403bce27c6b60b20ac4481f2feded9eeadfcea",
+            "comparison.py": "631c111752342fac7d0f64553620e04940e7888b1ab2fc52566a23b5c35ee24c",
+            "condensation.py": "12010fb51d8490ae5c3a9a2cf5b04e414cb7e6205b409ce7891b454e384de7d2",
+            "constraints.py": "830071941c6df0f70e455530fe094242042fb0c1e31498e8f9b75c9aa825cb91",
+            "cq.py": "e9af920593db01f56f1f7138832f0aa603daf07cbf1d688fba8a806f712c1e15",
+            "cq_storage.py": "da2534ef95e95813a464ff04f78a092be374110650d1866cbc1fb8ea5b5105b2",
+            "dynamics.py": "b6d84d8d2c1ac6fc465565c289d1249f378f3424e00cb93441791960b3c180f8",
+            "friction.py": "1424c1639cdc1eb4dd8f780bfdc0433f33cf29752b07a17814a3a2f326d81086",
+            "galerkin.py": "85541ddfe5020debde77b2bf2d4a045fe9a52b6183d4af2f762f577be18ab66d",
+            "galerkin_fast.py": "e6167f6c553e15697b6d67a3a33f559574d22fd49db4aad49c8262d68224b614",
+            "io.py": "d292e6338381aa7935dbbfcadc0df884e89f10b7096fa70cf1b05a83c1c12b03",
+            "jax_backend.py": "4de0aadb88b73ef6792ff36894134ee31bc412b1a54b177a4d1aaaa43328d547",
+            "kernels.py": "4008ae38c62c3022034d654a13da75369bd67309af4614006942398e22c1ad08",
+            "linear.py": "3a4d7c2259fd3e67b507d0c9dcd18082c24ffda30fccb12749976c97fa5a577c",
+            "material.py": "7c4d34d911831f12e3bc99bda2e13e76d468acdf80038dcb60310a568a5342d1",
+            "mesh.py": "a37e853ed57dd80633c44805b6c13158643ac65db3e4a4cfc12520bbdfa15c4c",
+            "nodal.py": "632f1a755bb09d784c125d3198f662213ea60045ada9db1555e1b47b3ab39856",
+            "nodal_dynamics.py": "839db57190f62795aebef30545fcc9c1b41fdef503f038cc7f425068962eb39d",
+            "nonlinear.py": "019c5fc176c70964c89f9e7c74147ad48b4235267dd2faf0ee22f789a2b97590",
+            "operators.py": "bb77a3b2c66dce871c9e71cc2cdc02488e90ad32278cc9a67fea8b909b722825",
+            "sampling.py": "c518d2298b167aaa1d5ca327a612426276901876a50322a7fe4595c7ee4f1f11",
+            "statics.py": "9f81cbd95a1ff1f742387ee4ae94251304177999208a95703371272ac79dc250"
+          },
+          "case_sha256": "82d8f491a63ca1c348507678f08406dccbc62ed1d4abea8882879f7894d2315d",
+          "restart_data_sha256": "cae42101ff5a57004fa803ea5ce928eb8079e5be0ab887d108689e37754c25f6"
+        },
+        "frozen_inputs_sha256": {
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/audit_mixed_quadrature.py": "286a99f28377fbf9075c4097deb0883972de592c731588687af26bb6781eefc1",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/mixed_quadrature_experiment.py": "070e0095be757d5a71a567a5cbcdb6fac842dc1f149e6a45a512958d93e90da1",
+          "bem/outputs/galerkin-fine2-q12-kernel-seed8/summary.json": "a8a9db802ca1e4a2e71589bb755e397c489caa08b0aa02e6ecf1c085cf83b509",
+          "bem/outputs/galerkin-fine2-q12-kernel-seed8/run_manifest.json": "a4afc13ae0a8f9076abec6d22a12da630ad3547fc03a5c345e84d50e71a0894d"
+        },
+        "estimated_array_peak_mib": 2431.6685791015625,
+        "timing_scope": "May overlap other jobs; no controlled speed claim",
+        "scope": "Sampled geometric quadrature differences only, not full-event/FEM accuracy or a continuous-frequency error bound"
+      }
+    },
+    "coarse4_contour": {
+      "path": "mixed-quadrature-coarse4-near8/summary.json",
+      "sha256": "1f5ed4bc4ae434b723a227ba0f22284dee869ca1704bd59d717571c7fa1bd3d7",
+      "data": {
+        "status": "completed_sampled_quadrature_audit",
+        "source_run": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/galerkin-corners-dt4-storage-baseline",
+        "source_mesh_arguments": {
+          "case": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/cases/pmma_event16.toml",
+          "h": 40.0,
+          "contact_h": 20.0,
+          "contact_end_h": 2.0,
+          "corner_h": 2.0,
+          "restart_knot_window": null,
+          "restart_knot_subdivisions": 1,
+          "dt": 4e-06,
+          "steps": null,
+          "duration": 0.045,
+          "quadrature": 8,
+          "workers": 1,
+          "max_memory_mb": 4096.0,
+          "backend": "jax",
+          "sampling": "adaptive",
+          "sampling_rtol": 1e-08,
+          "diagnostic_actuator_increment": null,
+          "cache": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/galerkin-cache",
+          "spectrum_directory": null,
+          "name": "galerkin-corners-dt4-storage-baseline"
+        },
+        "plan": {
+          "dt": 4e-06,
+          "steps": 11250,
+          "dofs": 71,
+          "fft_size": 32768,
+          "radius": 0.9992975536264019,
+          "estimated_peak_bytes": 948114120,
+          "weight_bytes": 453730328
+        },
+        "angles": [
+          0.0,
+          0.025,
+          0.05,
+          0.1,
+          0.2,
+          0.5,
+          1.0,
+          2.0,
+          3.141592653589793
+        ],
+        "actual_s_real": [
+          175.67327226299113,
+          175.80732393385202,
+          176.50181536479903,
+          183.65752096989596,
+          281.8652577047526,
+          3959.8846087787047,
+          53093.31373682951,
+          501336.5523292909,
+          999473.226898665
+        ],
+        "actual_s_imag": [
+          0.0,
+          6251.295972360582,
+          12510.37945914102,
+          25082.854547329694,
+          50655.957690179275,
+          134508.2309950806,
+          306937.39701542194,
+          548796.8023729621,
+          9.17625001727161e-11
+        ],
+        "records": [
+          {
+            "name": "reference",
+            "preparation_seconds": 1.2336035827174783,
+            "frequency_seconds": [
+              3.058711249381304,
+              3.3957474157214165,
+              4.916778000071645,
+              5.3954015001654625,
+              5.079592792317271,
+              4.1451011672616005,
+              3.5539661245420575,
+              3.226939874701202,
+              3.220395667478442
+            ],
+            "geometry": [],
+            "matrices_sha256": "1f03796aa963099ae299a8bba376f9fc03b22ec4fb689aa3ca1618b6b0d75322"
+          },
+          {
+            "name": "uniform_near",
+            "preparation_seconds": 0.8869050834327936,
+            "frequency_seconds": [
+              1.5277417497709394,
+              1.693591833114624,
+              2.3552266247570515,
+              2.586608082987368,
+              2.550060708075762,
+              2.1646726671606302,
+              1.9281355421990156,
+              1.7582824574783444,
+              1.614162708632648
+            ],
+            "geometry": [],
+            "matrices_sha256": "0c7650a68b91974bf44d6df10f23ce5ee3d761a15cacb2b7417ae9ebfb54f8d1"
+          },
+          {
+            "name": "mixed_far6",
+            "preparation_seconds": 1.3403105838224292,
+            "frequency_seconds": [
+              1.1749034998938441,
+              1.2442779997363687,
+              1.676605625078082,
+              1.6368041252717376,
+              1.5911838747560978,
+              1.4802616676315665,
+              1.2822993751615286,
+              1.3140514995902777,
+              1.1949202492833138
+            ],
+            "geometry": [
+              {
+                "near_order": 8,
+                "far_order": 6,
+                "separation": 2,
+                "near_pairs": 532,
+                "far_pairs": 4721,
+                "quadrature_points": 210532,
+                "uniform_near_order_points": 342720,
+                "point_count_ratio": 1.6278760473467215,
+                "retained_geometry_array_bytes": 16118296,
+                "pair_selection_depends_on_frequency": false
+              },
+              {
+                "near_order": 8,
+                "far_order": 6,
+                "separation": 2,
+                "near_pairs": 572,
+                "far_pairs": 5756,
+                "quadrature_points": 250992,
+                "uniform_near_order_points": 412160,
+                "point_count_ratio": 1.642124051762606,
+                "retained_geometry_array_bytes": 19249216,
+                "pair_selection_depends_on_frequency": false
+              }
+            ],
+            "matrices_sha256": "f36e54823dbc351e961dbc9a3bbf834064ae1352c71f6b078163c2079ca36c72"
+          }
+        ],
+        "errors_relative_to_reference": {
+          "reference": {
+            "traction_scaled_impedance_relative": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "work_resolvent_relative": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "sampled_tolerance_satisfied": true
+          },
+          "uniform_near": {
+            "traction_scaled_impedance_relative": [
+              1.8069784462637689e-10,
+              9.815911597542024e-10,
+              7.502260257328057e-09,
+              7.717225363747657e-08,
+              7.696448165445449e-07,
+              2.398629999226615e-06,
+              2.095787108647825e-06,
+              9.81342741672046e-06,
+              9.806313389010308e-06
+            ],
+            "work_resolvent_relative": [
+              1.1833501677178218e-10,
+              2.0004198415144686e-09,
+              8.638472193797548e-09,
+              9.24674649528723e-08,
+              7.955085395748696e-07,
+              1.2714358572121927e-07,
+              2.662656853057249e-07,
+              9.853301770015344e-06,
+              1.360657998357151e-06
+            ],
+            "sampled_tolerance_satisfied": false
+          },
+          "mixed_far6": {
+            "traction_scaled_impedance_relative": [
+              1.8075795329052546e-10,
+              9.815932483635093e-10,
+              7.502293870878431e-09,
+              7.717212969219208e-08,
+              7.696448032699398e-07,
+              2.3986190485428883e-06,
+              2.0957452719138707e-06,
+              9.81342739183744e-06,
+              9.8063133918191e-06
+            ],
+            "work_resolvent_relative": [
+              1.1820125268920158e-10,
+              2.000420038490004e-09,
+              8.63849287667569e-09,
+              9.246736394933634e-08,
+              7.955085039672588e-07,
+              1.2712935891943036e-07,
+              2.6466754870749703e-07,
+              9.853301927315239e-06,
+              1.360657998062213e-06
+            ],
+            "sampled_tolerance_satisfied": false
+          }
+        },
+        "errors_relative_to_uniform_near": {
+          "reference": {
+            "traction_scaled_impedance_relative": [
+              1.8069784463058602e-10,
+              9.815911596168596e-10,
+              7.502260242563935e-09,
+              7.717225388354278e-08,
+              7.696448950629535e-07,
+              2.398630190754397e-06,
+              2.0957870655275045e-06,
+              9.81345292441257e-06,
+              9.806302198540152e-06
+            ],
+            "work_resolvent_relative": [
+              1.1833501678576233e-10,
+              2.0004198452966498e-09,
+              8.638472255648166e-09,
+              9.246746107797116e-08,
+              7.955085840538955e-07,
+              1.2714359405067483e-07,
+              2.6626566549105603e-07,
+              9.853296003712584e-06,
+              1.3606592319468166e-06
+            ],
+            "sampled_tolerance_satisfied": false
+          },
+          "uniform_near": {
+            "traction_scaled_impedance_relative": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "work_resolvent_relative": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "sampled_tolerance_satisfied": true
+          },
+          "mixed_far6": {
+            "traction_scaled_impedance_relative": [
+              1.012599004215789e-12,
+              1.0357478782202568e-13,
+              2.7163204170552713e-13,
+              2.0402891747963788e-13,
+              2.11668238586086e-13,
+              1.4171667982931456e-10,
+              3.5278047977629323e-09,
+              9.977688061972403e-12,
+              2.0532674261515084e-13
+            ],
+            "work_resolvent_relative": [
+              1.346087546844807e-13,
+              1.6026274596601937e-15,
+              2.179617016008529e-14,
+              1.0790101203400766e-13,
+              7.989325656068582e-14,
+              9.777548947823788e-11,
+              2.320169548834121e-09,
+              5.152786246761362e-13,
+              4.538955451407373e-15
+            ],
+            "sampled_tolerance_satisfied": true
+          }
+        },
+        "sampled_relative_tolerance": 1e-06,
+        "environment": {
+          "package_version": "0.1.0",
+          "python": "3.12.13",
+          "numpy": "2.4.4",
+          "scipy": "1.17.1",
+          "platform": "macOS-15.7.9-arm64-arm-64bit",
+          "available_logical_cpus": 10,
+          "hard_cpu_affinity_enforced": false,
+          "thread_environment": {
+            "FDBEM_CORES": "1",
+            "OPENBLAS_NUM_THREADS": "1",
+            "OMP_NUM_THREADS": "1",
+            "VECLIB_MAXIMUM_THREADS": "1",
+            "XLA_FLAGS": null,
+            "JAX_ENABLE_X64": "true"
+          },
+          "blas_threadpools": [],
+          "source_sha256": {
+            "__init__.py": "984855d6ff3848411c946ecca174ac08baf7afe6f1d2c3be00284da9b8dbf288",
+            "adjoint.py": "7863386b78318e6502d6257469322ee82746f2384ee915c16cbb98cda69c5bc0",
+            "benchmarks.py": "c24b97264ca60d0da1dab2095d50e9ef1b88b7208fba2d46178b8cf9038eb571",
+            "case.py": "4f0c91b18309a2eae5ce5a78da3bac9fde0be9fb1c0a4d2d5e5e1fc84bd85fa7",
+            "cli.py": "82e53ce34714809933dbe456ef403bce27c6b60b20ac4481f2feded9eeadfcea",
+            "comparison.py": "631c111752342fac7d0f64553620e04940e7888b1ab2fc52566a23b5c35ee24c",
+            "condensation.py": "12010fb51d8490ae5c3a9a2cf5b04e414cb7e6205b409ce7891b454e384de7d2",
+            "constraints.py": "830071941c6df0f70e455530fe094242042fb0c1e31498e8f9b75c9aa825cb91",
+            "cq.py": "e9af920593db01f56f1f7138832f0aa603daf07cbf1d688fba8a806f712c1e15",
+            "cq_storage.py": "da2534ef95e95813a464ff04f78a092be374110650d1866cbc1fb8ea5b5105b2",
+            "dynamics.py": "b6d84d8d2c1ac6fc465565c289d1249f378f3424e00cb93441791960b3c180f8",
+            "friction.py": "1424c1639cdc1eb4dd8f780bfdc0433f33cf29752b07a17814a3a2f326d81086",
+            "galerkin.py": "85541ddfe5020debde77b2bf2d4a045fe9a52b6183d4af2f762f577be18ab66d",
+            "galerkin_fast.py": "e6167f6c553e15697b6d67a3a33f559574d22fd49db4aad49c8262d68224b614",
+            "io.py": "d292e6338381aa7935dbbfcadc0df884e89f10b7096fa70cf1b05a83c1c12b03",
+            "jax_backend.py": "4de0aadb88b73ef6792ff36894134ee31bc412b1a54b177a4d1aaaa43328d547",
+            "kernels.py": "4008ae38c62c3022034d654a13da75369bd67309af4614006942398e22c1ad08",
+            "linear.py": "3a4d7c2259fd3e67b507d0c9dcd18082c24ffda30fccb12749976c97fa5a577c",
+            "material.py": "7c4d34d911831f12e3bc99bda2e13e76d468acdf80038dcb60310a568a5342d1",
+            "mesh.py": "a37e853ed57dd80633c44805b6c13158643ac65db3e4a4cfc12520bbdfa15c4c",
+            "nodal.py": "632f1a755bb09d784c125d3198f662213ea60045ada9db1555e1b47b3ab39856",
+            "nodal_dynamics.py": "839db57190f62795aebef30545fcc9c1b41fdef503f038cc7f425068962eb39d",
+            "nonlinear.py": "019c5fc176c70964c89f9e7c74147ad48b4235267dd2faf0ee22f789a2b97590",
+            "operators.py": "bb77a3b2c66dce871c9e71cc2cdc02488e90ad32278cc9a67fea8b909b722825",
+            "sampling.py": "c518d2298b167aaa1d5ca327a612426276901876a50322a7fe4595c7ee4f1f11",
+            "statics.py": "9f81cbd95a1ff1f742387ee4ae94251304177999208a95703371272ac79dc250"
+          },
+          "case_sha256": "82d8f491a63ca1c348507678f08406dccbc62ed1d4abea8882879f7894d2315d",
+          "restart_data_sha256": "cae42101ff5a57004fa803ea5ce928eb8079e5be0ab887d108689e37754c25f6"
+        },
+        "frozen_inputs_sha256": {
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/audit_mixed_quadrature.py": "286a99f28377fbf9075c4097deb0883972de592c731588687af26bb6781eefc1",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/mixed_quadrature_experiment.py": "070e0095be757d5a71a567a5cbcdb6fac842dc1f149e6a45a512958d93e90da1",
+          "bem/outputs/galerkin-corners-dt4-storage-baseline/summary.json": "f67dcc35b0c0c6ee03a0c167e52d040221a57805c028fff2dedb1590b5eced2a",
+          "bem/outputs/galerkin-corners-dt4-storage-baseline/run_manifest.json": "c16ea48a3559c0c35cb87854614774c9d36acb8a688726cd18085a6529501e32"
+        },
+        "estimated_array_peak_mib": 349.4957275390625,
+        "timing_scope": "May overlap other jobs; no controlled speed claim",
+        "scope": "Sampled geometric quadrature differences only, not full-event/FEM accuracy or a continuous-frequency error bound"
+      }
+    },
+    "h80_contour": {
+      "path": "mixed-quadrature-h80-dt2-smoke/summary.json",
+      "sha256": "d1096cbf3926be272ff349d34b8bc0aa8e810c1e98330cecd7ec36c66e0e0b1e",
+      "data": {
+        "status": "completed_sampled_quadrature_audit",
+        "source_run": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/native512-dt05-zreference",
+        "source_mesh_arguments": {
+          "case": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/cases/pmma_event16.toml",
+          "h": 80.0,
+          "contact_h": null,
+          "contact_end_h": null,
+          "corner_h": null,
+          "restart_knot_window": null,
+          "restart_knot_subdivisions": 1,
+          "dt": 5e-07,
+          "steps": 512,
+          "duration": 0.045,
+          "quadrature": 12,
+          "workers": 1,
+          "max_memory_mb": 2048.0,
+          "backend": "jax",
+          "sampling": "dense",
+          "sampling_rtol": 1e-08,
+          "diagnostic_actuator_increment": 2.0,
+          "cache": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/native512-dt05-zcache",
+          "spectrum_directory": null,
+          "name": "native512-dt05-zreference"
+        },
+        "plan": {
+          "dt": 2e-06,
+          "steps": 22500,
+          "dofs": 15,
+          "fft_size": 65536,
+          "radius": 0.999648715112665,
+          "estimated_peak_bytes": 166575720,
+          "weight_bytes": 40501800
+        },
+        "angles": [
+          0.0,
+          0.1,
+          0.5,
+          2.0,
+          3.141592653589793
+        ],
+        "actual_s_real": [
+          175.6732939355299,
+          189.89805500990718,
+          7706.412719192118,
+          1002704.5326344232,
+          1999473.1035192655
+        ],
+        "actual_s_imag": [
+          0.0,
+          50165.90261528433,
+          269037.1495163563,
+          1098045.7249164374,
+          1.8361098744566665e-10
+        ],
+        "records": [
+          {
+            "name": "reference",
+            "preparation_seconds": 0.054107416421175,
+            "frequency_seconds": [
+              0.2533207908272743,
+              0.3982818750664592,
+              0.3132670409977436,
+              0.2603502497076988,
+              0.25541387498378754
+            ],
+            "geometry": [],
+            "matrices_sha256": "7ce681f223a4aa3011a71f4c540620cd4164b5a6bc88b51391ad9b0270fd9468"
+          },
+          {
+            "name": "uniform_near",
+            "preparation_seconds": 0.042768292129039764,
+            "frequency_seconds": [
+              0.11287795845419168,
+              0.18249912466853857,
+              0.14192149974405766,
+              0.12043912522494793,
+              0.11157779209315777
+            ],
+            "geometry": [],
+            "matrices_sha256": "76d7bb4d98e29d91fbce669a9b6c2bc67ac5aaabe4857b31330b3dd74e1c003b"
+          },
+          {
+            "name": "mixed_far6",
+            "preparation_seconds": 0.0640599587932229,
+            "frequency_seconds": [
+              0.0759030831977725,
+              0.12076012510806322,
+              0.09781208354979753,
+              0.08227345906198025,
+              0.07531633228063583
+            ],
+            "geometry": [
+              {
+                "near_order": 12,
+                "far_order": 6,
+                "separation": 2,
+                "near_pairs": 81,
+                "far_pairs": 129,
+                "quadrature_points": 19188,
+                "uniform_near_order_points": 33120,
+                "point_count_ratio": 1.726078799249531,
+                "retained_geometry_array_bytes": 1333232,
+                "pair_selection_depends_on_frequency": false
+              },
+              {
+                "near_order": 12,
+                "far_order": 6,
+                "separation": 2,
+                "near_pairs": 87,
+                "far_pairs": 84,
+                "quadrature_points": 18144,
+                "uniform_near_order_points": 27216,
+                "point_count_ratio": 1.5,
+                "retained_geometry_array_bytes": 1246824,
+                "pair_selection_depends_on_frequency": false
+              }
+            ],
+            "matrices_sha256": "8196b94f7d8fbc6ceabcc7faa6281abb2264f75ccb0a4eea8786657338540f49"
+          },
+          {
+            "name": "mixed_far8",
+            "preparation_seconds": 0.07365466747432947,
+            "frequency_seconds": [
+              0.08473987504839897,
+              0.1417771251872182,
+              0.10991416592150927,
+              0.09125012531876564,
+              0.09290270786732435
+            ],
+            "geometry": [
+              {
+                "near_order": 12,
+                "far_order": 8,
+                "separation": 2,
+                "near_pairs": 81,
+                "far_pairs": 129,
+                "quadrature_points": 22800,
+                "uniform_near_order_points": 33120,
+                "point_count_ratio": 1.4526315789473685,
+                "retained_geometry_array_bytes": 1564400,
+                "pair_selection_depends_on_frequency": false
+              },
+              {
+                "near_order": 12,
+                "far_order": 8,
+                "separation": 2,
+                "near_pairs": 87,
+                "far_pairs": 84,
+                "quadrature_points": 20496,
+                "uniform_near_order_points": 27216,
+                "point_count_ratio": 1.3278688524590163,
+                "retained_geometry_array_bytes": 1397352,
+                "pair_selection_depends_on_frequency": false
+              }
+            ],
+            "matrices_sha256": "7d246d30da59053846756f4fb0f3fb22bca9fae579ba3f286bf0f0b9e004b825"
+          }
+        ],
+        "errors_relative_to_reference": {
+          "reference": {
+            "traction_scaled_impedance_relative": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "work_resolvent_relative": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "sampled_tolerance_satisfied": true
+          },
+          "uniform_near": {
+            "traction_scaled_impedance_relative": [
+              4.417538938783432e-10,
+              3.516576303419861e-06,
+              3.204102481157547e-06,
+              0.0009961520484260912,
+              0.0010663398905772054
+            ],
+            "work_resolvent_relative": [
+              1.9198302522582746e-11,
+              2.746090070106808e-06,
+              1.3537620633292025e-06,
+              0.00024805093645868467,
+              0.000289944494170768
+            ],
+            "sampled_tolerance_satisfied": false
+          },
+          "mixed_far6": {
+            "traction_scaled_impedance_relative": [
+              4.4170963929275827e-10,
+              3.5165231936572365e-06,
+              0.00017280421266297055,
+              0.0009961520484260912,
+              0.0010663398905772054
+            ],
+            "work_resolvent_relative": [
+              1.883506615694864e-11,
+              2.7460620652302924e-06,
+              5.62958951000569e-06,
+              0.00024805093645868467,
+              0.000289944494170768
+            ],
+            "sampled_tolerance_satisfied": false
+          },
+          "mixed_far8": {
+            "traction_scaled_impedance_relative": [
+              4.417330108080052e-10,
+              3.516576297826278e-06,
+              3.2462732835624785e-06,
+              0.0009961520484260912,
+              0.0010663398905772054
+            ],
+            "work_resolvent_relative": [
+              1.9134565851139015e-11,
+              2.7460900648570235e-06,
+              1.353761197496391e-06,
+              0.00024805093645868467,
+              0.000289944494170768
+            ],
+            "sampled_tolerance_satisfied": false
+          }
+        },
+        "errors_relative_to_uniform_near": {
+          "reference": {
+            "traction_scaled_impedance_relative": [
+              4.4175389388721867e-10,
+              3.51656759085357e-06,
+              3.2040972566432637e-06,
+              0.0009961584204624424,
+              0.0010658805889497969
+            ],
+            "work_resolvent_relative": [
+              1.9198302522214324e-11,
+              2.746096996384976e-06,
+              1.353763179257867e-06,
+              0.0002480509310811355,
+              0.0002899265737325498
+            ],
+            "sampled_tolerance_satisfied": false
+          },
+          "uniform_near": {
+            "traction_scaled_impedance_relative": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "work_resolvent_relative": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "sampled_tolerance_satisfied": true
+          },
+          "mixed_far6": {
+            "traction_scaled_impedance_relative": [
+              6.689297534408373e-13,
+              1.1136613331070688e-10,
+              0.00017273313061654013,
+              0.0,
+              0.0
+            ],
+            "work_resolvent_relative": [
+              3.6336640936175213e-13,
+              2.8863574181487197e-11,
+              5.340858688912841e-06,
+              0.0,
+              0.0
+            ],
+            "sampled_tolerance_satisfied": false
+          },
+          "mixed_far8": {
+            "traction_scaled_impedance_relative": [
+              3.4992604455483143e-13,
+              1.2144461788128565e-14,
+              5.540855136371077e-07,
+              0.0,
+              0.0
+            ],
+            "work_resolvent_relative": [
+              6.37691344894433e-14,
+              6.502990684898918e-15,
+              1.6942576365282454e-08,
+              0.0,
+              0.0
+            ],
+            "sampled_tolerance_satisfied": true
+          }
+        },
+        "sampled_relative_tolerance": 1e-06,
+        "environment": {
+          "package_version": "0.1.0",
+          "python": "3.12.13",
+          "numpy": "2.4.4",
+          "scipy": "1.17.1",
+          "platform": "macOS-15.7.9-arm64-arm-64bit",
+          "available_logical_cpus": 10,
+          "hard_cpu_affinity_enforced": false,
+          "thread_environment": {
+            "FDBEM_CORES": "1",
+            "OPENBLAS_NUM_THREADS": "1",
+            "OMP_NUM_THREADS": "1",
+            "VECLIB_MAXIMUM_THREADS": "1",
+            "XLA_FLAGS": null,
+            "JAX_ENABLE_X64": "true"
+          },
+          "blas_threadpools": [],
+          "source_sha256": {
+            "__init__.py": "984855d6ff3848411c946ecca174ac08baf7afe6f1d2c3be00284da9b8dbf288",
+            "adjoint.py": "7863386b78318e6502d6257469322ee82746f2384ee915c16cbb98cda69c5bc0",
+            "benchmarks.py": "c24b97264ca60d0da1dab2095d50e9ef1b88b7208fba2d46178b8cf9038eb571",
+            "case.py": "4f0c91b18309a2eae5ce5a78da3bac9fde0be9fb1c0a4d2d5e5e1fc84bd85fa7",
+            "cli.py": "82e53ce34714809933dbe456ef403bce27c6b60b20ac4481f2feded9eeadfcea",
+            "comparison.py": "631c111752342fac7d0f64553620e04940e7888b1ab2fc52566a23b5c35ee24c",
+            "condensation.py": "12010fb51d8490ae5c3a9a2cf5b04e414cb7e6205b409ce7891b454e384de7d2",
+            "constraints.py": "830071941c6df0f70e455530fe094242042fb0c1e31498e8f9b75c9aa825cb91",
+            "cq.py": "e9af920593db01f56f1f7138832f0aa603daf07cbf1d688fba8a806f712c1e15",
+            "cq_storage.py": "da2534ef95e95813a464ff04f78a092be374110650d1866cbc1fb8ea5b5105b2",
+            "dynamics.py": "b6d84d8d2c1ac6fc465565c289d1249f378f3424e00cb93441791960b3c180f8",
+            "friction.py": "1424c1639cdc1eb4dd8f780bfdc0433f33cf29752b07a17814a3a2f326d81086",
+            "galerkin.py": "85541ddfe5020debde77b2bf2d4a045fe9a52b6183d4af2f762f577be18ab66d",
+            "galerkin_fast.py": "e6167f6c553e15697b6d67a3a33f559574d22fd49db4aad49c8262d68224b614",
+            "io.py": "d292e6338381aa7935dbbfcadc0df884e89f10b7096fa70cf1b05a83c1c12b03",
+            "jax_backend.py": "4de0aadb88b73ef6792ff36894134ee31bc412b1a54b177a4d1aaaa43328d547",
+            "kernels.py": "4008ae38c62c3022034d654a13da75369bd67309af4614006942398e22c1ad08",
+            "linear.py": "3a4d7c2259fd3e67b507d0c9dcd18082c24ffda30fccb12749976c97fa5a577c",
+            "material.py": "7c4d34d911831f12e3bc99bda2e13e76d468acdf80038dcb60310a568a5342d1",
+            "mesh.py": "a37e853ed57dd80633c44805b6c13158643ac65db3e4a4cfc12520bbdfa15c4c",
+            "nodal.py": "632f1a755bb09d784c125d3198f662213ea60045ada9db1555e1b47b3ab39856",
+            "nodal_dynamics.py": "839db57190f62795aebef30545fcc9c1b41fdef503f038cc7f425068962eb39d",
+            "nonlinear.py": "019c5fc176c70964c89f9e7c74147ad48b4235267dd2faf0ee22f789a2b97590",
+            "operators.py": "bb77a3b2c66dce871c9e71cc2cdc02488e90ad32278cc9a67fea8b909b722825",
+            "sampling.py": "c518d2298b167aaa1d5ca327a612426276901876a50322a7fe4595c7ee4f1f11",
+            "statics.py": "9f81cbd95a1ff1f742387ee4ae94251304177999208a95703371272ac79dc250"
+          },
+          "case_sha256": "82d8f491a63ca1c348507678f08406dccbc62ed1d4abea8882879f7894d2315d",
+          "restart_data_sha256": "cae42101ff5a57004fa803ea5ce928eb8079e5be0ab887d108689e37754c25f6"
+        },
+        "frozen_inputs_sha256": {
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/audit_mixed_quadrature.py": "286a99f28377fbf9075c4097deb0883972de592c731588687af26bb6781eefc1",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/mixed_quadrature_experiment.py": "070e0095be757d5a71a567a5cbcdb6fac842dc1f149e6a45a512958d93e90da1",
+          "bem/outputs/native512-dt05-zreference/summary.json": "4c633c6b3124ffb2e44d646bcca2ef630347550c000d0ff1fc332d6250ee43a7",
+          "bem/outputs/native512-dt05-zreference/run_manifest.json": "3500b5a54bc75d99b8ee13e76a8b82cabd0be0df1dc75acb7815435786e12bb2"
+        },
+        "estimated_array_peak_mib": 152.521240234375,
+        "timing_scope": "May overlap other jobs; no controlled speed claim",
+        "scope": "Sampled geometric quadrature differences only, not full-event/FEM accuracy or a continuous-frequency error bound"
+      }
+    },
+    "sampled_bulk_passivity": {
+      "path": "mixed-quadrature-sampled-passivity.json",
+      "sha256": "f2334e82c9baa68b9de84a4672f209c1992a95271dc3a1278f8a497fc62c2e11",
+      "data": {
+        "status": "completed_saved_matrix_passivity_audit",
+        "records": [
+          {
+            "audit": "mixed-quadrature-fine2-q12-near12",
+            "configuration": "reference",
+            "matrices_sha256": "c4676f6ae0ab0b60a0bd12688cd559284514f1fac2e7167a73fd05d3fd879fc4",
+            "samples": [
+              {
+                "angle": 0.0,
+                "min_hermitian_eigenvalue": 2.9613249987914185e-05,
+                "max_hermitian_eigenvalue": 46.90783285487791,
+                "min_over_spectral_radius": 6.313071439375764e-07,
+                "reciprocity_relative_frobenius": 1.3753501168660766e-12,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 0.025,
+                "min_hermitian_eigenvalue": 2.515229970375745e-05,
+                "max_hermitian_eigenvalue": 0.03649926785506734,
+                "min_over_spectral_radius": 0.0006891179243275001,
+                "reciprocity_relative_frobenius": 2.4756937446698634e-14,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 0.05,
+                "min_hermitian_eigenvalue": 1.4912512725398733e-05,
+                "max_hermitian_eigenvalue": 0.06611749730819548,
+                "min_over_spectral_radius": 0.0002255456321325441,
+                "reciprocity_relative_frobenius": 3.3605430973219646e-14,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 0.1,
+                "min_hermitian_eigenvalue": 9.757609661231967e-06,
+                "max_hermitian_eigenvalue": 0.002019285003130339,
+                "min_over_spectral_radius": 0.004832210235853538,
+                "reciprocity_relative_frobenius": 6.301566720583817e-15,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 0.2,
+                "min_hermitian_eigenvalue": 9.580929359707338e-06,
+                "max_hermitian_eigenvalue": 0.01098190980570474,
+                "min_over_spectral_radius": 0.0008724283416287357,
+                "reciprocity_relative_frobenius": 1.0161518138728253e-14,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 0.5,
+                "min_hermitian_eigenvalue": 2.787175630857078e-05,
+                "max_hermitian_eigenvalue": 0.003410939549425138,
+                "min_over_spectral_radius": 0.008171284159306822,
+                "reciprocity_relative_frobenius": 4.14454442316892e-15,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 1.0,
+                "min_hermitian_eigenvalue": 7.768322466911756e-05,
+                "max_hermitian_eigenvalue": 0.0031819331061092417,
+                "min_over_spectral_radius": 0.0244138459479137,
+                "reciprocity_relative_frobenius": 6.745197221676649e-16,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 2.0,
+                "min_hermitian_eigenvalue": 0.00017897420070820847,
+                "max_hermitian_eigenvalue": 0.004204801015426739,
+                "min_over_spectral_radius": 0.04256424978294595,
+                "reciprocity_relative_frobenius": 3.36604568212834e-16,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 3.141592653589793,
+                "min_hermitian_eigenvalue": 0.0002081742108977845,
+                "max_hermitian_eigenvalue": 0.004656989102957004,
+                "min_over_spectral_radius": 0.04470145974050102,
+                "reciprocity_relative_frobenius": 1.6379964426612552e-16,
+                "negative_directions_below_relative_1e_8": 0
+              }
+            ],
+            "min_relative_eigenvalue": 6.313071439375764e-07,
+            "max_reciprocity_defect": 1.3753501168660766e-12,
+            "negative_directions": 0
+          },
+          {
+            "audit": "mixed-quadrature-fine2-q12-near12",
+            "configuration": "uniform_near",
+            "matrices_sha256": "5fa7a237a21e7a60569b10decb3e4312cc13c3d02ccd6cbea0aecd28971dee62",
+            "samples": [
+              {
+                "angle": 0.0,
+                "min_hermitian_eigenvalue": 2.9613249991479397e-05,
+                "max_hermitian_eigenvalue": 46.90783285487565,
+                "min_over_spectral_radius": 6.313071440136115e-07,
+                "reciprocity_relative_frobenius": 1.3504565995213766e-12,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 0.025,
+                "min_hermitian_eigenvalue": 2.515229970362755e-05,
+                "max_hermitian_eigenvalue": 0.036499267858415105,
+                "min_over_spectral_radius": 0.0006891179242607342,
+                "reciprocity_relative_frobenius": 2.4346173462908618e-14,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 0.05,
+                "min_hermitian_eigenvalue": 1.4912512726987199e-05,
+                "max_hermitian_eigenvalue": 0.06611749731538728,
+                "min_over_spectral_radius": 0.00022554563213203572,
+                "reciprocity_relative_frobenius": 3.389656630504242e-14,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 0.1,
+                "min_hermitian_eigenvalue": 9.75760966242619e-06,
+                "max_hermitian_eigenvalue": 0.0020192849572804516,
+                "min_over_spectral_radius": 0.00483221034616512,
+                "reciprocity_relative_frobenius": 6.517360208655467e-15,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 0.2,
+                "min_hermitian_eigenvalue": 9.580929347189026e-06,
+                "max_hermitian_eigenvalue": 0.010981921297423643,
+                "min_over_spectral_radius": 0.0008724274275610325,
+                "reciprocity_relative_frobenius": 1.000398518486478e-14,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 0.5,
+                "min_hermitian_eigenvalue": 2.7871757382826985e-05,
+                "max_hermitian_eigenvalue": 0.003410939468218154,
+                "min_over_spectral_radius": 0.008171284668791544,
+                "reciprocity_relative_frobenius": 3.619866248062717e-15,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 1.0,
+                "min_hermitian_eigenvalue": 7.768324333573385e-05,
+                "max_hermitian_eigenvalue": 0.0031819328790940564,
+                "min_over_spectral_radius": 0.024413853556160315,
+                "reciprocity_relative_frobenius": 7.202812711268695e-16,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 2.0,
+                "min_hermitian_eigenvalue": 0.00017897434114262135,
+                "max_hermitian_eigenvalue": 0.004204800915501568,
+                "min_over_spectral_radius": 0.04256428419305376,
+                "reciprocity_relative_frobenius": 3.2671166268971354e-16,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 3.141592653589793,
+                "min_hermitian_eigenvalue": 0.00020817439479455305,
+                "max_hermitian_eigenvalue": 0.004656989052391054,
+                "min_over_spectral_radius": 0.04470149971421328,
+                "reciprocity_relative_frobenius": 1.640348267536009e-16,
+                "negative_directions_below_relative_1e_8": 0
+              }
+            ],
+            "min_relative_eigenvalue": 6.313071440136115e-07,
+            "max_reciprocity_defect": 1.3504565995213766e-12,
+            "negative_directions": 0
+          },
+          {
+            "audit": "mixed-quadrature-fine2-q12-near12",
+            "configuration": "mixed_far6",
+            "matrices_sha256": "25b4869cdc49077e1512d20fcbd3d1515ede7eb3e378aa6cb64ce94a6fd0b644",
+            "samples": [
+              {
+                "angle": 0.0,
+                "min_hermitian_eigenvalue": 2.961324999077179e-05,
+                "max_hermitian_eigenvalue": 46.90783285487686,
+                "min_over_spectral_radius": 6.313071439985101e-07,
+                "reciprocity_relative_frobenius": 1.3104355011006256e-12,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 0.025,
+                "min_hermitian_eigenvalue": 2.5152299703622507e-05,
+                "max_hermitian_eigenvalue": 0.03649926785841974,
+                "min_over_spectral_radius": 0.0006891179242605086,
+                "reciprocity_relative_frobenius": 2.504175654957198e-14,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 0.05,
+                "min_hermitian_eigenvalue": 1.4912512726987251e-05,
+                "max_hermitian_eigenvalue": 0.06611749731538813,
+                "min_over_spectral_radius": 0.00022554563213203363,
+                "reciprocity_relative_frobenius": 3.3277748551823646e-14,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 0.1,
+                "min_hermitian_eigenvalue": 9.757609662426596e-06,
+                "max_hermitian_eigenvalue": 0.00201928495728052,
+                "min_over_spectral_radius": 0.004832210346165157,
+                "reciprocity_relative_frobenius": 6.3597970331520865e-15,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 0.2,
+                "min_hermitian_eigenvalue": 9.580929347190253e-06,
+                "max_hermitian_eigenvalue": 0.010981921297420833,
+                "min_over_spectral_radius": 0.0008724274275613674,
+                "reciprocity_relative_frobenius": 1.0302638889881743e-14,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 0.5,
+                "min_hermitian_eigenvalue": 2.7871757382826548e-05,
+                "max_hermitian_eigenvalue": 0.0034109394681727757,
+                "min_over_spectral_radius": 0.008171284668900125,
+                "reciprocity_relative_frobenius": 3.7285739842724295e-15,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 1.0,
+                "min_hermitian_eigenvalue": 7.768324333575412e-05,
+                "max_hermitian_eigenvalue": 0.003181932887069674,
+                "min_over_spectral_radius": 0.02441385349497257,
+                "reciprocity_relative_frobenius": 6.718361925933927e-16,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 2.0,
+                "min_hermitian_eigenvalue": 0.0001789743411409669,
+                "max_hermitian_eigenvalue": 0.004204800915501546,
+                "min_over_spectral_radius": 0.04256428419266051,
+                "reciprocity_relative_frobenius": 3.55397542742609e-16,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 3.141592653589793,
+                "min_hermitian_eigenvalue": 0.00020817439479451987,
+                "max_hermitian_eigenvalue": 0.00465698905239104,
+                "min_over_spectral_radius": 0.04470149971420629,
+                "reciprocity_relative_frobenius": 1.7839322779594012e-16,
+                "negative_directions_below_relative_1e_8": 0
+              }
+            ],
+            "min_relative_eigenvalue": 6.313071439985101e-07,
+            "max_reciprocity_defect": 1.3104355011006256e-12,
+            "negative_directions": 0
+          },
+          {
+            "audit": "mixed-quadrature-fine2-q12-near12",
+            "configuration": "mixed_far8",
+            "matrices_sha256": "e6f33f9a662d44632c26d344240240798479c8e6e075130bbd6e101b414d568d",
+            "samples": [
+              {
+                "angle": 0.0,
+                "min_hermitian_eigenvalue": 2.9613249995699566e-05,
+                "max_hermitian_eigenvalue": 46.90783285487508,
+                "min_over_spectral_radius": 6.313071441035864e-07,
+                "reciprocity_relative_frobenius": 1.3470153023693397e-12,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 0.025,
+                "min_hermitian_eigenvalue": 2.5152299703625286e-05,
+                "max_hermitian_eigenvalue": 0.036499267858416534,
+                "min_over_spectral_radius": 0.0006891179242606452,
+                "reciprocity_relative_frobenius": 2.4642005065261035e-14,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 0.05,
+                "min_hermitian_eigenvalue": 1.491251272698806e-05,
+                "max_hermitian_eigenvalue": 0.06611749731538882,
+                "min_over_spectral_radius": 0.00022554563213204347,
+                "reciprocity_relative_frobenius": 3.430768486685043e-14,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 0.1,
+                "min_hermitian_eigenvalue": 9.757609662426928e-06,
+                "max_hermitian_eigenvalue": 0.0020192849572804586,
+                "min_over_spectral_radius": 0.004832210346165469,
+                "reciprocity_relative_frobenius": 6.036460145445346e-15,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 0.2,
+                "min_hermitian_eigenvalue": 9.580929347190737e-06,
+                "max_hermitian_eigenvalue": 0.010981921297423283,
+                "min_over_spectral_radius": 0.0008724274275612171,
+                "reciprocity_relative_frobenius": 9.987274880057046e-15,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 0.5,
+                "min_hermitian_eigenvalue": 2.787175738282789e-05,
+                "max_hermitian_eigenvalue": 0.0034109394682181444,
+                "min_over_spectral_radius": 0.008171284668791832,
+                "reciprocity_relative_frobenius": 4.0614883469587605e-15,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 1.0,
+                "min_hermitian_eigenvalue": 7.768324333573365e-05,
+                "max_hermitian_eigenvalue": 0.0031819328790948682,
+                "min_over_spectral_radius": 0.02441385355615402,
+                "reciprocity_relative_frobenius": 7.248685545583308e-16,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 2.0,
+                "min_hermitian_eigenvalue": 0.000178974341142621,
+                "max_hermitian_eigenvalue": 0.004204800915501567,
+                "min_over_spectral_radius": 0.042564284193053685,
+                "reciprocity_relative_frobenius": 3.227460794987765e-16,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 3.141592653589793,
+                "min_hermitian_eigenvalue": 0.00020817439479455264,
+                "max_hermitian_eigenvalue": 0.004656989052391052,
+                "min_over_spectral_radius": 0.04470149971421321,
+                "reciprocity_relative_frobenius": 1.5841347251602138e-16,
+                "negative_directions_below_relative_1e_8": 0
+              }
+            ],
+            "min_relative_eigenvalue": 6.313071441035864e-07,
+            "max_reciprocity_defect": 1.3470153023693397e-12,
+            "negative_directions": 0
+          },
+          {
+            "audit": "mixed-quadrature-coarse4-near8",
+            "configuration": "reference",
+            "matrices_sha256": "1f03796aa963099ae299a8bba376f9fc03b22ec4fb689aa3ca1618b6b0d75322",
+            "samples": [
+              {
+                "angle": 0.0,
+                "min_hermitian_eigenvalue": 2.96132469187242e-05,
+                "max_hermitian_eigenvalue": 11.49937376816596,
+                "min_over_spectral_radius": 2.575205182103341e-06,
+                "reciprocity_relative_frobenius": 5.191387982894101e-13,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 0.025,
+                "min_hermitian_eigenvalue": 2.7351881486183376e-05,
+                "max_hermitian_eigenvalue": 0.009133721356840454,
+                "min_over_spectral_radius": 0.002994604325836908,
+                "reciprocity_relative_frobenius": 2.959672776345256e-15,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 0.05,
+                "min_hermitian_eigenvalue": 2.513937323087832e-05,
+                "max_hermitian_eigenvalue": 0.03409924190803363,
+                "min_over_spectral_radius": 0.0007372414113686086,
+                "reciprocity_relative_frobenius": 5.6764590034299e-15,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 0.1,
+                "min_hermitian_eigenvalue": 1.525928383048979e-05,
+                "max_hermitian_eigenvalue": 0.05644316554038682,
+                "min_over_spectral_radius": 0.000270347768138045,
+                "reciprocity_relative_frobenius": 2.6437080312623293e-14,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 0.2,
+                "min_hermitian_eigenvalue": 7.3280706592295465e-06,
+                "max_hermitian_eigenvalue": 0.01044515543162772,
+                "min_over_spectral_radius": 0.0007015760279679799,
+                "reciprocity_relative_frobenius": 4.8138657071317974e-15,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 0.5,
+                "min_hermitian_eigenvalue": 1.554735276491311e-05,
+                "max_hermitian_eigenvalue": 0.003319862819567111,
+                "min_over_spectral_radius": 0.004683131083994726,
+                "reciprocity_relative_frobenius": 2.273529787630464e-15,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 1.0,
+                "min_hermitian_eigenvalue": 7.529001489190029e-05,
+                "max_hermitian_eigenvalue": 0.003174336437727171,
+                "min_over_spectral_radius": 0.02371834755669693,
+                "reciprocity_relative_frobenius": 1.2469566186939679e-15,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 2.0,
+                "min_hermitian_eigenvalue": 0.00016267132294411384,
+                "max_hermitian_eigenvalue": 0.003181418891053031,
+                "min_over_spectral_radius": 0.05113168951174191,
+                "reciprocity_relative_frobenius": 3.890525716163593e-16,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 3.141592653589793,
+                "min_hermitian_eigenvalue": 0.0001762702027173642,
+                "max_hermitian_eigenvalue": 0.003208537255459876,
+                "min_over_spectral_radius": 0.0549378700270381,
+                "reciprocity_relative_frobenius": 1.6468155239336207e-16,
+                "negative_directions_below_relative_1e_8": 0
+              }
+            ],
+            "min_relative_eigenvalue": 2.575205182103341e-06,
+            "max_reciprocity_defect": 5.191387982894101e-13,
+            "negative_directions": 0
+          },
+          {
+            "audit": "mixed-quadrature-coarse4-near8",
+            "configuration": "uniform_near",
+            "matrices_sha256": "0c7650a68b91974bf44d6df10f23ce5ee3d761a15cacb2b7417ae9ebfb54f8d1",
+            "samples": [
+              {
+                "angle": 0.0,
+                "min_hermitian_eigenvalue": 2.961324691864284e-05,
+                "max_hermitian_eigenvalue": 11.499373767771054,
+                "min_over_spectral_radius": 2.5752051821847018e-06,
+                "reciprocity_relative_frobenius": 5.79489071619013e-13,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 0.025,
+                "min_hermitian_eigenvalue": 2.735188147942397e-05,
+                "max_hermitian_eigenvalue": 0.00913372135672643,
+                "min_over_spectral_radius": 0.0029946043251342425,
+                "reciprocity_relative_frobenius": 2.336777529543382e-15,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 0.05,
+                "min_hermitian_eigenvalue": 2.513937321688648e-05,
+                "max_hermitian_eigenvalue": 0.03409924253117372,
+                "min_over_spectral_radius": 0.0007372413974857044,
+                "reciprocity_relative_frobenius": 5.319538185608663e-15,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 0.1,
+                "min_hermitian_eigenvalue": 1.5259283875422166e-05,
+                "max_hermitian_eigenvalue": 0.05644316286722319,
+                "min_over_spectral_radius": 0.0002703477817378534,
+                "reciprocity_relative_frobenius": 2.6943513533327652e-14,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 0.2,
+                "min_hermitian_eigenvalue": 7.328072064428088e-06,
+                "max_hermitian_eigenvalue": 0.010445122620259404,
+                "min_over_spectral_radius": 0.0007015783663673348,
+                "reciprocity_relative_frobenius": 5.6406070867100174e-15,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 0.5,
+                "min_hermitian_eigenvalue": 1.5547373348184984e-05,
+                "max_hermitian_eigenvalue": 0.0033198613256410587,
+                "min_over_spectral_radius": 0.004683139391427085,
+                "reciprocity_relative_frobenius": 2.349182380650307e-15,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 1.0,
+                "min_hermitian_eigenvalue": 7.529109147124595e-05,
+                "max_hermitian_eigenvalue": 0.003174336039633311,
+                "min_over_spectral_radius": 0.023718689682250316,
+                "reciprocity_relative_frobenius": 1.4232918876290578e-15,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 2.0,
+                "min_hermitian_eigenvalue": 0.0001626697056737928,
+                "max_hermitian_eigenvalue": 0.003181413315748633,
+                "min_over_spectral_radius": 0.05113127076841767,
+                "reciprocity_relative_frobenius": 3.5699621508000013e-16,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 3.141592653589793,
+                "min_hermitian_eigenvalue": 0.00017629369365475747,
+                "max_hermitian_eigenvalue": 0.0032085378192393023,
+                "min_over_spectral_radius": 0.05494518175776222,
+                "reciprocity_relative_frobenius": 1.781233525396134e-16,
+                "negative_directions_below_relative_1e_8": 0
+              }
+            ],
+            "min_relative_eigenvalue": 2.5752051821847018e-06,
+            "max_reciprocity_defect": 5.79489071619013e-13,
+            "negative_directions": 0
+          },
+          {
+            "audit": "mixed-quadrature-coarse4-near8",
+            "configuration": "mixed_far6",
+            "matrices_sha256": "f36e54823dbc351e961dbc9a3bbf834064ae1352c71f6b078163c2079ca36c72",
+            "samples": [
+              {
+                "angle": 0.0,
+                "min_hermitian_eigenvalue": 2.961324691865678e-05,
+                "max_hermitian_eigenvalue": 11.499373767766567,
+                "min_over_spectral_radius": 2.5752051821869193e-06,
+                "reciprocity_relative_frobenius": 5.444080248078323e-13,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 0.025,
+                "min_hermitian_eigenvalue": 2.735188147942421e-05,
+                "max_hermitian_eigenvalue": 0.00913372135672618,
+                "min_over_spectral_radius": 0.0029946043251343505,
+                "reciprocity_relative_frobenius": 2.054781149103594e-15,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 0.05,
+                "min_hermitian_eigenvalue": 2.5139373216887097e-05,
+                "max_hermitian_eigenvalue": 0.034099242531180005,
+                "min_over_spectral_radius": 0.0007372413974855866,
+                "reciprocity_relative_frobenius": 4.5550903172246205e-15,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 0.1,
+                "min_hermitian_eigenvalue": 1.5259283875421018e-05,
+                "max_hermitian_eigenvalue": 0.05644316286722799,
+                "min_over_spectral_radius": 0.00027034778173781006,
+                "reciprocity_relative_frobenius": 2.254362792789297e-14,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 0.2,
+                "min_hermitian_eigenvalue": 7.328072064429048e-06,
+                "max_hermitian_eigenvalue": 0.010445122620261463,
+                "min_over_spectral_radius": 0.0007015783663672884,
+                "reciprocity_relative_frobenius": 5.311143377846951e-15,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 0.5,
+                "min_hermitian_eigenvalue": 1.5547373348162226e-05,
+                "max_hermitian_eigenvalue": 0.0033198613255432715,
+                "min_over_spectral_radius": 0.004683139391558173,
+                "reciprocity_relative_frobenius": 2.205759264604858e-15,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 1.0,
+                "min_hermitian_eigenvalue": 7.529109135121532e-05,
+                "max_hermitian_eigenvalue": 0.0031743360480972647,
+                "min_over_spectral_radius": 0.02371868958119469,
+                "reciprocity_relative_frobenius": 1.5935501452311564e-15,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 2.0,
+                "min_hermitian_eigenvalue": 0.00016266970567255126,
+                "max_hermitian_eigenvalue": 0.0031814133157457847,
+                "min_over_spectral_radius": 0.051131270768073195,
+                "reciprocity_relative_frobenius": 3.371948935651854e-16,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 3.141592653589793,
+                "min_hermitian_eigenvalue": 0.00017629369365475714,
+                "max_hermitian_eigenvalue": 0.0032085378192392884,
+                "min_over_spectral_radius": 0.05494518175776235,
+                "reciprocity_relative_frobenius": 1.7516246394444538e-16,
+                "negative_directions_below_relative_1e_8": 0
+              }
+            ],
+            "min_relative_eigenvalue": 2.5752051821869193e-06,
+            "max_reciprocity_defect": 5.444080248078323e-13,
+            "negative_directions": 0
+          },
+          {
+            "audit": "mixed-quadrature-h80-dt2-smoke",
+            "configuration": "reference",
+            "matrices_sha256": "7ce681f223a4aa3011a71f4c540620cd4164b5a6bc88b51391ad9b0270fd9468",
+            "samples": [
+              {
+                "angle": 0.0,
+                "min_hermitian_eigenvalue": 2.961326852323441e-05,
+                "max_hermitian_eigenvalue": 0.291712886378112,
+                "min_over_spectral_radius": 0.00010151511950983998,
+                "reciprocity_relative_frobenius": 2.5738529913747896e-13,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 0.1,
+                "min_hermitian_eigenvalue": 2.9778070207580917e-06,
+                "max_hermitian_eigenvalue": 0.002724656531433749,
+                "min_over_spectral_radius": 0.0010929109729625743,
+                "reciprocity_relative_frobenius": 9.777298790545552e-15,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 0.5,
+                "min_hermitian_eigenvalue": 0.00017437521661089746,
+                "max_hermitian_eigenvalue": 0.004165100836878258,
+                "min_over_spectral_radius": 0.04186578511304222,
+                "reciprocity_relative_frobenius": 2.119362149439651e-16,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 2.0,
+                "min_hermitian_eigenvalue": 0.00019333657959149606,
+                "max_hermitian_eigenvalue": 0.004124177608834944,
+                "min_over_spectral_radius": 0.04687881995608635,
+                "reciprocity_relative_frobenius": 2.155370524699881e-16,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 3.141592653589793,
+                "min_hermitian_eigenvalue": 0.0001936126341048789,
+                "max_hermitian_eigenvalue": 0.0041221846940407356,
+                "min_over_spectral_radius": 0.04696845204068035,
+                "reciprocity_relative_frobenius": 1.6653828776191876e-16,
+                "negative_directions_below_relative_1e_8": 0
+              }
+            ],
+            "min_relative_eigenvalue": 0.00010151511950983998,
+            "max_reciprocity_defect": 2.5738529913747896e-13,
+            "negative_directions": 0
+          },
+          {
+            "audit": "mixed-quadrature-h80-dt2-smoke",
+            "configuration": "uniform_near",
+            "matrices_sha256": "76d7bb4d98e29d91fbce669a9b6c2bc67ac5aaabe4857b31330b3dd74e1c003b",
+            "samples": [
+              {
+                "angle": 0.0,
+                "min_hermitian_eigenvalue": 2.9613268523279115e-05,
+                "max_hermitian_eigenvalue": 0.29171288637635123,
+                "min_over_spectral_radius": 0.00010151511951060597,
+                "reciprocity_relative_frobenius": 3.2093291048098535e-13,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 0.1,
+                "min_hermitian_eigenvalue": 2.977805254644891e-06,
+                "max_hermitian_eigenvalue": 0.0027246774631899395,
+                "min_over_spectral_radius": 0.0010929019287143806,
+                "reciprocity_relative_frobenius": 6.581542270988691e-15,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 0.5,
+                "min_hermitian_eigenvalue": 0.00017437722106695953,
+                "max_hermitian_eigenvalue": 0.004165106489670052,
+                "min_over_spectral_radius": 0.04186620954336589,
+                "reciprocity_relative_frobenius": 2.9208333485996787e-16,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 2.0,
+                "min_hermitian_eigenvalue": 0.0001940971460571505,
+                "max_hermitian_eigenvalue": 0.004124660923208293,
+                "min_over_spectral_radius": 0.04705772175478015,
+                "reciprocity_relative_frobenius": 1.9814269161930739e-16,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 3.141592653589793,
+                "min_hermitian_eigenvalue": 0.00019277898725642858,
+                "max_hermitian_eigenvalue": 0.004123302535541526,
+                "min_over_spectral_radius": 0.04675353932793833,
+                "reciprocity_relative_frobenius": 1.2116105735731369e-16,
+                "negative_directions_below_relative_1e_8": 0
+              }
+            ],
+            "min_relative_eigenvalue": 0.00010151511951060597,
+            "max_reciprocity_defect": 3.2093291048098535e-13,
+            "negative_directions": 0
+          },
+          {
+            "audit": "mixed-quadrature-h80-dt2-smoke",
+            "configuration": "mixed_far6",
+            "matrices_sha256": "8196b94f7d8fbc6ceabcc7faa6281abb2264f75ccb0a4eea8786657338540f49",
+            "samples": [
+              {
+                "angle": 0.0,
+                "min_hermitian_eigenvalue": 2.96132685233232e-05,
+                "max_hermitian_eigenvalue": 0.29171288637631526,
+                "min_over_spectral_radius": 0.00010151511951076961,
+                "reciprocity_relative_frobenius": 2.1155407647476577e-13,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 0.1,
+                "min_hermitian_eigenvalue": 2.977805247136078e-06,
+                "max_hermitian_eigenvalue": 0.0027246774632753473,
+                "min_over_spectral_radius": 0.0010929019259242688,
+                "reciprocity_relative_frobenius": 1.2212594887835704e-14,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 0.5,
+                "min_hermitian_eigenvalue": 0.00017435147578832662,
+                "max_hermitian_eigenvalue": 0.0041651108301987904,
+                "min_over_spectral_radius": 0.04185998473899079,
+                "reciprocity_relative_frobenius": 2.2910592234464196e-16,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 2.0,
+                "min_hermitian_eigenvalue": 0.0001940971460571505,
+                "max_hermitian_eigenvalue": 0.004124660923208293,
+                "min_over_spectral_radius": 0.04705772175478015,
+                "reciprocity_relative_frobenius": 1.9814269161930739e-16,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 3.141592653589793,
+                "min_hermitian_eigenvalue": 0.00019277898725642858,
+                "max_hermitian_eigenvalue": 0.004123302535541526,
+                "min_over_spectral_radius": 0.04675353932793833,
+                "reciprocity_relative_frobenius": 1.2116105735731369e-16,
+                "negative_directions_below_relative_1e_8": 0
+              }
+            ],
+            "min_relative_eigenvalue": 0.00010151511951076961,
+            "max_reciprocity_defect": 2.1155407647476577e-13,
+            "negative_directions": 0
+          },
+          {
+            "audit": "mixed-quadrature-h80-dt2-smoke",
+            "configuration": "mixed_far8",
+            "matrices_sha256": "7d246d30da59053846756f4fb0f3fb22bca9fae579ba3f286bf0f0b9e004b825",
+            "samples": [
+              {
+                "angle": 0.0,
+                "min_hermitian_eigenvalue": 2.961326852337506e-05,
+                "max_hermitian_eigenvalue": 0.29171288637634946,
+                "min_over_spectral_radius": 0.0001015151195109355,
+                "reciprocity_relative_frobenius": 2.666942195808494e-13,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 0.1,
+                "min_hermitian_eigenvalue": 2.9778052546445763e-06,
+                "max_hermitian_eigenvalue": 0.0027246774631899577,
+                "min_over_spectral_radius": 0.001092901928714258,
+                "reciprocity_relative_frobenius": 1.0881253859207064e-14,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 0.5,
+                "min_hermitian_eigenvalue": 0.00017437712507116753,
+                "max_hermitian_eigenvalue": 0.004165106488374978,
+                "min_over_spectral_radius": 0.041866186508763434,
+                "reciprocity_relative_frobenius": 2.2105848660783565e-16,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 2.0,
+                "min_hermitian_eigenvalue": 0.0001940971460571505,
+                "max_hermitian_eigenvalue": 0.004124660923208293,
+                "min_over_spectral_radius": 0.04705772175478015,
+                "reciprocity_relative_frobenius": 1.9814269161930739e-16,
+                "negative_directions_below_relative_1e_8": 0
+              },
+              {
+                "angle": 3.141592653589793,
+                "min_hermitian_eigenvalue": 0.00019277898725642858,
+                "max_hermitian_eigenvalue": 0.004123302535541526,
+                "min_over_spectral_radius": 0.04675353932793833,
+                "reciprocity_relative_frobenius": 1.2116105735731369e-16,
+                "negative_directions_below_relative_1e_8": 0
+              }
+            ],
+            "min_relative_eigenvalue": 0.0001015151195109355,
+            "max_reciprocity_defect": 2.666942195808494e-13,
+            "negative_directions": 0
+          }
+        ],
+        "metric_implementation_sha256": "1c33f5a8dc44c0dd2c3205414833211e98aeedc2e7248e071fa4d3dbaaf8ccea",
+        "scope": "Work-conjugate bulk Z(s)/s at the saved contour points only. No additional BEM evaluations, no frequency-uniform or nonlinear friction stability certificate."
+      }
+    },
+    "short_kernel": {
+      "path": "mixed8-native64-kernel/summary.json",
+      "sha256": "ad2dac63e487a63601378996a2cd263c9f0b861868a015067b159387d4fc0435",
+      "data": {
+        "status": "completed_resolvent_kernel_only",
+        "source_run": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/native64-dt4-zreference",
+        "source_mesh_arguments": {
+          "case": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/cases/pmma_event16.toml",
+          "h": 80.0,
+          "contact_h": null,
+          "contact_end_h": null,
+          "corner_h": null,
+          "restart_knot_window": null,
+          "restart_knot_subdivisions": 1,
+          "dt": 4e-06,
+          "steps": 64,
+          "duration": 0.045,
+          "quadrature": 12,
+          "workers": 1,
+          "max_memory_mb": 2048,
+          "backend": "jax",
+          "sampling": "dense",
+          "sampling_rtol": 1e-12,
+          "diagnostic_actuator_increment": 2.0,
+          "cache": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/native64-dt4-zcache",
+          "spectrum_directory": null,
+          "name": "native64-dt4-zreference"
+        },
+        "dt_s": 4e-06,
+        "full_steps": 64,
+        "correction_steps": 64,
+        "plan": {
+          "dt": 4e-06,
+          "steps": 64,
+          "dofs": 15,
+          "fft_size": 256,
+          "radius": 0.9139816994654905,
+          "estimated_peak_bytes": 853320,
+          "weight_bytes": 117000
+        },
+        "history_dofs": 15,
+        "frequency_sampling": {
+          "method": "adaptive_piecewise_chebyshev",
+          "options": {
+            "relative_tolerance": 1e-08,
+            "absolute_tolerance": 1e-14,
+            "degree": 16,
+            "check_points": 7
+          },
+          "dense_grid_evaluations": 129,
+          "transfer_evaluations": 143,
+          "interpolated_grid_points": 58,
+          "direct_grid_points": 71,
+          "accepted_intervals": 1,
+          "rejected_intervals": 2,
+          "max_accepted_normalized_check_error": 0.0035908690844181582,
+          "max_accepted_normalized_tail": 0.2494154031190607,
+          "certified_error_bound": false,
+          "evaluation_ratio": 1.1085271317829457
+        },
+        "sampling_options": {
+          "relative_tolerance": 1e-08,
+          "absolute_tolerance": 1e-14,
+          "degree": 16,
+          "check_points": 7
+        },
+        "spectrum_storage": {
+          "backend": "polynomial_half_spectrum",
+          "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/mixed8-native64-kernel/spectrum",
+          "shape": [
+            129,
+            15,
+            15
+          ],
+          "sha256": "1cb89a6255af9b691fb146509ec8d34849dc7154f48938d73eb1bf284b8e2edf",
+          "bytes": 330815,
+          "all_frequencies_represented": true,
+          "implementation_sha256": "521c4cec62e8f0f48a9f4b4973c4e33d77dc103df1b5cdf313b714cb0eaf0c5a",
+          "coordinates": "diag(sqrt(w)) * L * diag(sqrt(w))"
+        },
+        "time_weights_storage": "disk_mmap",
+        "reserved_time_output_bytes": 193176,
+        "initial_composition_inf_error": 4.7310966218361366e-11,
+        "estimated_construction_array_peak_mib": 141.12841796875,
+        "estimated_original_solver_array_peak_mib": 0.8137893676757812,
+        "total_seconds": 14.570806417614222,
+        "environment": {
+          "package_version": "0.1.0",
+          "python": "3.12.13",
+          "numpy": "2.4.4",
+          "scipy": "1.17.1",
+          "platform": "macOS-15.7.9-arm64-arm-64bit",
+          "available_logical_cpus": 10,
+          "hard_cpu_affinity_enforced": false,
+          "thread_environment": {
+            "FDBEM_CORES": "1",
+            "OPENBLAS_NUM_THREADS": "1",
+            "OMP_NUM_THREADS": "1",
+            "VECLIB_MAXIMUM_THREADS": "1",
+            "XLA_FLAGS": null,
+            "JAX_ENABLE_X64": "true"
+          },
+          "blas_threadpools": [],
+          "source_sha256": {
+            "__init__.py": "984855d6ff3848411c946ecca174ac08baf7afe6f1d2c3be00284da9b8dbf288",
+            "adjoint.py": "7863386b78318e6502d6257469322ee82746f2384ee915c16cbb98cda69c5bc0",
+            "benchmarks.py": "c24b97264ca60d0da1dab2095d50e9ef1b88b7208fba2d46178b8cf9038eb571",
+            "case.py": "4f0c91b18309a2eae5ce5a78da3bac9fde0be9fb1c0a4d2d5e5e1fc84bd85fa7",
+            "cli.py": "82e53ce34714809933dbe456ef403bce27c6b60b20ac4481f2feded9eeadfcea",
+            "comparison.py": "631c111752342fac7d0f64553620e04940e7888b1ab2fc52566a23b5c35ee24c",
+            "condensation.py": "12010fb51d8490ae5c3a9a2cf5b04e414cb7e6205b409ce7891b454e384de7d2",
+            "constraints.py": "830071941c6df0f70e455530fe094242042fb0c1e31498e8f9b75c9aa825cb91",
+            "cq.py": "e9af920593db01f56f1f7138832f0aa603daf07cbf1d688fba8a806f712c1e15",
+            "cq_storage.py": "da2534ef95e95813a464ff04f78a092be374110650d1866cbc1fb8ea5b5105b2",
+            "dynamics.py": "b6d84d8d2c1ac6fc465565c289d1249f378f3424e00cb93441791960b3c180f8",
+            "friction.py": "1424c1639cdc1eb4dd8f780bfdc0433f33cf29752b07a17814a3a2f326d81086",
+            "galerkin.py": "85541ddfe5020debde77b2bf2d4a045fe9a52b6183d4af2f762f577be18ab66d",
+            "galerkin_fast.py": "e6167f6c553e15697b6d67a3a33f559574d22fd49db4aad49c8262d68224b614",
+            "io.py": "d292e6338381aa7935dbbfcadc0df884e89f10b7096fa70cf1b05a83c1c12b03",
+            "jax_backend.py": "4de0aadb88b73ef6792ff36894134ee31bc412b1a54b177a4d1aaaa43328d547",
+            "kernels.py": "4008ae38c62c3022034d654a13da75369bd67309af4614006942398e22c1ad08",
+            "linear.py": "3a4d7c2259fd3e67b507d0c9dcd18082c24ffda30fccb12749976c97fa5a577c",
+            "material.py": "7c4d34d911831f12e3bc99bda2e13e76d468acdf80038dcb60310a568a5342d1",
+            "mesh.py": "a37e853ed57dd80633c44805b6c13158643ac65db3e4a4cfc12520bbdfa15c4c",
+            "nodal.py": "632f1a755bb09d784c125d3198f662213ea60045ada9db1555e1b47b3ab39856",
+            "nodal_dynamics.py": "839db57190f62795aebef30545fcc9c1b41fdef503f038cc7f425068962eb39d",
+            "nonlinear.py": "019c5fc176c70964c89f9e7c74147ad48b4235267dd2faf0ee22f789a2b97590",
+            "operators.py": "bb77a3b2c66dce871c9e71cc2cdc02488e90ad32278cc9a67fea8b909b722825",
+            "sampling.py": "c518d2298b167aaa1d5ca327a612426276901876a50322a7fe4595c7ee4f1f11",
+            "statics.py": "9f81cbd95a1ff1f742387ee4ae94251304177999208a95703371272ac79dc250"
+          },
+          "case_sha256": "82d8f491a63ca1c348507678f08406dccbc62ed1d4abea8882879f7894d2315d",
+          "restart_data_sha256": "cae42101ff5a57004fa803ea5ce928eb8079e5be0ab887d108689e37754c25f6"
+        },
+        "helper_sha256": "129d75f1dc47ba11f2da171a820e422c3bde36ccce6ed2624690230c9e66bafc",
+        "helper_math_sha256": "6c29f88416f6748a4a6b7d5b21ef2271788f173193840f7f963341223ecd6d46",
+        "weights_sha256": "d81d99b01c7a78b27bafa911a4aa946b81059f98a58ddeedfd9516f3c4e0df91",
+        "elastic_sha256": "43a91e8b31340233647309848fd8db3416266f34e3f4361753d047dfee5a8ab1",
+        "prototype_sha256": "55c3895bc5cb47a2b7055043bc5596c4ccbcc4675b9308d17a61b73b1e069f4a",
+        "frozen_inputs_sha256": {
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/prepare_native_resolvent.py": "55c3895bc5cb47a2b7055043bc5596c4ccbcc4675b9308d17a61b73b1e069f4a",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/native_spectrum.py": "1372b238742add3bf117897131316dff04e9a336afd0af6d71c069b89b0552e3",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/polynomial_spectrum.py": "521c4cec62e8f0f48a9f4b4973c4e33d77dc103df1b5cdf313b714cb0eaf0c5a",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/build_resolvent_history.py": "00f67ff54c940cbd610a091f675ee1f8ef2996d1e3daf7ff5da2074b3fc36a36",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/replay_resolvent.py": "129d75f1dc47ba11f2da171a820e422c3bde36ccce6ed2624690230c9e66bafc",
+          "bem/outputs/native64-dt4-zreference/summary.json": "4bf88f07c73678107e37187d8fe81c69214bc02bbaf5e0f80bec8a0092973166",
+          "bem/outputs/native64-dt4-zreference/run_manifest.json": "2d457a75c74b5f90b383e0e44fae32edd47c51e82c607c76045626f34e715bd3",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/prepare_mixed_resolvent.py": "420440510abfa2ad544fac523846d9678cec8728bc0ab3b7b16fa90968f16e55",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/mixed_quadrature_experiment.py": "070e0095be757d5a71a567a5cbcdb6fac842dc1f149e6a45a512958d93e90da1"
+        },
+        "full_original_event_reproduced": false,
+        "scope": "Fresh native BEM kernel, complete frequency grid, disk matrix prefix, full causal elastic startup; nonlinear trajectory/adjoint/FEM comparison require separate validation",
+        "experimental_operator": {
+          "method": "fixed_geometric_galerkin_quadrature",
+          "far_order": 8,
+          "separation": 2.0,
+          "near_order": 12,
+          "pair_selection_depends_on_frequency": false,
+          "experimental_operator_sha256": "070e0095be757d5a71a567a5cbcdb6fac842dc1f149e6a45a512958d93e90da1",
+          "experimental_wrapper_sha256": "420440510abfa2ad544fac523846d9678cec8728bc0ab3b7b16fa90968f16e55",
+          "geometry": [
+            {
+              "near_order": 12,
+              "far_order": 8,
+              "separation": 2.0,
+              "near_pairs": 81,
+              "far_pairs": 129,
+              "quadrature_points": 22800,
+              "uniform_near_order_points": 33120,
+              "point_count_ratio": 1.4526315789473685,
+              "retained_geometry_array_bytes": 1564400,
+              "pair_selection_depends_on_frequency": false
+            },
+            {
+              "near_order": 12,
+              "far_order": 8,
+              "separation": 2.0,
+              "near_pairs": 87,
+              "far_pairs": 84,
+              "quadrature_points": 20496,
+              "uniform_near_order_points": 27216,
+              "point_count_ratio": 1.3278688524590163,
+              "retained_geometry_array_bytes": 1397352,
+              "pair_selection_depends_on_frequency": false
+            }
+          ]
+        }
+      }
+    },
+    "short_rollout": {
+      "path": "mixed8-native64-rollout/summary.json",
+      "sha256": "ce0ae0e47a579027a5061378c11bf977b5c7a54a7ceed901617fccc19dbdf958",
+      "data": {
+        "status": "completed_requested_horizon",
+        "boundary_formulation": "P1/P0 symmetric Galerkin; nodal-force interface condensation",
+        "history_representation": "elastic_resolvent",
+        "schedule": "resolvent_accelerated_diagnostic",
+        "dt_s": 4e-06,
+        "requested_steps": 64,
+        "completed_steps": 64,
+        "duration_s": 0.000256,
+        "history_dofs": [
+          15
+        ],
+        "cq_fft_size": 256,
+        "all_history_retained": true,
+        "full_boundary_fields_saved": false,
+        "nonlinear_backend": "jax",
+        "panels": [
+          20,
+          18
+        ],
+        "contact_nodes": 7,
+        "max_cumulative_slip_mm": 0.9250478441875567,
+        "max_boundary_contact_residual_mpa": 1.58919988280104e-11,
+        "actuator_hold_time_s": null,
+        "first_correction_step": 10,
+        "correction_history_steps": 64,
+        "inverse_cq_composition_inf_error": 4.7310966218361366e-11,
+        "failure": null,
+        "time_stepping_seconds": 0.814845334738493,
+        "full_original_event_reproduced": false,
+        "scope": "Full causal elastic startup and untruncated nonlinear correction; no FEM equivalence or speed advantage asserted",
+        "online_fft_cache": {
+          "capacity_bytes": 0,
+          "peak_retained_kernel_fft_bytes": 0,
+          "cached_levels": [],
+          "streamed_levels": [
+            32
+          ],
+          "streamed_updates": 1,
+          "kernel_fft_builds": 4,
+          "fft_rows": 4,
+          "all_history_terms_retained": true
+        },
+        "prepared_kernel": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/mixed8-native64-kernel",
+        "kernel_summary_sha256": "ad2dac63e487a63601378996a2cd263c9f0b861868a015067b159387d4fc0435",
+        "initial_impedance_sha256": "ccb8fc1bf6d62745855546b6b6bc9ad5f6ecfd3e30ecd0948396006bbf2770c8",
+        "solver_sha256": "1f2f3f36bef2918ebdeec15fc18b6e867744f6e185de86ff9d390065ce433f4a",
+        "helper_sha256": "129d75f1dc47ba11f2da171a820e422c3bde36ccce6ed2624690230c9e66bafc",
+        "bounded_history_sha256": "bbf1d66ab1b1ff573a6ec613d249e86cd5dc460434ca3c9217cb064429273c55",
+        "fft_cache_mb": 0.0,
+        "estimated_solver_array_peak_mib": 512.47607421875,
+        "initialization": {
+          "status": "admissible_nodal_static_lift",
+          "basis": "P1 displacement / P0 auxiliary density; symmetric Galerkin",
+          "residual_mpa": 2.752003069872444e-11,
+          "initial_max_strength_ratio": 0.7468427034599601,
+          "max_cumulative_slip_change_mm": 0.0,
+          "platen_mm": 9.949410467709955,
+          "mean_pressure_mpa": 16.666666665286677,
+          "mean_shear_mpa": 8.925168731179266,
+          "quadrature": 12
+        },
+        "quadrature": 12,
+        "spectrum_storage": {
+          "backend": "polynomial_half_spectrum",
+          "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/mixed8-native64-kernel/spectrum",
+          "shape": [
+            129,
+            15,
+            15
+          ],
+          "sha256": "1cb89a6255af9b691fb146509ec8d34849dc7154f48938d73eb1bf284b8e2edf",
+          "bytes": 330815,
+          "all_frequencies_represented": true,
+          "implementation_sha256": "521c4cec62e8f0f48a9f4b4973c4e33d77dc103df1b5cdf313b714cb0eaf0c5a",
+          "coordinates": "diag(sqrt(w)) * L * diag(sqrt(w))"
+        },
+        "frequency_sampling": {
+          "method": "adaptive_piecewise_chebyshev",
+          "options": {
+            "relative_tolerance": 1e-08,
+            "absolute_tolerance": 1e-14,
+            "degree": 16,
+            "check_points": 7
+          },
+          "dense_grid_evaluations": 129,
+          "transfer_evaluations": 143,
+          "interpolated_grid_points": 58,
+          "direct_grid_points": 71,
+          "accepted_intervals": 1,
+          "rejected_intervals": 2,
+          "max_accepted_normalized_check_error": 0.0035908690844181582,
+          "max_accepted_normalized_tail": 0.2494154031190607,
+          "certified_error_bound": false,
+          "evaluation_ratio": 1.1085271317829457
+        },
+        "timing_seconds": {
+          "static_lift_and_kernel_load": 0.1539085004478693,
+          "time_stepping": 0.814845334738493,
+          "kernel_build": 14.570806417614222,
+          "total_excluding_output": 1.3396000834181905
+        },
+        "peak_process_rss_mb": 283.1875,
+        "environment": {
+          "package_version": "0.1.0",
+          "python": "3.12.13",
+          "numpy": "2.4.4",
+          "scipy": "1.17.1",
+          "platform": "macOS-15.7.9-arm64-arm-64bit",
+          "available_logical_cpus": 10,
+          "hard_cpu_affinity_enforced": false,
+          "thread_environment": {
+            "FDBEM_CORES": "1",
+            "OPENBLAS_NUM_THREADS": "1",
+            "OMP_NUM_THREADS": "1",
+            "VECLIB_MAXIMUM_THREADS": "1",
+            "XLA_FLAGS": "--xla_cpu_multi_thread_eigen=false intra_op_parallelism_threads=1",
+            "JAX_ENABLE_X64": "true"
+          },
+          "blas_threadpools": [],
+          "source_sha256": {
+            "__init__.py": "984855d6ff3848411c946ecca174ac08baf7afe6f1d2c3be00284da9b8dbf288",
+            "adjoint.py": "7863386b78318e6502d6257469322ee82746f2384ee915c16cbb98cda69c5bc0",
+            "benchmarks.py": "c24b97264ca60d0da1dab2095d50e9ef1b88b7208fba2d46178b8cf9038eb571",
+            "case.py": "4f0c91b18309a2eae5ce5a78da3bac9fde0be9fb1c0a4d2d5e5e1fc84bd85fa7",
+            "cli.py": "82e53ce34714809933dbe456ef403bce27c6b60b20ac4481f2feded9eeadfcea",
+            "comparison.py": "631c111752342fac7d0f64553620e04940e7888b1ab2fc52566a23b5c35ee24c",
+            "condensation.py": "12010fb51d8490ae5c3a9a2cf5b04e414cb7e6205b409ce7891b454e384de7d2",
+            "constraints.py": "830071941c6df0f70e455530fe094242042fb0c1e31498e8f9b75c9aa825cb91",
+            "cq.py": "e9af920593db01f56f1f7138832f0aa603daf07cbf1d688fba8a806f712c1e15",
+            "cq_storage.py": "da2534ef95e95813a464ff04f78a092be374110650d1866cbc1fb8ea5b5105b2",
+            "dynamics.py": "b6d84d8d2c1ac6fc465565c289d1249f378f3424e00cb93441791960b3c180f8",
+            "friction.py": "1424c1639cdc1eb4dd8f780bfdc0433f33cf29752b07a17814a3a2f326d81086",
+            "galerkin.py": "85541ddfe5020debde77b2bf2d4a045fe9a52b6183d4af2f762f577be18ab66d",
+            "galerkin_fast.py": "e6167f6c553e15697b6d67a3a33f559574d22fd49db4aad49c8262d68224b614",
+            "io.py": "d292e6338381aa7935dbbfcadc0df884e89f10b7096fa70cf1b05a83c1c12b03",
+            "jax_backend.py": "4de0aadb88b73ef6792ff36894134ee31bc412b1a54b177a4d1aaaa43328d547",
+            "kernels.py": "4008ae38c62c3022034d654a13da75369bd67309af4614006942398e22c1ad08",
+            "linear.py": "3a4d7c2259fd3e67b507d0c9dcd18082c24ffda30fccb12749976c97fa5a577c",
+            "material.py": "7c4d34d911831f12e3bc99bda2e13e76d468acdf80038dcb60310a568a5342d1",
+            "mesh.py": "a37e853ed57dd80633c44805b6c13158643ac65db3e4a4cfc12520bbdfa15c4c",
+            "nodal.py": "632f1a755bb09d784c125d3198f662213ea60045ada9db1555e1b47b3ab39856",
+            "nodal_dynamics.py": "839db57190f62795aebef30545fcc9c1b41fdef503f038cc7f425068962eb39d",
+            "nonlinear.py": "019c5fc176c70964c89f9e7c74147ad48b4235267dd2faf0ee22f789a2b97590",
+            "operators.py": "bb77a3b2c66dce871c9e71cc2cdc02488e90ad32278cc9a67fea8b909b722825",
+            "sampling.py": "c518d2298b167aaa1d5ca327a612426276901876a50322a7fe4595c7ee4f1f11",
+            "statics.py": "9f81cbd95a1ff1f742387ee4ae94251304177999208a95703371272ac79dc250"
+          },
+          "case_sha256": "82d8f491a63ca1c348507678f08406dccbc62ed1d4abea8882879f7894d2315d",
+          "restart_data_sha256": "cae42101ff5a57004fa803ea5ce928eb8079e5be0ab887d108689e37754c25f6",
+          "jax": "0.9.2",
+          "jax_x64": true,
+          "jax_devices": [
+            "TFRT_CPU_0"
+          ]
+        },
+        "source_changed_during_run": false,
+        "case": {
+          "material": {
+            "young": 7662.0,
+            "poisson": 0.2,
+            "density": 1.148e-09
+          },
+          "geometry": {
+            "moving_origin": [
+              0.0,
+              0.0
+            ],
+            "moving_size": [
+              200.0,
+              500.0
+            ],
+            "stationary_origin": [
+              200.0,
+              0.0
+            ],
+            "stationary_size": [
+              145.0,
+              550.0
+            ],
+            "chamfer_length": 20.0,
+            "chamfer_depth": 5.0
+          },
+          "contact": {
+            "normal_penalty": 76620.0,
+            "tangential_penalty": 7662.0,
+            "static_friction": 0.8,
+            "kinetic_friction": 0.6,
+            "characteristic_slip": 0.0125959
+          },
+          "loading": {
+            "normal_pressure": 16.0,
+            "spring_stiffness": 25.0,
+            "restart_actuator": 10.806226665707777,
+            "actuator_rate": 20.0,
+            "stop_coverage": 1.0
+          },
+          "diagnostic": {
+            "max_panel_length": 40.0,
+            "dt": 4e-06,
+            "steps": 128,
+            "quadrature": 20,
+            "max_memory_mb": 512.0,
+            "normal_rise": 8e-05,
+            "shear_start": 0.00012,
+            "shear_rise": 0.00024,
+            "shear_amplitude": 4.0
+          },
+          "source": {
+            "run": "local-mus08-muk06-gap0-v2-ev16",
+            "revision": "933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d",
+            "original_fem_dt": 1.2492928633545953e-08,
+            "original_shear_duration": 0.045,
+            "restart_interface": "../data/ev16_restart_interface.csv"
+          }
+        }
+      }
+    },
+    "short_adjoint_and_field_guard": {
+      "path": "mixed8-native64-rollout/resolvent_adjoint.json",
+      "sha256": "5d21004d016405bbe864acef972f374cabcaff915f6fd01a7d09c599ab615433",
+      "data": {
+        "objective": "final contact-weighted mean cumulative slip",
+        "value_mm": 0.28703278829671164,
+        "parameter_order": [
+          "normal_penalty",
+          "tangential_penalty",
+          "mu_s",
+          "mu_k",
+          "Dc"
+        ],
+        "gradient": [
+          1.7821438939928004e-09,
+          -1.3649112003123846e-08,
+          -0.4513874037350818,
+          -0.773271258437797,
+          -0.7843620007065792
+        ],
+        "prefix_parameter_gradient": [
+          2.5910940595742724e-09,
+          -9.72601491473334e-08,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "actuator_gradient": [
+          0.0,
+          0.0020058861432550408,
+          0.0019840706881431944,
+          0.00193606693197193,
+          0.0018663424831792273,
+          0.0017249878109384797,
+          0.0013943905587218606,
+          0.0006644967460857105,
+          -0.0005907644687985488,
+          0.00028835450451816585,
+          0.016581050077297117,
+          0.01198735525546339,
+          0.008929246567905268,
+          0.006916082413405813,
+          0.005837800655604628,
+          0.00627171309130532,
+          0.006813929519815986,
+          0.00754213310539704,
+          0.008496012286724669,
+          0.009677279639518338,
+          0.011039633428367798,
+          0.012491068613029361,
+          0.013912915800716704,
+          0.015188425171286614,
+          0.016229057032050194,
+          0.01699082679401546,
+          0.01747601163758878,
+          0.0177225748531849,
+          0.017788844808162167,
+          0.017734406568283248,
+          0.017646970673049562,
+          0.016870615437221907,
+          0.004082022100861056,
+          0.00914003671928521,
+          0.011468729586662972,
+          0.012336539303563626,
+          0.011813068450078115,
+          0.011270409198275032,
+          0.01072711977112366,
+          0.010195165075521881,
+          0.009674319878803244,
+          0.009344059453059632,
+          0.012203077881510064,
+          0.010254902212143613,
+          0.009053584705333082,
+          0.008257675766945999,
+          0.007849162752454168,
+          0.007514375507227135,
+          0.00723405513876369,
+          0.0069824706566172295,
+          0.00673431378615111,
+          0.006466017135396305,
+          0.006157986097571619,
+          0.005800255997275279,
+          0.005348513409817796,
+          0.0040894562863334535,
+          0.003989515455639905,
+          0.0036866047639725315,
+          0.0032201823330849895,
+          0.002760702692865952,
+          0.0023177937338924913,
+          0.0019016463669228796,
+          0.0015174321406900245,
+          0.0011511156860000082,
+          0.0007294869767316043
+        ],
+        "initial_plastic_slip_gradient": [
+          -0.27695921845845367,
+          -0.25379616337345057,
+          -0.03833789278297368,
+          0.13269060485760503,
+          0.2375533684279945,
+          0.14813695632761678,
+          0.009137026078342284
+        ],
+        "initial_cumulative_slip_gradient": [
+          1.0261368180159542,
+          3.4975538370147614,
+          2.4778319713161396,
+          1.533384319965018,
+          0.16666666666666666,
+          0.16666666666666666,
+          0.08333333333333333
+        ],
+        "seconds_including_jit": 0.6218570834025741,
+        "correction_start": 10,
+        "scope": "Fixed bulk/lift/recorded loading and active branches; complete correction transpose plus affine startup cotangents",
+        "event_time_derivative_included": false,
+        "online_fft_cache": {
+          "capacity_bytes": 0,
+          "peak_retained_kernel_fft_bytes": 0,
+          "cached_levels": [],
+          "streamed_levels": [
+            32
+          ],
+          "streamed_updates": 1,
+          "kernel_fft_builds": 4,
+          "fft_rows": 4,
+          "all_history_terms_retained": true
+        },
+        "comparisons": {
+          "gradient_max_abs_difference": 5.933161739690718e-10,
+          "gradient_relative_difference": [
+            1.6686941366870095e-09,
+            6.3464296484925004e-09,
+            1.7486943317808026e-10,
+            4.7240718988987575e-11,
+            7.564315633386064e-10
+          ],
+          "actuator_gradient_max_abs_difference": 4.660242938075987e-11,
+          "initial_plastic_slip_gradient_max_abs_difference": 4.866470559861114e-10,
+          "initial_cumulative_slip_gradient_max_abs_difference": 5.950524517572831e-10
+        },
+        "maximum_absolute_field_difference": {
+          "pressure": 4.0939625023384e-09,
+          "shear": 3.5659368791129964e-09,
+          "plastic_slip": 2.716760150178743e-11,
+          "cumulative_slip": 2.7168406413480284e-11,
+          "actuator": 0.0,
+          "platen": 4.269296027814562e-11,
+          "contact_jumps": 2.7114310796605423e-11
+        },
+        "strict_field_comparison_passed": true,
+        "field_absolute_tolerance": 1e-05,
+        "instantaneous_operator_source": "prepared_kernel",
+        "exact_branch_changes": {
+          "exact_sliding_entries": 0,
+          "exact_opening_entries": 0,
+          "weakening_clip_entries": 0,
+          "weakening_clip_tie_entries": 0
+        },
+        "environment": {
+          "package_version": "0.1.0",
+          "python": "3.12.13",
+          "numpy": "2.4.4",
+          "scipy": "1.17.1",
+          "platform": "macOS-15.7.9-arm64-arm-64bit",
+          "available_logical_cpus": 10,
+          "hard_cpu_affinity_enforced": false,
+          "thread_environment": {
+            "FDBEM_CORES": "1",
+            "OPENBLAS_NUM_THREADS": "1",
+            "OMP_NUM_THREADS": "1",
+            "VECLIB_MAXIMUM_THREADS": "1",
+            "XLA_FLAGS": "--xla_cpu_multi_thread_eigen=false intra_op_parallelism_threads=1",
+            "JAX_ENABLE_X64": "true"
+          },
+          "blas_threadpools": [],
+          "source_sha256": {
+            "__init__.py": "984855d6ff3848411c946ecca174ac08baf7afe6f1d2c3be00284da9b8dbf288",
+            "adjoint.py": "7863386b78318e6502d6257469322ee82746f2384ee915c16cbb98cda69c5bc0",
+            "benchmarks.py": "c24b97264ca60d0da1dab2095d50e9ef1b88b7208fba2d46178b8cf9038eb571",
+            "case.py": "4f0c91b18309a2eae5ce5a78da3bac9fde0be9fb1c0a4d2d5e5e1fc84bd85fa7",
+            "cli.py": "82e53ce34714809933dbe456ef403bce27c6b60b20ac4481f2feded9eeadfcea",
+            "comparison.py": "631c111752342fac7d0f64553620e04940e7888b1ab2fc52566a23b5c35ee24c",
+            "condensation.py": "12010fb51d8490ae5c3a9a2cf5b04e414cb7e6205b409ce7891b454e384de7d2",
+            "constraints.py": "830071941c6df0f70e455530fe094242042fb0c1e31498e8f9b75c9aa825cb91",
+            "cq.py": "e9af920593db01f56f1f7138832f0aa603daf07cbf1d688fba8a806f712c1e15",
+            "cq_storage.py": "da2534ef95e95813a464ff04f78a092be374110650d1866cbc1fb8ea5b5105b2",
+            "dynamics.py": "b6d84d8d2c1ac6fc465565c289d1249f378f3424e00cb93441791960b3c180f8",
+            "friction.py": "1424c1639cdc1eb4dd8f780bfdc0433f33cf29752b07a17814a3a2f326d81086",
+            "galerkin.py": "85541ddfe5020debde77b2bf2d4a045fe9a52b6183d4af2f762f577be18ab66d",
+            "galerkin_fast.py": "e6167f6c553e15697b6d67a3a33f559574d22fd49db4aad49c8262d68224b614",
+            "io.py": "d292e6338381aa7935dbbfcadc0df884e89f10b7096fa70cf1b05a83c1c12b03",
+            "jax_backend.py": "4de0aadb88b73ef6792ff36894134ee31bc412b1a54b177a4d1aaaa43328d547",
+            "kernels.py": "4008ae38c62c3022034d654a13da75369bd67309af4614006942398e22c1ad08",
+            "linear.py": "3a4d7c2259fd3e67b507d0c9dcd18082c24ffda30fccb12749976c97fa5a577c",
+            "material.py": "7c4d34d911831f12e3bc99bda2e13e76d468acdf80038dcb60310a568a5342d1",
+            "mesh.py": "a37e853ed57dd80633c44805b6c13158643ac65db3e4a4cfc12520bbdfa15c4c",
+            "nodal.py": "632f1a755bb09d784c125d3198f662213ea60045ada9db1555e1b47b3ab39856",
+            "nodal_dynamics.py": "839db57190f62795aebef30545fcc9c1b41fdef503f038cc7f425068962eb39d",
+            "nonlinear.py": "019c5fc176c70964c89f9e7c74147ad48b4235267dd2faf0ee22f789a2b97590",
+            "operators.py": "bb77a3b2c66dce871c9e71cc2cdc02488e90ad32278cc9a67fea8b909b722825",
+            "sampling.py": "c518d2298b167aaa1d5ca327a612426276901876a50322a7fe4595c7ee4f1f11",
+            "statics.py": "9f81cbd95a1ff1f742387ee4ae94251304177999208a95703371272ac79dc250"
+          },
+          "jax": "0.9.2",
+          "jax_x64": true,
+          "jax_devices": [
+            "TFRT_CPU_0"
+          ],
+          "case_sha256": "82d8f491a63ca1c348507678f08406dccbc62ed1d4abea8882879f7894d2315d",
+          "restart_data_sha256": "cae42101ff5a57004fa803ea5ce928eb8079e5be0ab887d108689e37754c25f6"
+        },
+        "validator_sha256": "2486d2d23be8be611546dd17b50924122e49ea143b22def1aa13f79cba231f77",
+        "bounded_history_sha256": "bbf1d66ab1b1ff573a6ec613d249e86cd5dc460434ca3c9217cb064429273c55",
+        "fft_cache_mb": 0.0,
+        "estimated_solver_array_peak_mib": 513.09130859375,
+        "reference_gradient_path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/native64-dt4-zreference/adjoint.json",
+        "reference_gradient_sha256": "a196f1b2fd23a2b9a212eea8be48208eea7ca51199f74425d4ed9cc8c1eb3d4d",
+        "reference_arrays_sha256": "6f3fec9dbb7112daf1b21f2443b5352e44a72628a86c1dfdd6ed8ad360b70a70",
+        "independent_reference_compared": true,
+        "source_run": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/mixed8-native64-rollout",
+        "source_trajectory_sha256": "fb10f8d4a3ef53313f3cab6bad5ccaeb94f89f4971f079820f3e3253d5d02337",
+        "steps": 64
+      }
+    },
+    "short_original_equation_balance": {
+      "path": "mixed8-native64-rollout/original_residual.json",
+      "sha256": "46da0aea6e23d2fb9a6b93ecb94a10978fe4f562567c3150f9fa6229a3b34ed6",
+      "data": {
+        "maximum_original_perturbation_residual_mpa": 4.408789422427617e-09,
+        "original_static_residual_mpa": 1.58919988280104e-11,
+        "residual_plus_static_bound_mpa": 4.424681421255627e-09,
+        "original_balance_tolerance_mpa": 1e-07,
+        "passes_original_balance_tolerance": true,
+        "maximum_force_fft_direct_difference": 6.596868236859639e-11,
+        "exact_branch_changes": {
+          "exact_sliding_entries": 0,
+          "exact_opening_entries": 0,
+          "weakening_clip_entries": 0,
+          "weakening_clip_tie_entries": 0
+        },
+        "original_trajectory_sha256": "b8528907bc9c38f4af376e7cf7d496da51a8e0198b7b3a7198a652eba2a6d316",
+        "replay_trajectory_sha256": "fb10f8d4a3ef53313f3cab6bad5ccaeb94f89f4971f079820f3e3253d5d02337",
+        "environment": {
+          "package_version": "0.1.0",
+          "python": "3.12.13",
+          "numpy": "2.4.4",
+          "scipy": "1.17.1",
+          "platform": "macOS-15.7.9-arm64-arm-64bit",
+          "available_logical_cpus": 10,
+          "hard_cpu_affinity_enforced": false,
+          "thread_environment": {
+            "FDBEM_CORES": "1",
+            "OPENBLAS_NUM_THREADS": "1",
+            "OMP_NUM_THREADS": "1",
+            "VECLIB_MAXIMUM_THREADS": "1",
+            "XLA_FLAGS": null,
+            "JAX_ENABLE_X64": "true"
+          },
+          "blas_threadpools": [],
+          "source_sha256": {
+            "__init__.py": "984855d6ff3848411c946ecca174ac08baf7afe6f1d2c3be00284da9b8dbf288",
+            "adjoint.py": "7863386b78318e6502d6257469322ee82746f2384ee915c16cbb98cda69c5bc0",
+            "benchmarks.py": "c24b97264ca60d0da1dab2095d50e9ef1b88b7208fba2d46178b8cf9038eb571",
+            "case.py": "4f0c91b18309a2eae5ce5a78da3bac9fde0be9fb1c0a4d2d5e5e1fc84bd85fa7",
+            "cli.py": "82e53ce34714809933dbe456ef403bce27c6b60b20ac4481f2feded9eeadfcea",
+            "comparison.py": "631c111752342fac7d0f64553620e04940e7888b1ab2fc52566a23b5c35ee24c",
+            "condensation.py": "12010fb51d8490ae5c3a9a2cf5b04e414cb7e6205b409ce7891b454e384de7d2",
+            "constraints.py": "830071941c6df0f70e455530fe094242042fb0c1e31498e8f9b75c9aa825cb91",
+            "cq.py": "e9af920593db01f56f1f7138832f0aa603daf07cbf1d688fba8a806f712c1e15",
+            "cq_storage.py": "da2534ef95e95813a464ff04f78a092be374110650d1866cbc1fb8ea5b5105b2",
+            "dynamics.py": "b6d84d8d2c1ac6fc465565c289d1249f378f3424e00cb93441791960b3c180f8",
+            "friction.py": "1424c1639cdc1eb4dd8f780bfdc0433f33cf29752b07a17814a3a2f326d81086",
+            "galerkin.py": "85541ddfe5020debde77b2bf2d4a045fe9a52b6183d4af2f762f577be18ab66d",
+            "galerkin_fast.py": "e6167f6c553e15697b6d67a3a33f559574d22fd49db4aad49c8262d68224b614",
+            "io.py": "d292e6338381aa7935dbbfcadc0df884e89f10b7096fa70cf1b05a83c1c12b03",
+            "jax_backend.py": "4de0aadb88b73ef6792ff36894134ee31bc412b1a54b177a4d1aaaa43328d547",
+            "kernels.py": "4008ae38c62c3022034d654a13da75369bd67309af4614006942398e22c1ad08",
+            "linear.py": "3a4d7c2259fd3e67b507d0c9dcd18082c24ffda30fccb12749976c97fa5a577c",
+            "material.py": "7c4d34d911831f12e3bc99bda2e13e76d468acdf80038dcb60310a568a5342d1",
+            "mesh.py": "a37e853ed57dd80633c44805b6c13158643ac65db3e4a4cfc12520bbdfa15c4c",
+            "nodal.py": "632f1a755bb09d784c125d3198f662213ea60045ada9db1555e1b47b3ab39856",
+            "nodal_dynamics.py": "839db57190f62795aebef30545fcc9c1b41fdef503f038cc7f425068962eb39d",
+            "nonlinear.py": "019c5fc176c70964c89f9e7c74147ad48b4235267dd2faf0ee22f789a2b97590",
+            "operators.py": "bb77a3b2c66dce871c9e71cc2cdc02488e90ad32278cc9a67fea8b909b722825",
+            "sampling.py": "c518d2298b167aaa1d5ca327a612426276901876a50322a7fe4595c7ee4f1f11",
+            "statics.py": "9f81cbd95a1ff1f742387ee4ae94251304177999208a95703371272ac79dc250"
+          },
+          "case_sha256": "82d8f491a63ca1c348507678f08406dccbc62ed1d4abea8882879f7894d2315d",
+          "restart_data_sha256": "cae42101ff5a57004fa803ea5ce928eb8079e5be0ab887d108689e37754c25f6"
+        },
+        "validator_sha256": "6f35e4a0413ff49fcc7d03c862461abbbd4d55a32076530b7a77408ebd238ff7",
+        "scope": "Independent original full-history CQ perturbation balance, relative to the accepted initial force balance; not energy or FEM equivalence"
+      }
+    }
+  },
+  "full_coarse_experiment": {
+    "output": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/mixed6-near8-native-coarse4-rollout",
+    "status": "waiting_for_live_kernel",
+    "scope": "Equivalence to the same coarse Q8 problem, not convergence to FEM or the fine Q12 trajectory",
+    "workflow": {
+      "phase": "waiting_for_live_kernel",
+      "updated_utc": "2026-10-24T10:48:54.768488+00:00",
+      "supervisor_pid": 10154,
+      "kernel": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/mixed6-near8-native-coarse4-kernel",
+      "output": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/mixed6-near8-native-coarse4-rollout",
+      "stages": [],
+      "frozen_inputs_sha256": {
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/mixed-coarse4-workflow-20261024.py": "58b440639469daf59ae04524662d5228cc52b72bea4f51e724dbe304ffaec589",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/run.sh": "4e926aab2c68147b3004872df75c9b4580509cec8bf8b5553e85aa64becfcd0f",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/simulate_resolvent.py": "1f2f3f36bef2918ebdeec15fc18b6e867744f6e185de86ff9d390065ce433f4a",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/adjoint_resolvent.py": "2486d2d23be8be611546dd17b50924122e49ea143b22def1aa13f79cba231f77",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/audit_replay_residual.py": "6f35e4a0413ff49fcc7d03c862461abbbd4d55a32076530b7a77408ebd238ff7",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/replay_resolvent.py": "129d75f1dc47ba11f2da171a820e422c3bde36ccce6ed2624690230c9e66bafc",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/prepare_mixed_resolvent.py": "420440510abfa2ad544fac523846d9678cec8728bc0ab3b7b16fa90968f16e55",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/mixed_quadrature_experiment.py": "070e0095be757d5a71a567a5cbcdb6fac842dc1f149e6a45a512958d93e90da1",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/prepare_native_resolvent.py": "55c3895bc5cb47a2b7055043bc5596c4ccbcc4675b9308d17a61b73b1e069f4a",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/native_spectrum.py": "1372b238742add3bf117897131316dff04e9a336afd0af6d71c069b89b0552e3",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/polynomial_spectrum.py": "521c4cec62e8f0f48a9f4b4973c4e33d77dc103df1b5cdf313b714cb0eaf0c5a",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/build_resolvent_history.py": "00f67ff54c940cbd610a091f675ee1f8ef2996d1e3daf7ff5da2074b3fc36a36",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/run_adjoint.py": "63711d32e7647974161d0a89e314436012f98993d0ccac71d7adfdda8c8628ba",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/bounded_history.py": "bbf1d66ab1b1ff573a6ec613d249e86cd5dc460434ca3c9217cb064429273c55",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/friction.py": "1424c1639cdc1eb4dd8f780bfdc0433f33cf29752b07a17814a3a2f326d81086",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/nodal.py": "632f1a755bb09d784c125d3198f662213ea60045ada9db1555e1b47b3ab39856",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/nonlinear.py": "019c5fc176c70964c89f9e7c74147ad48b4235267dd2faf0ee22f789a2b97590",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/material.py": "7c4d34d911831f12e3bc99bda2e13e76d468acdf80038dcb60310a568a5342d1",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/adjoint.py": "7863386b78318e6502d6257469322ee82746f2384ee915c16cbb98cda69c5bc0",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/nodal_dynamics.py": "839db57190f62795aebef30545fcc9c1b41fdef503f038cc7f425068962eb39d",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/cq.py": "e9af920593db01f56f1f7138832f0aa603daf07cbf1d688fba8a806f712c1e15",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/linear.py": "3a4d7c2259fd3e67b507d0c9dcd18082c24ffda30fccb12749976c97fa5a577c",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/statics.py": "9f81cbd95a1ff1f742387ee4ae94251304177999208a95703371272ac79dc250",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/io.py": "d292e6338381aa7935dbbfcadc0df884e89f10b7096fa70cf1b05a83c1c12b03",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/__init__.py": "984855d6ff3848411c946ecca174ac08baf7afe6f1d2c3be00284da9b8dbf288",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/galerkin.py": "85541ddfe5020debde77b2bf2d4a045fe9a52b6183d4af2f762f577be18ab66d",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/condensation.py": "12010fb51d8490ae5c3a9a2cf5b04e414cb7e6205b409ce7891b454e384de7d2",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/mesh.py": "a37e853ed57dd80633c44805b6c13158643ac65db3e4a4cfc12520bbdfa15c4c",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/galerkin_fast.py": "e6167f6c553e15697b6d67a3a33f559574d22fd49db4aad49c8262d68224b614",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/comparison.py": "631c111752342fac7d0f64553620e04940e7888b1ab2fc52566a23b5c35ee24c",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/cli.py": "82e53ce34714809933dbe456ef403bce27c6b60b20ac4481f2feded9eeadfcea",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/cq_storage.py": "da2534ef95e95813a464ff04f78a092be374110650d1866cbc1fb8ea5b5105b2",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/sampling.py": "c518d2298b167aaa1d5ca327a612426276901876a50322a7fe4595c7ee4f1f11",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/kernels.py": "4008ae38c62c3022034d654a13da75369bd67309af4614006942398e22c1ad08",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/case.py": "4f0c91b18309a2eae5ce5a78da3bac9fde0be9fb1c0a4d2d5e5e1fc84bd85fa7",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/jax_backend.py": "4de0aadb88b73ef6792ff36894134ee31bc412b1a54b177a4d1aaaa43328d547",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/constraints.py": "830071941c6df0f70e455530fe094242042fb0c1e31498e8f9b75c9aa825cb91",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/operators.py": "bb77a3b2c66dce871c9e71cc2cdc02488e90ad32278cc9a67fea8b909b722825",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/benchmarks.py": "c24b97264ca60d0da1dab2095d50e9ef1b88b7208fba2d46178b8cf9038eb571",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/dynamics.py": "b6d84d8d2c1ac6fc465565c289d1249f378f3424e00cb93441791960b3c180f8",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/galerkin-corners-dt4-storage-baseline/summary.json": "f67dcc35b0c0c6ee03a0c167e52d040221a57805c028fff2dedb1590b5eced2a",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/galerkin-corners-dt4-storage-baseline/run_manifest.json": "c16ea48a3559c0c35cb87854614774c9d36acb8a688726cd18085a6529501e32",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/galerkin-corners-dt4-storage-baseline/trajectory.npz": "9d09fb2cf57ee4d98a64dc3724c65e790502693b156995144633331f9d5b2200",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/galerkin-corners-dt4-storage-baseline/adjoint.json": "0863d1f9a8914284b20ea6fc14b0414a9b24b4ccd3b9ae7dbcee2aafcccdcb1e",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/galerkin-corners-dt4-storage-baseline/adjoint.npz": "eceb15297df5a6ac0fdc06e3d5e3462ca7ea051f26713f328feb50019d9853ed"
+      },
+      "timing_scope": "Concurrent with the original fine2 BEM job; not a controlled FEM/BEM speed benchmark",
+      "kernel_pid": 9412
+    },
+    "workflow_sha256": "16323f69fec554f5b3a4655d1755cbbf76dd4140b782456eb6ceec972d42b35e"
+  }
+}

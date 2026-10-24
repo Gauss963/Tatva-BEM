@@ -70,6 +70,9 @@ kn／kt 導數仍不為零；程式另以頻率分塊的向量轉置作用取得
 這些是固定 bulk、lift、已記錄載入與 active branches 的離散導數。
 沒有 E／rho／幾何或 coverage hold 事件時間導數；新路徑細網格 45 ms 的 AD 尚待驗證。
 參考梯度載入時核對來源、目標值、參數次序及 JSON／NPZ 一致性。
+prepared candidate 的比較現使用該前向 solver 的瞬時 impedance，核對檔案指紋，
+並另列全部七個前向欄位的原容差 guard；standalone 不填入獨立比較通過標記。
+此檢查亦用於[固定近遠場積分](mixed_quadrature.md)的實驗。
 
 另修正原 `run_adjoint.py` 的有限差分診斷：以接受的 jumps 和**前一步**狀態判斷
 精確滑動／開閉，另外記錄 weakening clip 及 `c_old == Dc` 的等值分支。

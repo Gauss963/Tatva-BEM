@@ -15,9 +15,52 @@ from finiteblock_bem.cq import (
     plan_cq,
 )
 from finiteblock_bem.friction import ContactState, SlipWeakeningContact
+from finiteblock_bem.io import fingerprint
 
 jax = pytest.importorskip("jax")
 TOOL = runpy.run_path(str(Path(__file__).resolve().parents[1] / "tools/adjoint_resolvent.py"))
+
+
+def test_prepared_adjoint_uses_saved_forward_impedance_and_checks_integrity(tmp_path):
+    matrix = np.array([[5.0, -2], [-2, 3]], dtype=np.float64)
+    path = tmp_path / "initial_impedance.npy"
+    np.save(path, matrix)
+    digest = fingerprint(path)
+    load = TOOL["prepared_impedance"]
+    np.testing.assert_array_equal(load(tmp_path, digest, 2), matrix)
+    with pytest.raises(ValueError, match="Invalid prepared"):
+        load(tmp_path, digest, 3)
+    np.save(path, matrix + 0.1)
+    with pytest.raises(ValueError, match="impedance changed"):
+        load(tmp_path, digest, 2)
+    for invalid in [matrix.astype(np.complex128), matrix.astype(np.float32), matrix * np.nan]:
+        np.save(path, invalid)
+        with pytest.raises(ValueError, match="Invalid prepared"):
+            load(tmp_path, fingerprint(path), 2)
+
+
+def test_primal_guard_includes_pressure_and_rejects_bad_fields_or_time(tmp_path):
+    source, candidate = tmp_path / "source", tmp_path / "candidate"
+    source.mkdir()
+    candidate.mkdir()
+    fields = {
+        name: np.ones((3, 2))
+        for name in ["pressure", "shear", "plastic_slip", "cumulative_slip", "contact_jumps"]
+    }
+    fields.update(time=np.arange(3), actuator=np.ones(3), platen=np.ones(3))
+    np.savez(source / "trajectory.npz", **fields)
+    np.savez(candidate / "trajectory.npz", **{**fields, "pressure": fields["pressure"] + 0.01})
+    check = TOOL["primal_field_differences"]
+    answer = check(source, candidate)
+    assert answer["pressure"] > 1e-5
+    assert all(value == 0 for name, value in answer.items() if name != "pressure")
+    for value in [np.ones((3, 1)), np.full((3, 2), np.nan)]:
+        np.savez(candidate / "trajectory.npz", **{**fields, "pressure": value})
+        with pytest.raises(ValueError, match="Invalid trajectory field: pressure"):
+            check(source, candidate)
+    np.savez(candidate / "trajectory.npz", **{**fields, "time": fields["time"] + 0.001})
+    with pytest.raises(AssertionError):
+        check(source, candidate)
 
 
 def test_reference_loads_all_saved_cotangents_and_rejects_unrelated_runs(tmp_path):
