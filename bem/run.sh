@@ -93,6 +93,12 @@ elif [ "${1:-}" = radau-ad-check ]; then
 elif [ "${1:-}" = resolvent-replay ]; then
     shift
     exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/replay_resolvent.py" "$@"
+elif [ "${1:-}" = native-resolvent-kernel ]; then
+    shift
+    exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/prepare_native_resolvent.py" "$@"
+elif [ "${1:-}" = native-spectrum-check ]; then
+    shift
+    exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/check_radial_rollout.py" "$@"
 elif [ "${1:-}" = static-refinement ]; then
     shift
     exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/static_refinement.py" "$@"

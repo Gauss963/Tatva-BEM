@@ -291,7 +291,11 @@ def main():
     else:
         source_plan = CQPlan(**original["spectrum_storage"]["cq_plan"])
         plan = replace(plan, fft_size=source_plan.fft_size, radius=source_plan.radius)
-    storage = replay["spectrum_storage"] if standalone else replay["resolvent_storage"]
+    # Both prepared standalone runs and replays can be checked against an
+    # independent original-Z trajectory; they use different saved field names.
+    storage = (
+        replay["resolvent_storage"] if "resolvent_storage" in replay else replay["spectrum_storage"]
+    )
     if storage["backend"] == "polynomial_half_spectrum":
         folder = Path(storage["path"])
         if (

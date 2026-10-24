@@ -22,7 +22,9 @@ resolvent 現可直接建立新時間網格，並核對參數、載入及初始�
 另有 [徑向 traction／Horner 組裝實驗](docs/radial_assembly.md)，保留相同積分與物理模型；
 目前只證實抽樣單頻率改善及短程解／梯度等價，尚未切換預設 backend。
 新增 [逐點驗證的頻譜儲存壓縮](docs/polynomial_spectrum.md)：完整粗網格頻譜約縮減 4.27 倍，
-並重新核對 45 ms 解與五參數 adjoint；時間權重與首次建核資源瓶頸仍保留。
+並重新核對 45 ms 解與五參數 adjoint。
+另有 [直接保存 CQ 插值與磁碟時間權重](docs/native_spectrum.md)，可避免首次配置完整稠密頻譜；
+實際 BEM 的 512 步診斷已核對解與各種 cotangent，完整 45 ms 與線上 cache 容量仍待驗證。
 
 程式與 Tatva、Bem2d.jl 獨立，不需要讀取或修改外接磁碟，也不需要上層 repository 的 Julia 環境。
 可以把本資料夾獨立放進新的 GitHub repository。

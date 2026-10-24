@@ -1,0 +1,164 @@
+{
+  "date": "2026-10-24",
+  "scope": "512-step accelerated diagnostic, not the original 45 ms event; fixed bulk/lift/recorded loading/active branches; uncontrolled timings excluded from speed claims",
+  "diagnostic": {
+    "h_mm": 80,
+    "quadrature": 12,
+    "retained_dofs": 15,
+    "dt_s": 5e-07,
+    "steps": 512,
+    "duration_s": 0.000256,
+    "actuator_increment_mm": 2
+  },
+  "source_run": "bem/outputs/native512-dt05-zreference",
+  "source_trajectory_sha256": "6931707f7c4688f3f0601f5a5b654453e791faa0061b86059e3126407f0ccb13",
+  "source_adjoint_json_sha256": "46aa474847329a68c310f46e18d01914de7c99fb22b86d63d3c417f007cc6b98",
+  "source_adjoint_arrays_sha256": "ef48f262fa4d7ae80069a534697dbf39eacfa7fba20fe09f9663d1a17eaebab7",
+  "native_z_spectrum": {
+    "status": "completed_grid_verified_spectrum",
+    "shape": [
+      1025,
+      15,
+      15
+    ],
+    "source_sampling": {
+      "method": "adaptive_piecewise_chebyshev",
+      "options": {
+        "relative_tolerance": 1e-08,
+        "absolute_tolerance": 1e-08,
+        "degree": 16,
+        "check_points": 7
+      },
+      "dense_grid_evaluations": 1025,
+      "transfer_evaluations": 848,
+      "interpolated_grid_points": 681,
+      "direct_grid_points": 344,
+      "accepted_intervals": 6,
+      "rejected_intervals": 15,
+      "max_accepted_normalized_check_error": 0.0003017023518676787,
+      "max_accepted_normalized_tail": 0.06388283497618959,
+      "certified_error_bound": false,
+      "evaluation_ratio": 0.8273170731707317
+    },
+    "raw_array_bytes": 3690000,
+    "stored_array_bytes": 1623960,
+    "maximum_normalized_grid_error": 0.0,
+    "implementation_sha256": "2e48f3057d6e893ed9c02978d0e4b032a4a3e55e14bdd5de5c9c0941605e79d9",
+    "reader_sha256": "521c4cec62e8f0f48a9f4b4973c4e33d77dc103df1b5cdf313b714cb0eaf0c5a",
+    "sampler_sha256": "c518d2298b167aaa1d5ca327a612426276901876a50322a7fe4595c7ee4f1f11"
+  },
+  "native_z_field_differences": {
+    "pressure": 1.9735324485736783e-12,
+    "shear": 2.2156498857839324e-11,
+    "plastic_slip": 1.652011860642233e-13,
+    "cumulative_slip": 1.6564527527407336e-13,
+    "actuator": 0.0,
+    "platen": 2.149391775674303e-13,
+    "contact_jumps": 1.652011860642233e-13
+  },
+  "native_z_adjoint_comparisons": {
+    "gradient_max_abs_difference": 9.61120072417998e-13,
+    "parameter_relative_differences": [
+      2.390748879101033e-13,
+      1.0650754093006019e-13,
+      3.382045543491989e-13,
+      2.442484394887786e-13,
+      2.2236417921690967e-12
+    ],
+    "actuator_gradient_max_abs_difference": 2.112676353305254e-15,
+    "initial_plastic_slip_gradient_max_abs_difference": 2.784716901516049e-13,
+    "initial_cumulative_slip_gradient_max_abs_difference": 4.4653170050423796e-13
+  },
+  "native_z_exact_branch_changes": {
+    "exact_sliding_entries": 0,
+    "exact_opening_entries": 0,
+    "weakening_clip_entries": 0,
+    "weakening_clip_tie_entries": 0
+  },
+  "native_z_validator_sha256": "d90703f601ebc07b0c7ae9a05bab8dd111d9f7e111f1bb4740625044cf4367ae",
+  "native_l_spectrum": {
+    "status": "completed_grid_verified_spectrum",
+    "shape": [
+      1025,
+      15,
+      15
+    ],
+    "source_sampling": {
+      "method": "adaptive_piecewise_chebyshev",
+      "options": {
+        "relative_tolerance": 1e-08,
+        "absolute_tolerance": 1e-14,
+        "degree": 16,
+        "check_points": 7
+      },
+      "dense_grid_evaluations": 1025,
+      "transfer_evaluations": 800,
+      "interpolated_grid_points": 681,
+      "direct_grid_points": 344,
+      "accepted_intervals": 5,
+      "rejected_intervals": 14,
+      "max_accepted_normalized_check_error": 0.0009475828312098148,
+      "max_accepted_normalized_tail": 0.10713433675896043,
+      "certified_error_bound": false,
+      "evaluation_ratio": 0.7804878048780488
+    },
+    "raw_array_bytes": 3690000,
+    "stored_array_bytes": 1562632,
+    "maximum_normalized_grid_error": 0.0,
+    "implementation_sha256": "2e48f3057d6e893ed9c02978d0e4b032a4a3e55e14bdd5de5c9c0941605e79d9",
+    "reader_sha256": "521c4cec62e8f0f48a9f4b4973c4e33d77dc103df1b5cdf313b714cb0eaf0c5a",
+    "sampler_sha256": "c518d2298b167aaa1d5ca327a612426276901876a50322a7fe4595c7ee4f1f11"
+  },
+  "native_l_kernel_summary_sha256": "f99ebf29eab3b8239b0f616d2094497e440ca922b2de588f880c70936b79c146",
+  "native_l_kernel_implementation_sha256": "0e4fb184f3d0fe75613f0888463ed680b4bcc164beae6e9ebffe790c86f45e62",
+  "native_l_time_weights_storage": "disk_mmap",
+  "native_l_time_weights_sha256": "897b8cd5c3af053db7820c731dca24834a4e3c287c20804e46e2eed852ea674d",
+  "native_l_initial_composition_inf_error": 3.983614378887189e-11,
+  "native_l_estimated_construction_array_peak_mib": 145.56918334960938,
+  "native_l_field_differences": {
+    "pressure": 5.7926854424295016e-09,
+    "shear": 1.4353945587686212e-08,
+    "plastic_slip": 1.0345146961299179e-10,
+    "cumulative_slip": 1.0345467538197539e-10,
+    "actuator": 0.0,
+    "platen": 6.279776698647765e-11,
+    "contact_jumps": 1.035349583844436e-10
+  },
+  "native_l_adjoint_comparisons": {
+    "gradient_max_abs_difference": 4.8789133844096e-10,
+    "gradient_relative_difference": [
+      5.261776283024212e-11,
+      3.9952658874503655e-10,
+      7.729845970196177e-11,
+      9.648364614965323e-11,
+      1.1287825541560502e-09
+    ],
+    "actuator_gradient_max_abs_difference": 3.034304578430902e-13,
+    "initial_plastic_slip_gradient_max_abs_difference": 1.1713519043610177e-11,
+    "initial_cumulative_slip_gradient_max_abs_difference": 2.9089552988637024e-10
+  },
+  "native_l_exact_branch_changes": {
+    "exact_sliding_entries": 0,
+    "exact_opening_entries": 0,
+    "weakening_clip_entries": 0,
+    "weakening_clip_tie_entries": 0
+  },
+  "native_l_independent_reference_compared": true,
+  "native_l_adjoint_validator_sha256": "c3ed3f702ac2664fbce37bfa12bbf42e56ac32e015b4205da875b7c377b47d43",
+  "native_l_run_trajectory_sha256": "159b4dc4fc824a03676f01447d96a3d0545751f2c1961cf947098c6668ab2a05",
+  "full_45ms_native_backend_validated": false,
+  "original_case_fem_equivalence_achieved": false,
+  "fixed_accuracy_fem_speed_advantage_achieved": false,
+  "bounded_online_fft_cache_implemented": false,
+  "original_protected_file_sha256_and_hdf5_stat_unchanged": {
+    "/Volumes/Gauss-T7/tatva/runs/local-mus08-muk06-gap0-v2-ev16/input/case.toml": true,
+    "/Volumes/Gauss-T7/tatva/runs/local-mus08-muk06-gap0-v2-ev16/input/resolved.json": true,
+    "/Volumes/Gauss-T7/tatva/tatva/pmma/dynamics.py": true,
+    "/Volumes/Gauss-T7/tatva/tatva/friction.py": true,
+    "hdf5_size_and_mtime_unchanged": true
+  },
+  "local_full_tests": {
+    "passed": 132,
+    "seconds": 63.26
+  }
+}

@@ -68,7 +68,8 @@ PYTHONPATH=bem/src python -B bem/tools/adjoint_resolvent.py ORIGINAL_RUN NEW_REP
 本次壓縮程序約 7 秒，未重新執行 BEM transfer；核重建另記錄時間。
 來源冷建立含其他診斷的干擾，因此沒有據此宣稱完整冷建立比 FEM 快。
 
-目前仍先建立完整原頻譜，再做離線壓縮；更細時間步長所需的首次建核磁碟峰值尚未降低。
-下一步須直接保存自適應取樣的插值表示，並限制線上 FFT cache／串流時間權重，
-才能在本機資源內繼續往 1 us 等更細解析度推進。
-這些尚未完成；原 2 us／45 ms 四-worker 案例仍用既有 backend 執行。
+本頁的離線流程仍先建立完整原頻譜，再做壓縮。
+另有[直接保存自適應插值與磁碟時間權重的實驗](native_spectrum.md)，
+已通過含實際 BEM 插值區間的短程解／AD 驗證，降低首次建核的頻譜容量需求。
+線上 FFT cache 仍須限制容量，且新 backend 尚未完成原 45 ms 驗證；
+原 2 us／45 ms 四-worker 案例繼續使用既有 backend。

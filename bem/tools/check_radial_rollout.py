@@ -1,6 +1,6 @@
-"""Check a full nonlinear CQ rollout and adjoint with the isolated radial assembler.
+"""Check nonlinear CQ/adjoint with isolated assembly or native storage experiments.
 
-This uses fresh dense experimental weights and the unchanged production
+This uses fresh experimental weights and the unchanged production
 time/contact solver. Only a private copy of that solver's history-builder
 binding is replaced. Original files, module globals and baseline caches stay
 untouched. Short diagnostic agreement is not FEM or full-event convergence.
@@ -9,6 +9,7 @@ untouched. Short diagnostic agreement is not FEM or full-event convergence.
 import argparse
 import json
 import runpy
+from dataclasses import asdict
 from pathlib import Path
 from time import perf_counter
 from types import FunctionType, SimpleNamespace
@@ -27,17 +28,24 @@ from finiteblock_bem.nodal import (
     load_nodal_model,
 )
 from finiteblock_bem.nodal_dynamics import plan_nodal_history, simulate_nodal
+from finiteblock_bem.sampling import SamplingOptions
 
 EXPERIMENT = Path(__file__).with_name("radial_traction_experiment.py")
 
 
-def simulate_with_fixed_history(model, history, *, lift, schedule, max_memory_mb):
+def simulate_with_fixed_history(
+    model, history, *, lift, schedule, max_memory_mb, history_metadata=None
+):
     """Use an explicit, checked history without changing any package binding."""
 
     def history_builder(candidate, dt, steps, **kwargs):
         if candidate is not model or (dt, steps) != (history.plan.dt, history.plan.steps):
             raise ValueError("Unexpected geometry/time grid requested")
-        kwargs["diagnostics"].update(method="dense_isolated_radial_traction")
+        kwargs["diagnostics"].update(
+            {"method": "dense_isolated_radial_traction"}
+            if history_metadata is None
+            else history_metadata
+        )
         return history
 
     clone = FunctionType(
@@ -65,6 +73,11 @@ def main():
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--workers", type=int, default=1)
     parser.add_argument("--max-memory-mb", type=float, default=2048)
+    parser.add_argument("--operator", choices=["original", "radial"], default="radial")
+    parser.add_argument(
+        "--native-spectrum", type=Path, help="Build compact adaptive frequency storage directly"
+    )
+    parser.add_argument("--max-spectrum-mb", type=float, default=2048)
     args = parser.parse_args()
     if args.output.exists() and any(args.output.iterdir()):
         raise ValueError("Choose a new empty output directory")
@@ -76,8 +89,16 @@ def main():
     for name in ["source_sha256", "case_sha256", "restart_data_sha256"]:
         if original["environment"][name] != environment[name]:
             raise ValueError(f"Reference differs in {name}")
-    script_sha, experiment_sha = fingerprint(Path(__file__)), fingerprint(EXPERIMENT)
-    helper = runpy.run_path(str(EXPERIMENT))
+    script_sha = fingerprint(Path(__file__))
+    experiment_sha = fingerprint(EXPERIMENT) if args.operator == "radial" else None
+    helper = runpy.run_path(str(EXPERIMENT)) if args.operator == "radial" else None
+
+    def check_source():
+        current = environment_record(options["case"])
+        for key in ["source_sha256", "case_sha256", "restart_data_sha256"]:
+            if current[key] != environment[key]:
+                raise ValueError(f"Source changed in {key}")
+
     model = load_nodal_model(
         options["case"],
         max_panel_length=options["h"],
@@ -87,6 +108,11 @@ def main():
         restart_knot_window=options.get("restart_knot_window"),
         restart_knot_subdivisions=options.get("restart_knot_subdivisions", 1),
     )
+    sampling = (
+        None
+        if args.native_spectrum is None
+        else SamplingOptions(relative_tolerance=options["sampling_rtol"])
+    )
     plan, peak = plan_nodal_history(
         model,
         original["dt_s"],
@@ -94,6 +120,8 @@ def main():
         workers=args.workers,
         quadrature=options["quadrature"],
         max_memory_mb=args.max_memory_mb,
+        sampling=sampling,
+        spectrum_directory=args.native_spectrum,
     )
     increment = options.get("diagnostic_actuator_increment")
     schedule = (
@@ -102,25 +130,69 @@ def main():
         else LoadingSchedule(
             lambda _: model.reference.normal_pressure,
             lambda t: model.reference.restart_actuator + increment * t / (plan.dt * plan.steps),
-            "isolated_radial_accelerated_diagnostic",
+            "isolated_accelerated_diagnostic",
         )
     )
     with threadpool_limits(limits=1, user_api="blas"):
         lift = initialize_nodal_restart(model, quadrature=options["quadrature"])
-        transfer = NodalInterfaceTransfer(model, quadrature=options["quadrature"], prepared=False)
-        transfer.prepared = [
-            helper["RadialTractionPrepared"](
-                mesh, model.reference.material, quadrature=options["quadrature"], series="horner"
-            )
-            for mesh in [model.reference.moving, model.reference.stationary]
-        ]
+        transfer = NodalInterfaceTransfer(
+            model, quadrature=options["quadrature"], prepared=args.operator == "original"
+        )
+        if args.operator == "radial":
+            transfer.prepared = [
+                helper["RadialTractionPrepared"](
+                    mesh,
+                    model.reference.material,
+                    quadrature=options["quadrature"],
+                    series="horner",
+                )
+                for mesh in [model.reference.moving, model.reference.stationary]
+            ]
         tick = perf_counter()
-        weights = convolution_weights(transfer.evaluate, plan, workers=args.workers)
+        native_storage, native_sha = None, None
+        if args.native_spectrum is None:
+            weights = convolution_weights(transfer.evaluate, plan, workers=args.workers)
+        else:
+            native_path = Path(__file__).with_name("native_spectrum.py")
+            native_sha = fingerprint(native_path)
+            native = runpy.run_path(str(native_path))
+            weights, compact, sampling_record = native["native_parsimonious_weights"](
+                transfer.evaluate,
+                plan,
+                args.native_spectrum,
+                options=sampling,
+                row_scale=1
+                / np.r_[
+                    model.constraints.contact_weights,
+                    model.constraints.contact_weights,
+                    model.constraints.platen_width,
+                ],
+                workers=args.workers,
+                max_storage_mb=args.max_spectrum_mb,
+                provenance=dict(
+                    plan=asdict(plan),
+                    source_run=str(args.original.resolve()),
+                    operator=args.operator,
+                ),
+                source_check=check_source,
+            )
+            native_storage = compact.record()
         build_seconds = perf_counter() - tick
         del transfer
         history = BoundaryHistory(plan, weights)
         result = simulate_with_fixed_history(
-            model, history, lift=lift, schedule=schedule, max_memory_mb=args.max_memory_mb
+            model,
+            history,
+            lift=lift,
+            schedule=schedule,
+            max_memory_mb=args.max_memory_mb,
+            history_metadata=dict(
+                method="dense_isolated_" + args.operator
+                if args.native_spectrum is None
+                else "native_adaptive_" + args.operator,
+                frequency_sampling=None if args.native_spectrum is None else sampling_record,
+                spectrum_storage=native_storage,
+            ),
         )
         reference = NodalInterfaceEquilibrium(model, lift, history.instantaneous)
         gradient = trajectory_adjoint(
@@ -167,13 +239,25 @@ def main():
                     abs(actual - target) / np.maximum(abs(target), 1e-15)
                 ).tolist()
             checks.append((actual, target.copy()))
-    if script_sha != fingerprint(Path(__file__)) or experiment_sha != fingerprint(EXPERIMENT):
+    check_source()
+    if script_sha != fingerprint(Path(__file__)) or (
+        experiment_sha is not None and experiment_sha != fingerprint(EXPERIMENT)
+    ):
         raise ValueError("Experimental code changed during rollout")
+    if native_sha is not None and native_sha != fingerprint(
+        Path(__file__).with_name("native_spectrum.py")
+    ):
+        raise ValueError("Native sampling changed during rollout")
     result.diagnostics.update(
-        experimental_operator="exact radial traction and Horner evaluation of the existing nine-term series",
+        experimental_operator="original prepared operator"
+        if args.operator == "original"
+        else "exact radial traction and Horner evaluation of the existing nine-term series",
         experimental_operator_sha256=experiment_sha,
         validator_sha256=script_sha,
-        fresh_dense_kernel_build_seconds=build_seconds,
+        fresh_dense_kernel_build_seconds=build_seconds if args.native_spectrum is None else None,
+        fresh_kernel_build_seconds=build_seconds,
+        native_spectrum_storage=native_storage,
+        native_sampling=None if args.native_spectrum is None else sampling_record,
         estimated_array_peak_mib=peak / 1024**2,
     )
     args.output.mkdir(parents=True, exist_ok=True)
@@ -208,8 +292,10 @@ def main():
         source_adjoint_sha256=fingerprint(args.original / "adjoint.npz"),
         experimental_operator_sha256=experiment_sha,
         validator_sha256=script_sha,
+        native_storage_implementation_sha256=native_sha,
+        native_spectrum_storage=native_storage,
         environment=environment,
-        scope="Full requested reference horizon, fresh experimental dense CQ weights, original local solver and conditional adjoint; a short diagnostic is not the original 45 ms event",
+        scope="Full requested reference horizon, fresh CQ weights, original local solver and conditional adjoint; native adaptive storage when requested; a short diagnostic is not the original 45 ms event",
     )
     write_json(args.output / "equivalence.json", answer)
     print(json.dumps({k: v for k, v in answer.items() if k != "environment"}, indent=2))

@@ -13,6 +13,7 @@ from pathlib import Path
 
 import numpy as np
 from numpy.polynomial.chebyshev import chebvander
+from scipy.interpolate import BarycentricInterpolator
 
 from finiteblock_bem.io import fingerprint, write_json
 
@@ -186,11 +187,14 @@ def compress_spectrum(
 class PolynomialSpectrum:
     """Read complete matrices or row/column slices without a dense spectrum."""
 
-    def __init__(self, folder, *, verify=True):
+    def __init__(self, folder, *, verify=True, _allow_pending=False):
         self.folder = Path(folder)
         self.metadata = json.loads((self.folder / "summary.json").read_text())
         meta = self.metadata
-        if meta["format_version"] != 1 or meta["status"] != "completed_grid_verified_spectrum":
+        accepted_status = meta["status"] == "completed_grid_verified_spectrum" or (
+            _allow_pending and meta["status"] == "pending_native_source_validation"
+        )
+        if meta["format_version"] not in [1, 2] or not accepted_status:
             raise ValueError("A completed supported representation is required")
         self.shape, self.dtype = tuple(meta["shape"]), np.dtype(meta["dtype"])
         self.pieces = meta["pieces"]
@@ -198,7 +202,11 @@ class PolynomialSpectrum:
         for piece in self.pieces:
             if piece["left"] != covered or not covered < piece["right"] <= self.shape[0]:
                 raise ValueError("Spectrum pieces must cover the full grid exactly once")
-            if piece["kind"] not in ["direct", "polynomial"]:
+            if piece["kind"] not in (
+                ["direct", "polynomial", "barycentric"]
+                if meta["format_version"] == 2
+                else ["direct", "polynomial"]
+            ):
                 raise ValueError("Unknown spectrum piece")
             if verify and fingerprint(self.folder / piece["filename"]) != piece["sha256"]:
                 raise ValueError("Spectrum piece digest differs")
@@ -209,6 +217,20 @@ class PolynomialSpectrum:
             raise ValueError("Spectrum endpoint digest differs")
         self.endpoints = np.load(self.folder / "endpoints.npy", allow_pickle=False)
         self.endpoints.flags.writeable = False
+        if meta["format_version"] == 2:
+            for filename in ["grid_x.npy", "nodes.npy", "barycentric_weights.npy"]:
+                if (
+                    verify
+                    and fingerprint(self.folder / filename) != meta["auxiliary_sha256"][filename]
+                ):
+                    raise ValueError("Native spectrum coordinate digest differs")
+            self.grid_x = np.load(self.folder / "grid_x.npy", allow_pickle=False)
+            self.nodes = np.load(self.folder / "nodes.npy", allow_pickle=False)
+            self.barycentric_weights = np.load(
+                self.folder / "barycentric_weights.npy", allow_pickle=False
+            )
+            for array in [self.grid_x, self.nodes, self.barycentric_weights]:
+                array.flags.writeable = False
 
     def __getitem__(self, key):
         key = key if isinstance(key, tuple) else (key,)
@@ -236,7 +258,7 @@ class PolynomialSpectrum:
                     result[left - first : right - first] = mapped[
                         (slice(left - piece["left"], right - piece["left"]), *tail)
                     ]
-                else:
+                elif piece["kind"] == "polynomial":
                     coefficients = np.array(mapped[(slice(None), *tail)], copy=True)
                     for start in range(left, right, 16):
                         stop = min(start + 16, right)
@@ -247,6 +269,14 @@ class PolynomialSpectrum:
                             - 1
                         )
                         result[start - first : stop - first] = clenshaw(coefficients, x)
+                else:
+                    values = np.array(mapped[(slice(None), *tail)], copy=True)
+                    interpolant = BarycentricInterpolator(
+                        self.nodes, values, wi=self.barycentric_weights, axis=0
+                    )
+                    for start in range(left, right, 16):
+                        stop = min(start + 16, right)
+                        result[start - first : stop - first] = interpolant(self.grid_x[start:stop])
             finally:
                 mapped._mmap.close()
         if first == 0 and last > first:
