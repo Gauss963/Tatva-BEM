@@ -6,6 +6,8 @@ optional FMM2D backend batches Cauchy sums across matrix entries. Neither
 backend certifies the interpolation error of a BEM transfer.
 """
 
+import math
+
 import numpy as np
 
 
@@ -140,6 +142,32 @@ class CircleCauchy:
             raise ValueError("Contour extrapolation exceeds the amplification guard")
         return targets
 
+    def _near_node_derivative(self, full, targets, nearest):
+        """Stable derivative of the DFT polynomial near its sample nodes.
+
+        Normalized falling factorials avoid subtracting nearly equal singular
+        quotient terms and avoid large powers of N. The caller restricts
+        N*abs(delta)/radius to .005; the Taylor remainder is not a BEM error bound.
+        """
+        coefficients = np.fft.ifft(full, axis=0)
+        nodes, inverse = np.unique(nearest, return_inverse=True)
+        base = self.sources[nearest]
+        scaled_delta = self.size * (targets - base) / base
+        orders = 1 if np.all(scaled_delta == 0) else 8
+        mode = np.arange(self.size, dtype=float)
+        factor = np.ones(self.size)
+        use_fft = len(nodes) >= max(2, math.ceil(math.log2(self.size)))
+        phase = None if use_fft else np.exp(-2j * np.pi * nodes[:, None] * mode / self.size)
+        power = np.ones(len(targets), complex)
+        result = np.zeros((len(targets), full.shape[1]), complex)
+        for order in range(1, orders + 1):
+            factor *= (mode - order + 1) / self.size
+            weighted = coefficients * factor[:, None]
+            values = (np.fft.fft(weighted, axis=0)[nodes] if use_fft else phase @ weighted)[inverse]
+            result += values * power[:, None]
+            power *= scaled_delta / order
+        return result * (self.size / base)[:, None]
+
     def evaluate(self, half_values, targets, *, derivative=False, backend=None):
         """Return batched values and optionally d/dz; preserve trailing dimensions.
 
@@ -162,14 +190,7 @@ class CircleCauchy:
         exact = abs(targets - self.sources[nearest]) <= 4 * np.finfo(float).eps
         value = np.empty((len(targets), count), complex)
         grad = np.empty_like(value) if derivative else None
-        for index in np.flatnonzero(exact):
-            node = nearest[index]
-            value[index] = full[node, :-1]
-            if derivative:
-                keep = np.arange(self.size) != node
-                factor = self.sources[keep] / self.sources[node]
-                factor /= self.sources[node] - self.sources[keep]
-                grad[index] = factor @ (full[keep, :-1] - full[node, :-1])
+        value[exact] = full[nearest[exact], :-1]
         if np.any(~exact):
             if backend is None and self.size * np.count_nonzero(~exact) * count > 100_000_000:
                 raise ValueError("Dense Cauchy evaluation is a small-test backend; supply FMM2D")
@@ -183,6 +204,10 @@ class CircleCauchy:
             if derivative:
                 gradient = np.asarray(gradient)
                 grad[~exact] = ((gradient[:-1] - value[~exact].T * gradient[-1]) / denominator).T
+        if derivative:
+            near = self.size * abs(targets - self.sources[nearest]) / self.radius < 0.005
+            if np.any(near):
+                grad[near] = self._near_node_derivative(full[:, :-1], targets[near], nearest[near])
         if not np.all(np.isfinite(value)) or (derivative and not np.all(np.isfinite(grad))):
             raise ValueError("Nonfinite normalized Cauchy result")
         value = value.reshape((len(targets), *shape))

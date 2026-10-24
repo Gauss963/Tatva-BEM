@@ -39,6 +39,19 @@ def test_kernel_normalization_cancels_for_batched_cauchy_backend():
     np.testing.assert_allclose(grad[:, 0], 1 / (2 - targets) ** 2, atol=1e-13)
 
 
+@pytest.mark.parametrize("many_nodes", [False, True])
+def test_derivative_remains_accurate_arbitrarily_close_to_sample_nodes(many_nodes):
+    circle = TOOL["CircleCauchy"](512, 0.95)
+    nodes = np.arange(64) if many_nodes else np.array([0, 7, 256])
+    half = np.stack((1 / (2 - circle.sources[:257]), 1 / (3 + circle.sources[:257])), axis=1)
+    targets = np.r_[circle.sources[nodes], circle.sources[nodes] + (1 + 1j) * 1e-11]
+    values, derivatives = circle.evaluate(half, targets, derivative=True)
+    expected = np.stack((1 / (2 - targets), 1 / (3 + targets)), axis=1)
+    expected_derivatives = np.stack((1 / (2 - targets) ** 2, -1 / (3 + targets) ** 2), axis=1)
+    np.testing.assert_allclose(values, expected, rtol=1e-12, atol=1e-12)
+    np.testing.assert_allclose(derivatives, expected_derivatives, rtol=1e-11, atol=1e-11)
+
+
 def test_inverse_bdf2_map_preserves_frequency_and_rejects_bad_domains():
     source_dt, target_dt, n = 2e-6, 4e-6, 32768
     z = 1e-10 ** (1 / n) * np.exp(-2j * np.pi * np.arange(n // 2 + 1) / n)
