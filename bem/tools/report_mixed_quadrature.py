@@ -50,6 +50,11 @@ def main():
         record["full_coarse_experiment"].update(
             status=state["phase"], workflow=state, workflow_sha256=fingerprint(workflow)
         )
+    notes = ROOT / "outputs/mixed6-near8-native-coarse4-kernel/execution_notes.json"
+    if notes.is_file():
+        record["full_coarse_experiment"]["kernel_execution_notes"] = dict(
+            sha256=fingerprint(notes), data=json.loads(notes.read_text())
+        )
     write_json(ROOT / "docs/mixed_quadrature_results.json", record)
     print(ROOT / "docs/mixed_quadrature_results.json")
 

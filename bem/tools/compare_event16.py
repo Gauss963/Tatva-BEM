@@ -146,6 +146,12 @@ def main():
                 "minimum_cumulative_increment_mm": float(
                     np.min(np.diff(trajectory["cumulative_slip"], axis=0))
                 ),
+                "minimum_actuator_minus_platen_mm": float(
+                    np.min(trajectory["actuator"] - trajectory["platen"])
+                ),
+                "spring_extension_positive_on_all_saved_states": bool(
+                    np.all(trajectory["actuator"] > trajectory["platen"])
+                ),
             }
             profile_errors = None
             if (

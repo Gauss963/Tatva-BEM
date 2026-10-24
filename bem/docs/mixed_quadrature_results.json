@@ -2678,7 +2678,7 @@
     "scope": "Equivalence to the same coarse Q8 problem, not convergence to FEM or the fine Q12 trajectory",
     "workflow": {
       "phase": "waiting_for_live_kernel",
-      "updated_utc": "2026-10-24T10:48:54.768488+00:00",
+      "updated_utc": "2026-10-24T11:55:56.467307+00:00",
       "supervisor_pid": 10154,
       "kernel": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/mixed6-near8-native-coarse4-kernel",
       "output": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/mixed6-near8-native-coarse4-rollout",
@@ -2733,6 +2733,18 @@
       "timing_scope": "Concurrent with the original fine2 BEM job; not a controlled FEM/BEM speed benchmark",
       "kernel_pid": 9412
     },
-    "workflow_sha256": "16323f69fec554f5b3a4655d1755cbbf76dd4140b782456eb6ceec972d42b35e"
+    "workflow_sha256": "14d524b0408af13e64f8995820741c7b813cdac5db391f85209e4d3f156cc2b0",
+    "kernel_execution_notes": {
+      "sha256": "f75e58032e2d90c789131c6b19661ec47cfd19fdb0bf8e651b34e3d9b1cb7a2e",
+      "data": {
+        "recorded_utc": "2026-10-24T11:56:10.622811+00:00",
+        "observed_live_constructor_pid": 9412,
+        "observed_constructor_command": "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python -B bem/tools/prepare_mixed_resolvent.py bem/outputs/galerkin-corners-dt4-storage-baseline --far-order 6 --separation 2 --dt 4e-6 --duration .045 --correction-duration .022 --workers 4 --max-memory-mb 4096 --max-spectrum-mb 4096 --output bem/outputs/mixed6-near8-native-coarse4-kernel",
+        "frequency_workers_requested": 4,
+        "controlled_full_solver_timing": false,
+        "other_live_builder_pid": 73878,
+        "scope": "Original fine2 four-worker kernel, trace-Schur diagnostics, regression tests and plotting overlap this construction; wall time is not a controlled speed comparison."
+      }
+    }
   }
 }

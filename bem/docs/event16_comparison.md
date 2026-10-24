@@ -9,6 +9,17 @@
 新 FEM 執行使用該 revision 的本機 Git snapshot，避開目前已更改的 FEM runner。
 時間原點統一為剪切階段起點，FEM 絕對時間扣除 2 ms。
 
+2026-10-24 再核對原模型的接觸／載入路徑：Tatva 對 interface nodes 以 boundary weights
+加總 penalty traction（[933ae1f 的程式](https://github.com/Gauss963/Tatva-BEM/blob/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/pmma/dynamics.py#L3582)），
+與目前 BEM 的 nodal lumped contact 形式相符。
+此 case 的 creep length 為零，friction law 是 slip weakening，沒有啟用 RSF velocity projection。
+
+另確認 FEM spring 只推不拉。目前完整粗 4 us、細 8 us、細 4 us 三個 BEM 軌跡的
+最小 actuator–platen 差分別約為 0.846633、0.846409、0.846409 mm，皆嚴格為正。
+所以線性 spring 在這些已接受狀態上與原單向 spring 相同，沒有證據把目前滑移差
+歸因於 spring 開離。比較器現逐 run 保存最小差及是否全程為正，新時間網格也會檢查；
+此結論限定已檢查的軌跡，沒有補上尚未實作的 spring 開離分支。
+
 ## 解的穩定性
 
 40 mm BEM 的 8 us／5625 步、4 us／11250 步都完成 45 ms。
