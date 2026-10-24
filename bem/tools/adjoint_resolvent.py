@@ -156,12 +156,26 @@ def inactive_prefix_transpose(spectrum, plan, hbar, start, *, coordinate_scale=N
 
 
 def resolvent_adjoint(
-    reference, history, result, spectrum, start, *, coordinate_scale=None, convolution_factory=None
+    reference,
+    history,
+    result,
+    spectrum,
+    start,
+    *,
+    coordinate_scale=None,
+    convolution_factory=None,
+    constitutive_substeps=1,
 ):
     """Final mean-c adjoint with complete post-source and prefix derivatives."""
     tick = perf_counter()
     steps = len(result.time) - 1
     n, d = result.plastic_slip.shape[1], history.plan.dofs
+    physical_start = start
+    substepped = constitutive_substeps != 1
+    if substepped:
+        # The first active local path sends a cotangent to q[start-1].
+        # Include that root before using the closed/sticking prefix formula.
+        start = max(1, start - 1)
     if d != 2 * n + 1 or not 1 <= start <= steps or steps - start > history.plan.steps:
         raise ValueError("Correction horizon does not cover the activated source")
     if np.any(result.plastic_slip[:start] != result.plastic_slip[0]) or np.any(
@@ -170,7 +184,15 @@ def resolvent_adjoint(
         raise ValueError("The omitted primal prefix must have unchanged contact state")
     if np.any(result.contact_jumps[:start, :n] <= 0):
         raise ValueError("The omitted primal prefix must stay closed")
-    system = JaxContactEquilibrium(reference)
+    if substepped:
+        local_tool = runpy.run_path(
+            str(Path(__file__).with_name("substepped_contact_experiment.py"))
+        )
+        system = local_tool["SubsteppedContactEquilibrium"](
+            reference, substeps=constitutive_substeps
+        )
+    else:
+        system = JaxContactEquilibrium(reference)
     wc = jnp.asarray(reference.constraints.contact_weights)
     wr = jnp.asarray(reference.constraints.reduced_weights)
     law = reference.case.contact
@@ -192,26 +214,44 @@ def resolvent_adjoint(
     ]
 
     @jax.jit
-    def step(q, old_z, old_c, parameters, eta, rbar):
-        def local(q, z, c, p):
-            response = system.local_response(q, z, c, p)
+    def step(q, old_z, old_c, parameters, eta, rbar, previous, previous_bar):
+        def local(q, z, c, p, previous):
+            response = (
+                system.local_response(q, z, c, p, previous)
+                if substepped
+                else system.local_response(q, z, c, p)
+            )
             force = jnp.r_[wc * response[:, 0], wc * response[:, 1], 0]
             # Constant Fc0 and recorded hold forcing have zero derivatives
             # with respect to these arguments.
             return cdiag * q - force, response[:, 2:4]
 
-        _, pull = jax.vjp(local, q, old_z, old_c, parameters)
-        qbar, zbar, cbar, direct = pull((rbar, eta))
-        jacobian = system.tangent(q, old_z, old_c, parameters)
-        multiplier = jnp.linalg.solve(jacobian.T, qbar)
+        _, pull = jax.vjp(local, q, old_z, old_c, parameters, previous)
+        qbar, zbar, cbar, direct, path_bar = pull((rbar, eta))
+        jacobian = (
+            system.tangent(q, old_z, old_c, parameters, previous)
+            if substepped
+            else system.tangent(q, old_z, old_c, parameters)
+        )
+        multiplier = jnp.linalg.solve(jacobian.T, qbar + previous_bar)
 
-        def equation(z, c, p):
-            return system.residual(q, z, c, p, jnp.zeros_like(q))
+        def equation(z, c, p, previous):
+            return (
+                system.residual(q, z, c, p, jnp.zeros_like(q), previous)
+                if substepped
+                else system.residual(q, z, c, p, jnp.zeros_like(q))
+            )
 
-        _, root_pull = jax.vjp(equation, old_z, old_c, parameters)
-        dz, dc, dp = root_pull(-multiplier)
+        _, root_pull = jax.vjp(equation, old_z, old_c, parameters, previous)
+        dz, dc, dp, root_path_bar = root_pull(-multiplier)
         raw = multiplier / wr
-        return a0.T @ raw, jnp.stack((zbar + dz, cbar + dc), axis=1), direct + dp, raw
+        return (
+            a0.T @ raw,
+            jnp.stack((zbar + dz, cbar + dc), axis=1),
+            direct + dp,
+            raw,
+            path_bar + root_path_bar,
+        )
 
     factory = OnlineConvolution if convolution_factory is None else convolution_factory
     reverse = factory(BoundaryHistory(history.plan, history.weights.transpose(0, 2, 1)))
@@ -219,18 +259,23 @@ def resolvent_adjoint(
     gradient = np.zeros(5)
     actuator_gradient = np.zeros(steps + 1)
     hbar = np.zeros((steps + 1, d))
+    previous_bar = np.zeros(d)
     for offset, index in enumerate(range(steps, start - 1, -1)):
         rbar = reverse.past(offset)
-        h, eta, increment, raw = step(
+        h, eta, increment, raw, previous_bar = step(
             jnp.asarray(q[index]),
             jnp.asarray(result.plastic_slip[index - 1]),
             jnp.asarray(result.cumulative_slip[index - 1]),
             system.parameters,
             jnp.asarray(eta),
             jnp.asarray(rbar),
+            jnp.asarray(q[index - 1]),
+            jnp.asarray(previous_bar),
         )
-        h, eta, increment, raw = (np.asarray(value) for value in [h, eta, increment, raw])
-        if not all(np.all(np.isfinite(value)) for value in [h, eta, increment, raw]):
+        h, eta, increment, raw, previous_bar = (
+            np.asarray(value) for value in [h, eta, increment, raw, previous_bar]
+        )
+        if not all(np.all(np.isfinite(value)) for value in [h, eta, increment, raw, previous_bar]):
             raise ValueError(f"Nonfinite resolvent adjoint at {index}")
         hbar[index] = h
         gradient += increment
@@ -238,6 +283,8 @@ def resolvent_adjoint(
         reverse.append(h)
     cache_statistics = reverse.statistics() if hasattr(reverse, "statistics") else None
     del reverse
+    if start > 1 and np.any(previous_bar != 0):
+        raise ValueError("A path cotangent crossed the asserted closed/sticking prefix")
     eta = eta.copy()
     prefix = inactive_prefix_transpose(
         spectrum, history.plan, hbar, start, coordinate_scale=coordinate_scale
@@ -262,7 +309,11 @@ def resolvent_adjoint(
         initial_plastic_slip_gradient=eta[:, 0],
         initial_cumulative_slip_gradient=eta[:, 1],
         seconds_including_jit=perf_counter() - tick,
-        correction_start=start,
+        correction_start=physical_start,
+        reverse_start=start,
+        constitutive_substeps=constitutive_substeps,
+        previous_displacement_cotangent_included=substepped,
+        fixed_initial_displacement_cotangent=previous_bar,
         scope="Fixed bulk/lift/recorded loading and active branches; complete correction transpose plus affine startup cotangents",
         event_time_derivative_included=False,
         online_fft_cache=cache_statistics,

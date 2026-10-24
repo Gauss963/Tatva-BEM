@@ -245,6 +245,106 @@ def test_correction_adjoint_keeps_kn_kt_and_initial_state_prefix_derivatives():
             getattr(standalone, name), getattr(result, name), rtol=1e-7, atol=1e-9
         )
     assert standalone.diagnostics["status"] == "completed_requested_horizon"
+    from functools import partial
+
+    substep_tool = runpy.run_path(
+        str(Path(__file__).resolve().parents[1] / "tools/substepped_contact_experiment.py")
+    )
+    factory = substep_tool["SubsteppedContactEquilibrium"]
+    identity = simulator["simulate_prepared"](
+        model,
+        reference,
+        state,
+        BoundaryHistory(plan, lweights),
+        elastic,
+        time,
+        15 * time,
+        diagnostic=True,
+        equilibrium_factory=partial(factory, substeps=1),
+    )
+    for name in [
+        "pressure",
+        "shear",
+        "plastic_slip",
+        "cumulative_slip",
+        "contact_jumps",
+        "actuator",
+        "platen",
+    ]:
+        np.testing.assert_array_equal(getattr(identity, name), getattr(standalone, name))
+    micro = simulator["simulate_prepared"](
+        model,
+        reference,
+        state,
+        BoundaryHistory(plan, lweights),
+        elastic,
+        time,
+        15 * time,
+        diagnostic=True,
+        equilibrium_factory=partial(factory, substeps=8),
+    )
+    micro_system = factory(reference, substeps=8)
+
+    def independent_scan(parameters, initial_z, initial_c, actuator):
+        def advance(carry, index):
+            accepted, z, c = carry
+            previous = accepted[index - 1]
+            lag = jnp.maximum(index - jnp.arange(21), 0)
+            mask = (jnp.arange(21) < index)[:, None, None]
+            past = jnp.einsum("kij,kj->i", jnp.asarray(zweights)[lag] * mask, accepted)
+            forcing = jnp.array([-10.0, 0, 0]) + past
+            forcing = forcing.at[-1].add(-2 * actuator[index])
+            current, _ = micro_system.implicit_displacement(
+                parameters, z, c, forcing, previous, previous
+            )
+            response = micro_system.local_response(current, z, c, parameters, previous)
+            return (accepted.at[index].set(current), response[:, 2], response[:, 3]), response
+
+        final, responses = jax.lax.scan(
+            advance, (jnp.zeros((21, 3)), initial_z, initial_c), jnp.arange(1, 21)
+        )
+        return final[2].mean(), (final[0], responses)
+
+    inputs = (
+        micro_system.parameters,
+        jnp.asarray(state.plastic_slip),
+        jnp.asarray(state.cumulative_slip),
+        jnp.asarray(15 * time),
+    )
+    _, (scan_q, scan_response) = independent_scan(*inputs)
+    np.testing.assert_allclose(
+        micro.contact_jumps, np.asarray(scan_q)[:, :2] + [0.1, 0.03], rtol=1e-7, atol=1e-9
+    )
+    np.testing.assert_allclose(
+        micro.cumulative_slip[1:], np.asarray(scan_response)[:, :, 3], rtol=1e-7, atol=1e-9
+    )
+    micro_start = int(np.flatnonzero(micro.cumulative_slip[:, 0] > 0)[0])
+    assert micro_start > 1
+    micro_plan = replace(plan, steps=20 - micro_start + 1)
+    micro_answer = TOOL["resolvent_adjoint"](
+        reference,
+        BoundaryHistory(micro_plan, lweights[: micro_plan.steps + 1]),
+        micro,
+        spectrum,
+        micro_start,
+        constitutive_substeps=8,
+    )
+    independent_gradients = jax.grad(
+        lambda *values: independent_scan(*values)[0], argnums=(0, 1, 2, 3)
+    )(*inputs)
+    for name, expected in zip(
+        [
+            "gradient",
+            "initial_plastic_slip_gradient",
+            "initial_cumulative_slip_gradient",
+            "actuator_gradient",
+        ],
+        independent_gradients,
+        strict=True,
+    ):
+        np.testing.assert_allclose(micro_answer[name], expected, rtol=3e-7, atol=1e-9)
+    assert micro_answer["previous_displacement_cotangent_included"]
+    assert micro_answer["reverse_start"] == micro_start - 1
     prefix_plan = replace(plan, steps=20 - start)
     answer = TOOL["resolvent_adjoint"](
         reference,
