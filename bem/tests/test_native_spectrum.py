@@ -1,5 +1,6 @@
 import runpy
 from pathlib import Path
+from types import SimpleNamespace
 
 import numpy as np
 import pytest
@@ -71,10 +72,12 @@ def test_disk_time_weights_keep_every_lag_and_original_row_ifft(tmp_path, rows):
         weight_path=tmp_path / "weights.npy",
         fft_rows=rows,
         max_workspace_mb=32,
+        reserved_disk_bytes=65536,
     )
     assert isinstance(actual, np.memmap)
     assert not actual.flags.writeable
     assert spectrum.metadata["time_weights_storage"] == "disk_mmap"
+    assert spectrum.metadata["reserved_other_output_bytes"] == 65536
     np.testing.assert_array_equal(actual, expected)
 
 
@@ -108,3 +111,20 @@ def test_native_budget_and_incomplete_or_overlapping_grid_are_rejected(tmp_path)
     with pytest.raises(ValueError, match="incomplete"):
         sink.seal(None)
     assert not (tmp_path / "partial" / "summary.json").exists()
+
+
+def test_frequency_storage_protects_space_for_pending_time_output(tmp_path, monkeypatch):
+    plan = plan_cq(2, 0.01, 32, max_memory_mb=32)
+    monkeypatch.setattr(TOOL["shutil"], "disk_usage", lambda _: SimpleNamespace(free=20000))
+    with pytest.raises(ValueError, match="storage budget"):
+        TOOL["native_parsimonious_weights"](
+            lambda s: np.eye(2) / (s + 1),
+            plan,
+            tmp_path / "reserved",
+            reserved_disk_bytes=20000,
+        )
+    assert not (tmp_path / "reserved" / "summary.json").exists()
+    with pytest.raises(ValueError, match="Reserved disk"):
+        TOOL["native_parsimonious_weights"](
+            lambda s: np.eye(2), plan, tmp_path / "negative", reserved_disk_bytes=-1
+        )

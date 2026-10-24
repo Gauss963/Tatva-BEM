@@ -106,9 +106,23 @@ class TrackedInterpolator:
 
 
 class NativeSpectrumSink:
-    def __init__(self, folder, plan, registry, reader_class, *, max_storage_mb, rtol, atol):
+    def __init__(
+        self,
+        folder,
+        plan,
+        registry,
+        reader_class,
+        *,
+        max_storage_mb,
+        rtol,
+        atol,
+        reserved_disk_bytes=0,
+    ):
         if not np.isfinite(max_storage_mb) or max_storage_mb <= 0:
             raise ValueError("A finite positive native storage budget is required")
+        if not isinstance(reserved_disk_bytes, (int, np.integer)) or reserved_disk_bytes < 0:
+            raise ValueError("Reserved disk bytes must be a nonnegative integer")
+        self.reserved_disk_bytes = int(reserved_disk_bytes)
         self.folder, self.plan, self.registry = Path(folder), plan, registry
         if self.folder.exists() and any(self.folder.iterdir()):
             raise ValueError("Choose a new empty spectrum directory")
@@ -129,7 +143,7 @@ class NativeSpectrumSink:
         needed = values.nbytes + 1024
         if (
             self.stored + needed + reserve > self.max_bytes
-            or shutil.disk_usage(self.folder).free < needed + reserve
+            or shutil.disk_usage(self.folder).free < needed + reserve + self.reserved_disk_bytes
         ):
             raise ValueError("Native spectrum exceeds its explicit storage budget")
         filename = f"piece-{len(self.pieces):06d}.npy"
@@ -254,6 +268,7 @@ class NativeSpectrumSink:
             absolute_tolerance=self.atol,
             raw_array_bytes=np.prod(self.shape).item() * 16,
             stored_array_bytes=sum(p.stat().st_size for p in self.folder.glob("*.npy")),
+            reserved_other_output_bytes=self.reserved_disk_bytes,
             certified_continuous_frequency_bound=False,
             provenance=provenance,
             scope="Native storage of original adaptive interpolants and direct samples; no complete dense spectrum is allocated",
@@ -277,6 +292,7 @@ def native_parsimonious_weights(
     weight_path=None,
     fft_rows=4,
     max_workspace_mb=2048,
+    reserved_disk_bytes=0,
 ):
     options = SamplingOptions() if options is None else options
     own_sha, reader_sha = fingerprint(Path(__file__)), fingerprint(READER_PATH)
@@ -284,7 +300,14 @@ def native_parsimonious_weights(
     reader_class = runpy.run_path(str(READER_PATH))["PolynomialSpectrum"]
     registry, serials = {}, itertools.count()
     sink = NativeSpectrumSink(
-        folder, plan, registry, reader_class, max_storage_mb=max_storage_mb, rtol=1e-13, atol=1e-18
+        folder,
+        plan,
+        registry,
+        reader_class,
+        max_storage_mb=max_storage_mb,
+        rtol=1e-13,
+        atol=1e-18,
+        reserved_disk_bytes=reserved_disk_bytes,
     )
 
     def interpolator(*args, **kwargs):

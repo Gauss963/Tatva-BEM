@@ -24,7 +24,10 @@ resolvent 現可直接建立新時間網格，並核對參數、載入及初始�
 新增 [逐點驗證的頻譜儲存壓縮](docs/polynomial_spectrum.md)：完整粗網格頻譜約縮減 4.27 倍，
 並重新核對 45 ms 解與五參數 adjoint。
 另有 [直接保存 CQ 插值與磁碟時間權重](docs/native_spectrum.md)，可避免首次配置完整稠密頻譜；
-實際 BEM 的 512 步診斷已核對解與各種 cotangent，完整 45 ms 與線上 cache 容量仍待驗證。
+實際 BEM 的 512 步診斷已核對解與各種 cotangent，fresh native 建核的完整 45 ms 仍待驗證。
+新增 [指定容量的 FFT 歷史快取](docs/bounded_history.md)：完整粗網格 45 ms 的解與各種 cotangent
+在 0／8 MiB 設定下逐位元相同。較細網格 adjoint 亦與原快取規則逐位元相同，
+但既有 L／原 Z 的單一載入梯度 guard 仍未通過，保留原容差與失敗紀錄。
 
 程式與 Tatva、Bem2d.jl 獨立，不需要讀取或修改外接磁碟，也不需要上層 repository 的 Julia 環境。
 可以把本資料夾獨立放進新的 GitHub repository。

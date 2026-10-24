@@ -71,5 +71,6 @@ PYTHONPATH=bem/src python -B bem/tools/adjoint_resolvent.py ORIGINAL_RUN NEW_REP
 本頁的離線流程仍先建立完整原頻譜，再做壓縮。
 另有[直接保存自適應插值與磁碟時間權重的實驗](native_spectrum.md)，
 已通過含實際 BEM 插值區間的短程解／AD 驗證，降低首次建核的頻譜容量需求。
-線上 FFT cache 仍須限制容量，且新 backend 尚未完成原 45 ms 驗證；
+線上 FFT cache 亦已有[指定容量的等價實驗](bounded_history.md)，
+但 fresh native 建核的新 backend 尚未完成原 45 ms 驗證；
 原 2 us／45 ms 四-worker 案例繼續使用既有 backend。

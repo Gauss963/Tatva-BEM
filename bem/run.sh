@@ -93,6 +93,12 @@ elif [ "${1:-}" = radau-ad-check ]; then
 elif [ "${1:-}" = resolvent-replay ]; then
     shift
     exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/replay_resolvent.py" "$@"
+elif [ "${1:-}" = resolvent-simulate ]; then
+    shift
+    exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/simulate_resolvent.py" "$@"
+elif [ "${1:-}" = resolvent-adjoint ]; then
+    shift
+    exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/adjoint_resolvent.py" "$@"
 elif [ "${1:-}" = native-resolvent-kernel ]; then
     shift
     exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/prepare_native_resolvent.py" "$@"

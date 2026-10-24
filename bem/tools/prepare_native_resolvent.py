@@ -14,6 +14,7 @@ import math
 import mmap
 import os
 import runpy
+import shutil
 from dataclasses import asdict, replace
 from pathlib import Path
 from time import perf_counter
@@ -27,6 +28,19 @@ from finiteblock_bem.nodal_dynamics import plan_nodal_history
 from finiteblock_bem.sampling import SamplingOptions
 
 TOOLS = Path(__file__).resolve().parent
+
+
+def preflight_time_storage(folder, plan, full_steps):
+    """Protect space for every time weight, startup vector and small metadata.
+
+    Frequency pieces recheck free space against this reserve while sampling.
+    This is a fail-fast check, not an OS quota against concurrent writers.
+    """
+    required = (plan.steps + 1) * plan.dofs**2 * 8
+    required += (full_steps + 1) * (plan.dofs + 2) * 8 + plan.dofs**2 * 8 + 65536
+    if shutil.disk_usage(folder).free < required:
+        raise ValueError("Insufficient disk space for complete time weights and elastic startup")
+    return required
 
 
 def physical_weights_file_inplace(path, line_weights):
@@ -139,6 +153,7 @@ def main():
     if peak > args.max_memory_mb * 1024**2:
         raise ValueError(f"Native construction array estimate is {peak / 1024**2:.1f} MiB")
     args.output.mkdir(parents=True, exist_ok=True)
+    reserved_disk = preflight_time_storage(args.output, plan, full_steps)
     line_weights = np.r_[
         model.constraints.contact_weights,
         model.constraints.contact_weights,
@@ -185,6 +200,7 @@ def main():
             weight_path=args.output / "weights.npy",
             fft_rows=rows,
             max_workspace_mb=args.max_memory_mb,
+            reserved_disk_bytes=reserved_disk,
             provenance=dict(plan=asdict(plan), source_run=str(args.source.resolve())),
         )
         impedance = transfer.evaluate(1.5 / dt)
@@ -232,6 +248,7 @@ def main():
         sampling_options=asdict(sampling),
         spectrum_storage={**spectrum.record(), "coordinates": "diag(sqrt(w)) * L * diag(sqrt(w))"},
         time_weights_storage="disk_mmap",
+        reserved_time_output_bytes=reserved_disk,
         initial_composition_inf_error=composition,
         estimated_construction_array_peak_mib=peak / 1024**2,
         estimated_original_solver_array_peak_mib=short.estimated_peak_bytes / 1024**2,

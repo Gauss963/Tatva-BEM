@@ -22,6 +22,8 @@ gates. A short successful diagnostic does not close the later gates.
 - [x] Literature-driven optional adaptive frequency sampling, dense-CQ trajectory comparison and sampled passivity audit.
 - [x] Symmetric P1/P0 Galerkin bulk, continuous nodal contact/platen trace, independent weak-D and wave checks.
 - [x] Shared prepared Galerkin geometry and same-matrix four-worker benchmark.
+- [x] Native adaptive-interpolant storage and disk time weights, with real-BEM diagnostic field/cotangent checks.
+- [x] Capacity-limited exact forward/transpose histories: full coarse 45 ms equality and fine4 adjoint cache equality; original-Z fine4 guard remains open.
 - [ ] Quantified nonlinear stability and temporal/spatial convergence for Galerkin.
 - [ ] Independent spatial refinement at the contact ends and process-zone resolution.
 - [ ] Validate static-lift error against original FEM interior fields and quantify zero-initial-velocity assumptions.

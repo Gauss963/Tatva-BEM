@@ -80,7 +80,8 @@ FDBEM_CORES=4 bem/run.sh native-resolvent-kernel SOURCE_RUN \
 第二個命令只準備 kernel，並沒有自動完成時間推進或 FEM 驗證。
 `--max-memory-mb` 限制建核陣列估計，`--max-spectrum-mb` 限制 native 頻譜磁碟容量；
 另外仍需要足夠空間保存完整時間權重。
-現有線上 dyadic FFT cache 尚未有指定容量的上限，故目前不能宣稱 fine 1 us 可在本機完整執行。
+另有[指定容量的線上 dyadic FFT cache](bounded_history.md)，已通過完整粗網格的解／AD 等價核對。
+fine 1 us 尚未完成建核與事件驗證，不能據此宣稱本機已完成這個解析度。
 原 2 us／45 ms 四-worker 計算仍沿用原 backend，兩者不混用。
 
 實作在 `tools/native_spectrum.py`、`tools/prepare_native_resolvent.py`；

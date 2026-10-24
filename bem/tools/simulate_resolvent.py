@@ -31,7 +31,9 @@ HELPER_PATH = Path(__file__).with_name("replay_resolvent.py")
 HELPER = runpy.run_path(str(HELPER_PATH))
 
 
-def simulate_prepared(model, reference, state, history, elastic, time, ramp, *, diagnostic=False):
+def simulate_prepared(
+    model, reference, state, history, elastic, time, ramp, *, diagnostic=False, history_factory=None
+):
     """Preserve original Newton roots, loading stop rule, and every nonzero lag."""
     from finiteblock_bem.jax_backend import JaxContactEquilibrium
 
@@ -66,7 +68,7 @@ def simulate_prepared(model, reference, state, history, elastic, time, ramp, *, 
     )
     residual, iterations = np.zeros(steps + 1), np.zeros(steps + 1, dtype=int)
     residual[0] = np.max(abs(initial))
-    memory = HELPER["CorrectionHistory"](history)
+    memory = (HELPER["CorrectionHistory"] if history_factory is None else history_factory)(history)
     actuator = ramp.copy()
     force = reference.spring * (ramp - ramp[0])
     old, held, hold_time = state, None, None
@@ -137,6 +139,8 @@ def simulate_prepared(model, reference, state, history, elastic, time, ramp, *, 
         full_original_event_reproduced=False,
         scope="Full causal elastic startup and untruncated nonlinear correction; no FEM equivalence or speed advantage asserted",
     )
+    if memory.online is not None and hasattr(memory.online, "statistics"):
+        diagnostics["online_fft_cache"] = memory.online.statistics()
     return DynamicResult(
         time,
         None,
@@ -161,6 +165,10 @@ def main():
     parser.add_argument("kernel", type=Path)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--max-memory-mb", type=float, default=12288)
+    parser.add_argument(
+        "--fft-cache-mb", type=float, help="Cap retained kernel FFTs; zero streams all"
+    )
+    parser.add_argument("--fft-rows", type=int, default=4)
     args = parser.parse_args()
     started = perf_counter()
     if args.output.exists() and any(args.output.iterdir()):
@@ -187,7 +195,19 @@ def main():
         if HELPER["digest_file"](args.kernel / filename) != metadata[key]:
             raise ValueError(f"Prepared data digest differs: {filename}")
     plan = CQPlan(**metadata["plan"])
-    estimate = plan.estimated_peak_bytes + 24 * (metadata["full_steps"] + 1) * plan.dofs * 8
+    bounded, bounded_sha, history_factory = None, None, None
+    bounded_path = Path(__file__).with_name("bounded_history.py")
+    if args.fft_cache_mb is None:
+        estimate = plan.estimated_peak_bytes + 24 * (metadata["full_steps"] + 1) * plan.dofs * 8
+    else:
+        bounded_sha = fingerprint(bounded_path)
+        bounded = runpy.run_path(str(bounded_path))
+        estimate = bounded["estimate_online_arrays"](
+            plan, metadata["full_steps"], args.fft_cache_mb, fft_rows=args.fft_rows
+        )
+        history_factory = bounded["bounded_correction_class"](
+            HELPER["CorrectionHistory"], cache_mb=args.fft_cache_mb, fft_rows=args.fft_rows
+        )
     if estimate > args.max_memory_mb * 1024**2:
         raise ValueError(f"Estimated solver arrays need {estimate / 1024**2:.1f} MiB")
     model = load_nodal_model(
@@ -230,15 +250,21 @@ def main():
         time,
         ramp,
         diagnostic=diagnostic is not None,
+        history_factory=history_factory,
     )
     if solver_sha != fingerprint(Path(__file__)) or helper_sha != fingerprint(HELPER_PATH):
         raise ValueError("Experimental solver source changed during simulation")
+    if bounded_sha is not None and bounded_sha != fingerprint(bounded_path):
+        raise ValueError("Bounded history implementation changed during simulation")
     result.diagnostics.update(
         prepared_kernel=str(args.kernel.resolve()),
         kernel_summary_sha256=fingerprint(args.kernel / "summary.json"),
         initial_impedance_sha256=fingerprint(args.kernel / "initial_impedance.npy"),
         solver_sha256=solver_sha,
         helper_sha256=helper_sha,
+        bounded_history_sha256=bounded_sha,
+        fft_cache_mb=args.fft_cache_mb,
+        estimated_solver_array_peak_mib=estimate / 1024**2,
         initialization=lift.diagnostics,
         quadrature=options["quadrature"],
         spectrum_storage=metadata["spectrum_storage"],

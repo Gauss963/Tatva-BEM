@@ -149,7 +149,6 @@
   "full_45ms_native_backend_validated": false,
   "original_case_fem_equivalence_achieved": false,
   "fixed_accuracy_fem_speed_advantage_achieved": false,
-  "bounded_online_fft_cache_implemented": false,
   "original_protected_file_sha256_and_hdf5_stat_unchanged": {
     "/Volumes/Gauss-T7/tatva/runs/local-mus08-muk06-gap0-v2-ev16/input/case.toml": true,
     "/Volumes/Gauss-T7/tatva/runs/local-mus08-muk06-gap0-v2-ev16/input/resolved.json": true,
@@ -160,5 +159,7 @@
   "local_full_tests": {
     "passed": 132,
     "seconds": 63.26
-  }
+  },
+  "bounded_online_fft_cache_implemented_at_native_validation": false,
+  "subsequent_bounded_fft_cache_validation": "bounded_history_results.json"
 }

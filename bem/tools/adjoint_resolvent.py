@@ -10,6 +10,7 @@ import argparse
 import json
 import runpy
 from dataclasses import replace
+from functools import partial
 from pathlib import Path
 from time import perf_counter
 from types import SimpleNamespace
@@ -108,7 +109,9 @@ def inactive_prefix_transpose(spectrum, plan, hbar, start, *, coordinate_scale=N
     return result[::-1][:start].copy()
 
 
-def resolvent_adjoint(reference, history, result, spectrum, start, *, coordinate_scale=None):
+def resolvent_adjoint(
+    reference, history, result, spectrum, start, *, coordinate_scale=None, convolution_factory=None
+):
     """Final mean-c adjoint with complete post-source and prefix derivatives."""
     tick = perf_counter()
     steps = len(result.time) - 1
@@ -164,7 +167,8 @@ def resolvent_adjoint(reference, history, result, spectrum, start, *, coordinate
         raw = multiplier / wr
         return a0.T @ raw, jnp.stack((zbar + dz, cbar + dc), axis=1), direct + dp, raw
 
-    reverse = OnlineConvolution(BoundaryHistory(history.plan, history.weights.transpose(0, 2, 1)))
+    factory = OnlineConvolution if convolution_factory is None else convolution_factory
+    reverse = factory(BoundaryHistory(history.plan, history.weights.transpose(0, 2, 1)))
     eta = np.c_[np.zeros(n), np.asarray(wc) / np.sum(wc)]
     gradient = np.zeros(5)
     actuator_gradient = np.zeros(steps + 1)
@@ -186,6 +190,7 @@ def resolvent_adjoint(reference, history, result, spectrum, start, *, coordinate
         gradient += increment
         actuator_gradient[index] = reference.spring * (rbar[-1] + raw[-1])
         reverse.append(h)
+    cache_statistics = reverse.statistics() if hasattr(reverse, "statistics") else None
     del reverse
     eta = eta.copy()
     prefix = inactive_prefix_transpose(
@@ -214,6 +219,7 @@ def resolvent_adjoint(reference, history, result, spectrum, start, *, coordinate
         correction_start=start,
         scope="Fixed bulk/lift/recorded loading and active branches; complete correction transpose plus affine startup cotangents",
         event_time_derivative_included=False,
+        online_fft_cache=cache_statistics,
     )
 
 
@@ -223,7 +229,10 @@ def main():
     parser.add_argument("replay", type=Path, nargs="?", help="Omit for a standalone resolvent run")
     parser.add_argument("--reference-gradient", type=Path)
     parser.add_argument("--max-memory-mb", type=float, default=12288)
+    parser.add_argument("--fft-cache-mb", type=float, help="Cap retained transpose kernel FFTs")
+    parser.add_argument("--fft-rows", type=int, default=4)
     args = parser.parse_args()
+    validator_sha = fingerprint(Path(__file__))
     standalone = args.replay is None
     if standalone:
         args.replay = args.original
@@ -248,10 +257,20 @@ def main():
         raise ValueError("Standalone adjoint requires a saved elastic-resolvent trajectory")
     steps, d, dt = original["completed_steps"], original["history_dofs"][0], original["dt_s"]
     correction_steps = replay["correction_history_steps"]
-    plan = plan_cq(d, dt, correction_steps, max_memory_mb=args.max_memory_mb, disk_spectrum=True)
+    plan = plan_cq(
+        d,
+        dt,
+        correction_steps,
+        max_memory_mb=args.max_memory_mb if args.fft_cache_mb is None else 1e9,
+        disk_spectrum=True,
+    )
     # Additional source/output vectors and frequency-block copies.
     extra = 8 * (steps + 1) * d * 8 + 2 * 64 * d * d * 16 + 512 * 1024**2
-    if plan.estimated_peak_bytes + extra > args.max_memory_mb * 1024**2:
+    estimate = plan.estimated_peak_bytes + extra
+    if (
+        args.fft_cache_mb is None
+        and plan.estimated_peak_bytes + extra > args.max_memory_mb * 1024**2
+    ):
         raise ValueError("Resolvent adjoint arrays exceed requested memory budget")
     model = load_nodal_model(
         options["case"],
@@ -291,6 +310,24 @@ def main():
     else:
         source_plan = CQPlan(**original["spectrum_storage"]["cq_plan"])
         plan = replace(plan, fft_size=source_plan.fft_size, radius=source_plan.radius)
+    bounded_path = Path(__file__).with_name("bounded_history.py")
+    bounded_sha, convolution_factory = None, None
+    if args.fft_cache_mb is not None:
+        bounded_sha = fingerprint(bounded_path)
+        bounded = runpy.run_path(str(bounded_path))
+        estimate = bounded["estimate_online_arrays"](
+            plan, steps, args.fft_cache_mb, fft_rows=args.fft_rows
+        )
+        estimate += 3 * plan.fft_size * d * 16 + 2 * 64 * d * d * 16
+        if prepared_path is None:
+            # Legacy replays generate their complete prefix in RAM. Only
+            # prepared kernels load time weights from a read-only file map.
+            estimate += plan.weight_bytes
+        if estimate > args.max_memory_mb * 1024**2:
+            raise ValueError(f"Bounded adjoint arrays need about {estimate / 1024**2:.1f} MiB")
+        convolution_factory = partial(
+            bounded["BoundedOnlineConvolution"], cache_mb=args.fft_cache_mb, fft_rows=args.fft_rows
+        )
     # Both prepared standalone runs and replays can be checked against an
     # independent original-Z trajectory; they use different saved field names.
     storage = (
@@ -407,7 +444,12 @@ def main():
         spectrum,
         replay["first_correction_step"],
         coordinate_scale=coordinate_scale,
+        convolution_factory=convolution_factory,
     )
+    if bounded_sha is not None and bounded_sha != fingerprint(bounded_path):
+        raise ValueError("Bounded history changed during adjoint evaluation")
+    if validator_sha != fingerprint(Path(__file__)):
+        raise ValueError("Resolvent adjoint implementation changed during evaluation")
     comparisons, checks = {}, []
     if target is not None:
         target_gradient = target["gradient"]
@@ -439,7 +481,10 @@ def main():
         comparisons=comparisons,
         exact_branch_changes=branch_changes,
         environment=environment,
-        validator_sha256=fingerprint(Path(__file__)),
+        validator_sha256=validator_sha,
+        bounded_history_sha256=bounded_sha,
+        fft_cache_mb=args.fft_cache_mb,
+        estimated_solver_array_peak_mib=estimate / 1024**2,
         reference_gradient_path=None if reference_path is None else str(reference_path.resolve()),
         reference_gradient_sha256=None if reference_path is None else fingerprint(reference_path),
         reference_arrays_sha256=None if target is None else target.get("arrays_sha256"),

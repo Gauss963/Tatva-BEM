@@ -1,0 +1,242 @@
+{
+  "date": "2026-10-24",
+  "scope": "Exact storage/recomputation equivalence; not FEM equivalence or a controlled speed/RSS benchmark",
+  "full_coarse": {
+    "dt_s": 4e-06,
+    "duration_s": 0.045,
+    "steps": 11250,
+    "dofs": 71,
+    "correction_lags": 5500,
+    "kernel": "bem/outputs/polynomial-kernel-coarse4",
+    "kernel_summary_sha256": "87954cb839eccd672b76029016ee219bee68f840fee9744f1e2b6f205c3a24af",
+    "versus_original_z_field_differences": {
+      "pressure": 1.1227618230691405e-06,
+      "shear": 7.209614693692856e-06,
+      "plastic_slip": 3.0323185740144254e-08,
+      "cumulative_slip": 3.032318444950999e-08,
+      "actuator": 0.0,
+      "platen": 2.22898499657731e-09,
+      "contact_jumps": 2.98932807396568e-08
+    },
+    "cases": {
+      "unbounded": {
+        "primal_cache": null,
+        "adjoint_cache": null,
+        "all_physical_fields_bitwise_equal": true,
+        "all_supported_cotangents_bitwise_equal": true,
+        "exact_branch_changes": {
+          "exact_sliding_entries": 0,
+          "exact_opening_entries": 0,
+          "weakening_clip_entries": 0,
+          "weakening_clip_tie_entries": 0
+        },
+        "independent_five_parameter_max_relative": 2.2237820734289666e-06,
+        "observed_process_peak_rss_mib": 787.953125,
+        "source_trajectory_sha256": "0463ac28a780015b154906a5820a83aceea956301db61160dea227bc90e67fa5",
+        "primal_solver_sha256": "0d949a84beb4b9d1cba5046469f6668dc06ce2ea0e6ef88ec6b8c6fd16620a22",
+        "adjoint_validator_sha256": "81c61bb1e393fba4c2ece904bb9e17e7669a118c7bee6b93ef53938e66411b9f",
+        "bounded_history_sha256": null
+      },
+      "zero": {
+        "primal_cache": {
+          "capacity_bytes": 0,
+          "peak_retained_kernel_fft_bytes": 0,
+          "cached_levels": [],
+          "streamed_levels": [
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048,
+            4096
+          ],
+          "streamed_updates": 162,
+          "kernel_fft_builds": 2916,
+          "fft_rows": 4,
+          "all_history_terms_retained": true
+        },
+        "adjoint_cache": {
+          "capacity_bytes": 0,
+          "peak_retained_kernel_fft_bytes": 0,
+          "cached_levels": [],
+          "streamed_levels": [
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048,
+            4096
+          ],
+          "streamed_updates": 162,
+          "kernel_fft_builds": 2916,
+          "fft_rows": 4,
+          "all_history_terms_retained": true
+        },
+        "all_physical_fields_bitwise_equal": true,
+        "all_supported_cotangents_bitwise_equal": true,
+        "exact_branch_changes": {
+          "exact_sliding_entries": 0,
+          "exact_opening_entries": 0,
+          "weakening_clip_entries": 0,
+          "weakening_clip_tie_entries": 0
+        },
+        "independent_five_parameter_max_relative": 2.2237820734289666e-06,
+        "observed_process_peak_rss_mib": 627.921875,
+        "source_trajectory_sha256": "0463ac28a780015b154906a5820a83aceea956301db61160dea227bc90e67fa5",
+        "primal_solver_sha256": "0d949a84beb4b9d1cba5046469f6668dc06ce2ea0e6ef88ec6b8c6fd16620a22",
+        "adjoint_validator_sha256": "81c61bb1e393fba4c2ece904bb9e17e7669a118c7bee6b93ef53938e66411b9f",
+        "bounded_history_sha256": "bbf1d66ab1b1ff573a6ec613d249e86cd5dc460434ca3c9217cb064429273c55"
+      },
+      "eight": {
+        "primal_cache": {
+          "capacity_bytes": 8388608,
+          "peak_retained_kernel_fft_bytes": 7904288,
+          "cached_levels": [
+            32,
+            64
+          ],
+          "streamed_levels": [
+            128,
+            256,
+            512,
+            1024,
+            2048,
+            4096
+          ],
+          "streamed_updates": 40,
+          "kernel_fft_builds": 722,
+          "fft_rows": 4,
+          "all_history_terms_retained": true
+        },
+        "adjoint_cache": {
+          "capacity_bytes": 8388608,
+          "peak_retained_kernel_fft_bytes": 7904288,
+          "cached_levels": [
+            32,
+            64
+          ],
+          "streamed_levels": [
+            128,
+            256,
+            512,
+            1024,
+            2048,
+            4096
+          ],
+          "streamed_updates": 40,
+          "kernel_fft_builds": 722,
+          "fft_rows": 4,
+          "all_history_terms_retained": true
+        },
+        "all_physical_fields_bitwise_equal": true,
+        "all_supported_cotangents_bitwise_equal": true,
+        "exact_branch_changes": {
+          "exact_sliding_entries": 0,
+          "exact_opening_entries": 0,
+          "weakening_clip_entries": 0,
+          "weakening_clip_tie_entries": 0
+        },
+        "independent_five_parameter_max_relative": 2.2237820734289666e-06,
+        "observed_process_peak_rss_mib": 649.75,
+        "source_trajectory_sha256": "0463ac28a780015b154906a5820a83aceea956301db61160dea227bc90e67fa5",
+        "primal_solver_sha256": "0d949a84beb4b9d1cba5046469f6668dc06ce2ea0e6ef88ec6b8c6fd16620a22",
+        "adjoint_validator_sha256": "81c61bb1e393fba4c2ece904bb9e17e7669a118c7bee6b93ef53938e66411b9f",
+        "bounded_history_sha256": "bbf1d66ab1b1ff573a6ec613d249e86cd5dc460434ca3c9217cb064429273c55"
+      }
+    }
+  },
+  "fine4_adjoint": {
+    "dt_s": 4e-06,
+    "duration_s": 0.045,
+    "steps": 11250,
+    "dofs": 275,
+    "correction_lags": 5000,
+    "bounded_cache": {
+      "capacity_bytes": 134217728,
+      "peak_retained_kernel_fft_bytes": 118580000,
+      "cached_levels": [
+        32,
+        64
+      ],
+      "streamed_levels": [
+        128,
+        256,
+        512,
+        1024,
+        2048,
+        4096
+      ],
+      "streamed_updates": 36,
+      "kernel_fft_builds": 2486,
+      "fft_rows": 4,
+      "all_history_terms_retained": true
+    },
+    "all_supported_cotangents_bitwise_equal_to_unbounded": true,
+    "independent_original_z_comparisons": {
+      "gradient_max_abs_difference": 1.4234343524321957e-05,
+      "gradient_relative_difference": [
+        1.0265811186506741e-07,
+        8.363896809555464e-08,
+        1.0732054847761639e-07,
+        3.704382785185175e-08,
+        1.7989793948781176e-07
+      ],
+      "actuator_gradient_max_abs_difference": 6.225031619067067e-07,
+      "initial_plastic_slip_gradient_max_abs_difference": 5.4157348813532735e-05,
+      "initial_cumulative_slip_gradient_max_abs_difference": 5.3774283287566504e-05
+    },
+    "exact_branch_changes": {
+      "exact_sliding_entries": 0,
+      "exact_opening_entries": 0,
+      "weakening_clip_entries": 0,
+      "weakening_clip_tie_entries": 0
+    },
+    "original_pointwise_guard": {
+      "rtol": 1e-05,
+      "atol": 1e-12,
+      "passed": false,
+      "violations": {
+        "gradient": [],
+        "actuator_gradient": [
+          {
+            "index": 2393,
+            "actual": -0.00026690330585027726,
+            "reference": -0.0002668976120943583,
+            "difference": -5.6937559189478536e-09
+          }
+        ],
+        "initial_plastic_slip_gradient": [],
+        "initial_cumulative_slip_gradient": []
+      }
+    },
+    "bounded_record_sha256": "8adf8b1f6b06397f89df0e0b99f5c938f596599b21079905bcd0bd66c26dff51",
+    "unbounded_record_sha256": "c6cadb5b740fa36b9eff8effc95dc73a82a2b2572b7346b5bb7a9a6cf0a1fbe2",
+    "bounded_history_sha256": "bbf1d66ab1b1ff573a6ec613d249e86cd5dc460434ca3c9217cb064429273c55",
+    "adjoint_validator_sha256": "81c61bb1e393fba4c2ece904bb9e17e7669a118c7bee6b93ef53938e66411b9f",
+    "note": "Both bounded and original-cache resolvent controls exit1 at the identical single actuator cotangent. Existing fine4 legacy resolvent also failed the strict all-field absolute replay guard. Neither failure is relaxed or labeled an all-gradient pass."
+  },
+  "tests": {
+    "passed": 142,
+    "seconds": 71.89
+  },
+  "original_fem_equivalence_achieved": false,
+  "same_accuracy_fem_speed_advantage_achieved": false,
+  "native512_integration": {
+    "all_physical_fields_bitwise_equal": true,
+    "all_supported_cotangents_bitwise_equal": true,
+    "independent_reference_compared": true,
+    "max_independent_five_parameter_relative": 1.1287825541560502e-09,
+    "scope": "Previously prepared fresh-native 512-step diagnostic kernel; not a fresh native full45ms build"
+  },
+  "protected_original_source_checks": {
+    "/Volumes/Gauss-T7/tatva/runs/local-mus08-muk06-gap0-v2-ev16/input/case.toml": true,
+    "/Volumes/Gauss-T7/tatva/runs/local-mus08-muk06-gap0-v2-ev16/input/resolved.json": true,
+    "/Volumes/Gauss-T7/tatva/tatva/pmma/dynamics.py": true,
+    "/Volumes/Gauss-T7/tatva/tatva/friction.py": true,
+    "hdf5_size_and_mtime_unchanged": true
+  }
+}
