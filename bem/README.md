@@ -38,6 +38,10 @@ shear 資料與最後狀態逐位元相同，bulk 輸出可大幅減少；原 h2
 另有 [避免反轉剛體模態的 Schur 消去](docs/schur_condensation.md)：
 細網格實際 CQ 端點的消去矩陣條件數約由 320 萬降至 304，算子仍相差約 1e-12。
 這改善低頻線性代數，尚未證明完整摩擦軌跡或整體效能優勢。
+新增[局部接觸子步](docs/substepped_contact.md)，並在完整條件式adjoint傳遞前一步位移依賴；
+小型原始Z-history／JAX scan作獨立核對，完整事件子步對照仍待完成。
+另有[受限解析域的頻譜重用原型](docs/cauchy_reuse.md)，旨在減少相同Q下時間網格比較的重複建核；
+尚未宣稱大型案例的誤差或加速結果。
 
 程式與 Tatva、Bem2d.jl 獨立，不需要讀取或修改外接磁碟，也不需要上層 repository 的 Julia 環境。
 可以把本資料夾獨立放進新的 GitHub repository。

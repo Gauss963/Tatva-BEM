@@ -120,6 +120,8 @@ def main():
         )
         if summary.get("schedule") == "recorded_fem_actuator_diagnostic":
             label += ", FEM actuator replay"
+        if summary.get("constitutive_substeps", 1) > 1:
+            label += f", contact substeps={summary['constitutive_substeps']}"
         history = read_history(run / "history.csv")
         with np.load(run / "trajectory.npz", allow_pickle=False) as trajectory:
             strength = trajectory["friction_coefficient"] * trajectory["pressure"]
@@ -138,6 +140,9 @@ def main():
                     trajectory["shear"][1:] * np.diff(trajectory["plastic_slip"], axis=0) * weights
                 )
             )
+            endpoint_work = friction_work
+            if "micro_friction_work_mpa_mm2" in summary:
+                friction_work = summary["micro_friction_work_mpa_mm2"]
             state_checks = {
                 "all_saved_fields_finite": all(
                     np.all(np.isfinite(trajectory[key])) for key in trajectory.files
@@ -223,6 +228,10 @@ def main():
                 "max_residual_mpa": summary["max_boundary_contact_residual_mpa"],
                 "max_strength_ratio": max_strength_ratio,
                 "friction_work_mpa_mm2": friction_work,
+                "endpoint_friction_work_mpa_mm2": endpoint_work,
+                "friction_work_policy": "Sum over accepted constitutive substeps"
+                if "micro_friction_work_mpa_mm2" in summary
+                else "Endpoint traction times plastic increment",
                 "final_p1_profile_relative_l2": profile_errors,
                 "environment": summary["environment"],
                 "source_changed_during_run": summary.get("source_changed_during_run"),

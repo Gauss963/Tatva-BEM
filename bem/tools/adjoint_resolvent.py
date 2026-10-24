@@ -339,12 +339,16 @@ def main():
     replay = json.loads((args.replay / "summary.json").read_text())
     options = json.loads((args.original / "run_manifest.json").read_text())["arguments"]
     environment = environment_record(options["case"])
+    substeps = original.get("constitutive_substeps", 1)
+    if substeps != replay.get("constitutive_substeps", 1):
+        raise ValueError("Source/replay constitutive substep counts differ")
+    if substeps != 1 and not standalone:
+        raise ValueError("Cross-run microbranch comparison is not implemented; use standalone AD")
+    substep_path = Path(__file__).with_name("substepped_contact_experiment.py")
+    substep_sha = None if substeps == 1 else fingerprint(substep_path)
     for record in [original, replay]:
-        if record.get("constitutive_substeps", 1) != 1:
-            raise ValueError(
-                "Substepped contact requires an extra previous-displacement cotangent; "
-                "the endpoint-law trajectory adjoint is not applicable"
-            )
+        if substep_sha is not None and record.get("constitutive_substep_sha256") != substep_sha:
+            raise ValueError("Saved constitutive substep implementation differs")
         for name in ["source_sha256", "case_sha256", "restart_data_sha256"]:
             if record["environment"][name] != environment[name]:
                 raise ValueError(f"Saved run differs in {name}")
@@ -530,7 +534,7 @@ def main():
     branch_function = runpy.run_path(str(Path(__file__).with_name("run_adjoint.py")))[
         "exact_contact_branches"
     ]
-    source_branches = branch_function(model.reference, source)
+    source_branches = None if substeps != 1 else branch_function(model.reference, source)
     branch_changes = (
         None
         if standalone
@@ -547,7 +551,10 @@ def main():
         replay["first_correction_step"],
         coordinate_scale=coordinate_scale,
         convolution_factory=convolution_factory,
+        constitutive_substeps=substeps,
     )
+    if substep_sha is not None and substep_sha != fingerprint(substep_path):
+        raise ValueError("Constitutive substep implementation changed during adjoint evaluation")
     if bounded_sha is not None and bounded_sha != fingerprint(bounded_path):
         raise ValueError("Bounded history changed during adjoint evaluation")
     if validator_sha != fingerprint(Path(__file__)):
@@ -617,6 +624,7 @@ def main():
         exact_branch_changes=branch_changes,
         environment=environment,
         validator_sha256=validator_sha,
+        constitutive_substep_sha256=substep_sha,
         bounded_history_sha256=bounded_sha,
         fft_cache_mb=args.fft_cache_mb,
         estimated_solver_array_peak_mib=estimate / 1024**2,

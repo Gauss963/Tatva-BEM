@@ -75,6 +75,16 @@ def fortran_fmm2d_backend(library_path, eps=1e-13):
         functions[derivative] = function
 
     def evaluate(sources, densities, targets, derivative):
+        sources, targets = np.asarray(sources, dtype=complex), np.asarray(targets, dtype=complex)
+        densities = np.asarray(densities, dtype=complex)
+        if (
+            sources.ndim != 1
+            or targets.ndim != 1
+            or densities.ndim != 2
+            or densities.shape[1] != len(sources)
+            or not all(np.all(np.isfinite(a)) for a in [sources, targets, densities])
+        ):
+            raise ValueError("Finite complex coordinates and matching density arrays are required")
         coords = np.asfortranarray(np.stack((sources.real, sources.imag)), dtype=np.float64)
         target_coords = np.asfortranarray(np.stack((targets.real, targets.imag)), dtype=np.float64)
         strengths = np.asfortranarray(densities, dtype=np.complex128)
