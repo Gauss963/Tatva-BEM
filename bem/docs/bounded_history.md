@@ -38,6 +38,9 @@ native 建核亦增加時間權重與完整啟動的磁碟預留檢查，避免�
 以及五參數、elastic prefix、每步 actuator、兩種初始狀態 cotangent，
 均與原快取規則**逐位元相同**。四種精確接觸分支變更為零。
 對獨立原 Z forward sensitivity，五參數最大相對差約 2.23e-6，通過原容差。
+後續補做既有直接 L 的完整 actuator／初始狀態比較時，初始狀態通過，
+但 actuator index 1724 有一筆未通過原容差；[近遠場實驗](mixed_quadrature.md)
+記錄該控制組及獨立 forward JVP。快取規則之間的逐位元等價仍成立。
 
 另將先前 fresh native 建立的 512 步診斷 kernel 與 0 MiB 快取組合，
 物理欄位及所有支援的 cotangent 也與原規則逐位元相同，並通過獨立原 Z guard。

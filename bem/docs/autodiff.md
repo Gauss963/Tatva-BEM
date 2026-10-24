@@ -163,3 +163,17 @@ static lift 的約束／平衡微分須與動態 impedance 縮減分開處理。
 使用 bilinear cotangent pairing；文獻中的 Hermitian adjoint 必須先轉換到相符的表示。
 後續實作需以獨立實／虛部方向的 JVP/VJP pairing、材料擾動及解析波速檢查，
 再串接 CQ、初始場與固定分支的完整軌跡。現階段沒有將此列為已完成的 AD 功能。
+
+另新增 `tools/check_actuator_sensitivity.py`，以單一 actuator pulse 的獨立 forward-CQ
+JVP 核對指定載入 cotangent，固定 bulk、lift、記錄載入事件時間及接觸分支。
+完整粗 Q8 的 index 1724（6.896 ms）forward 為 2.2166394777e-5，
+與原 Z reverse 相差 1.58e-14。此參考點支持原 Z 導數；
+直接 L 與近遠場 native L 在該點的原 guard 仍失敗，詳見 [完整比較](mixed_quadrature.md)。
+檢查器亦在含滑動與非零歷史的耦合 toy 上核對滑動前、開始與後續三個輸入時間。
+
+```sh
+FDBEM_CORES=4 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 \
+VECLIB_MAXIMUM_THREADS=1 JAX_ENABLE_X64=true PYTHONPATH=bem/src python -B \
+  bem/tools/check_actuator_sensitivity.py ORIGINAL_Z_RUN --indices 1724 \
+  --max-memory-mb 4096 --output NEW_ACTUATOR_CHECK
+```

@@ -24,7 +24,8 @@ resolvent 現可直接建立新時間網格，並核對參數、載入及初始�
 新增 [逐點驗證的頻譜儲存壓縮](docs/polynomial_spectrum.md)：完整粗網格頻譜約縮減 4.27 倍，
 並重新核對 45 ms 解與五參數 adjoint。
 另有 [直接保存 CQ 插值與磁碟時間權重](docs/native_spectrum.md)，可避免首次配置完整稠密頻譜；
-實際 BEM 的 512 步診斷已核對解與各種 cotangent，fresh native 建核的完整 45 ms 仍待驗證。
+實際 BEM 的 512 步診斷已核對解與各種 cotangent；與近遠場積分組合的完整粗 45 ms
+亦通過解與原方程核對，但有一筆載入 cotangent guard 尚未通過。
 新增 [指定容量的 FFT 歷史快取](docs/bounded_history.md)：完整粗網格 45 ms 的解與各種 cotangent
 在 0／8 MiB 設定下逐位元相同。較細網格 adjoint 亦與原快取規則逐位元相同，
 但既有 L／原 Z 的單一載入梯度 guard 仍未通過，保留原容差與失敗紀錄。
@@ -32,7 +33,7 @@ resolvent 現可直接建立新時間網格，並核對參數、載入及初始�
 shear 資料與最後狀態逐位元相同，bulk 輸出可大幅減少；原 h2 參考已排在現行 BEM 工作之後，尚未完成。
 新增 [固定幾何近遠場積分](docs/mixed_quadrature.md)：細網格近 Q12／遠 Q8
 減少約 53% 積分點，九個頻率點的額外算子差約 1e-12；短程解與條件式 AD 已核對。
-完整 45 ms 等價性仍在驗證，尚未切換預設 backend 或宣稱整體加速倍數。
+完整粗 45 ms 的解／分支核對通過，載入梯度有一筆失敗；尚未切換預設 backend 或宣稱整體加速倍數。
 另有 [避免反轉剛體模態的 Schur 消去](docs/schur_condensation.md)：
 細網格實際 CQ 端點的消去矩陣條件數約由 320 萬降至 304，算子仍相差約 1e-12。
 這改善低頻線性代數，尚未證明完整摩擦軌跡或整體效能優勢。

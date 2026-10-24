@@ -186,6 +186,16 @@ def test_correction_adjoint_keeps_kn_kt_and_initial_state_prefix_derivatives():
     )
     start = int(np.flatnonzero(cumulative[:, 0] > 0)[0])
     assert 2 <= start < 20
+    forward_actuator = runpy.run_path(
+        str(Path(__file__).resolve().parents[1] / "tools/check_actuator_sensitivity.py")
+    )["actuator_forward_gradient"]
+    for index in [1, start, 15]:
+        actual = forward_actuator(system, BoundaryHistory(plan, zweights), result, reference, index)
+        np.testing.assert_allclose(
+            actual, original["actuator_gradient"][index], rtol=1e-10, atol=1e-12
+        )
+    with pytest.raises(ValueError, match="fixed initial state"):
+        forward_actuator(system, BoundaryHistory(plan, zweights), result, reference, 0)
     tangent = np.diag([100.0, 40, 2])
     zeta = plan.radius * np.exp(-2j * np.pi * np.arange(plan.fft_size // 2 + 1) / plan.fft_size)
     spectrum = np.stack([np.linalg.inv(zfun(s) + tangent) for s in bdf2_symbol(zeta) / plan.dt])

@@ -506,7 +506,7 @@ def main():
                 abs(delta) / np.maximum(abs(target_gradient), 1e-15)
             ).tolist(),
         )
-        checks.append((answer["gradient"], target_gradient))
+        checks.append(("gradient", answer["gradient"], target_gradient))
     for name in [
         "actuator_gradient",
         "initial_plastic_slip_gradient",
@@ -517,7 +517,28 @@ def main():
             comparisons[f"{name}_max_abs_difference"] = float(
                 np.max(abs(answer[name] - target_value))
             )
-            checks.append((answer[name], target_value))
+            checks.append((name, answer[name], target_value))
+    guards = {}
+    for name, actual, expected in checks:
+        bad = np.flatnonzero(~np.isclose(actual, expected, rtol=1e-5, atol=1e-12))
+        allowance = 1e-12 + 1e-5 * abs(expected)
+        scaled = abs(actual - expected) / allowance
+        guards[name] = dict(
+            passed=not len(bad),
+            size=int(np.size(actual)),
+            failed_count=len(bad),
+            max_scaled_error=float(np.max(scaled)) if np.all(np.isfinite(scaled)) else None,
+            failed_entries=[
+                dict(
+                    flat_index=int(index),
+                    actual=float(np.ravel(actual)[index]),
+                    expected=float(np.ravel(expected)[index]),
+                    allowed_absolute_difference=float(np.ravel(allowance)[index]),
+                )
+                for index in bad[:32]
+            ],
+            failed_entries_truncated=len(bad) > 32,
+        )
     serializable = {
         name: value.tolist() if isinstance(value, np.ndarray) else value
         for name, value in answer.items()
@@ -525,6 +546,10 @@ def main():
     record = dict(
         **serializable,
         comparisons=comparisons,
+        cotangent_comparison_guards=guards,
+        all_compared_cotangents_passed=None
+        if not guards
+        else all(g["passed"] for g in guards.values()),
         maximum_absolute_field_difference=differences,
         strict_field_comparison_passed=None
         if differences is None
@@ -562,7 +587,7 @@ def main():
         raise ValueError(
             "Replay changed a contact branch; conditional gradients cannot be directly compared"
         )
-    for actual, expected in checks:
+    for _, actual, expected in checks:
         np.testing.assert_allclose(actual, expected, rtol=1e-5, atol=1e-12)
     if differences is not None and max(differences.values()) > 1e-5:
         raise ValueError("Resolvent candidate differs from original fields by more than 1e-5")

@@ -2,7 +2,8 @@
 
 2026-10-24。此實驗讓首次建核也能避免完整稠密頻譜，不只在建核之後壓縮快取。
 它保留所有頻率格點、完整因果啟動及每個所需修正 lag，目的是支援更細時間步的收斂研究。
-目前尚未以此 backend 完成原 45 ms 事件，亦未證明與 FEM 等精度的速度優勢。
+目前已與近遠場積分組合完成粗網格 45 ms 的解核對，但一筆載入 cotangent guard
+仍失敗；尚未完成原解析度重現，亦未證明與 FEM 等精度的速度優勢。
 
 ## 方法與誤差範圍
 
@@ -59,6 +60,11 @@ AD 範圍仍是固定 bulk、lift、記錄載入與 active branches 的條件式
 瞬時 L0 inverse composition 的無窮範數誤差為 3.99e-11。
 這也驗證 prepared standalone trajectory 可以明確指定原 Z 作為獨立 AD 參考。
 原始數字、指紋與驗證範圍保存在 [結果紀錄](native_spectrum_results.json)。
+
+後續的[近遠場組合實驗](mixed_quadrature.md)補上完整粗網格 45 ms：
+全部七個前向欄位、原完整 Z 平衡及精確分支通過；native 半頻譜陣列約縮減 5.75 倍。
+五參數與初始狀態 cotangent 通過，但 actuator 的 11251 筆中有一筆未通過原容差。
+uniform Q8 的舊直接 L 控制組也在同一 index 失敗，因此目前保留未完成 AD 驗證的狀態。
 
 ## 使用
 

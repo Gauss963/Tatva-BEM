@@ -73,6 +73,11 @@ kn／kt 導數仍不為零；程式另以頻率分塊的向量轉置作用取得
 prepared candidate 的比較現使用該前向 solver 的瞬時 impedance，核對檔案指紋，
 並另列全部七個前向欄位的原容差 guard；standalone 不填入獨立比較通過標記。
 此檢查亦用於[固定近遠場積分](mixed_quadrature.md)的實驗。
+2026-10-24 補上原粗 Q8 直接 L 的全部 cotangent 比較：參數與初始狀態通過，
+但 actuator index 1724 的絕對差 2.56e-10，略超過原 `rtol=1e-5, atol=1e-12`。
+近 Q8／遠 Q6 native 組合亦在同一 index 失敗，絕對差 8.40e-10。
+兩個控制都保留退出碼 1；原 Z 的該點已另以 forward-CQ JVP 核對至約 1.6e-14 絕對差。
+此項更新補足早期只核對五參數的驗證範圍，不把微小殘差視為所有載入導數已吻合。
 
 另修正原 `run_adjoint.py` 的有限差分診斷：以接受的 jumps 和**前一步**狀態判斷
 精確滑動／開閉，另外記錄 weakening clip 及 `c_old == Dc` 的等值分支。

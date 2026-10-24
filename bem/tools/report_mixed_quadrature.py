@@ -3,9 +3,25 @@
 import json
 from pathlib import Path
 
+import numpy as np
+
 from finiteblock_bem.io import fingerprint, write_json
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def read_record(path):
+    data = json.loads(path.read_text())
+    if len(data.get("actuator_gradient", [])) > 1024:
+        values = np.asarray(data.pop("actuator_gradient"), dtype=np.float64)
+        data["actuator_gradient_summary"] = dict(
+            size=len(values),
+            minimum=float(values.min()),
+            maximum=float(values.max()),
+            l2_norm=float(np.linalg.norm(values)),
+            scope="Full vector retained in the fingerprinted raw JSON; per-array guards retain failing entries",
+        )
+    return dict(path=str(path.relative_to(ROOT)), sha256=fingerprint(path), data=data)
 
 
 def main():
@@ -27,11 +43,7 @@ def main():
     )
     for name, relative in paths.items():
         path = ROOT / "outputs" / relative
-        record["records"][name] = dict(
-            path=relative,
-            sha256=fingerprint(path),
-            data=json.loads(path.read_text()),
-        )
+        record["records"][name] = read_record(path)
     full = ROOT / "outputs/mixed6-near8-native-coarse4-rollout"
     record["full_coarse_experiment"] = dict(
         output=str(full),
@@ -41,9 +53,15 @@ def main():
     for filename in ["summary.json", "resolvent_adjoint.json", "original_residual.json"]:
         path = full / filename
         if path.is_file():
-            record["full_coarse_experiment"][filename] = dict(
-                sha256=fingerprint(path), data=json.loads(path.read_text())
-            )
+            record["full_coarse_experiment"][filename] = read_record(path)
+    for name, relative in {
+        "full_coarse_kernel": "mixed6-near8-native-coarse4-kernel/summary.json",
+        "uniform_L_full_cotangent_control": "direct-coarse4-fullcotangent-check/resolvent_adjoint.json",
+        "original_Z_forward_actuator_check": "coarse4-actuator-forward1724/summary.json",
+    }.items():
+        path = ROOT / "outputs" / relative
+        if path.is_file():
+            record["records"][name] = read_record(path)
     workflow = ROOT / "outputs/mixed-coarse4-workflow-20261024.json"
     if workflow.is_file():
         state = json.loads(workflow.read_text())
