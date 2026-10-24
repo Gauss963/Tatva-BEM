@@ -128,3 +128,38 @@ FDBEM_CORES=4 bem/run.sh adjoint bem/outputs/interface-corners-dt8-final \
 短程非線性診斷的 NumPy／JAX 軌跡、scan AD、reverse-CQ 及中央差分已核對。
 目標是末接觸加權平均累積滑移；端點權重與壓板共用自由度一併納入。
 這項改動保留上述固定 bulk、初始場、載入和分支條件，沒有補上事件時間導數。
+
+## 2026-10-24：JAX-BEM 文獻與材料導數的後續路線
+
+補讀 [Hipperson 等人的 JAX-BEM（2026）](https://arxiv.org/html/2604.21431v1)，
+其 §3.2 使用 custom VJP 求平衡根導數，§5 指出完整 BEM 重算與 AD 記憶體仍昂貴。
+該工作的聲學形狀最佳化結果不能當作本案摩擦動力學的精度或效能證據。
+目前的局部 JAX VJP、隱式接觸根與完整 reverse-CQ 因此繼續保留；
+不把所有頻率與所有 Newton iterations 放進同一反向 tape。
+
+對未來的 bulk 材料 AD，可先利用本模型的獨立尺度關係。
+固定幾何、Poisson ratio 與積分規則，**不包含 contact penalties 和 platen spring** 的
+力／位移 impedance 滿足
+
+```text
+Z(s; alpha*E, beta*rho) = alpha * Z(s*sqrt(beta/alpha); E, rho)
+E * partial_E Z = Z - (s/2) * partial_s Z
+rho * partial_rho Z = (s/2) * partial_s Z.
+```
+
+這由 Navier 方程的剛度與慣性尺度直接導出。
+新增測試以三組獨立 E／rho 變動，重新組裝兩有限體的靜態 boundary stiffness，
+並在兩個右半平面複數頻率核對第一個式子，而非只代入同一函式的導數。
+靜態時不能直接反轉 free-body compliance 的剛體零模態；
+static lift 的約束／平衡微分須與動態 impedance 縮減分開處理。
+這是尺度關係的數值驗證，**尚未實作材料梯度**；也不涵蓋 nu 的改變。
+
+下一步可針對頻率核提供解析或經核對的 `partial_s Z`，並對
+`L = inverse(Z+C+K)` 使用 `dL = -L*(dZ)*L`，重用 forward 的分解。
+若改變 kn／kt，C 的導數必須同時包含；static lift 的參數依賴仍需另做隱式微分。
+既有頻譜插值的導數不能只靠前向取樣誤差作保證，更不能未經驗證就向原 contour 外插。
+
+複數 pullback 也須注意 convention：[JAX 官方 cookbook](https://docs.jax.dev/en/latest/301/cookbook.html)
+使用 bilinear cotangent pairing；文獻中的 Hermitian adjoint 必須先轉換到相符的表示。
+後續實作需以獨立實／虛部方向的 JVP/VJP pairing、材料擾動及解析波速檢查，
+再串接 CQ、初始場與固定分支的完整軌跡。現階段沒有將此列為已完成的 AD 功能。
