@@ -238,5 +238,11 @@
     "/Volumes/Gauss-T7/tatva/tatva/pmma/dynamics.py": true,
     "/Volumes/Gauss-T7/tatva/tatva/friction.py": true,
     "hdf5_size_and_mtime_unchanged": true
+  },
+  "numerical_equivalence_implementation_commit": "e1cb6f2",
+  "final_resource_guard_validation": {
+    "tests_passed": 148,
+    "seconds": 62.95,
+    "nonfinite_or_zero_cli_memory_rejected_before_reading_inputs": true
   }
 }

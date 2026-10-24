@@ -232,6 +232,8 @@ def main():
     parser.add_argument("--fft-cache-mb", type=float, help="Cap retained transpose kernel FFTs")
     parser.add_argument("--fft-rows", type=int, default=4)
     args = parser.parse_args()
+    if not np.isfinite(args.max_memory_mb) or args.max_memory_mb <= 0:
+        raise ValueError("A finite positive memory budget is required")
     validator_sha = fingerprint(Path(__file__))
     standalone = args.replay is None
     if standalone:
