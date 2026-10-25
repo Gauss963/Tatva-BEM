@@ -10,11 +10,13 @@ import hashlib
 import json
 import math
 import os
+import resource
 import runpy
 import shutil
+import sys
 from dataclasses import asdict, replace
 from pathlib import Path
-from time import perf_counter
+from time import perf_counter, process_time
 
 import numpy as np
 from threadpoolctl import threadpool_limits
@@ -46,7 +48,7 @@ def main():
         or not all(np.isfinite(x) and x > 0 for x in [args.max_memory_mb, args.fmm_workspace_mb])
     ):
         raise ValueError("Positive finite time/resource options are required")
-    begun = perf_counter()
+    begun, cpu_begun = perf_counter(), process_time()
     cauchy_path = TOOLS / "cauchy_reuse_experiment.py"
     cauchy_sha = fingerprint(cauchy_path)
     cauchy = runpy.run_path(str(cauchy_path))
@@ -177,6 +179,7 @@ def main():
             target._mmap.close()
             print(f"resampled rows: {row + 1}/{d}", flush=True)
     resampling_seconds = perf_counter() - resampling_started
+    inversion_started = perf_counter()
     norm = np.sum(abs(fresh) ** 2, axis=(1, 2))
     reuse_errors = np.sqrt(reuse_square / norm)
     fresh_errors = np.sqrt(fresh_square / norm)
@@ -187,6 +190,8 @@ def main():
         spectrum, plan, args.output / "weights.npy", max_workspace_mb=args.max_memory_mb
     )
     weights._mmap.close()
+    inversion_seconds = perf_counter() - inversion_started
+    startup_started = perf_counter()
     model = load_nodal_model(
         options["case"],
         max_panel_length=options["h"],
@@ -227,6 +232,7 @@ def main():
         elastic=elastic,
         uninterrupted_actuator=model.reference.restart_actuator + rate * time,
     )
+    startup_seconds = perf_counter() - startup_started
     for path, digest in frozen.items():
         if fingerprint(path) != digest:
             raise ValueError("Reused kernel implementation or frozen input changed")
@@ -263,7 +269,6 @@ def main():
         fmm_threads_requested=args.threads,
         hard_cpu_affinity_enforced=False,
         resampling_seconds=resampling_seconds,
-        total_seconds=perf_counter() - begun,
         environment=environment,
         sampled_fresh_bem_relative_errors=fresh_errors.tolist(),
         sampled_fmm_relative_errors=reuse_errors.tolist(),
@@ -277,6 +282,27 @@ def main():
         full_original_event_reproduced=False,
         certified_error_bound=False,
         scope="Streamed contour reuse checked against independent sampled BEM matrices; full trajectory and conditional AD require separate verification",
+    )
+    # Include output hashes in total setup cost, rather than timing only the
+    # floating-point work while excluding large-file verification.
+    elapsed = perf_counter() - begun
+    record.update(
+        total_seconds=elapsed,
+        process_cpu_seconds=process_time() - cpu_begun,
+        peak_process_rss_mib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
+        / (1024**2 if sys.platform == "darwin" else 1024),
+        timing_seconds=dict(
+            source_verification_and_preparation=resampling_started - begun,
+            resampling_and_spectrum_writes=resampling_seconds,
+            inverse_fft=inversion_seconds,
+            physical_weights_and_elastic_startup=startup_seconds,
+            final_checks_and_hashes=elapsed
+            - (resampling_started - begun)
+            - resampling_seconds
+            - inversion_seconds
+            - startup_seconds,
+            total_before_reporting=elapsed,
+        ),
     )
     write_json(args.output / "summary.json", record)
     print(json.dumps({k: v for k, v in record.items() if k != "environment"}, indent=2))
