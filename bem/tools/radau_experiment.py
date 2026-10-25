@@ -58,6 +58,70 @@ def matrix_function(transfer, symbol):
     return result
 
 
+def compact_matrix_function(transfer, zeta, dt):
+    """Represent the two-stage transfer as I*F0(z) + Delta(z)*F1(z).
+
+    Cayley-Hamilton gives two d-by-d coefficient matrices instead of four
+    stage blocks. This is exact algebra, not a low-rank approximation. The
+    symbol is dimensionless here, so the second coefficient is well scaled.
+    """
+    if not np.isfinite(dt) or dt <= 0 or not np.isfinite(zeta):
+        raise ValueError("Finite contour node and positive dt required")
+    symbol = radau_symbol(zeta)
+    eigenvalues, vectors = np.linalg.eig(symbol)
+    if np.linalg.cond(vectors) > 1e8:
+        raise ValueError("Near-defective RK symbol requires a Schur/derivative evaluator")
+    values = [np.atleast_2d(transfer(s / dt)) for s in eigenvalues]
+    d = values[0].shape[0]
+    if any(v.shape != (d, d) or not np.all(np.isfinite(v)) for v in values):
+        raise ValueError("Transfer must return finite, equally sized square matrices")
+    gap = eigenvalues[1] - eigenvalues[0]
+    f0 = (eigenvalues[1] * values[0] - eigenvalues[0] * values[1]) / gap
+    f1 = (values[1] - values[0]) / gap
+    return f0, f1
+
+
+def invert_compact_spectrum(f0, f1, plan):
+    """Retain two CQ weight families and the finite-DFT shift wrap at lag zero.
+
+    The z*Delta1 term shifts a coefficient by one lag. On a finite damped
+    circle its lag-zero coefficient also contains radius*IFFT(F1)[-1].
+    Keeping that term reproduces the dense finite-CQ operator, including
+    aliasing, without constructing a (2d)-by-(2d) spectrum.
+    """
+    expected = (plan.fft_size // 2 + 1, plan.dofs, plan.dofs)
+    if f0.shape != expected or f1.shape != expected:
+        raise ValueError("Compact spectra must match the single-stage CQ plan")
+    for spectrum in [f0, f1]:
+        if not np.all(np.isfinite(spectrum)):
+            raise ValueError("Compact spectra must be finite")
+        for endpoint in [0, len(spectrum) - 1]:
+            if np.linalg.norm(spectrum[endpoint].imag) > 1e-10 * max(
+                np.linalg.norm(spectrum[endpoint].real), 1
+            ):
+                raise ValueError("Compact real-axis matrices violate conjugate symmetry")
+    from scipy.fft import irfft
+
+    wrap = plan.radius * irfft(f1, n=plan.fft_size, axis=0)[-1]
+    return invert_spectrum(f0.copy(), plan), invert_spectrum(f1.copy(), plan), wrap
+
+
+def expand_compact_weights(w0, w1, wrap):
+    """Small reference expansion; a production history should keep both families."""
+    if w0.ndim != 3 or w0.shape != w1.shape or w0.shape[1:] != wrap.shape:
+        raise ValueError("Compact weight dimensions differ")
+    if w0.shape[1] != w0.shape[2] or not all(np.all(np.isfinite(v)) for v in [w0, w1, wrap]):
+        raise ValueError("Compact weights must be finite square matrices")
+    delta0 = np.linalg.inv(A)
+    delta1 = -np.outer(delta0 @ np.ones(2), [0, 1])
+    shifted = np.empty_like(w1)
+    shifted[0], shifted[1:] = wrap, w1[:-1]
+    expanded = np.einsum("ij,nab->niajb", np.eye(2), w0)
+    expanded += np.einsum("ij,nab->niajb", delta0, w1)
+    expanded += np.einsum("ij,nab->niajb", delta1, shifted)
+    return expanded.reshape(len(w0), 2 * w0.shape[-1], 2 * w0.shape[-1])
+
+
 def radau_weights(transfer, plan, *, workers=1):
     if plan.dofs % 2:
         raise ValueError("Radau stage DOFs must be even")
