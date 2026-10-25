@@ -96,6 +96,8 @@ fine 1 us 尚未完成建核與事件驗證，不能據此宣稱本機已完成�
 不能同時指定新的restart-knot加密。物理case、材料、載入與摩擦參數仍沿用已驗證來源。
 每次都重新組裝BEM核心，metadata保存實際網格參數與明確覆寫項目；
 不把不同接觸節點的舊權重套到新網格。這項功能本身尚非細網格45ms驗證。
+另可使用[完全相等r的組裝重用](unique_radius.md)選項`--assembly unique-radius`；
+其額外indices、排序與worker table另納入建核陣列估計，預設仍為reference。
 
 時間權重及elastic startup的SHA改用固定大小分塊讀取，
 避免對數十GiB檔案呼叫`read_bytes()`。建核總時間包含輸出校驗碼，

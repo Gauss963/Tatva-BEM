@@ -65,6 +65,31 @@ def discretization_arguments(source, args):
     return options, overrides
 
 
+def unique_radius_workspace(model, quadrature, workers, chunk_size):
+    """Conservative extra arrays before preparing the exact-radius index.
+
+    Adjacent pairs use two QxQ triangles, all other pairs one. Radius maps
+    are shared; seven complex radial families are local to each frequency.
+    Bodies are assembled sequentially by each worker. Sorting is sequential
+    during preparation, before any frequency table is allocated.
+    """
+    counts = [
+        (mesh.count * (mesh.count + 1) // 2 + mesh.count) * quadrature**2
+        for mesh in [model.reference.moving, model.reference.stationary]
+    ]
+    maximum, batch = max(counts), 64 * quadrature**2
+    index_bytes = 4 if maximum <= 2**32 else 8
+    shared = (8 + index_bytes) * sum(counts)
+    radial = 7 * 16 * (maximum + batch) + 1024 * min(chunk_size, maximum)
+    return dict(
+        quadrature_radius_count_upper_bound=counts,
+        shared_index_bytes=shared,
+        per_worker_radial_bytes=radial,
+        all_worker_radial_bytes=workers * radial,
+        preparation_sort_extra_bytes=64 * maximum,
+    )
+
+
 def preflight_time_storage(folder, plan, full_steps):
     """Protect space for every time weight, startup vector and small metadata.
 
@@ -104,6 +129,9 @@ def main():
     parser.add_argument("--restart-knot-subdivisions", type=int)
     parser.add_argument("--clear-restart-knots", action="store_true")
     parser.add_argument("--quadrature", type=int)
+    parser.add_argument("--assembly", choices=["reference", "unique-radius"], default="reference")
+    parser.add_argument("--radial-chunk-size", type=int, default=4096)
+    parser.add_argument("--max-radial-workspace-mb", type=float, default=1024)
     parser.add_argument("--sampling-rtol", type=float, default=1e-8)
     parser.add_argument("--sampling-atol", type=float, default=1e-14)
     parser.add_argument("--workers", type=int, default=int(os.environ.get("FDBEM_CORES", "1")))
@@ -117,6 +145,10 @@ def main():
         raise ValueError("A finite positive array workspace budget is required")
     if not isinstance(args.fft_rows, int) or args.fft_rows < 1:
         raise ValueError("fft_rows must be a positive integer")
+    if args.radial_chunk_size < 1 or not (
+        np.isfinite(args.max_radial_workspace_mb) and args.max_radial_workspace_mb > 0
+    ):
+        raise ValueError("Require positive radial chunk size and finite workspace budget")
     started = perf_counter()
     cpu_started = process_time()
     frozen_paths = [
@@ -128,6 +160,8 @@ def main():
         args.source / "summary.json",
         args.source / "run_manifest.json",
     ]
+    if args.assembly == "unique-radius":
+        frozen_paths.append(TOOLS / "unique_radius_experiment.py")
     frozen = {str(path): fingerprint(path) for path in frozen_paths}
     source = json.loads((args.source / "summary.json").read_text())
     source_options = json.loads((args.source / "run_manifest.json").read_text())["arguments"]
@@ -191,7 +225,25 @@ def main():
     row_ifft += 64 * d**2 * 16
     interpolation_copies = 4 * (sampling.degree + 1) * d**2 * 16
     startup = 8 * fft_size * d * 16 + 24 * (full_steps + 1) * d * 8
-    peak = assembly + interpolation_copies + max(row_ifft, startup) + 128 * 1024**2
+    peak = assembly + interpolation_copies + max(row_ifft, startup)
+    radial_workspace = None
+    if args.assembly == "unique-radius":
+        radial_workspace = unique_radius_workspace(
+            model, options["quadrature"], args.workers, args.radial_chunk_size
+        )
+        shared = radial_workspace["shared_index_bytes"]
+        # The assembler remains live through the native sampler's row IFFT,
+        # and is explicitly deleted before the elastic startup. Worker tables
+        # are local calls and do not remain live during the IFFT or sorting.
+        peak = max(
+            peak,
+            assembly + shared + radial_workspace["preparation_sort_extra_bytes"],
+            assembly
+            + interpolation_copies
+            + shared
+            + max(radial_workspace["all_worker_radial_bytes"], row_ifft),
+        )
+    peak += 128 * 1024**2
     if peak > args.max_memory_mb * 1024**2:
         raise ValueError(f"Native construction array estimate is {peak / 1024**2:.1f} MiB")
     args.output.mkdir(parents=True, exist_ok=True)
@@ -222,7 +274,32 @@ def main():
             print(f"progress: {done}/{total}", flush=True)
             last_progress[0] = now
 
-    transfer = NodalInterfaceTransfer(model, quadrature=options["quadrature"])
+    operator_record = None
+    if args.assembly == "unique-radius":
+        radial_tool = runpy.run_path(str(TOOLS / "unique_radius_experiment.py"))
+        transfer = radial_tool["unique_radius_transfer"](
+            model,
+            quadrature=options["quadrature"],
+            radial_chunk_size=args.radial_chunk_size,
+            max_radial_workspace_mb=args.max_radial_workspace_mb,
+        )
+        body_statistics = [body.statistics() for body in transfer.prepared]
+        if (
+            sum(s["radius_index_bytes"] for s in body_statistics)
+            > radial_workspace["shared_index_bytes"]
+            or max(s["radial_workspace_estimate_bytes"] for s in body_statistics)
+            > radial_workspace["per_worker_radial_bytes"]
+        ):
+            raise ValueError("Prepared exact-radius arrays exceed their preflight estimate")
+        operator_record = dict(
+            method="exact_radius_galerkin_reuse",
+            radius_rounding_or_interpolation=False,
+            body_statistics=body_statistics,
+            additional_workspace_estimate=radial_workspace,
+            implementation_sha256=frozen[str(TOOLS / "unique_radius_experiment.py")],
+        )
+    else:
+        transfer = NodalInterfaceTransfer(model, quadrature=options["quadrature"])
 
     def evaluate(s, operator=transfer):
         return original["compliance_in_work_coordinates"](
@@ -243,7 +320,12 @@ def main():
             fft_rows=rows,
             max_workspace_mb=args.max_memory_mb,
             reserved_disk_bytes=reserved_disk,
-            provenance=dict(plan=asdict(plan), source_run=str(args.source.resolve())),
+            provenance=dict(
+                plan=asdict(plan),
+                source_run=str(args.source.resolve()),
+                assembly=args.assembly,
+                experimental_operator=operator_record,
+            ),
         )
         impedance = transfer.evaluate(1.5 / dt)
     del evaluate, transfer
@@ -282,6 +364,8 @@ def main():
         source_run=str(args.source.resolve()),
         source_role="Verified physical case and default numerical settings; fresh kernel construction",
         numerical_discretization_overrides=overrides,
+        assembly=args.assembly,
+        experimental_operator=operator_record,
         source_mesh_arguments=options,
         dt_s=dt,
         full_steps=full_steps,

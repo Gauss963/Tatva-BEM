@@ -33,3 +33,30 @@ FDBEM_CORES=1 PYTHONPATH=bem/src python -B bem/tools/unique_radius_experiment.py
 工具使用來源kernel實際的dt／FFT circle，核對來源、輸入和package指紋。
 結果需分開記錄索引準備成本、各頻率交替計時與完整kernel成本。
 預設正式backend維持不變；目前與FEM的最大滑移差仍約13.2%。
+
+## 可選的完整建核入口
+
+`native-resolvent-kernel`新增`--assembly unique-radius`，可將同一精確r重用
+接到fresh native頻率取樣、完整時間權重與因果elastic startup。
+預設仍為`reference`；此功能尚未代表大型kernel已量測加速。
+
+```sh
+FDBEM_CORES=4 bem/run.sh native-resolvent-kernel SOURCE_RUN \
+  --assembly unique-radius --radial-chunk-size 4096 \
+  --max-radial-workspace-mb 1024 --workers 4 \
+  --dt 2e-6 --duration .045 --correction-duration .025 \
+  --max-memory-mb 12288 --max-spectrum-mb 8192 --output NEW_KERNEL
+```
+
+`--max-memory-mb`的陣列估計會在準備geometry之前加入shared radius indices、
+排序暫存及每個frequency worker的七個徑向table。
+前置估計以實際Gauss規則的點數上界計算，不假設有任何重複距離；
+準備後還會核對實際indices/table尺寸沒有超過上界。
+估計分開處理sorting、sampling、row IFFT和elastic startup：
+sorting與worker table不同時存活，indices持續到IFFT結束，
+assembler則在完整elastic startup之前釋放。這仍不是整個程序RSS的硬上限。
+
+kernel與native spectrum的provenance保存選用方式、兩個body的unique統計及工具SHA。
+新測試以真實有限雙block、每個CQ節點重新組裝的reference矩陣，
+分別核對`reference`與`unique-radius`的完整權重和elastic startup；
+網格覆寫、streaming hashes與完整初始條件的檢查照常保留。

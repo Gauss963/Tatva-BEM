@@ -104,7 +104,10 @@ def test_time_storage_preflight_covers_actual_serialized_outputs(tmp_path, monke
         native["preflight_time_storage"](tmp_path, plan, 12)
 
 
-def test_fresh_refined_kernel_matches_dense_bem_and_streams_output_hashes(tmp_path, monkeypatch):
+@pytest.mark.parametrize("assembly", ["reference", "unique-radius"])
+def test_fresh_refined_kernel_matches_dense_bem_and_streams_output_hashes(
+    tmp_path, monkeypatch, assembly
+):
     """A real finite-block refinement, independently reassembled at every CQ node."""
     producer = runpy.run_path(str(TOOLS / "prepare_native_resolvent.py"))
     original = runpy.run_path(str(TOOLS / "build_resolvent_history.py"))
@@ -159,6 +162,8 @@ def test_fresh_refined_kernel_matches_dense_bem_and_streams_output_hashes(tmp_pa
         "1024",
         "--max-spectrum-mb",
         "32",
+        "--assembly",
+        assembly,
     ]
     read_bytes = Path.read_bytes
 
@@ -176,6 +181,17 @@ def test_fresh_refined_kernel_matches_dense_bem_and_streams_output_hashes(tmp_pa
     assert metadata["numerical_discretization_overrides"]["contact_h"] == 80
     assert metadata["numerical_discretization_overrides"]["restart_knot_window"] is None
     assert metadata["history_dofs"] == 15
+    assert metadata["assembly"] == assembly
+    operator = metadata["experimental_operator"]
+    if assembly == "reference":
+        assert operator is None
+    else:
+        assert operator["method"] == "exact_radius_galerkin_reuse"
+        assert not operator["radius_rounding_or_interpolation"]
+        assert len(operator["body_statistics"]) == 2
+        assert any(
+            key.endswith("/unique_radius_experiment.py") for key in metadata["frozen_inputs_sha256"]
+        )
     assert metadata["correction_steps"] == 2 and metadata["full_steps"] == 4
     assert metadata["weights_sha256"] == helper["digest_file"](output / "weights.npy")
     assert metadata["elastic_sha256"] == helper["digest_file"](output / "elastic.npz")
@@ -225,3 +241,21 @@ def test_fresh_refined_kernel_matches_dense_bem_and_streams_output_hashes(tmp_pa
     with np.load(output / "elastic.npz") as data:
         np.testing.assert_allclose(data["elastic"], expected_startup, rtol=1e-10, atol=1e-12)
     assert not metadata["full_original_event_reproduced"]
+
+
+def test_unique_radius_preflight_counts_actual_prepared_points_and_worker_arrays():
+    producer = runpy.run_path(str(TOOLS / "prepare_native_resolvent.py"))
+    radial = runpy.run_path(str(TOOLS / "unique_radius_experiment.py"))
+    model = load_nodal_model(CASE, max_panel_length=160)
+    transfer = radial["unique_radius_transfer"](model, quadrature=4, radial_chunk_size=13)
+    estimate = producer["unique_radius_workspace"](model, 4, workers=4, chunk_size=13)
+    records = [body.statistics() for body in transfer.prepared]
+    assert estimate["quadrature_radius_count_upper_bound"] == [
+        r["quadrature_radii"] for r in records
+    ]
+    assert sum(r["radius_index_bytes"] for r in records) <= estimate["shared_index_bytes"]
+    assert (
+        max(r["radial_workspace_estimate_bytes"] for r in records)
+        <= estimate["per_worker_radial_bytes"]
+    )
+    assert estimate["all_worker_radial_bytes"] == 4 * estimate["per_worker_radial_bytes"]
