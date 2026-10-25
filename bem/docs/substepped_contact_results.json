@@ -531,5 +531,84 @@
       "TFRT_CPU_0"
     ]
   },
-  "same_accuracy_speed_advantage_established": false
+  "same_accuracy_speed_advantage_established": false,
+  "original_float64_seed_control": {
+    "source_comparison": {
+      "path": "bem/outputs/fine2-original-seed-comparison/event16_results.json",
+      "sha256": "b318897332cccc75db4f07c537c09f0d7ce11c4b753eb4edaf593cbda5c806d0"
+    },
+    "source_summary": {
+      "path": "bem/outputs/galerkin-fine2-q12-contact16-original-seed/summary.json",
+      "sha256": "4e1e4869995d218f66977d92f07342fd468df31a1e6403f03179f4cd7c6b081b"
+    },
+    "same_geometry_and_bulk_kernel": true,
+    "constitutive_substeps": 16,
+    "stock_seed_maximum_slip_mm": 0.5590550292198929,
+    "original_float64_seed_maximum_slip_mm": 0.5590768612494921,
+    "difference_from_stock_seed_mm": 2.1832029599155867e-05,
+    "relative_maximum_slip_error_to_fem": 0.13203378700245083,
+    "first_saved_slip_s": 0.026387999999999998,
+    "actuator_hold_s": 0.029137999999999997,
+    "final_p1_profile_relative_l2": {
+      "cumulative_slip": 0.12129491736377655,
+      "pressure": 0.1994676710047604,
+      "shear": 0.20464330751090382
+    },
+    "state_checks": {
+      "all_saved_fields_finite": true,
+      "minimum_contact_pressure_mpa": 8.834218167609675,
+      "minimum_cumulative_increment_mm": 0.0,
+      "minimum_actuator_minus_platen_mm": 0.8185559203320292,
+      "spring_extension_positive_on_all_saved_states": true
+    },
+    "maximum_residual_mpa": 9.931078714942032e-08,
+    "timing_seconds": {
+      "static_lift_and_kernel_load": 21.387995208613575,
+      "time_stepping": 89.39358104206622,
+      "kernel_build": 73048.667585833,
+      "total_excluding_output": 110.83363141678274
+    },
+    "peak_process_rss_mib": 6952.640625,
+    "restart_seed": {
+      "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/event16-original-f64-seed/restart_seed.npz",
+      "sha256": "f09f9cfbe88d41cfba9daaffd1d901e66d1b33af2b6826ba8449fa05ef510901",
+      "source_provenance": {
+        "status": "captured_original_float64_restart",
+        "seed_file_sha256": "f09f9cfbe88d41cfba9daaffd1d901e66d1b33af2b6826ba8449fa05ef510901",
+        "original_restart": {
+          "path": "/Volumes/Gauss-T7/tatva/runs/local-mus08-muk06-gap0-v2-ev15/data/simulation.h5",
+          "bytes": 12734514616,
+          "mtime_ns": 1792158143453734215,
+          "plastic_shape": [
+            241
+          ],
+          "checked_u_shape": [
+            91550
+          ],
+          "actuator_mm": 10.806226665707777,
+          "seed_sha256": "097948bec467b2d81f31ea58a056c29785c9f0c22f3952515ff15940357dddc4",
+          "scope": "Static initializer uses plastic slip and actuator; u is checked for size only"
+        },
+        "source_hdf5_size_and_mtime_unchanged": true,
+        "completed_fem": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h2-4c-interface",
+        "initial_saved_plastic_equal_at_storage_precision": true,
+        "cumulative_slip_reset_to_zero": true,
+        "frozen_input_sha256": {
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h2-4c-interface/summary.json": "8f2538542a351197923c063e75dce7f607adc5706ff46313ee78ee1dc73af5e1",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h2-4c-interface/resolved_run_config.json": "1f95e7f2bd2c8abc342a80c69ffc59bdb60d95727e76a09d8a1f9fdb8bce6bd2",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/restart_seed_experiment.py": "d9507983063a21db6849a1e8236f71e0d9585133c87576b18ea11b4b21879885",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/run_fem_reference.py": "83995320c1b6bbe93cabb5005158cee08eece515b88b4df12b08802e4310fe5d"
+        },
+        "scope": "Original float64 event-15 plastic slip and actuator; healed memory reset as specified by event-16. Not a bulk checkpoint or evidence of BEM equivalence."
+      },
+      "provenance_path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/event16-original-f64-seed/restart_seed.json",
+      "provenance_sha256": "6a2b14d9246576ce3b5867d65ca2b510065030d825647acf04132fb2c0dd768c",
+      "maximum_plastic_change_from_packaged_mm": 4.485380031837849e-07,
+      "unchanged_knots_geometry_and_bulk_kernel": true,
+      "scope": "Explicit float64 values on the original seed knots; static lift is recomputed, complete time kernel is unchanged"
+    },
+    "source_changed_during_run": false,
+    "full_original_event_reproduced": false,
+    "same_accuracy_speed_advantage_established": false
+  }
 }

@@ -1,6 +1,7 @@
 # 重複距離的精確 Green kernel 重用實驗
 
-2026-10-25。目的為降低接觸網格加密的冷建核成本，尚未量測完整案例效能。
+2026-10-25。目的為降低接觸網格加密的冷建核成本。
+已量測實際fine2/Q12的五個單頻率，完整冷建核效能仍未量測。
 此實驗保持原P1/P0 Galerkin積分、奇異修正、source traction與完整歷史。
 
 目前Laplace Green kernel的七個徑向係數只依賴r、s及材料；
@@ -21,7 +22,7 @@
 測試與大型kernel／45ms軌跡／完整adjoint驗證分開列出。
 此路徑也沒有提供材料或幾何AD；geometry索引在這個實驗中固定。
 
-待獨立FEM計時結束後，才在本機執行量測，例如：
+獨立FEM計時結束後，在本機依序執行量測，例如：
 
 ```sh
 FDBEM_CORES=1 PYTHONPATH=bem/src python -B bem/tools/unique_radius_experiment.py \
@@ -32,7 +33,23 @@ FDBEM_CORES=1 PYTHONPATH=bem/src python -B bem/tools/unique_radius_experiment.py
 
 工具使用來源kernel實際的dt／FFT circle，核對來源、輸入和package指紋。
 結果需分開記錄索引準備成本、各頻率交替計時與完整kernel成本。
-預設正式backend維持不變；目前與FEM的最大滑移差仍約13.2%。
+實際五個contour角度0、0.1、0.5、2、pi，各交替兩次，
+完整transfer的相對Frobenius差皆為0；median時間如下。
+
+|角度|reference [s]|unique radius [s]|時間比|
+|---|---:|---:|---:|
+|0|14.696|14.264|1.030|
+|0.1|25.350|22.560|1.124|
+|0.5|18.707|17.216|1.087|
+|2|16.196|15.208|1.065|
+|pi|16.070|15.083|1.065|
+
+這是單frequency、BLAS一thread的比較，沒有同時執行其他已知求解工作。
+輸入及兩套assembler的合計前置準備13.176s，不能當作單獨indices成本。
+兩body的徑向點數只縮減1.289／1.348倍，因此完整算子改善有限；
+目前不能把此方法當作大幅降低冷建核成本的證據。
+完整數據、環境與來源見[量測紀錄](unique_radius_results.json)。
+預設正式backend維持不變；與FEM的最大滑移差仍約13.2%。
 
 ## 可選的完整建核入口
 

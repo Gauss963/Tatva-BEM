@@ -81,6 +81,22 @@ FDBEM_CORES=4 bem/run.sh resolvent-adjoint bem/outputs/fine2-q12-contact8 \
 
 完整數據與來源指紋見[substepped_contact_results.json](substepped_contact_results.json)。
 
+## 原始float64 seed控制
+
+正式FEM參考已[完成完整場核對](fem_verified_reference_results.json)。
+從它實際使用的event-15 HDF5匯出原float64塑性seed，保持相同seed節點、
+137個BEM接觸節點、Q12、2us、16子步及bulk kernel，重新計算靜態lift後完成45ms。
+對照舊packaged seed，插值後塑性seed的最大改變4.49e-7mm；
+最大累積滑移由0.55905503變為0.55907686mm，差2.18e-5mm，約0.0039%。
+首次保存滑移提前一個bulk步至26.388ms，停止載入仍29.138ms；
+與FEM的最大滑移差仍約13.20%，因此此精度差異不是主要來源。
+
+新控制保存場皆有限、累積滑移非遞減、壓力為正、已保存狀態的彈簧保持壓縮。
+最大接觸殘差9.93e-8MPa，兩次備援恢復；
+載入／靜態初始化21.388s、推進89.394s、總計110.834s（不含最後輸出），
+冷kernel成本仍另計，不能直接與8032.347s FEM比較後宣稱同精度速度優勢。
+此控制的完整事件梯度尚未獨立核對。
+
 ![完整事件與接觸子步](figures/substepped_contact_event.png)
 
 ![最後界面分布](figures/substepped_contact_profiles.png)
