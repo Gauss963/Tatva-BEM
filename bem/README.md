@@ -25,6 +25,8 @@ Galerkin CLI 可用 `--spectrum-directory` 把完整半頻譜存到磁碟，降�
 時間權重和全部歷史仍保留，原本的取樣及 IFFT 公式不變。
 新增 [Radau 時間積分研究](docs/radau_experiment.md) 與
 [彈性 resolvent 分解原型](docs/resolvent.md)，均保留獨立驗證與尚未通過的條件。
+Radau新增兩family磁碟權重、完整因果startup及耦合stage接觸；
+真實雙block短程解已與重新組裝的原Z_RK歷史核對，完整原事件仍待驗收。
 resolvent 現可直接建立新時間網格，並核對參數、載入及初始狀態的條件式 adjoint；
 小型解與梯度驗證已通過，完整案例的誤差與成本仍需進一步比較。
 另有 [徑向 traction／Horner 組裝實驗](docs/radial_assembly.md)，保留相同積分與物理模型；

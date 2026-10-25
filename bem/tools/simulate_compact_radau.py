@@ -179,6 +179,23 @@ def simulate_stages(
     endpoint = values[:, :, 1]
     work = float(np.sum(values[1:, :, :, 5] * weights[None, :, None]))
     integrated = float(np.sum(values[1:, :, :, 6] * weights[None, :, None]))
+    ordered_c = values[1:, :, :, 3].transpose(0, 2, 1).reshape(2 * steps, n)
+    strength = values[:, :, :, 0] * values[:, :, :, 4]
+    ratio = np.divide(
+        abs(values[:, :, :, 1]), strength, out=np.zeros_like(strength), where=strength > 0
+    )
+    state_checks = dict(
+        all_saved_stage_fields_finite=bool(np.all(np.isfinite(values)) and np.all(np.isfinite(q))),
+        minimum_cumulative_increment_mm=float(
+            np.min(np.diff(np.vstack((state.cumulative_slip, ordered_c)), axis=0))
+        ),
+        minimum_contact_pressure_mpa=float(values[:, :, :, 0].min()),
+        minimum_saved_stage_spring_gap_mm=float(
+            np.min(actuator - reference.base_platen - q[:, :, -1])
+        ),
+        maximum_strength_violation_mpa=float(np.max(abs(values[:, :, :, 1]) - strength)),
+        maximum_strength_ratio=float(ratio.max()),
+    )
     diagnostics = dict(
         status="completed_requested_horizon",
         time_method="radau2",
@@ -208,6 +225,7 @@ def simulate_stages(
         micro_fixed_pressure_work_gap_mpa_mm2=work - integrated,
         contact_root_recovery_events=recoveries,
         maximum_inactive_source_force=memory.maximum_inactive_source_force,
+        state_checks=state_checks,
         time_stepping_seconds=perf_counter() - begun,
         full_trajectory_substep_ad_validated=False,
         full_original_event_reproduced=False,
@@ -352,6 +370,8 @@ def main():
         model, seed_record = runpy.run_path(str(seed_path))["apply_restart_seed"](
             model, args.restart_seed
         )
+        if seed_record["provenance_path"] is not None:
+            frozen[seed_record["provenance_path"]] = seed_record["provenance_sha256"]
     diagnostic = options.get("diagnostic_actuator_increment")
     rate = (
         model.reference.actuator_rate
@@ -438,12 +458,13 @@ def main():
     )
     output_start = perf_counter()
     summary = save_dynamic(
-        result,
-        model.reference,
-        options["case"],
         output,
+        model.contact_case(),
+        result,
+        options["case"],
         contact_y=model.reference.moving.starts[model.moving_contact, 1],
         start_environment=environment,
+        contact_weights=model.constraints.contact_weights,
     )
     np.savez(output / "stages.npz", **stages)
     summary["timing_seconds"].update(
@@ -452,6 +473,27 @@ def main():
     rss = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
     summary["peak_process_rss_mb"] = rss / (1024**2 if sys.platform == "darwin" else 1024)
     write_json(output / "summary.json", summary)
+    write_json(
+        output / "run_manifest.json",
+        dict(
+            arguments={
+                **options,
+                "dt": plan.dt,
+                "steps": steps,
+                "duration": float(result.time[-1]),
+                "time_method": "radau2",
+                "segment_substeps": args.segment_substeps,
+                "contact_root_recovery": args.contact_root_recovery,
+                "kinetic_root_seed": args.kinetic_root_seed,
+                "fft_cache_mb": args.fft_cache_mb,
+                "restart_seed": None
+                if args.restart_seed is None
+                else str(args.restart_seed.resolve()),
+                "output": str(output),
+            },
+            environment=environment,
+        ),
+    )
     print(
         json.dumps(
             {

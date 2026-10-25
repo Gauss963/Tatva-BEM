@@ -1,0 +1,538 @@
+{
+  "date": "2026-10-25",
+  "records": [
+    {
+      "path": "bem/outputs/diagnostic-h80-q12-bdf2-dt2-for-radau/summary.json",
+      "sha256": "f3c63835043a429f937720fa7ca3f4c8ac9a1387e96be75d0d143ecac0a898fe",
+      "data": {
+        "status": "completed_resolvent_kernel_only",
+        "source_run": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/galerkin-disk-native-cli32",
+        "source_mesh_arguments": {
+          "case": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/cases/pmma_event16.toml",
+          "h": 80.0,
+          "contact_h": null,
+          "contact_end_h": null,
+          "corner_h": null,
+          "restart_knot_window": null,
+          "restart_knot_subdivisions": 1,
+          "dt": 8e-06,
+          "steps": 32,
+          "duration": 0.045,
+          "quadrature": 12,
+          "workers": 1,
+          "max_memory_mb": 2048.0,
+          "backend": "jax",
+          "sampling": "adaptive",
+          "sampling_rtol": 1e-12,
+          "diagnostic_actuator_increment": 2.0,
+          "cache": "bem/outputs/disk-native-cli-cache",
+          "spectrum_directory": "bem/outputs/disk-native-cli-spectra",
+          "name": "galerkin-disk-native-cli32"
+        },
+        "dt_s": 2e-06,
+        "full_steps": 128,
+        "correction_steps": 128,
+        "plan": {
+          "dt": 2e-06,
+          "steps": 128,
+          "dofs": 15,
+          "fft_size": 512,
+          "radius": 0.9560239010953075,
+          "estimated_peak_bytes": 1460040,
+          "weight_bytes": 232200
+        },
+        "history_dofs": 15,
+        "frequency_sampling": {
+          "method": "dense",
+          "transfer_evaluations": 257
+        },
+        "sampling_options": null,
+        "spectrum_storage": {
+          "backend": "disk_half_spectrum",
+          "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/diagnostic-h80-q12-bdf2-dt2-for-radau/work-resolvent.npy",
+          "shape": [
+            257,
+            15,
+            15
+          ],
+          "bytes": 925328,
+          "sha256": "e931fbafe6557c3764f452e2b64d4efa3ad28499e40ec5852fb1d4f70c2d6991",
+          "implementation_sha256": "da2534ef95e95813a464ff04f78a092be374110650d1866cbc1fb8ea5b5105b2",
+          "all_frequency_matrices_written": true,
+          "coordinates": "diag(sqrt(w)) * L * diag(sqrt(w))"
+        },
+        "initial_composition_inf_error": 4.5860299713390735e-11,
+        "estimated_array_peak_mib": 156.70929718017578,
+        "total_seconds": 11.165870791301131,
+        "helper_sha256": "129d75f1dc47ba11f2da171a820e422c3bde36ccce6ed2624690230c9e66bafc",
+        "helper_math_sha256": "6c29f88416f6748a4a6b7d5b21ef2271788f173193840f7f963341223ecd6d46",
+        "weights_sha256": "ac125bbff59f55f7a72716432261dec6baf57b6cb00298b2f35af8f170106f89",
+        "elastic_sha256": "031b36d5d2e65fc415ab80b8a0715df4b86adde7569d1b18a811ac15254c8a2f",
+        "prototype_sha256": "00f67ff54c940cbd610a091f675ee1f8ef2996d1e3daf7ff5da2074b3fc36a36",
+        "full_original_event_reproduced": false,
+        "scope": "Direct BEM elastic resolvent kernel and full elastic startup; matrix prefix only; nonlinear trajectory and adjoint still require validation"
+      }
+    },
+    {
+      "path": "bem/outputs/diagnostic-h80-q12-radau8-audit/summary.json",
+      "sha256": "17076a650f2335082ea001fbd1ea104706a2e523e06f88a04ec75f6c3af39ace",
+      "data": {
+        "status": "passed_sampled_operator_comparison",
+        "source_kernel": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/diagnostic-h80-q12-bdf2-dt2-for-radau",
+        "source_spectrum_sha256": "e931fbafe6557c3764f452e2b64d4efa3ad28499e40ec5852fb1d4f70c2d6991",
+        "source_dt_s": 2e-06,
+        "target_dt_s": 8e-06,
+        "target_fft_size": 128,
+        "target_time_method": "radau2",
+        "matrix_dofs": 30,
+        "stage_eigenvector_condition_numbers": [
+          1.8071159344340615,
+          1.8066813490859792,
+          1.7806873771905882,
+          1.7153318168355312,
+          1.4633957836980938
+        ],
+        "indices": [
+          0,
+          1,
+          8,
+          16,
+          64
+        ],
+        "reuse_evaluation": "Frequency-major bounded direct Cauchy blocks; one source pass",
+        "relative_frobenius_errors": [
+          1.590794138571027e-12,
+          1.6399050167837418e-12,
+          8.360027438769098e-12,
+          3.708227954026881e-11,
+          2.89323643768196e-11
+        ],
+        "mode_relative_frobenius_errors": [
+          4.3469105639184344e-13,
+          2.986817451508411e-11,
+          4.682407959168814e-13,
+          2.9860381190163415e-11,
+          7.194355480386027e-12,
+          2.983203187799927e-11,
+          3.627903063224692e-11,
+          2.9755817592492216e-11,
+          2.9001320007141004e-11,
+          2.9001198524423238e-11
+        ],
+        "relative_tolerance": 1e-06,
+        "maximum_relative_error": 3.708227954026881e-11,
+        "operator_arrays_sha256": "88b77ce1d7ebb83155468468f296f6327641f24149109a4fee27594aa45d6f1e",
+        "resampling_seconds": 0.007586832158267498,
+        "fresh_bem_seconds": 1.2171488339081407,
+        "total_seconds": 1.3393582496792078,
+        "full_original_event_reproduced": false,
+        "certified_error_bound": false,
+        "scope": "Sampled work-resolvent comparison at fixed geometry/material/quadrature; no nonlinear trajectory or speed advantage established"
+      }
+    },
+    {
+      "path": "bem/outputs/diagnostic-h80-q12-compact-radau8-kernel/summary.json",
+      "sha256": "ce5b1ea757c77def1c2ef199982317b3644ea8ef947dfb983d32eb0fe76615f7",
+      "data": {
+        "status": "completed_compact_radau_resolvent_kernel_only",
+        "time_method": "radau2",
+        "source_kernel": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/diagnostic-h80-q12-bdf2-dt2-for-radau",
+        "source_spectrum_sha256": "e931fbafe6557c3764f452e2b64d4efa3ad28499e40ec5852fb1d4f70c2d6991",
+        "source_mesh_arguments": {
+          "case": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/cases/pmma_event16.toml",
+          "h": 80.0,
+          "contact_h": null,
+          "contact_end_h": null,
+          "corner_h": null,
+          "restart_knot_window": null,
+          "restart_knot_subdivisions": 1,
+          "dt": 8e-06,
+          "steps": 32,
+          "duration": 0.045,
+          "quadrature": 12,
+          "workers": 1,
+          "max_memory_mb": 2048.0,
+          "backend": "jax",
+          "sampling": "adaptive",
+          "sampling_rtol": 1e-12,
+          "diagnostic_actuator_increment": 2.0,
+          "cache": "bem/outputs/disk-native-cli-cache",
+          "spectrum_directory": "bem/outputs/disk-native-cli-spectra",
+          "name": "galerkin-disk-native-cli32"
+        },
+        "dt_s": 8e-06,
+        "full_steps": 32,
+        "correction_steps": 32,
+        "plan": {
+          "dt": 8e-06,
+          "steps": 32,
+          "dofs": 15,
+          "fft_size": 128,
+          "radius": 0.8353625469578262,
+          "estimated_peak_bytes": 549960,
+          "weight_bytes": 59400
+        },
+        "history_dofs": 15,
+        "stage_dofs": 30,
+        "family_spectra": [
+          {
+            "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/diagnostic-h80-q12-compact-radau8-kernel/work-family0.npy",
+            "bytes": 234128,
+            "sha256": "4ee7fe80489d115bab45f902ccfdc7ce0f76a05627a92887cf2f1f7e82cc71b7"
+          },
+          {
+            "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/diagnostic-h80-q12-compact-radau8-kernel/work-family1.npy",
+            "bytes": 234128,
+            "sha256": "3c6257bf4af8a68e55acaf9c1ee4cefab8a932bd06e7e609bf3c403b5db7bf0e"
+          }
+        ],
+        "family_weights": [
+          {
+            "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/diagnostic-h80-q12-compact-radau8-kernel/weights0.npy",
+            "bytes": 59528,
+            "sha256": "839faa7c43686cc737ff6faf744e0753a1f02b9d6ed8da86fa01238232d3e4f2"
+          },
+          {
+            "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/diagnostic-h80-q12-compact-radau8-kernel/weights1.npy",
+            "bytes": 59528,
+            "sha256": "d04b30719bc58f7c169f72a5bcab64b67fd8f1caa3516828f5387803a277d592"
+          }
+        ],
+        "shift_wrap_sha256": "f841ed9e383ac7a134b309e5bf41d106835c4d154a4c3acfe50d6d11a0569e4b",
+        "initial_impedance_sha256": "02459316eafadf059015c448d3b3beb7f4e57c9f68ba76ff0ac2993f3d776d17",
+        "elastic_sha256": "76190feaab608e4b5a13f56f23c359e59db01af3d3a113a69284f2edb024d267",
+        "sampled_fresh_bem_relative_errors": [
+          1.5908235718976475e-12,
+          1.6397403697812842e-12,
+          8.360555808912651e-12,
+          3.70822489567188e-11,
+          2.8932174973292463e-11
+        ],
+        "sampled_fmm_relative_errors": [
+          1.7132478579702053e-16,
+          6.225327357300912e-16,
+          1.037352905384278e-15,
+          1.6566072648325864e-15,
+          3.6463476808213064e-16
+        ],
+        "initial_composition_inf_error": 7.211973903113533e-11,
+        "inversion": {
+          "estimated_ifft_array_peak_mib": 0.3753662109375,
+          "fft_rows": 4,
+          "weight_family_bytes": 118800,
+          "complete_requested_lags_retained": true,
+          "expanded_stage_time_weights_stored": false
+        },
+        "estimated_array_peak_mib": 1280.861328125,
+        "fmm_workspace_reserve_mib": 1024.0,
+        "fmm_threads_requested": 4,
+        "hard_cpu_affinity_enforced": false,
+        "timing_seconds": {
+          "source_verification_and_preparation": 0.036852999590337276,
+          "resampling_and_spectrum_writes": 0.24473845772445202,
+          "inverse_fft": 0.05965245794504881,
+          "physical_weights_and_startup": 0.31344491709023714,
+          "total_before_reporting": 0.6660052081570029,
+          "final_checks_and_hashes": 0.0032027503475546837
+        },
+        "process_cpu_seconds": 0.415122,
+        "full_original_event_reproduced": false,
+        "scope": "Two complete compact RK-CQ families, all causal startup and sampled independent stage checks; no nonlinear trajectory, AD or FEM speed claim",
+        "peak_process_rss_mib": 107.953125
+      }
+    },
+    {
+      "path": "bem/outputs/diagnostic-h80-q12-compact-radau8-run-output-fixed/summary.json",
+      "sha256": "51dd1adfc9b748cd34f5c9d4e7d4261f494e5c0d5103ac012330bb6cc20c432a",
+      "data": {
+        "status": "completed_requested_horizon",
+        "time_method": "radau2",
+        "history_representation": "compact_radau_elastic_resolvent",
+        "dt_s": 8e-06,
+        "requested_steps": 32,
+        "completed_steps": 32,
+        "duration_s": 0.000256,
+        "history_dofs": [
+          15
+        ],
+        "stage_dofs": 30,
+        "cq_fft_size": 128,
+        "all_history_retained": true,
+        "nonlinear_backend": "jax",
+        "contact_nodes": 7,
+        "max_cumulative_slip_mm": 0.9602181761196311,
+        "max_boundary_contact_residual_mpa": 3.2887433576433976e-08,
+        "actuator_hold_time_s": null,
+        "first_correction_step": 5,
+        "correction_history_steps": 32,
+        "inverse_cq_composition_inf_error": 7.211973903113533e-11,
+        "segment_substeps": [
+          2,
+          4
+        ],
+        "constitutive_substeps": 6,
+        "constitutive_path": "Two linear segments through the dt/3 stage and endpoint; one committed endpoint state",
+        "loading_stop_rule": "Coverage checked at accepted macrostep endpoints; hold starts next interval",
+        "micro_friction_work_mpa_mm2": 1095.521619625441,
+        "micro_fixed_pressure_integrated_strength_work_mpa_mm2": 1093.7673031155173,
+        "micro_fixed_pressure_work_gap_mpa_mm2": 1.754316509923683,
+        "contact_root_recovery_events": [
+          {
+            "step": 21,
+            "attempts": [
+              {
+                "method": "powell_hybrid",
+                "contact_fraction": 1.0,
+                "reported_success": false,
+                "residual_mpa": 0.22411806163034811,
+                "nfev": 51,
+                "accepted": false
+              },
+              {
+                "method": "hybrid_from_previous_state_root",
+                "contact_fraction": 1.0,
+                "reported_success": false,
+                "residual_mpa": 0.23699632584519606,
+                "nfev": 25,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.125,
+                "reported_success": true,
+                "residual_mpa": 5.827871518704342e-12,
+                "nfev": 7,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.3125,
+                "reported_success": true,
+                "residual_mpa": 7.912603905424477e-12,
+                "nfev": 12,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.5625,
+                "reported_success": true,
+                "residual_mpa": 1.204796262754826e-11,
+                "nfev": 6,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.8125,
+                "reported_success": true,
+                "residual_mpa": 8.401457307627425e-12,
+                "nfev": 10,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 1.0,
+                "reported_success": true,
+                "residual_mpa": 6.438938271458028e-12,
+                "nfev": 26,
+                "accepted": true
+              }
+            ],
+            "residual_mpa": 6.438938271458028e-12
+          },
+          {
+            "step": 27,
+            "attempts": [
+              {
+                "method": "powell_hybrid",
+                "contact_fraction": 1.0,
+                "reported_success": false,
+                "residual_mpa": 0.11791706851439586,
+                "nfev": 31,
+                "accepted": false
+              },
+              {
+                "method": "hybrid_from_previous_state_root",
+                "contact_fraction": 1.0,
+                "reported_success": false,
+                "residual_mpa": 0.11759754979763387,
+                "nfev": 36,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.125,
+                "reported_success": true,
+                "residual_mpa": 9.832490377448268e-12,
+                "nfev": 5,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.3125,
+                "reported_success": true,
+                "residual_mpa": 6.485834092018195e-12,
+                "nfev": 8,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.5625,
+                "reported_success": true,
+                "residual_mpa": 6.0609295360336546e-12,
+                "nfev": 13,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.8125,
+                "reported_success": true,
+                "residual_mpa": 8.270717444247566e-12,
+                "nfev": 8,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 1.0,
+                "reported_success": false,
+                "residual_mpa": 0.12776082783587128,
+                "nfev": 26,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.9375,
+                "reported_success": false,
+                "residual_mpa": 0.11560233519197052,
+                "nfev": 45,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.875,
+                "reported_success": true,
+                "residual_mpa": 5.4029669627198025e-12,
+                "nfev": 31,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.96875,
+                "reported_success": false,
+                "residual_mpa": 6.798472895752639e-12,
+                "nfev": 18,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 1.0,
+                "reported_success": false,
+                "residual_mpa": 6.0254023992456496e-12,
+                "nfev": 16,
+                "accepted": true
+              }
+            ],
+            "residual_mpa": 6.0254023992456496e-12
+          }
+        ],
+        "maximum_inactive_source_force": 5.326228347257711e-10,
+        "time_stepping_seconds": 2.9644698752090335,
+        "full_trajectory_substep_ad_validated": false,
+        "full_original_event_reproduced": false,
+        "failure": null,
+        "scope": "Complete causal compact Radau history and endpoint-committed stage contact; no FEM equivalence, gradient convergence or speed advantage asserted",
+        "online_fft_cache": {
+          "families": [
+            {
+              "channels": 2,
+              "capacity_bytes": 0,
+              "peak_retained_kernel_fft_bytes": 0,
+              "cached_levels": [],
+              "streamed_updates": 0,
+              "kernel_fft_builds": 0,
+              "fft_rows": 4,
+              "all_history_terms_retained": true
+            },
+            {
+              "channels": 2,
+              "capacity_bytes": 0,
+              "peak_retained_kernel_fft_bytes": 0,
+              "cached_levels": [],
+              "streamed_updates": 0,
+              "kernel_fft_builds": 0,
+              "fft_rows": 4,
+              "all_history_terms_retained": true
+            }
+          ],
+          "peak_retained_kernel_fft_bytes": 0,
+          "kernel_fft_builds": 0,
+          "expanded_stage_time_weights_stored": false,
+          "finite_dft_shift_wrap_retained": true,
+          "all_history_terms_retained": true
+        },
+        "prepared_kernel": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/diagnostic-h80-q12-compact-radau8-kernel",
+        "kernel_summary_sha256": "ce5b1ea757c77def1c2ef199982317b3644ea8ef947dfb983d32eb0fe76615f7",
+        "initialization": {
+          "status": "admissible_nodal_static_lift",
+          "basis": "P1 displacement / P0 auxiliary density; symmetric Galerkin",
+          "residual_mpa": 2.752003069872444e-11,
+          "initial_max_strength_ratio": 0.7468427034599601,
+          "max_cumulative_slip_change_mm": 0.0,
+          "platen_mm": 9.949410467709955,
+          "mean_pressure_mpa": 16.666666665286677,
+          "mean_shear_mpa": 8.925168731179266,
+          "quadrature": 12
+        },
+        "quadrature": 12,
+        "panels": [
+          20,
+          18
+        ],
+        "restart_seed_override": null,
+        "estimated_solver_array_peak_mib": 1024.5740356445312,
+        "fft_cache_mb": 0.0,
+        "timing_seconds": {
+          "static_lift_and_kernel_load": 0.14044966734945774,
+          "time_stepping": 2.9644698752090335,
+          "kernel_build": 0.6660052081570029,
+          "total_excluding_output": 3.1225535003468394,
+          "save_outputs": 0.0026820842176675797,
+          "total_including_output": 3.1252392502501607
+        },
+        "source_changed_during_run": false,
+        "peak_process_rss_mb": 408.390625
+      }
+    },
+    {
+      "path": "bem/outputs/diagnostic-h80-q12-compact-radau8-original-z-check/summary.json",
+      "sha256": "ab978ac562d31a6cbf31a952501adbc0c360070bb9b94c6ef05a27160054ad04",
+      "data": {
+        "status": "passed_original_z_stage_reference",
+        "source_run": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/diagnostic-h80-q12-compact-radau8-run-output-fixed",
+        "steps": 32,
+        "stage_dofs": 30,
+        "maximum_absolute_field_differences": {
+          "displacement": 4.26836225912719e-09,
+          "pressure": 2.2451937198297856e-08,
+          "shear": 6.236514735746823e-07,
+          "plastic_slip": 4.349759663568875e-09,
+          "cumulative_slip": 4.349758596713937e-09,
+          "friction_coefficient": 5.161767480110768e-08,
+          "micro_work": 3.688780159105676e-08,
+          "integrated_strength_work": 3.513296460699866e-08
+        },
+        "field_absolute_tolerance": 1e-05,
+        "maximum_original_equation_residual_mpa": 3.317753112241917e-08,
+        "original_equation_tolerance_mpa": 1e-07,
+        "maximum_reference_root_residual_mpa": 8.525084922439419e-08,
+        "reference_loading": "Recorded stage actuators, including any recorded endpoint hold",
+        "requested_workers": 4,
+        "estimated_reference_array_peak_mib": 520.1314392089844,
+        "total_seconds": 8.515108166262507,
+        "full_original_event_reproduced": false,
+        "scope": "Small real-BEM original-Z RK-CQ field and residual check; no full event, full adjoint or FEM speed advantage"
+      }
+    }
+  ],
+  "full_original_event_reproduced": false,
+  "scope": "Coarse h80/Q12, 256 us, accelerated 2 mm actuator diagnostic. Independent original-Z stage field and residual check; not a FEM accuracy or speed comparison."
+}

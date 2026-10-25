@@ -115,7 +115,8 @@ def main():
     for run in args.runs:
         summary = json.loads((run / "summary.json").read_text())
         label = (
-            f"BEM {summary['panels'][0]}+{summary['panels'][1]} panels, "
+            f"BEM {'Radau IIA ' if summary.get('time_method') == 'radau2' else ''}"
+            f"{summary['panels'][0]}+{summary['panels'][1]} panels, "
             f"dt={summary['dt_s'] * 1e6:g} us"
         )
         if summary.get("schedule") == "recorded_fem_actuator_diagnostic":
@@ -220,6 +221,8 @@ def main():
                 "duration_s": float(time[-1]),
                 "panels": summary["panels"],
                 "dt_s": summary["dt_s"],
+                "time_method": summary.get("time_method", "bdf2"),
+                "segment_substeps": summary.get("segment_substeps"),
                 "first_stored_slip_over_1e-7_mm_s": first_crossing(
                     time, history["max_cumulative_slip_mm"], 1e-7
                 ),

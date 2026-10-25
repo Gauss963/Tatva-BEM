@@ -33,6 +33,12 @@ gradients pass independent forward JVP checks, but the gradients differ strongly
 between grids. [Fixed-trace density controls](density_refinement.md) improve
 static traction agreement with FEM h0.5 while worsening agreement with h2;
 neither control establishes dynamic or spatial convergence.
+The [compact Radau path](radau_experiment.md) now stores two exact coefficient
+families, shares stage FFTs, preserves the finite-DFT lag-zero wrap and commits
+the coupled contact path only at the endpoint. A real two-block 256 us
+diagnostic agrees with freshly assembled original-Z RK-CQ to 4.27e-9 mm in
+displacement and 6.24e-7 MPa in shear; its original-equation residual is
+3.32e-8 MPa. Full 45 ms validation and the Radau trajectory adjoint remain open.
 
 - [x] Independent Laplace-domain plane-strain Green tensor and source traction.
 - [x] Direct finite-interior boundary operators, jump term and singular integration.

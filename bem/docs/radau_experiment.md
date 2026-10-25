@@ -23,8 +23,9 @@ Z_RK(z) = Z(Delta(z)/dt).
 ```
 
 以二階矩陣的特徵分解評估矩陣函數；接近缺陷特徵基時明確拒絕。
-兩個 trial stages 共用上一步已接受的塑性／累積滑移，只提交最後一階段狀態。
-這保留 previous-state 係數的更新方式，但沒有因此宣稱接觸歷程具有三階精度。
+初版兩個trial stages各自從上一步已接受的塑性／累積滑移試算，只提交最後stage。
+後面的新compact runner則使用經過兩個stages的連續局部路徑；兩版須分開比較。
+兩者均沒有因此宣稱接觸歷程具有三階精度。
 
 ## 已完成的結果與反例
 
@@ -60,7 +61,7 @@ Z_RK(z) = Z(Delta(z)/dt).
 1 us／256 步的 mu_s、mu_k、Dc 差分相對差約 5.4e-7、2.0e-7、3.3e-6，
 兩個 stage 的開閉、滑動與 weakening clip predicates 都未變更。
 
-目前實際動態runner的 stage 矩陣儲存量為單階段的四倍，每個 FFT 角度需兩次 Laplace 評估。
+初版dense runner的stage矩陣儲存量為單階段的四倍，每個FFT角度需兩次Laplace評估。
 因此波傳誤差下降本身不足以證明總時間優勢，後續仍需處理頻譜／歷史成本。
 程式沒有移除歷史尾端，也沒有額外加入物理阻尼。
 
@@ -72,7 +73,7 @@ Z_RK(z) = Z(Delta(z)/dt).
 完整頻率映射的8us目標通過原解析域guard；4us仍有目標越界，沒有放寬guard。
 6us的完整頻率映射也通過原guard，另五個完整stage矩陣的獨立新BEM核對
 最大相對差4.47e−11；每組核對均包含兩個modes，並非只比較一個stage block。
-這只是抽樣算子檢查，尚未建立完整Radau核心或完成原事件。
+這是原event-16網格的抽樣算子檢查，尚未完成原事件的Radau核心與動態驗收。
 
 另以Cayley–Hamilton恆等式推導可選的精確儲存表示。
 對dimensionless的兩階段Delta及其eigenvalues lambda0、lambda1，令
@@ -91,11 +92,53 @@ Delta(z) = Delta0 + z*Delta1.
 `compact_matrix_function`、`invert_compact_spectrum`與小型reference expansion
 在`radau_experiment.py`，以獨立coupled ODE stage solve、完整dense RK-CQ權重、
 有顯著aliasing的manufactured circle及全部causal輸出核對。
-這是兩family實作的代數驗證；尚未接到磁碟producer、完整非線性runner或adjoint，
-也沒有將理論上減半的矩陣元素數列為已量測的記憶體／速度優勢。
-這組數值實作的Python3.11／3.12完整CI已通過；本機相關20項測試通過。
-下一個動態實驗仍需先把兩family表示接到磁碟權重、完整因果startup、
-耦合stage接觸與轉置歷史，再以原事件核對精度與完整成本。
+現已接上磁碟producer、完整因果startup、capacity-limited batched FFT與耦合stage接觸。
+兩個stage共用每一family的kernel FFT，包含未快取row的轉換；
+轉置模式亦與完整dense權重及反向內積恆等式核對。
+沒有展開2d×2d的時間權重，但全域瞬時平衡矩陣仍為2d×2d。
+這不是整體RSS或FEM同精度速度的已量測優勢。
+
+## 新compact runner的真實BEM診斷
+
+使用h80、Q12、7個接觸節點、15個retained DOFs，8us、32steps、256us。
+Actuator在256us內增加2mm，是加速診斷，並非原45ms／20mm/s事件。
+原2us BDF2 circle重新建立後，五個Radau stage算子的獨立BEM核對通過，
+最大相對差3.71e−11。完整兩family核心與因果startup均已建立。
+
+新`radau_contact_experiment.py`在dt/3前後分別使用2、4個局部子步：
+第一段trial state傳到第二段，最後只提交endpoint的z/c。
+所有root trial均重新計算這條路徑，不會重複commit第一stage。
+局部map與獨立NumPy更新核對；小型耦合root的mu_s、mu_k、Dc及
+previous displacement implicit AD與中央差分核對。
+bulk保留Radau，摩擦路徑仍分段線性，未由此宣稱整個接觸問題三階收斂。
+
+32steps已完成，最大c=0.960218mm，最大平衡殘差3.29e−8MPa。
+再重新組裝完整原始Z_RK時間歷史，不使用resolvent、elastic baseline或zero-prefix rebasing，
+核對兩個stages的全部欄位：最大位移差4.27e−9mm、壓力差2.25e−8MPa、
+剪力差6.24e−7MPa，塑性／累積滑移差4.35e−9mm。
+將compact解代入新組裝原方程，最大殘差3.32e−8MPa，通過原1e−7MPa門檻；
+全欄位差通過既有1e−5門檻。資料與指紋見
+[compact_radau_results.json](compact_radau_results.json)。
+這項驗證固定已記錄的stage actuator，沒有證明事件停止時間導數。
+完整Radau trajectory adjoint尚未接線；目前只有其精確轉置歷史與局部root AD。
+短程輸出介面的初次呼叫錯誤已修正，失敗log／目錄與修復後run分開保存。
+
+原事件6us建核會保存兩份275×275頻譜及全部correction weights，並保留45ms startup。
+大型數值快取可用`--storage-directory`放在原Tatva目錄之外，程式與metadata留在本repository。
+完整建核、非線性事件、與FEM的比較仍須分別通過，不能由短程診斷代替。
+
+```sh
+FDBEM_CORES=4 bem/run.sh compact-radau-kernel SOURCE_KERNEL --dt 6e-6 \
+  --operator-audit MATCHING_RADAU_AUDIT --fmm-library /path/to/libfmm2d.so \
+  --threads 4 --max-memory-mb 12288 --fmm-workspace-mb 6144 \
+  --storage-directory /path/outside/original-tatva/new-cache --output NEW_KERNEL
+FDBEM_CORES=4 bem/run.sh compact-radau-simulate NEW_KERNEL \
+  --segment-substeps 16 32 --contact-root-recovery --kinetic-root-seed \
+  --restart-seed ORIGINAL_FLOAT64_SEED --fft-cache-mb 8 --max-memory-mb 8192 \
+  --output NEW_EVENT_RUN
+FDBEM_CORES=4 bem/run.sh compact-radau-check SMALL_DIAGNOSTIC_RUN \
+  --workers 4 --max-memory-mb 4096 --output NEW_ORIGINAL_Z_CHECK
+```
 
 ## 重跑
 

@@ -123,6 +123,9 @@ elif [ "${1:-}" = compact-radau-kernel ]; then
 elif [ "${1:-}" = compact-radau-simulate ]; then
     shift
     exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/simulate_compact_radau.py" "$@"
+elif [ "${1:-}" = compact-radau-check ]; then
+    shift
+    exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/check_compact_radau.py" "$@"
 elif [ "${1:-}" = fmm2d-library ]; then
     shift
     exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/build_fmm2d_library.py" "$@"
