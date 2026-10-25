@@ -9,6 +9,7 @@ import argparse
 import json
 import runpy
 from pathlib import Path
+from time import perf_counter
 
 import numpy as np
 from scipy.linalg import block_diag, solve
@@ -111,6 +112,7 @@ def main():
     parser.add_argument("--max-memory-mb", type=float, default=4096)
     parser.add_argument("--output", type=Path, default=ROOT / "outputs/galerkin-density")
     args = parser.parse_args()
+    started = perf_counter()
     if args.factors != sorted(set(args.factors)) or args.factors[0] != 1:
         raise ValueError(
             "Use increasing positive density factors starting with the reference factor 1"
@@ -133,6 +135,7 @@ def main():
     records, reference_derivative = [], []
     with threadpool_limits(limits=1):
         for factor in args.factors:
+            factor_started = perf_counter()
             stiffness, body_records = [], []
             for body, mesh in enumerate([model.reference.moving, model.reference.stationary]):
                 k, d, detail = restricted_density_stiffness(
@@ -148,6 +151,7 @@ def main():
                 body_records.append(detail)
                 if factor == 1:
                     reference_derivative.append(d)
+            assembly_seconds = perf_counter() - factor_started
             record = dict(
                 density_factor=factor,
                 density_panels=[r["density_panels"] for r in body_records],
@@ -164,6 +168,11 @@ def main():
                     output / f"factor{factor}.csv",
                     stiffness=block_diag(*stiffness),
                 )
+            )
+            record.update(
+                density_assembly_seconds=assembly_seconds,
+                construction_and_static_seconds=perf_counter() - factor_started,
+                seconds_scope="The existing seconds field times the static solve only; construction_and_static_seconds includes density assembly",
             )
             records.append(record)
             print(json.dumps(record), flush=True)
@@ -182,6 +191,7 @@ def main():
             frozen_input_sha256=frozen,
             retained_history_dofs=2 * len(model.moving_contact) + 1,
             full_original_event_reproduced=False,
+            total_seconds_before_reporting=perf_counter() - started,
             scope="Static density-space refinement at fixed trace/contact mesh, not dynamic rupture",
         ),
     )

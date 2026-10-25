@@ -35,6 +35,8 @@ FDBEM_CORES=4 PYTHONPATH=bem/src python -B bem/tools/galerkin_density.py \
 工具保存實際參數、retained history維度、case／seed／程式指紋及各body的
 組裝陣列估計。`--max-memory-mb`在準備積分geometry前檢查body組裝估計，
 不宣稱是整個Python程序的RSS硬上限。禁止覆寫已有研究資料。
+`construction_and_static_seconds`包含每組density組裝與靜態求解；
+既有`seconds`只計靜態lift／tangent solve，不能拿它當完整加密成本。
 
 實際相同trace研究仍待執行。即使retained history維度沒有增加，
 新的density近似也會改變dynamic operator；不能直接沿用舊CQ權重。
