@@ -28,6 +28,14 @@
 `jax.enable_x64(True)`下建立稀疏剛度，因此不能誤稱所有靜態線性代數也是float32。
 新紀錄分別保存model、座標與實際剛度矩陣dtype。
 
+第一次新float64靜態研究已完成h2與h1，h0.5則被model builder的動態dt檢查拒絕：
+原h2的配置dt=1.2492929e-8s，大於h0.5的自動穩定上限1.0684239e-8s。
+未完成的資料保留在原輸出目錄，沒有把兩個已完成網格當成完整研究。
+工具已改為純靜態研究使用各網格自動dt，只用來建立合法模型，不執行任何時間推進；
+原authored dt、每個effective config及此政策皆記錄在新summary。
+這沒有修改原完整動態FEM的dt。重跑須使用新輸出資料夾；
+報告可用`report_galerkin.py --fem-static-f64 NEW_STATIC_DIRECTORY`明確選取完整研究。
+
 ```sh
 PYTHONPATH=bem/src python -B bem/tools/fem_static_onset.py --cores 4 \
   --meshes 2 1 .5 --output bem/outputs/fem-static-onset-authored-f64

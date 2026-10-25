@@ -132,7 +132,12 @@ def main():
     original = static_normal._block_stiffness
     for h in args.meshes:
         start = perf_counter()
-        config = replace(RunConfig(**settings), mesh_size=h, restart_from_file=None)
+        # This study never integrates in time. The archived h2 dynamic dt can
+        # exceed the contact stability limit on a finer mesh; let the model
+        # builder derive its own valid dt rather than reject a static solve.
+        config = replace(
+            RunConfig(**settings), mesh_size=h, restart_from_file=None, time_step_override=None
+        )
         effective_configs.append(asdict(config))
         model = build_case_model(case, config)
         y = np.asarray(model["moving"].mesh.coords)[np.asarray(model["master_nodes"]), 1]
@@ -213,6 +218,8 @@ def main():
                 protected_input_sha256=protected,
                 source_archive_sha256=archived_source["archive_sha256"],
                 effective_run_configs=effective_configs,
+                authored_time_step_override=settings.get("time_step_override"),
+                time_step_policy="Automatic per-mesh model setup; no transient time integration performed",
                 seed_scope="Fixed packaged float32-exported piecewise-linear plastic slip, shared with BEM; not the original float64 event-15 HDF5 restart",
                 original_dynamic_event_reproduced=False,
                 static_solver_sha256=hashlib.sha256(

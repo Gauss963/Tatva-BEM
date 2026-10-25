@@ -1,5 +1,6 @@
 """Curate small Galerkin validation records and scientific plots from local runs."""
 
+import argparse
 import json
 import shutil
 from pathlib import Path
@@ -15,13 +16,13 @@ from finiteblock_bem.io import write_json
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def plot_static_onset(figures):
+def plot_static_onset(figures, fem_static_f64):
     studies = []
     source = ROOT / "outputs/fem-static-onset"
     record = json.loads((source / "summary.json").read_text())
     for row in record["records"]:
         studies.append((f"FEM h={row['h_mm']} (float32 model)", source / f"h{row['h_mm']}.csv"))
-    source = ROOT / "outputs/fem-static-onset-authored-f64"
+    source = fem_static_f64
     if (source / "summary.json").is_file():
         record = json.loads((source / "summary.json").read_text())
         if record.get("model_dtype") != "float64" or record.get("historical_control"):
@@ -85,6 +86,16 @@ def plot_static_onset(figures):
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--fem-static-f64", type=Path)
+    args = parser.parse_args()
+    fem_static_f64 = (
+        ROOT / "outputs/fem-static-onset-authored-f64"
+        if args.fem_static_f64 is None
+        else args.fem_static_f64.resolve()
+    )
+    if args.fem_static_f64 is not None and not (fem_static_f64 / "summary.json").is_file():
+        raise ValueError("An explicitly selected float64 static study must be complete")
     files = {
         "static_audit": "galerkin-audit/summary.json",
         "corner_refinement": "galerkin-corner-refinement/summary.json",
@@ -97,7 +108,7 @@ def main():
         "fem_static_refinement": "fem-static-refinement.json",
         "fem_static_onset": "fem-static-onset/summary.json",
         "fem_packaged_input_replay": "fem-static-onset-packaged-replay/summary.json",
-        "fem_static_onset_authored_float64": "fem-static-onset-authored-f64/summary.json",
+        "fem_static_onset_authored_float64": str(fem_static_f64 / "summary.json"),
         "density_refinement": "galerkin-density/summary.json",
         "bdf2_domain": "bdf2-domain/summary.json",
         "read_only_audit": "research-readonly-audit.json",
@@ -255,7 +266,7 @@ def main():
     figures.mkdir(exist_ok=True)
     fig.savefig(figures / "galerkin_validation.png", dpi=160)
     plt.close(fig)
-    plot_static_onset(figures)
+    plot_static_onset(figures, fem_static_f64)
     for name, target in [
         ("event16_comparison.png", "galerkin_event16.png"),
         ("event16_profiles.png", "galerkin_profiles.png"),
