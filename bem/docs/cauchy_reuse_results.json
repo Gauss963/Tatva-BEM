@@ -365,6 +365,63 @@
         ],
         "scope": "Mapping arithmetic only; not BEM matrix, temporal accuracy or trajectory verification"
       }
+    },
+    {
+      "path": "bem/outputs/cauchy-fine2-to-radau6-audit/summary.json",
+      "sha256": "43e9a79d13b98743e29936d006630b249dd791b46b122ab478b787e8c20ca7f0",
+      "data": {
+        "status": "passed_sampled_operator_comparison",
+        "source_kernel": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/direct-resolvent-fine2-q12",
+        "source_spectrum_sha256": "a3a41301f5fa30d387c7755b6799578b75416aabbfe312cfae12b9af8d8041e6",
+        "source_dt_s": 2e-06,
+        "target_dt_s": 6e-06,
+        "target_fft_size": 16384,
+        "target_time_method": "radau2",
+        "matrix_dofs": 550,
+        "stage_eigenvector_condition_numbers": [
+          1.6193907887072811,
+          1.6193907709152604,
+          1.6193179256941974,
+          1.5565538752420656,
+          1.3928676737087764
+        ],
+        "indices": [
+          0,
+          1,
+          64,
+          2048,
+          8192
+        ],
+        "reuse_evaluation": "Frequency-major bounded direct Cauchy blocks; one source pass",
+        "relative_frobenius_errors": [
+          2.8418443421140194e-11,
+          2.8566513820471694e-11,
+          4.471574697124637e-11,
+          6.916984587735954e-12,
+          4.3379813060043514e-11
+        ],
+        "mode_relative_frobenius_errors": [
+          2.838338544930057e-11,
+          5.2264187153736015e-12,
+          2.853125156985952e-11,
+          5.226129604303159e-12,
+          4.4660480740020246e-11,
+          5.226635890596738e-12,
+          6.452373485296582e-12,
+          5.763495628447158e-12,
+          4.0784459060762545e-11,
+          4.078446296143467e-11
+        ],
+        "relative_tolerance": 1e-06,
+        "maximum_relative_error": 4.471574697124637e-11,
+        "operator_arrays_sha256": "bfb7b0be2735c4fc5aa1b921f70997414b42bf145d7f8b0b4356ce78cc5a66b3",
+        "resampling_seconds": 88.17987670749426,
+        "fresh_bem_seconds": 171.89290912542492,
+        "total_seconds": 279.52616774942726,
+        "full_original_event_reproduced": false,
+        "certified_error_bound": false,
+        "scope": "Sampled work-resolvent comparison at fixed geometry/material/quadrature; no nonlinear trajectory or speed advantage established"
+      }
     }
   ]
 }

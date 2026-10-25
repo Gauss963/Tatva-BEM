@@ -161,6 +161,15 @@ def main():
                 xlabel="Contact y [mm]",
                 ylabel="Pressure [MPa]" if row == 0 else "Shear [MPa]",
             )
+            if col:
+                visible = np.concatenate(
+                    [
+                        data[field][(data["y_mm"] >= interval[0]) & (data["y_mm"] <= interval[1])]
+                        for _, data, _ in profiles
+                    ]
+                )
+                padding = max(float(np.ptp(visible)) * 0.08, 0.5)
+                ax.set_ylim(float(visible.min()) - padding, float(visible.max()) + padding)
             ax.grid(alpha=0.2)
     axes[0, 0].legend(fontsize=7)
     fig.suptitle("Fixed P1 trace / refined P0 density: static profiles, not dynamic rupture")

@@ -70,6 +70,8 @@ Z_RK(z) = Z(Delta(z)/dt).
 550×550 stage matrices、每點兩個重新計算的275×275 BEM modes。
 最大相對差1.68e−11，通過原1e−6門檻；stage eigenvector條件數不超過1.620。
 完整頻率映射的8us目標通過原解析域guard；4us仍有目標越界，沒有放寬guard。
+6us的完整頻率映射也通過原guard，另五個完整stage矩陣的獨立新BEM核對
+最大相對差4.47e−11；每組核對均包含兩個modes，並非只比較一個stage block。
 這只是抽樣算子檢查，尚未建立完整Radau核心或完成原事件。
 
 另以Cayley–Hamilton恆等式推導可選的精確儲存表示。
@@ -91,6 +93,9 @@ Delta(z) = Delta0 + z*Delta1.
 有顯著aliasing的manufactured circle及全部causal輸出核對。
 這是兩family實作的代數驗證；尚未接到磁碟producer、完整非線性runner或adjoint，
 也沒有將理論上減半的矩陣元素數列為已量測的記憶體／速度優勢。
+這組數值實作的Python3.11／3.12完整CI已通過；本機相關20項測試通過。
+下一個動態實驗仍需先把兩family表示接到磁碟權重、完整因果startup、
+耦合stage接觸與轉置歷史，再以原事件核對精度與完整成本。
 
 ## 重跑
 
