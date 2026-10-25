@@ -161,3 +161,45 @@ class CompactRadauConvolution:
             finite_dft_shift_wrap_retained=True,
             all_history_terms_retained=True,
         )
+
+
+class CompactCorrectionHistory:
+    """Rebase only a verified closed/sticking zero source, keeping every active lag."""
+
+    def __init__(self, first, second, wrap, *, cache_mb=0, fft_rows=4):
+        if cq_plan_signature(first.plan) != cq_plan_signature(second.plan):
+            raise ValueError("Compact correction families require the same CQ plan")
+        self.families, self.wrap = (first, second), wrap
+        self.cache_mb, self.fft_rows = cache_mb, fft_rows
+        self.start, self.online, self.next_index = None, None, 0
+        self.maximum_inactive_source_force = 0.0
+
+    def past(self, index):
+        if index != self.next_index:
+            raise ValueError("Compact correction must be consumed in order")
+        if self.start is None:
+            return np.zeros(2 * self.families[0].plan.dofs)
+        if index - self.start > self.families[0].plan.steps:
+            raise ValueError("Correction started too early for the generated history horizon")
+        return self.online.past(index - self.start)
+
+    def append(self, index, source, *, active):
+        if index != self.next_index:
+            raise ValueError("Compact correction must be appended in order")
+        source = np.asarray(source)
+        if source.shape != (2 * self.families[0].plan.dofs,) or not np.all(np.isfinite(source)):
+            raise ValueError("Invalid compact correction source")
+        if self.start is None:
+            if not active:
+                np.testing.assert_allclose(source, 0, rtol=0, atol=1e-7)
+                self.maximum_inactive_source_force = max(
+                    self.maximum_inactive_source_force, float(np.max(abs(source)))
+                )
+                self.next_index += 1
+                return
+            self.online = CompactRadauConvolution(
+                *self.families, self.wrap, cache_mb=self.cache_mb, fft_rows=self.fft_rows
+            )
+            self.start = index
+        self.online.append(source)
+        self.next_index += 1
