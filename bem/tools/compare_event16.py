@@ -122,6 +122,8 @@ def main():
             label += ", FEM actuator replay"
         if summary.get("constitutive_substeps", 1) > 1:
             label += f", contact substeps={summary['constitutive_substeps']}"
+        if summary.get("restart_seed_override"):
+            label += ", float64 seed"
         history = read_history(run / "history.csv")
         with np.load(run / "trajectory.npz", allow_pickle=False) as trajectory:
             strength = trajectory["friction_coefficient"] * trajectory["pressure"]
@@ -235,6 +237,7 @@ def main():
                 "final_p1_profile_relative_l2": profile_errors,
                 "environment": summary["environment"],
                 "source_changed_during_run": summary.get("source_changed_during_run"),
+                "restart_seed_override": summary.get("restart_seed_override"),
                 "state_checks": state_checks,
             }
         )

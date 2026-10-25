@@ -242,6 +242,9 @@ def main():
         action="store_true",
         help="Recover failed substep roots with a checked trust-region solve",
     )
+    parser.add_argument(
+        "--restart-seed", type=Path, help="Explicit float64 values on unchanged archived seed knots"
+    )
     args = parser.parse_args()
     if not np.isfinite(args.max_memory_mb) or args.max_memory_mb <= 0:
         raise ValueError("A finite positive memory budget is required")
@@ -298,6 +301,12 @@ def main():
         restart_knot_window=options.get("restart_knot_window"),
         restart_knot_subdivisions=options.get("restart_knot_subdivisions", 1),
     )
+    seed_record, seed_tool_sha = None, None
+    seed_tool_path = Path(__file__).with_name("restart_seed_experiment.py")
+    if args.restart_seed is not None:
+        seed_tool_sha = fingerprint(seed_tool_path)
+        seed_tool = runpy.run_path(str(seed_tool_path))
+        model, seed_record = seed_tool["apply_restart_seed"](model, args.restart_seed)
     if plan.dofs != 2 * len(model.moving_contact) + 1:
         raise ValueError("Prepared kernel dimensions differ from the contact model")
     weights = np.load(args.kernel / "weights.npy", mmap_mode="r", allow_pickle=False)
@@ -379,6 +388,15 @@ def main():
         raise ValueError("Constitutive substep implementation changed during simulation")
     if recovery_sha is not None and recovery_sha != fingerprint(recovery_path):
         raise ValueError("Contact root recovery changed during simulation")
+    if seed_record is not None:
+        if seed_tool_sha != fingerprint(seed_tool_path) or seed_record["sha256"] != fingerprint(
+            args.restart_seed
+        ):
+            raise ValueError("Explicit restart seed or its loader changed during simulation")
+        if seed_record["provenance_path"] is not None and seed_record[
+            "provenance_sha256"
+        ] != fingerprint(seed_record["provenance_path"]):
+            raise ValueError("Explicit restart provenance changed during simulation")
     result.diagnostics.update(
         prepared_kernel=str(args.kernel.resolve()),
         kernel_summary_sha256=fingerprint(args.kernel / "summary.json"),
@@ -387,6 +405,8 @@ def main():
         helper_sha256=helper_sha,
         constitutive_substep_sha256=substep_sha,
         contact_root_recovery_sha256=recovery_sha,
+        restart_seed_override=seed_record,
+        restart_seed_loader_sha256=seed_tool_sha,
         bounded_history_sha256=bounded_sha,
         fft_cache_mb=args.fft_cache_mb,
         estimated_solver_array_peak_mib=estimate / 1024**2,
@@ -424,6 +444,9 @@ def main():
                 "output": str(args.output.resolve()),
                 "constitutive_substeps": args.constitutive_substeps or 1,
                 "contact_root_recovery": args.contact_root_recovery,
+                "restart_seed": None
+                if args.restart_seed is None
+                else str(args.restart_seed.resolve()),
                 "fft_cache_mb": args.fft_cache_mb,
                 "fft_rows": args.fft_rows,
             },

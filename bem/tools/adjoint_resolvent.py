@@ -349,6 +349,10 @@ def main():
     substeps = original.get("constitutive_substeps", 1)
     if substeps != replay.get("constitutive_substeps", 1):
         raise ValueError("Source/replay constitutive substep counts differ")
+    original_seed = (original.get("restart_seed_override") or {}).get("sha256")
+    replay_seed = (replay.get("restart_seed_override") or {}).get("sha256")
+    if original_seed != replay_seed:
+        raise ValueError("Source/replay use different explicit restart seeds")
     if substeps != 1 and not standalone:
         raise ValueError("Cross-run microbranch comparison is not implemented; use standalone AD")
     substep_path = Path(__file__).with_name("substepped_contact_experiment.py")
@@ -675,6 +679,7 @@ def main():
         reference_gradient_sha256=None if reference_path is None else fingerprint(reference_path),
         reference_arrays_sha256=None if target is None else target.get("arrays_sha256"),
         independent_reference_compared=target is not None,
+        restart_seed_override=replay.get("restart_seed_override"),
         forward_parameter_check=forward_check,
         forward_parameter_check_sha256=forward_sha,
         source_run=str(args.replay.resolve()),
