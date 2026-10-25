@@ -126,7 +126,17 @@ kinetic seed讓原方程的hybrid與LM都找到殘差2.49e-13MPa的相同根，
 
 真實275座標失敗fixture已加入回歸測試，核對恢復、參數／舊狀態不變、
 只commit一次，以及恢復根的mu_k implicit AD對獨立差分。
-完整45ms/64子步與此選項的結果仍須另行驗證。
+完整45ms/64子步與此選項現已完成：最大滑移0.563923742mm，
+相對FEM差12.45%，末滑移分布L2差11.39%，壓力／剪力分布仍差19.94%／20.40%。
+三次備援恢復中，只有step14566使用kinetic seed；最大接觸殘差2.20e-8MPa。
+保存場皆有限、壓力為正、累積滑移非遞減，已保存彈簧狀態維持壓縮。
+推進100.064s、初始化及載核20.280s、總計120.377s（不含最後輸出），
+冷建核另計。這完成了原失敗的離散問題，仍未達成與FEM一致或同精度速度驗收。
+64子步完整梯度尚未獨立核對；上面的45ms梯度核對是16子步控制。
+
+![64子步完整事件對照](figures/contact64_event16_comparison.png)
+
+![64子步末界面分布](figures/contact64_event16_profiles.png)
 
 ```sh
 FDBEM_CORES=4 bem/run.sh resolvent-simulate bem/outputs/direct-resolvent-fine2-q12 \

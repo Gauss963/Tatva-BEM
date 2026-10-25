@@ -15,6 +15,12 @@ exactly. The original four-substep Newton solve fails at 29.144 ms; residual-che
 hybrid/continuation recovery then completes both four- and sixteen-substep events.
 The latter reaches 0.559055 mm (13.21% low), with pressure/shear profile errors
 still near 20%. See the [substep results](substepped_contact.md).
+The 64-substep study first fails at 29.132 ms. An optional constant-mu_k trial
+seed, accepted only in the original full residual, recovers that root and
+completes 45 ms at 0.563924 mm (12.45% low). Pressure/shear profile errors remain
+near 20%. The complete 16-substep five-parameter reverse gradient now agrees
+with independent forward JVP histories to a maximum absolute difference of
+4.88e-12; material/geometry/lift/event-time derivatives remain outside that check.
 The corrected full h2/float64 FEM rerun now matches all 9000 shear rows,
 the checked initial fields and final state exactly. Its four-core simulation
 including reduced bulk output takes 8032.347 s; preparation plus simulation

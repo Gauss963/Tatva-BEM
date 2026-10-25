@@ -48,6 +48,11 @@
 這是需要同時量化FEM及BEM接觸空間誤差的證據，不能當成完整動態成核時間或收斂解。
 原數值、effective config及來源指紋見[float64靜態網格紀錄](static_float64_mesh_results.json)。
 
+另外固定BEM的端點／角落0.5mm、seed8/sub4及Q16，只將中段contact h由5改為2.5及2mm，
+接觸節點137→225→271；靜態首次yield預測皆在y=2mm，約26.369–26.380ms。
+這表示此控制中的初始onset差距未隨中段網格加密消失；它不代表動態process zone已解析。
+完整數字見[固定端點的接觸空間控制](contact_space_static_results.json)。
+
 ```sh
 PYTHONPATH=bem/src python -B bem/tools/fem_static_onset.py --cores 4 \
   --meshes 2 1 .5 --output NEW_STATIC_STUDY_DIRECTORY

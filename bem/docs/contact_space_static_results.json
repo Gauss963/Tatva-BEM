@@ -1,0 +1,165 @@
+{
+  "source": {
+    "path": "bem/outputs/galerkin-corner-refinement-aligned8-sub4-end0.5-contact5-2.5-2/summary.json",
+    "sha256": "d4b8f47e39bbb11c484fe8a5956413c76346d5bb2b2bdaba1882112b5750f51b"
+  },
+  "scope": "Static contact-interior refinement at fixed corner/end .5mm and seed8/sub4, Q16; no dynamic convergence or same-accuracy performance claim",
+  "records": [
+    {
+      "name": "corner0.5-contact5.0",
+      "mesh_options": {
+        "max_panel_length": 20,
+        "contact_panel_length": 5.0,
+        "contact_end_length": 0.5,
+        "corner_panel_length": 0.5,
+        "restart_knot_window": 8.0,
+        "restart_knot_subdivisions": 4
+      },
+      "quadrature": 16,
+      "panels": [
+        250,
+        254
+      ],
+      "contact_nodes": 137,
+      "initialization": {
+        "status": "admissible_nodal_static_lift",
+        "basis": "P1 displacement / P0 auxiliary density; symmetric Galerkin",
+        "residual_mpa": 2.8391866635502083e-10,
+        "initial_max_strength_ratio": 0.7869410449041772,
+        "max_cumulative_slip_change_mm": 0.0,
+        "platen_mm": 9.959817792113734,
+        "mean_pressure_mpa": 16.666666666665925,
+        "mean_shear_mpa": 8.816759099927596,
+        "quadrature": 16
+      },
+      "predicted_first_y_mm": 2.0,
+      "predicted_shear_time_s": 0.02636888136490891,
+      "prediction_valid": true,
+      "initial_profile_relative_l2": {
+        "p": 0.24800505808205747,
+        "tau": 0.1523798360990825
+      },
+      "seconds": 23.017924250103533
+    },
+    {
+      "name": "corner0.5-contact2.5",
+      "mesh_options": {
+        "max_panel_length": 20,
+        "contact_panel_length": 2.5,
+        "contact_end_length": 0.5,
+        "corner_panel_length": 0.5,
+        "restart_knot_window": 8.0,
+        "restart_knot_subdivisions": 4
+      },
+      "quadrature": 16,
+      "panels": [
+        338,
+        342
+      ],
+      "contact_nodes": 225,
+      "initialization": {
+        "status": "admissible_nodal_static_lift",
+        "basis": "P1 displacement / P0 auxiliary density; symmetric Galerkin",
+        "residual_mpa": 3.209632066409901e-10,
+        "initial_max_strength_ratio": 0.7869754730823053,
+        "max_cumulative_slip_change_mm": 0.0,
+        "platen_mm": 9.959816637325586,
+        "mean_pressure_mpa": 16.666666666665442,
+        "mean_shear_mpa": 8.816771128976791,
+        "quadrature": 16
+      },
+      "predicted_first_y_mm": 2.0,
+      "predicted_shear_time_s": 0.026379417616984625,
+      "prediction_valid": true,
+      "initial_profile_relative_l2": {
+        "p": 0.24805556110910584,
+        "tau": 0.1523703671576891
+      },
+      "seconds": 42.41221004165709
+    },
+    {
+      "name": "corner0.5-contact2.0",
+      "mesh_options": {
+        "max_panel_length": 20,
+        "contact_panel_length": 2.0,
+        "contact_end_length": 0.5,
+        "corner_panel_length": 0.5,
+        "restart_knot_window": 8.0,
+        "restart_knot_subdivisions": 4
+      },
+      "quadrature": 16,
+      "panels": [
+        384,
+        388
+      ],
+      "contact_nodes": 271,
+      "initialization": {
+        "status": "admissible_nodal_static_lift",
+        "basis": "P1 displacement / P0 auxiliary density; symmetric Galerkin",
+        "residual_mpa": 4.2953639143427327e-10,
+        "initial_max_strength_ratio": 0.786979709255185,
+        "max_cumulative_slip_change_mm": 0.0,
+        "platen_mm": 9.959816629981228,
+        "mean_pressure_mpa": 16.666666666664185,
+        "mean_shear_mpa": 8.81677120546254,
+        "quadrature": 16
+      },
+      "predicted_first_y_mm": 2.0,
+      "predicted_shear_time_s": 0.026380454549979997,
+      "prediction_valid": true,
+      "initial_profile_relative_l2": {
+        "p": 0.24806142316777496,
+        "tau": 0.15237505915508615
+      },
+      "seconds": 54.764537416398525
+    }
+  ],
+  "environment": {
+    "package_version": "0.1.0",
+    "python": "3.12.13",
+    "numpy": "2.4.4",
+    "scipy": "1.17.1",
+    "platform": "macOS-15.7.9-arm64-arm-64bit",
+    "available_logical_cpus": 10,
+    "hard_cpu_affinity_enforced": false,
+    "thread_environment": {
+      "FDBEM_CORES": "4",
+      "OPENBLAS_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "VECLIB_MAXIMUM_THREADS": "1",
+      "XLA_FLAGS": null,
+      "JAX_ENABLE_X64": null
+    },
+    "blas_threadpools": [],
+    "source_sha256": {
+      "__init__.py": "984855d6ff3848411c946ecca174ac08baf7afe6f1d2c3be00284da9b8dbf288",
+      "adjoint.py": "7863386b78318e6502d6257469322ee82746f2384ee915c16cbb98cda69c5bc0",
+      "benchmarks.py": "c24b97264ca60d0da1dab2095d50e9ef1b88b7208fba2d46178b8cf9038eb571",
+      "case.py": "4f0c91b18309a2eae5ce5a78da3bac9fde0be9fb1c0a4d2d5e5e1fc84bd85fa7",
+      "cli.py": "82e53ce34714809933dbe456ef403bce27c6b60b20ac4481f2feded9eeadfcea",
+      "comparison.py": "631c111752342fac7d0f64553620e04940e7888b1ab2fc52566a23b5c35ee24c",
+      "condensation.py": "12010fb51d8490ae5c3a9a2cf5b04e414cb7e6205b409ce7891b454e384de7d2",
+      "constraints.py": "830071941c6df0f70e455530fe094242042fb0c1e31498e8f9b75c9aa825cb91",
+      "cq.py": "e9af920593db01f56f1f7138832f0aa603daf07cbf1d688fba8a806f712c1e15",
+      "cq_storage.py": "da2534ef95e95813a464ff04f78a092be374110650d1866cbc1fb8ea5b5105b2",
+      "dynamics.py": "b6d84d8d2c1ac6fc465565c289d1249f378f3424e00cb93441791960b3c180f8",
+      "friction.py": "1424c1639cdc1eb4dd8f780bfdc0433f33cf29752b07a17814a3a2f326d81086",
+      "galerkin.py": "85541ddfe5020debde77b2bf2d4a045fe9a52b6183d4af2f762f577be18ab66d",
+      "galerkin_fast.py": "e6167f6c553e15697b6d67a3a33f559574d22fd49db4aad49c8262d68224b614",
+      "io.py": "d292e6338381aa7935dbbfcadc0df884e89f10b7096fa70cf1b05a83c1c12b03",
+      "jax_backend.py": "4de0aadb88b73ef6792ff36894134ee31bc412b1a54b177a4d1aaaa43328d547",
+      "kernels.py": "4008ae38c62c3022034d654a13da75369bd67309af4614006942398e22c1ad08",
+      "linear.py": "3a4d7c2259fd3e67b507d0c9dcd18082c24ffda30fccb12749976c97fa5a577c",
+      "material.py": "7c4d34d911831f12e3bc99bda2e13e76d468acdf80038dcb60310a568a5342d1",
+      "mesh.py": "a37e853ed57dd80633c44805b6c13158643ac65db3e4a4cfc12520bbdfa15c4c",
+      "nodal.py": "632f1a755bb09d784c125d3198f662213ea60045ada9db1555e1b47b3ab39856",
+      "nodal_dynamics.py": "839db57190f62795aebef30545fcc9c1b41fdef503f038cc7f425068962eb39d",
+      "nonlinear.py": "019c5fc176c70964c89f9e7c74147ad48b4235267dd2faf0ee22f789a2b97590",
+      "operators.py": "bb77a3b2c66dce871c9e71cc2cdc02488e90ad32278cc9a67fea8b909b722825",
+      "sampling.py": "c518d2298b167aaa1d5ca327a612426276901876a50322a7fe4595c7ee4f1f11",
+      "statics.py": "9f81cbd95a1ff1f742387ee4ae94251304177999208a95703371272ac79dc250"
+    },
+    "case_sha256": "82d8f491a63ca1c348507678f08406dccbc62ed1d4abea8882879f7894d2315d",
+    "restart_data_sha256": "cae42101ff5a57004fa803ea5ce928eb8079e5be0ab887d108689e37754c25f6"
+  }
+}

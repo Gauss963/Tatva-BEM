@@ -695,5 +695,522 @@
     "constitutive_substep_sha256": "d40fcb95f5fa29c0c8630a8901f8d5e63591bfc11ed1c9fbdee7c2ecc8d36225",
     "independent_full_cotangent_reference_compared": false,
     "all_compared_cotangents_passed": null
+  },
+  "contact64_with_checked_kinetic_seed": {
+    "source": {
+      "path": "bem/outputs/galerkin-fine2-q12-contact64-kinetic-seed/summary.json",
+      "sha256": "aab3bab4b5aed8958b621d28d5e5021a7e4009b9f5029eea6f49055f2146e865"
+    },
+    "comparison_source": {
+      "path": "bem/outputs/fine2-contact64-kinetic-comparison/event16_results.json",
+      "sha256": "fc974b843338b19229c32b0fd4609948ca9014f1104b5cdd946e8712aa749126"
+    },
+    "maximum_slip_relative_error_to_fem": 0.12450901011116433,
+    "metrics": {
+      "name": "galerkin-fine2-q12-contact64-kinetic-seed",
+      "status": "completed_requested_horizon",
+      "duration_s": 0.045,
+      "panels": [
+        250,
+        254
+      ],
+      "dt_s": 2e-06,
+      "first_stored_slip_over_1e-7_mm_s": 0.02639,
+      "actuator_hold_s": 0.029131999999999998,
+      "endpoint": {
+        "max_cumulative_slip_mm": {
+          "bem": 0.5639237419033535,
+          "fem_at_same_time": 0.644122838973999,
+          "difference": -0.08019909707064554
+        },
+        "mean_contact_shear_mpa": {
+          "bem": 8.776256124735223,
+          "fem_at_same_time": 8.912963031805669,
+          "difference": -0.13670690707044564
+        },
+        "mean_contact_pressure_mpa": {
+          "bem": 16.15281044971268,
+          "fem_at_same_time": 17.58405314185841,
+          "difference": -1.4312426921457302
+        },
+        "platen_mm": {
+          "bem": 10.548767303093841,
+          "fem_at_same_time": 10.580400123675606,
+          "difference": -0.03163282058176442
+        },
+        "applied_shear_mpa": {
+          "bem": 21.00248406534839,
+          "fem_at_same_time": 20.53847595735571,
+          "difference": 0.46400810799267944
+        },
+        "actuator_mm": {
+          "bem": 11.388866665707777,
+          "fem_at_same_time": 11.401939392089844,
+          "difference": -0.01307272638206669
+        }
+      },
+      "history_relative_l2": {
+        "max_cumulative_slip_mm": 0.18130111782357167,
+        "mean_contact_shear_mpa": 0.02635988024374779,
+        "mean_contact_pressure_mpa": 0.029639651452331137,
+        "platen_mm": 0.0030916987310254064,
+        "applied_shear_mpa": 0.031806887621347174,
+        "actuator_mm": 0.0006831285268462776
+      },
+      "timing_seconds": {
+        "static_lift_and_kernel_load": 20.28026199992746,
+        "time_stepping": 100.06404045876116,
+        "kernel_build": 73048.667585833,
+        "total_excluding_output": 120.3772747926414
+      },
+      "max_residual_mpa": 2.2040369529463533e-08,
+      "max_strength_ratio": 1.0,
+      "friction_work_mpa_mm2": 2639.075348809432,
+      "endpoint_friction_work_mpa_mm2": 2633.2548883290688,
+      "friction_work_policy": "Sum over accepted constitutive substeps",
+      "final_p1_profile_relative_l2": {
+        "cumulative_slip": 0.11389846612947481,
+        "pressure": 0.19937424958109834,
+        "shear": 0.20400135326100183
+      },
+      "source_changed_during_run": false,
+      "state_checks": {
+        "all_saved_fields_finite": true,
+        "minimum_contact_pressure_mpa": 8.87226650214888,
+        "minimum_cumulative_increment_mm": 0.0,
+        "minimum_actuator_minus_platen_mm": 0.8163209745430908,
+        "spring_extension_positive_on_all_saved_states": true
+      }
+    },
+    "kinetic_root_seed": true,
+    "root_recovery_events": [
+      {
+        "step": 14550,
+        "primary_residual_mpa": 0.12174019258923595,
+        "primary_newton_iterations": 18,
+        "attempts": [
+          {
+            "method": "powell_hybrid",
+            "contact_fraction": 1.0,
+            "reported_success": false,
+            "residual_mpa": 0.07045154035631473,
+            "nfev": 51,
+            "accepted": false
+          },
+          {
+            "method": "hybrid_from_previous_state_root",
+            "contact_fraction": 1.0,
+            "reported_success": false,
+            "residual_mpa": 0.0674314757658851,
+            "nfev": 33,
+            "accepted": false
+          },
+          {
+            "method": "contact_continuation",
+            "contact_fraction": 0.125,
+            "reported_success": false,
+            "residual_mpa": 9.67522358526679e-12,
+            "nfev": 21,
+            "accepted": true
+          },
+          {
+            "method": "contact_continuation",
+            "contact_fraction": 0.3125,
+            "reported_success": false,
+            "residual_mpa": 7.908340649009915e-12,
+            "nfev": 15,
+            "accepted": true
+          },
+          {
+            "method": "contact_continuation",
+            "contact_fraction": 0.5625,
+            "reported_success": true,
+            "residual_mpa": 8.220979452744359e-12,
+            "nfev": 27,
+            "accepted": true
+          },
+          {
+            "method": "contact_continuation",
+            "contact_fraction": 0.8125,
+            "reported_success": true,
+            "residual_mpa": 7.8017592386459e-12,
+            "nfev": 30,
+            "accepted": true
+          },
+          {
+            "method": "contact_continuation",
+            "contact_fraction": 1.0,
+            "reported_success": false,
+            "residual_mpa": 0.0690269230645514,
+            "nfev": 37,
+            "accepted": false
+          },
+          {
+            "method": "contact_continuation",
+            "contact_fraction": 0.9375,
+            "reported_success": true,
+            "residual_mpa": 1.0665246463759104e-11,
+            "nfev": 6,
+            "accepted": true
+          },
+          {
+            "method": "contact_continuation",
+            "contact_fraction": 1.0,
+            "reported_success": false,
+            "residual_mpa": 0.06603101755885768,
+            "nfev": 44,
+            "accepted": false
+          },
+          {
+            "method": "contact_continuation",
+            "contact_fraction": 1.0,
+            "reported_success": false,
+            "residual_mpa": 0.06603101755885768,
+            "nfev": 44,
+            "accepted": false
+          },
+          {
+            "method": "contact_continuation",
+            "contact_fraction": 0.984375,
+            "reported_success": false,
+            "residual_mpa": 0.07504069553432759,
+            "nfev": 25,
+            "accepted": false
+          },
+          {
+            "method": "contact_continuation",
+            "contact_fraction": 0.9609375,
+            "reported_success": false,
+            "residual_mpa": 0.06724354683495916,
+            "nfev": 40,
+            "accepted": false
+          },
+          {
+            "method": "contact_continuation",
+            "contact_fraction": 0.94921875,
+            "reported_success": true,
+            "residual_mpa": 7.361222742474638e-12,
+            "nfev": 38,
+            "accepted": true
+          },
+          {
+            "method": "contact_continuation",
+            "contact_fraction": 0.966796875,
+            "reported_success": false,
+            "residual_mpa": 6.920686246303376e-12,
+            "nfev": 18,
+            "accepted": true
+          },
+          {
+            "method": "contact_continuation",
+            "contact_fraction": 0.9931640625,
+            "reported_success": false,
+            "residual_mpa": 8.652187054493618e-12,
+            "nfev": 18,
+            "accepted": true
+          },
+          {
+            "method": "contact_continuation",
+            "contact_fraction": 1.0,
+            "reported_success": false,
+            "residual_mpa": 8.86757334228605e-12,
+            "nfev": 23,
+            "accepted": true
+          }
+        ],
+        "recovered": true,
+        "final_residual_mpa": 8.86757334228605e-12
+      },
+      {
+        "step": 14560,
+        "primary_residual_mpa": 1.3948329809243205,
+        "primary_newton_iterations": 13,
+        "attempts": [
+          {
+            "method": "powell_hybrid",
+            "contact_fraction": 1.0,
+            "reported_success": false,
+            "residual_mpa": 0.745439634944205,
+            "nfev": 41,
+            "accepted": false
+          },
+          {
+            "method": "hybrid_from_previous_state_root",
+            "contact_fraction": 1.0,
+            "reported_success": false,
+            "residual_mpa": 0.8270988237244694,
+            "nfev": 33,
+            "accepted": false
+          },
+          {
+            "method": "contact_continuation",
+            "contact_fraction": 0.125,
+            "reported_success": true,
+            "residual_mpa": 4.899192163065891e-12,
+            "nfev": 6,
+            "accepted": true
+          },
+          {
+            "method": "contact_continuation",
+            "contact_fraction": 0.3125,
+            "reported_success": true,
+            "residual_mpa": 1.3935519405094965e-11,
+            "nfev": 7,
+            "accepted": true
+          },
+          {
+            "method": "contact_continuation",
+            "contact_fraction": 0.5625,
+            "reported_success": false,
+            "residual_mpa": 0.6472666235546001,
+            "nfev": 33,
+            "accepted": false
+          },
+          {
+            "method": "contact_continuation",
+            "contact_fraction": 0.4375,
+            "reported_success": true,
+            "residual_mpa": 3.637978807091713e-12,
+            "nfev": 33,
+            "accepted": true
+          },
+          {
+            "method": "contact_continuation",
+            "contact_fraction": 0.625,
+            "reported_success": false,
+            "residual_mpa": 1.2967404927621828e-13,
+            "nfev": 19,
+            "accepted": true
+          },
+          {
+            "method": "contact_continuation",
+            "contact_fraction": 0.875,
+            "reported_success": false,
+            "residual_mpa": 7.389644451905042e-13,
+            "nfev": 33,
+            "accepted": true
+          },
+          {
+            "method": "contact_continuation",
+            "contact_fraction": 1.0,
+            "reported_success": true,
+            "residual_mpa": 1.3500311979441904e-13,
+            "nfev": 37,
+            "accepted": true
+          }
+        ],
+        "recovered": true,
+        "final_residual_mpa": 1.3500311979441904e-13
+      },
+      {
+        "step": 14566,
+        "primary_residual_mpa": 1.4310022617839309,
+        "primary_newton_iterations": 14,
+        "attempts": [
+          {
+            "method": "powell_hybrid",
+            "contact_fraction": 1.0,
+            "reported_success": false,
+            "residual_mpa": 0.6611235378654783,
+            "nfev": 44,
+            "accepted": false
+          },
+          {
+            "method": "hybrid_from_previous_state_root",
+            "contact_fraction": 1.0,
+            "reported_success": false,
+            "residual_mpa": 0.668465591569543,
+            "nfev": 55,
+            "accepted": false
+          },
+          {
+            "method": "contact_continuation",
+            "contact_fraction": 0.125,
+            "reported_success": false,
+            "residual_mpa": 0.4163918053203588,
+            "nfev": 37,
+            "accepted": false
+          },
+          {
+            "method": "contact_continuation",
+            "contact_fraction": 0.0625,
+            "reported_success": false,
+            "residual_mpa": 0.3635794860167607,
+            "nfev": 35,
+            "accepted": false
+          },
+          {
+            "method": "contact_continuation",
+            "contact_fraction": 0.03125,
+            "reported_success": false,
+            "residual_mpa": 0.24400677756250388,
+            "nfev": 28,
+            "accepted": false
+          },
+          {
+            "method": "contact_continuation",
+            "contact_fraction": 0.015625,
+            "reported_success": false,
+            "residual_mpa": 0.054135790084046675,
+            "nfev": 34,
+            "accepted": false
+          },
+          {
+            "method": "contact_continuation",
+            "contact_fraction": 0.0078125,
+            "reported_success": true,
+            "residual_mpa": 1.447286734901354e-12,
+            "nfev": 7,
+            "accepted": true
+          },
+          {
+            "method": "contact_continuation",
+            "contact_fraction": 0.01953125,
+            "reported_success": false,
+            "residual_mpa": 0.12368219317568219,
+            "nfev": 32,
+            "accepted": false
+          },
+          {
+            "method": "contact_continuation",
+            "contact_fraction": 0.013671875,
+            "reported_success": false,
+            "residual_mpa": 0.012108249422681183,
+            "nfev": 40,
+            "accepted": false
+          },
+          {
+            "method": "contact_continuation",
+            "contact_fraction": 0.0107421875,
+            "reported_success": true,
+            "residual_mpa": 1.1522449661072187e-12,
+            "nfev": 6,
+            "accepted": true
+          },
+          {
+            "method": "contact_continuation",
+            "contact_fraction": 0.01513671875,
+            "reported_success": false,
+            "residual_mpa": 0.04650573623564469,
+            "nfev": 37,
+            "accepted": false
+          },
+          {
+            "method": "contact_continuation",
+            "contact_fraction": 0.012939453125,
+            "reported_success": true,
+            "residual_mpa": 2.805422560925308e-12,
+            "nfev": 9,
+            "accepted": true
+          },
+          {
+            "method": "contact_continuation",
+            "contact_fraction": 0.0162353515625,
+            "reported_success": false,
+            "residual_mpa": 0.07229721380628329,
+            "nfev": 31,
+            "accepted": false
+          },
+          {
+            "method": "contact_continuation",
+            "contact_fraction": 0.01458740234375,
+            "reported_success": false,
+            "residual_mpa": 0.032694771270485035,
+            "nfev": 33,
+            "accepted": false
+          },
+          {
+            "method": "contact_continuation",
+            "contact_fraction": 0.013763427734375,
+            "reported_success": false,
+            "residual_mpa": 0.016511217393826882,
+            "nfev": 34,
+            "accepted": false
+          },
+          {
+            "method": "contact_continuation",
+            "contact_fraction": 0.0133514404296875,
+            "reported_success": false,
+            "residual_mpa": 0.004245726381100212,
+            "nfev": 37,
+            "accepted": false
+          },
+          {
+            "method": "contact_continuation",
+            "contact_fraction": 0.01314544677734375,
+            "reported_success": true,
+            "residual_mpa": 6.264988527959758e-13,
+            "nfev": 6,
+            "accepted": true
+          },
+          {
+            "method": "contact_continuation",
+            "contact_fraction": 0.013454437255859375,
+            "reported_success": false,
+            "residual_mpa": 0.006896954752164675,
+            "nfev": 33,
+            "accepted": false
+          },
+          {
+            "method": "contact_continuation",
+            "contact_fraction": 0.013299942016601562,
+            "reported_success": false,
+            "residual_mpa": 0.0030945588113127087,
+            "nfev": 35,
+            "accepted": false
+          },
+          {
+            "method": "contact_continuation",
+            "contact_fraction": 0.013222694396972656,
+            "reported_success": false,
+            "residual_mpa": 0.0014732308310385633,
+            "nfev": 39,
+            "accepted": false
+          },
+          {
+            "method": "contact_continuation",
+            "contact_fraction": 0.013184070587158203,
+            "reported_success": false,
+            "residual_mpa": 0.00043948609061317256,
+            "nfev": 32,
+            "accepted": false
+          },
+          {
+            "method": "contact_continuation",
+            "contact_fraction": 0.013164758682250977,
+            "reported_success": true,
+            "residual_mpa": 2.349787031619144e-12,
+            "nfev": 6,
+            "accepted": true
+          },
+          {
+            "method": "contact_continuation",
+            "contact_fraction": 0.013193726539611816,
+            "reported_success": false,
+            "residual_mpa": 0.0006322223720189868,
+            "nfev": 34,
+            "accepted": false
+          },
+          {
+            "method": "constant_kinetic_law_seed",
+            "accepted": false,
+            "seed_residual_mpa": 3.2507330161024584e-13,
+            "final_parameters_and_state_unchanged": true
+          },
+          {
+            "method": "kinetic_seed_original_equation",
+            "accepted": true,
+            "residual_mpa": 3.2507330161024584e-13,
+            "nfev": 1
+          }
+        ],
+        "recovered": true,
+        "final_residual_mpa": 3.2507330161024584e-13
+      }
+    ],
+    "solver_sha256": "1da03f2751d143160bf5b0df8c2593e91da81633c022cd41edc3314f7978b7e3",
+    "contact_root_recovery_sha256": "912e5e24598a4dac62e137df1567e73189380b0cf0fbdb2e9f8430bab19e1b52",
+    "full_trajectory_substep_ad_validated": false,
+    "same_accuracy_speed_advantage_established": false
   }
 }
