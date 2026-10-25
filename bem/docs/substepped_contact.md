@@ -103,6 +103,12 @@ FDBEM_CORES=4 bem/run.sh resolvent-adjoint bem/outputs/fine2-q12-contact8 \
 冷kernel成本仍另計，不能直接與8032.347s FEM比較後宣稱同精度速度優勢。
 此控制的完整事件梯度尚未獨立核對。
 
+後補同一原float64 seed的64子步完整控制：最大c=0.563086281mm，
+對原FEM差12.58%；比stock seed／64子步少0.000837460mm，約0.149%。
+停止時間29.134ms，最大殘差9.49e−8MPa，推進97.789s，含載核／lift117.298s
+（不含最後輸出與另計建核）。這也未移除主要FEM差距；
+此原seed控制的gradient尚未獨立核對，前面的64子步AD證據屬stock seed軌跡。
+
 64子步沿用同一2us/Q12核心與原packaged seed，於step14566、29.132ms失敗，
 原Newton殘差1.431MPa；Powell hybrid最低仍約0.661MPa。
 原接觸方程continuation在contact fraction約0.013附近停滯，沒有到達完整方程。
