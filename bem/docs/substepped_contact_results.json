@@ -1212,5 +1212,65 @@
     "contact_root_recovery_sha256": "912e5e24598a4dac62e137df1567e73189380b0cf0fbdb2e9f8430bab19e1b52",
     "full_trajectory_substep_ad_validated": false,
     "same_accuracy_speed_advantage_established": false
+  },
+  "full_contact64_parameter_ad_check": {
+    "source": {
+      "path": "bem/outputs/galerkin-fine2-q12-contact64-kinetic-seed/resolvent_adjoint.json",
+      "sha256": "2bc95f783579320581dd27efe6cea9ca94162bd3c0300b34cfc10448c790708e"
+    },
+    "steps": 22500,
+    "value_mm": 0.5607963975850374,
+    "gradient": [
+      2.8223429622770186e-07,
+      7.837721886597997e-06,
+      16.42400159420269,
+      -9.668040349742487,
+      -0.9334956092366122
+    ],
+    "parameter_order": [
+      "normal_penalty",
+      "tangential_penalty",
+      "mu_s",
+      "mu_k",
+      "Dc"
+    ],
+    "seconds_including_jit": 189.3943002074957,
+    "forward_parameter_check": {
+      "gradient": [
+        2.822342962297684e-07,
+        7.837721886599917e-06,
+        16.424001594210093,
+        -9.668040349742716,
+        -0.9334956092342271
+      ],
+      "seconds_including_jit": 276.7257960829884,
+      "parameter_order": [
+        "normal_penalty",
+        "tangential_penalty",
+        "mu_s",
+        "mu_k",
+        "Dc"
+      ],
+      "complete_prefix_derivatives_included": true,
+      "previous_displacement_tangent_included": true,
+      "shared_fft_kernel_bytes": 0,
+      "scope": "Five conditional parameter JVPs; no material/geometry, lift, initial-state or event-time derivatives",
+      "passed": true,
+      "reverse_maximum_absolute_difference": 7.403855306620244e-12,
+      "reverse_relative_differences": [
+        7.322103162761238e-12,
+        2.4488961030370134e-13,
+        4.5079484826829927e-13,
+        2.370180760455043e-14,
+        2.5550116146328555e-12
+      ],
+      "rtol": 1e-05,
+      "atol": 1e-12,
+      "initial_state_and_actuator_cotangents_compared": false
+    },
+    "source_trajectory_sha256": "07e5bac02f203bc2079e62fc14bdff8efb891fcd6390a846f1948a49c5f9252c",
+    "scope": "Fixed bulk/lift/recorded loading and active branches; complete correction transpose plus affine startup cotangents",
+    "independent_reference_compared": false,
+    "all_compared_cotangents_passed": null
   }
 }

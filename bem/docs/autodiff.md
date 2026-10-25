@@ -5,6 +5,8 @@
 20步獨立原始Z-history／JAX scan已核對五參數、初始z/c與全部actuator導數，
 Python3.11／3.12 CI通過。四／十六子步已完成完整45ms forward；
 十六子步的22500步五參數reverse／獨立forward JVP核對現已通過，最大絕對差4.88e-12。
+目前最佳64子步完整軌跡也已通過同一五參數核對，最大絕對差7.40e−12；
+反向含JIT189.39s，獨立正向核對另外276.73s。
 其他cotangent、材料／幾何／lift與event-time的完整核對仍未完成。
 最新2 us／Q12原律完整adjoint已算出，但沒有獨立參考，因此不列為本組驗證通過。
 
@@ -17,6 +19,8 @@ Python3.11／3.12 CI通過。2us與4us／N16的完整45ms五參數核對現已�
 這個選項不核對初始狀態及actuator cotangent，也不擴大材料／幾何／事件時間AD的範圍。
 但跨時間網格的gradient差異很大，部分符號相反；每一組內的微分一致性不能
 證明物理敏感度已收斂，詳見[時間網格與gradient比較](time_grid_comparison.md)。
+固定2us而只增加16到64子步時，部分參數gradient仍變號；
+局部狀態／分支解析度的敏感性也必須保留，不能只看AD內部核對通過。
 
 Tatva 原 FEM 已使用 `jit(value_and_grad(elastic_energy_total))` 從能量計算內力，
 靜態初始化用稀疏著色的能量 Hessian。這保留了材料模型由能量導出的優勢。
