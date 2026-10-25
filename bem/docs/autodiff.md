@@ -3,8 +3,16 @@
 2026-10-24新增[接觸子步的完整條件式adjoint](substepped_contact.md)：
 局部JAX scan配合平衡根隱式微分，反向另傳前一步位移的cotangent。
 20步獨立原始Z-history／JAX scan已核對五參數、初始z/c與全部actuator導數，
-Python3.11／3.12 CI通過；完整事件子步與其獨立梯度對照仍待完成。
+Python3.11／3.12 CI通過。四／十六子步已完成完整45ms forward；完整事件的獨立梯度核對仍待完成。
 最新2 us／Q12原律完整adjoint已算出，但沒有獨立參考，因此不列為本組驗證通過。
+
+2026-10-25新增`resolvent-adjoint --forward-parameter-check`：
+以獨立的正向JAX JVP歷史核對五個參數的反向adjoint，保留滑動前kn／kt來源，
+以及子步對前一位移的tangent。五個方向共用kernel FFT；
+只取frequency-product在最後prefix source以後的輸出，避免future-input circular wrap。
+新原型以非對稱隨機歷史直接卷積、原一步／八子步的獨立原始Z scan核對，
+Python3.11／3.12 CI通過。完整45ms驗證已排在獨立FEM計時之後；
+這個選項不核對初始狀態及actuator cotangent，也不擴大材料／幾何／事件時間AD的範圍。
 
 Tatva 原 FEM 已使用 `jit(value_and_grad(elastic_energy_total))` 從能量計算內力，
 靜態初始化用稀疏著色的能量 Hessian。這保留了材料模型由能量導出的優勢。

@@ -4,6 +4,8 @@
 
 此版本已實作彈性波核、完整時間歷史、有限區域邊界、單向接觸、線性滑移弱化與剛性 platen／彈簧耦合。
 **已完成原載入歷程的 45 ms 粗網格推進，尚未完成原解析度的收斂重現。**
+最新[十六接觸子步與求根恢復](docs/substepped_contact.md)最大滑移0.5591 mm，
+與原FEM的0.6441 mm差13.2%；壓力／剪力末分布差仍約20%。
 目前驗證包括解析波傳／反射、雙 block 非線性滑動、完整時間範圍的原載入對照，以及 JAX 接觸參數梯度。
 數值與執行條件見 [事件比較](docs/event16_comparison.md) 和 [AD 設計](docs/autodiff.md)。
 新增 [接觸座標縮減](docs/condensation.md) 可降低完整歷史儲存，並提供端點與角落加密。
@@ -11,7 +13,7 @@
 新增 [2024–2026 文獻與實作決策](docs/literature.md)，以及可選的頻率插值與 bulk 被動性檢查。
 新的 [P1/P0 對稱 Galerkin backend](docs/galerkin.md) 已接回完整歷史與 JAX，
 提供一致的 nodal forces、端點接觸與批次組裝。較細網格已完成 45 ms，
-[最新 2 us／Q12 完整結果](docs/fine2_event.md) 的最大滑移為0.5111 mm，
+[原一步 2 us／Q12 完整結果](docs/fine2_event.md) 的最大滑移為0.5111 mm，
 相對 FEM 的偏差約20.7%；前緣仍未吻合。上一組4 us使用Q6，這次不能作純時間收斂結論。
 完整歷史 FFT 改為只快取可重用的區塊；同一較細軌跡及 adjoint 逐位相同，程序峰值 RSS 約減半。
 Galerkin CLI 可用 `--spectrum-directory` 把完整半頻譜存到磁碟，降低建立權重時的 RAM 需求；
@@ -47,6 +49,10 @@ shear 資料與最後狀態逐位元相同，bulk 輸出可大幅減少。
 這仍未證明收斂、完整事件梯度或同精度速度優勢。
 另有[受限解析域的頻譜重用原型](docs/cauchy_reuse.md)，旨在減少相同Q下時間網格比較的重複建核；
 五個完整矩陣的獨立抽樣已通過，亦完成真實FMM單row量測；完整新kernel仍待驗證。
+新增[完全相等r的徑向重用實驗](docs/unique_radius.md)，用來減少重複Bessel評估，
+準備更細的接觸網格；尚未量測大型效能，也沒有切換正式backend。
+條件式adjoint可用`--forward-parameter-check`核對獨立正向JVP，
+小型原始Z-history已驗證；完整事件核對與其適用範圍見[AD設計](docs/autodiff.md)。
 
 程式與 Tatva、Bem2d.jl 獨立，不需要讀取或修改外接磁碟，也不需要上層 repository 的 Julia 環境。
 可以把本資料夾獨立放進新的 GitHub repository。
