@@ -9159,5 +9159,14 @@
     },
     "prototype_sha256": "c970cfd65bae1bcbc77414cd3d85ddbacf72e78baef9a03c35253cbbdb86cc71",
     "scope": "Equivalent elastic-resolvent validation with full elastic startup, original loading policy and complete correction memory after activation; no rational fit"
+  },
+  "reference_precision_notice": {
+    "date": "2026-10-25",
+    "original_authored_model_dtype": "float64",
+    "local_static_h1_h05_model_dtype": "float32",
+    "historical_packaged_static_onset_dtype": "float32",
+    "same_precision_fem_spatial_convergence_established": false,
+    "scope": "Historical static values retained; these float32 controls are not the original float64 case or a pure spatial-convergence validation",
+    "details": "reference_precision.md"
   }
 }

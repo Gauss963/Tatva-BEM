@@ -17,6 +17,22 @@
 這個不同精度的結果也不能用來讓BEM的比較看起來更好。
 原Tatva資料夾維持只讀。
 
+後續檢查亦確認`fem-static-h1`、`fem-static-h05`的有效RunConfig及舊
+`fem_static_onset_input.json`都指定float32。原數值與指紋保留，
+但不再以這些控制與原float64存檔混用，推論純網格收斂。
+靜態onset工具現預設從repository內保存的原`input/case.toml`／`resolved.json`
+重建float64設定，並使用與BEM相同的固定packaged seed。
+這個seed仍是float32匯出的分段線性函數，與正式FEM重跑所用的原float64 HDF5 seed分開標記。
+新h2／h1／h0.5靜態比較會在獨立FEM計時後執行；目前沒有新的靜態收斂結論。
+此處的float32指model geometry／operator輸入；archived static solver會在
+`jax.enable_x64(True)`下建立稀疏剛度，因此不能誤稱所有靜態線性代數也是float32。
+新紀錄分別保存model、座標與實際剛度矩陣dtype。
+
+```sh
+PYTHONPATH=bem/src python -B bem/tools/fem_static_onset.py --cores 4 \
+  --meshes 2 1 .5 --output bem/outputs/fem-static-onset-authored-f64
+```
+
 修正後，wrapper從`input/resolved.json`的完整case／solver重建模型，
 核對authored TOML的SHA256、source revision及兩份輸入的精度一致性；
 不再從statistics反推solver設定。另保存實際使用的restart塑性滑移／actuator指紋，

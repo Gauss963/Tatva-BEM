@@ -77,15 +77,18 @@ FEM 首次保存滑移約 25.73 ms。靜態預估不能當成動態成核時間�
 後續要獨立解析端點、process zone 與時間步，不能只把曲線調到吻合。
 
 以原版本 FEM 原始碼在本 checkout 做加密的靜態初始化，保留同一份
-分段線性塑性滑移 seed 與 actuator，得到：
+分段線性塑性滑移 seed 與 actuator，得到以下歷史控制。
+2026-10-25核對發現，本機h1／h0.5的模型設定是float32，原h2案例則指定float64；
+這組混合精度資料不能作為原float64案例的純網格收斂證據。
 
 |FEM 網格|下端 p|上端 p|接觸加權平均 tau|platen|
 |---|---:|---:|---:|---:|
-|2 mm，原紀錄|38.07 MPa|344.62 MPa|8.82654 MPa|9.958879 mm|
-|1 mm，本機|45.08 MPa|479.08 MPa|8.82068 MPa|9.959424 mm|
-|0.5 mm，本機|52.55 MPa|653.84 MPa|8.81805 MPa|9.959684 mm|
+|2 mm，原float64案例存檔|38.07 MPa|344.62 MPa|8.82654 MPa|9.958879 mm|
+|1 mm，本機float32控制|45.08 MPa|479.08 MPa|8.82068 MPa|9.959424 mm|
+|0.5 mm，本機float32控制|52.55 MPa|653.84 MPa|8.81805 MPa|9.959684 mm|
 
-端點峰值仍隨 FEM 網格改變。加密 Galerkin 的平均 tau 約 8.81680 MPa、
+這組端點峰值差包含網格與模型精度的差異，不能只歸因於網格。
+加密 Galerkin 的平均 tau 約 8.81680 MPa、
 platen 9.959814 mm，積分反應比端點峰值更接近；這仍不是動態破裂等價的證明。
 FEM 對照只初始化並推進極短時間，沒有完成加密網格的 45 ms 事件。
 工具沿用舊名稱 `restart_projected_to_coarse_mesh`，此處實際是加密網格。
@@ -137,8 +140,8 @@ mu_s 梯度與中央差分相對差約 `2.21e-9`，兩側差分沒有改變保�
 
 ## 端點、初始場與下一組網格
 
-使用同一 archived FEM solver 與同一 piecewise-linear 塑性滑移 seed，
-frozen-plastic 靜態屈服預估並不隨網格單調收斂：
+使用同一 archived FEM solver、舊packaged float32模型設定與同一piecewise-linear seed，
+得到以下歷史frozen-plastic預估；它們不是原float64案例的精度驗收：
 
 |FEM 網格|預估時間|預估位置|
 |---|---:|---:|
@@ -146,8 +149,12 @@ frozen-plastic 靜態屈服預估並不隨網格單調收斂：
 |1 mm|28.123 ms|y=22 mm|
 |0.5 mm|23.227 ms|y=2 mm|
 
-這些是靜態預估，不是加密 FEM 的完整動態事件。原 2 mm 曲線仍保留作比較基準；
+這些是float32模型的靜態預估，不是加密 FEM 的完整動態事件。原動態2 mm曲線仍保留作比較基準；
 目前資料不能把它或任一加密結果當成已收斂真值。
+`fem_static_onset.py`現改用已核對的authored／resolved輸入，預設float64，
+並記錄每個mesh的有效RunConfig、座標dtype、source archive與seed指紋。
+舊float32快照保留，只有明確指定`--historical-input`才會使用。
+新同精度比較排在獨立FEM計時結束後，尚未執行，見[精度修正](reference_precision.md)。
 seed 在 2 mm 節點存在斜率轉折，漸變網格會重新近似這些特徵。
 新增 `--restart-knot-window` 保留指定端點區間的原節點，
 `--restart-knot-subdivisions` 可再細分該區間。

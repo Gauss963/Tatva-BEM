@@ -20,7 +20,14 @@ def plot_static_onset(figures):
     source = ROOT / "outputs/fem-static-onset"
     record = json.loads((source / "summary.json").read_text())
     for row in record["records"]:
-        studies.append((f"FEM h={row['h_mm']}", source / f"h{row['h_mm']}.csv"))
+        studies.append((f"FEM h={row['h_mm']} (float32 model)", source / f"h{row['h_mm']}.csv"))
+    source = ROOT / "outputs/fem-static-onset-authored-f64"
+    if (source / "summary.json").is_file():
+        record = json.loads((source / "summary.json").read_text())
+        if record.get("model_dtype") != "float64" or record.get("historical_control"):
+            raise ValueError("Authored static study must use the verified float64 model")
+        for row in record["records"]:
+            studies.append((f"FEM h={row['h_mm']} (float64)", source / f"h{row['h_mm']}.csv"))
     studies.extend(
         [
             (
@@ -90,6 +97,7 @@ def main():
         "fem_static_refinement": "fem-static-refinement.json",
         "fem_static_onset": "fem-static-onset/summary.json",
         "fem_packaged_input_replay": "fem-static-onset-packaged-replay/summary.json",
+        "fem_static_onset_authored_float64": "fem-static-onset-authored-f64/summary.json",
         "density_refinement": "galerkin-density/summary.json",
         "bdf2_domain": "bdf2-domain/summary.json",
         "read_only_audit": "research-readonly-audit.json",
@@ -173,6 +181,15 @@ def main():
                     for k in ["fem", "bem", "comparison_scope", "full_original_event_reproduced"]
                 }
             results[key] = item
+    results["reference_precision_notice"] = dict(
+        date="2026-10-25",
+        original_authored_model_dtype="float64",
+        local_static_h1_h05_model_dtype="float32",
+        historical_packaged_static_onset_dtype="float32",
+        same_precision_fem_spatial_convergence_established=False,
+        scope="Historical static values retained; float32 model controls do not establish original-float64 spatial convergence. The archived static solver uses float64 sparse matrices even for a float32 model geometry.",
+        details="reference_precision.md",
+    )
     write_json(ROOT / "docs/galerkin_results.json", results)
     radau = {
         "date": "2026-10-24",
@@ -212,7 +229,10 @@ def main():
     )
     for ax in axes[1]:
         ax.plot(seed["y"], seed["p"], "k-", label="FEM h=2")
-        for folder, label in [("fem-static-h1", "FEM h=1"), ("fem-static-h05", "FEM h=0.5")]:
+        for folder, label in [
+            ("fem-static-h1", "FEM h=1 (float32 model)"),
+            ("fem-static-h05", "FEM h=0.5 (float32 model)"),
+        ]:
             data = np.genfromtxt(
                 ROOT / "outputs" / folder / "interface.csv", delimiter=",", names=True
             )
