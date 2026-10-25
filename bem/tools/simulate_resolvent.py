@@ -202,7 +202,12 @@ def simulate_prepared(
     if hasattr(system, "recovery_events"):
         diagnostics.update(
             contact_root_recovery_events=system.recovery_events,
-            contact_root_policy="Newton L2, then Powell hybrid / contact continuation",
+            contact_root_policy="Newton L2, then Powell hybrid / contact continuation"
+            + (
+                " / constant-mu_k seed checked in original equation"
+                if system.kinetic_seed_recovery
+                else ""
+            ),
         )
     return DynamicResult(
         time,
@@ -243,6 +248,11 @@ def main():
         help="Recover failed substep roots with a checked trust-region solve",
     )
     parser.add_argument(
+        "--kinetic-root-seed",
+        action="store_true",
+        help="Experimental constant-mu_k trial seed only after ordinary contact recovery fails",
+    )
+    parser.add_argument(
         "--restart-seed", type=Path, help="Explicit float64 values on unchanged archived seed knots"
     )
     args = parser.parse_args()
@@ -252,6 +262,8 @@ def main():
         raise ValueError("A positive constitutive substep count is required")
     if args.contact_root_recovery and (args.constitutive_substeps or 1) <= 1:
         raise ValueError("Contact root recovery requires more than one constitutive substep")
+    if args.kinetic_root_seed and not args.contact_root_recovery:
+        raise ValueError("A kinetic root seed requires explicit contact root recovery")
     started = perf_counter()
     if args.output.exists() and any(args.output.iterdir()):
         raise ValueError("Choose a new empty output directory")
@@ -340,7 +352,10 @@ def main():
         if args.contact_root_recovery:
             recovery_sha = fingerprint(recovery_path)
             substep = runpy.run_path(str(recovery_path))["RobustSubsteppedContactEquilibrium"]
-        equilibrium_factory = partial(substep, substeps=args.constitutive_substeps)
+        recovery_options = {"kinetic_seed_recovery": True} if args.kinetic_root_seed else {}
+        equilibrium_factory = partial(
+            substep, substeps=args.constitutive_substeps, **recovery_options
+        )
     initialization_seconds = perf_counter() - started
 
     def save_failure(index, arrays):
@@ -354,6 +369,7 @@ def main():
                 failed_time_s=float(arrays["time"]),
                 residual_mpa=float(arrays["residual_mpa"]),
                 constitutive_substeps=args.constitutive_substeps or 1,
+                kinetic_root_seed=args.kinetic_root_seed,
                 contact_root_recovery_sha256=recovery_sha,
                 solver_sha256=solver_sha,
                 constitutive_substep_sha256=substep_sha,
@@ -405,6 +421,7 @@ def main():
         helper_sha256=helper_sha,
         constitutive_substep_sha256=substep_sha,
         contact_root_recovery_sha256=recovery_sha,
+        kinetic_root_seed=args.kinetic_root_seed,
         restart_seed_override=seed_record,
         restart_seed_loader_sha256=seed_tool_sha,
         bounded_history_sha256=bounded_sha,
@@ -444,6 +461,7 @@ def main():
                 "output": str(args.output.resolve()),
                 "constitutive_substeps": args.constitutive_substeps or 1,
                 "contact_root_recovery": args.contact_root_recovery,
+                "kinetic_root_seed": args.kinetic_root_seed,
                 "restart_seed": None
                 if args.restart_seed is None
                 else str(args.restart_seed.resolve()),

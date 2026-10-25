@@ -108,10 +108,82 @@ def recover_root(system, old, forcing, guess, *, tolerance=1e-7, max_evaluations
     return None, attempts
 
 
+def kinetic_seed_root(system, old, forcing, guess, *, tolerance=1e-7, max_evaluations=400):
+    """Try a constant-mu_k seed, accepting only the original full equation."""
+    p = system.parameters
+    z, c, f = (jnp.asarray(a) for a in [old.plastic_slip, old.cumulative_slip, forcing])
+    previous = jnp.asarray(system.previous_displacement)
+    kinetic = p.at[2].set(p[3])
+    seed, _ = system.base.implicit_displacement(kinetic, z, c, f, jnp.asarray(guess))
+    seed = np.asarray(seed)
+    seed_error = float(np.max(abs(np.asarray(system.base.residual(seed, z, c, kinetic, f)))))
+    seed_finite = bool(np.all(np.isfinite(seed)) and np.isfinite(seed_error))
+    attempts = [
+        dict(
+            method="constant_kinetic_law_seed",
+            accepted=False,
+            seed_residual_mpa=seed_error if seed_finite else None,
+            final_parameters_and_state_unchanged=True,
+        )
+    ]
+    if not seed_finite or seed_error >= tolerance:
+        return None, attempts
+
+    def residual(q):
+        return np.asarray(system.residual(jnp.asarray(q), z, c, p, f, previous))
+
+    def tangent(q):
+        return np.asarray(system.tangent(jnp.asarray(q), z, c, p, previous))
+
+    # The seed may already lie on the fully weakened branch of the ORIGINAL
+    # return map. No changed parameter or trial contact state is committed.
+    error = float(np.max(abs(residual(seed))))
+    if np.isfinite(error) and error < tolerance:
+        attempts.append(
+            dict(method="kinetic_seed_original_equation", accepted=True, residual_mpa=error, nfev=1)
+        )
+        return seed, attempts
+    answer = root(
+        residual,
+        seed,
+        jac=tangent,
+        method="hybr",
+        options={"xtol": 1e-11, "maxfev": max_evaluations},
+    )
+    vector = np.asarray(answer.x)
+    error = float(np.max(abs(residual(vector))))
+    finite = bool(np.all(np.isfinite(vector)) and np.isfinite(error))
+    accepted = finite and error < tolerance
+    attempts.append(
+        dict(
+            method="hybrid_from_kinetic_seed",
+            accepted=accepted,
+            reported_success=bool(answer.success),
+            nfev=answer.nfev,
+            residual_mpa=error if finite else None,
+        )
+    )
+    return (vector if accepted else None), attempts
+
+
 class RobustSubsteppedContactEquilibrium(LOCAL["SubsteppedContactEquilibrium"]):
-    def __init__(self, reference, *, substeps):
+    def __init__(self, reference, *, substeps, kinetic_seed_recovery=False):
         super().__init__(reference, substeps=substeps)
         self.recovery_events = []
+        self.kinetic_seed_recovery = bool(kinetic_seed_recovery)
+
+    def recover(self, old, forcing, guess):
+        candidate, attempts = recover_root(self, old, forcing, guess)
+        if candidate is None and self.kinetic_seed_recovery:
+            try:
+                candidate, additional = kinetic_seed_root(self, old, forcing, guess)
+            except (ValueError, FloatingPointError, np.linalg.LinAlgError) as error:
+                candidate = None
+                additional = [
+                    dict(method="kinetic_seed_recovery", accepted=False, error=str(error))
+                ]
+            attempts.extend(additional)
+        return candidate, attempts
 
     def solve(self, normal_pressure, actuator, old, *, past=None, guess=None):
         step = len(self.accepted_micro_work) + 1
@@ -124,7 +196,7 @@ class RobustSubsteppedContactEquilibrium(LOCAL["SubsteppedContactEquilibrium"]):
             np.zeros(len(self.reference.base_u)) if past is None else past,
         )
         initial = self.previous_displacement if guess is None else guess
-        candidate, attempts = recover_root(self, old, forcing, initial)
+        candidate, attempts = self.recover(old, forcing, initial)
         event = dict(
             step=step,
             primary_residual_mpa=primary.residual_mpa,

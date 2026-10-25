@@ -1,0 +1,22 @@
+{
+  "status": "failed_nonlinear_equilibrium",
+  "failed_step": 14566,
+  "failed_time_s": 0.029131999999999998,
+  "residual_mpa": 1.4310022617839309,
+  "constitutive_substeps": 64,
+  "contact_root_recovery_sha256": "4e0376923154b704c82ee7a38d01a0655d4c6949267161bbdf31362ca18c19f5",
+  "solver_sha256": "a179773025985fa6bc33c673b45918388bd4ae74b1843acfd6218fd991fa1fea",
+  "constitutive_substep_sha256": "d40fcb95f5fa29c0c8630a8901f8d5e63591bfc11ed1c9fbdee7c2ecc8d36225",
+  "prepared_kernel": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/direct-resolvent-fine2-q12",
+  "failed_equilibrium_sha256": "012124731abfc131500da447e3cb6897140607c9cd4f1bd6090585d40ff8bc79",
+  "completed_requested_horizon": false,
+  "full_original_event_reproduced": false,
+  "scope": "Local equilibrium and accepted prefix for diagnosis; not a resumable CQ checkpoint",
+  "source_prefix_archive": "bem/outputs/galerkin-fine2-q12-contact64-recovered/failed_equilibrium.npz",
+  "fixture_scope": "Local failed equation and two preceding accepted displacements; no CQ restart or independent root supplied",
+  "fixture_sha256": "23a840d09dd5434f9ed008b449195d9ffababd49cf1aa002317f503b2c1ece16",
+  "source_fixture_sha256": "669ae2d3ccabec9b679223295804ad86ec639934ec2a9674704ff8956d05b247",
+  "independent_root_source": "bem/outputs/contact64-kinetic-seed-diagnostic-20261025/candidate_roots.npz",
+  "independent_root_source_sha256": "14a56abedb70c22253df62710a0c4f70baa98810b45f4b35ccd7204aeb525395",
+  "independent_root_scope": "Separate SciPy Levenberg-Marquardt solve of original N64 residual, initialized by a constant-mu_k trial. Not a unique-root, trajectory or stability assertion."
+}

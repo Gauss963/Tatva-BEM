@@ -17,8 +17,8 @@ TOOL = runpy.run_path(
 )
 
 
-def problem():
-    path = Path(__file__).with_name("fixtures") / "contact4_event16_equilibrium.npz"
+def problem(substeps=4):
+    path = Path(__file__).with_name("fixtures") / f"contact{substeps}_event16_equilibrium.npz"
     with np.load(path, allow_pickle=False) as source:
         data = {k: source[k] for k in source.files}
     d = len(data["forcing"])
@@ -43,14 +43,17 @@ def problem():
         matrix=data["matrix"],
         external_traction=lambda _: np.zeros(d),
     )
-    system = TOOL["RobustSubsteppedContactEquilibrium"](reference, substeps=4)
+    system = TOOL["RobustSubsteppedContactEquilibrium"](
+        reference, substeps=substeps, kinetic_seed_recovery=substeps == 64
+    )
     system.previous_displacement = data["previous_displacement"].copy()
     state = ContactState(data["plastic_slip"].copy(), data["cumulative_slip"].copy())
     return system, state, data
 
 
-def test_failed_real_equilibrium_recovers_without_committing_trial_states():
-    system, state, data = problem()
+@pytest.mark.parametrize("substeps", [4, 64])
+def test_failed_real_equilibrium_recovers_without_committing_trial_states(substeps):
+    system, state, data = problem(substeps)
     failed_residual = system.residual(
         data["failed_displacement"],
         state.plastic_slip,
@@ -59,7 +62,8 @@ def test_failed_real_equilibrium_recovers_without_committing_trial_states():
         data["forcing"],
         data["previous_displacement"],
     )
-    np.testing.assert_allclose(np.max(abs(failed_residual)), 17.388634458455527, rtol=1e-10)
+    expected = {4: 17.388634458455527, 64: 1.4310022617839309}[substeps]
+    np.testing.assert_allclose(np.max(abs(failed_residual)), expected, rtol=1e-10)
     answer = system.solve(0.0, 0.0, state, guess=data["previous_displacement"])
     assert answer.converged and answer.residual_mpa < 1e-7
     np.testing.assert_allclose(
@@ -70,13 +74,20 @@ def test_failed_real_equilibrium_recovers_without_committing_trial_states():
     np.testing.assert_array_equal(state.plastic_slip, data["plastic_slip"])
     np.testing.assert_array_equal(state.cumulative_slip, data["cumulative_slip"])
     np.testing.assert_array_equal(system.previous_displacement, answer.reduced_displacement)
+    np.testing.assert_array_equal(system.parameters, data["parameters"])
+    if substeps == 64:
+        attempts = system.recovery_events[-1]["attempts"]
+        assert attempts[-1]["method"] in [
+            "kinetic_seed_original_equation",
+            "hybrid_from_kinetic_seed",
+        ]
+        assert attempts[-1]["accepted"] and attempts[-1]["residual_mpa"] < 1e-7
 
 
-def test_recovered_root_keeps_implicit_parameter_derivative():
-    system, state, data = problem()
-    q, attempts = TOOL["recover_root"](
-        system, state, data["forcing"], data["previous_displacement"]
-    )
+@pytest.mark.parametrize("substeps", [4, 64])
+def test_recovered_root_keeps_implicit_parameter_derivative(substeps):
+    system, state, data = problem(substeps)
+    q, attempts = system.recover(state, data["forcing"], data["previous_displacement"])
     assert q is not None and attempts[-1]["accepted"]
     original = system.parameters
     previous = jnp.asarray(data["previous_displacement"])
@@ -96,7 +107,7 @@ def test_recovered_root_keeps_implicit_parameter_derivative():
     values = []
     for change in [-eps, eps]:
         system.parameters = original.at[3].add(change)
-        shifted, _ = TOOL["recover_root"](system, state, data["forcing"], q)
+        shifted, _ = system.recover(state, data["forcing"], q)
         assert shifted is not None
         response = system.local_response(
             shifted, state.plastic_slip, state.cumulative_slip, system.parameters, previous

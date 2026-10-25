@@ -104,6 +104,30 @@ FDBEM_CORES=4 bem/run.sh resolvent-adjoint bem/outputs/fine2-q12-contact8 \
 失敗JSON、局部方程與已接受前綴均保留，與完整16子步結果分開；
 後續需檢查求根路徑及bulk時間解析度，不能由本次失敗斷言無解或已證明不穩定。
 
+## 失敗根的可選kinetic seed
+
+新增`--kinetic-root-seed`，必須搭配`--contact-root-recovery`，且只在既有備援也失敗後使用。
+它以mu_s=mu_k的輔助問題產生trial displacement，再恢復原參數、原舊狀態與完整子步方程。
+僅原始residual低於1e-7MPa才可接受，最後仍由既有implicit-root API更新q/z/c與摩擦功。
+輔助問題不會改寫state、kernel或最終摩擦律，預設關閉。
+
+step14566的64子步捕捉方程中，原Newton殘差1.431MPa；一般hybrid、
+Levenberg–Marquardt及forcing continuation皆未達原門檻。
+kinetic seed讓原方程的hybrid與LM都找到殘差2.49e-13MPa的相同根，
+該根的最小壓力10.18MPa、累積滑移增量非負。
+這證明該局部方程存在可接受根，沒有證明根唯一、完整軌跡或時間收斂。
+實驗工具`diagnose_contact_root.py`保留各方法失敗與成功結果，從不commit trial state。
+
+真實275座標失敗fixture已加入回歸測試，核對恢復、參數／舊狀態不變、
+只commit一次，以及恢復根的mu_k implicit AD對獨立差分。
+完整45ms/64子步與此選項的結果仍須另行驗證。
+
+```sh
+FDBEM_CORES=4 bem/run.sh resolvent-simulate bem/outputs/direct-resolvent-fine2-q12 \
+  --constitutive-substeps 64 --contact-root-recovery --kinetic-root-seed \
+  --fft-cache-mb 8 --max-memory-mb 8192 --output NEW_CONTACT64_RUN
+```
+
 ![完整事件與接觸子步](figures/substepped_contact_event.png)
 
 ![最後界面分布](figures/substepped_contact_profiles.png)
