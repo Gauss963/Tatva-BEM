@@ -25,6 +25,8 @@ extension_elastic_energy是bulk的子集，不另加一次。
 |Platen spring儲能變化|−107.670097|
 |R：摩擦及數值餘額|2973.293179|
 
+完整欄位、儲存精度與來源指紋見[能量帳紀錄](energy_budget_results.json)。
+
 R包含摩擦耗散及數值／積分誤差，不能當成直接量測的摩擦功或穩定性證明。
 保留首末sample，將輸出間距放大2、4、8倍後，R最大改變約0.00615。
 這只量測保存資料的work quadrature敏感度，不能取代FEM實際dt收斂研究。

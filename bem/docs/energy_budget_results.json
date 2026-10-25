@@ -1,0 +1,123 @@
+{
+  "units": "MPa mm^2 per unit thickness",
+  "records": [
+    {
+      "stride": 1,
+      "samples": 9000,
+      "first_time_s": 0.002000018022954464,
+      "last_time_s": 0.047000009566545486,
+      "actuator_work": 2832.464816040101,
+      "normal_external_work": 218.7795639038086,
+      "energy_changes": {
+        "elastic_energy": 171.33935546875,
+        "interface_energy": 0.1450200080871582,
+        "kinetic_energy": 14.136921882629395
+      },
+      "spring_energy_change": -107.67009680421324,
+      "friction_and_numerical_remainder": 2973.2931793886564,
+      "minimum_spring_gap_mm": 0.7958803176879883
+    },
+    {
+      "stride": 2,
+      "samples": 4501,
+      "first_time_s": 0.002000018022954464,
+      "last_time_s": 0.047000009566545486,
+      "actuator_work": 2832.464607372458,
+      "normal_external_work": 218.7795639038086,
+      "energy_changes": {
+        "elastic_energy": 171.33935546875,
+        "interface_energy": 0.1450200080871582,
+        "kinetic_energy": 14.136921882629395
+      },
+      "spring_energy_change": -107.67009680421324,
+      "friction_and_numerical_remainder": 2973.2929707210133,
+      "minimum_spring_gap_mm": 0.7959442138671875
+    },
+    {
+      "stride": 4,
+      "samples": 2251,
+      "first_time_s": 0.002000018022954464,
+      "last_time_s": 0.047000009566545486,
+      "actuator_work": 2832.463981580986,
+      "normal_external_work": 218.7795639038086,
+      "energy_changes": {
+        "elastic_energy": 171.33935546875,
+        "interface_energy": 0.1450200080871582,
+        "kinetic_energy": 14.136921882629395
+      },
+      "spring_energy_change": -107.67009680421324,
+      "friction_and_numerical_remainder": 2973.2923449295413,
+      "minimum_spring_gap_mm": 0.7959442138671875
+    },
+    {
+      "stride": 8,
+      "samples": 1126,
+      "first_time_s": 0.002000018022954464,
+      "last_time_s": 0.047000009566545486,
+      "actuator_work": 2832.458666837283,
+      "normal_external_work": 218.7795639038086,
+      "energy_changes": {
+        "elastic_energy": 171.33935546875,
+        "interface_energy": 0.1450200080871582,
+        "kinetic_energy": 14.136921882629395
+      },
+      "spring_energy_change": -107.67009680421324,
+      "friction_and_numerical_remainder": 2973.2870301858384,
+      "minimum_spring_gap_mm": 0.7959442138671875
+    }
+  ],
+  "platen_width_mm": 200.0,
+  "total_spring_stiffness": 5000.0,
+  "source_provenance": {
+    "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h2-4c-interface/simulation.h5",
+    "bytes": 77038494,
+    "mtime_ns": 1792913256721515841,
+    "history_group": "interface_high_rate",
+    "saved_frames": 9041,
+    "columns": [
+      "time",
+      "applied_shear",
+      "avg_tau",
+      "avg_sigma_n",
+      "max_penetration",
+      "max_slip",
+      "mu_eff_mean",
+      "elastic_energy",
+      "interface_energy",
+      "kinetic_energy",
+      "applied_shear_displacement",
+      "shear_loading_stopped",
+      "loading_face_displacement",
+      "shear_boundary_reaction",
+      "extension_elastic_energy",
+      "normal_loading_coordinate",
+      "normal_external_force"
+    ]
+  },
+  "frozen_input_sha256": {
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h2-4c-interface/summary.json": "8f2538542a351197923c063e75dce7f607adc5706ff46313ee78ee1dc73af5e1",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-field-comparison/summary.json": "30dd777c7eab94f0fff24cce9a0aa66d9a28a8ad0df494afb94d3b18a97a336c",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/fem_energy_budget.py": "f7bc4380493e93d00d7c9b8c2d6b7f39556ae4fa36298abe0429a97225052943",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/fem_reference_io.py": "767d970d36ebb446d838af2bd3c5b252e38614cab8a374e2bcf376f5a6564264"
+  },
+  "stored_history_dtype": "float32",
+  "maximum_spring_traction_reconstruction_error_mpa": 2.384185791015625e-05,
+  "maximum_storage_roundoff_bound_mpa": 0.00013592170989795704,
+  "maximum_coarsened_budget_difference": 0.006149202818050981,
+  "total_seconds_before_reporting": 0.0989357503131032,
+  "process_cpu_seconds": 0.045819,
+  "full_fem_equivalent_bem_verified": false,
+  "scope": "Saved FEM work minus bulk, kinetic, interface and unilateral spring storage changes; remainder contains friction and numerical/integration error",
+  "cadence_scope": "Coarsening checks saved-output quadrature sensitivity only; not time-step convergence or a certified bound",
+  "source_result": {
+    "path": "bem/outputs/fem-verified-energy-budget-guarded-20261025/summary.json",
+    "sha256": "a07816bc866e12eb9dccddf28160e945ebc570d4a334e35491764a076e3a8a0c"
+  },
+  "bem_contact64_micro_friction_work": {
+    "value": 2639.075348809432,
+    "source_path": "bem/outputs/galerkin-fine2-q12-contact64-kinetic-seed/summary.json",
+    "source_sha256": "aab3bab4b5aed8958b621d28d5e5021a7e4009b9f5029eea6f49055f2146e865",
+    "same_quantity_as_fem_remainder": false,
+    "full_bem_energy_balance_closed": false
+  }
+}

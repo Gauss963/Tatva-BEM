@@ -84,6 +84,9 @@ successful contact-only derivatives.
 The [linear modal diagnostic](modal_time_resolution.md) also separates stable
 time integration from wave accuracy. Contact substeps do not refine the bulk
 time symbol; modal attenuation is a diagnostic, not an error bound for rupture.
+The verified [FEM work/storage budget](energy_budget.md) now provides a separate
+energy reference. Its remainder includes friction and numerical error; current
+BEM micro friction work alone does not close the full energy/stability gate.
 
 ## Separation from the original repository
 
