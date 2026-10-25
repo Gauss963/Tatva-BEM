@@ -6,6 +6,12 @@
 [同設定的FEM靜態加密](static_float64_mesh_results.json)仍有更大的局部差異。
 下一項待驗證的假設，是P0輔助密度在角落附近的解析度影響初始牽引場。
 
+補讀Aimi、Di Credico、Gimperlein（2024）的
+[§5.2 mixed boundary integral formulation](https://arxiv.org/html/2405.08566v1#S5.SS2)：
+文中分開配置dummy density與位移空間，並明確指出density可使用P0。
+本專案由此提出固定trace、單獨加密density的誤差控制實驗；
+這不是將該文的Tresca分析直接套用到目前非單調slip weakening。
+
 `galerkin_density.py`細分角落附近的density panels，
 將refined P1 traces以固定插值P限制回原本的P1 trace空間。
 對refined算子V、H、D計算
