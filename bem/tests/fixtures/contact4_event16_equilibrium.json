@@ -1,0 +1,9 @@
+{
+  "source_failed_step": 14572,
+  "source_time_s": 0.029144,
+  "source_residual_mpa": 17.388634458455527,
+  "substeps": 4,
+  "scope": "One retained-coordinate CQ/contact equilibrium, not an entire trajectory or resume checkpoint",
+  "fixture_sha256": "f2b5f1ae9e21129600f58b8bcca446d083b30767695658bdc971f7954fa05fd8",
+  "reduced_weights": "Reconstructed using the retained-port definition in nodal.py: contact weights twice plus 200mm platen width; original failure export mistakenly stored the 906 full-boundary weights"
+}

@@ -7,8 +7,14 @@ gates. A short successful diagnostic does not close the later gates.
 Latest completed result: [2 us / Q12, full 45 ms](fine2_event.md), maximum
 slip 0.511082 mm versus archived FEM 0.644123 mm (20.65% low).
 The earlier 4 us result uses Q6, so this pair does not establish temporal convergence.
-The original-mesh four-core FEM rerun is still running. A serialized study will
-check identical one-substep fields before comparing 4 and 16 constitutive substeps.
+The first local h2 FEM rerun used the history-storage dtype as its model dtype
+and is excluded from the original float64 reference. See the
+[precision correction](reference_precision.md). Corrected initialization matches
+the archived first fields exactly. The full one-substep BEM fields also match
+exactly. The original four-substep Newton solve fails at 29.144 ms; residual-checked
+hybrid/continuation recovery then completes both four- and sixteen-substep events.
+The latter reaches 0.559055 mm (13.21% low), with pressure/shear profile errors
+still near 20%. See the [substep results](substepped_contact.md).
 
 - [x] Independent Laplace-domain plane-strain Green tensor and source traction.
 - [x] Direct finite-interior boundary operators, jump term and singular integration.
@@ -33,7 +39,7 @@ check identical one-substep fields before comparing 4 and 16 constitutive subste
 - [x] Isolated fixed near/far quadrature: sampled contour and short nonlinear/AD checks; full coarse 45 ms fields and original-equation balance pass, one actuator cotangent still fails its unchanged guard.
 - [x] Constrained trace Schur formulation and sampled low-frequency conditioning checks; full-event validation remains open.
 - [x] Local constitutive substeps with previous-displacement cotangents, checked against an independent small original-Z/JAX scan; full-event accuracy study remains open.
-- [x] Guarded circle-reuse prototype and analytic kernel/startup regression; large FMM and nonlinear validation remain open.
+- [x] Guarded circle reuse, analytic kernel/startup regression, five independently assembled real matrices and one real full-grid FMM row; complete-kernel and nonlinear validation remain open.
 - [ ] Quantified nonlinear stability and temporal/spatial convergence for Galerkin.
 - [ ] Independent spatial refinement at the contact ends and process-zone resolution.
 - [ ] Validate static-lift error against original FEM interior fields and quantify zero-initial-velocity assumptions.

@@ -4,11 +4,12 @@ Fully elastodynamic boundary elements for finite-block frictional contact,
 developed alongside the Tatva-based PMMA finite-element model.
 
 **Research implementation: the full 45 ms event-16 FEM rupture has not yet
-been reproduced or shown to converge.** A refined Galerkin run completes the
-45 ms history at 2 us / Q12, but its maximum slip remains about 20.7% below
-the archived FEM. This run changes both time step and quadrature relative to
-the previous 4 us study; it does not establish temporal convergence.
-See the [latest full-event comparison](bem/docs/fine2_event.md) and the
+been reproduced or shown to converge.** At 2 us / Q12, local contact substeps
+and residual-checked root recovery reduce the maximum-slip difference from
+20.7% to 13.2% below the archived FEM. Final pressure/shear profile differences
+remain about 20%; temporal and spatial convergence are still open.
+See the [contact substep comparison](bem/docs/substepped_contact.md),
+the [original one-step comparison](bem/docs/fine2_event.md) and the
 [earlier collocation comparison](bem/docs/event16_comparison.md).
 
 This repository preserves the existing Tatva/PMMA Git history. Its upstream

@@ -1,0 +1,535 @@
+{
+  "fem": {
+    "first_stored_slip_over_1e-7_mm_s": 0.025732864022254942,
+    "actuator_hold_s": 0.02978831934928894,
+    "final_max_cumulative_slip_mm": 0.644122838973999,
+    "final_mean_pressure_mpa": 17.58409881591797,
+    "final_mean_shear_mpa": 8.912893295288086,
+    "final_platen_mm": 10.580398559570312,
+    "final_applied_shear_mpa": 20.538515090942383,
+    "original_recorded_wall_seconds": 6969.130398500711,
+    "original_recorded_shear_steady_seconds": 6630.270908067934,
+    "original_core_count": "not recorded; these are not controlled 4-core timings"
+  },
+  "comparison_scope": "45 ms physical loading; BEM resolution and initial field differ from FEM",
+  "full_original_event_reproduced": false,
+  "bem": [
+    {
+      "name": "galerkin-fine2-q12-resolvent",
+      "status": "completed_requested_horizon",
+      "duration_s": 0.045,
+      "panels": [
+        250,
+        254
+      ],
+      "dt_s": 2e-06,
+      "first_stored_slip_over_1e-7_mm_s": 0.02639,
+      "actuator_hold_s": 0.0292,
+      "endpoint": {
+        "max_cumulative_slip_mm": {
+          "bem": 0.5110821420659825,
+          "fem_at_same_time": 0.644122838973999,
+          "difference": -0.13304069690801656
+        },
+        "mean_contact_shear_mpa": {
+          "bem": 8.945552129542012,
+          "fem_at_same_time": 8.912963031805669,
+          "difference": 0.03258909773634322
+        },
+        "mean_contact_pressure_mpa": {
+          "bem": 16.672327359005166,
+          "fem_at_same_time": 17.58405314185841,
+          "difference": -0.9117257828532424
+        },
+        "platen_mm": {
+          "bem": 10.521230773027224,
+          "fem_at_same_time": 10.580400123675606,
+          "difference": -0.059169350648382135
+        },
+        "applied_shear_mpa": {
+          "bem": 21.724897317013834,
+          "fem_at_same_time": 20.53847595735571,
+          "difference": 1.186421359658123
+        },
+        "actuator_mm": {
+          "bem": 11.390226665707777,
+          "fem_at_same_time": 11.401939392089844,
+          "difference": -0.011712726382066663
+        }
+      },
+      "history_relative_l2": {
+        "max_cumulative_slip_mm": 0.2360882987128853,
+        "mean_contact_shear_mpa": 0.03195184828575043,
+        "mean_contact_pressure_mpa": 0.020057827135210655,
+        "platen_mm": 0.0037788679702748192,
+        "applied_shear_mpa": 0.03804251769216005,
+        "actuator_mm": 0.0006116106710233627
+      },
+      "timing_seconds": {
+        "static_lift_and_kernel_load": 20.189914166927338,
+        "time_stepping": 73.81221437547356,
+        "kernel_build": 73048.667585833,
+        "total_excluding_output": 94.70141437556595
+      },
+      "max_residual_mpa": 1.802931067110679e-10,
+      "max_strength_ratio": 1.0,
+      "friction_work_mpa_mm2": 2396.7853162283764,
+      "endpoint_friction_work_mpa_mm2": 2396.7853162283764,
+      "friction_work_policy": "Endpoint traction times plastic increment",
+      "final_p1_profile_relative_l2": {
+        "cumulative_slip": 0.20028528576422802,
+        "pressure": 0.20160931007278832,
+        "shear": 0.210061512295359
+      },
+      "source_changed_during_run": false,
+      "state_checks": {
+        "all_saved_fields_finite": true,
+        "minimum_contact_pressure_mpa": 8.983837828969415,
+        "minimum_cumulative_increment_mm": 0.0,
+        "minimum_actuator_minus_platen_mm": 0.8399745164495673,
+        "spring_extension_positive_on_all_saved_states": true
+      },
+      "summary_source": {
+        "path": "bem/outputs/galerkin-fine2-q12-resolvent/summary.json",
+        "sha256": "6d1e7a2b7eb9fa1897cd5bf2e318fe7b4094bf5df0b069efe3cf303fc19e823b"
+      },
+      "constitutive_substeps": 1,
+      "micro_fixed_pressure_work_gap_mpa_mm2": null,
+      "root_recovery_events": [],
+      "full_trajectory_substep_ad_validated": false
+    },
+    {
+      "name": "galerkin-fine2-q12-contact4-recovered",
+      "status": "completed_requested_horizon",
+      "duration_s": 0.045,
+      "panels": [
+        250,
+        254
+      ],
+      "dt_s": 2e-06,
+      "first_stored_slip_over_1e-7_mm_s": 0.02639,
+      "actuator_hold_s": 0.029154,
+      "endpoint": {
+        "max_cumulative_slip_mm": {
+          "bem": 0.5466894195231259,
+          "fem_at_same_time": 0.644122838973999,
+          "difference": -0.09743341945087314
+        },
+        "mean_contact_shear_mpa": {
+          "bem": 8.759001327975394,
+          "fem_at_same_time": 8.912963031805669,
+          "difference": -0.15396170383027474
+        },
+        "mean_contact_pressure_mpa": {
+          "bem": 16.259184227417197,
+          "fem_at_same_time": 17.58405314185841,
+          "difference": -1.3248689144412111
+        },
+        "platen_mm": {
+          "bem": 10.5388898169075,
+          "fem_at_same_time": 10.580400123675606,
+          "difference": -0.04151030676810663
+        },
+        "applied_shear_mpa": {
+          "bem": 21.260421220006975,
+          "fem_at_same_time": 20.53847595735571,
+          "difference": 0.7219452626512641
+        },
+        "actuator_mm": {
+          "bem": 11.389306665707778,
+          "fem_at_same_time": 11.401939392089844,
+          "difference": -0.012632726382065584
+        }
+      },
+      "history_relative_l2": {
+        "max_cumulative_slip_mm": 0.19833919079790677,
+        "mean_contact_shear_mpa": 0.02792877191571593,
+        "mean_contact_pressure_mpa": 0.026378557372860743,
+        "platen_mm": 0.003312432113795483,
+        "applied_shear_mpa": 0.0336301563836613,
+        "actuator_mm": 0.0006599790090432145
+      },
+      "timing_seconds": {
+        "static_lift_and_kernel_load": 24.344316374510527,
+        "time_stepping": 92.3003195002675,
+        "kernel_build": 73048.667585833,
+        "total_excluding_output": 116.69316858332604
+      },
+      "max_residual_mpa": 7.801496312207072e-08,
+      "max_strength_ratio": 1.0,
+      "friction_work_mpa_mm2": 2557.976744229238,
+      "endpoint_friction_work_mpa_mm2": 2552.0935446885023,
+      "friction_work_policy": "Sum over accepted constitutive substeps",
+      "final_p1_profile_relative_l2": {
+        "cumulative_slip": 0.14201756269862373,
+        "pressure": 0.1997116751452334,
+        "shear": 0.20551739050597365
+      },
+      "source_changed_during_run": false,
+      "state_checks": {
+        "all_saved_fields_finite": true,
+        "minimum_contact_pressure_mpa": 8.835809674457698,
+        "minimum_cumulative_increment_mm": 0.0,
+        "minimum_actuator_minus_platen_mm": 0.8244926049337558,
+        "spring_extension_positive_on_all_saved_states": true
+      },
+      "summary_source": {
+        "path": "bem/outputs/galerkin-fine2-q12-contact4-recovered/summary.json",
+        "sha256": "d69056bc8a0f7c1c72e8a548d375bd1576d5729b09f73e2a67e9307e38695039"
+      },
+      "constitutive_substeps": 4,
+      "micro_fixed_pressure_work_gap_mpa_mm2": 1.9516566056176998,
+      "root_recovery_events": [
+        {
+          "step": 14572,
+          "primary_residual_mpa": 17.388634458455527,
+          "primary_newton_iterations": 26,
+          "attempts": [
+            {
+              "method": "powell_hybrid",
+              "contact_fraction": 1.0,
+              "reported_success": true,
+              "residual_mpa": 1.474376176702208e-13,
+              "nfev": 80,
+              "accepted": true
+            }
+          ],
+          "recovered": true,
+          "final_residual_mpa": 1.474376176702208e-13
+        },
+        {
+          "step": 14577,
+          "primary_residual_mpa": 20.87792893552603,
+          "primary_newton_iterations": 12,
+          "attempts": [
+            {
+              "method": "powell_hybrid",
+              "contact_fraction": 1.0,
+              "reported_success": false,
+              "residual_mpa": 10.353195107272484,
+              "nfev": 13,
+              "accepted": false
+            },
+            {
+              "method": "hybrid_from_previous_state_root",
+              "contact_fraction": 1.0,
+              "reported_success": false,
+              "residual_mpa": 14.483700093298296,
+              "nfev": 40,
+              "accepted": false
+            },
+            {
+              "method": "contact_continuation",
+              "contact_fraction": 0.125,
+              "reported_success": false,
+              "residual_mpa": 9.592326932761353e-14,
+              "nfev": 23,
+              "accepted": true
+            },
+            {
+              "method": "contact_continuation",
+              "contact_fraction": 0.3125,
+              "reported_success": false,
+              "residual_mpa": 1.2789769243681803e-13,
+              "nfev": 23,
+              "accepted": true
+            },
+            {
+              "method": "contact_continuation",
+              "contact_fraction": 0.5625,
+              "reported_success": false,
+              "residual_mpa": 1.723066134218243e-13,
+              "nfev": 16,
+              "accepted": true
+            },
+            {
+              "method": "contact_continuation",
+              "contact_fraction": 0.8125,
+              "reported_success": false,
+              "residual_mpa": 1.4033219031261979e-13,
+              "nfev": 16,
+              "accepted": true
+            },
+            {
+              "method": "contact_continuation",
+              "contact_fraction": 1.0,
+              "reported_success": false,
+              "residual_mpa": 1.8118839761882555e-13,
+              "nfev": 15,
+              "accepted": true
+            }
+          ],
+          "recovered": true,
+          "final_residual_mpa": 1.8118839761882555e-13
+        }
+      ],
+      "full_trajectory_substep_ad_validated": false
+    },
+    {
+      "name": "galerkin-fine2-q12-contact16-recovered",
+      "status": "completed_requested_horizon",
+      "duration_s": 0.045,
+      "panels": [
+        250,
+        254
+      ],
+      "dt_s": 2e-06,
+      "first_stored_slip_over_1e-7_mm_s": 0.02639,
+      "actuator_hold_s": 0.029137999999999997,
+      "endpoint": {
+        "max_cumulative_slip_mm": {
+          "bem": 0.5590550292198929,
+          "fem_at_same_time": 0.644122838973999,
+          "difference": -0.0850678097541061
+        },
+        "mean_contact_shear_mpa": {
+          "bem": 8.772741542662292,
+          "fem_at_same_time": 8.912963031805669,
+          "difference": -0.14022148914337684
+        },
+        "mean_contact_pressure_mpa": {
+          "bem": 16.172884910116544,
+          "fem_at_same_time": 17.58405314185841,
+          "difference": -1.4111682317418648
+        },
+        "platen_mm": {
+          "bem": 10.546113196824033,
+          "fem_at_same_time": 10.580400123675606,
+          "difference": -0.034286926851573085
+        },
+        "applied_shear_mpa": {
+          "bem": 21.07183672209363,
+          "fem_at_same_time": 20.53847595735571,
+          "difference": 0.5333607647379175
+        },
+        "actuator_mm": {
+          "bem": 11.388986665707778,
+          "fem_at_same_time": 11.401939392089844,
+          "difference": -0.012952726382065904
+        }
+      },
+      "history_relative_l2": {
+        "max_cumulative_slip_mm": 0.1866236530358907,
+        "mean_contact_shear_mpa": 0.026756140257825245,
+        "mean_contact_pressure_mpa": 0.02879883716319909,
+        "platen_mm": 0.0031491303233305576,
+        "applied_shear_mpa": 0.03224906037350297,
+        "actuator_mm": 0.0006768139420718401
+      },
+      "timing_seconds": {
+        "static_lift_and_kernel_load": 24.75574087444693,
+        "time_stepping": 91.73920612502843,
+        "kernel_build": 73048.667585833,
+        "total_excluding_output": 116.5409879591316
+      },
+      "max_residual_mpa": 7.459243724910995e-08,
+      "max_strength_ratio": 1.0,
+      "friction_work_mpa_mm2": 2617.3388191293548,
+      "endpoint_friction_work_mpa_mm2": 2611.310289384783,
+      "friction_work_policy": "Sum over accepted constitutive substeps",
+      "final_p1_profile_relative_l2": {
+        "cumulative_slip": 0.12132602730851601,
+        "pressure": 0.19946824602468702,
+        "shear": 0.20466559103110044
+      },
+      "source_changed_during_run": false,
+      "state_checks": {
+        "all_saved_fields_finite": true,
+        "minimum_contact_pressure_mpa": 8.833651472970185,
+        "minimum_cumulative_increment_mm": 0.0,
+        "minimum_actuator_minus_platen_mm": 0.8185657842678804,
+        "spring_extension_positive_on_all_saved_states": true
+      },
+      "summary_source": {
+        "path": "bem/outputs/galerkin-fine2-q12-contact16-recovered/summary.json",
+        "sha256": "cf33f8d4f3b03873a18cfe26e22e0d1b24d7732da9cd48f285f2543bfe7e6457"
+      },
+      "constitutive_substeps": 16,
+      "micro_fixed_pressure_work_gap_mpa_mm2": 0.5156943173351465,
+      "root_recovery_events": [
+        {
+          "step": 14556,
+          "primary_residual_mpa": 5.503105278075714,
+          "primary_newton_iterations": 17,
+          "attempts": [
+            {
+              "method": "powell_hybrid",
+              "contact_fraction": 1.0,
+              "reported_success": true,
+              "residual_mpa": 9.533460296975592e-12,
+              "nfev": 66,
+              "accepted": true
+            }
+          ],
+          "recovered": true,
+          "final_residual_mpa": 9.533460296975592e-12
+        },
+        {
+          "step": 14564,
+          "primary_residual_mpa": 18.935912499937388,
+          "primary_newton_iterations": 18,
+          "attempts": [
+            {
+              "method": "powell_hybrid",
+              "contact_fraction": 1.0,
+              "reported_success": false,
+              "residual_mpa": 7.745238700111628,
+              "nfev": 40,
+              "accepted": false
+            },
+            {
+              "method": "hybrid_from_previous_state_root",
+              "contact_fraction": 1.0,
+              "reported_success": false,
+              "residual_mpa": 1.6342482922482304e-13,
+              "nfev": 23,
+              "accepted": true
+            }
+          ],
+          "recovered": true,
+          "final_residual_mpa": 1.6342482922482304e-13
+        },
+        {
+          "step": 14569,
+          "primary_residual_mpa": 8.20274557087339,
+          "primary_newton_iterations": 19,
+          "attempts": [
+            {
+              "method": "powell_hybrid",
+              "contact_fraction": 1.0,
+              "reported_success": false,
+              "residual_mpa": 4.318633751308937,
+              "nfev": 35,
+              "accepted": false
+            },
+            {
+              "method": "hybrid_from_previous_state_root",
+              "contact_fraction": 1.0,
+              "reported_success": false,
+              "residual_mpa": 3.612333779828873,
+              "nfev": 58,
+              "accepted": false
+            },
+            {
+              "method": "contact_continuation",
+              "contact_fraction": 0.125,
+              "reported_success": false,
+              "residual_mpa": 2.6154315041820837,
+              "nfev": 26,
+              "accepted": false
+            },
+            {
+              "method": "contact_continuation",
+              "contact_fraction": 0.0625,
+              "reported_success": false,
+              "residual_mpa": 1.652011860642233e-13,
+              "nfev": 26,
+              "accepted": true
+            },
+            {
+              "method": "contact_continuation",
+              "contact_fraction": 0.15625,
+              "reported_success": false,
+              "residual_mpa": 8.526512829121202e-14,
+              "nfev": 21,
+              "accepted": true
+            },
+            {
+              "method": "contact_continuation",
+              "contact_fraction": 0.296875,
+              "reported_success": false,
+              "residual_mpa": 1.0125233984581428e-13,
+              "nfev": 23,
+              "accepted": true
+            },
+            {
+              "method": "contact_continuation",
+              "contact_fraction": 0.5078125,
+              "reported_success": false,
+              "residual_mpa": 1.0835776720341528e-13,
+              "nfev": 20,
+              "accepted": true
+            },
+            {
+              "method": "contact_continuation",
+              "contact_fraction": 0.7578125,
+              "reported_success": false,
+              "residual_mpa": 1.509903313490213e-13,
+              "nfev": 26,
+              "accepted": true
+            },
+            {
+              "method": "contact_continuation",
+              "contact_fraction": 1.0,
+              "reported_success": false,
+              "residual_mpa": 1.0302869668521453e-13,
+              "nfev": 23,
+              "accepted": true
+            }
+          ],
+          "recovered": true,
+          "final_residual_mpa": 1.0302869668521453e-13
+        }
+      ],
+      "full_trajectory_substep_ad_validated": false
+    }
+  ],
+  "comparison_source": {
+    "path": "bem/outputs/fine2-contact-substeps-comparison/event16_results.json",
+    "sha256": "e73bb483bbca1700cc1e7d79d968fc4179630a1c79ac55d42affffd9d15e1a4f"
+  },
+  "environment": {
+    "package_version": "0.1.0",
+    "python": "3.12.13",
+    "numpy": "2.4.4",
+    "scipy": "1.17.1",
+    "platform": "macOS-15.7.9-arm64-arm-64bit",
+    "available_logical_cpus": 10,
+    "hard_cpu_affinity_enforced": false,
+    "thread_environment": {
+      "FDBEM_CORES": "4",
+      "OPENBLAS_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "VECLIB_MAXIMUM_THREADS": "1",
+      "XLA_FLAGS": "--xla_cpu_multi_thread_eigen=false intra_op_parallelism_threads=4",
+      "JAX_ENABLE_X64": "true"
+    },
+    "blas_threadpools": [],
+    "source_sha256": {
+      "__init__.py": "984855d6ff3848411c946ecca174ac08baf7afe6f1d2c3be00284da9b8dbf288",
+      "adjoint.py": "7863386b78318e6502d6257469322ee82746f2384ee915c16cbb98cda69c5bc0",
+      "benchmarks.py": "c24b97264ca60d0da1dab2095d50e9ef1b88b7208fba2d46178b8cf9038eb571",
+      "case.py": "4f0c91b18309a2eae5ce5a78da3bac9fde0be9fb1c0a4d2d5e5e1fc84bd85fa7",
+      "cli.py": "82e53ce34714809933dbe456ef403bce27c6b60b20ac4481f2feded9eeadfcea",
+      "comparison.py": "631c111752342fac7d0f64553620e04940e7888b1ab2fc52566a23b5c35ee24c",
+      "condensation.py": "12010fb51d8490ae5c3a9a2cf5b04e414cb7e6205b409ce7891b454e384de7d2",
+      "constraints.py": "830071941c6df0f70e455530fe094242042fb0c1e31498e8f9b75c9aa825cb91",
+      "cq.py": "e9af920593db01f56f1f7138832f0aa603daf07cbf1d688fba8a806f712c1e15",
+      "cq_storage.py": "da2534ef95e95813a464ff04f78a092be374110650d1866cbc1fb8ea5b5105b2",
+      "dynamics.py": "b6d84d8d2c1ac6fc465565c289d1249f378f3424e00cb93441791960b3c180f8",
+      "friction.py": "1424c1639cdc1eb4dd8f780bfdc0433f33cf29752b07a17814a3a2f326d81086",
+      "galerkin.py": "85541ddfe5020debde77b2bf2d4a045fe9a52b6183d4af2f762f577be18ab66d",
+      "galerkin_fast.py": "e6167f6c553e15697b6d67a3a33f559574d22fd49db4aad49c8262d68224b614",
+      "io.py": "d292e6338381aa7935dbbfcadc0df884e89f10b7096fa70cf1b05a83c1c12b03",
+      "jax_backend.py": "4de0aadb88b73ef6792ff36894134ee31bc412b1a54b177a4d1aaaa43328d547",
+      "kernels.py": "4008ae38c62c3022034d654a13da75369bd67309af4614006942398e22c1ad08",
+      "linear.py": "3a4d7c2259fd3e67b507d0c9dcd18082c24ffda30fccb12749976c97fa5a577c",
+      "material.py": "7c4d34d911831f12e3bc99bda2e13e76d468acdf80038dcb60310a568a5342d1",
+      "mesh.py": "a37e853ed57dd80633c44805b6c13158643ac65db3e4a4cfc12520bbdfa15c4c",
+      "nodal.py": "632f1a755bb09d784c125d3198f662213ea60045ada9db1555e1b47b3ab39856",
+      "nodal_dynamics.py": "839db57190f62795aebef30545fcc9c1b41fdef503f038cc7f425068962eb39d",
+      "nonlinear.py": "019c5fc176c70964c89f9e7c74147ad48b4235267dd2faf0ee22f789a2b97590",
+      "operators.py": "bb77a3b2c66dce871c9e71cc2cdc02488e90ad32278cc9a67fea8b909b722825",
+      "sampling.py": "c518d2298b167aaa1d5ca327a612426276901876a50322a7fe4595c7ee4f1f11",
+      "statics.py": "9f81cbd95a1ff1f742387ee4ae94251304177999208a95703371272ac79dc250"
+    },
+    "case_sha256": "82d8f491a63ca1c348507678f08406dccbc62ed1d4abea8882879f7894d2315d",
+    "restart_data_sha256": "cae42101ff5a57004fa803ea5ce928eb8079e5be0ab887d108689e37754c25f6",
+    "jax": "0.9.2",
+    "jax_x64": true,
+    "jax_devices": [
+      "TFRT_CPU_0"
+    ]
+  },
+  "same_accuracy_speed_advantage_established": false
+}

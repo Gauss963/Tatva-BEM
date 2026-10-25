@@ -43,6 +43,7 @@ def simulate_prepared(
     diagnostic=False,
     history_factory=None,
     equilibrium_factory=None,
+    failure_callback=None,
 ):
     """Preserve original Newton roots, loading stop rule, and every nonzero lag."""
     from finiteblock_bem.jax_backend import JaxContactEquilibrium
@@ -93,6 +94,39 @@ def simulate_prepared(
             model.reference.normal_pressure, actuator[index], old, past=past, guess=q[index - 1]
         )
         if not answer.converged:
+            if failure_callback is not None:
+                base_system = getattr(system, "base", system)
+                failure_callback(
+                    index,
+                    dict(
+                        failed_displacement=answer.reduced_displacement,
+                        previous_displacement=q[index - 1],
+                        plastic_slip=old.plastic_slip,
+                        cumulative_slip=old.cumulative_slip,
+                        parameters=np.asarray(system.parameters),
+                        forcing=np.asarray(
+                            base_system.forcing(
+                                model.reference.normal_pressure, actuator[index], past
+                            )
+                        ),
+                        matrix=reference.matrix,
+                        base_dn=reference.base_dn,
+                        base_ds=reference.base_ds,
+                        contact_weights=weights,
+                        reduced_weights=reference.constraints.reduced_weights,
+                        time=time[index],
+                        residual_mpa=answer.residual_mpa,
+                        iterations=answer.iterations,
+                        recovery_events_json=np.asarray(
+                            json.dumps(getattr(system, "recovery_events", []))
+                        ),
+                        accepted_displacement=q[:index],
+                        accepted_pressure=p[:index],
+                        accepted_shear=tau[:index],
+                        accepted_plastic_slip=z[:index],
+                        accepted_cumulative_slip=c[:index],
+                    ),
+                )
             raise ValueError(f"Resolvent equilibrium failed at step {index}: {answer.residual_mpa}")
         q[index], contact = answer.reduced_displacement, answer.contact
         p[index], tau[index], mu[index], z[index], c[index] = (
@@ -165,6 +199,11 @@ def simulate_prepared(
             micro_work_scope="Pressure frozen separately at each local substep; not a total energy balance",
             full_trajectory_substep_ad_validated=False,
         )
+    if hasattr(system, "recovery_events"):
+        diagnostics.update(
+            contact_root_recovery_events=system.recovery_events,
+            contact_root_policy="Newton L2, then Powell hybrid / contact continuation",
+        )
     return DynamicResult(
         time,
         None,
@@ -198,11 +237,18 @@ def main():
         type=int,
         help="Experimental linear-path contact updates inside each unchanged bulk CQ step",
     )
+    parser.add_argument(
+        "--contact-root-recovery",
+        action="store_true",
+        help="Recover failed substep roots with a checked trust-region solve",
+    )
     args = parser.parse_args()
     if not np.isfinite(args.max_memory_mb) or args.max_memory_mb <= 0:
         raise ValueError("A finite positive memory budget is required")
     if args.constitutive_substeps is not None and args.constitutive_substeps < 1:
         raise ValueError("A positive constitutive substep count is required")
+    if args.contact_root_recovery and (args.constitutive_substeps or 1) <= 1:
+        raise ValueError("Contact root recovery requires more than one constitutive substep")
     started = perf_counter()
     if args.output.exists() and any(args.output.iterdir()):
         raise ValueError("Choose a new empty output directory")
@@ -275,13 +321,43 @@ def main():
     solver_sha, helper_sha = fingerprint(Path(__file__)), fingerprint(HELPER_PATH)
     substep_path = Path(__file__).with_name("substepped_contact_experiment.py")
     substep_sha, equilibrium_factory = None, None
+    recovery_path = Path(__file__).with_name("robust_contact_experiment.py")
+    recovery_sha = None
     if args.constitutive_substeps is not None:
         from functools import partial
 
         substep_sha = fingerprint(substep_path)
         substep = runpy.run_path(str(substep_path))["SubsteppedContactEquilibrium"]
+        if args.contact_root_recovery:
+            recovery_sha = fingerprint(recovery_path)
+            substep = runpy.run_path(str(recovery_path))["RobustSubsteppedContactEquilibrium"]
         equilibrium_factory = partial(substep, substeps=args.constitutive_substeps)
     initialization_seconds = perf_counter() - started
+
+    def save_failure(index, arrays):
+        args.output.mkdir(parents=True, exist_ok=True)
+        np.savez(args.output / "failed_equilibrium.npz", **arrays)
+        write_json(
+            args.output / "failure.json",
+            dict(
+                status="failed_nonlinear_equilibrium",
+                failed_step=index,
+                failed_time_s=float(arrays["time"]),
+                residual_mpa=float(arrays["residual_mpa"]),
+                constitutive_substeps=args.constitutive_substeps or 1,
+                contact_root_recovery_sha256=recovery_sha,
+                solver_sha256=solver_sha,
+                constitutive_substep_sha256=substep_sha,
+                prepared_kernel=str(args.kernel.resolve()),
+                failed_equilibrium_sha256=HELPER["digest_file"](
+                    args.output / "failed_equilibrium.npz"
+                ),
+                completed_requested_horizon=False,
+                full_original_event_reproduced=False,
+                scope="Local equilibrium and accepted prefix for diagnosis; not a resumable CQ checkpoint",
+            ),
+        )
+
     result = simulate_prepared(
         model,
         reference,
@@ -293,6 +369,7 @@ def main():
         diagnostic=diagnostic is not None,
         history_factory=history_factory,
         equilibrium_factory=equilibrium_factory,
+        failure_callback=save_failure,
     )
     if solver_sha != fingerprint(Path(__file__)) or helper_sha != fingerprint(HELPER_PATH):
         raise ValueError("Experimental solver source changed during simulation")
@@ -300,6 +377,8 @@ def main():
         raise ValueError("Bounded history implementation changed during simulation")
     if substep_sha is not None and substep_sha != fingerprint(substep_path):
         raise ValueError("Constitutive substep implementation changed during simulation")
+    if recovery_sha is not None and recovery_sha != fingerprint(recovery_path):
+        raise ValueError("Contact root recovery changed during simulation")
     result.diagnostics.update(
         prepared_kernel=str(args.kernel.resolve()),
         kernel_summary_sha256=fingerprint(args.kernel / "summary.json"),
@@ -307,6 +386,7 @@ def main():
         solver_sha256=solver_sha,
         helper_sha256=helper_sha,
         constitutive_substep_sha256=substep_sha,
+        contact_root_recovery_sha256=recovery_sha,
         bounded_history_sha256=bounded_sha,
         fft_cache_mb=args.fft_cache_mb,
         estimated_solver_array_peak_mib=estimate / 1024**2,
@@ -342,6 +422,10 @@ def main():
                 "duration": float(time[-1]),
                 "name": args.output.name,
                 "output": str(args.output.resolve()),
+                "constitutive_substeps": args.constitutive_substeps or 1,
+                "contact_root_recovery": args.contact_root_recovery,
+                "fft_cache_mb": args.fft_cache_mb,
+                "fft_rows": args.fft_rows,
             },
             prepared_kernel=str(args.kernel.resolve()),
             source_run=metadata["source_run"],
