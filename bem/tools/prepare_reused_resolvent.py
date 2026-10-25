@@ -47,6 +47,9 @@ def main():
     ):
         raise ValueError("Positive finite time/resource options are required")
     begun = perf_counter()
+    cauchy_path = TOOLS / "cauchy_reuse_experiment.py"
+    cauchy_sha = fingerprint(cauchy_path)
+    cauchy = runpy.run_path(str(cauchy_path))
     metadata_path = args.kernel / "summary.json"
     metadata = json.loads(metadata_path.read_text())
     options = metadata["source_mesh_arguments"]
@@ -60,7 +63,7 @@ def main():
     if storage.get("coordinates") != "diag(sqrt(w)) * L * diag(sqrt(w))":
         raise ValueError("Source must be the work-coordinate elastic resolvent")
     source_path = Path(storage["path"])
-    if fingerprint(source_path) != storage["sha256"]:
+    if cauchy["stream_file_sha256"](source_path) != storage["sha256"]:
         raise ValueError("Source spectrum digest differs")
     source_stat = source_path.stat()
     source_plan = CQPlan(**metadata["plan"])
@@ -107,7 +110,8 @@ def main():
         ],
     ]
     frozen = {str(p.resolve()): fingerprint(p) for p in frozen_paths}
-    cauchy = runpy.run_path(str(TOOLS / "cauchy_reuse_experiment.py"))
+    if frozen[str(cauchy_path.resolve())] != cauchy_sha:
+        raise ValueError("Cauchy implementation changed while checking the source spectrum")
     helper = runpy.run_path(str(TOOLS / "replay_resolvent.py"))
     native = runpy.run_path(str(TOOLS / "native_spectrum.py"))
     conversion = runpy.run_path(str(TOOLS / "prepare_native_resolvent.py"))
@@ -268,8 +272,8 @@ def main():
         helper_math_sha256=hashlib.sha256(
             ast.dump(helper_node, include_attributes=False).encode()
         ).hexdigest(),
-        weights_sha256=fingerprint(args.output / "weights.npy"),
-        elastic_sha256=fingerprint(args.output / "elastic.npz"),
+        weights_sha256=cauchy["stream_file_sha256"](args.output / "weights.npy"),
+        elastic_sha256=cauchy["stream_file_sha256"](args.output / "elastic.npz"),
         full_original_event_reproduced=False,
         certified_error_bound=False,
         scope="Streamed contour reuse checked against independent sampled BEM matrices; full trajectory and conditional AD require separate verification",

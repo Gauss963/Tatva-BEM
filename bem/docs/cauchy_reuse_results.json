@@ -1,0 +1,156 @@
+{
+  "sampled_operator_audit": {
+    "path": "bem/outputs/cauchy-fine2-to4-audit/summary.json",
+    "sha256": "831f267f74eba9e998c01b485bc9c1c1bee278491871fdab4bd513344a73b40e",
+    "data": {
+      "status": "passed_sampled_operator_comparison",
+      "source_kernel": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/direct-resolvent-fine2-q12",
+      "source_spectrum_sha256": "a3a41301f5fa30d387c7755b6799578b75416aabbfe312cfae12b9af8d8041e6",
+      "source_dt_s": 2e-06,
+      "target_dt_s": 4e-06,
+      "target_fft_size": 32768,
+      "indices": [
+        0,
+        1,
+        64,
+        4096,
+        16384
+      ],
+      "reuse_evaluation": "Frequency-major bounded direct Cauchy blocks; one source pass",
+      "relative_frobenius_errors": [
+        1.7952215816297518e-13,
+        2.2235915139734374e-13,
+        5.800473913282292e-13,
+        6.462414276888707e-12,
+        5.226337743753944e-12
+      ],
+      "relative_tolerance": 1e-06,
+      "maximum_relative_error": 6.462414276888707e-12,
+      "operator_arrays_sha256": "b0267f5ac1d14ec05386d2575e63adffec5de27fc827b9ef77b03180e654d563",
+      "resampling_seconds": 89.18957641720772,
+      "fresh_bem_seconds": 87.88936458341777,
+      "total_seconds": 197.338169333525,
+      "frozen_inputs_sha256": {
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/audit_cauchy_reuse.py": "8480423bb92279473ad6caf09c5d0dce00fe21969326e097e754e13560835077",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/cauchy_reuse_experiment.py": "c347950f09bc665d2ab815bb6c7e0607940843788141137fada78a50f1b12a97",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/direct-resolvent-fine2-q12/summary.json": "1ea8df55ac77b5204fbdd4867e44b4a57b2ae304b8a5a0e029a3f92dbd9ace1f",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/replay_resolvent.py": "129d75f1dc47ba11f2da171a820e422c3bde36ccce6ed2624690230c9e66bafc"
+      },
+      "environment": {
+        "package_version": "0.1.0",
+        "python": "3.12.13",
+        "numpy": "2.4.4",
+        "scipy": "1.17.1",
+        "platform": "macOS-15.7.9-arm64-arm-64bit",
+        "available_logical_cpus": 10,
+        "hard_cpu_affinity_enforced": false,
+        "thread_environment": {
+          "FDBEM_CORES": "1",
+          "OPENBLAS_NUM_THREADS": "1",
+          "OMP_NUM_THREADS": "1",
+          "VECLIB_MAXIMUM_THREADS": "1",
+          "XLA_FLAGS": "--xla_cpu_multi_thread_eigen=false intra_op_parallelism_threads=1",
+          "JAX_ENABLE_X64": "true"
+        },
+        "blas_threadpools": [],
+        "source_sha256": {
+          "__init__.py": "984855d6ff3848411c946ecca174ac08baf7afe6f1d2c3be00284da9b8dbf288",
+          "adjoint.py": "7863386b78318e6502d6257469322ee82746f2384ee915c16cbb98cda69c5bc0",
+          "benchmarks.py": "c24b97264ca60d0da1dab2095d50e9ef1b88b7208fba2d46178b8cf9038eb571",
+          "case.py": "4f0c91b18309a2eae5ce5a78da3bac9fde0be9fb1c0a4d2d5e5e1fc84bd85fa7",
+          "cli.py": "82e53ce34714809933dbe456ef403bce27c6b60b20ac4481f2feded9eeadfcea",
+          "comparison.py": "631c111752342fac7d0f64553620e04940e7888b1ab2fc52566a23b5c35ee24c",
+          "condensation.py": "12010fb51d8490ae5c3a9a2cf5b04e414cb7e6205b409ce7891b454e384de7d2",
+          "constraints.py": "830071941c6df0f70e455530fe094242042fb0c1e31498e8f9b75c9aa825cb91",
+          "cq.py": "e9af920593db01f56f1f7138832f0aa603daf07cbf1d688fba8a806f712c1e15",
+          "cq_storage.py": "da2534ef95e95813a464ff04f78a092be374110650d1866cbc1fb8ea5b5105b2",
+          "dynamics.py": "b6d84d8d2c1ac6fc465565c289d1249f378f3424e00cb93441791960b3c180f8",
+          "friction.py": "1424c1639cdc1eb4dd8f780bfdc0433f33cf29752b07a17814a3a2f326d81086",
+          "galerkin.py": "85541ddfe5020debde77b2bf2d4a045fe9a52b6183d4af2f762f577be18ab66d",
+          "galerkin_fast.py": "e6167f6c553e15697b6d67a3a33f559574d22fd49db4aad49c8262d68224b614",
+          "io.py": "d292e6338381aa7935dbbfcadc0df884e89f10b7096fa70cf1b05a83c1c12b03",
+          "jax_backend.py": "4de0aadb88b73ef6792ff36894134ee31bc412b1a54b177a4d1aaaa43328d547",
+          "kernels.py": "4008ae38c62c3022034d654a13da75369bd67309af4614006942398e22c1ad08",
+          "linear.py": "3a4d7c2259fd3e67b507d0c9dcd18082c24ffda30fccb12749976c97fa5a577c",
+          "material.py": "7c4d34d911831f12e3bc99bda2e13e76d468acdf80038dcb60310a568a5342d1",
+          "mesh.py": "a37e853ed57dd80633c44805b6c13158643ac65db3e4a4cfc12520bbdfa15c4c",
+          "nodal.py": "632f1a755bb09d784c125d3198f662213ea60045ada9db1555e1b47b3ab39856",
+          "nodal_dynamics.py": "839db57190f62795aebef30545fcc9c1b41fdef503f038cc7f425068962eb39d",
+          "nonlinear.py": "019c5fc176c70964c89f9e7c74147ad48b4235267dd2faf0ee22f789a2b97590",
+          "operators.py": "bb77a3b2c66dce871c9e71cc2cdc02488e90ad32278cc9a67fea8b909b722825",
+          "sampling.py": "c518d2298b167aaa1d5ca327a612426276901876a50322a7fe4595c7ee4f1f11",
+          "statics.py": "9f81cbd95a1ff1f742387ee4ae94251304177999208a95703371272ac79dc250"
+        },
+        "case_sha256": "82d8f491a63ca1c348507678f08406dccbc62ed1d4abea8882879f7894d2315d",
+        "restart_data_sha256": "cae42101ff5a57004fa803ea5ce928eb8079e5be0ab887d108689e37754c25f6"
+      },
+      "full_original_event_reproduced": false,
+      "certified_error_bound": false,
+      "scope": "Sampled work-resolvent comparison at fixed geometry/material/quadrature; no nonlinear trajectory or speed advantage established"
+    }
+  },
+  "native_fmm_build": {
+    "path": "bem/outputs/fmm2d-local-library/summary.json",
+    "sha256": "69e939aa7f583943fdd8b65d0c978e8a629eb00ea2edcc56fc2e093ee9bde7f9",
+    "data": {
+      "source_commit": "550dae5b77b1e006c8ffae37fc832f8c2b536871",
+      "source_repository": "https://github.com/flatironinstitute/fmm2d",
+      "cores_requested": 4,
+      "hard_cpu_affinity_enforced": false,
+      "frozen_inputs_sha256": {
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/build_fmm2d_library.py": "63d640c2472f5b139ff8d22e621e40ba9e3511566ed44214122a951191a8a315",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/cauchy_reuse_experiment.py": "c347950f09bc665d2ab815bb6c7e0607940843788141137fada78a50f1b12a97"
+      },
+      "source_archive_sha256": "5031ee5112f69a6985217aaf41e93445726a78d5d854e7e3ca97c9dfdcddd7da",
+      "build_command": [
+        "/usr/bin/make",
+        "lib",
+        "-j4",
+        "FAST_KER=OFF",
+        "OMP=ON",
+        "FC=/opt/homebrew/bin/gfortran",
+        "CC=/usr/bin/cc",
+        "FFLAGS=-fPIC -O3 -std=legacy -w -fallow-argument-mismatch -fopenmp",
+        "CFLAGS=-fPIC -O3 -std=c99",
+        "DYLIBS=-lm -lgomp"
+      ],
+      "fortran_compiler_version": "GNU Fortran (Homebrew GCC 16.2.0) 16.2.0\nCopyright (C) 2026 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+      "c_compiler_version": "Apple clang version 17.0.0 (clang-1700.6.4.2)\nTarget: arm64-apple-darwin24.6.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin\n",
+      "integer_interface": "32-bit default INTEGER; no integer-promotion flags",
+      "build_seconds": 6.642929875291884,
+      "library": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fmm2d-local-library/fmm2d-550dae5b77b1e006c8ffae37fc832f8c2b536871/lib/libfmm2d.so",
+      "library_sha256": "39d087b6aa61a0d3dd22a029672d3d54acedbe2116ae94dbadb8282f475c5052",
+      "status": "completed_library_and_small_cauchy_check",
+      "value_max_absolute_difference": 2.33150965428689e-15,
+      "derivative_max_absolute_difference": 3.363713194509157e-15,
+      "total_seconds": 8.867462541908026,
+      "full_original_event_reproduced": false,
+      "scope": "Pinned external library build and small dense/FMM Cauchy value/derivative check; no full BEM speed or accuracy claim"
+    }
+  },
+  "one_full_grid_row": {
+    "path": "bem/outputs/cauchy-fmm-row-scale/summary.json",
+    "sha256": "52fa8697c724ca1b183d1efacf189a40b3680e5419d55f44e83d094e7af1d9ec",
+    "data": {
+      "status": "completed_one_full_grid_row_only",
+      "source_dofs": 275,
+      "target_matrices": 16385,
+      "row_read_seconds": 5.221410875208676,
+      "fmm_seconds": 1.6617814162746072,
+      "sampled_row_relative_errors": [
+        6.704130063945623e-13,
+        6.78356384888633e-13,
+        5.411683216235129e-14,
+        5.336785591095066e-13,
+        1.8132608474661882e-13
+      ],
+      "peak_rss_mib": 6000.0,
+      "library_sha256": "39d087b6aa61a0d3dd22a029672d3d54acedbe2116ae94dbadb8282f475c5052",
+      "source_spectrum_sha256": "a3a41301f5fa30d387c7755b6799578b75416aabbfe312cfae12b9af8d8041e6",
+      "full_original_event_reproduced": false,
+      "scope": "One real 275-density BEM row at 16385 target frequencies; not a complete new kernel or a controlled performance ratio"
+    }
+  },
+  "complete_new_kernel_validated": false,
+  "same_accuracy_speed_advantage_established": false
+}

@@ -6,9 +6,22 @@ optional FMM2D backend batches Cauchy sums across matrix entries. Neither
 backend certifies the interpolation error of a BEM transfer.
 """
 
+import hashlib
 import math
+from pathlib import Path
 
 import numpy as np
+
+
+def stream_file_sha256(path, *, chunk_bytes=1024 * 1024):
+    """Hash large spectra/weights with bounded input buffers."""
+    if not isinstance(chunk_bytes, int) or chunk_bytes < 1:
+        raise ValueError("A positive hash chunk size is required")
+    digest = hashlib.sha256()
+    with Path(path).open("rb") as stream:
+        for block in iter(lambda: stream.read(chunk_bytes), b""):
+            digest.update(block)
+    return digest.hexdigest()
 
 
 def bdf2_preimage(s, dt):
@@ -167,6 +180,59 @@ class CircleCauchy:
             result += values * power[:, None]
             power *= scaled_delta / order
         return result * (self.size / base)[:, None]
+
+    def evaluate_streamed(self, half_values, targets, *, block_size=64, progress=None):
+        """Direct values at few targets, reading each half-circle matrix once.
+
+        Frequency-major blocks avoid repeatedly scanning a large disk spectrum
+        for each matrix row. The provider may close each mapping after a copied
+        read. This reference path intentionally limits the target count.
+        """
+        targets = self.validate_targets(targets)
+        if not isinstance(block_size, int) or block_size < 1 or len(targets) > 64:
+            raise ValueError("Positive block size and at most 64 direct targets are required")
+        if half_values.shape[0] != self.size // 2 + 1:
+            raise ValueError("Half-circle dimensions do not match the source FFT")
+        shape = half_values.shape[1:]
+        columns = int(np.prod(shape))
+        result = np.empty((len(targets), columns), complex)
+        nearest = np.rint(-np.angle(targets) * self.size / (2 * np.pi)).astype(int) % self.size
+        exact = abs(targets - self.sources[nearest]) <= 4 * np.finfo(float).eps
+        for index in np.flatnonzero(exact):
+            node = nearest[index]
+            sample = np.asarray(half_values[min(node, self.size - node)]).reshape(columns)
+            result[index] = sample.conj() if node > self.size // 2 else sample
+            if node in [0, self.size // 2]:
+                result[index] = result[index].real
+        selected = targets[~exact]
+        if len(selected):
+            numerator = np.zeros((len(selected), columns), complex)
+            denominator = np.zeros(len(selected), complex)
+            for first in range(0, self.size // 2 + 1, block_size):
+                last = min(first + block_size, self.size // 2 + 1)
+                block = np.asarray(half_values[first:last], dtype=complex)
+                if first == 0 or last == self.size // 2 + 1:
+                    block = block.copy()
+                    if first == 0:
+                        block[0] = block[0].real
+                    if last == self.size // 2 + 1:
+                        block[-1] = block[-1].real
+                if not np.all(np.isfinite(block)):
+                    raise ValueError("Nonfinite source spectrum block")
+                z = self.sources[first:last]
+                positive = z[None] / (selected[:, None] - z[None])
+                negative = z.conj()[None] / (selected[:, None] - z.conj()[None])
+                endpoint = np.isin(np.arange(first, last), [0, self.size // 2])
+                negative[:, endpoint] = 0
+                flat = block.reshape(last - first, columns)
+                numerator += positive @ flat + negative @ flat.conj()
+                denominator += positive.sum(axis=1) + negative.sum(axis=1)
+                if progress is not None:
+                    progress(last, self.size // 2 + 1)
+            result[~exact] = numerator / denominator[:, None]
+        if not np.all(np.isfinite(result)):
+            raise ValueError("Nonfinite streamed Cauchy result")
+        return result.reshape((len(targets), *shape))
 
     def evaluate(self, half_values, targets, *, derivative=False, backend=None):
         """Return batched values and optionally d/dz; preserve trailing dimensions.

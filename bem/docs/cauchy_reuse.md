@@ -23,7 +23,8 @@ h(s) = 2 - sqrt(1 + 2 dt_source s)
 批次 Cauchy backend、可選的 [FMM2D](https://github.com/flatironinstitute/fmm2d)
 多 density 後端，以及對新座標的解析導數。另可直接呼叫官方 Fortran wrappers，
 避免依賴特定 Python／NumPy ABI；該介面限定官方預設的32-bit INTEGER。
-FMM2D未列為套件必要依賴，尚未在本機進行大型重用量測。
+FMM2D未列為套件必要依賴。本機已完成一個真實275-density row的完整目標circle量測，
+尚未完成全部275 rows的新kernel與非線性驗證。
 此處FMM作用在複數頻率平面的Cauchy加總，並未實作
 [2026 elastodynamics論文](https://arxiv.org/html/2607.15292v1)的3D-ACA或空間FMM。
 
@@ -67,7 +68,7 @@ FDBEM_CORES=1 bem/run.sh cauchy-reuse-audit \
 核對audit點的新BEM矩陣，最後以既有分row IFFT寫出所有correction weights及完整elastic startup。
 每row結束即關閉來源／輸出的mmap，避免把整個數十GB頻譜保留為程序resident mapping。
 它還會以新算出的瞬時BEM矩陣檢查CQ inverse composition；沒有修改摩擦律或刪除歷史。
-這條producer已有解析矩陣的完整權重／startup回歸測試，大型FMM實測仍待執行。
+這條producer已有解析矩陣的完整權重／startup回歸測試，真實完整kernel仍待執行。
 
 ```sh
 FDBEM_CORES=4 bem/run.sh reused-resolvent-kernel \
@@ -79,6 +80,23 @@ FDBEM_CORES=4 bem/run.sh reused-resolvent-kernel \
 
 FMM外部workspace目前採顯式reserve估計，沒有硬RSS保證；OpenMP thread數亦非硬CPU affinity。
 大型結果及完整非線性／AD對照通過前，不能把此prototype列為已達成速度或精度優勢。
+
+## 真實頻譜的抽樣核對（2026-10-25）
+
+來源為2 us／Q12、65536點circle，目標為4 us／Q12、32768點circle。
+在目標indices 0、1、64、4096、16384，重新組裝的五個完整275×275 BEM矩陣
+與Cauchy重用的最大相對Frobenius差為6.46e-12，通過原1e-6門檻。
+直接Cauchy加總89.19 s，新BEM組裝87.89 s；五點測試本身沒有展示加速。
+讀取採最多64個完整頻率矩陣的bounded block，避免frequency-major檔案的逐row重複掃描。
+大型檔案SHA256以串流核對，避免一次載入39.65 GB頻譜。
+
+另以實際編譯的FMM2D library，在4個OpenMP threads下計算一個真實row：
+65536來源節點、275個densities、16385個目標頻率，讀取5.22 s、FMM1.66 s，
+程序峰值RSS約6000 MiB。五個抽樣row與新BEM的最大相對差6.78e-13。
+這只量測一個row，沒有包括全部新頻譜、IFFT、因果startup或完整事件；
+不得乘275後當作已量測的建核時間。
+實際library的值／導數另與小型直接加總核對至約3.4e-15。
+數據、library與來源指紋見[cauchy_reuse_results.json](cauchy_reuse_results.json)。
 
 這個導數也為固定幾何的材料 AD 提供一條後續路徑。固定 Poisson ratio 時，
 `Z_new(s)=alpha*Z_old(s*sqrt(beta/alpha))`，

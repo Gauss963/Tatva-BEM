@@ -123,9 +123,17 @@ def test_reused_kernel_preserves_weights_startup_and_checks_independent_audit(tm
         "--output",
         str(output),
     ]
+    read_bytes = Path.read_bytes
+
+    def guarded_read(path):
+        if path.name in {"work-resolvent.npy", "weights.npy"}:
+            raise AssertionError("Large numerical files must be hashed through bounded reads")
+        return read_bytes(path)
+
     with (
         patch.dict(producer["main"].__globals__, replacements),
         patch.object(sys, "argv", arguments),
+        patch.object(Path, "read_bytes", guarded_read),
     ):
         producer["main"]()
     actual = np.load(output / "weights.npy", allow_pickle=False)

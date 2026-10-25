@@ -28,7 +28,6 @@ def main():
     parser.add_argument("--dt", type=float, required=True)
     parser.add_argument("--fft-size", type=int, required=True)
     parser.add_argument("--indices", type=int, nargs="+")
-    parser.add_argument("--fmm-library", type=Path)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--relative-tolerance", type=float, default=1e-6)
     args = parser.parse_args()
@@ -52,15 +51,15 @@ def main():
     if storage.get("coordinates") != "diag(sqrt(w)) * L * diag(sqrt(w))":
         raise ValueError("Source must contain the work-coordinate elastic resolvent")
     spectrum_path = Path(storage["path"])
-    frozen_paths = [Path(__file__), TOOL_PATH, metadata_path]
-    if args.fmm_library is not None:
-        frozen_paths.append(args.fmm_library)
+    reader_path = Path(__file__).with_name("replay_resolvent.py")
+    frozen_paths = [Path(__file__), TOOL_PATH, metadata_path, reader_path]
     frozen = {str(path.resolve()): fingerprint(path) for path in frozen_paths}
-    if fingerprint(spectrum_path) != storage["sha256"]:
+    if TOOL["stream_file_sha256"](spectrum_path) != storage["sha256"]:
         raise ValueError("Source spectrum digest differs")
     stat = spectrum_path.stat()
     source_plan = CQPlan(**metadata["plan"])
-    source = np.load(spectrum_path, mmap_mode="r", allow_pickle=False)
+    reader = runpy.run_path(str(reader_path))
+    source = reader["SavedDiskSpectrum"](spectrum_path, source_plan)
     d = source_plan.dofs
     if source.shape != (source_plan.fft_size // 2 + 1, d, d) or source.dtype != np.complex128:
         raise ValueError("Source spectrum dimensions or dtype differ")
@@ -73,16 +72,14 @@ def main():
     mapped = TOOL["bdf2_preimage"](frequency, source_plan.dt)
     circle = TOOL["CircleCauchy"](source_plan.fft_size, source_plan.radius)
     circle.validate_targets(mapped)
-    backend = None if args.fmm_library is None else TOOL["fortran_fmm2d_backend"](args.fmm_library)
-    evaluated = np.empty((len(indices), d, d), complex)
     resampling_started = perf_counter()
+
+    def progress(done, total):
+        if done == total or done % 4096 == 0:
+            print(f"Cauchy source matrices: {done}/{total}", flush=True)
+
     with threadpool_limits(limits=1, user_api="blas"):
-        for row in range(d):
-            for first in range(0, len(indices), 5):
-                last = first + 5
-                evaluated[first:last, row] = circle.evaluate(
-                    source[:, row, :], mapped[first:last], backend=backend
-                )
+        evaluated = circle.evaluate_streamed(source, mapped, progress=progress)
     resampling_seconds = perf_counter() - resampling_started
     model = load_nodal_model(
         options["case"],
@@ -144,6 +141,7 @@ def main():
         target_dt_s=args.dt,
         target_fft_size=args.fft_size,
         indices=indices,
+        reuse_evaluation="Frequency-major bounded direct Cauchy blocks; one source pass",
         relative_frobenius_errors=errors,
         relative_tolerance=args.relative_tolerance,
         maximum_relative_error=max(errors),

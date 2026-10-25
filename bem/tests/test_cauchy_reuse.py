@@ -1,3 +1,4 @@
+import hashlib
 import runpy
 from pathlib import Path
 
@@ -5,6 +6,18 @@ import numpy as np
 import pytest
 
 TOOL = runpy.run_path(str(Path(__file__).resolve().parents[1] / "tools/cauchy_reuse_experiment.py"))
+
+
+def test_spectrum_hash_uses_bounded_reads(tmp_path, monkeypatch):
+    path = tmp_path / "spectrum.npy"
+    data = b"finite-block spectrum" * 200000
+    path.write_bytes(data)
+
+    def denied(_):
+        raise AssertionError("read_bytes would allocate the entire large spectrum")
+
+    monkeypatch.setattr(Path, "read_bytes", denied)
+    assert TOOL["stream_file_sha256"](path, chunk_bytes=8192) == hashlib.sha256(data).hexdigest()
 
 
 def test_barycentric_values_and_derivatives_against_independent_dft_polynomial():
@@ -37,6 +50,29 @@ def test_kernel_normalization_cancels_for_batched_cauchy_backend():
     value, grad = circle.evaluate(half, targets, derivative=True, backend=scaled)
     np.testing.assert_allclose(value[:, 0], 1 / (2 - targets), atol=1e-13)
     np.testing.assert_allclose(grad[:, 0], 1 / (2 - targets) ** 2, atol=1e-13)
+
+
+def test_streamed_reference_reads_bounded_complete_matrices_and_preserves_samples():
+    circle = TOOL["CircleCauchy"](128, 0.9)
+    z = circle.sources[:65]
+    half = np.stack((1 / (2 - z), 1 / (3 + z)), axis=1)[:, :, None]
+    half[0] += 2j  # Same endpoint real projection as the original IRFFT path.
+    original = half.copy()
+
+    class BoundedMatrices:
+        shape, dtype = half.shape, half.dtype
+
+        def __getitem__(self, key):
+            assert isinstance(key, (int, np.integer, slice))
+            if isinstance(key, slice):
+                assert len(range(*key.indices(65))) <= 7
+            return half[key].copy()
+
+    targets = np.r_[circle.sources[[0, 11, 64, 117]], 0, 0.7 + 0.1j, 0.90001]
+    expected = circle.evaluate(half, targets)
+    actual = circle.evaluate_streamed(BoundedMatrices(), targets, block_size=7)
+    np.testing.assert_allclose(actual, expected, rtol=1e-12, atol=1e-12)
+    np.testing.assert_array_equal(half, original)
 
 
 @pytest.mark.parametrize("many_nodes", [False, True])
