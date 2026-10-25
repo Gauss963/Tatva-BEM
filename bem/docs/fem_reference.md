@@ -79,3 +79,15 @@ bem/run.sh compare COMPLETED_BEM_RUN \
 `bem/outputs/fem2mm-after-bem-20261024.json`記錄的是已排除的float32控制。
 wrapper 的 timings 不含監督程序的 polling 延遲，並將 preparation／simulation／output 範圍列出。
 同精度比較仍需 BEM 誤差達標，並另核對冷建核、初始化、JIT、推進與輸出成本。
+
+完成後使用`tools/compare_fem_reference.py`對原始HDF5核對，不插值不同step的軌跡。
+它要求完整h2／float64、相同來源／輸入與精確相同的shear step IDs，
+再逐項比對全部scalar history、四個界面狀態、初始場及最後u／v_half／滑移。
+預設rtol=1e-6、atol=1e-9，另保留逐位相同、最大絕對差與relative L2資訊；
+超出門檻會保存失敗報告並以exit1結束。這是FEM來源驗收，並不代表BEM已重現。
+
+```sh
+FDBEM_CORES=1 PYTHONPATH=bem/src python -B bem/tools/compare_fem_reference.py \
+  bem/outputs/fem-event16-authored-f64-h2-4c-interface \
+  --output bem/outputs/fem-event16-authored-f64-field-comparison
+```
