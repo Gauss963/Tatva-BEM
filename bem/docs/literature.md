@@ -1,11 +1,12 @@
 # 近期文獻與 FEM 對照的實作決策
 
-檢索／閱讀日期：2026-10-24。範圍是有限彈性體的 fully dynamic 接觸、
+檢索／閱讀日期：2026-10-24；補讀2026-10-25。範圍是有限彈性體的 fully dynamic 接觸、
 時間域 BEM、卷積歷史加速與角落誤差；以下不是整個 BEM 領域的完整系統性回顧。
 目標是在相同物理模型與可量化誤差下重現 FEM，然後證明穩定性或總時間的優勢。
 目前尚未達成這個目標。
 
-最新[完整2 us／Q12事件](fine2_event.md)最大滑移差約20.7%；
+原[完整2 us／Q12事件](fine2_event.md)最大滑移差約20.7%；
+[十六接觸子步](substepped_contact.md)降至約13.2%，壓力／剪力分布差仍約20%。
 文獻方法的局部改善必須與這個完整事件的精度門檻分開判讀。
 
 ## 直接相關的研究
@@ -25,6 +26,18 @@
 因此未作為程式推導或速度結論的依據。高階 p-version CQ 的 SIAM 2025
 [出版資料](https://epubs.siam.org/doi/10.1137/24M1642524) 亦列為後續閱讀，
 目前不據此宣稱對不光滑摩擦歷程有指數收斂。
+
+補讀Ciardo、Romanet（2026）
+[A divide-and-conquer strategy for fast elastodynamic simulation of earthquakes and aseismic slip on fault networks](https://arxiv.org/html/2603.00383v1)，
+重點為§2.3.1–2.3.2、§3.2與§4.2–4.3。
+其驗證是無限域反平面mode III、rate-and-state平面斷層，將self effects交給非週期spectral算子，
+遠距離互作用分fault tree做H-matrix／SVD，近場保持dense。
+§3.2亦顯示近距離X形斷層對歷史截斷參數敏感；§4.2的自由面須額外建模。
+因此其截斷窗口或速度比不能直接套到目前有限block、plane strain、會反射的CQ resolvent。
+本專案的實作推論是先保留完整歷史、近場與接觸律，
+對可精確共用的頻率／幾何部分減少重算，再研究有獨立誤差控制的遠場壓縮。
+新增[完全相等r的徑向重用實驗](unique_radius.md)服務後續接觸網格加密；
+它不是這篇H-matrix演算法的重現，也尚未量測完整加速。
 
 另檢索 Gu 等人 **High-order time-spectral BEM for efficient elastodynamic analysis**，
 Computers & Structures 321 (2026), 108076，出版日期 2026-01-15，
