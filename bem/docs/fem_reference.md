@@ -6,7 +6,15 @@
 
 2026-10-25修正：[前一次h2重跑錯把history儲存dtype當成模型dtype](reference_precision.md)，
 該float32控制的79.5分鐘不列為原float64案例的效能基準。
-正式float64短程的網格與第一筆位移／接觸狀態已與原檔逐位核對；完整動態仍待完成。
+正式h2／float64完整事件已完成；9000筆剪切資料的17個歷史量、四種接觸狀態、
+所檢查的初始場及最後u／v_half／滑移，全部與原存檔精確相同。
+核對與指紋見[完整參考紀錄](fem_verified_reference_results.json)。
+
+模擬含輸出耗時8032.347s，含來源／設定準備的總時間8032.866s，約133.9分鐘；
+程序CPU時間33338.831s。採四核心設定，30秒抽查沒有發現其他已知求解工作重疊，
+仍沒有OS隔離或硬CPU affinity。最大累積滑移0.6441228206mm，停止載入29.788319ms。
+保留高頻界面、減少bulk輸出後，HDF5為77,038,494bytes；
+原檔為12,734,535,431bytes。這是同一已比對解的儲存縮減，並非BEM加速。
 
 ## 來源與設定
 
@@ -75,7 +83,8 @@ bem/run.sh compare COMPLETED_BEM_RUN \
 
 `--fem-rerun` 與舊選項 `--coarse-fem` 相容；它保留原 archived h2 曲線，另加本機 FEM 曲線。
 不指定 mesh-size，因此上面的正式參考沒有改成粗網格。
-正式原h2／float64完整動態尚未完成，不能把短程初始化或不同精度的控制算成完成。
+正式原h2／float64已由完整事件核對通過；此結論只涵蓋FEM參考重現，
+不代表h2已空間收斂，亦不代表BEM已與它一致。
 `bem/outputs/fem2mm-after-bem-20261024.json`記錄的是已排除的float32控制。
 wrapper 的 timings 不含監督程序的 polling 延遲，並將 preparation／simulation／output 範圍列出。
 同精度比較仍需 BEM 誤差達標，並另核對冷建核、初始化、JIT、推進與輸出成本。

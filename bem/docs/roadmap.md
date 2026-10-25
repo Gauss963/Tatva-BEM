@@ -15,6 +15,10 @@ exactly. The original four-substep Newton solve fails at 29.144 ms; residual-che
 hybrid/continuation recovery then completes both four- and sixteen-substep events.
 The latter reaches 0.559055 mm (13.21% low), with pressure/shear profile errors
 still near 20%. See the [substep results](substepped_contact.md).
+The corrected full h2/float64 FEM rerun now matches all 9000 shear rows,
+the checked initial fields and final state exactly. Its four-core simulation
+including reduced bulk output takes 8032.347 s; preparation plus simulation
+takes 8032.866 s. See [verified evidence](fem_verified_reference_results.json).
 
 - [x] Independent Laplace-domain plane-strain Green tensor and source traction.
 - [x] Direct finite-interior boundary operators, jump term and singular integration.
@@ -25,6 +29,7 @@ still near 20%. See the [substep results](substepped_contact.md).
 - [x] Admissible static lift using the archived event-16 plastic slip.
 - [x] Nonlinear short sliding diagnostic and original-rate short transient.
 - [x] Standalone package structure, local artifacts, provenance and CI configuration.
+- [x] Faithful original h2/float64 FEM rerun, exact saved-field comparison and serialized local timing.
 - [x] Exact online dyadic FFT history, parallel frequency assembly and fingerprinted weights cache.
 - [x] JAX local AD tangents, implicit root gradients and a bounded differentiable full-history scan.
 - [x] Coarse 45 ms run with original loading schedule and archived FEM comparison.
@@ -64,8 +69,8 @@ before claiming an event reproduction or a same-accuracy speed advantage over FE
 Increasing the dense memory budget or taking very large time steps is not
 a substitute for resolving the relevant waves and weakening scale.
 
-The current order is to finish the isolated FEM baseline, inspect the contact
-substep study, then use [guarded spectral reuse](cauchy_reuse.md) for the missing
+The isolated FEM baseline is complete. The current order is to inspect the original
+float64 seed and contact substep controls, then use [guarded spectral reuse](cauchy_reuse.md) for the missing
 same-Q12 time-grid control if its independent BEM checks pass. Keep residual,
 physical error, cold setup and cached rollout costs separate. Material/geometry
 AD and event-time derivatives remain open rather than being inferred from

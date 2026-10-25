@@ -35,7 +35,8 @@ resolvent 現可直接建立新時間網格，並核對參數、載入及初始�
 新增 [FEM 四核心參考與獨立界面輸出](docs/fem_reference.md)：完整粗 FEM 事件的 9000 筆
 shear 資料與最後狀態逐位元相同，bulk 輸出可大幅減少。
 [精度來源修正](docs/reference_precision.md)已排除誤讀history dtype的float32重跑；
-原h2／float64完整參考仍待核對。
+原h2／float64完整參考已核對：9000筆剪切歷史、接觸狀態及最後狀態皆與原存檔精確相同，
+四核心含輸出模擬約133.9分鐘；[完整證據與計時範圍](docs/fem_verified_reference_results.json)。
 新增 [固定幾何近遠場積分](docs/mixed_quadrature.md)：細網格近 Q12／遠 Q8
 減少約 53% 積分點，九個頻率點的額外算子差約 1e-12；短程解與條件式 AD 已核對。
 完整粗 45 ms 的解／分支核對通過，載入梯度有一筆失敗；尚未切換預設 backend 或宣稱整體加速倍數。

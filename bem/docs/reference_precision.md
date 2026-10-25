@@ -40,8 +40,15 @@ PYTHONPATH=bem/src python -B bem/tools/fem_static_onset.py --cores 4 \
 
 修正後的短程原h2案例已完成。與原HDF5相比，雙block網格、第一筆保存位移、
 初始塑性／累積滑移及摩擦係數皆逐位相同；static-normal的屬性也逐項保存比較。
-這支持初始化與輸入重建的正確性，尚不能替代完整45ms的動態核對。
+這項短程結果支持初始化與輸入重建的正確性。
 數據及指紋見[fem_precision_audit_results.json](fem_precision_audit_results.json)。
+
+後續完整h2／float64重跑亦已通過：9000筆剪切資料的17個歷史量、
+四種接觸狀態、所檢查的初始場及最後u／v_half／滑移全部與原存檔精確相同。
+含輸出的模擬8032.347s，準備加模擬8032.866s；四核心設定，
+監督程序沒有偵測到其他已知求解工作重疊，仍不宣稱OS隔離。
+另已匯出實際使用的原始float64塑性seed／actuator，原HDF5保持未變更。
+完整數據與驗證範圍見[fem_verified_reference_results.json](fem_verified_reference_results.json)。
 
 接觸子步方面，一子步的完整45ms軌跡與原BEM七個場逐位相同，
 但四子步在step14572（29.144ms）未收斂，殘差約17.39MPa，整體流程保留exit1。
@@ -52,4 +59,4 @@ PYTHONPATH=bem/src python -B bem/tools/fem_static_onset.py --cores 4 \
 它不是可以丟掉CQ記憶的resume checkpoint。
 
 原一步BEM最大滑移差約20.7%，最新十六子步仍約13.2%，目標未達成。
-接下來須先完成正確float64 FEM參考，再分開解決子步非線性求解與相同Q12的時間網格誤差。
+正確float64 FEM參考已完成，接下來分開檢查原始seed、子步、相同Q12時間步與接觸空間誤差。
