@@ -610,5 +610,22 @@
     "source_changed_during_run": false,
     "full_original_event_reproduced": false,
     "same_accuracy_speed_advantage_established": false
+  },
+  "contact64_failure": {
+    "source_path": "bem/outputs/galerkin-fine2-q12-contact64-recovered/failure.json",
+    "source_sha256": "012650f6f031737a74367a7394eabe5df650411a6095501bf11e43624375fd88",
+    "status": "failed_nonlinear_equilibrium",
+    "failed_step": 14566,
+    "failed_time_s": 0.029131999999999998,
+    "residual_mpa": 1.4310022617839309,
+    "constitutive_substeps": 64,
+    "contact_root_recovery_sha256": "4e0376923154b704c82ee7a38d01a0655d4c6949267161bbdf31362ca18c19f5",
+    "solver_sha256": "a179773025985fa6bc33c673b45918388bd4ae74b1843acfd6218fd991fa1fea",
+    "constitutive_substep_sha256": "d40fcb95f5fa29c0c8630a8901f8d5e63591bfc11ed1c9fbdee7c2ecc8d36225",
+    "prepared_kernel": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/direct-resolvent-fine2-q12",
+    "failed_equilibrium_sha256": "012124731abfc131500da447e3cb6897140607c9cd4f1bd6090585d40ff8bc79",
+    "completed_requested_horizon": false,
+    "full_original_event_reproduced": false,
+    "scope": "Local equilibrium and accepted prefix for diagnosis; not a resumable CQ checkpoint"
   }
 }

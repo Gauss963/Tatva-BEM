@@ -97,6 +97,13 @@ FDBEM_CORES=4 bem/run.sh resolvent-adjoint bem/outputs/fine2-q12-contact8 \
 冷kernel成本仍另計，不能直接與8032.347s FEM比較後宣稱同精度速度優勢。
 此控制的完整事件梯度尚未獨立核對。
 
+64子步沿用同一2us/Q12核心與原packaged seed，於step14566、29.132ms失敗，
+原Newton殘差1.431MPa；Powell hybrid最低仍約0.661MPa。
+原接觸方程continuation在contact fraction約0.013附近停滯，沒有到達完整方程。
+因此此組不構成子步收斂證據，也沒有放寬1e-7MPa的接受門檻。
+失敗JSON、局部方程與已接受前綴均保留，與完整16子步結果分開；
+後續需檢查求根路徑及bulk時間解析度，不能由本次失敗斷言無解或已證明不穩定。
+
 ![完整事件與接觸子步](figures/substepped_contact_event.png)
 
 ![最後界面分布](figures/substepped_contact_profiles.png)

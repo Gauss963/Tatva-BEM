@@ -1,0 +1,721 @@
+{
+  "source": {
+    "path": "bem/outputs/fine2-native-front-comparison/summary.json",
+    "sha256": "4774d51d9e3474ed158e0630dcd756df4ee665008d4acf83a1752a9a12809357"
+  },
+  "reference": {
+    "thresholds_mm": {
+      "micro": 1e-07,
+      "Dc10": 0.00125959,
+      "Dc": 0.0125959
+    },
+    "source_hdf5": {
+      "path": "/Volumes/Gauss-T7/tatva/runs/local-mus08-muk06-gap0-v2-ev16/data/simulation.h5",
+      "bytes": 12734535431,
+      "mtime_ns": 1792165113653703298
+    },
+    "source_hdf5_unchanged": true,
+    "time_origin_s": 0.002,
+    "frame_spacing_max_s": 5.010515451431274e-06,
+    "scope": "First cumulative-slip passage at saved FEM interface nodes"
+  },
+  "scope": "Native BEM nodes and common-grid P1 crossing estimates are reported separately. Saved-time ties and brackets do not imply instantaneous front speed or sub-frame accuracy.",
+  "results": [
+    {
+      "name": "galerkin-fine2-q12-resolvent",
+      "metrics": {
+        "micro": {
+          "common_reached_nodes": 241,
+          "fem_unreached_nodes": 0,
+          "bem_unreached_nodes": 0,
+          "max_abs_difference_ms": 3.1249250320105095,
+          "rms_difference_ms": 0.7024258537038987,
+          "bem_first_passage_ms": 26.388363896868224,
+          "fem_first_passage_ms": 25.728483827905297,
+          "fem_stored_node_earliest": {
+            "first_saved_time_s": 0.025732863694429398,
+            "first_saved_locations_mm": [
+              0.0
+            ],
+            "first_saved_bracket_s": [
+              0.02572786808013916,
+              0.025732863694429398
+            ],
+            "minimum_interpolated_time_s": 0.025728483827905296,
+            "minimum_interpolated_locations_mm": [
+              0.0
+            ]
+          },
+          "bem_native_node_earliest": {
+            "first_saved_time_s": 0.02639,
+            "first_saved_locations_mm": [
+              2.0
+            ],
+            "first_saved_bracket_s": [
+              0.026387999999999998,
+              0.02639
+            ],
+            "minimum_interpolated_time_s": 0.026388363896868224,
+            "minimum_interpolated_locations_mm": [
+              2.0
+            ]
+          },
+          "bem_common_grid_earliest": {
+            "first_saved_time_s": 0.02639,
+            "first_saved_locations_mm": [
+              2.0
+            ],
+            "first_saved_bracket_s": [
+              0.026387999999999998,
+              0.02639
+            ],
+            "minimum_interpolated_time_s": 0.026388363896868224,
+            "minimum_interpolated_locations_mm": [
+              2.0
+            ]
+          }
+        },
+        "Dc10": {
+          "common_reached_nodes": 241,
+          "fem_unreached_nodes": 0,
+          "bem_unreached_nodes": 0,
+          "max_abs_difference_ms": 1.599994790135957,
+          "rms_difference_ms": 0.6303389262766372,
+          "bem_first_passage_ms": 28.822050510783395,
+          "fem_first_passage_ms": 27.24968306072365,
+          "fem_stored_node_earliest": {
+            "first_saved_time_s": 0.027253029868006706,
+            "first_saved_locations_mm": [
+              0.0
+            ],
+            "first_saved_bracket_s": [
+              0.02724803239107132,
+              0.027253029868006706
+            ],
+            "minimum_interpolated_time_s": 0.027249683060723652,
+            "minimum_interpolated_locations_mm": [
+              0.0
+            ]
+          },
+          "bem_native_node_earliest": {
+            "first_saved_time_s": 0.028822,
+            "first_saved_locations_mm": [
+              19.926688
+            ],
+            "first_saved_bracket_s": [
+              0.02882,
+              0.028822
+            ],
+            "minimum_interpolated_time_s": 0.028821983554628026,
+            "minimum_interpolated_locations_mm": [
+              19.926688
+            ]
+          },
+          "bem_common_grid_earliest": {
+            "first_saved_time_s": 0.028824,
+            "first_saved_locations_mm": [
+              18.0,
+              20.0,
+              22.0
+            ],
+            "first_saved_bracket_s": [
+              0.028822,
+              0.028824
+            ],
+            "minimum_interpolated_time_s": 0.028822050510783397,
+            "minimum_interpolated_locations_mm": [
+              20.0
+            ]
+          }
+        },
+        "Dc": {
+          "common_reached_nodes": 241,
+          "fem_unreached_nodes": 0,
+          "bem_unreached_nodes": 0,
+          "max_abs_difference_ms": 0.675701530790284,
+          "rms_difference_ms": 0.6234066171266848,
+          "bem_first_passage_ms": 28.84874224430758,
+          "fem_first_passage_ms": 29.52170240764135,
+          "fem_stored_node_earliest": {
+            "first_saved_time_s": 0.02952328324317932,
+            "first_saved_locations_mm": [
+              0.0
+            ],
+            "first_saved_bracket_s": [
+              0.029518283903598785,
+              0.02952328324317932
+            ],
+            "minimum_interpolated_time_s": 0.029521702407641348,
+            "minimum_interpolated_locations_mm": [
+              0.0
+            ]
+          },
+          "bem_native_node_earliest": {
+            "first_saved_time_s": 0.028849999999999997,
+            "first_saved_locations_mm": [
+              4.5,
+              5.0,
+              5.5,
+              6.0,
+              6.5,
+              7.0,
+              7.5,
+              8.0,
+              8.5,
+              9.2,
+              10.18,
+              11.552,
+              13.4728,
+              16.16192,
+              19.926688
+            ],
+            "first_saved_bracket_s": [
+              0.028848,
+              0.028849999999999997
+            ],
+            "minimum_interpolated_time_s": 0.028848732185886735,
+            "minimum_interpolated_locations_mm": [
+              11.552
+            ]
+          },
+          "bem_common_grid_earliest": {
+            "first_saved_time_s": 0.028849999999999997,
+            "first_saved_locations_mm": [
+              6.0,
+              8.0,
+              10.0,
+              12.0,
+              14.0,
+              16.0,
+              18.0,
+              20.0
+            ],
+            "first_saved_bracket_s": [
+              0.028848,
+              0.028849999999999997
+            ],
+            "minimum_interpolated_time_s": 0.02884874224430758,
+            "minimum_interpolated_locations_mm": [
+              12.0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "galerkin-fine2-q12-contact4-recovered",
+      "metrics": {
+        "micro": {
+          "common_reached_nodes": 241,
+          "fem_unreached_nodes": 0,
+          "bem_unreached_nodes": 0,
+          "max_abs_difference_ms": 3.1249991525310707,
+          "rms_difference_ms": 0.7292129412472074,
+          "bem_first_passage_ms": 26.388289776347662,
+          "fem_first_passage_ms": 25.728483827905297,
+          "fem_stored_node_earliest": {
+            "first_saved_time_s": 0.025732863694429398,
+            "first_saved_locations_mm": [
+              0.0
+            ],
+            "first_saved_bracket_s": [
+              0.02572786808013916,
+              0.025732863694429398
+            ],
+            "minimum_interpolated_time_s": 0.025728483827905296,
+            "minimum_interpolated_locations_mm": [
+              0.0
+            ]
+          },
+          "bem_native_node_earliest": {
+            "first_saved_time_s": 0.02639,
+            "first_saved_locations_mm": [
+              2.0
+            ],
+            "first_saved_bracket_s": [
+              0.026387999999999998,
+              0.02639
+            ],
+            "minimum_interpolated_time_s": 0.026388289776347662,
+            "minimum_interpolated_locations_mm": [
+              2.0
+            ]
+          },
+          "bem_common_grid_earliest": {
+            "first_saved_time_s": 0.02639,
+            "first_saved_locations_mm": [
+              2.0
+            ],
+            "first_saved_bracket_s": [
+              0.026387999999999998,
+              0.02639
+            ],
+            "minimum_interpolated_time_s": 0.026388289776347662,
+            "minimum_interpolated_locations_mm": [
+              2.0
+            ]
+          }
+        },
+        "Dc10": {
+          "common_reached_nodes": 241,
+          "fem_unreached_nodes": 0,
+          "bem_unreached_nodes": 0,
+          "max_abs_difference_ms": 1.5822646613101905,
+          "rms_difference_ms": 0.6621389525374728,
+          "bem_first_passage_ms": 28.811636692347925,
+          "fem_first_passage_ms": 27.24968306072365,
+          "fem_stored_node_earliest": {
+            "first_saved_time_s": 0.027253029868006706,
+            "first_saved_locations_mm": [
+              0.0
+            ],
+            "first_saved_bracket_s": [
+              0.02724803239107132,
+              0.027253029868006706
+            ],
+            "minimum_interpolated_time_s": 0.027249683060723652,
+            "minimum_interpolated_locations_mm": [
+              0.0
+            ]
+          },
+          "bem_native_node_earliest": {
+            "first_saved_time_s": 0.028811999999999997,
+            "first_saved_locations_mm": [
+              19.926688
+            ],
+            "first_saved_bracket_s": [
+              0.02881,
+              0.028811999999999997
+            ],
+            "minimum_interpolated_time_s": 0.02881157560617142,
+            "minimum_interpolated_locations_mm": [
+              19.926688
+            ]
+          },
+          "bem_common_grid_earliest": {
+            "first_saved_time_s": 0.028811999999999997,
+            "first_saved_locations_mm": [
+              20.0
+            ],
+            "first_saved_bracket_s": [
+              0.02881,
+              0.028811999999999997
+            ],
+            "minimum_interpolated_time_s": 0.028811636692347924,
+            "minimum_interpolated_locations_mm": [
+              20.0
+            ]
+          }
+        },
+        "Dc": {
+          "common_reached_nodes": 241,
+          "fem_unreached_nodes": 0,
+          "bem_unreached_nodes": 0,
+          "max_abs_difference_ms": 0.6926322619832601,
+          "rms_difference_ms": 0.6567497984489323,
+          "bem_first_passage_ms": 28.831854267331888,
+          "fem_first_passage_ms": 29.52170240764135,
+          "fem_stored_node_earliest": {
+            "first_saved_time_s": 0.02952328324317932,
+            "first_saved_locations_mm": [
+              0.0
+            ],
+            "first_saved_bracket_s": [
+              0.029518283903598785,
+              0.02952328324317932
+            ],
+            "minimum_interpolated_time_s": 0.029521702407641348,
+            "minimum_interpolated_locations_mm": [
+              0.0
+            ]
+          },
+          "bem_native_node_earliest": {
+            "first_saved_time_s": 0.028832,
+            "first_saved_locations_mm": [
+              7.0,
+              7.5,
+              8.0,
+              8.5,
+              9.2,
+              10.18,
+              11.552
+            ],
+            "first_saved_bracket_s": [
+              0.028829999999999998,
+              0.028832
+            ],
+            "minimum_interpolated_time_s": 0.028831851155719047,
+            "minimum_interpolated_locations_mm": [
+              10.18
+            ]
+          },
+          "bem_common_grid_earliest": {
+            "first_saved_time_s": 0.028832,
+            "first_saved_locations_mm": [
+              8.0,
+              10.0,
+              12.0
+            ],
+            "first_saved_bracket_s": [
+              0.028829999999999998,
+              0.028832
+            ],
+            "minimum_interpolated_time_s": 0.02883185426733189,
+            "minimum_interpolated_locations_mm": [
+              10.0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "galerkin-fine2-q12-contact16-recovered",
+      "metrics": {
+        "micro": {
+          "common_reached_nodes": 241,
+          "fem_unreached_nodes": 0,
+          "bem_unreached_nodes": 0,
+          "max_abs_difference_ms": 3.125037786063128,
+          "rms_difference_ms": 0.7400914320006948,
+          "bem_first_passage_ms": 26.388251142815605,
+          "fem_first_passage_ms": 25.728483827905297,
+          "fem_stored_node_earliest": {
+            "first_saved_time_s": 0.025732863694429398,
+            "first_saved_locations_mm": [
+              0.0
+            ],
+            "first_saved_bracket_s": [
+              0.02572786808013916,
+              0.025732863694429398
+            ],
+            "minimum_interpolated_time_s": 0.025728483827905296,
+            "minimum_interpolated_locations_mm": [
+              0.0
+            ]
+          },
+          "bem_native_node_earliest": {
+            "first_saved_time_s": 0.02639,
+            "first_saved_locations_mm": [
+              2.0
+            ],
+            "first_saved_bracket_s": [
+              0.026387999999999998,
+              0.02639
+            ],
+            "minimum_interpolated_time_s": 0.026388251142815605,
+            "minimum_interpolated_locations_mm": [
+              2.0
+            ]
+          },
+          "bem_common_grid_earliest": {
+            "first_saved_time_s": 0.02639,
+            "first_saved_locations_mm": [
+              2.0
+            ],
+            "first_saved_bracket_s": [
+              0.026387999999999998,
+              0.02639
+            ],
+            "minimum_interpolated_time_s": 0.026388251142815605,
+            "minimum_interpolated_locations_mm": [
+              2.0
+            ]
+          }
+        },
+        "Dc10": {
+          "common_reached_nodes": 241,
+          "fem_unreached_nodes": 0,
+          "bem_unreached_nodes": 0,
+          "max_abs_difference_ms": 1.5773992532799528,
+          "rms_difference_ms": 0.674748734046317,
+          "bem_first_passage_ms": 28.808884248141787,
+          "fem_first_passage_ms": 27.24968306072365,
+          "fem_stored_node_earliest": {
+            "first_saved_time_s": 0.027253029868006706,
+            "first_saved_locations_mm": [
+              0.0
+            ],
+            "first_saved_bracket_s": [
+              0.02724803239107132,
+              0.027253029868006706
+            ],
+            "minimum_interpolated_time_s": 0.027249683060723652,
+            "minimum_interpolated_locations_mm": [
+              0.0
+            ]
+          },
+          "bem_native_node_earliest": {
+            "first_saved_time_s": 0.02881,
+            "first_saved_locations_mm": [
+              19.926688
+            ],
+            "first_saved_bracket_s": [
+              0.028808,
+              0.02881
+            ],
+            "minimum_interpolated_time_s": 0.028808831126017474,
+            "minimum_interpolated_locations_mm": [
+              19.926688
+            ]
+          },
+          "bem_common_grid_earliest": {
+            "first_saved_time_s": 0.02881,
+            "first_saved_locations_mm": [
+              18.0,
+              20.0
+            ],
+            "first_saved_bracket_s": [
+              0.028808,
+              0.02881
+            ],
+            "minimum_interpolated_time_s": 0.028808884248141788,
+            "minimum_interpolated_locations_mm": [
+              20.0
+            ]
+          }
+        },
+        "Dc": {
+          "common_reached_nodes": 241,
+          "fem_unreached_nodes": 0,
+          "bem_unreached_nodes": 0,
+          "max_abs_difference_ms": 0.6969794446438291,
+          "rms_difference_ms": 0.6697796081507634,
+          "bem_first_passage_ms": 28.827519376222234,
+          "fem_first_passage_ms": 29.52170240764135,
+          "fem_stored_node_earliest": {
+            "first_saved_time_s": 0.02952328324317932,
+            "first_saved_locations_mm": [
+              0.0
+            ],
+            "first_saved_bracket_s": [
+              0.029518283903598785,
+              0.02952328324317932
+            ],
+            "minimum_interpolated_time_s": 0.029521702407641348,
+            "minimum_interpolated_locations_mm": [
+              0.0
+            ]
+          },
+          "bem_native_node_earliest": {
+            "first_saved_time_s": 0.028828,
+            "first_saved_locations_mm": [
+              4.5,
+              5.0,
+              5.5,
+              6.0,
+              6.5,
+              7.0,
+              7.5,
+              8.0,
+              8.5,
+              9.2,
+              10.18,
+              11.552,
+              13.4728
+            ],
+            "first_saved_bracket_s": [
+              0.028825999999999997,
+              0.028828
+            ],
+            "minimum_interpolated_time_s": 0.028827519376222233,
+            "minimum_interpolated_locations_mm": [
+              8.0
+            ]
+          },
+          "bem_common_grid_earliest": {
+            "first_saved_time_s": 0.028828,
+            "first_saved_locations_mm": [
+              6.0,
+              8.0,
+              10.0,
+              12.0,
+              14.0
+            ],
+            "first_saved_bracket_s": [
+              0.028825999999999997,
+              0.028828
+            ],
+            "minimum_interpolated_time_s": 0.028827519376222233,
+            "minimum_interpolated_locations_mm": [
+              8.0
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "galerkin-fine2-q12-contact16-original-seed",
+      "metrics": {
+        "micro": {
+          "common_reached_nodes": 241,
+          "fem_unreached_nodes": 0,
+          "bem_unreached_nodes": 0,
+          "max_abs_difference_ms": 3.1268441703128786,
+          "rms_difference_ms": 0.7399914241441066,
+          "bem_first_passage_ms": 26.386444758565855,
+          "fem_first_passage_ms": 25.728483827905297,
+          "fem_stored_node_earliest": {
+            "first_saved_time_s": 0.025732863694429398,
+            "first_saved_locations_mm": [
+              0.0
+            ],
+            "first_saved_bracket_s": [
+              0.02572786808013916,
+              0.025732863694429398
+            ],
+            "minimum_interpolated_time_s": 0.025728483827905296,
+            "minimum_interpolated_locations_mm": [
+              0.0
+            ]
+          },
+          "bem_native_node_earliest": {
+            "first_saved_time_s": 0.026387999999999998,
+            "first_saved_locations_mm": [
+              2.0
+            ],
+            "first_saved_bracket_s": [
+              0.026386,
+              0.026387999999999998
+            ],
+            "minimum_interpolated_time_s": 0.026386444758565854,
+            "minimum_interpolated_locations_mm": [
+              2.0
+            ]
+          },
+          "bem_common_grid_earliest": {
+            "first_saved_time_s": 0.026387999999999998,
+            "first_saved_locations_mm": [
+              2.0
+            ],
+            "first_saved_bracket_s": [
+              0.026386,
+              0.026387999999999998
+            ],
+            "minimum_interpolated_time_s": 0.026386444758565854,
+            "minimum_interpolated_locations_mm": [
+              2.0
+            ]
+          }
+        },
+        "Dc10": {
+          "common_reached_nodes": 241,
+          "fem_unreached_nodes": 0,
+          "bem_unreached_nodes": 0,
+          "max_abs_difference_ms": 1.5774683365038165,
+          "rms_difference_ms": 0.6746465832704995,
+          "bem_first_passage_ms": 28.808961973324763,
+          "fem_first_passage_ms": 27.24968306072365,
+          "fem_stored_node_earliest": {
+            "first_saved_time_s": 0.027253029868006706,
+            "first_saved_locations_mm": [
+              0.0
+            ],
+            "first_saved_bracket_s": [
+              0.02724803239107132,
+              0.027253029868006706
+            ],
+            "minimum_interpolated_time_s": 0.027249683060723652,
+            "minimum_interpolated_locations_mm": [
+              0.0
+            ]
+          },
+          "bem_native_node_earliest": {
+            "first_saved_time_s": 0.02881,
+            "first_saved_locations_mm": [
+              19.926688
+            ],
+            "first_saved_bracket_s": [
+              0.028808,
+              0.02881
+            ],
+            "minimum_interpolated_time_s": 0.028808908198569183,
+            "minimum_interpolated_locations_mm": [
+              19.926688
+            ]
+          },
+          "bem_common_grid_earliest": {
+            "first_saved_time_s": 0.02881,
+            "first_saved_locations_mm": [
+              18.0,
+              20.0
+            ],
+            "first_saved_bracket_s": [
+              0.028808,
+              0.02881
+            ],
+            "minimum_interpolated_time_s": 0.028808961973324762,
+            "minimum_interpolated_locations_mm": [
+              20.0
+            ]
+          }
+        },
+        "Dc": {
+          "common_reached_nodes": 241,
+          "fem_unreached_nodes": 0,
+          "bem_unreached_nodes": 0,
+          "max_abs_difference_ms": 0.6969113954666366,
+          "rms_difference_ms": 0.6696808570186676,
+          "bem_first_passage_ms": 28.827587425399425,
+          "fem_first_passage_ms": 29.52170240764135,
+          "fem_stored_node_earliest": {
+            "first_saved_time_s": 0.02952328324317932,
+            "first_saved_locations_mm": [
+              0.0
+            ],
+            "first_saved_bracket_s": [
+              0.029518283903598785,
+              0.02952328324317932
+            ],
+            "minimum_interpolated_time_s": 0.029521702407641348,
+            "minimum_interpolated_locations_mm": [
+              0.0
+            ]
+          },
+          "bem_native_node_earliest": {
+            "first_saved_time_s": 0.028828,
+            "first_saved_locations_mm": [
+              5.0,
+              5.5,
+              6.0,
+              6.5,
+              7.0,
+              7.5,
+              8.0,
+              8.5,
+              9.2,
+              10.18,
+              11.552,
+              13.4728
+            ],
+            "first_saved_bracket_s": [
+              0.028825999999999997,
+              0.028828
+            ],
+            "minimum_interpolated_time_s": 0.028827587425399426,
+            "minimum_interpolated_locations_mm": [
+              8.0
+            ]
+          },
+          "bem_common_grid_earliest": {
+            "first_saved_time_s": 0.028828,
+            "first_saved_locations_mm": [
+              6.0,
+              8.0,
+              10.0,
+              12.0,
+              14.0
+            ],
+            "first_saved_bracket_s": [
+              0.028825999999999997,
+              0.028828
+            ],
+            "minimum_interpolated_time_s": 0.028827587425399426,
+            "minimum_interpolated_locations_mm": [
+              8.0
+            ]
+          }
+        }
+      }
+    }
+  ]
+}
