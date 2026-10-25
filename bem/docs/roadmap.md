@@ -70,6 +70,9 @@ same-Q12 time-grid control if its independent BEM checks pass. Keep residual,
 physical error, cold setup and cached rollout costs separate. Material/geometry
 AD and event-time derivatives remain open rather than being inferred from
 successful contact-only derivatives.
+The [linear modal diagnostic](modal_time_resolution.md) also separates stable
+time integration from wave accuracy. Contact substeps do not refine the bulk
+time symbol; modal attenuation is a diagnostic, not an error bound for rupture.
 
 ## Separation from the original repository
 

@@ -1,0 +1,231 @@
+{
+  "scope": "Analytic undamped scalar-mode amplification; not an error estimate or observed spectrum for nonlinear finite-block BEM/FEM",
+  "bdf2_polynomial": "(3-2*z)*xi**2 - 4*xi + 1 = 0; root xi(0)=1",
+  "radau_iia2_stability_function": "(1+z/3)/(1-2*z/3+z*z/6)",
+  "rows": [
+    {
+      "dt_s": 4e-06,
+      "frequency_hz": 1000,
+      "bdf2": {
+        "per_step_modulus": 0.9999999004103491,
+        "phase_rate_relative_error": -0.0002103722722055501,
+        "principal_mode_amplitude_after_45ms": 0.9988802437674505
+      },
+      "radau_iia2": {
+        "per_step_modulus": 0.999999994458894,
+        "phase_rate_relative_error": -1.4776950774120223e-09,
+        "principal_mode_amplitude_after_45ms": 0.9999376645000575
+      }
+    },
+    {
+      "dt_s": 4e-06,
+      "frequency_hz": 5000,
+      "bdf2": {
+        "per_step_modulus": 0.9999400235018338,
+        "phase_rate_relative_error": -0.0051554183777889895,
+        "principal_mode_amplitude_after_45ms": 0.509280751763845
+      },
+      "radau_iia2": {
+        "per_step_modulus": 0.9999965426498675,
+        "phase_rate_relative_error": -9.230001921656239e-07,
+        "principal_mode_amplitude_after_45ms": 0.9618514518192307
+      }
+    },
+    {
+      "dt_s": 4e-06,
+      "frequency_hz": 10000,
+      "bdf2": {
+        "per_step_modulus": 0.9991382531033639,
+        "phase_rate_relative_error": -0.019479245585185434,
+        "principal_mode_amplitude_after_45ms": 6.135510636895799e-05
+      },
+      "radau_iia2": {
+        "per_step_modulus": 0.9999449758051399,
+        "phase_rate_relative_error": -1.4739378689343496e-05,
+        "principal_mode_amplitude_after_45ms": 0.5384615303878464
+      }
+    },
+    {
+      "dt_s": 4e-06,
+      "frequency_hz": 50000,
+      "bdf2": {
+        "per_step_modulus": 0.8906186709664174,
+        "phase_rate_relative_error": -0.23173316649133546,
+        "principal_mode_amplitude_after_45ms": 0.0
+      },
+      "radau_iia2": {
+        "per_step_modulus": 0.9717769068971773,
+        "phase_rate_relative_error": -0.008387937308406368,
+        "principal_mode_amplitude_after_45ms": 1.3303368573004764e-140
+      }
+    },
+    {
+      "dt_s": 2e-06,
+      "frequency_hz": 1000,
+      "bdf2": {
+        "per_step_modulus": 0.9999999937682783,
+        "phase_rate_relative_error": -5.262667261829446e-05,
+        "principal_mode_amplitude_after_45ms": 0.9998597960909298
+      },
+      "radau_iia2": {
+        "per_step_modulus": 0.9999999996536627,
+        "phase_rate_relative_error": -9.235767706172737e-11,
+        "principal_mode_amplitude_after_45ms": 0.9999922074412868
+      }
+    },
+    {
+      "dt_s": 2e-06,
+      "frequency_hz": 5000,
+      "bdf2": {
+        "per_step_modulus": 0.9999961417052858,
+        "phase_rate_relative_error": -0.0013089957658208862,
+        "principal_mode_amplitude_after_45ms": 0.9168496318347269
+      },
+      "radau_iia2": {
+        "per_step_modulus": 0.9999997836303338,
+        "phase_rate_relative_error": -5.771484878902555e-08,
+        "principal_mode_amplitude_after_45ms": 0.9951435130374398
+      }
+    },
+    {
+      "dt_s": 2e-06,
+      "frequency_hz": 10000,
+      "bdf2": {
+        "per_step_modulus": 0.9999400235018338,
+        "phase_rate_relative_error": -0.0051554183777889895,
+        "principal_mode_amplitude_after_45ms": 0.2593668841171471
+      },
+      "radau_iia2": {
+        "per_step_modulus": 0.9999965426498675,
+        "phase_rate_relative_error": -9.230001921656239e-07,
+        "principal_mode_amplitude_after_45ms": 0.9251582153667619
+      }
+    },
+    {
+      "dt_s": 2e-06,
+      "frequency_hz": 50000,
+      "bdf2": {
+        "per_step_modulus": 0.9805641042307022,
+        "phase_rate_relative_error": -0.0926089298174202,
+        "principal_mode_amplitude_after_45ms": 1.621043004218513e-192
+      },
+      "radau_iia2": {
+        "per_step_modulus": 0.9979327435514155,
+        "phase_rate_relative_error": -0.0005668937640088689,
+        "principal_mode_amplitude_after_45ms": 6.0066853211288e-21
+      }
+    },
+    {
+      "dt_s": 1e-06,
+      "frequency_hz": 1000,
+      "bdf2": {
+        "per_step_modulus": 0.9999999996104021,
+        "phase_rate_relative_error": -1.3158771251853274e-05,
+        "principal_mode_amplitude_after_45ms": 0.9999824682477525
+      },
+      "radau_iia2": {
+        "per_step_modulus": 0.9999999999783535,
+        "phase_rate_relative_error": -5.772382571933576e-12,
+        "principal_mode_amplitude_after_45ms": 0.9999990259096664
+      }
+    },
+    {
+      "dt_s": 1e-06,
+      "frequency_hz": 5000,
+      "bdf2": {
+        "per_step_modulus": 0.9999997570766178,
+        "phase_rate_relative_error": -0.00032854944841353984,
+        "principal_mode_amplitude_after_45ms": 0.989127978780703
+      },
+      "radau_iia2": {
+        "per_step_modulus": 0.9999999864724433,
+        "phase_rate_relative_error": -3.6076028830933637e-09,
+        "principal_mode_amplitude_after_45ms": 0.999391445187156
+      }
+    },
+    {
+      "dt_s": 1e-06,
+      "frequency_hz": 10000,
+      "bdf2": {
+        "per_step_modulus": 0.9999961417052858,
+        "phase_rate_relative_error": -0.0013089957658208862,
+        "principal_mode_amplitude_after_45ms": 0.8406132473954742
+      },
+      "radau_iia2": {
+        "per_step_modulus": 0.9999997836303338,
+        "phase_rate_relative_error": -5.771484878902555e-08,
+        "principal_mode_amplitude_after_45ms": 0.990310611540497
+      }
+    },
+    {
+      "dt_s": 1e-06,
+      "frequency_hz": 50000,
+      "bdf2": {
+        "per_step_modulus": 0.998045695950315,
+        "phase_rate_relative_error": -0.029290919244717717,
+        "principal_mode_amplitude_after_45ms": 5.877255599540671e-39
+      },
+      "radau_iia2": {
+        "per_step_modulus": 0.9998662039846471,
+        "phase_rate_relative_error": -3.5930804142436656e-05,
+        "principal_mode_amplitude_after_45ms": 0.0024266986933489387
+      }
+    },
+    {
+      "dt_s": 5e-07,
+      "frequency_hz": 1000,
+      "bdf2": {
+        "per_step_modulus": 0.9999999999756484,
+        "phase_rate_relative_error": -3.28982430053415e-06,
+        "principal_mode_amplitude_after_45ms": 0.9999978083555376
+      },
+      "radau_iia2": {
+        "per_step_modulus": 0.9999999999986471,
+        "phase_rate_relative_error": -3.608224830031759e-13,
+        "principal_mode_amplitude_after_45ms": 0.9999998782374074
+      }
+    },
+    {
+      "dt_s": 5e-07,
+      "frequency_hz": 5000,
+      "bdf2": {
+        "per_step_modulus": 0.999999984789212,
+        "phase_rate_relative_error": -8.221932231522455e-05,
+        "principal_mode_amplitude_after_45ms": 0.9986319656862139
+      },
+      "radau_iia2": {
+        "per_step_modulus": 0.999999999154458,
+        "phase_rate_relative_error": -2.254818554092708e-10,
+        "principal_mode_amplitude_after_45ms": 0.9999239041181267
+      }
+    },
+    {
+      "dt_s": 5e-07,
+      "frequency_hz": 10000,
+      "bdf2": {
+        "per_step_modulus": 0.9999997570766178,
+        "phase_rate_relative_error": -0.00032854944841353984,
+        "principal_mode_amplitude_after_45ms": 0.978374158406799
+      },
+      "radau_iia2": {
+        "per_step_modulus": 0.9999999864724433,
+        "phase_rate_relative_error": -3.6076028830933637e-09,
+        "principal_mode_amplitude_after_45ms": 0.9987832607132721
+      }
+    },
+    {
+      "dt_s": 5e-07,
+      "frequency_hz": 50000,
+      "bdf2": {
+        "per_step_modulus": 0.999856628876886,
+        "phase_rate_relative_error": -0.007965046109441931,
+        "principal_mode_amplitude_after_45ms": 2.487266712490802e-06
+      },
+      "radau_iia2": {
+        "per_step_modulus": 0.9999915675746617,
+        "phase_rate_relative_error": -2.2526111914666913e-06,
+        "principal_mode_amplitude_after_45ms": 0.4681710865919337
+      }
+    }
+  ]
+}

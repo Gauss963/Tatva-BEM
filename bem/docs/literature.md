@@ -106,6 +106,13 @@ IMA J. Numer. Anal. 39 (2019), 1134–1157。兩階段 Radau IIA 的 b 加權 co
 使它值得獨立測試；非線性誤差分析的 strict monotonicity 不能涵蓋本案的 slip weakening。
 已建立 [Radau 原型與反例紀錄](radau_experiment.md)，時間加密時必須同步核對空間積分。
 
+2026-10-25補讀Aldahham、Banjai的2025年出版
+[Modified CQ與Galerkin BEM](https://arxiv.org/html/2203.00996v1)（2022年預印本），
+閱讀§3–6與§7.2–7.3。其延遲修正針對純量聲學；
+trapezoidal的積分敏感性與本專案先前的Radau反例都提醒，不能單憑A-stability選較大dt。
+另以[解析模態診斷](modal_time_resolution.md)量化BDF2與既定Radau符號的人工耗散；
+它不是目前有限block頻譜或耦合解誤差的量測，也未據此移植modified CQ。
+
 縮減歷史方面，補讀 Poussot-Vassal 等
 [Data-driven port-Hamiltonian structured identification for non-strictly passive systems](https://arxiv.org/html/2211.16250v2)
 （ECC 2023），尤其演算法及多通道實驗。它採資料位移與穩定性修正處理非嚴格被動系統，
