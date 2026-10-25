@@ -42,7 +42,9 @@ def test_fixed_knot_seed_changes_state_but_preserves_actual_bulk_transfer(tmp_pa
     original = NodalInterfaceTransfer(model, quadrature=6).evaluate(100 + 2e4j)
     actual = NodalInterfaceTransfer(updated, quadrature=6).evaluate(100 + 2e4j)
     np.testing.assert_array_equal(actual, original)
-    np.testing.assert_array_equal(updated.restart.cumulative_slip, 0)
+    np.testing.assert_array_equal(
+        updated.restart.cumulative_slip, np.zeros_like(updated.restart.cumulative_slip)
+    )
 
 
 @pytest.mark.parametrize(

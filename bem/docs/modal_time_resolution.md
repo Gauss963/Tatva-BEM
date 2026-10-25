@@ -46,6 +46,6 @@ import math
 
 dt, frequency, duration = 2e-6, 5000, 0.045
 z = 2j * math.pi * frequency * dt
-xi = (2 + cmath.sqrt(1 + 2*z)) / (3 - 2*z)
+xi = (2 + cmath.sqrt(1 + 2 * z)) / (3 - 2 * z)
 print(math.exp(duration / dt * math.log(abs(xi))))
 ```
