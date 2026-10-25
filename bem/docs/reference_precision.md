@@ -1,0 +1,39 @@
+# FEM 參考精度的修正與子步失敗紀錄
+
+2026-10-25。前一次79.5分鐘的FEM重跑錯用了float32模型，不能列為原案例的正式參考或
+同精度效能基準。原始`input/case.toml`與`input/resolved.json`都指定float64；
+舊wrapper卻把`stats/summary.json`的`dtype`當作RunConfig輸入。
+查閱archived source後確認，這個統計欄位實際來自`history.dtype`，描述儲存的scalar history。
+因此它與float64計算模型不同，不能拿來重建計算設定。
+
+|量|原FEM存檔|錯誤float32重跑|
+|---|---:|---:|
+|最大累積滑移 [mm]|0.644123|0.398881|
+|首次保存滑移 [ms]，剪切時間原點|25.733|16.832|
+|包含輸出的模擬耗時 [s]|舊環境，不能公平比較|4767.901|
+
+舊結果仍保留在`outputs/fem-event16-original-h2-4c-interface`，
+以`reference_fidelity.json`標明排除原因，沒有覆寫其數值或來源紀錄。
+這個不同精度的結果也不能用來讓BEM的比較看起來更好。
+原Tatva資料夾維持只讀。
+
+修正後，wrapper從`input/resolved.json`的完整case／solver重建模型，
+核對authored TOML的SHA256、source revision及兩份輸入的精度一致性；
+不再從statistics反推solver設定。另保存實際使用的restart塑性滑移／actuator指紋，
+輸出`computational_dtype`、`stored_history_dtype`與`jax_enable_x64`，分開呈現計算與儲存精度。
+
+修正後的短程原h2案例已完成。與原HDF5相比，雙block網格、第一筆保存位移、
+初始塑性／累積滑移及摩擦係數皆逐位相同；static-normal的屬性也逐項保存比較。
+這支持初始化與輸入重建的正確性，尚不能替代完整45ms的動態核對。
+數據及指紋見[fem_precision_audit_results.json](fem_precision_audit_results.json)。
+
+接觸子步方面，一子步的完整45ms軌跡與原BEM七個場逐位相同，
+但四子步在step14572（29.144ms）未收斂，殘差約17.39MPa，整體流程保留exit1。
+之後加入有殘差檢查的信賴域／延續備援，四與十六子步皆完成45ms，
+最大滑移分別0.546689與0.559055mm；距原FEM仍約15.1%／13.2%。
+這恢復了這兩個離散問題的收斂，尚未證明相對FEM的穩定性或同精度速度優勢。
+新增失敗平衡根／已接受前綴的診斷輸出，以便查清局部Newton與接觸分支；
+它不是可以丟掉CQ記憶的resume checkpoint。
+
+原一步BEM最大滑移差約20.7%，最新十六子步仍約13.2%，目標未達成。
+接下來須先完成正確float64 FEM參考，再分開解決子步非線性求解與相同Q12的時間網格誤差。

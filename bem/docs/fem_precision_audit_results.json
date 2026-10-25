@@ -1,0 +1,1996 @@
+{
+  "goal_achieved": false,
+  "original_h2_authored_precision_full_reference_verified": false,
+  "interpretation": "Statistics dtype describes HDF5 history storage, not the model precision requested by input/resolved.json",
+  "excluded_float32_reference": {
+    "status": "excluded_from_original_configuration_reference",
+    "reason": "Old wrapper treated stats dtype (stored scalar-history dtype) as the solver model dtype",
+    "expected_model_dtype": "float64",
+    "actual_model_dtype": "float32",
+    "measured_variant_wall_seconds": 4767.900744958781,
+    "same_accuracy_performance_baseline": false
+  },
+  "corrected_initial_output_comparison": {
+    "moving/coords": {
+      "bitwise_equal": true,
+      "maximum_absolute_difference": 0.0
+    },
+    "moving/displacement": {
+      "bitwise_equal": true,
+      "maximum_absolute_difference": 0.0
+    },
+    "stationary/coords": {
+      "bitwise_equal": true,
+      "maximum_absolute_difference": 0.0
+    },
+    "stationary/displacement": {
+      "bitwise_equal": true,
+      "maximum_absolute_difference": 0.0
+    },
+    "initial_interface/plastic_slip": {
+      "bitwise_equal": true,
+      "maximum_absolute_difference": 0.0
+    },
+    "initial_interface/cumulative_slip": {
+      "bitwise_equal": true,
+      "maximum_absolute_difference": 0.0
+    },
+    "initial_interface/friction_coefficient": {
+      "bitwise_equal": true,
+      "maximum_absolute_difference": 0.0
+    }
+  },
+  "corrected_static_attributes": {
+    "static_normal_iterations": {
+      "original": 1.0,
+      "corrected": 1.0,
+      "equal": true
+    },
+    "static_normal_loading_face_displacement": {
+      "original": 9.958879269752405,
+      "corrected": 9.958879269752405,
+      "equal": true
+    },
+    "static_normal_max_cumulative_slip": {
+      "original": 9.117343213272274,
+      "corrected": 9.117343213272274,
+      "equal": true
+    },
+    "static_normal_max_tau_over_sigma": {
+      "original": 0.5623174455463376,
+      "corrected": 0.5623174455463376,
+      "equal": true
+    },
+    "static_normal_mean_sigma_n": {
+      "original": 17.391466329801908,
+      "corrected": 17.391466329801908,
+      "equal": true
+    },
+    "static_normal_open_nodes": {
+      "original": 0.0,
+      "corrected": 0.0,
+      "equal": true
+    },
+    "static_normal_relative_residual": {
+      "original": 2.441581317579633e-11,
+      "corrected": 2.441581317579633e-11,
+      "equal": true
+    },
+    "static_normal_sliding_nodes": {
+      "original": 0.0,
+      "corrected": 0.0,
+      "equal": true
+    }
+  },
+  "corrected_initial_fields_bitwise_equal": true,
+  "original_hdf5_size_and_mtime_unchanged": true,
+  "contact4_failure": {
+    "log": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fine2-postfem-contact4.log",
+    "log_sha256": "999073cee8611cf573335a55f5bf4f54f4cdda91d95eec03c34f24bd2d3acf9a",
+    "completed_requested_horizon": false,
+    "failed_step": 14572,
+    "residual_mpa": 17.388634458455527
+  },
+  "contact16_complete_result_available": true,
+  "records": {
+    "authored_resolved_input": {
+      "path": "/Volumes/Gauss-T7/tatva/runs/local-mus08-muk06-gap0-v2-ev16/input/resolved.json",
+      "sha256": "6e68fbe8cfaa5364ff5cf88965727f58f584426797c774fa32f6807292e06296",
+      "data": {
+        "case": {
+          "moving": {
+            "name": "moving-block",
+            "origin": [
+              0.0,
+              0.0
+            ],
+            "dimensions": [
+              200.0,
+              500.0
+            ],
+            "tag_prefix": 1
+          },
+          "stationary": {
+            "name": "stationary-block",
+            "origin": [
+              200.0,
+              0.0
+            ],
+            "dimensions": [
+              145.0,
+              550.0
+            ],
+            "tag_prefix": 2
+          },
+          "materials": {
+            "moving-block": {
+              "name": "moving-block",
+              "rho": 1.148e-09,
+              "E": 7662.0,
+              "nu": 0.2
+            },
+            "stationary-block": {
+              "name": "stationary-block",
+              "rho": 1.148e-09,
+              "E": 7662.0,
+              "nu": 0.2
+            }
+          },
+          "friction": {
+            "mu_s": 0.8,
+            "mu_k": 0.6,
+            "d_c": 0.0125959
+          },
+          "simulation": {
+            "simulation_time": 0.02,
+            "time_factor": 0.02,
+            "normal_stress": 16.0,
+            "rise_fraction": 0.3,
+            "tau_k_start_fraction": 0.99,
+            "normal_dir": 0,
+            "slave_surface": "stationary-block-back",
+            "master_surface": "moving-block-front"
+          }
+        },
+        "solver": {
+          "mesh_size": 2.0,
+          "simulation_time": 0.03,
+          "cfl": 0.35,
+          "dtype": "float64",
+          "normal_penalty": 76620.0,
+          "tangential_penalty": 7662.0,
+          "contact_safety_factor": 0.25,
+          "element_type": "quad4",
+          "time_step_override": 1.2492928633545953e-08,
+          "operator_batch_size": null,
+          "moving_loading_extension_length": 0.0,
+          "moving_leading_chamfer_along_fault": 20.0,
+          "moving_leading_chamfer_perpendicular": 5.0,
+          "moving_leading_fault_fillet_radius": 0.0,
+          "moving_loading_fault_fillet_radius": 0.0,
+          "fault_end_refinement_size": null,
+          "shear_loading_face_gap": 0.0,
+          "fault_end_refinement_growth": 1.2,
+          "normal_loading_mode": "stress",
+          "normal_displacement_override": 0.691620986687549,
+          "normal_displacement_loading_fraction": 1.0,
+          "normal_displacement_leading_fraction": 1.0,
+          "shear_loading_mode": "spring-displacement",
+          "shear_loading_stiffness": 25.0,
+          "shear_spring_rigid_face": true,
+          "reset_slip_weakening_at_shear_start": true,
+          "healing_fraction": 1.0,
+          "normal_phase_mode": "static",
+          "restart_from_file": "/Volumes/Gauss-T7/tatva/runs/local-mus08-muk06-gap0-v2-ev15/data/simulation.h5",
+          "mu_k_override": null,
+          "critical_slip_override": null,
+          "loading_edge_nucleation_length": 0.0,
+          "loading_edge_critical_slip": null,
+          "shear_displacement_k_override": 0.0,
+          "shear_displacement_s_override": 0.0,
+          "output_prefix": null,
+          "normal_phase_time": 0.002,
+          "shear_phase_time": 0.045,
+          "normal_ramp_time": 0.0,
+          "tau_k_start_fraction_override": 1.0,
+          "tau_k_full_fraction_override": 1.0,
+          "shear_ramp_time": 0.0,
+          "shear_ramp_shape": "half-cosine",
+          "shear_post_ramp_rate": 20.0,
+          "normal_relaxation_time": null,
+          "normal_relaxation_start_time": 0.0,
+          "prestress_shear_displacement": null,
+          "quasistatic_shear_fraction": 0.0,
+          "quasistatic_shear_start_time": 0.0,
+          "quasistatic_shear_ramp_time": 0.0,
+          "quasistatic_damping_time": null,
+          "stop_shear_loading_on_rupture": true,
+          "shear_loading_stop_slip": null,
+          "shear_loading_stop_velocity": null,
+          "shear_loading_stop_min_y": 0.0,
+          "shear_loading_stop_max_y": 480.0,
+          "shear_loading_stop_coverage_fraction": 1.0,
+          "relax_tangential_contact_during_normal": false,
+          "lock_shear_edge_during_normal": false,
+          "shear_scale": 1.0,
+          "mu_s_start_fraction": 1.0,
+          "mu_s_end_fraction": 1.0,
+          "pw_length": 0.0,
+          "pw_mu_s_ratio": 1.0,
+          "pw_transition_length": 0.0,
+          "leading_edge_guard_length": 0.0,
+          "leading_edge_guard_mu_s_ratio": 1.0,
+          "leading_edge_guard_transition_length": 0.0,
+          "leading_edge_tangential_taper_length": 0.0,
+          "leading_edge_tangential_plateau_length": 0.0,
+          "leading_edge_tangential_taper_ratio": 1.0,
+          "friction_law": "slip-weakening",
+          "rsf_reference_friction": 0.285,
+          "rsf_direct_effect": 0.005,
+          "rsf_state_effect": 0.0214,
+          "rsf_reference_velocity": 0.0001,
+          "rsf_reference_state": 0.00033,
+          "rsf_characteristic_slip": 0.0005,
+          "rsf_initial_state": null,
+          "rsf_initial_state_mode": "steady-state",
+          "rsf_initialization_velocity": 0.0001,
+          "rsf_target_normalized_prestress": null,
+          "rsf_profile_spec": null,
+          "leading_edge_creep_length": 0.0,
+          "leading_edge_creep_transition_length": 0.0,
+          "leading_edge_creep_mu": 0.7,
+          "leading_edge_creep_mu_k": null,
+          "leading_edge_creep_relaxation_time": 0.0,
+          "dimension": 2,
+          "thickness": 0.0,
+          "normal_stress_override": 16.0,
+          "shear_tau_k_override": 19.0,
+          "shear_tau_s_override": 19.0
+        },
+        "output": {
+          "frames_per_phase": 40,
+          "shear_frames_per_phase": 9000,
+          "include_initial_frame": false,
+          "compression": "lzf",
+          "store_bulk_strain": false,
+          "store_bulk_velocity": true,
+          "checkpoint_interval_seconds": 600.0
+        },
+        "description": {
+          "name": "lsw-h2-chamfer-gap0-mus0.8-muk0.6-restart",
+          "reference": "Archived 0116 stats/summary.json; archived Disp notebook confirms 0114 equivalence"
+        },
+        "benchmark": false,
+        "git_revision": "933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d",
+        "input_sha256": "6f8cf492023c3928dc5c4d89672dec668077d5092f479a57580ab3aeb1a15f02"
+      }
+    },
+    "historical_statistics": {
+      "path": "/Volumes/Gauss-T7/tatva/runs/local-mus08-muk06-gap0-v2-ev16/stats/summary.json",
+      "sha256": "8f7202eb285d3959d376df466c68e8b4900262d26be71cbc29847d882b4e42bc",
+      "data": {
+        "summary": {
+          "mpi_ranks": 1,
+          "element_type": "quad4",
+          "steady_chunk_timings": {
+            "normal": {
+              "seconds": 302.7993914587423,
+              "steps": 151881
+            },
+            "shear": {
+              "seconds": 6630.270908067934,
+              "steps": 3601236
+            }
+          },
+          "backend": "cpu",
+          "devices": [
+            "TFRT_CPU_0"
+          ],
+          "dtype": "float32",
+          "dimension": 2,
+          "thickness": 0.0,
+          "mesh_size": 2.0,
+          "cfl": 0.35,
+          "contact_safety_factor": 0.25,
+          "time_step_override": 1.2492928633545953e-08,
+          "dt": 1.2492928633545953e-08,
+          "dt_stable_limit": 1.5300650083520456e-08,
+          "dt_bulk": 1.2852546070157184e-07,
+          "dt_contact": 1.5300650083520456e-08,
+          "dt_stability_limiter": "contact",
+          "dt_limiter": "configured",
+          "pressure_time": 0.002,
+          "shear_time": 0.045,
+          "normal_ramp_time": 0.0,
+          "normal_ramp_steps": 0,
+          "shear_ramp_time": 0.0,
+          "shear_ramp_shape": "half-cosine",
+          "shear_post_ramp_rate": 20.0,
+          "shear_spring_rigid_face": true,
+          "reset_slip_weakening_at_shear_start": true,
+          "healing_fraction": 1.0,
+          "normal_phase_mode": "static",
+          "stop_shear_loading_on_rupture": true,
+          "shear_loading_stop_slip": 0.0125959,
+          "shear_loading_stop_velocity": null,
+          "shear_loading_stop_uses_critical_profile": true,
+          "shear_loading_stop_min_y": 0.0,
+          "shear_loading_stop_max_y": 480.0,
+          "shear_loading_stop_coverage_fraction": 1.0,
+          "shear_loading_stop_time": 0.03178831934928894,
+          "shear_loading_stop_time_in_shear": 0.02978831934928894,
+          "shear_loading_stop_displacement": 11.401939392089844,
+          "relax_tangential_contact_during_normal": false,
+          "pressure_steps": 160091,
+          "shear_steps": 3602038,
+          "pressure_frames_target": 40,
+          "shear_frames_target": 9000,
+          "pressure_frames_saved": 40,
+          "shear_frames_saved": 9000,
+          "interface_pressure_frames_target": 40,
+          "interface_shear_frames_target": 9000,
+          "interface_pressure_frames_saved": 40,
+          "interface_shear_frames_saved": 9000,
+          "tau_k": 19.0,
+          "tau_s": 19.0,
+          "shear_scale": 1.0,
+          "normal_stress": 16.0,
+          "normal_loading_mode": "stress",
+          "shear_loading_mode": "spring-displacement",
+          "shear_loading_stiffness": 25.0,
+          "shear_force_boundary": "moving-block-right",
+          "shear_displacement_boundary": "moving-block-right",
+          "normal_displacement": 0.691620986687549,
+          "normal_displacement_estimate": 0.6916209866875489,
+          "normal_displacement_loading_fraction": 1.0,
+          "normal_displacement_leading_fraction": 1.0,
+          "moving_leading_chamfer_along_fault": 20.0,
+          "moving_leading_chamfer_perpendicular": 5.0,
+          "shear_displacement_k": 0.0,
+          "shear_displacement_s": 0.0,
+          "quasistatic_shear_fraction": 0.0,
+          "quasistatic_shear_target": 0.0,
+          "prestress_shear_displacement": null,
+          "quasistatic_shear_start_time": 0.0,
+          "quasistatic_shear_ramp_time": 0.0,
+          "normal_relaxation_time": null,
+          "normal_relaxation_start_time": 0.0,
+          "normal_relaxation_handoff": null,
+          "quasistatic_damping_time": null,
+          "quasistatic_handoff": null,
+          "critical_slip": 0.0125959,
+          "mu_k": 0.6,
+          "loading_edge_nucleation_length": 0.0,
+          "loading_edge_critical_slip": 0.0125959,
+          "mu_s_start_fraction": 1.0,
+          "mu_s_end_fraction": 1.0,
+          "pw_length": 0.0,
+          "pw_mu_s_ratio": 1.0,
+          "pw_transition_length": 0.0,
+          "leading_edge_guard_length": 0.0,
+          "leading_edge_guard_mu_s_ratio": 1.0,
+          "leading_edge_guard_transition_length": 0.0,
+          "leading_edge_tangential_taper_length": 0.0,
+          "leading_edge_tangential_plateau_length": 0.0,
+          "leading_edge_tangential_taper_ratio": 1.0,
+          "friction_law": "slip-weakening",
+          "rsf_reference_friction": 0.285,
+          "rsf_direct_effect": 0.005,
+          "rsf_state_effect": 0.0214,
+          "rsf_reference_velocity": 0.0001,
+          "rsf_reference_state": 0.00033,
+          "rsf_characteristic_slip": 0.0005,
+          "rsf_initial_state": 0.00033,
+          "rsf_initial_state_mode": "steady-state",
+          "rsf_initialization_velocity": 0.0001,
+          "rsf_target_normalized_prestress": null,
+          "rsf_state_handoff": null,
+          "rsf_profile": null,
+          "leading_edge_creep_length": 0.0,
+          "leading_edge_creep_transition_length": 0.0,
+          "leading_edge_creep_mu": 0.7,
+          "leading_edge_creep_mu_k": 0.7,
+          "leading_edge_creep_relaxation_time": 0.0,
+          "normal_penalty": 76620.0,
+          "tangential_penalty": 7662.0,
+          "lock_shear_edge_during_normal": false,
+          "moving_nodes": 25351,
+          "stationary_nodes": 20424,
+          "moving_elements": 25000,
+          "stationary_elements": 20075,
+          "final_time": 0.047000009107193604,
+          "final_max_slip": 0.6441228205817715,
+          "final_max_penetration": 0.004505392629653215,
+          "final_avg_tau": 8.912893295288086,
+          "final_avg_sigma_n": 17.58409881591797,
+          "saved_frames": 9040,
+          "data_path": "/Volumes/Gauss-T7/tatva/runs/local-mus08-muk06-gap0-v2-ev16/data/simulation.h5",
+          "legacy": {
+            "materials": {
+              "moving-block": {
+                "name": "moving-block",
+                "rho": 1.148e-09,
+                "E": 7662.0,
+                "nu": 0.2
+              },
+              "stationary-block": {
+                "name": "stationary-block",
+                "rho": 1.148e-09,
+                "E": 7662.0,
+                "nu": 0.2
+              }
+            },
+            "friction": {
+              "mu_s": 0.8,
+              "mu_k": 0.6,
+              "d_c": 0.0125959
+            },
+            "effective_friction": {
+              "mu_s": 0.8,
+              "mu_k": 0.6,
+              "d_c": 0.0125959
+            },
+            "simulation": {
+              "simulation_time": 0.02,
+              "time_factor": 0.02,
+              "normal_stress": 16.0,
+              "rise_fraction": 0.3,
+              "tau_k_start_fraction": 0.99,
+              "normal_dir": 0,
+              "slave_surface": "stationary-block-back",
+              "master_surface": "moving-block-front"
+            },
+            "geometry": {
+              "moving": {
+                "name": "moving-block",
+                "origin": [
+                  0.0,
+                  0.0
+                ],
+                "dimensions": [
+                  200.0,
+                  500.0
+                ],
+                "tag_prefix": 1
+              },
+              "stationary": {
+                "name": "stationary-block",
+                "origin": [
+                  200.0,
+                  0.0
+                ],
+                "dimensions": [
+                  145.0,
+                  550.0
+                ],
+                "tag_prefix": 2
+              }
+            }
+          },
+          "wall_seconds": 6969.130398500711,
+          "benchmark": false,
+          "slurm_job_id": null
+        },
+        "run_dir": "/Volumes/Gauss-T7/tatva/runs/local-mus08-muk06-gap0-v2-ev16"
+      }
+    },
+    "excluded_float32_configuration": {
+      "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-original-h2-4c-interface/resolved_run_config.json",
+      "sha256": "9836fcb2fc532c6fa55aea6bca22ffef72040659f4a612089103d4265d04ccd6",
+      "data": {
+        "mesh_size": 2.0,
+        "simulation_time": 0.045,
+        "cfl": 0.35,
+        "dtype": "float32",
+        "normal_penalty": 76620.0,
+        "tangential_penalty": 7662.0,
+        "contact_safety_factor": 0.25,
+        "element_type": "quad4",
+        "time_step_override": 1.2492928633545953e-08,
+        "operator_batch_size": null,
+        "moving_loading_extension_length": 0.0,
+        "moving_leading_chamfer_along_fault": 20.0,
+        "moving_leading_chamfer_perpendicular": 5.0,
+        "moving_leading_fault_fillet_radius": 0.0,
+        "moving_loading_fault_fillet_radius": 0.0,
+        "fault_end_refinement_size": null,
+        "shear_loading_face_gap": 0.0,
+        "fault_end_refinement_growth": 1.2,
+        "normal_loading_mode": "stress",
+        "normal_displacement_override": null,
+        "normal_displacement_loading_fraction": 1.0,
+        "normal_displacement_leading_fraction": 1.0,
+        "shear_loading_mode": "spring-displacement",
+        "shear_loading_stiffness": 25.0,
+        "shear_spring_rigid_face": true,
+        "reset_slip_weakening_at_shear_start": true,
+        "healing_fraction": 1.0,
+        "normal_phase_mode": "static",
+        "restart_from_file": "/Volumes/Gauss-T7/tatva/runs/local-mus08-muk06-gap0-v2-ev15/data/simulation.h5",
+        "mu_k_override": 0.6,
+        "critical_slip_override": 0.0125959,
+        "loading_edge_nucleation_length": 0.0,
+        "loading_edge_critical_slip": 0.0125959,
+        "shear_displacement_k_override": 0.0,
+        "shear_displacement_s_override": 0.0,
+        "output_prefix": null,
+        "normal_phase_time": 0.002,
+        "shear_phase_time": 0.045,
+        "normal_ramp_time": 0.0,
+        "tau_k_start_fraction_override": 1.0,
+        "tau_k_full_fraction_override": 1.0,
+        "shear_ramp_time": 0.0,
+        "shear_ramp_shape": "half-cosine",
+        "shear_post_ramp_rate": 20.0,
+        "normal_relaxation_time": null,
+        "normal_relaxation_start_time": 0.0,
+        "prestress_shear_displacement": null,
+        "quasistatic_shear_fraction": 0.0,
+        "quasistatic_shear_start_time": 0.0,
+        "quasistatic_shear_ramp_time": 0.0,
+        "quasistatic_damping_time": null,
+        "stop_shear_loading_on_rupture": true,
+        "shear_loading_stop_slip": 0.0125959,
+        "shear_loading_stop_velocity": null,
+        "shear_loading_stop_min_y": 0.0,
+        "shear_loading_stop_max_y": 480.0,
+        "shear_loading_stop_coverage_fraction": 1.0,
+        "relax_tangential_contact_during_normal": false,
+        "lock_shear_edge_during_normal": false,
+        "shear_scale": 1.0,
+        "mu_s_start_fraction": 1.0,
+        "mu_s_end_fraction": 1.0,
+        "pw_length": 0.0,
+        "pw_mu_s_ratio": 1.0,
+        "pw_transition_length": 0.0,
+        "leading_edge_guard_length": 0.0,
+        "leading_edge_guard_mu_s_ratio": 1.0,
+        "leading_edge_guard_transition_length": 0.0,
+        "leading_edge_tangential_taper_length": 0.0,
+        "leading_edge_tangential_plateau_length": 0.0,
+        "leading_edge_tangential_taper_ratio": 1.0,
+        "friction_law": "slip-weakening",
+        "rsf_reference_friction": 0.285,
+        "rsf_direct_effect": 0.005,
+        "rsf_state_effect": 0.0214,
+        "rsf_reference_velocity": 0.0001,
+        "rsf_reference_state": 0.00033,
+        "rsf_characteristic_slip": 0.0005,
+        "rsf_initial_state": 0.00033,
+        "rsf_initial_state_mode": "steady-state",
+        "rsf_initialization_velocity": 0.0001,
+        "rsf_target_normalized_prestress": null,
+        "rsf_profile_spec": null,
+        "leading_edge_creep_length": 0.0,
+        "leading_edge_creep_transition_length": 0.0,
+        "leading_edge_creep_mu": 0.7,
+        "leading_edge_creep_mu_k": 0.7,
+        "leading_edge_creep_relaxation_time": 0.0,
+        "dimension": 2,
+        "thickness": 0.0,
+        "normal_stress_override": 16.0,
+        "shear_tau_k_override": 19.0,
+        "shear_tau_s_override": 19.0
+      }
+    },
+    "excluded_float32_run": {
+      "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-original-h2-4c-interface/summary.json",
+      "sha256": "618d29801f471177ce9e331bdbafa2696f31c6483c8a2196dc3032389a771def",
+      "data": {
+        "status": "completed",
+        "source_revision": "933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d",
+        "reference_run": "/Volumes/Gauss-T7/tatva/runs/local-mus08-muk06-gap0-v2-ev16",
+        "cores_requested": 4,
+        "hard_cpu_affinity": false,
+        "cpu_limit_note": "macOS thread limits are best effort; affinity is not enforced",
+        "jax_version": "0.9.2",
+        "devices": [
+          "TFRT_CPU_0"
+        ],
+        "blas_threadpools": [],
+        "wall_seconds": 4767.900744958781,
+        "process_cpu_seconds": 15850.173493,
+        "timing_seconds": {
+          "source_and_config_preparation": 0.45733162481337786,
+          "simulation_including_outputs": 4767.900744958781,
+          "total_before_reporting": 4768.39750666637
+        },
+        "total_process_cpu_seconds": 15850.466642000001,
+        "timing_control": "Not established by this runner; concurrent jobs must be recorded separately",
+        "runner_sha256": "27793da4f7343760deb5d7f64f585b1ef3385322ff8747bf9f338ffff157c22b",
+        "reference_manifest_sha256": "71dd322ceec43db5ca2f5d022af576bb75dafa161b6fad578f6b67b7ce4580ae",
+        "source_archive_sha256": "ab7c09b46dc617795235e8356365d13210f1c0f0c9be40747bbddd9aefae628e",
+        "source_and_protected_input_unchanged": true,
+        "output_options": {
+          "frames_per_phase": 4,
+          "shear_frames_per_phase": 32,
+          "interface_frames_per_phase": 40,
+          "shear_interface_frames_per_phase": 9000,
+          "compression": "lzf",
+          "include_initial_frame": true,
+          "store_bulk_strain": false,
+          "store_bulk_velocity": false
+        },
+        "comparison_history_group": "interface_high_rate",
+        "summary": {
+          "mpi_ranks": 1,
+          "element_type": "quad4",
+          "steady_chunk_timings": {
+            "normal": {
+              "seconds": 193.11480258684605,
+              "steps": 151881
+            },
+            "shear": {
+              "seconds": 4522.658715710975,
+              "steps": 3595232
+            }
+          },
+          "backend": "cpu",
+          "devices": [
+            "TFRT_CPU_0"
+          ],
+          "dtype": "float32",
+          "dimension": 2,
+          "thickness": 0.0,
+          "mesh_size": 2.0,
+          "cfl": 0.35,
+          "contact_safety_factor": 0.25,
+          "time_step_override": 1.2492928633545953e-08,
+          "dt": 1.2492928633545953e-08,
+          "dt_stable_limit": 1.530065027259654e-08,
+          "dt_bulk": 1.2852546070157184e-07,
+          "dt_contact": 1.530065027259654e-08,
+          "dt_stability_limiter": "contact",
+          "dt_limiter": "configured",
+          "pressure_time": 0.002,
+          "shear_time": 0.045,
+          "normal_ramp_time": 0.0,
+          "normal_ramp_steps": 0,
+          "shear_ramp_time": 0.0,
+          "shear_ramp_shape": "half-cosine",
+          "shear_post_ramp_rate": 20.0,
+          "shear_spring_rigid_face": true,
+          "reset_slip_weakening_at_shear_start": true,
+          "healing_fraction": 1.0,
+          "normal_phase_mode": "static",
+          "stop_shear_loading_on_rupture": true,
+          "shear_loading_stop_slip": 0.0125959,
+          "shear_loading_stop_velocity": null,
+          "shear_loading_stop_uses_critical_profile": false,
+          "shear_loading_stop_min_y": 0.0,
+          "shear_loading_stop_max_y": 480.0,
+          "shear_loading_stop_coverage_fraction": 1.0,
+          "shear_loading_stop_time": 0.025337595492601395,
+          "shear_loading_stop_time_in_shear": 0.023337595492601393,
+          "shear_loading_stop_displacement": 11.272910118103027,
+          "relax_tangential_contact_during_normal": false,
+          "pressure_steps": 160091,
+          "shear_steps": 3602038,
+          "pressure_frames_target": 4,
+          "shear_frames_target": 32,
+          "pressure_frames_saved": 4,
+          "shear_frames_saved": 32,
+          "interface_pressure_frames_target": 40,
+          "interface_shear_frames_target": 9000,
+          "interface_pressure_frames_saved": 40,
+          "interface_shear_frames_saved": 9000,
+          "tau_k": 19.0,
+          "tau_s": 19.0,
+          "shear_scale": 1.0,
+          "normal_stress": 16.0,
+          "normal_loading_mode": "stress",
+          "shear_loading_mode": "spring-displacement",
+          "shear_loading_stiffness": 25.0,
+          "shear_force_boundary": "moving-block-right",
+          "shear_displacement_boundary": "moving-block-right",
+          "normal_displacement": 0.6916209866875489,
+          "normal_displacement_estimate": 0.6916209866875489,
+          "normal_displacement_loading_fraction": 1.0,
+          "normal_displacement_leading_fraction": 1.0,
+          "moving_leading_chamfer_along_fault": 20.0,
+          "moving_leading_chamfer_perpendicular": 5.0,
+          "shear_displacement_k": 0.0,
+          "shear_displacement_s": 0.0,
+          "quasistatic_shear_fraction": 0.0,
+          "quasistatic_shear_target": 0.0,
+          "prestress_shear_displacement": null,
+          "quasistatic_shear_start_time": 0.0,
+          "quasistatic_shear_ramp_time": 0.0,
+          "normal_relaxation_time": null,
+          "normal_relaxation_start_time": 0.0,
+          "normal_relaxation_handoff": null,
+          "quasistatic_damping_time": null,
+          "quasistatic_handoff": null,
+          "critical_slip": 0.0125959,
+          "mu_k": 0.6,
+          "loading_edge_nucleation_length": 0.0,
+          "loading_edge_critical_slip": 0.0125959,
+          "mu_s_start_fraction": 1.0,
+          "mu_s_end_fraction": 1.0,
+          "pw_length": 0.0,
+          "pw_mu_s_ratio": 1.0,
+          "pw_transition_length": 0.0,
+          "leading_edge_guard_length": 0.0,
+          "leading_edge_guard_mu_s_ratio": 1.0,
+          "leading_edge_guard_transition_length": 0.0,
+          "leading_edge_tangential_taper_length": 0.0,
+          "leading_edge_tangential_plateau_length": 0.0,
+          "leading_edge_tangential_taper_ratio": 1.0,
+          "friction_law": "slip-weakening",
+          "rsf_reference_friction": 0.285,
+          "rsf_direct_effect": 0.005,
+          "rsf_state_effect": 0.0214,
+          "rsf_reference_velocity": 0.0001,
+          "rsf_reference_state": 0.00033,
+          "rsf_characteristic_slip": 0.0005,
+          "rsf_initial_state": 0.00033,
+          "rsf_initial_state_mode": "steady-state",
+          "rsf_initialization_velocity": 0.0001,
+          "rsf_target_normalized_prestress": null,
+          "rsf_state_handoff": null,
+          "rsf_profile": null,
+          "leading_edge_creep_length": 0.0,
+          "leading_edge_creep_transition_length": 0.0,
+          "leading_edge_creep_mu": 0.7,
+          "leading_edge_creep_mu_k": 0.7,
+          "leading_edge_creep_relaxation_time": 0.0,
+          "normal_penalty": 76620.0,
+          "tangential_penalty": 7662.0,
+          "lock_shear_edge_during_normal": false,
+          "moving_nodes": 25351,
+          "stationary_nodes": 20424,
+          "moving_elements": 25000,
+          "stationary_elements": 20075,
+          "final_time": 0.047000009107193604,
+          "final_max_slip": 0.3988814055919647,
+          "final_max_penetration": 0.004547774791717529,
+          "final_avg_tau": 9.0933256149292,
+          "final_avg_sigma_n": 16.566707611083984,
+          "saved_frames": 37,
+          "data_path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-original-h2-4c-interface/simulation.h5",
+          "legacy": {
+            "materials": {
+              "moving-block": {
+                "name": "moving-block",
+                "rho": 1.148e-09,
+                "E": 7662.0,
+                "nu": 0.2
+              },
+              "stationary-block": {
+                "name": "stationary-block",
+                "rho": 1.148e-09,
+                "E": 7662.0,
+                "nu": 0.2
+              }
+            },
+            "friction": {
+              "mu_s": 0.8,
+              "mu_k": 0.6,
+              "d_c": 0.0125959
+            },
+            "effective_friction": {
+              "mu_s": 0.8,
+              "mu_k": 0.6,
+              "d_c": 0.0125959
+            },
+            "simulation": {
+              "simulation_time": 0.02,
+              "time_factor": 0.02,
+              "normal_stress": 16.0,
+              "rise_fraction": 0.3,
+              "tau_k_start_fraction": 0.99,
+              "normal_dir": 0,
+              "slave_surface": "stationary-block-back",
+              "master_surface": "moving-block-front"
+            },
+            "geometry": {
+              "moving": {
+                "name": "moving-block",
+                "origin": [
+                  0.0,
+                  0.0
+                ],
+                "dimensions": [
+                  200.0,
+                  500.0
+                ],
+                "tag_prefix": 1
+              },
+              "stationary": {
+                "name": "stationary-block",
+                "origin": [
+                  200.0,
+                  0.0
+                ],
+                "dimensions": [
+                  145.0,
+                  550.0
+                ],
+                "tag_prefix": 2
+              }
+            }
+          }
+        },
+        "full_original_horizon": true,
+        "output_frames_reduced": true,
+        "restart_projected_to_coarse_mesh": false
+      }
+    },
+    "corrected_short_configuration": {
+      "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-authored-f64-shortcheck/resolved_run_config.json",
+      "sha256": "b9938a8bb1344caf3cba89441070dd6cdd542fc5ac4e85ca0d27f5c0a30a4e59",
+      "data": {
+        "mesh_size": 2.0,
+        "simulation_time": 5e-05,
+        "cfl": 0.35,
+        "dtype": "float64",
+        "normal_penalty": 76620.0,
+        "tangential_penalty": 7662.0,
+        "contact_safety_factor": 0.25,
+        "element_type": "quad4",
+        "time_step_override": 1.2492928633545953e-08,
+        "operator_batch_size": null,
+        "moving_loading_extension_length": 0.0,
+        "moving_leading_chamfer_along_fault": 20.0,
+        "moving_leading_chamfer_perpendicular": 5.0,
+        "moving_leading_fault_fillet_radius": 0.0,
+        "moving_loading_fault_fillet_radius": 0.0,
+        "fault_end_refinement_size": null,
+        "shear_loading_face_gap": 0.0,
+        "fault_end_refinement_growth": 1.2,
+        "normal_loading_mode": "stress",
+        "normal_displacement_override": 0.691620986687549,
+        "normal_displacement_loading_fraction": 1.0,
+        "normal_displacement_leading_fraction": 1.0,
+        "shear_loading_mode": "spring-displacement",
+        "shear_loading_stiffness": 25.0,
+        "shear_spring_rigid_face": true,
+        "reset_slip_weakening_at_shear_start": true,
+        "healing_fraction": 1.0,
+        "normal_phase_mode": "static",
+        "restart_from_file": "/Volumes/Gauss-T7/tatva/runs/local-mus08-muk06-gap0-v2-ev15/data/simulation.h5",
+        "mu_k_override": null,
+        "critical_slip_override": null,
+        "loading_edge_nucleation_length": 0.0,
+        "loading_edge_critical_slip": null,
+        "shear_displacement_k_override": 0.0,
+        "shear_displacement_s_override": 0.0,
+        "output_prefix": null,
+        "normal_phase_time": 5e-08,
+        "shear_phase_time": 5e-05,
+        "normal_ramp_time": 0.0,
+        "tau_k_start_fraction_override": 1.0,
+        "tau_k_full_fraction_override": 1.0,
+        "shear_ramp_time": 0.0,
+        "shear_ramp_shape": "half-cosine",
+        "shear_post_ramp_rate": 20.0,
+        "normal_relaxation_time": null,
+        "normal_relaxation_start_time": 0.0,
+        "prestress_shear_displacement": null,
+        "quasistatic_shear_fraction": 0.0,
+        "quasistatic_shear_start_time": 0.0,
+        "quasistatic_shear_ramp_time": 0.0,
+        "quasistatic_damping_time": null,
+        "stop_shear_loading_on_rupture": true,
+        "shear_loading_stop_slip": null,
+        "shear_loading_stop_velocity": null,
+        "shear_loading_stop_min_y": 0.0,
+        "shear_loading_stop_max_y": 480.0,
+        "shear_loading_stop_coverage_fraction": 1.0,
+        "relax_tangential_contact_during_normal": false,
+        "lock_shear_edge_during_normal": false,
+        "shear_scale": 1.0,
+        "mu_s_start_fraction": 1.0,
+        "mu_s_end_fraction": 1.0,
+        "pw_length": 0.0,
+        "pw_mu_s_ratio": 1.0,
+        "pw_transition_length": 0.0,
+        "leading_edge_guard_length": 0.0,
+        "leading_edge_guard_mu_s_ratio": 1.0,
+        "leading_edge_guard_transition_length": 0.0,
+        "leading_edge_tangential_taper_length": 0.0,
+        "leading_edge_tangential_plateau_length": 0.0,
+        "leading_edge_tangential_taper_ratio": 1.0,
+        "friction_law": "slip-weakening",
+        "rsf_reference_friction": 0.285,
+        "rsf_direct_effect": 0.005,
+        "rsf_state_effect": 0.0214,
+        "rsf_reference_velocity": 0.0001,
+        "rsf_reference_state": 0.00033,
+        "rsf_characteristic_slip": 0.0005,
+        "rsf_initial_state": null,
+        "rsf_initial_state_mode": "steady-state",
+        "rsf_initialization_velocity": 0.0001,
+        "rsf_target_normalized_prestress": null,
+        "rsf_profile_spec": null,
+        "leading_edge_creep_length": 0.0,
+        "leading_edge_creep_transition_length": 0.0,
+        "leading_edge_creep_mu": 0.7,
+        "leading_edge_creep_mu_k": null,
+        "leading_edge_creep_relaxation_time": 0.0,
+        "dimension": 2,
+        "thickness": 0.0,
+        "normal_stress_override": 16.0,
+        "shear_tau_k_override": 19.0,
+        "shear_tau_s_override": 19.0
+      }
+    },
+    "corrected_short_run": {
+      "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-authored-f64-shortcheck/summary.json",
+      "sha256": "3004a7dea51c3b5767521a8893fa43c94e9ea2f51e9a440d9f0c1d35c751bfbb",
+      "data": {
+        "status": "completed",
+        "source_revision": "933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d",
+        "reference_run": "/Volumes/Gauss-T7/tatva/runs/local-mus08-muk06-gap0-v2-ev16",
+        "cores_requested": 4,
+        "hard_cpu_affinity": false,
+        "cpu_limit_note": "macOS thread limits are best effort; affinity is not enforced",
+        "jax_version": "0.9.2",
+        "devices": [
+          "TFRT_CPU_0"
+        ],
+        "blas_threadpools": [],
+        "wall_seconds": 23.91891524940729,
+        "process_cpu_seconds": 60.593064999999996,
+        "timing_seconds": {
+          "source_and_config_preparation": 0.4603538755327463,
+          "simulation_including_outputs": 23.91891524940729,
+          "total_before_reporting": 24.396595125086606
+        },
+        "total_process_cpu_seconds": 60.938866,
+        "timing_control": "Not established by this runner; concurrent jobs must be recorded separately",
+        "runner_sha256": "eb16127a4bf598e87c93043605cc12ab03592659de5f392165655a57621e235f",
+        "reference_manifest_sha256": "0d80332590b86cdea11967731a93e01faf1ae6afe68c5d5649220c64c5a682d3",
+        "source_archive_sha256": "ab7c09b46dc617795235e8356365d13210f1c0f0c9be40747bbddd9aefae628e",
+        "source_and_protected_input_unchanged": true,
+        "configuration_authority": "input/resolved.json verified against authored input/case.toml and source revision",
+        "authored_input_dtype": "float64",
+        "historical_statistics_dtype": "float32",
+        "actual_restart": {
+          "path": "/Volumes/Gauss-T7/tatva/runs/local-mus08-muk06-gap0-v2-ev15/data/simulation.h5",
+          "bytes": 12734514616,
+          "mtime_ns": 1792158143453734215,
+          "plastic_shape": [
+            241
+          ],
+          "checked_u_shape": [
+            91550
+          ],
+          "actuator_mm": 10.806226665707777,
+          "seed_sha256": "097948bec467b2d81f31ea58a056c29785c9f0c22f3952515ff15940357dddc4",
+          "scope": "Static initializer uses plastic slip and actuator; u is checked for size only"
+        },
+        "jax_enable_x64": true,
+        "output_options": {
+          "frames_per_phase": 2,
+          "shear_frames_per_phase": 4,
+          "interface_frames_per_phase": 2,
+          "shear_interface_frames_per_phase": 10,
+          "compression": "lzf",
+          "include_initial_frame": true,
+          "store_bulk_strain": false,
+          "store_bulk_velocity": false
+        },
+        "comparison_history_group": "interface_high_rate",
+        "summary": {
+          "mpi_ranks": 1,
+          "element_type": "quad4",
+          "steady_chunk_timings": {
+            "normal": {
+              "seconds": 0.0,
+              "steps": 0
+            },
+            "shear": {
+              "seconds": 6.779951871372759,
+              "steps": 3113
+            }
+          },
+          "backend": "cpu",
+          "devices": [
+            "TFRT_CPU_0"
+          ],
+          "dtype": "float32",
+          "dimension": 2,
+          "thickness": 0.0,
+          "mesh_size": 2.0,
+          "cfl": 0.35,
+          "contact_safety_factor": 0.25,
+          "time_step_override": 1.2492928633545953e-08,
+          "dt": 1.2492928633545953e-08,
+          "dt_stable_limit": 1.5300650083520456e-08,
+          "dt_bulk": 1.2852546070157184e-07,
+          "dt_contact": 1.5300650083520456e-08,
+          "dt_stability_limiter": "contact",
+          "dt_limiter": "configured",
+          "pressure_time": 5e-08,
+          "shear_time": 5e-05,
+          "normal_ramp_time": 0.0,
+          "normal_ramp_steps": 0,
+          "shear_ramp_time": 0.0,
+          "shear_ramp_shape": "half-cosine",
+          "shear_post_ramp_rate": 20.0,
+          "shear_spring_rigid_face": true,
+          "reset_slip_weakening_at_shear_start": true,
+          "healing_fraction": 1.0,
+          "normal_phase_mode": "static",
+          "stop_shear_loading_on_rupture": true,
+          "shear_loading_stop_slip": 0.0125959,
+          "shear_loading_stop_velocity": null,
+          "shear_loading_stop_uses_critical_profile": true,
+          "shear_loading_stop_min_y": 0.0,
+          "shear_loading_stop_max_y": 480.0,
+          "shear_loading_stop_coverage_fraction": 1.0,
+          "shear_loading_stop_time": null,
+          "shear_loading_stop_time_in_shear": null,
+          "shear_loading_stop_displacement": null,
+          "relax_tangential_contact_during_normal": false,
+          "pressure_steps": 5,
+          "shear_steps": 4003,
+          "pressure_frames_target": 2,
+          "shear_frames_target": 4,
+          "pressure_frames_saved": 2,
+          "shear_frames_saved": 4,
+          "interface_pressure_frames_target": 2,
+          "interface_shear_frames_target": 10,
+          "interface_pressure_frames_saved": 2,
+          "interface_shear_frames_saved": 10,
+          "tau_k": 19.0,
+          "tau_s": 19.0,
+          "shear_scale": 1.0,
+          "normal_stress": 16.0,
+          "normal_loading_mode": "stress",
+          "shear_loading_mode": "spring-displacement",
+          "shear_loading_stiffness": 25.0,
+          "shear_force_boundary": "moving-block-right",
+          "shear_displacement_boundary": "moving-block-right",
+          "normal_displacement": 0.691620986687549,
+          "normal_displacement_estimate": 0.6916209866875489,
+          "normal_displacement_loading_fraction": 1.0,
+          "normal_displacement_leading_fraction": 1.0,
+          "moving_leading_chamfer_along_fault": 20.0,
+          "moving_leading_chamfer_perpendicular": 5.0,
+          "shear_displacement_k": 0.0,
+          "shear_displacement_s": 0.0,
+          "quasistatic_shear_fraction": 0.0,
+          "quasistatic_shear_target": 0.0,
+          "prestress_shear_displacement": null,
+          "quasistatic_shear_start_time": 0.0,
+          "quasistatic_shear_ramp_time": 0.0,
+          "normal_relaxation_time": null,
+          "normal_relaxation_start_time": 0.0,
+          "normal_relaxation_handoff": null,
+          "quasistatic_damping_time": null,
+          "quasistatic_handoff": null,
+          "critical_slip": 0.0125959,
+          "mu_k": 0.6,
+          "loading_edge_nucleation_length": 0.0,
+          "loading_edge_critical_slip": 0.0125959,
+          "mu_s_start_fraction": 1.0,
+          "mu_s_end_fraction": 1.0,
+          "pw_length": 0.0,
+          "pw_mu_s_ratio": 1.0,
+          "pw_transition_length": 0.0,
+          "leading_edge_guard_length": 0.0,
+          "leading_edge_guard_mu_s_ratio": 1.0,
+          "leading_edge_guard_transition_length": 0.0,
+          "leading_edge_tangential_taper_length": 0.0,
+          "leading_edge_tangential_plateau_length": 0.0,
+          "leading_edge_tangential_taper_ratio": 1.0,
+          "friction_law": "slip-weakening",
+          "rsf_reference_friction": 0.285,
+          "rsf_direct_effect": 0.005,
+          "rsf_state_effect": 0.0214,
+          "rsf_reference_velocity": 0.0001,
+          "rsf_reference_state": 0.00033,
+          "rsf_characteristic_slip": 0.0005,
+          "rsf_initial_state": 0.00033,
+          "rsf_initial_state_mode": "steady-state",
+          "rsf_initialization_velocity": 0.0001,
+          "rsf_target_normalized_prestress": null,
+          "rsf_state_handoff": null,
+          "rsf_profile": null,
+          "leading_edge_creep_length": 0.0,
+          "leading_edge_creep_transition_length": 0.0,
+          "leading_edge_creep_mu": 0.7,
+          "leading_edge_creep_mu_k": 0.7,
+          "leading_edge_creep_relaxation_time": 0.0,
+          "normal_penalty": 76620.0,
+          "tangential_penalty": 7662.0,
+          "lock_shear_edge_during_normal": false,
+          "moving_nodes": 25351,
+          "stationary_nodes": 20424,
+          "moving_elements": 25000,
+          "stationary_elements": 20075,
+          "final_time": 5.0071657963252176e-05,
+          "final_max_slip": 0.0,
+          "final_max_penetration": 0.0044977315701544285,
+          "final_avg_tau": 8.827631950378418,
+          "final_avg_sigma_n": 16.667104721069336,
+          "saved_frames": 7,
+          "data_path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-authored-f64-shortcheck/simulation.h5",
+          "legacy": {
+            "materials": {
+              "moving-block": {
+                "name": "moving-block",
+                "rho": 1.148e-09,
+                "E": 7662.0,
+                "nu": 0.2
+              },
+              "stationary-block": {
+                "name": "stationary-block",
+                "rho": 1.148e-09,
+                "E": 7662.0,
+                "nu": 0.2
+              }
+            },
+            "friction": {
+              "mu_s": 0.8,
+              "mu_k": 0.6,
+              "d_c": 0.0125959
+            },
+            "effective_friction": {
+              "mu_s": 0.8,
+              "mu_k": 0.6,
+              "d_c": 0.0125959
+            },
+            "simulation": {
+              "simulation_time": 0.02,
+              "time_factor": 0.02,
+              "normal_stress": 16.0,
+              "rise_fraction": 0.3,
+              "tau_k_start_fraction": 0.99,
+              "normal_dir": 0,
+              "slave_surface": "stationary-block-back",
+              "master_surface": "moving-block-front"
+            },
+            "geometry": {
+              "moving": {
+                "name": "moving-block",
+                "origin": [
+                  0.0,
+                  0.0
+                ],
+                "dimensions": [
+                  200.0,
+                  500.0
+                ],
+                "tag_prefix": 1
+              },
+              "stationary": {
+                "name": "stationary-block",
+                "origin": [
+                  200.0,
+                  0.0
+                ],
+                "dimensions": [
+                  145.0,
+                  550.0
+                ],
+                "tag_prefix": 2
+              }
+            }
+          }
+        },
+        "full_original_horizon": false,
+        "output_frames_reduced": true,
+        "restart_projected_to_coarse_mesh": false
+      }
+    },
+    "contact1_identity": {
+      "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/galerkin-fine2-q12-contact1/identity_comparison.json",
+      "sha256": "ec9e722b1a06d0fbd0eda806fd94c8734ccbe09dd05db85e1001e16a3b163e22",
+      "data": {
+        "pressure": {
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        "shear": {
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        "plastic_slip": {
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        "cumulative_slip": {
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        "actuator": {
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        "platen": {
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        },
+        "contact_jumps": {
+          "bitwise_equal": true,
+          "maximum_absolute_difference": 0.0
+        }
+      }
+    },
+    "postfem_workflow": {
+      "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fine2-postfem-20261024.json",
+      "sha256": "b359f2868483fb1b95bd112a177ac6e5151d4fcb677fe53c6923bc3f952b59f1",
+      "data": {
+        "phase": "attention_required",
+        "updated_utc": "2026-10-24T16:10:20.660303+00:00",
+        "supervisor_pid": 25474,
+        "fem_supervisor_pid": 10244,
+        "required_commit": "fc518b0e8828b1e7bace548c015149d70e2fa6b2",
+        "stages": [
+          {
+            "name": "fresh_fem_comparison",
+            "arguments": [
+              "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/run.sh",
+              "compare",
+              "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/galerkin-fine2-q12-resolvent",
+              "--fem-rerun",
+              "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-original-h2-4c-interface",
+              "--report-dir",
+              "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fine2-vs-fem4core"
+            ],
+            "log": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fine2-postfem-fresh_fem_comparison.log",
+            "state": "completed",
+            "returncode": 0,
+            "elapsed_including_poll_seconds": 15.010716415941715
+          },
+          {
+            "name": "local_tests",
+            "arguments": [
+              "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/run.sh",
+              "test",
+              "-q"
+            ],
+            "log": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fine2-postfem-local_tests.log",
+            "state": "completed",
+            "returncode": 0,
+            "elapsed_including_poll_seconds": 75.04006275068969
+          },
+          {
+            "name": "contact1_identity",
+            "arguments": [
+              "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/run.sh",
+              "resolvent-simulate",
+              "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/direct-resolvent-fine2-q12",
+              "--constitutive-substeps",
+              "1",
+              "--fft-cache-mb",
+              "8",
+              "--max-memory-mb",
+              "8192",
+              "--output",
+              "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/galerkin-fine2-q12-contact1"
+            ],
+            "log": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fine2-postfem-contact1_identity.log",
+            "state": "completed",
+            "returncode": 0,
+            "elapsed_including_poll_seconds": 105.06138950027525
+          },
+          {
+            "name": "contact1_field_guard",
+            "arguments": [
+              "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python",
+              "-B",
+              "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fine2-contact1-identity-check.py"
+            ],
+            "log": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fine2-postfem-contact1_field_guard.log",
+            "state": "completed",
+            "returncode": 0,
+            "elapsed_including_poll_seconds": 15.015739874914289
+          },
+          {
+            "name": "contact4",
+            "arguments": [
+              "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/run.sh",
+              "resolvent-simulate",
+              "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/direct-resolvent-fine2-q12",
+              "--constitutive-substeps",
+              "4",
+              "--fft-cache-mb",
+              "8",
+              "--max-memory-mb",
+              "8192",
+              "--output",
+              "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/galerkin-fine2-q12-contact4"
+            ],
+            "log": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fine2-postfem-contact4.log",
+            "state": "failed",
+            "returncode": 1,
+            "elapsed_including_poll_seconds": 60.03754174988717
+          }
+        ],
+        "reason": "contact4 failed; inspect /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fine2-postfem-contact4.log"
+      }
+    },
+    "recovered_contact4": {
+      "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/galerkin-fine2-q12-contact4-recovered/summary.json",
+      "sha256": "d69056bc8a0f7c1c72e8a548d375bd1576d5729b09f73e2a67e9307e38695039",
+      "data": {
+        "status": "completed_requested_horizon",
+        "boundary_formulation": "P1/P0 symmetric Galerkin; nodal-force interface condensation",
+        "history_representation": "elastic_resolvent",
+        "schedule": "event16_original_actuator_rate",
+        "dt_s": 2e-06,
+        "requested_steps": 22500,
+        "completed_steps": 22500,
+        "duration_s": 0.045,
+        "history_dofs": [
+          275
+        ],
+        "cq_fft_size": 65536,
+        "all_history_retained": true,
+        "full_boundary_fields_saved": false,
+        "nonlinear_backend": "jax",
+        "panels": [
+          250,
+          254
+        ],
+        "contact_nodes": 137,
+        "max_cumulative_slip_mm": 0.5466894195231259,
+        "max_boundary_contact_residual_mpa": 7.801496312207072e-08,
+        "actuator_hold_time_s": 0.029154,
+        "first_correction_step": 13194,
+        "correction_history_steps": 10000,
+        "inverse_cq_composition_inf_error": 1.0503563545819227e-10,
+        "failure": null,
+        "time_stepping_seconds": 92.3003195002675,
+        "full_original_event_reproduced": false,
+        "scope": "Full causal elastic startup and untruncated nonlinear correction; no FEM equivalence or speed advantage asserted",
+        "online_fft_cache": {
+          "capacity_bytes": 8388608,
+          "peak_retained_kernel_fft_bytes": 0,
+          "cached_levels": [],
+          "streamed_levels": [
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048,
+            4096,
+            8192
+          ],
+          "streamed_updates": 290,
+          "kernel_fft_builds": 20010,
+          "fft_rows": 4,
+          "all_history_terms_retained": true
+        },
+        "constitutive_substeps": 4,
+        "constitutive_path": "Linear interpolation of jump within the unchanged bulk CQ step",
+        "micro_friction_work_mpa_mm2": 2557.976744229238,
+        "micro_fixed_pressure_integrated_strength_work_mpa_mm2": 2556.0250876236205,
+        "micro_fixed_pressure_work_gap_mpa_mm2": 1.9516566056176998,
+        "micro_work_scope": "Pressure frozen separately at each local substep; not a total energy balance",
+        "full_trajectory_substep_ad_validated": false,
+        "contact_root_recovery_events": [
+          {
+            "step": 14572,
+            "primary_residual_mpa": 17.388634458455527,
+            "primary_newton_iterations": 26,
+            "attempts": [
+              {
+                "method": "powell_hybrid",
+                "contact_fraction": 1.0,
+                "reported_success": true,
+                "residual_mpa": 1.474376176702208e-13,
+                "nfev": 80,
+                "accepted": true
+              }
+            ],
+            "recovered": true,
+            "final_residual_mpa": 1.474376176702208e-13
+          },
+          {
+            "step": 14577,
+            "primary_residual_mpa": 20.87792893552603,
+            "primary_newton_iterations": 12,
+            "attempts": [
+              {
+                "method": "powell_hybrid",
+                "contact_fraction": 1.0,
+                "reported_success": false,
+                "residual_mpa": 10.353195107272484,
+                "nfev": 13,
+                "accepted": false
+              },
+              {
+                "method": "hybrid_from_previous_state_root",
+                "contact_fraction": 1.0,
+                "reported_success": false,
+                "residual_mpa": 14.483700093298296,
+                "nfev": 40,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.125,
+                "reported_success": false,
+                "residual_mpa": 9.592326932761353e-14,
+                "nfev": 23,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.3125,
+                "reported_success": false,
+                "residual_mpa": 1.2789769243681803e-13,
+                "nfev": 23,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.5625,
+                "reported_success": false,
+                "residual_mpa": 1.723066134218243e-13,
+                "nfev": 16,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.8125,
+                "reported_success": false,
+                "residual_mpa": 1.4033219031261979e-13,
+                "nfev": 16,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 1.0,
+                "reported_success": false,
+                "residual_mpa": 1.8118839761882555e-13,
+                "nfev": 15,
+                "accepted": true
+              }
+            ],
+            "recovered": true,
+            "final_residual_mpa": 1.8118839761882555e-13
+          }
+        ],
+        "contact_root_policy": "Newton L2, then Powell hybrid / contact continuation",
+        "prepared_kernel": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/direct-resolvent-fine2-q12",
+        "kernel_summary_sha256": "1ea8df55ac77b5204fbdd4867e44b4a57b2ae304b8a5a0e029a3f92dbd9ace1f",
+        "initial_impedance_sha256": "bf99f38eec0ca4ec9ec35ea082a9ea11468e40b88e0de53dc60b5a0ac732aa29",
+        "solver_sha256": "3a46a61e82a010dccf84bd7ca6d7ba867d9a90dffc71c1871ddee063aace875e",
+        "helper_sha256": "129d75f1dc47ba11f2da171a820e422c3bde36ccce6ed2624690230c9e66bafc",
+        "constitutive_substep_sha256": "d40fcb95f5fa29c0c8630a8901f8d5e63591bfc11ed1c9fbdee7c2ecc8d36225",
+        "contact_root_recovery_sha256": "4e0376923154b704c82ee7a38d01a0655d4c6949267161bbdf31362ca18c19f5",
+        "bounded_history_sha256": "bbf1d66ab1b1ff573a6ec613d249e86cd5dc460434ca3c9217cb064429273c55",
+        "fft_cache_mb": 8.0,
+        "estimated_solver_array_peak_mib": 2467.8502197265625,
+        "initialization": {
+          "status": "admissible_nodal_static_lift",
+          "basis": "P1 displacement / P0 auxiliary density; symmetric Galerkin",
+          "residual_mpa": 2.940173003311412e-10,
+          "initial_max_strength_ratio": 0.7869410449023236,
+          "max_cumulative_slip_change_mm": 0.0,
+          "platen_mm": 9.959817792113668,
+          "mean_pressure_mpa": 16.666666666666295,
+          "mean_shear_mpa": 8.816759099917132,
+          "quadrature": 12
+        },
+        "quadrature": 12,
+        "spectrum_storage": {
+          "backend": "disk_half_spectrum",
+          "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/direct-resolvent-fine2-q12/work-resolvent.npy",
+          "shape": [
+            32769,
+            275,
+            275
+          ],
+          "bytes": 39650490128,
+          "sha256": "a3a41301f5fa30d387c7755b6799578b75416aabbfe312cfae12b9af8d8041e6",
+          "implementation_sha256": "da2534ef95e95813a464ff04f78a092be374110650d1866cbc1fb8ea5b5105b2",
+          "all_frequency_matrices_written": true,
+          "coordinates": "diag(sqrt(w)) * L * diag(sqrt(w))"
+        },
+        "frequency_sampling": {
+          "method": "adaptive_piecewise_chebyshev",
+          "options": {
+            "relative_tolerance": 1e-08,
+            "absolute_tolerance": 1e-14,
+            "degree": 16,
+            "check_points": 7
+          },
+          "dense_grid_evaluations": 32769,
+          "transfer_evaluations": 9665,
+          "interpolated_grid_points": 28312,
+          "direct_grid_points": 4457,
+          "accepted_intervals": 42,
+          "rejected_intervals": 175,
+          "max_accepted_normalized_check_error": 0.3761015687040582,
+          "max_accepted_normalized_tail": 0.21110027306117995,
+          "certified_error_bound": false,
+          "evaluation_ratio": 0.2949433916201288
+        },
+        "timing_seconds": {
+          "static_lift_and_kernel_load": 24.344316374510527,
+          "time_stepping": 92.3003195002675,
+          "kernel_build": 73048.667585833,
+          "total_excluding_output": 116.69316858332604
+        },
+        "peak_process_rss_mb": 7269.5,
+        "environment": {
+          "package_version": "0.1.0",
+          "python": "3.12.13",
+          "numpy": "2.4.4",
+          "scipy": "1.17.1",
+          "platform": "macOS-15.7.9-arm64-arm-64bit",
+          "available_logical_cpus": 10,
+          "hard_cpu_affinity_enforced": false,
+          "thread_environment": {
+            "FDBEM_CORES": "4",
+            "OPENBLAS_NUM_THREADS": "1",
+            "OMP_NUM_THREADS": "1",
+            "VECLIB_MAXIMUM_THREADS": "1",
+            "XLA_FLAGS": "--xla_cpu_multi_thread_eigen=false intra_op_parallelism_threads=4",
+            "JAX_ENABLE_X64": "true"
+          },
+          "blas_threadpools": [],
+          "source_sha256": {
+            "__init__.py": "984855d6ff3848411c946ecca174ac08baf7afe6f1d2c3be00284da9b8dbf288",
+            "adjoint.py": "7863386b78318e6502d6257469322ee82746f2384ee915c16cbb98cda69c5bc0",
+            "benchmarks.py": "c24b97264ca60d0da1dab2095d50e9ef1b88b7208fba2d46178b8cf9038eb571",
+            "case.py": "4f0c91b18309a2eae5ce5a78da3bac9fde0be9fb1c0a4d2d5e5e1fc84bd85fa7",
+            "cli.py": "82e53ce34714809933dbe456ef403bce27c6b60b20ac4481f2feded9eeadfcea",
+            "comparison.py": "631c111752342fac7d0f64553620e04940e7888b1ab2fc52566a23b5c35ee24c",
+            "condensation.py": "12010fb51d8490ae5c3a9a2cf5b04e414cb7e6205b409ce7891b454e384de7d2",
+            "constraints.py": "830071941c6df0f70e455530fe094242042fb0c1e31498e8f9b75c9aa825cb91",
+            "cq.py": "e9af920593db01f56f1f7138832f0aa603daf07cbf1d688fba8a806f712c1e15",
+            "cq_storage.py": "da2534ef95e95813a464ff04f78a092be374110650d1866cbc1fb8ea5b5105b2",
+            "dynamics.py": "b6d84d8d2c1ac6fc465565c289d1249f378f3424e00cb93441791960b3c180f8",
+            "friction.py": "1424c1639cdc1eb4dd8f780bfdc0433f33cf29752b07a17814a3a2f326d81086",
+            "galerkin.py": "85541ddfe5020debde77b2bf2d4a045fe9a52b6183d4af2f762f577be18ab66d",
+            "galerkin_fast.py": "e6167f6c553e15697b6d67a3a33f559574d22fd49db4aad49c8262d68224b614",
+            "io.py": "d292e6338381aa7935dbbfcadc0df884e89f10b7096fa70cf1b05a83c1c12b03",
+            "jax_backend.py": "4de0aadb88b73ef6792ff36894134ee31bc412b1a54b177a4d1aaaa43328d547",
+            "kernels.py": "4008ae38c62c3022034d654a13da75369bd67309af4614006942398e22c1ad08",
+            "linear.py": "3a4d7c2259fd3e67b507d0c9dcd18082c24ffda30fccb12749976c97fa5a577c",
+            "material.py": "7c4d34d911831f12e3bc99bda2e13e76d468acdf80038dcb60310a568a5342d1",
+            "mesh.py": "a37e853ed57dd80633c44805b6c13158643ac65db3e4a4cfc12520bbdfa15c4c",
+            "nodal.py": "632f1a755bb09d784c125d3198f662213ea60045ada9db1555e1b47b3ab39856",
+            "nodal_dynamics.py": "839db57190f62795aebef30545fcc9c1b41fdef503f038cc7f425068962eb39d",
+            "nonlinear.py": "019c5fc176c70964c89f9e7c74147ad48b4235267dd2faf0ee22f789a2b97590",
+            "operators.py": "bb77a3b2c66dce871c9e71cc2cdc02488e90ad32278cc9a67fea8b909b722825",
+            "sampling.py": "c518d2298b167aaa1d5ca327a612426276901876a50322a7fe4595c7ee4f1f11",
+            "statics.py": "9f81cbd95a1ff1f742387ee4ae94251304177999208a95703371272ac79dc250"
+          },
+          "case_sha256": "82d8f491a63ca1c348507678f08406dccbc62ed1d4abea8882879f7894d2315d",
+          "restart_data_sha256": "cae42101ff5a57004fa803ea5ce928eb8079e5be0ab887d108689e37754c25f6",
+          "jax": "0.9.2",
+          "jax_x64": true,
+          "jax_devices": [
+            "TFRT_CPU_0"
+          ]
+        },
+        "source_changed_during_run": false,
+        "case": {
+          "material": {
+            "young": 7662.0,
+            "poisson": 0.2,
+            "density": 1.148e-09
+          },
+          "geometry": {
+            "moving_origin": [
+              0.0,
+              0.0
+            ],
+            "moving_size": [
+              200.0,
+              500.0
+            ],
+            "stationary_origin": [
+              200.0,
+              0.0
+            ],
+            "stationary_size": [
+              145.0,
+              550.0
+            ],
+            "chamfer_length": 20.0,
+            "chamfer_depth": 5.0
+          },
+          "contact": {
+            "normal_penalty": 76620.0,
+            "tangential_penalty": 7662.0,
+            "static_friction": 0.8,
+            "kinetic_friction": 0.6,
+            "characteristic_slip": 0.0125959
+          },
+          "loading": {
+            "normal_pressure": 16.0,
+            "spring_stiffness": 25.0,
+            "restart_actuator": 10.806226665707777,
+            "actuator_rate": 20.0,
+            "stop_coverage": 1.0
+          },
+          "diagnostic": {
+            "max_panel_length": 40.0,
+            "dt": 4e-06,
+            "steps": 128,
+            "quadrature": 20,
+            "max_memory_mb": 512.0,
+            "normal_rise": 8e-05,
+            "shear_start": 0.00012,
+            "shear_rise": 0.00024,
+            "shear_amplitude": 4.0
+          },
+          "source": {
+            "run": "local-mus08-muk06-gap0-v2-ev16",
+            "revision": "933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d",
+            "original_fem_dt": 1.2492928633545953e-08,
+            "original_shear_duration": 0.045,
+            "restart_interface": "../data/ev16_restart_interface.csv"
+          }
+        }
+      }
+    },
+    "recovered_contact16": {
+      "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/galerkin-fine2-q12-contact16-recovered/summary.json",
+      "sha256": "cf33f8d4f3b03873a18cfe26e22e0d1b24d7732da9cd48f285f2543bfe7e6457",
+      "data": {
+        "status": "completed_requested_horizon",
+        "boundary_formulation": "P1/P0 symmetric Galerkin; nodal-force interface condensation",
+        "history_representation": "elastic_resolvent",
+        "schedule": "event16_original_actuator_rate",
+        "dt_s": 2e-06,
+        "requested_steps": 22500,
+        "completed_steps": 22500,
+        "duration_s": 0.045,
+        "history_dofs": [
+          275
+        ],
+        "cq_fft_size": 65536,
+        "all_history_retained": true,
+        "full_boundary_fields_saved": false,
+        "nonlinear_backend": "jax",
+        "panels": [
+          250,
+          254
+        ],
+        "contact_nodes": 137,
+        "max_cumulative_slip_mm": 0.5590550292198929,
+        "max_boundary_contact_residual_mpa": 7.459243724910995e-08,
+        "actuator_hold_time_s": 0.029137999999999997,
+        "first_correction_step": 13194,
+        "correction_history_steps": 10000,
+        "inverse_cq_composition_inf_error": 1.0503563545819227e-10,
+        "failure": null,
+        "time_stepping_seconds": 91.73920612502843,
+        "full_original_event_reproduced": false,
+        "scope": "Full causal elastic startup and untruncated nonlinear correction; no FEM equivalence or speed advantage asserted",
+        "online_fft_cache": {
+          "capacity_bytes": 8388608,
+          "peak_retained_kernel_fft_bytes": 0,
+          "cached_levels": [],
+          "streamed_levels": [
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024,
+            2048,
+            4096,
+            8192
+          ],
+          "streamed_updates": 290,
+          "kernel_fft_builds": 20010,
+          "fft_rows": 4,
+          "all_history_terms_retained": true
+        },
+        "constitutive_substeps": 16,
+        "constitutive_path": "Linear interpolation of jump within the unchanged bulk CQ step",
+        "micro_friction_work_mpa_mm2": 2617.3388191293548,
+        "micro_fixed_pressure_integrated_strength_work_mpa_mm2": 2616.8231248120196,
+        "micro_fixed_pressure_work_gap_mpa_mm2": 0.5156943173351465,
+        "micro_work_scope": "Pressure frozen separately at each local substep; not a total energy balance",
+        "full_trajectory_substep_ad_validated": false,
+        "contact_root_recovery_events": [
+          {
+            "step": 14556,
+            "primary_residual_mpa": 5.503105278075714,
+            "primary_newton_iterations": 17,
+            "attempts": [
+              {
+                "method": "powell_hybrid",
+                "contact_fraction": 1.0,
+                "reported_success": true,
+                "residual_mpa": 9.533460296975592e-12,
+                "nfev": 66,
+                "accepted": true
+              }
+            ],
+            "recovered": true,
+            "final_residual_mpa": 9.533460296975592e-12
+          },
+          {
+            "step": 14564,
+            "primary_residual_mpa": 18.935912499937388,
+            "primary_newton_iterations": 18,
+            "attempts": [
+              {
+                "method": "powell_hybrid",
+                "contact_fraction": 1.0,
+                "reported_success": false,
+                "residual_mpa": 7.745238700111628,
+                "nfev": 40,
+                "accepted": false
+              },
+              {
+                "method": "hybrid_from_previous_state_root",
+                "contact_fraction": 1.0,
+                "reported_success": false,
+                "residual_mpa": 1.6342482922482304e-13,
+                "nfev": 23,
+                "accepted": true
+              }
+            ],
+            "recovered": true,
+            "final_residual_mpa": 1.6342482922482304e-13
+          },
+          {
+            "step": 14569,
+            "primary_residual_mpa": 8.20274557087339,
+            "primary_newton_iterations": 19,
+            "attempts": [
+              {
+                "method": "powell_hybrid",
+                "contact_fraction": 1.0,
+                "reported_success": false,
+                "residual_mpa": 4.318633751308937,
+                "nfev": 35,
+                "accepted": false
+              },
+              {
+                "method": "hybrid_from_previous_state_root",
+                "contact_fraction": 1.0,
+                "reported_success": false,
+                "residual_mpa": 3.612333779828873,
+                "nfev": 58,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.125,
+                "reported_success": false,
+                "residual_mpa": 2.6154315041820837,
+                "nfev": 26,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.0625,
+                "reported_success": false,
+                "residual_mpa": 1.652011860642233e-13,
+                "nfev": 26,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.15625,
+                "reported_success": false,
+                "residual_mpa": 8.526512829121202e-14,
+                "nfev": 21,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.296875,
+                "reported_success": false,
+                "residual_mpa": 1.0125233984581428e-13,
+                "nfev": 23,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.5078125,
+                "reported_success": false,
+                "residual_mpa": 1.0835776720341528e-13,
+                "nfev": 20,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.7578125,
+                "reported_success": false,
+                "residual_mpa": 1.509903313490213e-13,
+                "nfev": 26,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 1.0,
+                "reported_success": false,
+                "residual_mpa": 1.0302869668521453e-13,
+                "nfev": 23,
+                "accepted": true
+              }
+            ],
+            "recovered": true,
+            "final_residual_mpa": 1.0302869668521453e-13
+          }
+        ],
+        "contact_root_policy": "Newton L2, then Powell hybrid / contact continuation",
+        "prepared_kernel": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/direct-resolvent-fine2-q12",
+        "kernel_summary_sha256": "1ea8df55ac77b5204fbdd4867e44b4a57b2ae304b8a5a0e029a3f92dbd9ace1f",
+        "initial_impedance_sha256": "bf99f38eec0ca4ec9ec35ea082a9ea11468e40b88e0de53dc60b5a0ac732aa29",
+        "solver_sha256": "3a46a61e82a010dccf84bd7ca6d7ba867d9a90dffc71c1871ddee063aace875e",
+        "helper_sha256": "129d75f1dc47ba11f2da171a820e422c3bde36ccce6ed2624690230c9e66bafc",
+        "constitutive_substep_sha256": "d40fcb95f5fa29c0c8630a8901f8d5e63591bfc11ed1c9fbdee7c2ecc8d36225",
+        "contact_root_recovery_sha256": "4e0376923154b704c82ee7a38d01a0655d4c6949267161bbdf31362ca18c19f5",
+        "bounded_history_sha256": "bbf1d66ab1b1ff573a6ec613d249e86cd5dc460434ca3c9217cb064429273c55",
+        "fft_cache_mb": 8.0,
+        "estimated_solver_array_peak_mib": 2467.8502197265625,
+        "initialization": {
+          "status": "admissible_nodal_static_lift",
+          "basis": "P1 displacement / P0 auxiliary density; symmetric Galerkin",
+          "residual_mpa": 2.940173003311412e-10,
+          "initial_max_strength_ratio": 0.7869410449023236,
+          "max_cumulative_slip_change_mm": 0.0,
+          "platen_mm": 9.959817792113668,
+          "mean_pressure_mpa": 16.666666666666295,
+          "mean_shear_mpa": 8.816759099917132,
+          "quadrature": 12
+        },
+        "quadrature": 12,
+        "spectrum_storage": {
+          "backend": "disk_half_spectrum",
+          "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/direct-resolvent-fine2-q12/work-resolvent.npy",
+          "shape": [
+            32769,
+            275,
+            275
+          ],
+          "bytes": 39650490128,
+          "sha256": "a3a41301f5fa30d387c7755b6799578b75416aabbfe312cfae12b9af8d8041e6",
+          "implementation_sha256": "da2534ef95e95813a464ff04f78a092be374110650d1866cbc1fb8ea5b5105b2",
+          "all_frequency_matrices_written": true,
+          "coordinates": "diag(sqrt(w)) * L * diag(sqrt(w))"
+        },
+        "frequency_sampling": {
+          "method": "adaptive_piecewise_chebyshev",
+          "options": {
+            "relative_tolerance": 1e-08,
+            "absolute_tolerance": 1e-14,
+            "degree": 16,
+            "check_points": 7
+          },
+          "dense_grid_evaluations": 32769,
+          "transfer_evaluations": 9665,
+          "interpolated_grid_points": 28312,
+          "direct_grid_points": 4457,
+          "accepted_intervals": 42,
+          "rejected_intervals": 175,
+          "max_accepted_normalized_check_error": 0.3761015687040582,
+          "max_accepted_normalized_tail": 0.21110027306117995,
+          "certified_error_bound": false,
+          "evaluation_ratio": 0.2949433916201288
+        },
+        "timing_seconds": {
+          "static_lift_and_kernel_load": 24.75574087444693,
+          "time_stepping": 91.73920612502843,
+          "kernel_build": 73048.667585833,
+          "total_excluding_output": 116.5409879591316
+        },
+        "peak_process_rss_mb": 7112.234375,
+        "environment": {
+          "package_version": "0.1.0",
+          "python": "3.12.13",
+          "numpy": "2.4.4",
+          "scipy": "1.17.1",
+          "platform": "macOS-15.7.9-arm64-arm-64bit",
+          "available_logical_cpus": 10,
+          "hard_cpu_affinity_enforced": false,
+          "thread_environment": {
+            "FDBEM_CORES": "4",
+            "OPENBLAS_NUM_THREADS": "1",
+            "OMP_NUM_THREADS": "1",
+            "VECLIB_MAXIMUM_THREADS": "1",
+            "XLA_FLAGS": "--xla_cpu_multi_thread_eigen=false intra_op_parallelism_threads=4",
+            "JAX_ENABLE_X64": "true"
+          },
+          "blas_threadpools": [],
+          "source_sha256": {
+            "__init__.py": "984855d6ff3848411c946ecca174ac08baf7afe6f1d2c3be00284da9b8dbf288",
+            "adjoint.py": "7863386b78318e6502d6257469322ee82746f2384ee915c16cbb98cda69c5bc0",
+            "benchmarks.py": "c24b97264ca60d0da1dab2095d50e9ef1b88b7208fba2d46178b8cf9038eb571",
+            "case.py": "4f0c91b18309a2eae5ce5a78da3bac9fde0be9fb1c0a4d2d5e5e1fc84bd85fa7",
+            "cli.py": "82e53ce34714809933dbe456ef403bce27c6b60b20ac4481f2feded9eeadfcea",
+            "comparison.py": "631c111752342fac7d0f64553620e04940e7888b1ab2fc52566a23b5c35ee24c",
+            "condensation.py": "12010fb51d8490ae5c3a9a2cf5b04e414cb7e6205b409ce7891b454e384de7d2",
+            "constraints.py": "830071941c6df0f70e455530fe094242042fb0c1e31498e8f9b75c9aa825cb91",
+            "cq.py": "e9af920593db01f56f1f7138832f0aa603daf07cbf1d688fba8a806f712c1e15",
+            "cq_storage.py": "da2534ef95e95813a464ff04f78a092be374110650d1866cbc1fb8ea5b5105b2",
+            "dynamics.py": "b6d84d8d2c1ac6fc465565c289d1249f378f3424e00cb93441791960b3c180f8",
+            "friction.py": "1424c1639cdc1eb4dd8f780bfdc0433f33cf29752b07a17814a3a2f326d81086",
+            "galerkin.py": "85541ddfe5020debde77b2bf2d4a045fe9a52b6183d4af2f762f577be18ab66d",
+            "galerkin_fast.py": "e6167f6c553e15697b6d67a3a33f559574d22fd49db4aad49c8262d68224b614",
+            "io.py": "d292e6338381aa7935dbbfcadc0df884e89f10b7096fa70cf1b05a83c1c12b03",
+            "jax_backend.py": "4de0aadb88b73ef6792ff36894134ee31bc412b1a54b177a4d1aaaa43328d547",
+            "kernels.py": "4008ae38c62c3022034d654a13da75369bd67309af4614006942398e22c1ad08",
+            "linear.py": "3a4d7c2259fd3e67b507d0c9dcd18082c24ffda30fccb12749976c97fa5a577c",
+            "material.py": "7c4d34d911831f12e3bc99bda2e13e76d468acdf80038dcb60310a568a5342d1",
+            "mesh.py": "a37e853ed57dd80633c44805b6c13158643ac65db3e4a4cfc12520bbdfa15c4c",
+            "nodal.py": "632f1a755bb09d784c125d3198f662213ea60045ada9db1555e1b47b3ab39856",
+            "nodal_dynamics.py": "839db57190f62795aebef30545fcc9c1b41fdef503f038cc7f425068962eb39d",
+            "nonlinear.py": "019c5fc176c70964c89f9e7c74147ad48b4235267dd2faf0ee22f789a2b97590",
+            "operators.py": "bb77a3b2c66dce871c9e71cc2cdc02488e90ad32278cc9a67fea8b909b722825",
+            "sampling.py": "c518d2298b167aaa1d5ca327a612426276901876a50322a7fe4595c7ee4f1f11",
+            "statics.py": "9f81cbd95a1ff1f742387ee4ae94251304177999208a95703371272ac79dc250"
+          },
+          "case_sha256": "82d8f491a63ca1c348507678f08406dccbc62ed1d4abea8882879f7894d2315d",
+          "restart_data_sha256": "cae42101ff5a57004fa803ea5ce928eb8079e5be0ab887d108689e37754c25f6",
+          "jax": "0.9.2",
+          "jax_x64": true,
+          "jax_devices": [
+            "TFRT_CPU_0"
+          ]
+        },
+        "source_changed_during_run": false,
+        "case": {
+          "material": {
+            "young": 7662.0,
+            "poisson": 0.2,
+            "density": 1.148e-09
+          },
+          "geometry": {
+            "moving_origin": [
+              0.0,
+              0.0
+            ],
+            "moving_size": [
+              200.0,
+              500.0
+            ],
+            "stationary_origin": [
+              200.0,
+              0.0
+            ],
+            "stationary_size": [
+              145.0,
+              550.0
+            ],
+            "chamfer_length": 20.0,
+            "chamfer_depth": 5.0
+          },
+          "contact": {
+            "normal_penalty": 76620.0,
+            "tangential_penalty": 7662.0,
+            "static_friction": 0.8,
+            "kinetic_friction": 0.6,
+            "characteristic_slip": 0.0125959
+          },
+          "loading": {
+            "normal_pressure": 16.0,
+            "spring_stiffness": 25.0,
+            "restart_actuator": 10.806226665707777,
+            "actuator_rate": 20.0,
+            "stop_coverage": 1.0
+          },
+          "diagnostic": {
+            "max_panel_length": 40.0,
+            "dt": 4e-06,
+            "steps": 128,
+            "quadrature": 20,
+            "max_memory_mb": 512.0,
+            "normal_rise": 8e-05,
+            "shear_start": 0.00012,
+            "shear_rise": 0.00024,
+            "shear_amplitude": 4.0
+          },
+          "source": {
+            "run": "local-mus08-muk06-gap0-v2-ev16",
+            "revision": "933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d",
+            "original_fem_dt": 1.2492928633545953e-08,
+            "original_shear_duration": 0.045,
+            "restart_interface": "../data/ev16_restart_interface.csv"
+          }
+        }
+      }
+    }
+  },
+  "scope": "Initialization/source fidelity and an excluded float32 control; no full corrected FEM match, BEM convergence or same-accuracy advantage is asserted"
+}

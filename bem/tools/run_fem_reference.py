@@ -15,6 +15,7 @@ import os
 import subprocess
 import sys
 import tarfile
+import tomllib
 from pathlib import Path
 from time import perf_counter, process_time
 
@@ -24,6 +25,55 @@ REVISION = "933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d"
 
 def digest(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def load_reference_input(reference, *, revision=REVISION):
+    """Use authored/resolved solver input, not the stored history's dtype label."""
+    reference = Path(reference)
+    case_path, resolved_path = reference / "input/case.toml", reference / "input/resolved.json"
+    resolved = json.loads(resolved_path.read_text())
+    if resolved.get("input_sha256") != digest(case_path):
+        raise ValueError("Resolved FEM input does not match the authored TOML fingerprint")
+    if resolved.get("git_revision") != revision:
+        raise ValueError("Resolved FEM input identifies a different source revision")
+    if not isinstance(resolved.get("solver"), dict) or not isinstance(resolved.get("case"), dict):
+        raise ValueError("Resolved FEM input must contain case and solver mappings")
+    if resolved["solver"].get("dtype") not in {"float32", "float64"}:
+        raise ValueError("Resolved FEM input must explicitly specify float32 or float64")
+    authored_dtype = tomllib.loads(case_path.read_text()).get("solver", {}).get("dtype")
+    if authored_dtype is not None and authored_dtype != resolved["solver"]["dtype"]:
+        raise ValueError("Authored and resolved FEM solver precision differ")
+    return resolved
+
+
+def restart_seed_record(path):
+    """Fingerprint the values actually used by the archived static initializer."""
+    if path is None:
+        return None
+    import h5py
+    import numpy as np
+
+    path = Path(path).expanduser().resolve()
+    before = path.stat()
+    with h5py.File(path, "r") as stream:
+        group = stream["final_state"]
+        plastic = np.asarray(group["plastic_slip"], dtype=np.float64)
+        actuator = np.float64(group.attrs["applied_shear_displacement"])
+        u_shape = list(group["u"].shape)
+    after = path.stat()
+    if (before.st_size, before.st_mtime_ns) != (after.st_size, after.st_mtime_ns):
+        raise ValueError("FEM restart input changed while reading its seed")
+    checksum = hashlib.sha256(plastic.tobytes() + actuator.tobytes()).hexdigest()
+    return dict(
+        path=str(path),
+        bytes=after.st_size,
+        mtime_ns=after.st_mtime_ns,
+        plastic_shape=list(plastic.shape),
+        checked_u_shape=u_shape,
+        actuator_mm=float(actuator),
+        seed_sha256=checksum,
+        scope="Static initializer uses plastic slip and actuator; u is checked for size only",
+    )
 
 
 def verify_snapshot(snapshot, expected):
@@ -118,8 +168,10 @@ def main():
         for path in [
             args.reference_run / "stats/summary.json",
             args.reference_run / "input/case.toml",
+            args.reference_run / "input/resolved.json",
         ]
     }
+    resolved_input = load_reference_input(args.reference_run)
     for name in (
         "OPENBLAS_NUM_THREADS",
         "OMP_NUM_THREADS",
@@ -133,6 +185,9 @@ def main():
         f"--xla_cpu_multi_thread_eigen=false intra_op_parallelism_threads={args.cores}"
     )
     os.environ["PYTHONDONTWRITEBYTECODE"] = "1"
+    os.environ["JAX_ENABLE_X64"] = (
+        "true" if resolved_input["solver"]["dtype"] == "float64" else "false"
+    )
     sys.dont_write_bytecode = True
     snapshot = PROJECT / "bem/outputs/fem-source" / REVISION
     archived_source = stage_snapshot(PROJECT, snapshot)
@@ -153,34 +208,26 @@ def main():
     from threadpoolctl import threadpool_info
 
     archived = json.loads((args.reference_run / "stats/summary.json").read_text())["summary"]
-    values = {f.name: archived[f.name] for f in fields(RunConfig) if f.name in archived}
+    values = dict(resolved_input["solver"])
+    unknown = set(values) - {f.name for f in fields(RunConfig)}
+    if unknown:
+        raise ValueError(
+            f"Resolved FEM solver fields are unsupported by the snapshot: {sorted(unknown)}"
+        )
     values.update(
         simulation_time=args.shear_duration,
         normal_phase_time=args.normal_duration,
         shear_phase_time=args.shear_duration,
-        normal_stress_override=archived["normal_stress"],
-        mu_k_override=archived["mu_k"],
-        critical_slip_override=archived["critical_slip"],
-        shear_displacement_k_override=archived["shear_displacement_k"],
-        shear_displacement_s_override=archived["shear_displacement_s"],
-        tau_k_start_fraction_override=1.0,
-        tau_k_full_fraction_override=1.0,
-        shear_tau_k_override=archived["tau_k"],
-        shear_tau_s_override=archived["tau_s"],
     )
-    import tomllib
-
-    source_input = tomllib.loads((args.reference_run / "input/case.toml").read_text())
-    values["restart_from_file"] = source_input["solver"]["restart_from_file"]
     config = RunConfig(**values)
+    source_restart = restart_seed_record(config.restart_from_file)
     if args.mesh_size is not None:
         config = replace(config, mesh_size=args.mesh_size)
     if args.time_step is not None:
         config = replace(config, time_step_override=args.time_step or None)
-    legacy = archived["legacy"]
-    geometry = legacy["geometry"]
-    moving = BlockSpec(**geometry["moving"])
-    stationary = BlockSpec(**geometry["stationary"])
+    legacy = resolved_input["case"]
+    moving = BlockSpec(**legacy["moving"])
+    stationary = BlockSpec(**legacy["stationary"])
     materials = {key: Material(**item) for key, item in legacy["materials"].items()}
     case = PMMAModelInput(
         moving,
@@ -209,6 +256,7 @@ def main():
             group["plastic_slip"] = np.interp(yy, seed["y"], seed["plastic_slip"])
             group.attrs["applied_shear_displacement"] = 10.806226665707777
         config = replace(config, restart_from_file=str(restart_path))
+    actual_restart = restart_seed_record(config.restart_from_file)
     (output / "resolved_run_config.json").write_text(json.dumps(asdict(config), indent=2) + "\n")
     output_options = dict(
         frames_per_phase=args.normal_frames,
@@ -225,6 +273,11 @@ def main():
         runner_sha256=runner_sha,
         source=archived_source,
         protected_input_sha256=protected,
+        configuration_authority="input/resolved.json verified against authored input/case.toml and source revision",
+        authored_input_dtype=resolved_input["solver"]["dtype"],
+        historical_statistics_dtype=archived.get("dtype"),
+        source_restart=source_restart,
+        actual_restart=actual_restart,
         output_options=output_options,
         requested_cores=args.cores,
         source_snapshot_path=str(snapshot),
@@ -251,6 +304,8 @@ def main():
         digest(path) != checksum for path, checksum in protected.items()
     ):
         raise ValueError("FEM runner or protected input changed during simulation")
+    if restart_seed_record(config.restart_from_file) != actual_restart:
+        raise ValueError("FEM restart input changed during simulation")
     summary = simulation["summary"]
     record = {
         "status": "completed",
@@ -275,6 +330,13 @@ def main():
         "reference_manifest_sha256": digest(output / "reference_manifest.json"),
         "source_archive_sha256": archived_source["archive_sha256"],
         "source_and_protected_input_unchanged": True,
+        "configuration_authority": manifest["configuration_authority"],
+        "authored_input_dtype": manifest["authored_input_dtype"],
+        "computational_dtype": config.dtype,
+        "stored_history_dtype": summary.get("dtype"),
+        "historical_statistics_dtype": manifest["historical_statistics_dtype"],
+        "actual_restart": actual_restart,
+        "jax_enable_x64": bool(jax.config.read("jax_enable_x64")),
         "output_options": output_options,
         "comparison_history_group": "interface_high_rate"
         if args.interface_normal_frames is not None or args.interface_shear_frames is not None

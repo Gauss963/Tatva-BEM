@@ -4,6 +4,10 @@
 本流程準備相同原始 FEM case 的本機參考，保留界面取樣頻率，避免為了比較而大量保存 bulk frames。
 所有程式與輸出都在本 checkout；原 `/Volumes/Gauss-T7/tatva` 僅讀取。
 
+2026-10-25修正：[前一次h2重跑錯把history儲存dtype當成模型dtype](reference_precision.md)，
+該float32控制的79.5分鐘不列為原float64案例的效能基準。
+正式float64短程的網格與第一筆位移／接觸狀態已與原檔逐位核對；完整動態仍待完成。
+
 ## 來源與設定
 
 使用 Git revision `933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d` 的 archived FEM，
@@ -11,6 +15,9 @@
 若快取內容或額外 Python module 不符合，會拒絕執行，不覆寫該快取。
 `reference_manifest.json` 是執行前的來源／輸入／輸出設定記錄，完成與否以 `summary.json` 為準。
 case、resolved RunConfig、worker 設定、archive／runner 指紋及 timing phases 都保存到新輸出資料夾。
+case／solver取自`input/resolved.json`，並核對原TOML的指紋與source revision；
+計算精度另外檢查TOML與resolved的一致性，不從statistics重建輸入。
+`computational_dtype`描述計算模型，`stored_history_dtype`描述scalar history儲存。
 既有 `simulation.h5` 或 `summary.json` 不會被覆寫。
 
 原 2 mm case 不指定 `--mesh-size` 或 `--time-step`，沿用已保存的 mesh 與配置時間步。
@@ -59,17 +66,16 @@ FDBEM_CORES=4 bem/run.sh fem-reference --cores 4 \
   --normal-duration .002 --shear-duration .045 \
   --normal-frames 4 --shear-frames 32 \
   --interface-normal-frames 40 --interface-shear-frames 9000 \
-  --output bem/outputs/fem-event16-original-h2-4c-interface
+  --output bem/outputs/fem-event16-authored-f64-h2-4c-interface
 
 bem/run.sh compare COMPLETED_BEM_RUN \
-  --fem-rerun bem/outputs/fem-event16-original-h2-4c-interface \
+  --fem-rerun bem/outputs/fem-event16-authored-f64-h2-4c-interface \
   --report-dir NEW_REPORT
 ```
 
 `--fem-rerun` 與舊選項 `--coarse-fem` 相容；它保留原 archived h2 曲線，另加本機 FEM 曲線。
 不指定 mesh-size，因此上面的正式參考沒有改成粗網格。
-目前本機已排定此 run，在現行 BEM workflow 與已知 solver 工作結束後才執行；
-狀態在 `bem/outputs/fem2mm-after-bem-20261024.json`。
-**原 h2 run 尚未完成**，不能把排程、source staging 或 h40 回歸當成完成證據。
+正式原h2／float64完整動態尚未完成，不能把短程初始化或不同精度的控制算成完成。
+`bem/outputs/fem2mm-after-bem-20261024.json`記錄的是已排除的float32控制。
 wrapper 的 timings 不含監督程序的 polling 延遲，並將 preparation／simulation／output 範圍列出。
 同精度比較仍需 BEM 誤差達標，並另核對冷建核、初始化、JIT、推進與輸出成本。
