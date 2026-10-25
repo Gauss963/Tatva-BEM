@@ -9,10 +9,6 @@ import argparse
 import json
 from pathlib import Path
 
-import matplotlib
-
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt
 import numpy as np
 
 from finiteblock_bem.io import fingerprint, write_json
@@ -92,6 +88,12 @@ def compare_profiles(actual, reference, end_window):
 
 
 def main():
+    # Plotting is optional; importing numerical diagnostics must not require it.
+    import matplotlib
+
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("study", type=Path)
     parser.add_argument("--fem-static", type=Path, required=True)
