@@ -3,7 +3,9 @@
 2026-10-24新增[接觸子步的完整條件式adjoint](substepped_contact.md)：
 局部JAX scan配合平衡根隱式微分，反向另傳前一步位移的cotangent。
 20步獨立原始Z-history／JAX scan已核對五參數、初始z/c與全部actuator導數，
-Python3.11／3.12 CI通過。四／十六子步已完成完整45ms forward；完整事件的獨立梯度核對仍待完成。
+Python3.11／3.12 CI通過。四／十六子步已完成完整45ms forward；
+十六子步的22500步五參數reverse／獨立forward JVP核對現已通過，最大絕對差4.88e-12。
+其他cotangent、材料／幾何／lift與event-time的完整核對仍未完成。
 最新2 us／Q12原律完整adjoint已算出，但沒有獨立參考，因此不列為本組驗證通過。
 
 2026-10-25新增`resolvent-adjoint --forward-parameter-check`：

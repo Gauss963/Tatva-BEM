@@ -23,7 +23,7 @@
 靜態onset工具現預設從repository內保存的原`input/case.toml`／`resolved.json`
 重建float64設定，並使用與BEM相同的固定packaged seed。
 這個seed仍是float32匯出的分段線性函數，與正式FEM重跑所用的原float64 HDF5 seed分開標記。
-新h2／h1／h0.5靜態比較會在獨立FEM計時後執行；目前沒有新的靜態收斂結論。
+新h2／h1／h0.5靜態比較已在獨立FEM計時後依序完成，數值如下；尚未建立網格收斂。
 此處的float32指model geometry／operator輸入；archived static solver會在
 `jax.enable_x64(True)`下建立稀疏剛度，因此不能誤稱所有靜態線性代數也是float32。
 新紀錄分別保存model、座標與實際剛度矩陣dtype。
@@ -36,9 +36,21 @@
 這沒有修改原完整動態FEM的dt。重跑須使用新輸出資料夾；
 報告可用`report_galerkin.py --fem-static-f64 NEW_STATIC_DIRECTORY`明確選取完整研究。
 
+修正後三組均完成，皆使用同一float64設定及固定packaged P1 seed：
+
+|FEM h [mm]|靜態首次yield預測 [ms]|位置y [mm]|載入面位移 [mm]|
+|---|---:|---:|---:|
+|2|25.8039|0|9.9588793|
+|1|28.1234|22|9.9594245|
+|0.5|23.2265|2|9.9596821|
+
+載入面位移變化很小，局部yield時間／位置仍明顯且非單調變化。
+這是需要同時量化FEM及BEM接觸空間誤差的證據，不能當成完整動態成核時間或收斂解。
+原數值、effective config及來源指紋見[float64靜態網格紀錄](static_float64_mesh_results.json)。
+
 ```sh
 PYTHONPATH=bem/src python -B bem/tools/fem_static_onset.py --cores 4 \
-  --meshes 2 1 .5 --output bem/outputs/fem-static-onset-authored-f64
+  --meshes 2 1 .5 --output NEW_STATIC_STUDY_DIRECTORY
 ```
 
 修正後，wrapper從`input/resolved.json`的完整case／solver重建模型，

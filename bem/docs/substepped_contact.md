@@ -76,8 +76,14 @@ FDBEM_CORES=4 bem/run.sh resolvent-adjoint bem/outputs/fine2-q12-contact8 \
 只使用DFT乘積在最後prefix source之後的輸出，避免future-input circular wrap。
 五個post-source串流共用同一kernel FFT，子步亦傳遞前一位移的tangent。
 小型測試另用原始Z完整scan核對原一步與八子步參數導數。
-完整45ms核對尚待執行；此新選項只檢查五參數，
-不會把未核對的初始狀態／actuator cotangent算成通過。
+完整45ms、22500步、16子步的五參數核對現已通過，
+反向與獨立正向遞推的最大絕對差4.88e-12，最大相對差4.85e-12，
+保留原rtol=1e-5／atol=1e-12。
+反向包含JIT耗時177.247s，驗證用的五方向正向JVP280.483s；
+後者是獨立驗證的成本，不是每次求梯度都需再做的步驟。
+此核對固定bulk、lift、已記錄的載入及分支，只檢查五參數，
+不會把未核對的初始狀態／actuator cotangent算成通過；
+完整外部cotangent guard仍為null，event-time/material/geometry導數仍未涵蓋。
 
 完整數據與來源指紋見[substepped_contact_results.json](substepped_contact_results.json)。
 

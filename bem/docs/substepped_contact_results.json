@@ -627,5 +627,73 @@
     "completed_requested_horizon": false,
     "full_original_event_reproduced": false,
     "scope": "Local equilibrium and accepted prefix for diagnosis; not a resumable CQ checkpoint"
+  },
+  "full_event_parameter_ad_check": {
+    "source": {
+      "path": "bem/outputs/galerkin-fine2-q12-contact16-recovered/resolvent_adjoint.json",
+      "sha256": "1f5698231e1f7c217ab6e3829f5f314246654f65adadd1cfdf36bbeb16390c65"
+    },
+    "objective": "final contact-weighted mean cumulative slip",
+    "value_mm": 0.5561040825184328,
+    "steps": 22500,
+    "source_run": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/galerkin-fine2-q12-contact16-recovered",
+    "source_trajectory_sha256": "677416f7fa643b1af5ddfb50472d5cf3b9ca61a038f81768fd204573a87b9a74",
+    "constitutive_substeps": 16,
+    "parameter_order": [
+      "normal_penalty",
+      "tangential_penalty",
+      "mu_s",
+      "mu_k",
+      "Dc"
+    ],
+    "gradient": [
+      -2.580774880766367e-07,
+      -9.558593482968311e-06,
+      -21.13249135816987,
+      -11.516055157015096,
+      -18.134970119831934
+    ],
+    "reverse_seconds_including_jit": 177.24716537445784,
+    "previous_displacement_cotangent_included": true,
+    "scope": "Fixed bulk/lift/recorded loading and active branches; complete correction transpose plus affine startup cotangents",
+    "event_time_derivative_included": false,
+    "forward_parameter_check": {
+      "gradient": [
+        -2.5807748807538576e-07,
+        -9.55859348298183e-06,
+        -21.13249135817475,
+        -11.516055157016725,
+        -18.134970119833056
+      ],
+      "seconds_including_jit": 280.4833429995924,
+      "parameter_order": [
+        "normal_penalty",
+        "tangential_penalty",
+        "mu_s",
+        "mu_k",
+        "Dc"
+      ],
+      "complete_prefix_derivatives_included": true,
+      "previous_displacement_tangent_included": true,
+      "shared_fft_kernel_bytes": 0,
+      "scope": "Five conditional parameter JVPs; no material/geometry, lift, initial-state or event-time derivatives",
+      "passed": true,
+      "reverse_maximum_absolute_difference": 4.881428594671888e-12,
+      "reverse_relative_differences": [
+        4.847233260464712e-12,
+        1.414292370760123e-12,
+        2.3099162857499947e-13,
+        1.4144767453093782e-13,
+        6.1905672580799e-14
+      ],
+      "rtol": 1e-05,
+      "atol": 1e-12,
+      "initial_state_and_actuator_cotangents_compared": false
+    },
+    "forward_parameter_check_sha256": "13f3d2c7114316aa207b6de2201d89b6c788ff3cc2989395c77f45e125a2d1e7",
+    "validator_sha256": "0136817e1a901c6cba913d0b1f6ed9167a2725bc82380f48e72ad1a46e46794e",
+    "constitutive_substep_sha256": "d40fcb95f5fa29c0c8630a8901f8d5e63591bfc11ed1c9fbdee7c2ecc8d36225",
+    "independent_full_cotangent_reference_compared": false,
+    "all_compared_cotangents_passed": null
   }
 }
