@@ -9,10 +9,6 @@ import argparse
 import json
 from pathlib import Path
 
-import matplotlib
-
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt
 import numpy as np
 
 from finiteblock_bem.io import write_json
@@ -27,7 +23,17 @@ def arrivals(time, cumulative, threshold):
     """Return first saved, interpolated, and left-bracket crossing times."""
     time = np.asarray(time, dtype=float)
     cumulative = np.asarray(cumulative, dtype=float)
-    if np.any(np.diff(time) <= 0) or cumulative.shape[0] != len(time):
+    if (
+        time.ndim != 1
+        or not len(time)
+        or cumulative.ndim != 2
+        or cumulative.shape[0] != len(time)
+        or not np.all(np.isfinite(time))
+        or not np.all(np.isfinite(cumulative))
+        or np.any(np.diff(time) <= 0)
+        or not np.isfinite(threshold)
+        or threshold < 0
+    ):
         raise ValueError("Strictly increasing times must match the saved cumulative field")
     reached = cumulative > threshold
     first = np.argmax(reached, axis=0)
@@ -45,6 +51,42 @@ def arrivals(time, cumulative, threshold):
     for value in [saved, lower, interpolated]:
         value[~reached.any(axis=0)] = np.nan
     return dict(saved=saved, interpolated=interpolated, lower=lower)
+
+
+def earliest_locations(y, passage):
+    """Retain saved-time ties; interpolated first locations are estimates only."""
+    y = np.asarray(y)
+    saved, estimated, lower = (np.asarray(passage[k]) for k in ["saved", "interpolated", "lower"])
+    if (
+        y.ndim != 1
+        or not np.all(np.isfinite(y))
+        or any(a.shape != y.shape for a in [saved, estimated, lower])
+    ):
+        raise ValueError("Passage arrays must match finite physical node positions")
+    finite = np.isfinite(saved)
+    if not np.array_equal(finite, np.isfinite(estimated)) or not np.array_equal(
+        finite, np.isfinite(lower)
+    ):
+        raise ValueError("Passage estimates must use the same reached-node mask")
+    if np.any(lower[finite] > estimated[finite]) or np.any(estimated[finite] > saved[finite]):
+        raise ValueError("Passage estimates must lie inside their saved-frame brackets")
+    if not np.any(finite):
+        return dict(
+            first_saved_time_s=None,
+            first_saved_locations_mm=[],
+            first_saved_bracket_s=None,
+            minimum_interpolated_time_s=None,
+            minimum_interpolated_locations_mm=[],
+        )
+    first, estimate = np.min(saved[finite]), np.min(estimated[finite])
+    tied = finite & (saved == first)
+    return dict(
+        first_saved_time_s=float(first),
+        first_saved_locations_mm=y[tied].tolist(),
+        first_saved_bracket_s=[float(np.min(lower[tied])), float(first)],
+        minimum_interpolated_time_s=float(estimate),
+        minimum_interpolated_locations_mm=y[finite & (estimated == estimate)].tolist(),
+    )
 
 
 def write_table(path, y, records):
@@ -107,6 +149,11 @@ def read_fem(table):
 
 
 def main():
+    import matplotlib
+
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("runs", nargs="+", type=Path)
     parser.add_argument("--reference-table", type=Path)
@@ -130,20 +177,30 @@ def main():
             raise ValueError("This reference uses the original event-16 characteristic slip")
         with np.load(run / "trajectory.npz", allow_pickle=False) as data:
             contact_y = data["contact_y"]
+            native_cumulative = data["cumulative_slip"]
+            native_records = {
+                name: arrivals(data["time"], native_cumulative, threshold)
+                for name, threshold in THRESHOLDS.items()
+            }
             if not np.allclose(contact_y[[0, -1]], y[[0, -1]], atol=1e-8):
                 raise ValueError("Reference and BEM must cover the same interval")
             right = np.clip(np.searchsorted(contact_y, y, side="right"), 1, len(contact_y) - 1)
             left = right - 1
             alpha = (y - contact_y[left]) / (contact_y[right] - contact_y[left])
-            cumulative = (1 - alpha) * data["cumulative_slip"][:, left]
-            cumulative += alpha * data["cumulative_slip"][:, right]
+            cumulative = (1 - alpha) * native_cumulative[:, left]
+            cumulative += alpha * native_cumulative[:, right]
             records = {
                 name: arrivals(data["time"], cumulative, threshold)
                 for name, threshold in THRESHOLDS.items()
             }
         write_table(args.output / f"{run.name}.csv", y, records)
+        write_table(args.output / f"{run.name}.native.csv", contact_y, native_records)
         metrics = {}
         label = f"BEM {sum(summary['panels'])} panels, dt={summary['dt_s'] * 1e6:g} us"
+        if summary.get("constitutive_substeps", 1) > 1:
+            label += f", N={summary['constitutive_substeps']}"
+        if summary.get("restart_seed_override"):
+            label += ", seed64"
         for ax, name in zip(axes, THRESHOLDS, strict=True):
             target, actual = reference[name]["interpolated"], records[name]["interpolated"]
             keep = np.isfinite(target) & np.isfinite(actual)
@@ -162,6 +219,9 @@ def main():
                 fem_first_passage_ms=(
                     float(np.nanmin(target) * 1000) if np.isfinite(target).any() else None
                 ),
+                fem_stored_node_earliest=earliest_locations(y, reference[name]),
+                bem_native_node_earliest=earliest_locations(contact_y, native_records[name]),
+                bem_common_grid_earliest=earliest_locations(y, records[name]),
             )
             ax.plot(y, actual * 1000, label=label)
         results.append(dict(name=run.name, metrics=metrics))
@@ -173,7 +233,7 @@ def main():
     record = dict(
         reference=metadata,
         results=results,
-        scope="Saved-frame crossing estimates; not instantaneous front speed or sub-step accuracy",
+        scope="Native BEM nodes and common-grid P1 crossing estimates are reported separately. Saved-time ties and brackets do not imply instantaneous front speed or sub-frame accuracy.",
     )
     write_json(args.output / "summary.json", record)
     print(json.dumps(results, indent=2))

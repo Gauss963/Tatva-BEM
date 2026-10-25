@@ -39,6 +39,15 @@
 新增[完全相等r的徑向重用實驗](unique_radius.md)服務後續接觸網格加密；
 它不是這篇H-matrix演算法的重現，也尚未量測完整加速。
 
+補讀Linder、Najera-Flores、Kuether、Krack（2026）
+[Enabling topography-resolving structural dynamic contact simulation](https://arxiv.org/html/2603.26446v1)，
+重點為§2.1–2.3與§3.3–3.5。其細接觸半空間BE與降階FE耦合，
+以massless boundary和semi-explicit leapfrog降低接觸人工振盪；
+時間步仍受保留模態限制，並非無條件穩定的純dynamic BEM。
+文中另展示preload／residual traction與settling對比較的影響。
+這支持本案先核對相同初始狀態及接觸量、分開觀察模態與摩擦耗散的做法。
+目前沒有移植此混合模型；有限block端點與slip weakening亦不由其半空間結果保證。
+
 另檢索 Gu 等人 **High-order time-spectral BEM for efficient elastodynamic analysis**，
 Computers & Structures 321 (2026), 108076，出版日期 2026-01-15，
 [出版頁／摘要](https://doi.org/10.1016/j.compstruc.2025.108076)。目前僅讀摘要，未取得完整公式。

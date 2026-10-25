@@ -90,5 +90,16 @@ FDBEM_CORES=4 bem/run.sh native-resolvent-kernel SOURCE_RUN \
 fine 1 us 尚未完成建核與事件驗證，不能據此宣稱本機已完成這個解析度。
 原 2 us／45 ms 四-worker 計算仍沿用原 backend，兩者不混用。
 
+2026-10-25新增空間收斂用的數值參數：`--h`、`--contact-h`、
+`--contact-end-h`、`--corner-h`、`--quadrature`及restart-knot局部加密設定。
+`--clear-restart-knots`明確移除沿用的局部seed-knot網格，並將subdivisions設回1；
+不能同時指定新的restart-knot加密。物理case、材料、載入與摩擦參數仍沿用已驗證來源。
+每次都重新組裝BEM核心，metadata保存實際網格參數與明確覆寫項目；
+不把不同接觸節點的舊權重套到新網格。這項功能本身尚非細網格45ms驗證。
+
+時間權重及elastic startup的SHA改用固定大小分塊讀取，
+避免對數十GiB檔案呼叫`read_bytes()`。建核總時間包含輸出校驗碼，
+另記錄程序CPU時間與峰值RSS；陣列估計仍不是OS層級的記憶體上限。
+
 實作在 `tools/native_spectrum.py`、`tools/prepare_native_resolvent.py`；
 相較既有[離線壓縮](polynomial_spectrum.md)，這條路線降低首次建核的頻譜容量需求。

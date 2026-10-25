@@ -13,11 +13,13 @@ import json
 import math
 import mmap
 import os
+import resource
 import runpy
 import shutil
+import sys
 from dataclasses import asdict, replace
 from pathlib import Path
-from time import perf_counter
+from time import perf_counter, process_time
 
 import numpy as np
 from threadpoolctl import threadpool_limits
@@ -28,6 +30,39 @@ from finiteblock_bem.nodal_dynamics import plan_nodal_history
 from finiteblock_bem.sampling import SamplingOptions
 
 TOOLS = Path(__file__).resolve().parent
+
+
+def discretization_arguments(source, args):
+    """Change explicit numerical settings while retaining the physical case."""
+    overrides = {
+        key: getattr(args, key)
+        for key in [
+            "h",
+            "contact_h",
+            "contact_end_h",
+            "corner_h",
+            "restart_knot_window",
+            "restart_knot_subdivisions",
+            "quadrature",
+        ]
+        if getattr(args, key) is not None
+    }
+    if args.clear_restart_knots:
+        if any(key in overrides for key in ["restart_knot_window", "restart_knot_subdivisions"]):
+            raise ValueError("Clearing restart knots conflicts with explicit restart refinement")
+        overrides.update(restart_knot_window=None, restart_knot_subdivisions=1)
+    options = {**source, **overrides}
+    for key in ["h", "contact_h", "contact_end_h", "corner_h", "restart_knot_window"]:
+        value = options.get(key)
+        if value is not None and (not np.isfinite(value) or value <= 0):
+            raise ValueError(f"{key} must be a finite positive length")
+    subdivisions = options.get("restart_knot_subdivisions", 1)
+    if not isinstance(subdivisions, int) or isinstance(subdivisions, bool) or subdivisions < 1:
+        raise ValueError("Restart subdivisions must be a positive integer")
+    quadrature = options["quadrature"]
+    if not isinstance(quadrature, int) or quadrature < 4 or quadrature % 2:
+        raise ValueError("Quadrature must be an even integer of at least four")
+    return options, overrides
 
 
 def preflight_time_storage(folder, plan, full_steps):
@@ -64,6 +99,11 @@ def main():
     parser.add_argument("--dt", type=float)
     parser.add_argument("--duration", type=float)
     parser.add_argument("--correction-duration", type=float)
+    for flag in ["h", "contact-h", "contact-end-h", "corner-h", "restart-knot-window"]:
+        parser.add_argument(f"--{flag}", type=float, help="Override numerical mesh length only")
+    parser.add_argument("--restart-knot-subdivisions", type=int)
+    parser.add_argument("--clear-restart-knots", action="store_true")
+    parser.add_argument("--quadrature", type=int)
     parser.add_argument("--sampling-rtol", type=float, default=1e-8)
     parser.add_argument("--sampling-atol", type=float, default=1e-14)
     parser.add_argument("--workers", type=int, default=int(os.environ.get("FDBEM_CORES", "1")))
@@ -78,6 +118,7 @@ def main():
     if not isinstance(args.fft_rows, int) or args.fft_rows < 1:
         raise ValueError("fft_rows must be a positive integer")
     started = perf_counter()
+    cpu_started = process_time()
     frozen_paths = [
         Path(__file__).resolve(),
         TOOLS / "native_spectrum.py",
@@ -89,7 +130,8 @@ def main():
     ]
     frozen = {str(path): fingerprint(path) for path in frozen_paths}
     source = json.loads((args.source / "summary.json").read_text())
-    options = json.loads((args.source / "run_manifest.json").read_text())["arguments"]
+    source_options = json.loads((args.source / "run_manifest.json").read_text())["arguments"]
+    options, overrides = discretization_arguments(source_options, args)
     environment = environment_record(options["case"])
     source_keys = ["source_sha256", "case_sha256", "restart_data_sha256"]
     if (
@@ -238,6 +280,8 @@ def main():
     record = dict(
         status="completed_resolvent_kernel_only",
         source_run=str(args.source.resolve()),
+        source_role="Verified physical case and default numerical settings; fresh kernel construction",
+        numerical_discretization_overrides=overrides,
         source_mesh_arguments=options,
         dt_s=dt,
         full_steps=full_steps,
@@ -252,18 +296,25 @@ def main():
         initial_composition_inf_error=composition,
         estimated_construction_array_peak_mib=peak / 1024**2,
         estimated_original_solver_array_peak_mib=short.estimated_peak_bytes / 1024**2,
-        total_seconds=perf_counter() - started,
         environment=environment,
         helper_sha256=frozen[str(TOOLS / "replay_resolvent.py")],
         helper_math_sha256=hashlib.sha256(
             ast.dump(helper_node, include_attributes=False).encode()
         ).hexdigest(),
-        weights_sha256=fingerprint(args.output / "weights.npy"),
-        elastic_sha256=fingerprint(args.output / "elastic.npz"),
+        weights_sha256=helper["digest_file"](args.output / "weights.npy"),
+        elastic_sha256=helper["digest_file"](args.output / "elastic.npz"),
         prototype_sha256=frozen[str(Path(__file__).resolve())],
         frozen_inputs_sha256=frozen,
         full_original_event_reproduced=False,
         scope="Fresh native BEM kernel, complete frequency grid, disk matrix prefix, full causal elastic startup; nonlinear trajectory/adjoint/FEM comparison require separate validation",
+    )
+    check_source()
+    record.update(
+        total_seconds=perf_counter() - started,
+        process_cpu_seconds=process_time() - cpu_started,
+        peak_process_rss_mib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
+        / (1024**2 if sys.platform == "darwin" else 1024),
+        timing_scope="Preparation, assembly, transforms, source checks and output hashes; before reporting",
     )
     write_json(args.output / "summary.json", record)
     print(

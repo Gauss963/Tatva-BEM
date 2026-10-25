@@ -129,5 +129,8 @@ elif [ "${1:-}" = static-refinement ]; then
 elif [ "${1:-}" = compare ]; then
     shift
     exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/compare_event16.py" "$@"
+elif [ "${1:-}" = front-compare ]; then
+    shift
+    exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/compare_fronts.py" "$@"
 fi
 exec "$FDBEM_PYTHON" -B -m finiteblock_bem.cli "$@"
