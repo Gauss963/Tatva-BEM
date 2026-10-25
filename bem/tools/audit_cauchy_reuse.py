@@ -1,7 +1,7 @@
 """Compare contour reuse with fresh BEM matrices at independent frequencies.
 
 This is a sampled accuracy audit, not a new time kernel or nonlinear run.
-The direct backend is intentionally limited to five targets per batch.
+Radau targets check both eigenmodes and the reconstructed full stage matrix.
 """
 
 import argparse
@@ -20,6 +20,40 @@ from finiteblock_bem.nodal import NodalInterfaceTransfer, load_nodal_model
 
 TOOL_PATH = Path(__file__).with_name("cauchy_reuse_experiment.py")
 TOOL = runpy.run_path(str(TOOL_PATH))
+RADAU_PATH = Path(__file__).with_name("radau_experiment.py")
+
+
+def contour_modes(zeta, dt, method):
+    """Return one BDF2 frequency or both Radau frequencies at each FFT node."""
+    zeta = np.asarray(zeta, dtype=complex)
+    if zeta.ndim != 1 or not np.all(np.isfinite(zeta)) or not np.isfinite(dt) or dt <= 0:
+        raise ValueError("Require finite contour nodes and a finite positive dt")
+    if method == "bdf2":
+        return (bdf2_symbol(zeta) / dt)[:, None], None
+    if method != "radau2":
+        raise ValueError("Unknown CQ time method")
+    radau = runpy.run_path(str(RADAU_PATH))
+    symbol = np.stack([radau["radau_symbol"](z) / dt for z in zeta])
+    frequencies, vectors = np.linalg.eig(symbol)
+    if np.any(np.linalg.cond(vectors) > 1e8):
+        raise ValueError("Near-defective Radau modes require a Schur/derivative evaluator")
+    return frequencies, vectors
+
+
+def compose_modes(values, vectors):
+    """Apply the RK matrix function in stage-major coordinates."""
+    values = np.asarray(values)
+    if values.ndim != 4 or values.shape[-1] != values.shape[-2]:
+        raise ValueError("Expected square matrices for each contour node and mode")
+    if vectors is None:
+        if values.shape[1] != 1:
+            raise ValueError("BDF2 must have one mode")
+        return values[:, 0]
+    if vectors.shape != (len(values), 2, 2) or values.shape[1] != 2:
+        raise ValueError("Radau requires two stage modes")
+    inverse = np.linalg.inv(vectors)
+    stage = np.einsum("nik,nkj,nkab->niajb", vectors, inverse, values)
+    return stage.reshape(len(values), 2 * values.shape[-1], 2 * values.shape[-1])
 
 
 def main():
@@ -27,6 +61,7 @@ def main():
     parser.add_argument("kernel", type=Path)
     parser.add_argument("--dt", type=float, required=True)
     parser.add_argument("--fft-size", type=int, required=True)
+    parser.add_argument("--method", choices=["bdf2", "radau2"], default="bdf2")
     parser.add_argument("--indices", type=int, nargs="+")
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--relative-tolerance", type=float, default=1e-6)
@@ -53,6 +88,8 @@ def main():
     spectrum_path = Path(storage["path"])
     reader_path = Path(__file__).with_name("replay_resolvent.py")
     frozen_paths = [Path(__file__), TOOL_PATH, metadata_path, reader_path]
+    if args.method == "radau2":
+        frozen_paths.append(RADAU_PATH)
     frozen = {str(path.resolve()): fingerprint(path) for path in frozen_paths}
     if TOOL["stream_file_sha256"](spectrum_path) != storage["sha256"]:
         raise ValueError("Source spectrum digest differs")
@@ -68,7 +105,8 @@ def main():
         raise ValueError("Target indices must lie on the positive half circle")
     target_radius = 1e-10 ** (1 / args.fft_size)
     zeta = target_radius * np.exp(-2j * np.pi * np.array(indices) / args.fft_size)
-    frequency = bdf2_symbol(zeta) / args.dt
+    modes, vectors = contour_modes(zeta, args.dt, args.method)
+    frequency = modes.ravel()
     mapped = TOOL["bdf2_preimage"](frequency, source_plan.dt)
     circle = TOOL["CircleCauchy"](source_plan.fft_size, source_plan.radius)
     circle.validate_targets(mapped)
@@ -111,9 +149,15 @@ def main():
                 impedance + tangent, np.diag(root), check_finite=False
             )
     direct_seconds = perf_counter() - direct_started
-    errors = [
+    mode_errors = [
         float(np.linalg.norm(a - b) / np.linalg.norm(b))
         for a, b in zip(evaluated, fresh, strict=True)
+    ]
+    reused_stage = compose_modes(evaluated.reshape(*modes.shape, d, d), vectors)
+    fresh_stage = compose_modes(fresh.reshape(*modes.shape, d, d), vectors)
+    errors = [
+        float(np.linalg.norm(a - b) / np.linalg.norm(b))
+        for a, b in zip(reused_stage, fresh_stage, strict=True)
     ]
     final_stat = spectrum_path.stat()
     if (stat.st_size, stat.st_mtime_ns) != (final_stat.st_size, final_stat.st_mtime_ns):
@@ -122,14 +166,16 @@ def main():
         raise ValueError("Audit implementation, FMM library or source metadata changed")
     if environment_record(options["case"])["source_sha256"] != environment["source_sha256"]:
         raise ValueError("Numerical package changed during audit")
-    passed = max(errors) <= args.relative_tolerance
+    maximum = max(errors + mode_errors)
+    passed = maximum <= args.relative_tolerance
     args.output.mkdir(parents=True)
     np.savez(
         args.output / "operators.npz",
         frequency=frequency,
         mapped=mapped,
-        reused=evaluated,
-        fresh=fresh,
+        mode_frequencies=modes,
+        reused=reused_stage,
+        fresh=fresh_stage,
     )
     record = dict(
         status="passed_sampled_operator_comparison"
@@ -140,11 +186,17 @@ def main():
         source_dt_s=source_plan.dt,
         target_dt_s=args.dt,
         target_fft_size=args.fft_size,
+        target_time_method=args.method,
+        matrix_dofs=reused_stage.shape[-1],
+        stage_eigenvector_condition_numbers=None
+        if vectors is None
+        else np.linalg.cond(vectors).tolist(),
         indices=indices,
         reuse_evaluation="Frequency-major bounded direct Cauchy blocks; one source pass",
         relative_frobenius_errors=errors,
+        mode_relative_frobenius_errors=mode_errors,
         relative_tolerance=args.relative_tolerance,
-        maximum_relative_error=max(errors),
+        maximum_relative_error=maximum,
         operator_arrays_sha256=fingerprint(args.output / "operators.npz"),
         resampling_seconds=resampling_seconds,
         fresh_bem_seconds=direct_seconds,

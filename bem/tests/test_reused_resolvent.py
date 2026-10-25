@@ -146,6 +146,16 @@ def test_reused_kernel_preserves_weights_startup_and_checks_independent_audit(tm
     assert completed["status"] == "completed_resolvent_kernel_only"
     assert completed["initial_composition_inf_error"] < 1e-6
     assert fingerprint(source_path) == source_digest
+    audit_record["target_time_method"] = "radau2"
+    (audit / "summary.json").write_text(json.dumps(audit_record))
+    arguments[-1] = str(tmp_path / "wrong-time-method")
+    with (
+        patch.dict(producer["main"].__globals__, replacements),
+        patch.object(sys, "argv", arguments),
+    ):
+        with pytest.raises(ValueError, match="matching passed independent operator audit"):
+            producer["main"]()
+    audit_record["target_time_method"] = "bdf2"
     audit_record["status"] = "failed_sampled_operator_comparison"
     (audit / "summary.json").write_text(json.dumps(audit_record))
     arguments[-1] = str(tmp_path / "rejected")

@@ -86,6 +86,7 @@ def main():
     audit_array_path = args.operator_audit / "operators.npz"
     if (
         audit["status"] != "passed_sampled_operator_comparison"
+        or audit.get("target_time_method", "bdf2") != "bdf2"
         or audit["relative_tolerance"] > 1e-6
         or Path(audit["source_kernel"]).resolve() != args.kernel.resolve()
         or audit["source_spectrum_sha256"] != storage["sha256"]

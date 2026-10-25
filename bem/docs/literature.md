@@ -27,6 +27,16 @@
 [出版資料](https://epubs.siam.org/doi/10.1137/24M1642524) 亦列為後續閱讀，
 目前不據此宣稱對不光滑摩擦歷程有指數收斂。
 
+2026-10-25另讀Ferry、Molinari，**Do slip-weakening laws shapes influence
+rupture dynamics?**，Extreme Mechanics Letters 74 (2025), 102272，
+[出版全文（EPFL）](https://infoscience.epfl.ch/server/api/core/bitstreams/3145f407-d973-4fc9-a2d3-0c42b621e883/content)，
+重點為§2、§3與§4。它以mode III、半無限體的spectral boundary integral及
+阻止邊界反射回來的FEM比較，顯示摩擦曲線形狀會影響速度峰值。
+出版版還討論滑移未達Dc時，相同總fracture energy的不同曲線可有不同越障結果；
+不能沿用2024預印本將越障差異視為普遍不重要的結論。
+本案由此保留原摩擦曲線與歷史，分開檢查局部子步及bulk時間誤差；
+這是本專案的實作判斷，並非該文對有限block／CQ的驗證或收斂保證。
+
 補讀Ciardo、Romanet（2026）
 [A divide-and-conquer strategy for fast elastodynamic simulation of earthquakes and aseismic slip on fault networks](https://arxiv.org/html/2603.00383v1)，
 重點為§2.3.1–2.3.2、§3.2與§4.2–4.3。
