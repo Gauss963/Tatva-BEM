@@ -60,9 +60,37 @@ Z_RK(z) = Z(Delta(z)/dt).
 1 us／256 步的 mu_s、mu_k、Dc 差分相對差約 5.4e-7、2.0e-7、3.3e-6，
 兩個 stage 的開閉、滑動與 weakening clip predicates 都未變更。
 
-目前 stage 矩陣的儲存量為單階段的四倍，每個 FFT 角度需兩次 Laplace 評估。
+目前實際動態runner的 stage 矩陣儲存量為單階段的四倍，每個 FFT 角度需兩次 Laplace 評估。
 因此波傳誤差下降本身不足以證明總時間優勢，後續仍需處理頻譜／歷史成本。
 程式沒有移除歷史尾端，也沒有額外加入物理阻尼。
+
+## 真實Q12算子核對與兩個weight families
+
+2026-10-25的[頻譜重用](cauchy_reuse.md)核對已涵蓋8us Radau的五個完整
+550×550 stage matrices、每點兩個重新計算的275×275 BEM modes。
+最大相對差1.68e−11，通過原1e−6門檻；stage eigenvector條件數不超過1.620。
+完整頻率映射的8us目標通過原解析域guard；4us仍有目標越界，沒有放寬guard。
+這只是抽樣算子檢查，尚未建立完整Radau核心或完成原事件。
+
+另以Cayley–Hamilton恆等式推導可選的精確儲存表示。
+對dimensionless的兩階段Delta及其eigenvalues lambda0、lambda1，令
+Lj=L(lambdaj/dt)，則
+
+```text
+F0 = (lambda1*L0 - lambda0*L1) / (lambda1-lambda0)
+F1 = (L1-L0) / (lambda1-lambda0)
+L_RK(z) = I*F0(z) + Delta(z)*F1(z)
+Delta(z) = Delta0 + z*Delta1.
+```
+
+兩個d×d coefficient families即可表達四個stage blocks，沒有做低秩截斷。
+時間權重的z*F1項為一個lag位移；有限damped DFT的lag零還有
+`radius * IFFT(F1)[-1]`，必須保留，不能把它靜默刪除當作causal tail。
+`compact_matrix_function`、`invert_compact_spectrum`與小型reference expansion
+在`radau_experiment.py`，以獨立coupled ODE stage solve、完整dense RK-CQ權重、
+有顯著aliasing的manufactured circle及全部causal輸出核對。
+這是兩family實作的代數驗證；尚未接到磁碟producer、完整非線性runner或adjoint，
+也沒有將理論上減半的矩陣元素數列為已量測的記憶體／速度優勢。
 
 ## 重跑
 

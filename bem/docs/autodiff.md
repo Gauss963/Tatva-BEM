@@ -13,8 +13,10 @@ Python3.11／3.12 CI通過。四／十六子步已完成完整45ms forward；
 以及子步對前一位移的tangent。五個方向共用kernel FFT；
 只取frequency-product在最後prefix source以後的輸出，避免future-input circular wrap。
 新原型以非對稱隨機歷史直接卷積、原一步／八子步的獨立原始Z scan核對，
-Python3.11／3.12 CI通過。完整45ms驗證已排在獨立FEM計時之後；
+Python3.11／3.12 CI通過。2us與4us／N16的完整45ms五參數核對現已通過；
 這個選項不核對初始狀態及actuator cotangent，也不擴大材料／幾何／事件時間AD的範圍。
+但跨時間網格的gradient差異很大，部分符號相反；每一組內的微分一致性不能
+證明物理敏感度已收斂，詳見[時間網格與gradient比較](time_grid_comparison.md)。
 
 Tatva 原 FEM 已使用 `jit(value_and_grad(elastic_energy_total))` 從能量計算內力，
 靜態初始化用稀疏著色的能量 Hessian。這保留了材料模型由能量導出的優勢。

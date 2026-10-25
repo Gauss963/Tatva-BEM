@@ -25,6 +25,14 @@ The corrected full h2/float64 FEM rerun now matches all 9000 shear rows,
 the checked initial fields and final state exactly. Its four-core simulation
 including reduced bulk output takes 8032.347 s; preparation plus simulation
 takes 8032.866 s. See [verified evidence](fem_verified_reference_results.json).
+The [same-Q12 time-grid control](time_grid_comparison.md) is now complete:
+at a matched 0.125 us local microstep and original float64 seed, dt2/N16 gives
+0.559077 mm and dt4/N32 gives 0.536574 mm. The full 4 us reused kernel takes
+4100.89 s plus its previously paid source construction. Both stock-seed N16
+gradients pass independent forward JVP checks, but the gradients differ strongly
+between grids. [Fixed-trace density controls](density_refinement.md) improve
+static traction agreement with FEM h0.5 while worsening agreement with h2;
+neither control establishes dynamic or spatial convergence.
 
 - [x] Independent Laplace-domain plane-strain Green tensor and source traction.
 - [x] Direct finite-interior boundary operators, jump term and singular integration.
@@ -50,7 +58,7 @@ takes 8032.866 s. See [verified evidence](fem_verified_reference_results.json).
 - [x] Isolated fixed near/far quadrature: sampled contour and short nonlinear/AD checks; full coarse 45 ms fields and original-equation balance pass, one actuator cotangent still fails its unchanged guard.
 - [x] Constrained trace Schur formulation and sampled low-frequency conditioning checks; full-event validation remains open.
 - [x] Local constitutive substeps with previous-displacement cotangents, checked against an independent small original-Z/JAX scan; full-event accuracy study remains open.
-- [x] Guarded circle reuse, analytic kernel/startup regression, five independently assembled real matrices and one real full-grid FMM row; complete-kernel and nonlinear validation remain open.
+- [x] Guarded circle reuse, independent sampled matrices, complete 4 us/Q12 kernel, full nonlinear time-grid controls and N16 reverse/forward parameter checks; physical convergence remains open.
 - [ ] Quantified nonlinear stability and temporal/spatial convergence for Galerkin.
 - [ ] Independent spatial refinement at the contact ends and process-zone resolution.
 - [ ] Validate static-lift error against original FEM interior fields and quantify zero-initial-velocity assumptions.

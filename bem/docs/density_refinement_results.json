@@ -1,0 +1,887 @@
+{
+  "date": "2026-10-25",
+  "sources": [
+    {
+      "path": "bem/outputs/galerkin-density-current-trace-q16/summary.json",
+      "sha256": "39b4951a6974f19082dfc67aeff6ccffc7d467fb023aacd99a7de64e8630bd16"
+    },
+    {
+      "path": "bem/outputs/density-current-trace-profile-comparison-20261025/summary.json",
+      "sha256": "5db74a01c95ad7e49886e5d3ba483b9a90412338bbcfbbcf8bd9049c558226c3"
+    }
+  ],
+  "arguments": {
+    "case": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/cases/pmma_event16.toml",
+    "h": 20.0,
+    "contact_h": 5.0,
+    "contact_end_h": 0.5,
+    "corner_h": 0.5,
+    "restart_knot_window": 8.0,
+    "restart_knot_subdivisions": 4,
+    "quadrature": 16,
+    "factors": [
+      1,
+      2,
+      4
+    ],
+    "radius": 16.0,
+    "max_memory_mb": 8192.0,
+    "output": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/galerkin-density-current-trace-q16"
+  },
+  "records": [
+    {
+      "density_factor": 1,
+      "density_panels": [
+        250,
+        254
+      ],
+      "trace_panels": [
+        250,
+        254
+      ],
+      "relative_hypersingular_restriction_error": [
+        0.0,
+        0.0
+      ],
+      "body_records": [
+        {
+          "density_panels": 250,
+          "trace_panels": 250,
+          "relative_hypersingular_restriction_error": 0.0,
+          "estimated_body_array_peak_mib": 1045.17529296875
+        },
+        {
+          "density_panels": 254,
+          "trace_panels": 254,
+          "relative_hypersingular_restriction_error": 0.0,
+          "estimated_body_array_peak_mib": 1074.60888671875
+        }
+      ],
+      "initialization": {
+        "status": "admissible_nodal_static_lift",
+        "basis": "P1 displacement / P0 auxiliary density; symmetric Galerkin",
+        "residual_mpa": 3.411173565837089e-10,
+        "initial_max_strength_ratio": 0.786941044904273,
+        "max_cumulative_slip_change_mm": 0.0,
+        "platen_mm": 9.959817792113759,
+        "mean_pressure_mpa": 16.66666666666618,
+        "mean_shear_mpa": 8.81675909993029,
+        "quadrature": 16
+      },
+      "predicted_first_y_mm": 2.0,
+      "predicted_shear_time_s": 0.026368881369363596,
+      "prediction_valid": true,
+      "initial_profile_relative_l2": {
+        "p": 0.24800505808205356,
+        "tau": 0.15237983609906366
+      },
+      "seconds": 0.06068154238164425,
+      "density_assembly_seconds": 19.656065583229065,
+      "construction_and_static_seconds": 19.718028208240867,
+      "seconds_scope": "The existing seconds field times the static solve only; construction_and_static_seconds includes density assembly"
+    },
+    {
+      "density_factor": 2,
+      "density_panels": [
+        356,
+        332
+      ],
+      "trace_panels": [
+        250,
+        254
+      ],
+      "relative_hypersingular_restriction_error": [
+        1.3660456286631665e-14,
+        1.0361143873124167e-14
+      ],
+      "body_records": [
+        {
+          "density_panels": 356,
+          "trace_panels": 250,
+          "relative_hypersingular_restriction_error": 1.3660456286631665e-14,
+          "estimated_body_array_peak_mib": 1957.3291015625
+        },
+        {
+          "density_panels": 332,
+          "trace_panels": 254,
+          "relative_hypersingular_restriction_error": 1.0361143873124167e-14,
+          "estimated_body_array_peak_mib": 1723.9931640625
+        }
+      ],
+      "initialization": {
+        "status": "admissible_nodal_static_lift",
+        "basis": "P1 displacement / P0 auxiliary density; symmetric Galerkin",
+        "residual_mpa": 2.962344237624751e-10,
+        "initial_max_strength_ratio": 0.8108642423623736,
+        "max_cumulative_slip_change_mm": 0.0,
+        "platen_mm": 9.959800778945812,
+        "mean_pressure_mpa": 16.666666666667943,
+        "mean_shear_mpa": 8.816936320423144,
+        "quadrature": 16
+      },
+      "predicted_first_y_mm": 2.0,
+      "predicted_shear_time_s": 0.025753675315873165,
+      "prediction_valid": true,
+      "initial_profile_relative_l2": {
+        "p": 0.2663897751622726,
+        "tau": 0.1634758565669532
+      },
+      "seconds": 0.059588583186268806,
+      "density_assembly_seconds": 36.14022570848465,
+      "construction_and_static_seconds": 36.200799791142344,
+      "seconds_scope": "The existing seconds field times the static solve only; construction_and_static_seconds includes density assembly"
+    },
+    {
+      "density_factor": 4,
+      "density_panels": [
+        568,
+        488
+      ],
+      "trace_panels": [
+        250,
+        254
+      ],
+      "relative_hypersingular_restriction_error": [
+        1.2053444779039241e-14,
+        1.328283298685785e-14
+      ],
+      "body_records": [
+        {
+          "density_panels": 568,
+          "trace_panels": 250,
+          "relative_hypersingular_restriction_error": 1.2053444779039241e-14,
+          "estimated_body_array_peak_mib": 4728.0283203125
+        },
+        {
+          "density_panels": 488,
+          "trace_panels": 254,
+          "relative_hypersingular_restriction_error": 1.328283298685785e-14,
+          "estimated_body_array_peak_mib": 3535.2080078125
+        }
+      ],
+      "initialization": {
+        "status": "admissible_nodal_static_lift",
+        "basis": "P1 displacement / P0 auxiliary density; symmetric Galerkin",
+        "residual_mpa": 3.4656138217530333e-10,
+        "initial_max_strength_ratio": 0.8135478917207911,
+        "max_cumulative_slip_change_mm": 0.0,
+        "platen_mm": 9.959797840184898,
+        "mean_pressure_mpa": 16.66666666666634,
+        "mean_shear_mpa": 8.816966932548754,
+        "quadrature": 16
+      },
+      "predicted_first_y_mm": 2.0,
+      "predicted_shear_time_s": 0.025673294320568175,
+      "prediction_valid": true,
+      "initial_profile_relative_l2": {
+        "p": 0.26844514704146727,
+        "tau": 0.16497445208560013
+      },
+      "seconds": 0.059225499629974365,
+      "density_assembly_seconds": 84.9554496658966,
+      "construction_and_static_seconds": 85.01554099936038,
+      "seconds_scope": "The existing seconds field times the static solve only; construction_and_static_seconds includes density assembly"
+    }
+  ],
+  "retained_history_dofs": 275,
+  "total_seconds": 140.9648207500577,
+  "profile_comparisons": [
+    {
+      "density_factor": 1,
+      "density_panels": [
+        250,
+        254
+      ],
+      "predicted_y_mm": 2.0,
+      "predicted_shear_time_s": 0.026368881369363596,
+      "construction_and_static_seconds": 19.718028208240867,
+      "fem_meshes": [
+        {
+          "h_mm": 2.0,
+          "profiles": {
+            "p_mpa": {
+              "relative_l2": 0.19519390805691061,
+              "squared_error": 9779.18291068005,
+              "squared_reference_norm": 256667.00953291022,
+              "regions": [
+                {
+                  "interval_mm": [
+                    0.0,
+                    8.0
+                  ],
+                  "squared_error": 23.872386671957035,
+                  "squared_reference_norm": 3586.531882631097,
+                  "fraction_of_squared_error": 0.002441143282623899
+                },
+                {
+                  "interval_mm": [
+                    8.0,
+                    472.0
+                  ],
+                  "squared_error": 7.528216212914377,
+                  "squared_reference_norm": 120805.43426316974,
+                  "fraction_of_squared_error": 0.0007698205751620266
+                },
+                {
+                  "interval_mm": [
+                    472.0,
+                    480.0
+                  ],
+                  "squared_error": 9747.78230779518,
+                  "squared_reference_norm": 132275.04338710938,
+                  "fraction_of_squared_error": 0.9967890361422141
+                }
+              ]
+            },
+            "tau_mpa": {
+              "relative_l2": 0.12831668719614372,
+              "squared_error": 1270.758642579367,
+              "squared_reference_norm": 77178.58192680097,
+              "regions": [
+                {
+                  "interval_mm": [
+                    0.0,
+                    8.0
+                  ],
+                  "squared_error": 31.971652882720104,
+                  "squared_reference_norm": 873.7747476883764,
+                  "fraction_of_squared_error": 0.025159500641148125
+                },
+                {
+                  "interval_mm": [
+                    8.0,
+                    472.0
+                  ],
+                  "squared_error": 4.463051916825925,
+                  "squared_reference_norm": 34633.55865130355,
+                  "fraction_of_squared_error": 0.003512116122827926
+                },
+                {
+                  "interval_mm": [
+                    472.0,
+                    480.0
+                  ],
+                  "squared_error": 1234.3239377798209,
+                  "squared_reference_norm": 41671.24852780904,
+                  "fraction_of_squared_error": 0.9713283832360239
+                }
+              ]
+            }
+          }
+        },
+        {
+          "h_mm": 1.0,
+          "profiles": {
+            "p_mpa": {
+              "relative_l2": 0.09085712137595366,
+              "squared_error": 2219.256296198132,
+              "squared_reference_norm": 268837.2936538572,
+              "regions": [
+                {
+                  "interval_mm": [
+                    0.0,
+                    8.0
+                  ],
+                  "squared_error": 2.793641409356761,
+                  "squared_reference_norm": 3619.8702685102,
+                  "fraction_of_squared_error": 0.0012588187376746992
+                },
+                {
+                  "interval_mm": [
+                    8.0,
+                    472.0
+                  ],
+                  "squared_error": 1.490380237262135,
+                  "squared_reference_norm": 121500.7604613676,
+                  "fraction_of_squared_error": 0.0006715674254548002
+                },
+                {
+                  "interval_mm": [
+                    472.0,
+                    480.0
+                  ],
+                  "squared_error": 2214.9722745515132,
+                  "squared_reference_norm": 143716.6629239794,
+                  "fraction_of_squared_error": 0.9980696138368705
+                }
+              ]
+            },
+            "tau_mpa": {
+              "relative_l2": 0.07587096597555339,
+              "squared_error": 438.2347805282328,
+              "squared_reference_norm": 76129.96243196845,
+              "regions": [
+                {
+                  "interval_mm": [
+                    0.0,
+                    8.0
+                  ],
+                  "squared_error": 10.629171492097555,
+                  "squared_reference_norm": 817.6169412263291,
+                  "fraction_of_squared_error": 0.02425451370903406
+                },
+                {
+                  "interval_mm": [
+                    8.0,
+                    472.0
+                  ],
+                  "squared_error": 1.1417205862400834,
+                  "squared_reference_norm": 34942.00383034282,
+                  "fraction_of_squared_error": 0.0026052715050683415
+                },
+                {
+                  "interval_mm": [
+                    472.0,
+                    480.0
+                  ],
+                  "squared_error": 426.4638884498952,
+                  "squared_reference_norm": 40370.341660399296,
+                  "fraction_of_squared_error": 0.9731402147858976
+                }
+              ]
+            }
+          }
+        },
+        {
+          "h_mm": 0.5,
+          "profiles": {
+            "p_mpa": {
+              "relative_l2": 0.07929839561745584,
+              "squared_error": 1752.514061309924,
+              "squared_reference_norm": 278697.2669950252,
+              "regions": [
+                {
+                  "interval_mm": [
+                    0.0,
+                    8.0
+                  ],
+                  "squared_error": 2.7424176445816246,
+                  "squared_reference_norm": 3639.812817237396,
+                  "fraction_of_squared_error": 0.0015648477265465094
+                },
+                {
+                  "interval_mm": [
+                    8.0,
+                    472.0
+                  ],
+                  "squared_error": 0.45944581716607646,
+                  "squared_reference_norm": 121866.11867984195,
+                  "fraction_of_squared_error": 0.0002621638406842007
+                },
+                {
+                  "interval_mm": [
+                    472.0,
+                    480.0
+                  ],
+                  "squared_error": 1749.3121978481763,
+                  "squared_reference_norm": 153191.33549794587,
+                  "fraction_of_squared_error": 0.9981729884327692
+                }
+              ]
+            },
+            "tau_mpa": {
+              "relative_l2": 0.044291156154183775,
+              "squared_error": 146.25494320869447,
+              "squared_reference_norm": 74554.956209871,
+              "regions": [
+                {
+                  "interval_mm": [
+                    0.0,
+                    8.0
+                  ],
+                  "squared_error": 1.6935722278624405,
+                  "squared_reference_norm": 793.4811737285161,
+                  "fraction_of_squared_error": 0.011579589658353252
+                },
+                {
+                  "interval_mm": [
+                    8.0,
+                    472.0
+                  ],
+                  "squared_error": 0.7793504252364463,
+                  "squared_reference_norm": 35078.10061087919,
+                  "fraction_of_squared_error": 0.005328711687538476
+                },
+                {
+                  "interval_mm": [
+                    472.0,
+                    480.0
+                  ],
+                  "squared_error": 143.78202055559558,
+                  "squared_reference_norm": 38683.3744252633,
+                  "fraction_of_squared_error": 0.9830916986541083
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "density_factor": 2,
+      "density_panels": [
+        356,
+        332
+      ],
+      "predicted_y_mm": 2.0,
+      "predicted_shear_time_s": 0.025753675315873165,
+      "construction_and_static_seconds": 36.200799791142344,
+      "fem_meshes": [
+        {
+          "h_mm": 2.0,
+          "profiles": {
+            "p_mpa": {
+              "relative_l2": 0.20795947709600499,
+              "squared_error": 11100.115150590427,
+              "squared_reference_norm": 256667.00953291022,
+              "regions": [
+                {
+                  "interval_mm": [
+                    0.0,
+                    8.0
+                  ],
+                  "squared_error": 29.100316684655315,
+                  "squared_reference_norm": 3586.531882631097,
+                  "fraction_of_squared_error": 0.002621622955245418
+                },
+                {
+                  "interval_mm": [
+                    8.0,
+                    472.0
+                  ],
+                  "squared_error": 7.1242624813592705,
+                  "squared_reference_norm": 120805.43426316974,
+                  "fraction_of_squared_error": 0.0006418187905897826
+                },
+                {
+                  "interval_mm": [
+                    472.0,
+                    480.0
+                  ],
+                  "squared_error": 11063.890571424412,
+                  "squared_reference_norm": 132275.04338710938,
+                  "fraction_of_squared_error": 0.9967365582541647
+                }
+              ]
+            },
+            "tau_mpa": {
+              "relative_l2": 0.1339296410048726,
+              "squared_error": 1384.3637035396919,
+              "squared_reference_norm": 77178.58192680097,
+              "regions": [
+                {
+                  "interval_mm": [
+                    0.0,
+                    8.0
+                  ],
+                  "squared_error": 32.820745375455814,
+                  "squared_reference_norm": 873.7747476883764,
+                  "fraction_of_squared_error": 0.023708181088204033
+                },
+                {
+                  "interval_mm": [
+                    8.0,
+                    472.0
+                  ],
+                  "squared_error": 4.426009948101552,
+                  "squared_reference_norm": 34633.55865130355,
+                  "fraction_of_squared_error": 0.003197143884070817
+                },
+                {
+                  "interval_mm": [
+                    472.0,
+                    480.0
+                  ],
+                  "squared_error": 1347.1169482161345,
+                  "squared_reference_norm": 41671.24852780904,
+                  "fraction_of_squared_error": 0.9730946750277252
+                }
+              ]
+            }
+          }
+        },
+        {
+          "h_mm": 1.0,
+          "profiles": {
+            "p_mpa": {
+              "relative_l2": 0.10004511446839592,
+              "squared_error": 2690.799174024856,
+              "squared_reference_norm": 268837.2936538572,
+              "regions": [
+                {
+                  "interval_mm": [
+                    0.0,
+                    8.0
+                  ],
+                  "squared_error": 5.17997208294104,
+                  "squared_reference_norm": 3619.8702685102,
+                  "fraction_of_squared_error": 0.0019250682596252317
+                },
+                {
+                  "interval_mm": [
+                    8.0,
+                    472.0
+                  ],
+                  "squared_error": 1.3399580162527744,
+                  "squared_reference_norm": 121500.7604613676,
+                  "fraction_of_squared_error": 0.0004979777120447403
+                },
+                {
+                  "interval_mm": [
+                    472.0,
+                    480.0
+                  ],
+                  "squared_error": 2684.279243925662,
+                  "squared_reference_norm": 143716.6629239794,
+                  "fraction_of_squared_error": 0.99757695402833
+                }
+              ]
+            },
+            "tau_mpa": {
+              "relative_l2": 0.08097843605791034,
+              "squared_error": 499.22276965646194,
+              "squared_reference_norm": 76129.96243196845,
+              "regions": [
+                {
+                  "interval_mm": [
+                    0.0,
+                    8.0
+                  ],
+                  "squared_error": 9.471387022989573,
+                  "squared_reference_norm": 817.6169412263291,
+                  "fraction_of_squared_error": 0.01897226568713456
+                },
+                {
+                  "interval_mm": [
+                    8.0,
+                    472.0
+                  ],
+                  "squared_error": 1.1316139707300983,
+                  "squared_reference_norm": 34942.00383034282,
+                  "fraction_of_squared_error": 0.0022667515175816473
+                },
+                {
+                  "interval_mm": [
+                    472.0,
+                    480.0
+                  ],
+                  "squared_error": 488.6197686627423,
+                  "squared_reference_norm": 40370.341660399296,
+                  "fraction_of_squared_error": 0.9787609827952838
+                }
+              ]
+            }
+          }
+        },
+        {
+          "h_mm": 0.5,
+          "profiles": {
+            "p_mpa": {
+              "relative_l2": 0.06553227393106642,
+              "squared_error": 1196.859540004552,
+              "squared_reference_norm": 278697.2669950252,
+              "regions": [
+                {
+                  "interval_mm": [
+                    0.0,
+                    8.0
+                  ],
+                  "squared_error": 1.1551240960678792,
+                  "squared_reference_norm": 3639.812817237396,
+                  "fraction_of_squared_error": 0.0009651292047715859
+                },
+                {
+                  "interval_mm": [
+                    8.0,
+                    472.0
+                  ],
+                  "squared_error": 0.44346982961086856,
+                  "squared_reference_norm": 121866.11867984195,
+                  "fraction_of_squared_error": 0.00037052788133282703
+                },
+                {
+                  "interval_mm": [
+                    472.0,
+                    480.0
+                  ],
+                  "squared_error": 1195.2609460788733,
+                  "squared_reference_norm": 153191.33549794587,
+                  "fraction_of_squared_error": 0.9986643429138957
+                }
+              ]
+            },
+            "tau_mpa": {
+              "relative_l2": 0.038658312883905074,
+              "squared_error": 111.41978419043235,
+              "squared_reference_norm": 74554.956209871,
+              "regions": [
+                {
+                  "interval_mm": [
+                    0.0,
+                    8.0
+                  ],
+                  "squared_error": 0.7971127101694041,
+                  "squared_reference_norm": 793.4811737285161,
+                  "fraction_of_squared_error": 0.007154139778327199
+                },
+                {
+                  "interval_mm": [
+                    8.0,
+                    472.0
+                  ],
+                  "squared_error": 0.7811647325000197,
+                  "squared_reference_norm": 35078.10061087919,
+                  "fraction_of_squared_error": 0.007011005614271317
+                },
+                {
+                  "interval_mm": [
+                    472.0,
+                    480.0
+                  ],
+                  "squared_error": 109.84150674776293,
+                  "squared_reference_norm": 38683.3744252633,
+                  "fraction_of_squared_error": 0.9858348546074015
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "density_factor": 4,
+      "density_panels": [
+        568,
+        488
+      ],
+      "predicted_y_mm": 2.0,
+      "predicted_shear_time_s": 0.025673294320568175,
+      "construction_and_static_seconds": 85.01554099936038,
+      "fem_meshes": [
+        {
+          "h_mm": 2.0,
+          "profiles": {
+            "p_mpa": {
+              "relative_l2": 0.2095184397846199,
+              "squared_error": 11267.16238097823,
+              "squared_reference_norm": 256667.00953291022,
+              "regions": [
+                {
+                  "interval_mm": [
+                    0.0,
+                    8.0
+                  ],
+                  "squared_error": 29.716872775595665,
+                  "squared_reference_norm": 3586.531882631097,
+                  "fraction_of_squared_error": 0.002637476213688473
+                },
+                {
+                  "interval_mm": [
+                    8.0,
+                    472.0
+                  ],
+                  "squared_error": 7.058898344084372,
+                  "squared_reference_norm": 120805.43426316974,
+                  "fraction_of_squared_error": 0.0006265018737993469
+                },
+                {
+                  "interval_mm": [
+                    472.0,
+                    480.0
+                  ],
+                  "squared_error": 11230.38660985855,
+                  "squared_reference_norm": 132275.04338710938,
+                  "fraction_of_squared_error": 0.9967360219125121
+                }
+              ]
+            },
+            "tau_mpa": {
+              "relative_l2": 0.13477453327021013,
+              "squared_error": 1401.8852543394134,
+              "squared_reference_norm": 77178.58192680097,
+              "regions": [
+                {
+                  "interval_mm": [
+                    0.0,
+                    8.0
+                  ],
+                  "squared_error": 32.862825955222554,
+                  "squared_reference_norm": 873.7747476883764,
+                  "fraction_of_squared_error": 0.02344188003511596
+                },
+                {
+                  "interval_mm": [
+                    8.0,
+                    472.0
+                  ],
+                  "squared_error": 4.418814176023655,
+                  "squared_reference_norm": 34633.55865130355,
+                  "fraction_of_squared_error": 0.003152051255511534
+                },
+                {
+                  "interval_mm": [
+                    472.0,
+                    480.0
+                  ],
+                  "squared_error": 1364.6036142081673,
+                  "squared_reference_norm": 41671.24852780904,
+                  "fraction_of_squared_error": 0.9734060687093725
+                }
+              ]
+            }
+          }
+        },
+        {
+          "h_mm": 1.0,
+          "profiles": {
+            "p_mpa": {
+              "relative_l2": 0.10086365924724203,
+              "squared_error": 2735.0102271707046,
+              "squared_reference_norm": 268837.2936538572,
+              "regions": [
+                {
+                  "interval_mm": [
+                    0.0,
+                    8.0
+                  ],
+                  "squared_error": 5.424834019927403,
+                  "squared_reference_norm": 3619.8702685102,
+                  "fraction_of_squared_error": 0.001983478513548101
+                },
+                {
+                  "interval_mm": [
+                    8.0,
+                    472.0
+                  ],
+                  "squared_error": 1.3151281436100715,
+                  "squared_reference_norm": 121500.7604613676,
+                  "fraction_of_squared_error": 0.00048084944273518737
+                },
+                {
+                  "interval_mm": [
+                    472.0,
+                    480.0
+                  ],
+                  "squared_error": 2728.2702650071674,
+                  "squared_reference_norm": 143716.6629239794,
+                  "fraction_of_squared_error": 0.9975356720437167
+                }
+              ]
+            },
+            "tau_mpa": {
+              "relative_l2": 0.08146326375566464,
+              "squared_error": 505.2184788941724,
+              "squared_reference_norm": 76129.96243196845,
+              "regions": [
+                {
+                  "interval_mm": [
+                    0.0,
+                    8.0
+                  ],
+                  "squared_error": 9.279951134089387,
+                  "squared_reference_norm": 817.6169412263291,
+                  "fraction_of_squared_error": 0.018368194200658383
+                },
+                {
+                  "interval_mm": [
+                    8.0,
+                    472.0
+                  ],
+                  "squared_error": 1.130487975665706,
+                  "squared_reference_norm": 34942.00383034282,
+                  "fraction_of_squared_error": 0.002237621985126376
+                },
+                {
+                  "interval_mm": [
+                    472.0,
+                    480.0
+                  ],
+                  "squared_error": 494.8080397844173,
+                  "squared_reference_norm": 40370.341660399296,
+                  "fraction_of_squared_error": 0.9793941838142153
+                }
+              ]
+            }
+          }
+        },
+        {
+          "h_mm": 0.5,
+          "profiles": {
+            "p_mpa": {
+              "relative_l2": 0.06392036150937758,
+              "squared_error": 1138.7048093907247,
+              "squared_reference_norm": 278697.2669950252,
+              "regions": [
+                {
+                  "interval_mm": [
+                    0.0,
+                    8.0
+                  ],
+                  "squared_error": 1.0331215646315315,
+                  "squared_reference_norm": 3639.812817237396,
+                  "fraction_of_squared_error": 0.0009072777739336268
+                },
+                {
+                  "interval_mm": [
+                    8.0,
+                    472.0
+                  ],
+                  "squared_error": 0.44013234364706644,
+                  "squared_reference_norm": 121866.11867984195,
+                  "fraction_of_squared_error": 0.0003865201411440105
+                },
+                {
+                  "interval_mm": [
+                    472.0,
+                    480.0
+                  ],
+                  "squared_error": 1137.231555482446,
+                  "squared_reference_norm": 153191.33549794587,
+                  "fraction_of_squared_error": 0.9987062020849223
+                }
+              ]
+            },
+            "tau_mpa": {
+              "relative_l2": 0.037816053327537145,
+              "squared_error": 106.61760509236504,
+              "squared_reference_norm": 74554.956209871,
+              "regions": [
+                {
+                  "interval_mm": [
+                    0.0,
+                    8.0
+                  ],
+                  "squared_error": 0.6982508835489669,
+                  "squared_reference_norm": 793.4811737285161,
+                  "fraction_of_squared_error": 0.006549114313194877
+                },
+                {
+                  "interval_mm": [
+                    8.0,
+                    472.0
+                  ],
+                  "squared_error": 0.7826960691050631,
+                  "squared_reference_norm": 35078.10061087919,
+                  "fraction_of_squared_error": 0.007341152227411198
+                },
+                {
+                  "interval_mm": [
+                    472.0,
+                    480.0
+                  ],
+                  "squared_error": 105.136658139711,
+                  "squared_reference_norm": 38683.3744252633,
+                  "fraction_of_squared_error": 0.9861097334593939
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "profile_norm": "Exact physical P1 L2 on union of knots; full contact includes both ends",
+  "end_window_mm": 8,
+  "full_original_event_reproduced": false,
+  "scope": "Static fixed-plastic comparison. FEM h2 is the event reference; finer FEM meshes are distinct controls, not certified converged solutions."
+}

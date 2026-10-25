@@ -152,5 +152,219 @@
     }
   },
   "complete_new_kernel_validated": false,
-  "same_accuracy_speed_advantage_established": false
+  "same_accuracy_speed_advantage_established": false,
+  "complete_4us_kernel": {
+    "source": {
+      "path": "bem/outputs/reused-q12-dt4-kernel/summary.json",
+      "sha256": "86992f97770ec0af355207088e9ee039b76b019594e8d0c9a3644ef9e3d7d03d"
+    },
+    "data": {
+      "status": "completed_resolvent_kernel_only",
+      "source_run": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/galerkin-fine2-q12-kernel-seed8",
+      "dt_s": 4e-06,
+      "full_steps": 11250,
+      "correction_steps": 5000,
+      "plan": {
+        "dt": 4e-06,
+        "steps": 5000,
+        "dofs": 275,
+        "fft_size": 32768,
+        "radius": 0.9992975536264019,
+        "estimated_peak_bytes": 5824946600,
+        "weight_bytes": 3025605000
+      },
+      "history_dofs": 275,
+      "frequency_sampling": {
+        "method": "guarded_circle_cauchy_reuse",
+        "source_spectrum_sha256": "a3a41301f5fa30d387c7755b6799578b75416aabbfe312cfae12b9af8d8041e6"
+      },
+      "sampling_options": null,
+      "spectrum_storage": {
+        "backend": "disk_half_spectrum",
+        "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/reused-q12-dt4-kernel/work-resolvent.npy",
+        "shape": [
+          16385,
+          275,
+          275
+        ],
+        "bytes": 19825850128,
+        "sha256": "acf730b3c022e8a3c1f5134afea8ecd530356b662e7c4cf4fbc2ebcf29135279",
+        "implementation_sha256": "da2534ef95e95813a464ff04f78a092be374110650d1866cbc1fb8ea5b5105b2",
+        "all_frequency_matrices_written": true,
+        "coordinates": "diag(sqrt(w)) * L * diag(sqrt(w))"
+      },
+      "initial_composition_inf_error": 3.333446381892204e-11,
+      "estimated_array_peak_mib": 10290.549743652344,
+      "fmm_workspace_reserve_mib": 6144.0,
+      "fmm_threads_requested": 4,
+      "hard_cpu_affinity_enforced": false,
+      "resampling_seconds": 3897.9532102504745,
+      "sampled_fresh_bem_relative_errors": [
+        1.8128440284751484e-13,
+        2.2387846381886146e-13,
+        5.809265654658147e-13,
+        6.462496192410616e-12,
+        5.226276362996843e-12
+      ],
+      "sampled_fmm_relative_errors": [
+        1.8648770757657404e-15,
+        2.7896379892128187e-15,
+        1.5629241803349484e-15,
+        7.567390852820583e-16,
+        6.070767157927846e-16
+      ],
+      "helper_sha256": "129d75f1dc47ba11f2da171a820e422c3bde36ccce6ed2624690230c9e66bafc",
+      "helper_math_sha256": "6c29f88416f6748a4a6b7d5b21ef2271788f173193840f7f963341223ecd6d46",
+      "weights_sha256": "ec17bc3f809f6c0e3294cb3897b7331204650ae768976ad73b5a071964280265",
+      "elastic_sha256": "4870c38da69372e4c3095cf56bd78eb52d053b7ab4ded24038c596e97929f23b",
+      "full_original_event_reproduced": false,
+      "certified_error_bound": false,
+      "scope": "Streamed contour reuse checked against independent sampled BEM matrices; full trajectory and conditional AD require separate verification",
+      "total_seconds": 4100.885797124356,
+      "process_cpu_seconds": 4288.07736,
+      "peak_process_rss_mib": 6686.0625,
+      "timing_seconds": {
+        "source_verification_and_preparation": 19.91864666622132,
+        "resampling_and_spectrum_writes": 3897.9532102504745,
+        "inverse_fft": 93.24226054176688,
+        "physical_weights_and_elastic_startup": 67.65322374925017,
+        "final_checks_and_hashes": 22.118455916643143,
+        "total_before_reporting": 4100.885797124356
+      }
+    },
+    "source_kernel_construction_seconds": 73048.667585833,
+    "source_kernel_timing_scope": "Original construction was contended; retained here as a paid source cost, not a controlled speed benchmark",
+    "independent_full_fem_equivalence_verified": false
+  },
+  "radau_sampled_stage_audit_and_domain_controls": [
+    {
+      "path": "bem/outputs/cauchy-fine2-to-radau8-audit/summary.json",
+      "sha256": "98501fea52350ec4c6569cb396da84ecfb434ac0ca0192198c642164fff9f760",
+      "data": {
+        "status": "passed_sampled_operator_comparison",
+        "source_kernel": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/direct-resolvent-fine2-q12",
+        "source_spectrum_sha256": "a3a41301f5fa30d387c7755b6799578b75416aabbfe312cfae12b9af8d8041e6",
+        "source_dt_s": 2e-06,
+        "target_dt_s": 8e-06,
+        "target_fft_size": 16384,
+        "target_time_method": "radau2",
+        "matrix_dofs": 550,
+        "stage_eigenvector_condition_numbers": [
+          1.619390788707282,
+          1.61939077091526,
+          1.6193179256941979,
+          1.5565538752420665,
+          1.3928676737087762
+        ],
+        "indices": [
+          0,
+          1,
+          64,
+          2048,
+          8192
+        ],
+        "reuse_evaluation": "Frequency-major bounded direct Cauchy blocks; one source pass",
+        "relative_frobenius_errors": [
+          2.959393292404888e-13,
+          3.322283806480652e-13,
+          2.9229334998073167e-13,
+          5.080618463666366e-12,
+          1.6809030831091497e-11
+        ],
+        "mode_relative_frobenius_errors": [
+          1.0146028832866181e-13,
+          5.029294459800232e-12,
+          1.880972459998785e-13,
+          5.029423653678495e-12,
+          1.6756211601489745e-13,
+          5.030083301197971e-12,
+          4.359230187721983e-12,
+          5.726500239008496e-12,
+          1.614662361523471e-11,
+          1.614665474864605e-11
+        ],
+        "relative_tolerance": 1e-06,
+        "maximum_relative_error": 1.6809030831091497e-11,
+        "operator_arrays_sha256": "9bd58e6c8c1ecd7b7057cd0d7e4f477ec408dcb102778aecd69bb17bf8113cc9",
+        "resampling_seconds": 88.10296937543899,
+        "fresh_bem_seconds": 173.1085890000686,
+        "total_seconds": 280.2173036672175,
+        "full_original_event_reproduced": false,
+        "certified_error_bound": false,
+        "scope": "Sampled work-resolvent comparison at fixed geometry/material/quadrature; no nonlinear trajectory or speed advantage established"
+      }
+    },
+    {
+      "path": "bem/outputs/radau-reuse-domain-preflight-20261025.json",
+      "sha256": "72f684ebbdb8ff6628ef15cd982cb20e17bcc6734544f5f32ddd09fe9acb4d49",
+      "data": {
+        "records": [
+          {
+            "dt_s": 4e-06,
+            "nfft": 32768,
+            "mode_count": 32770,
+            "reusable_modes": 16542,
+            "maximum_radius": 1.0234351104950483,
+            "bad_node_index_range": [
+              1112,
+              16384
+            ],
+            "maximum_condition_number": 1.6187121710569616
+          },
+          {
+            "dt_s": 8e-06,
+            "nfft": 16384,
+            "mode_count": 16386,
+            "reusable_modes": 16386,
+            "maximum_radius": 0.999648763368372,
+            "bad_node_index_range": null,
+            "maximum_condition_number": 1.619390788707282
+          },
+          {
+            "dt_s": 1.6e-05,
+            "nfft": 8192,
+            "mode_count": 8194,
+            "reusable_modes": 8194,
+            "maximum_radius": 0.9996487197081586,
+            "bad_node_index_range": null,
+            "maximum_condition_number": 1.620749331688692
+          }
+        ],
+        "scope": "Geometry-free mapping arithmetic only; no BEM operator validation or new kernel"
+      }
+    },
+    {
+      "path": "bem/outputs/radau-reuse-domain-preflight-intermediate-20261025.json",
+      "sha256": "e1290c206ae6626410696c7291555c0b91c55292d14ef67967ccd1762734bf09",
+      "data": {
+        "records": [
+          {
+            "dt_s": 5e-06,
+            "nfft": 32768,
+            "mode_count": 32770,
+            "reusable_modes": 26216,
+            "maximum_radius": 0.999919675176229,
+            "maximum_condition_number": 1.6187121710569612
+          },
+          {
+            "dt_s": 6e-06,
+            "nfft": 16384,
+            "mode_count": 16386,
+            "reusable_modes": 16386,
+            "maximum_radius": 0.9995320812951419,
+            "maximum_condition_number": 1.6193907887072811
+          },
+          {
+            "dt_s": 7.5e-06,
+            "nfft": 16384,
+            "mode_count": 16386,
+            "reusable_modes": 16386,
+            "maximum_radius": 0.9996253731442829,
+            "maximum_condition_number": 1.6193907887072816
+          }
+        ],
+        "scope": "Mapping arithmetic only; not BEM matrix, temporal accuracy or trajectory verification"
+      }
+    }
+  ]
 }

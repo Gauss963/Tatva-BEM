@@ -15,6 +15,11 @@
 提供一致的 nodal forces、端點接觸與批次組裝。較細網格已完成 45 ms，
 [原一步 2 us／Q12 完整結果](docs/fine2_event.md) 的最大滑移為0.5111 mm，
 相對 FEM 的偏差約20.7%；前緣仍未吻合。上一組4 us使用Q6，這次不能作純時間收斂結論。
+現已補齊[相同Q12的時間網格控制](docs/time_grid_comparison.md)：同一原float64 seed、
+局部子步0.125us下，2us／N16與4us／N32最大滑移仍差0.02250mm。
+兩組stock seed／N16的完整AD各自通過獨立JVP，跨時間網格梯度尚未收斂。
+另有[固定trace的角落density加密](docs/density_refinement.md)，分開核對三種FEM網格，
+保留完整界面及端點誤差，未將靜態改善當成動態驗收。
 完整歷史 FFT 改為只快取可重用的區塊；同一較細軌跡及 adjoint 逐位相同，程序峰值 RSS 約減半。
 Galerkin CLI 可用 `--spectrum-directory` 把完整半頻譜存到磁碟，降低建立權重時的 RAM 需求；
 時間權重和全部歷史仍保留，原本的取樣及 IFFT 公式不變。
@@ -47,9 +52,9 @@ shear 資料與最後狀態逐位元相同，bulk 輸出可大幅減少。
 小型原始Z-history／JAX scan作獨立核對。
 四與十六子步加上殘差檢查的求根備援，均已完成45 ms；
 十六子步最大滑移0.5591 mm，與原FEM差13.2%，壓力／剪力分布差仍約20%。
-這仍未證明收斂、完整事件梯度或同精度速度優勢。
+完整N16五參數條件式梯度已與獨立forward JVP核對，但仍未證明收斂或同精度速度優勢。
 另有[受限解析域的頻譜重用原型](docs/cauchy_reuse.md)，旨在減少相同Q下時間網格比較的重複建核；
-五個完整矩陣的獨立抽樣已通過，亦完成真實FMM單row量測；完整新kernel仍待驗證。
+五個完整矩陣的獨立抽樣已通過；完整4us核心實測4100.89s，來源建核成本另計。
 新增[完全相等r的徑向重用實驗](docs/unique_radius.md)，用來減少重複Bessel評估，
 準備更細的接觸網格；尚未量測大型效能，也沒有切換正式backend。
 條件式adjoint可用`--forward-parameter-check`核對獨立正向JVP，

@@ -1,7 +1,7 @@
 # 重用已建立的 CQ 頻譜：研究原型
 
-2026-10-24。此路徑針對相同幾何／材料／積分的時間網格比較，
-尚未產生新的完整事件或證明加速。動機是完整2 us／Q12建核已很昂貴，
+2026-10-24；更新2026-10-25。此路徑針對相同幾何／材料／積分的時間網格比較，
+已建立完整4us／Q12核心及非線性事件，尚未證明同精度FEM加速。動機是完整2 us／Q12建核已很昂貴，
 下一組4 us／Q12比較應盡量重用已有計算。
 
 令已取樣的 work-resolvent 為
@@ -23,8 +23,8 @@ h(s) = 2 - sqrt(1 + 2 dt_source s)
 批次 Cauchy backend、可選的 [FMM2D](https://github.com/flatironinstitute/fmm2d)
 多 density 後端，以及對新座標的解析導數。另可直接呼叫官方 Fortran wrappers，
 避免依賴特定 Python／NumPy ABI；該介面限定官方預設的32-bit INTEGER。
-FMM2D未列為套件必要依賴。本機已完成一個真實275-density row的完整目標circle量測，
-尚未完成全部275 rows的新kernel與非線性驗證。
+FMM2D未列為套件必要依賴。本機已完成全部275 rows的新kernel；
+完整非線性時間網格控制見[time_grid_comparison.md](time_grid_comparison.md)。
 此處FMM作用在複數頻率平面的Cauchy加總，並未實作
 [2026 elastodynamics論文](https://arxiv.org/html/2607.15292v1)的3D-ACA或空間FMM。
 
@@ -68,7 +68,7 @@ FDBEM_CORES=1 bem/run.sh cauchy-reuse-audit \
 核對audit點的新BEM矩陣，最後以既有分row IFFT寫出所有correction weights及完整elastic startup。
 每row結束即關閉來源／輸出的mmap，避免把整個數十GB頻譜保留為程序resident mapping。
 它還會以新算出的瞬時BEM矩陣檢查CQ inverse composition；沒有修改摩擦律或刪除歷史。
-這條producer已有解析矩陣的完整權重／startup回歸測試，真實完整kernel仍待執行。
+這條producer已有解析矩陣的完整權重／startup回歸測試，真實完整kernel結果見下節。
 
 ```sh
 FDBEM_CORES=4 bem/run.sh reused-resolvent-kernel \
@@ -79,7 +79,8 @@ FDBEM_CORES=4 bem/run.sh reused-resolvent-kernel \
 ```
 
 FMM外部workspace目前採顯式reserve估計，沒有硬RSS保證；OpenMP thread數亦非硬CPU affinity。
-大型結果及完整非線性／AD對照通過前，不能把此prototype列為已達成速度或精度優勢。
+真實完整核心及4us／N16的五參數AD核對已完成；
+跨網格梯度與物理解仍未收斂，不能列為同精度FEM速度或精度優勢。
 
 ## 真實頻譜的抽樣核對（2026-10-25）
 
@@ -97,6 +98,32 @@ FMM外部workspace目前採顯式reserve估計，沒有硬RSS保證；OpenMP thr
 不得乘275後當作已量測的建核時間。
 實際library的值／導數另與小型直接加總核對至約3.4e-15。
 數據、library與來源指紋見[cauchy_reuse_results.json](cauchy_reuse_results.json)。
+
+## 完整4us／Q12核心實測
+
+全部275 rows、16385個半頻譜矩陣、5001個非線性修正權重與45ms完整elastic
+startup已建立。相同五個新BEM矩陣的最大相對差6.46e−12；
+新瞬時矩陣的inverse-CQ composition infinity差3.33e−11。
+抽樣核對沒有變成整個contour的嚴格誤差上界。
+
+|階段|實測 [s]|
+|---|---:|
+|核對來源與準備|19.92|
+|全部Cauchy/FMM重取樣與頻譜寫入|3897.95|
+|IFFT|93.24|
+|物理座標權重與完整startup|67.65|
+|最後核對與SHA256|22.12|
+|總計|4100.89|
+
+峰值RSS6686MiB，指定4個FMM threads，無硬CPU affinity。
+總process CPU4288.08s，不能把指定threads解讀為全程四核心滿載。
+新半頻譜19,825,850,128bytes，另保存全部correction weights與startup。
+來源2us核心先前的73048.67s仍是已付成本，且該次建構有其他工作競爭。
+此處沒有將source當作免費，也沒有公平量測一個全新4us直接建核的速度比。
+
+完整4us／N1、N16及原float64 seed的N16、N32均已完成；高子步版本需要
+通過原殘差的可選求根初值。N16完整五參數reverse／forward JVP核對通過，
+但與2us梯度差異很大。詳見[完整時間網格結果](time_grid_comparison.md)。
 
 這個導數也為固定幾何的材料 AD 提供一條後續路徑。固定 Poisson ratio 時，
 `Z_new(s)=alpha*Z_old(s*sqrt(beta/alpha))`，
