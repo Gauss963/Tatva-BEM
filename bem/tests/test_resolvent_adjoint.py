@@ -332,6 +332,19 @@ def test_correction_adjoint_keeps_kn_kt_and_initial_state_prefix_derivatives():
     independent_gradients = jax.grad(
         lambda *values: independent_scan(*values)[0], argnums=(0, 1, 2, 3)
     )(*inputs)
+    forward_tool = runpy.run_path(
+        str(Path(__file__).resolve().parents[1] / "tools/forward_resolvent_experiment.py")
+    )
+    forward = forward_tool["forward_parameter_gradient"](
+        reference,
+        BoundaryHistory(micro_plan, lweights[: micro_plan.steps + 1]),
+        micro,
+        spectrum,
+        micro_start,
+        constitutive_substeps=8,
+    )
+    np.testing.assert_allclose(forward["gradient"], independent_gradients[0], rtol=3e-7, atol=1e-9)
+    assert forward["previous_displacement_tangent_included"]
     for name, expected in zip(
         [
             "gradient",
@@ -353,6 +366,14 @@ def test_correction_adjoint_keeps_kn_kt_and_initial_state_prefix_derivatives():
         spectrum,
         start,
     )
+    forward = forward_tool["forward_parameter_gradient"](
+        reference,
+        BoundaryHistory(prefix_plan, lweights[: prefix_plan.steps + 1]),
+        result,
+        spectrum,
+        start,
+    )
+    np.testing.assert_allclose(forward["gradient"], original["gradient"], rtol=3e-7, atol=1e-9)
     for name in [
         "gradient",
         "actuator_gradient",

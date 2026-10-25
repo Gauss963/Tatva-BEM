@@ -328,10 +328,17 @@ def main():
     parser.add_argument("--max-memory-mb", type=float, default=12288)
     parser.add_argument("--fft-cache-mb", type=float, help="Cap retained transpose kernel FFTs")
     parser.add_argument("--fft-rows", type=int, default=4)
+    parser.add_argument(
+        "--forward-parameter-check",
+        action="store_true",
+        help="Independently propagate all five parameter JVPs, including the complete prefix",
+    )
     args = parser.parse_args()
     if not np.isfinite(args.max_memory_mb) or args.max_memory_mb <= 0:
         raise ValueError("A finite positive memory budget is required")
     validator_sha = fingerprint(Path(__file__))
+    forward_path = Path(__file__).with_name("forward_resolvent_experiment.py")
+    forward_sha = fingerprint(forward_path) if args.forward_parameter_check else None
     standalone = args.replay is None
     if standalone:
         args.replay = args.original
@@ -437,6 +444,14 @@ def main():
         convolution_factory = partial(
             bounded["BoundedOnlineConvolution"], cache_mb=args.fft_cache_mb, fft_rows=args.fft_rows
         )
+    if args.forward_parameter_check:
+        # Two nonzero prefix directions, complex transforms and inverse-FFT
+        # scratch, plus five post-source input/pending histories. Disk pages
+        # and library/OS caches remain outside this array estimate.
+        estimate += 6 * plan.fft_size * d * 16 + 16 * (plan.steps + 1) * d * 8
+        estimate += 2 * (steps + 1) * d * 8
+        if estimate > args.max_memory_mb * 1024**2:
+            raise ValueError(f"Forward JVP check arrays need about {estimate / 1024**2:.1f} MiB")
     # Both prepared standalone runs and replays can be checked against an
     # independent original-Z trajectory; they use different saved field names.
     storage = (
@@ -553,6 +568,34 @@ def main():
         convolution_factory=convolution_factory,
         constitutive_substeps=substeps,
     )
+    forward_check = None
+    if args.forward_parameter_check:
+        forward_tool = runpy.run_path(str(forward_path))
+        forward_check = forward_tool["forward_parameter_gradient"](
+            reference,
+            history,
+            result,
+            spectrum,
+            replay["first_correction_step"],
+            coordinate_scale=coordinate_scale,
+            convolution_factory=convolution_factory,
+            constitutive_substeps=substeps,
+        )
+        forward_gradient = forward_check["gradient"]
+        delta = answer["gradient"] - forward_gradient
+        forward_check.update(
+            passed=bool(np.allclose(answer["gradient"], forward_gradient, rtol=1e-5, atol=1e-12)),
+            reverse_maximum_absolute_difference=float(np.max(abs(delta))),
+            reverse_relative_differences=(
+                abs(delta) / np.maximum(abs(forward_gradient), 1e-15)
+            ).tolist(),
+            gradient=forward_gradient.tolist(),
+            rtol=1e-5,
+            atol=1e-12,
+            initial_state_and_actuator_cotangents_compared=False,
+        )
+        if forward_sha != fingerprint(forward_path):
+            raise ValueError("Forward JVP implementation changed during verification")
     if substep_sha is not None and substep_sha != fingerprint(substep_path):
         raise ValueError("Constitutive substep implementation changed during adjoint evaluation")
     if bounded_sha is not None and bounded_sha != fingerprint(bounded_path):
@@ -632,6 +675,8 @@ def main():
         reference_gradient_sha256=None if reference_path is None else fingerprint(reference_path),
         reference_arrays_sha256=None if target is None else target.get("arrays_sha256"),
         independent_reference_compared=target is not None,
+        forward_parameter_check=forward_check,
+        forward_parameter_check_sha256=forward_sha,
         source_run=str(args.replay.resolve()),
         source_trajectory_sha256=fingerprint(args.replay / "trajectory.npz"),
         steps=steps,
@@ -653,6 +698,10 @@ def main():
         )
     for _, actual, expected in checks:
         np.testing.assert_allclose(actual, expected, rtol=1e-5, atol=1e-12)
+    if forward_check is not None and not forward_check["passed"]:
+        raise ValueError(
+            "Forward parameter JVP and reverse adjoint differ beyond the unchanged guard"
+        )
     if differences is not None and max(differences.values()) > 1e-5:
         raise ValueError("Resolvent candidate differs from original fields by more than 1e-5")
 

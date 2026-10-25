@@ -35,7 +35,7 @@ FDBEM_CORES=4 bem/run.sh resolvent-simulate bem/outputs/direct-resolvent-fine2-q
   --contact-root-recovery \
   --output bem/outputs/fine2-q12-contact8
 FDBEM_CORES=4 bem/run.sh resolvent-adjoint bem/outputs/fine2-q12-contact8 \
-  --fft-cache-mb 8 --max-memory-mb 8192
+  --fft-cache-mb 8 --max-memory-mb 8192 --forward-parameter-check
 ```
 
 輸出保留子步原始碼指紋及微步摩擦功；固定各微步端點壓力的積分功差只作診斷，
@@ -69,6 +69,15 @@ FDBEM_CORES=4 bem/run.sh resolvent-adjoint bem/outputs/fine2-q12-contact8 \
 真正失敗step的275座標矩陣／狀態已保存為小型測試fixture，
 核對備援恢復、trial不commit，以及恢復根的mu_k隱式梯度與獨立差分。
 這些測試也不代表完整45ms梯度已有獨立驗證。
+
+新增可選的`--forward-parameter-check`，以完整正向JVP傳遞五個參數方向，
+核對反向adjoint，並保留原rtol=1e-5／atol=1e-12門檻。
+正向與反向的歷史遞推分開實作；正向closed prefix保留kn／kt非零source，
+只使用DFT乘積在最後prefix source之後的輸出，避免future-input circular wrap。
+五個post-source串流共用同一kernel FFT，子步亦傳遞前一位移的tangent。
+小型測試另用原始Z完整scan核對原一步與八子步參數導數。
+完整45ms核對尚待執行；此新選項只檢查五參數，
+不會把未核對的初始狀態／actuator cotangent算成通過。
 
 完整數據與來源指紋見[substepped_contact_results.json](substepped_contact_results.json)。
 
