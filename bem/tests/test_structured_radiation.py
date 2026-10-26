@@ -241,5 +241,17 @@ def test_jax_implicit_derivatives_include_scale_tangent_border_and_spring(coarse
     np.testing.assert_allclose(
         actual, np.linalg.solve(matrix.T, np.asarray(weights)), rtol=2e-11, atol=1e-13
     )
+    # A tangent_solve callback is transposed as a linear map, without a known
+    # RHS primal. Finite-input checks belong outside this linear callback.
+    tangent_solve = chain.jax_solver(check_rhs_finite=False)
+    transpose = jax.linear_transpose(
+        lambda b: tangent_solve(b, a, tangent, spring), jnp.zeros_like(rhs)
+    )
+    np.testing.assert_allclose(
+        transpose(weights)[0],
+        np.linalg.solve(matrix.T, np.asarray(weights)),
+        rtol=2e-11,
+        atol=1e-13,
+    )
     bad = tangent.at[0, 0, 1].set(1.0)
     assert np.all(np.isnan(solve(rhs, a, bad, spring)))

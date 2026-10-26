@@ -199,13 +199,16 @@ class RadiationChain:
         answer = y - green @ correction
         return answer[:, 0] if vector else answer
 
-    def jax_solver(self):
+    def jax_solver(self, *, check_rhs_finite=True):
         """Implicit JVP/VJP through the full represented matrix, not its factor tape.
 
         Call validate_step outside jit before using a new tangent family. The
         production previous-state law has dp/ds=0 and nonnegative diagonal
         tangents. This API does not accept pressure coupled to tangential jump.
         Array arguments are (rhs, coefficient, point_tangent, spring).
+        Set check_rhs_finite=False when used as a custom_root tangent solver:
+        a predicate on its tangent RHS would break linear transposition. The
+        nonlinear caller must validate its primal inputs separately.
         """
         import jax
         import jax.numpy as jnp
@@ -274,10 +277,11 @@ class RadiationChain:
                 & jnp.isfinite(spring)
                 & (spring >= 0)
                 & jnp.all(jnp.isfinite(tangent))
-                & jnp.all(jnp.isfinite(rhs))
                 & jnp.all(tangent[:, 0, 1] == 0)
                 & jnp.all(tangent[:, jnp.array([0, 1]), jnp.array([0, 1])] >= 0)
             )
+            if check_rhs_finite:
+                valid = valid & jnp.all(jnp.isfinite(rhs))
             # A traced unsupported law must not silently get the triangular
             # inverse. validate_step gives a descriptive exception before jit.
             return jnp.where(valid, answer, jnp.full_like(answer, jnp.nan))

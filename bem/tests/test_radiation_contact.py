@@ -154,6 +154,10 @@ def test_nonlinear_root_ad_includes_parameters_previous_state_lift_and_history(c
         tangent = jax.jvp(fn, arguments, directions)[1]
         reverse = sum(jnp.sum(g * d) for g, d in zip(gradient, directions, strict=True))
         np.testing.assert_allclose(tangent, reverse, rtol=2e-9, atol=1e-12)
+        epsilon = 1e-3
+        plus = fn(*(v + epsilon * d for v, d in zip(arguments, directions, strict=True)))
+        minus = fn(*(v - epsilon * d for v, d in zip(arguments, directions, strict=True)))
+        np.testing.assert_allclose(reverse, (plus - minus) / (2 * epsilon), rtol=2e-5, atol=2e-8)
     for left, right in zip(*gradients, strict=True):
         np.testing.assert_allclose(left, right, rtol=2e-8, atol=2e-10)
     for i, step in ((2, 1e-5), (4, 1e-6)):
@@ -203,6 +207,9 @@ def test_chained_updates_propagate_old_displacement_and_plastic_cotangents(coars
         value, info, final = rollout(system, theta)
         assert np.all(np.asarray(info[:, 2]) == 1)
         assert np.all(np.isfinite(final[0]))
+        np.testing.assert_allclose(final[0], old_q, rtol=0, atol=2e-11)
+        np.testing.assert_allclose(final[1], old_z, rtol=0, atol=2e-11)
+        np.testing.assert_allclose(final[2], old_c, rtol=0, atol=2e-11)
         values.append(value)
 
         def fn(p, system=system):

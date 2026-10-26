@@ -69,6 +69,9 @@ class RadiationContactRoot:
         ids = chain.border_indices
         dense = None if dense_reference is None else jnp.asarray(dense_reference)
         linear_solve = chain.jax_solver()
+        # A custom_root tangent solver must be linear in its tangent RHS.
+        # Primal input validation and Newton-direction checks remain enabled.
+        tangent_linear_solve = chain.jax_solver(check_rhs_finite=False)
         point_values = jax.vmap(contact_point, in_axes=(0, 0, 0, None))
         point_derivatives = jax.vmap(jax.jacfwd(contact_point, argnums=0), in_axes=(0, 0, 0, None))
 
@@ -249,7 +252,7 @@ class RadiationContactRoot:
                 local = local.at[:, 0, 0].set(jnp.maximum(normal[:n], 0))
                 local = local.at[:, 1, 0].set(normal[n : 2 * n])
                 local = local.at[:, 1, 1].set(jnp.maximum(tangent[n : 2 * n], 0))
-                result = linear_solve(wr * y, coefficient, local, spring)
+                result = tangent_linear_solve(wr * y, coefficient, local, spring)
                 return jnp.where(valid, result, jnp.full_like(result, jnp.nan))
 
             q, info = jax.lax.custom_root(f, guess, solve, tangent_solve, has_aux=True)
