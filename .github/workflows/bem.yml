@@ -4,6 +4,7 @@ jobs:
   tests:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         python: ['3.11', '3.12']
     env:
@@ -20,5 +21,25 @@ jobs:
         working-directory: bem
       - run: ruff format --check .
         working-directory: bem
-      - run: python -m pytest
+      - run: python -m pytest --junitxml=pytest-results.xml
         working-directory: bem
+      - name: Publish bounded test failure details
+        if: failure()
+        working-directory: bem
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import xml.etree.ElementTree as ET
+          path = Path('pytest-results.xml')
+          if path.is_file():
+              failures = []
+              for case in ET.parse(path).iter('testcase'):
+                  for tag in ('failure', 'error'):
+                      item = case.find(tag)
+                      if item is not None:
+                          failures.append((case, item))
+              for case, item in failures[:5]:
+                  message = case.get('name', '') + ': ' + item.get('message', '') + '\n' + (item.text or '')[-5000:]
+                  message = message.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
+                  print('::error::' + message)
+          PY
