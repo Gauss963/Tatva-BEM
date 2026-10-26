@@ -61,6 +61,12 @@ fine-history reverse-ring custom VJP passes independent forward AD with lower
 compiler-planned storage and measured bar-only gradient runtime. The full h1
 FEM spatial control has started at the original h2 time step, using the
 corrected original float64 seed projection; its full result remains pending.
+The [fixed-dt mesh comparison](fem_mesh_control.md) now checks both original
+restart values and identical saved step IDs/times, integrates saved P1 fields
+in space/time, and checks true float64 endpoints against storage-rounded slip.
+Its Python 3.11/3.12 CI passed. A separate observer waits for the original h1
+processes to finish successfully before producing the actual comparison;
+this is not evidence that two FEM meshes or the BEM event have converged.
 
 - [x] Independent Laplace-domain plane-strain Green tensor and source traction.
 - [x] Direct finite-interior boundary operators, jump term and singular integration.

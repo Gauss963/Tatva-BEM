@@ -28,6 +28,9 @@ Galerkin CLI 可用 `--spectrum-directory` 把完整半頻譜存到磁碟，降�
 Radau新增兩family磁碟權重、完整因果startup及耦合stage接觸；
 真實雙block短程解已與重新組裝的原Z_RK歷史核對，原45ms forward亦完成，精度仍未達標。
 新增指定actuator plateau、完整塑性滑移variation及不含CQ的FEM/BEM線性響應對照，分離誤差來源。
+另有[固定原時間步的h2／h1空間比較](docs/fem_mesh_control.md)：
+完整h1仍在執行，完成後核對float64 seed、相同步數、時空場及真正float64末端資料；
+尚未把兩張網格當成已空間收斂的解。
 另有[離散高頻輻射項研究](docs/radiation_limit.md)，先核對瞬時／完整歷史分解的係數；
 目前仍是算子診斷，尚未替換正式模擬器或證明加速。
 新增[完整反射有限bar控制與AD benchmark](docs/radiation_bar.md)：

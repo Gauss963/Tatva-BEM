@@ -1,0 +1,106 @@
+{
+  "recorded_utc": "2026-10-26T08:24:53.029163+00:00",
+  "status": "pending_full_h1_spatial_result",
+  "comparison_source_commit": "da1153491082c939b80c0b8498dfa018dda16f00",
+  "inputs": {
+    "bem/tools/compare_fem_mesh.py": {
+      "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compare_fem_mesh.py",
+      "sha256": "71f2d98edf22c29a51bef4ee3696f80c36517da643c27a161b98ac40fdd33c7b"
+    },
+    "bem/outputs/fem-event16-authored-f64-h2-4c-interface/summary.json": {
+      "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h2-4c-interface/summary.json",
+      "sha256": "8f2538542a351197923c063e75dce7f607adc5706ff46313ee78ee1dc73af5e1"
+    },
+    "bem/outputs/fem-event16-authored-f64-h2-4c-interface/reference_manifest.json": {
+      "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h2-4c-interface/reference_manifest.json",
+      "sha256": "a19d658036d7add09664a6c4832c3cba4edd61bd017496ff2e827039415679ec"
+    },
+    "bem/outputs/fem-event16-authored-f64-field-comparison/summary.json": {
+      "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-field-comparison/summary.json",
+      "sha256": "30dd777c7eab94f0fff24cce9a0aa66d9a28a8ad0df494afb94d3b18a97a336c"
+    },
+    "bem/outputs/fem-event16-authored-f64-h1-original-dt-4c-interface/reference_manifest.json": {
+      "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h1-original-dt-4c-interface/reference_manifest.json",
+      "sha256": "24b8654cf4ad30c494993c457d7c1a72b41016eadbd03f4ad26df43e7a3f502b"
+    },
+    "bem/outputs/fem-mesh-postprocess-20261026.py": {
+      "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-mesh-postprocess-20261026.py",
+      "sha256": "b3773a41e64109065dfc71b15d208be35508ee848fa5b771092b5d75fcf6d5e3"
+    }
+  },
+  "baseline_true_float64_endpoint": {
+    "nodes": 241,
+    "pressure_maximum_mpa": 345.20316759861123,
+    "pressure_saved_reconstruction": {
+      "final_relative_p1_l2": 4.081589600734324e-08,
+      "final_absolute_p1_l2": 2.118194383400568e-05,
+      "final_maximum_absolute_difference": 1.0539385073116136e-05,
+      "final_reference_maximum": 345.20316759861123,
+      "final_actual_maximum": 345.20315705922616,
+      "final_reference_p1_mean": 17.584099075355294,
+      "final_actual_p1_mean": 17.584098415211898,
+      "maximum_saved_absolute_difference": 1.0539385073116136e-05
+    },
+    "saved_slip_matches_float64_after_rounding": {
+      "plastic_slip": true,
+      "cumulative_slip": true
+    },
+    "initial_saved_z_minus_original_seed_maximum_mm": 4.7658888746582306e-07,
+    "original_seed_maximum_absolute_z_mm": 9.117343213272274,
+    "actual_final_state_time_s": 0.04700000910952073,
+    "actual_final_state_minus_nominal_horizon_s": 9.109520728023401e-09
+  },
+  "original_seed": {
+    "path": "/Volumes/Gauss-T7/tatva/runs/local-mus08-muk06-gap0-v2-ev15/data/simulation.h5",
+    "bytes": 12734514616,
+    "mtime_ns": 1792158143453734215,
+    "plastic_shape": [
+      241
+    ],
+    "checked_u_shape": [
+      91550
+    ],
+    "actuator_mm": 10.806226665707777,
+    "seed_sha256": "097948bec467b2d81f31ea58a056c29785c9f0c22f3952515ff15940357dddc4",
+    "scope": "Static initializer uses plastic slip and actuator; u is checked for size only"
+  },
+  "h1_observed": {
+    "child_pid": 23692,
+    "supervisor_pid": 23679,
+    "phase": "running_full_h1_same_original_dt",
+    "sampled_utc": "2026-10-26T08:24:24.328830+00:00",
+    "latest_progress": "[progress] shear t=16.991670 ms steps=1360103/3762129 frames=16/37 ranks=1",
+    "requested_cores": 4,
+    "hard_cpu_affinity_enforced": false
+  },
+  "queued_postprocess": {
+    "observer_pid": 32166,
+    "phase": "waiting_for_original_full_h1_processes",
+    "status_path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-mesh-postprocess-20261026.json",
+    "script_path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-mesh-postprocess-20261026.py",
+    "script_sha256": "b3773a41e64109065dfc71b15d208be35508ee848fa5b771092b5d75fcf6d5e3",
+    "comparison_output": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-h2-h1-original-dt-comparison-20261026",
+    "figure_output": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-h2-h1-bem-histories-20261026",
+    "does_not_restart_or_signal_fem": true
+  },
+  "timing_scope": "The h1 run includes two documented scheduling suspensions totaling 62.413325666449964 s; no uninterrupted speed claim. The mesh comparison measures fixed-dt spatial differences.",
+  "fem_mesh_convergence_verified": false,
+  "full_original_event_reproduced_by_bem": false,
+  "same_accuracy_fem_advantage_verified": false,
+  "comparison_ci": {
+    "run_id": 40291757378,
+    "source_commit": "da1153491082c939b80c0b8498dfa018dda16f00",
+    "url": "https://github.com/Gauss963/Tatva-BEM/actions/runs/40291757378",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "name": "tests (3.11)",
+        "conclusion": "success"
+      },
+      {
+        "name": "tests (3.12)",
+        "conclusion": "success"
+      }
+    ]
+  }
+}

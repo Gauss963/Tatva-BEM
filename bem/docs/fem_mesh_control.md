@@ -82,3 +82,9 @@ FEM 最後一步可略超過45 ms；保存時間與 summary 中的實際終點�
 另以小型完整 HDF5 fixture 檢查來源／投影、初始化差、float64 endpoint、
 不相同時間步與被修改的 seed 會被拒絕。
 正式 h1 結果只有在真實工作完成並通過上述檢查後才產生。
+
+[機讀稽核紀錄](fem_mesh_control_results.json)保存 h2 儲存／末端核對的來源指紋，
+以及 h1 原程序與已啟動後處理 observer 的派送狀態。
+observer 等原 solver 與 supervisor 都結束，確認正式完成、source SHA 與比較程式 CI 後，
+才執行網格／BEM末端比較及歷史曲線繪圖；它不重啟或傳送 signal 給 FEM。
+該紀錄的 `pending_full_h1_spatial_result` 明確表示尚無完整 h1 結果。
