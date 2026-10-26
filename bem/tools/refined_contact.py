@@ -212,6 +212,7 @@ class RefinedContactEquilibrium(ContactEquilibrium):
 class RefinedStaticLift:
     retained_displacement: np.ndarray
     full_displacement: np.ndarray
+    retained_bulk_force: np.ndarray
     state: ContactState
     pressure: np.ndarray
     shear: np.ndarray
@@ -277,6 +278,7 @@ def initialize_refined_contact(model, quadrature, reduction, state):
     return RefinedStaticLift(
         q,
         model.constraints.prolongation @ reduced,
+        reduction.impedance @ q - reduction.effective_load,
         state,
         response.pressure,
         response.shear,
@@ -287,10 +289,6 @@ def initialize_refined_contact(model, quadrature, reduction, state):
 def dynamic_refined_reference(model, quadrature, lift, instantaneous_impedance):
     n = quadrature.bulk_nodes
     q0 = lift.retained_displacement
-    force0 = quadrature.pull_force(lift.pressure, lift.shear)
-    spring = model.reference.spring_stiffness * model.constraints.platen_width
-    base_force = -force0
-    base_force[-1] -= spring * (q0[-1] - model.reference.restart_actuator)
     return RefinedContactEquilibrium(
         model,
         quadrature,
@@ -298,7 +296,7 @@ def dynamic_refined_reference(model, quadrature, lift, instantaneous_impedance):
         base_normal=quadrature.interpolate(q0[:n]),
         base_tangent=quadrature.interpolate(q0[n : 2 * n]),
         base_platen=q0[-1],
-        base_force=base_force,
+        base_force=lift.retained_bulk_force,
     )
 
 
@@ -316,6 +314,27 @@ class RefinedTrajectory:
     residual: np.ndarray
     iterations: np.ndarray
     diagnostics: dict
+
+
+def affine_initial_tail(history, residual_force, steps, *, block_lags=64):
+    """Strictly past L*r0 for a fixed initial lift residual starting at step 1.
+
+    The instantaneous root already contains r0, so lag zero must NOT be
+    included again. This preserves the original body force rather than
+    silently balancing it with a small artificial initial contact force.
+    """
+    value = np.asarray(residual_force, dtype=float)
+    if value.shape != (history.plan.dofs,) or history.plan.steps < steps:
+        raise ValueError("Initial-residual convolution needs complete matching time weights")
+    answer = np.zeros((steps + 1, history.plan.dofs))
+    running = np.zeros(history.plan.dofs)
+    for first in range(1, steps, block_lags):
+        last = min(first + block_lags, steps)
+        block = np.asarray(history.weights[first:last]) @ value
+        cumulative = np.cumsum(block, axis=0) + running
+        answer[first + 1 : last + 1] = cumulative
+        running = cumulative[-1]
+    return answer
 
 
 def simulate_refined_prepared(
@@ -373,6 +392,8 @@ def simulate_refined_prepared(
     )
     if np.max(abs(initial)) >= 1e-7:
         raise ValueError("Refined static initialization is not in the original equilibrium")
+    initial_force = initial * reference.constraints.reduced_weights
+    affine = affine_initial_tail(history, initial_force, steps)
     fc0 = quadrature.pull_force(contact.pressure, contact.shear)
     q = np.zeros((steps + 1, d))
     pressure, shear, mu, plastic, cumulative = [np.zeros((steps + 1, m)) for _ in range(5)]
@@ -393,7 +414,7 @@ def simulate_refined_prepared(
     for index in range(1, steps + 1):
         if held is not None:
             actuator[index] = held
-        past = -a0 @ (elastic[index] + memory.past(index))
+        past = -a0 @ (elastic[index] - affine[index] + memory.past(index))
         past[-1] += force[index]
         answer = system.solve(
             model.reference.normal_pressure, actuator[index], old, past=past, guess=q[index - 1]
@@ -460,6 +481,9 @@ def simulate_refined_prepared(
         all_history_retained=True,
         correction_history_steps=history.plan.steps,
         inverse_cq_composition_inf_error=composition,
+        initial_residual_mpa=float(np.max(abs(initial))),
+        original_lift_force_preserved=True,
+        strict_past_initial_residual_response_included=True,
         actuator_hold_time_s=hold_time,
         micro_friction_work_mpa_mm2=work,
         max_cumulative_slip_mm=float(np.max(cumulative)),

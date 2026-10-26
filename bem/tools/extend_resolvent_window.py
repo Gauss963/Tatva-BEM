@@ -77,9 +77,10 @@ def compare_prefix(old, new, *, block_lags=64):
         raise ValueError("Require matching physical float64 matrix prefixes and a longer target")
     maximum, equal = 0.0, True
     for first in range(0, len(old), block_lags):
+        last = min(first + block_lags, len(old))
         a, b = (
-            np.asarray(old[first : first + block_lags]),
-            np.asarray(new[first : first + block_lags]),
+            np.asarray(old[first:last]),
+            np.asarray(new[first:last]),
         )
         if not np.all(np.isfinite(a)) or not np.all(np.isfinite(b)):
             raise ValueError("Nonfinite prefix weights")

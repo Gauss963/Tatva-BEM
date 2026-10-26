@@ -55,6 +55,24 @@ def test_closed_elastic_energy_converges_to_independent_gauss_integral():
     np.testing.assert_allclose(np.array(errors[:-1]) / errors[1:], 4.0, rtol=2e-13)
 
 
+def test_initial_body_residual_tail_excludes_instantaneous_lag_zero():
+    from finiteblock_bem.cq import BoundaryHistory, plan_cq
+
+    rng = np.random.default_rng(97)
+    plan = plan_cq(5, 0.01, 9, max_memory_mb=8)
+    weights = rng.normal(size=(10, 5, 5))
+    residual = rng.normal(size=5)
+    actual = TOOL["affine_initial_tail"](BoundaryHistory(plan, weights), residual, 9, block_lags=3)
+    expected = np.array(
+        [
+            sum((weights[n - j] @ residual for j in range(1, n)), start=np.zeros(5))
+            for n in range(10)
+        ]
+    )
+    np.testing.assert_allclose(actual, expected, rtol=2e-15, atol=2e-15)
+    np.testing.assert_array_equal(actual[:2], 0)
+
+
 @pytest.fixture(scope="module")
 def static_case():
     model = load_nodal_model(CASE, max_panel_length=160)
