@@ -112,6 +112,16 @@ def test_real_friction_nonsymmetric_forward_and_transpose_solves(event_reference
         f @ chain.solve(g, coefficient, tangent, spring, transpose=True),
         rtol=2e-12,
     )
+    import jax
+    import jax.numpy as jnp
+
+    fast = chain.jax_solver()
+    actual = fast(jnp.asarray(f), coefficient, jnp.asarray(tangent), spring)
+    np.testing.assert_allclose(actual, np.linalg.solve(matrix, f), rtol=2e-10, atol=1e-15)
+    reverse = jax.grad(
+        lambda b: jnp.asarray(g) @ fast(b, coefficient, jnp.asarray(tangent), spring)
+    )(jnp.asarray(f))
+    np.testing.assert_allclose(reverse, np.linalg.solve(matrix.T, g), rtol=2e-10, atol=1e-15)
 
 
 def test_reconstruction_guard_rejects_nonendpoint_coupling(coarse_reference):

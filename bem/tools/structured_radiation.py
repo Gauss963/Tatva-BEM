@@ -218,6 +218,11 @@ class RadiationChain:
         )
 
         def solve(rhs, coefficient, tangent, spring):
+            if rhs.shape != (2 * n + 1,) or tangent.shape != (n, 2, 2):
+                raise ValueError(
+                    "JAX radiation solve requires a jump/platen vector and one 2x2 tangent per node"
+                )
+
             def matvec(q):
                 blocks = q[:-1].reshape(2, n)
                 value = coefficient * diagonal * blocks
@@ -269,6 +274,7 @@ class RadiationChain:
                 & jnp.isfinite(spring)
                 & (spring >= 0)
                 & jnp.all(jnp.isfinite(tangent))
+                & jnp.all(jnp.isfinite(rhs))
                 & jnp.all(tangent[:, 0, 1] == 0)
                 & jnp.all(tangent[:, jnp.array([0, 1]), jnp.array([0, 1])] >= 0)
             )
