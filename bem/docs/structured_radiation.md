@@ -104,6 +104,10 @@ reverse AD、五個 forward JVP、dense AD及中央差分。
 後續須先量測此 primitive 的實際成本，再接入保留完整 `R(s)=Z(s)-s*Cinf` 的方法，
 以完整事件在相同精度下的**總成本**驗收。
 
+完整測試組已通過[Python 3.11／3.12 CI](https://github.com/Gauss963/Tatva-BEM/actions/runs/40294846731)。
+[機讀驗證紀錄](structured_radiation_results.json)保留來源指紋、CI commit與測試門檻；
+門檻沒有被寫成未量測的 raw error 或 runtime 成績。
+
 ```sh
 bem/run.sh test -q -k structured_radiation
 ```

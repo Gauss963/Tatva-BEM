@@ -4,7 +4,7 @@ The first implementation is a fully elastodynamic **reference engine**. The
 complete original event is still an open objective, with these acceptance
 gates. A short successful diagnostic does not close the later gates.
 
-Latest completed result: [2 us / Q12, full 45 ms](fine2_event.md), maximum
+Original one-substep baseline: [2 us / Q12, full 45 ms](fine2_event.md), maximum
 slip 0.511082 mm versus archived FEM 0.644123 mm (20.65% low).
 The earlier 4 us result uses Q6, so this pair does not establish temporal convergence.
 The first local h2 FEM rerun used the history-storage dtype as its model dtype
@@ -67,6 +67,12 @@ in space/time, and checks true float64 endpoints against storage-rounded slip.
 Its Python 3.11/3.12 CI passed. A separate observer waits for the original h1
 processes to finish successfully before producing the actual comparison;
 this is not evidence that two FEM meshes or the BEM event have converged.
+The [guarded contact-chain radiation solve](structured_radiation.md) now
+reconstructs the full discrete Cinf, with O(n) forward/transpose solves and
+implicit JAX derivatives checked on the actual 137-node contact mesh.
+Its coefficient storage is linear, but the current retarded-history storage
+and cold kernel costs are unchanged. It has not yet been coupled to a new
+time integrator and cannot replace the complete dynamic operator.
 
 - [x] Independent Laplace-domain plane-strain Green tensor and source traction.
 - [x] Direct finite-interior boundary operators, jump term and singular integration.

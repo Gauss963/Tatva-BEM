@@ -1,0 +1,72 @@
+{
+  "recorded_utc": "2026-10-26T08:53:54.500725+00:00",
+  "status": "ci_verified_radiation_linear_primitive_not_a_dynamic_rollout",
+  "source_commit": "ff918cd230cb7b80a28500aa16f2a1a0e01caa5a",
+  "source_files": {
+    "bem/tools/structured_radiation.py": "4faa906353d43cea250a4226819b77e03b69b396caef4ce46ca8df46325b47b5",
+    "bem/tests/test_structured_radiation.py": "8567cdde80921c05fc29a8a3337f3fe461cb35039d1871ceba0098c2c6e76cbc",
+    "bem/src/finiteblock_bem/resources/cases/pmma_event16.toml": "82d8f491a63ca1c348507678f08406dccbc62ed1d4abea8882879f7894d2315d",
+    "bem/outputs/radiation-limit-current-q12-q24-batch8-4c-20261026/summary.json": "5f706280f9558f90ec67938987180631e53f7aec393d33a212e827c50c95bafe"
+  },
+  "ci": {
+    "run_id": 40294846731,
+    "url": "https://github.com/Gauss963/Tatva-BEM/actions/runs/40294846731",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "name": "tests (3.12)",
+        "conclusion": "success"
+      },
+      {
+        "name": "tests (3.11)",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "verified_mesh": {
+    "boundary_panels": [
+      250,
+      254
+    ],
+    "contact_nodes": 137,
+    "history_dofs": 275
+  },
+  "coefficient_storage": {
+    "dense_float64_bytes": 605000,
+    "structured_float64_bytes": 4576,
+    "scope": "Coefficients only; excludes work vectors, JIT plans, AD state and retarded-history storage"
+  },
+  "executable_test_guards": {
+    "relative_energy_frobenius_upper_bound": 1e-11,
+    "forward_transpose_and_jax_forcing_vjp": {
+      "rtol": 2e-10,
+      "atol": 1e-15
+    },
+    "coarse_linear_probe_reverse_forward": {
+      "rtol": 2e-11,
+      "atol": 1e-13
+    },
+    "coarse_linear_probe_reverse_dense_ad": {
+      "rtol": 2e-10,
+      "atol": 1e-13
+    },
+    "coarse_linear_probe_central_difference": {
+      "rtol": 2e-06,
+      "atol": 1e-12
+    },
+    "two_node_forward_and_forcing_vjp": {
+      "rtol": 2e-11,
+      "atol": 1e-14
+    },
+    "nonendpoint_spd_counterexample_rejected": true
+  },
+  "guard_interpretation": "Thresholds asserted by committed tests, not recorded raw maxima; full-body energy and dense solves are independent references.",
+  "law_scope": "One previous-state point update: dp/ds=0, nonnegative diagonal tangents, arbitrary signed d tau/dn. Composite softening tangents and other laws require a separate solver.",
+  "dynamic_package_unchanged": true,
+  "local_runtime_benchmark_executed": false,
+  "local_runtime_scope": "Full h1 FEM is live; no new overlapping numerical benchmark was launched.",
+  "full_2d_history_integrator_using_this_primitive": false,
+  "full_event_parameter_sensitivity_verified_by_this_change": false,
+  "full_original_event_reproduced_by_bem": false,
+  "same_accuracy_fem_advantage_verified": false
+}
