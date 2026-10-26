@@ -127,7 +127,8 @@ def test_nonlinear_macro_history_ad_matches_forward_and_small_differences():
         assert float(reverse[i]) == pytest.approx(fd, rel=1e-5, abs=1e-8)
 
 
-def test_complete_fine_history_custom_vjp_retains_all_delayed_cotangents():
+@pytest.mark.parametrize("checkpoint_macro", [False, True])
+def test_complete_fine_history_custom_vjp_retains_all_delayed_cotangents(checkpoint_macro):
     options = dict(
         micro_dt=0.001,
         duration=1.2,
@@ -136,6 +137,7 @@ def test_complete_fine_history_custom_vjp_retains_all_delayed_cotangents():
         pressure=1.0,
         peak=1.1,
         rise=0.15,
+        checkpoint_macro=checkpoint_macro,
     )
     loss, raw = BAR["fine_delay_loss"](**options)
     theta = jnp.array([20.0, 12.0, 0.8, 0.4, 0.02])
@@ -146,8 +148,7 @@ def test_complete_fine_history_custom_vjp_retains_all_delayed_cotangents():
     np.testing.assert_allclose(
         jax.grad(loss)(theta), jax.jacfwd(reference)(theta), rtol=1e-10, atol=1e-12
     )
-    # Coarse test rings are deliberately small enough for a separate ordinary
-    # reverse scan, which is not used by the full 80,000-step experiment.
+    # Small rings also check ordinary reverse with each checkpoint policy.
     np.testing.assert_allclose(
         jax.grad(loss)(theta), jax.grad(reference)(theta), rtol=1e-10, atol=1e-12
     )

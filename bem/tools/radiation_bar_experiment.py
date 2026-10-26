@@ -42,7 +42,18 @@ def local_radiation_step(
     return q, response, residual
 
 
-def delay_rollout(*, micro_dt, macro_dt, duration, round_trip, radiation, pressure, peak, rise):
+def delay_rollout(
+    *,
+    micro_dt,
+    macro_dt,
+    duration,
+    round_trip,
+    radiation,
+    pressure,
+    peak,
+    rise,
+    checkpoint_macro=False,
+):
     substeps = round(macro_dt / micro_dt)
     steps = round(duration / macro_dt)
     delay = round(round_trip / macro_dt)
@@ -86,7 +97,10 @@ def delay_rollout(*, micro_dt, macro_dt, duration, round_trip, radiation, pressu
             return (*state, ring), values
 
         initial = (jnp.array(0.0), jnp.array(0.0), jnp.array(0.0), jnp.zeros(delay))
-        _, values = jax.lax.scan(jax.checkpoint(macro), initial, jnp.arange(steps))
+        # A whole-carry checkpoint can save a complete delay ring at every
+        # macrostep. Leave linear-history partial evaluation available by default.
+        body = jax.checkpoint(macro) if checkpoint_macro else macro
+        _, values = jax.lax.scan(body, initial, jnp.arange(steps))
         return values.reshape(steps * substeps, 8)
 
     return jax.jit(rollout)
@@ -426,6 +440,7 @@ def main():
         parameters=np.asarray(theta).tolist(),
         pressure_mpa=pressure,
         micro_dt_s=args.micro_dt,
+        differentiable_rollout_checkpoint_macro=False,
         duration_s=args.duration,
         length_mm=length,
         one_way_transit_s=transit,

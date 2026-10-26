@@ -65,29 +65,21 @@ def main():
     baseline, current = runpy.run_path(str(baseline_path)), runpy.run_path(str(BAR_PATH))
     old_loss, _ = baseline["fine_delay_loss"](**options)
     loss, raw = current["fine_delay_loss"](**options)
-    checkpoint_call = "jax.lax.scan(jax.checkpoint(macro), initial, jnp.arange(steps))"
-    current_source = BAR_PATH.read_text()
-    if current_source.count(checkpoint_call) != 1:
-        raise ValueError("Checkpoint placement changed; re-audit the ordinary-scan control")
-    ordinary_path = args.output / "ordinary_scan_bar.py"
-    ordinary_path.write_text(
-        current_source.replace(checkpoint_call, "jax.lax.scan(macro, initial, jnp.arange(steps))")
-    )
-    ordinary = runpy.run_path(str(ordinary_path))["delay_rollout"](
-        macro_dt=options["micro_dt"], **options
+    checkpointed = current["delay_rollout"](
+        macro_dt=options["micro_dt"], checkpoint_macro=True, **options
     )
 
     def reference(parameters):
         return raw(parameters)[-1, 2]
 
-    def ordinary_reference(parameters):
-        return ordinary(parameters)[-1, 2]
+    def checkpointed_reference(parameters):
+        return checkpointed(parameters)[-1, 2]
 
     functions = {
         "array_adjoint": jax.value_and_grad(old_loss),
         "reverse_ring_adjoint": jax.value_and_grad(loss),
         "automatic_reverse_scan": jax.value_and_grad(reference),
-        "automatic_reverse_without_macro_checkpoint": jax.value_and_grad(ordinary_reference),
+        "automatic_reverse_with_macro_checkpoint": jax.value_and_grad(checkpointed_reference),
         "forward_parameter_jvp": jax.jacfwd(reference),
     }
     compiled, records = {}, {}
@@ -119,6 +111,12 @@ def main():
             record["warmup_seconds"] = perf_counter() - start
             gradient = value if name == "forward_parameter_jvp" else value[1]
             record["gradient"] = np.asarray(gradient).tolist()
+            if name != "forward_parameter_jvp":
+                record["loss"] = float(value[0])
+                if not np.isclose(
+                    value[0], summary["fine_history_ad"]["loss"], rtol=1e-12, atol=1e-12
+                ):
+                    raise ValueError(f"Primal objective changed for {name}")
             if not np.allclose(
                 gradient, summary["fine_history_ad"]["forward"], rtol=1e-5, atol=1e-12
             ):
@@ -144,8 +142,7 @@ def main():
         schedule=schedule,
         baseline_revision=revision,
         baseline_source_sha256=fingerprint(baseline_path),
-        ordinary_scan_source_sha256=fingerprint(ordinary_path),
-        ordinary_scan_transform="Remove the macro-level checkpoint only; identical primal and delayed-history recurrence",
+        automatic_reverse_scan_checkpoint_macro=False,
         frozen_input_sha256=frozen,
         environment=environment_record(),
         scope="One process, all variants compiled and warmed before mirrored timing order; compiler array plans are not process RSS. This bar-only AD comparison is not an event-16 or same-accuracy 2D FEM benchmark.",
