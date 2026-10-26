@@ -72,10 +72,12 @@ FEM 最後一步可略超過45 ms；保存時間與 summary 中的實際終點�
 
 完整 h1 使用四核心 thread 設定，沒有 macOS hard affinity。
 監督器保存 process samples、已知求解工作、來源與輸入指紋。
-兩次為序列化 AD 控制暫停 h1 的排程共62.413325666 s，均已恢復；
+先前兩次AD控制，加上[非線性根的必要序列化除錯](radiation_contact.md)，
+四筆已記錄的h1排程暫停共92.553770543 s，均已恢復；
 這組 h1 raw wall time **不能當成未中斷的速度基準**。
 比較程式保留原始時間，暫停與排程記錄另見
 [完整反射控制紀錄](radiation_bar_results.json)中的 `h1_scheduling_annotations`。
+該紀錄保留先前兩筆，另兩筆及最新總數見非線性根的驗證紀錄。
 既有 h2 的8032.347 s模擬時間屬另外已驗證的四核心控制。
 
 單元測試以獨立 tensor-product Gauss 積分檢查時空 norm，

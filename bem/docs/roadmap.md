@@ -73,6 +73,11 @@ implicit JAX derivatives checked on the actual 137-node contact mesh.
 Its coefficient storage is linear, but the current retarded-history storage
 and cold kernel costs are unchanged. It has not yet been coupled to a new
 time integrator and cannot replace the complete dynamic operator.
+The [nonlinear instantaneous contact root](radiation_contact.md) now uses this
+structure with the original point law, converged-root gating and implicit AD.
+Manufactured full-mesh roots and three-step state derivatives pass independent
+dense/NumPy and JVP checks. The retarded integrator is still not connected;
+these checks have not changed the full-event accuracy or paid kernel cost.
 
 - [x] Independent Laplace-domain plane-strain Green tensor and source traction.
 - [x] Direct finite-interior boundary operators, jump term and singular integration.

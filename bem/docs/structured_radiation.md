@@ -81,6 +81,8 @@ b_bar = lambda, J_bar = -lambda*x.T.
 matvec 保留完整的三對角與 border 項，因此 radiation scale 的導數不會漏掉端點耦合。
 AD 不需要回放三對角消去或小矩陣 factorization 的 tape。
 這是固定 `Cinf` 的線性方程微分；不代表已完成材料／幾何、static lift、停止事件或完整反射歷史的導數。
+後續[非線性接觸根](radiation_contact.md)已使用此結構，並核對狀態傳遞與根的隱式AD；
+切線回呼需保持對RHS線性，不能把依賴RHS的有限值判斷放進去。
 三對角 kernel 使用 [`lax.linalg.tridiagonal_solve`](https://docs.jax.dev/en/latest/_autosummary/jax.lax.linalg.tridiagonal_solve.html)，
 兩節點情況使用常數大小的 dense solve。
 

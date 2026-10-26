@@ -33,6 +33,7 @@ Radau新增兩family磁碟權重、完整因果startup及耦合stage接觸；
 尚未把兩張網格當成已空間收斂的解。
 另有[離散高頻輻射項研究](docs/radiation_limit.md)，先核對瞬時／完整歷史分解的係數；
 其[二維接觸線快速線性解與隱式AD](docs/structured_radiation.md)已實作，尚未接入完整時間積分。
+後續[非線性接觸根與狀態導數控制](docs/radiation_contact.md)已通過完整mesh的製造解與三步AD檢查。
 目前仍是算子診斷，尚未替換正式模擬器或證明加速。
 新增[完整反射有限bar控制與AD benchmark](docs/radiation_bar.md)：
 保留細歷史可與獨立體積解核對；單純平均歷史雖保留接近的滑移，卻有大的反射應力差及與細歷史相反的gradient方向。

@@ -1,0 +1,187 @@
+{
+  "recorded_utc": "2026-10-26T09:28:27.800632+00:00",
+  "status": "verified_nonlinear_instantaneous_root_not_full_dynamic_event",
+  "source_commit": "9dc733495d1f07e7409255fb944cdb3426aae387",
+  "source_sha256": {
+    "bem/tools/radiation_contact.py": "13e890a661d919be72dadecdecc4930113055b2f824896f7bd58ddd3df471e0f",
+    "bem/tools/structured_radiation.py": "27e6619145bfaa663e22bb5cc2365750a143663283740277280975479d10226a",
+    "bem/tests/test_radiation_contact.py": "231651ec0173a606e8a0f777fe654c8974fcf8bd63f2497541bd0d18346cd81b",
+    "bem/tests/test_structured_radiation.py": "fa41ded6829e6c333d58614bf9dbdef368bc839c358788b9aa56c6240dc703e6"
+  },
+  "ci": {
+    "run_id": 40298207424,
+    "url": "https://github.com/Gauss963/Tatva-BEM/actions/runs/40298207424",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "name": "tests (3.12)",
+        "conclusion": "success"
+      },
+      {
+        "name": "tests (3.11)",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "initial_failed_ci": {
+    "run_id": 40296852658,
+    "source_commit": "9ac9b348371bfe37fb561279ce83b4dc56870278",
+    "reason": "RHS-dependent finite predicate violated tangent-solve linearity in reverse transposition",
+    "resolved_by_source_commit": "9dc733495d1f07e7409255fb944cdb3426aae387"
+  },
+  "local_focused_regression": {
+    "log": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/radiation-contact-fixed-20261026.log",
+    "sha256": "008ab04662d19fe5a31f58e6aa1049d3666072243e9cd23dc25d14f24f1d7913",
+    "summary": "23 passed, 323 deselected in 21.09s",
+    "scope": "Serialized code-fix regression before the final added independent mixed-direction FD and manufactured final-state assertions; final CI includes those extra assertions"
+  },
+  "executed_guards": {
+    "actual_contact_nodes": 137,
+    "actual_boundary_panels": [
+      250,
+      254
+    ],
+    "manufactured_displacement_absolute_tolerance_mm": 2e-11,
+    "inputs_with_implicit_derivatives": [
+      "kn/kt/mus/muk/Dc",
+      "old plastic slip",
+      "old cumulative slip",
+      "base jump",
+      "incoming nodal force",
+      "previous displacement",
+      "radiation coefficient",
+      "spring"
+    ],
+    "coarse_reverse_dense_ad": {
+      "rtol": 2e-08,
+      "atol": 2e-10
+    },
+    "coarse_simultaneous_jvp_vjp": {
+      "rtol": 2e-09,
+      "atol": 1e-12
+    },
+    "coarse_central_difference": {
+      "rtol": 2e-05,
+      "atol": 2e-08
+    },
+    "chained_steps": 3,
+    "chained_reverse_dense_ad": {
+      "rtol": 2e-07,
+      "atol": 1e-09
+    },
+    "chained_state_absolute_tolerance_mm": 2e-11,
+    "failed_roots_and_committed_responses_are_nan": true,
+    "original_force_residual_mpa_strict_upper_bound": 1e-07
+  },
+  "guard_interpretation": "These are executable test thresholds, not measured raw maxima or a continuous-sensitivity error bound.",
+  "test_forcing_scope": "Manufactured nodal loads from independent full dense Cinf and NumPy return mapping; not the actual event or its reflected history.",
+  "fem_h1_scheduling_annotations": {
+    "bem/outputs/fem-h1-scheduled-ad-pause-20261026.json": {
+      "sha256": "4386377ae89e05fb774a2a22c96aa15e658b68152ebdbb48324695d585a2de29",
+      "record": {
+        "fem_pid": 23692,
+        "wrapper_pid": 24400,
+        "command": [
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/run.sh",
+          "radiation-ad-benchmark",
+          "bem/outputs/radiation-bar-fine-history-reverse-ring-20261026",
+          "--output",
+          "bem/outputs/radiation-bar-ad-no-checkpoint-20261026"
+        ],
+        "reason": "Serialize a necessary no-checkpoint AD control within the requested CPU settings",
+        "spatial_fields_affected": false,
+        "timing_scope": "The h1 wrapper wall clock includes this scheduled pause; it is not an uninterrupted speed benchmark",
+        "paused_utc": "2026-10-26T05:34:45.713382+00:00",
+        "verified_stopped_state": "T",
+        "benchmark_pid": 24413,
+        "benchmark_exit_code": 0,
+        "resumed_utc": "2026-10-26T05:35:15.456774+00:00",
+        "paused_seconds": 29.74349766690284,
+        "state_after_resume": "R"
+      }
+    },
+    "bem/outputs/fem-h1-final-ad-pause-20261026.json": {
+      "sha256": "1663f57c769b4f80a8ff3f4988df0b59fd3e48cdc516b4de7327bcebe38a9c9e",
+      "record": {
+        "fem_pid": 23692,
+        "wrapper_pid": 24910,
+        "commands": [
+          [
+            "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/run.sh",
+            "radiation-bar",
+            "--output",
+            "bem/outputs/radiation-bar-final-policy-20261026"
+          ],
+          [
+            "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/run.sh",
+            "radiation-ad-benchmark",
+            "bem/outputs/radiation-bar-final-policy-20261026",
+            "--output",
+            "bem/outputs/radiation-bar-ad-final-policy-20261026"
+          ]
+        ],
+        "reason": "Serialize a necessary no-checkpoint AD control within the requested CPU settings",
+        "spatial_fields_affected": false,
+        "timing_scope": "The h1 wrapper wall clock includes this scheduled pause; it is not an uninterrupted speed benchmark",
+        "paused_utc": "2026-10-26T05:42:25.781102+00:00",
+        "verified_stopped_state": "T",
+        "benchmark_pid": 24939,
+        "active_command": [
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/run.sh",
+          "radiation-ad-benchmark",
+          "bem/outputs/radiation-bar-final-policy-20261026",
+          "--output",
+          "bem/outputs/radiation-bar-ad-final-policy-20261026"
+        ],
+        "benchmark_exit_code": 0,
+        "resumed_utc": "2026-10-26T05:42:58.450827+00:00",
+        "paused_seconds": 32.669827999547124,
+        "state_after_resume": "R"
+      }
+    },
+    "bem/outputs/fem-h1-radiation-contact-debug-pause-20261026.json": {
+      "sha256": "0d9df0b5a9c7bd0c4b569a8ae79dd6c3e1f9ce9d5186402aad80411c87b78aac",
+      "record": {
+        "fem_pid": 23692,
+        "purpose": "Debug the failed nonlinear radiation-root regression without concurrent numerical work",
+        "original_tatva_readonly": true,
+        "timing_scope": "Raw h1 wall clock includes this additional scheduling pause; not an uninterrupted speed benchmark",
+        "started_utc": "2026-10-26T09:11:34.775535+00:00",
+        "original_process": "R    Mon Oct 26 13:20:03 2026     /opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python -B /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/run_fem_reference.py --cores 4 --mesh-size 1 --time-step 1.2492928633545953e-08 --normal-duration .002 --shear-duration .045 --normal-frames 4 --shear-frames 32 --interface-normal-frames 40 --interface-shear-frames 9000 --output /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h1-original-dt-4c-interface",
+        "phase": "fem_resumed_after_serial_focused_test",
+        "verified_stopped_state": "T",
+        "test_pid": 35559,
+        "test_returncode": 1,
+        "resumed_utc": "2026-10-26T09:11:42.661949+00:00",
+        "pause_seconds": 7.892720541916788,
+        "resumed_process": "R    Mon Oct 26 13:20:03 2026     /opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python -B /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/run_fem_reference.py --cores 4 --mesh-size 1 --time-step 1.2492928633545953e-08 --normal-duration .002 --shear-duration .045 --normal-frames 4 --shear-frames 32 --interface-normal-frames 40 --interface-shear-frames 9000 --output /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h1-original-dt-4c-interface"
+      }
+    },
+    "bem/outputs/fem-h1-radiation-contact-fix-pause-20261026.json": {
+      "sha256": "694d223791080fbcaa4b30ead18d0ec4ad1aba3f6d6519ac42d587f740aa698f",
+      "record": {
+        "fem_pid": 23692,
+        "purpose": "Debug the failed nonlinear radiation-root regression without concurrent numerical work",
+        "original_tatva_readonly": true,
+        "timing_scope": "Raw h1 wall clock includes this additional scheduling pause; not an uninterrupted speed benchmark",
+        "started_utc": "2026-10-26T09:13:43.549832+00:00",
+        "original_process": "R    Mon Oct 26 13:20:03 2026     /opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python -B /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/run_fem_reference.py --cores 4 --mesh-size 1 --time-step 1.2492928633545953e-08 --normal-duration .002 --shear-duration .045 --normal-frames 4 --shear-frames 32 --interface-normal-frames 40 --interface-shear-frames 9000 --output /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h1-original-dt-4c-interface",
+        "phase": "fem_resumed_after_serial_focused_test",
+        "verified_stopped_state": "T",
+        "test_pid": 35707,
+        "test_returncode": 0,
+        "resumed_utc": "2026-10-26T09:14:05.788079+00:00",
+        "pause_seconds": 22.247724334709346,
+        "resumed_process": "R    Mon Oct 26 13:20:03 2026     /opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python -B /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/run_fem_reference.py --cores 4 --mesh-size 1 --time-step 1.2492928633545953e-08 --normal-duration .002 --shear-duration .045 --normal-frames 4 --shear-frames 32 --interface-normal-frames 40 --interface-shear-frames 9000 --output /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h1-original-dt-4c-interface"
+      }
+    }
+  },
+  "fem_h1_original_ad_suspension_seconds": 62.413325666449964,
+  "fem_h1_additional_root_debug_suspension_seconds": 30.140444876626134,
+  "fem_h1_total_recorded_suspension_seconds": 92.5537705430761,
+  "fem_h1_timing_scope": "All recorded pauses resumed the original FEM process. Its raw wall clock includes them; do not use as an uninterrupted speed comparison.",
+  "retarded_history_integrator_connected": false,
+  "material_geometry_lift_history_event_derivatives_verified": false,
+  "full_original_event_reproduced_by_bem": false,
+  "same_accuracy_fem_advantage_verified": false
+}
