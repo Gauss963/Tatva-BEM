@@ -28,6 +28,8 @@ Galerkin CLI 可用 `--spectrum-directory` 把完整半頻譜存到磁碟，降�
 Radau新增兩family磁碟權重、完整因果startup及耦合stage接觸；
 真實雙block短程解已與重新組裝的原Z_RK歷史核對，原45ms forward亦完成，精度仍未達標。
 新增指定actuator plateau、完整塑性滑移variation及不含CQ的FEM/BEM線性響應對照，分離誤差來源。
+另有[離散高頻輻射項研究](docs/radiation_limit.md)，先核對瞬時／完整歷史分解的係數；
+目前仍是算子診斷，尚未替換正式模擬器或證明加速。
 resolvent 現可直接建立新時間網格，並核對參數、載入及初始狀態的條件式 adjoint；
 小型解與梯度驗證已通過，完整案例的誤差與成本仍需進一步比較。
 另有 [徑向 traction／Horner 組裝實驗](docs/radial_assembly.md)，保留相同積分與物理模型；

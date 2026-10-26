@@ -49,6 +49,13 @@ rupture dynamics?**，Extreme Mechanics Letters 74 (2025), 102272，
 新增[完全相等r的徑向重用實驗](unique_radius.md)服務後續接觸網格加密；
 它不是這篇H-matrix演算法的重現，也尚未量測完整加速。
 
+2026-10-26再核對其式(6)的瞬時速度項／完整歷史分解，
+新增[有限體P1/P0離散輻射高頻檢查](radiation_limit.md)。
+平直面板的混合離散主導項包含P0投影，不能直接換成一致P1 mass；
+小型有限block高階積分控制支持這個推導，目前細網格的最差能量方向仍未接近極限。
+這是本專案推導與算子診斷，並非文獻已證明本案的multirate方法；
+完整事件、反射歷史、穩定性與AD仍須接回後獨立核對。
+
 補讀Linder、Najera-Flores、Kuether、Krack（2026）
 [Enabling topography-resolving structural dynamic contact simulation](https://arxiv.org/html/2603.26446v1)，
 重點為§2.1–2.3與§3.3–3.5。其細接觸半空間BE與降階FE耦合，

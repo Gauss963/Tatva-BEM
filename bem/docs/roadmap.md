@@ -49,6 +49,10 @@ Accumulated-vs-net plastic slip rules out unresolved reversals as the main
 continuous-time FEM/BEM closed-stick responses now separate spatial
 differences from CQ; FEM h1 is closer to the same BEM than h2 at the three
 sampled Laplace points. Nonlinear convergence and the Radau trajectory adjoint remain open.
+The [discrete radiation-limit experiment](radiation_limit.md) now tests a
+possible instantaneous/history split against fresh operators, including the
+P0-projection contribution to the P1/P0 leading term. It is not a production
+multirate solver and has not improved the full-event result.
 
 - [x] Independent Laplace-domain plane-strain Green tensor and source traction.
 - [x] Direct finite-interior boundary operators, jump term and singular integration.

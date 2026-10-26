@@ -1,0 +1,874 @@
+{
+  "date": "2026-10-26",
+  "input_artifacts": {
+    "current_mesh": {
+      "path": "bem/outputs/radiation-limit-current-q12-q24-batch8-4c-20261026/summary.json",
+      "sha256": "5f706280f9558f90ec67938987180631e53f7aec393d33a212e827c50c95bafe"
+    },
+    "coarse_batch32": {
+      "path": "bem/outputs/radiation-limit-coarse-q128-q256-20261026/summary.json",
+      "sha256": "565303cce7cc0f2a61859ec62efcee5f8a846a0f6dede9d3f5ca5564e6cdc182"
+    },
+    "coarse_batch8": {
+      "path": "bem/outputs/radiation-limit-coarse-q128-q256-batch8-20261026/summary.json",
+      "sha256": "66c10b8eb030fd37eedd10cf12bc9f9b6642647cf84e2610e0016cfe6772f52f"
+    },
+    "current_mesh_serial_control": {
+      "path": "bem/outputs/radiation-limit-current-q12-q24-20261026/summary.json",
+      "sha256": "525c2d7b7b3b8b885c30a1addf86b546b17d93cc14c9d9d714f4400f443b5702"
+    }
+  },
+  "records": {
+    "current_mesh": {
+      "status": "completed_radiation_limit_diagnostic_not_a_production_split",
+      "records": [
+        {
+          "quadrature": 12,
+          "points": [
+            {
+              "s_per_s": 10000.0,
+              "mixed_limit_relative_frobenius": 3.9811715403589103,
+              "mixed_limit_relative_energy_operator_norm": 1547.5134312672922,
+              "consistent_mass_relative_frobenius": 3.9660187077120637
+            },
+            {
+              "s_per_s": 100000.0,
+              "mixed_limit_relative_frobenius": 0.35718069320272117,
+              "mixed_limit_relative_energy_operator_norm": 153.855378793763,
+              "consistent_mass_relative_frobenius": 0.3468112899110491
+            },
+            {
+              "s_per_s": 1000000.0,
+              "mixed_limit_relative_frobenius": 0.022630268412496397,
+              "mixed_limit_relative_energy_operator_norm": 14.523288102858293,
+              "consistent_mass_relative_frobenius": 0.018987571956675914
+            },
+            {
+              "s_per_s": 3000000.0,
+              "mixed_limit_relative_frobenius": 0.005375864903907595,
+              "mixed_limit_relative_energy_operator_norm": 4.2734915775925195,
+              "consistent_mass_relative_frobenius": 0.012588076076215962
+            }
+          ],
+          "body_operator_errors": [
+            [
+              {
+                "s_per_s": 10000.0,
+                "sV_relative_frobenius": 0.91992858097685,
+                "H_relative_frobenius": 0.42387717805687075,
+                "D_over_s_relative_frobenius": 25.67716238220844
+              },
+              {
+                "s_per_s": 100000.0,
+                "sV_relative_frobenius": 0.6302977577900636,
+                "H_relative_frobenius": 0.2991699864690258,
+                "D_over_s_relative_frobenius": 2.249797781167723
+              },
+              {
+                "s_per_s": 1000000.0,
+                "sV_relative_frobenius": 0.17275987918492475,
+                "H_relative_frobenius": 0.08921030449527963,
+                "D_over_s_relative_frobenius": 0.13753139783464743
+              },
+              {
+                "s_per_s": 3000000.0,
+                "sV_relative_frobenius": 0.06703610909380667,
+                "H_relative_frobenius": 0.03642766152539394,
+                "D_over_s_relative_frobenius": 0.03031326322036044
+              }
+            ],
+            [
+              {
+                "s_per_s": 10000.0,
+                "sV_relative_frobenius": 0.9213816128541532,
+                "H_relative_frobenius": 0.4279860248481303,
+                "D_over_s_relative_frobenius": 26.447342084547746
+              },
+              {
+                "s_per_s": 100000.0,
+                "sV_relative_frobenius": 0.6358636131325904,
+                "H_relative_frobenius": 0.30160321063569334,
+                "D_over_s_relative_frobenius": 2.318501116682675
+              },
+              {
+                "s_per_s": 1000000.0,
+                "sV_relative_frobenius": 0.17860977897018704,
+                "H_relative_frobenius": 0.09212329081648993,
+                "D_over_s_relative_frobenius": 0.14078130856599547
+              },
+              {
+                "s_per_s": 3000000.0,
+                "sV_relative_frobenius": 0.06911898783990733,
+                "H_relative_frobenius": 0.037590861535321034,
+                "D_over_s_relative_frobenius": 0.030988913209407856
+              }
+            ]
+          ],
+          "relative_difference_from_largest_quadrature": [
+            7.646864411895847e-11,
+            3.010133144829819e-09,
+            7.590779225719614e-07,
+            1.7568104616196235e-05
+          ]
+        },
+        {
+          "quadrature": 24,
+          "points": [
+            {
+              "s_per_s": 10000.0,
+              "mixed_limit_relative_frobenius": 3.9811715405375887,
+              "mixed_limit_relative_energy_operator_norm": 1547.5134312664363,
+              "consistent_mass_relative_frobenius": 3.9660187078900155
+            },
+            {
+              "s_per_s": 100000.0,
+              "mixed_limit_relative_frobenius": 0.3571806948511018,
+              "mixed_limit_relative_energy_operator_norm": 153.8553787858277,
+              "consistent_mass_relative_frobenius": 0.3468112914955565
+            },
+            {
+              "s_per_s": 1000000.0,
+              "mixed_limit_relative_frobenius": 0.02263023087245205,
+              "mixed_limit_relative_energy_operator_norm": 14.523288023594928,
+              "consistent_mass_relative_frobenius": 0.018987530641871385
+            },
+            {
+              "s_per_s": 3000000.0,
+              "mixed_limit_relative_frobenius": 0.005376762990521202,
+              "mixed_limit_relative_energy_operator_norm": 4.27349134182999,
+              "consistent_mass_relative_frobenius": 0.012589180339579112
+            }
+          ],
+          "body_operator_errors": [
+            [
+              {
+                "s_per_s": 10000.0,
+                "sV_relative_frobenius": 0.9199285809750382,
+                "H_relative_frobenius": 0.4238771777845253,
+                "D_over_s_relative_frobenius": 25.6771623891193
+              },
+              {
+                "s_per_s": 100000.0,
+                "sV_relative_frobenius": 0.6302977562409744,
+                "H_relative_frobenius": 0.2991699556926736,
+                "D_over_s_relative_frobenius": 2.249797833511516
+              },
+              {
+                "s_per_s": 1000000.0,
+                "sV_relative_frobenius": 0.17275901766084428,
+                "H_relative_frobenius": 0.08920814345828966,
+                "D_over_s_relative_frobenius": 0.13753162748731262
+              },
+              {
+                "s_per_s": 3000000.0,
+                "sV_relative_frobenius": 0.06701505805186407,
+                "H_relative_frobenius": 0.036407752740052965,
+                "D_over_s_relative_frobenius": 0.0303140991170464
+              }
+            ],
+            [
+              {
+                "s_per_s": 10000.0,
+                "sV_relative_frobenius": 0.9213816128522945,
+                "H_relative_frobenius": 0.4279860245792141,
+                "D_over_s_relative_frobenius": 26.44734209126514
+              },
+              {
+                "s_per_s": 100000.0,
+                "sV_relative_frobenius": 0.6358636115772602,
+                "H_relative_frobenius": 0.301603180453387,
+                "D_over_s_relative_frobenius": 2.3185011679908736
+              },
+              {
+                "s_per_s": 1000000.0,
+                "sV_relative_frobenius": 0.1786089449086652,
+                "H_relative_frobenius": 0.09212123092479661,
+                "D_over_s_relative_frobenius": 0.14078153933873228
+              },
+              {
+                "s_per_s": 3000000.0,
+                "sV_relative_frobenius": 0.06909849017961817,
+                "H_relative_frobenius": 0.03757172525842918,
+                "D_over_s_relative_frobenius": 0.03098974712913592
+              }
+            ]
+          ],
+          "relative_difference_from_largest_quadrature": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      ],
+      "history_dofs": 275,
+      "mesh_arguments": {
+        "max_panel_length": 20.0,
+        "contact_panel_length": 5.0,
+        "contact_end_length": 0.5,
+        "corner_panel_length": 0.5,
+        "restart_knot_window": 8.0,
+        "restart_knot_subdivisions": 4
+      },
+      "boundary_panels": [
+        250,
+        254
+      ],
+      "frequency_workers": 4,
+      "batch_pairs": 8,
+      "minimum_derived_radiation_eigenvalue": 8.232831765027051e-05,
+      "estimated_prepared_body_array_mib": {
+        "12": 1345.56982421875,
+        "24": 2663.4677734375
+      },
+      "array_estimate_scope": "Prepared geometry, concurrent frequency matrices and batch scratch; not an OS RSS limit",
+      "peak_process_rss_mib": 2079.859375,
+      "total_seconds_before_reporting": 132.58430591598153,
+      "frozen_input_sha256": {
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/compact-radau6-q12-kernel/summary.json": "72d8987e4990b8f4fe8daedadddf815c4da3be77a5ac8580aa9a1f02ea813f0f",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/radiation_limit_experiment.py": "1deb63a401c77ca0ddadb59dd4222191c9f49a36832cf6c70f87ddc82299cdf2"
+      },
+      "operators_sha256": "4afae95d631ea0b4885cc59fab73991e00919bb79e38a02c229efc4bbaefc136",
+      "scope": "Positive-real-frequency, fixed-space principal-limit hypothesis and quadrature diagnostic only; no history discarded, time integrator changed or nonlinear event/stability/AD/speed advantage established",
+      "original_tatva_readonly": true,
+      "same_accuracy_fem_advantage_verified": false
+    },
+    "coarse_batch32": {
+      "status": "completed_radiation_limit_diagnostic_not_a_production_split",
+      "records": [
+        {
+          "quadrature": 128,
+          "points": [
+            {
+              "s_per_s": 100000.0,
+              "mixed_limit_relative_frobenius": 0.1006081297656726,
+              "mixed_limit_relative_energy_operator_norm": 0.23220375357802994,
+              "consistent_mass_relative_frobenius": 0.2180878928387543
+            },
+            {
+              "s_per_s": 1000000.0,
+              "mixed_limit_relative_frobenius": 0.015742102602284275,
+              "mixed_limit_relative_energy_operator_norm": 0.03690701881434288,
+              "consistent_mass_relative_frobenius": 0.1551111432422103
+            },
+            {
+              "s_per_s": 10000000.0,
+              "mixed_limit_relative_frobenius": 0.001644130610151315,
+              "mixed_limit_relative_energy_operator_norm": 0.0038739376087374693,
+              "consistent_mass_relative_frobenius": 0.14453464241348343
+            },
+            {
+              "s_per_s": 100000000.0,
+              "mixed_limit_relative_frobenius": 0.0002759150242257899,
+              "mixed_limit_relative_energy_operator_norm": 0.001276201867655103,
+              "consistent_mass_relative_frobenius": 0.1434780560034197
+            }
+          ],
+          "body_operator_errors": [
+            [
+              {
+                "s_per_s": 100000.0,
+                "sV_relative_frobenius": 0.16009090486047023,
+                "H_relative_frobenius": 0.13129326873129685,
+                "D_over_s_relative_frobenius": 0.08928747512776092
+              },
+              {
+                "s_per_s": 1000000.0,
+                "sV_relative_frobenius": 0.016605409052059455,
+                "H_relative_frobenius": 0.01517564053988674,
+                "D_over_s_relative_frobenius": 0.011167007940536164
+              },
+              {
+                "s_per_s": 10000000.0,
+                "sV_relative_frobenius": 0.001660944547015396,
+                "H_relative_frobenius": 0.0015405157359359646,
+                "D_over_s_relative_frobenius": 0.0011792179083803497
+              },
+              {
+                "s_per_s": 100000000.0,
+                "sV_relative_frobenius": 0.0009750122445081891,
+                "H_relative_frobenius": 0.0001557095174797272,
+                "D_over_s_relative_frobenius": 0.0007698288305403873
+              }
+            ],
+            [
+              {
+                "s_per_s": 100000.0,
+                "sV_relative_frobenius": 0.14459069043910286,
+                "H_relative_frobenius": 0.12926575048647113,
+                "D_over_s_relative_frobenius": 0.08556361417957455
+              },
+              {
+                "s_per_s": 1000000.0,
+                "sV_relative_frobenius": 0.014592452161692814,
+                "H_relative_frobenius": 0.014391116185111538,
+                "D_over_s_relative_frobenius": 0.01145173315078667
+              },
+              {
+                "s_per_s": 10000000.0,
+                "sV_relative_frobenius": 0.001459792420553155,
+                "H_relative_frobenius": 0.0014541244480380281,
+                "D_over_s_relative_frobenius": 0.001189776164018124
+              },
+              {
+                "s_per_s": 100000000.0,
+                "sV_relative_frobenius": 0.0014198249636433364,
+                "H_relative_frobenius": 0.00014759340247086697,
+                "D_over_s_relative_frobenius": 0.0011414392937005692
+              }
+            ]
+          ],
+          "relative_difference_from_largest_quadrature": [
+            8.467179512447173e-13,
+            2.0371852357422842e-10,
+            1.9317009109183871e-07,
+            0.00022007552472264679
+          ]
+        },
+        {
+          "quadrature": 256,
+          "points": [
+            {
+              "s_per_s": 100000.0,
+              "mixed_limit_relative_frobenius": 0.1006081297651046,
+              "mixed_limit_relative_energy_operator_norm": 0.2322037535764356,
+              "consistent_mass_relative_frobenius": 0.2180878928381299
+            },
+            {
+              "s_per_s": 1000000.0,
+              "mixed_limit_relative_frobenius": 0.015742102553945408,
+              "mixed_limit_relative_energy_operator_norm": 0.03690701833188766,
+              "consistent_mass_relative_frobenius": 0.155111143161039
+            },
+            {
+              "s_per_s": 10000000.0,
+              "mixed_limit_relative_frobenius": 0.0016441326451616227,
+              "mixed_limit_relative_energy_operator_norm": 0.003873547828946762,
+              "consistent_mass_relative_frobenius": 0.1445346019124119
+            },
+            {
+              "s_per_s": 100000000.0,
+              "mixed_limit_relative_frobenius": 0.00016504338300014527,
+              "mixed_limit_relative_energy_operator_norm": 0.0003954490033733708,
+              "consistent_mass_relative_frobenius": 0.14343437690209815
+            }
+          ],
+          "body_operator_errors": [
+            [
+              {
+                "s_per_s": 100000.0,
+                "sV_relative_frobenius": 0.16009090486006622,
+                "H_relative_frobenius": 0.13129326873015515,
+                "D_over_s_relative_frobenius": 0.08928747512788952
+              },
+              {
+                "s_per_s": 1000000.0,
+                "sV_relative_frobenius": 0.016605408683681936,
+                "H_relative_frobenius": 0.015175640431503316,
+                "D_over_s_relative_frobenius": 0.011167007729884713
+              },
+              {
+                "s_per_s": 10000000.0,
+                "sV_relative_frobenius": 0.0016605756462394726,
+                "H_relative_frobenius": 0.0015405049111553851,
+                "D_over_s_relative_frobenius": 0.0011789995276382536
+              },
+              {
+                "s_per_s": 100000000.0,
+                "sV_relative_frobenius": 0.00017233832244433777,
+                "H_relative_frobenius": 0.0001543017644365472,
+                "D_over_s_relative_frobenius": 0.0001224765212647147
+              }
+            ],
+            [
+              {
+                "s_per_s": 100000.0,
+                "sV_relative_frobenius": 0.14459069043856357,
+                "H_relative_frobenius": 0.12926575048488687,
+                "D_over_s_relative_frobenius": 0.08556361417940107
+              },
+              {
+                "s_per_s": 1000000.0,
+                "sV_relative_frobenius": 0.014592451623827017,
+                "H_relative_frobenius": 0.014391116030185397,
+                "D_over_s_relative_frobenius": 0.01145173274884685
+              },
+              {
+                "s_per_s": 10000000.0,
+                "sV_relative_frobenius": 0.001459253791285252,
+                "H_relative_frobenius": 0.0014541089030243265,
+                "D_over_s_relative_frobenius": 0.001189368483808572
+              },
+              {
+                "s_per_s": 100000000.0,
+                "sV_relative_frobenius": 0.00015541494928716506,
+                "H_relative_frobenius": 0.0001455876494540004,
+                "D_over_s_relative_frobenius": 0.00012666025721245957
+              }
+            ]
+          ],
+          "relative_difference_from_largest_quadrature": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      ],
+      "history_dofs": 11,
+      "mesh_arguments": {
+        "max_panel_length": 150.0,
+        "contact_panel_length": 150.0,
+        "contact_end_length": null,
+        "corner_panel_length": null,
+        "restart_knot_window": null,
+        "restart_knot_subdivisions": 1
+      },
+      "boundary_panels": [
+        13,
+        11
+      ],
+      "frequency_workers": 4,
+      "minimum_derived_radiation_eigenvalue": 0.02229743613491241,
+      "estimated_prepared_body_array_mib": {
+        "128": 669.056884765625,
+        "256": 1137.056884765625
+      },
+      "peak_process_rss_mib": 8749.046875,
+      "total_seconds_before_reporting": 39.532539333216846,
+      "frozen_input_sha256": {
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/compact-radau6-q12-kernel/summary.json": "72d8987e4990b8f4fe8daedadddf815c4da3be77a5ac8580aa9a1f02ea813f0f",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/radiation_limit_experiment.py": "d2d92850b40fbd80eafd1a54a1e26c942cc36e3e61d0b1d476694f6d8a3c022b"
+      },
+      "operators_sha256": "eeea91054d43d88fcd76ecbab5debfcbd25fd3ae4d85c194b5c2c061983d609e",
+      "scope": "Positive-real-frequency, fixed-space principal-limit hypothesis and quadrature diagnostic only; no history discarded, time integrator changed or nonlinear event/stability/AD/speed advantage established",
+      "original_tatva_readonly": true,
+      "same_accuracy_fem_advantage_verified": false
+    },
+    "coarse_batch8": {
+      "status": "completed_radiation_limit_diagnostic_not_a_production_split",
+      "records": [
+        {
+          "quadrature": 128,
+          "points": [
+            {
+              "s_per_s": 100000.0,
+              "mixed_limit_relative_frobenius": 0.1006081297656726,
+              "mixed_limit_relative_energy_operator_norm": 0.23220375357802994,
+              "consistent_mass_relative_frobenius": 0.2180878928387543
+            },
+            {
+              "s_per_s": 1000000.0,
+              "mixed_limit_relative_frobenius": 0.015742102602284275,
+              "mixed_limit_relative_energy_operator_norm": 0.03690701881434288,
+              "consistent_mass_relative_frobenius": 0.1551111432422103
+            },
+            {
+              "s_per_s": 10000000.0,
+              "mixed_limit_relative_frobenius": 0.001644130610151315,
+              "mixed_limit_relative_energy_operator_norm": 0.0038739376087374693,
+              "consistent_mass_relative_frobenius": 0.14453464241348343
+            },
+            {
+              "s_per_s": 100000000.0,
+              "mixed_limit_relative_frobenius": 0.0002759150242257899,
+              "mixed_limit_relative_energy_operator_norm": 0.001276201867655103,
+              "consistent_mass_relative_frobenius": 0.1434780560034197
+            }
+          ],
+          "body_operator_errors": [
+            [
+              {
+                "s_per_s": 100000.0,
+                "sV_relative_frobenius": 0.16009090486047023,
+                "H_relative_frobenius": 0.13129326873129685,
+                "D_over_s_relative_frobenius": 0.08928747512776092
+              },
+              {
+                "s_per_s": 1000000.0,
+                "sV_relative_frobenius": 0.016605409052059455,
+                "H_relative_frobenius": 0.01517564053988674,
+                "D_over_s_relative_frobenius": 0.011167007940536164
+              },
+              {
+                "s_per_s": 10000000.0,
+                "sV_relative_frobenius": 0.001660944547015396,
+                "H_relative_frobenius": 0.0015405157359359646,
+                "D_over_s_relative_frobenius": 0.0011792179083803497
+              },
+              {
+                "s_per_s": 100000000.0,
+                "sV_relative_frobenius": 0.0009750122445081891,
+                "H_relative_frobenius": 0.0001557095174797272,
+                "D_over_s_relative_frobenius": 0.0007698288305403873
+              }
+            ],
+            [
+              {
+                "s_per_s": 100000.0,
+                "sV_relative_frobenius": 0.14459069043910286,
+                "H_relative_frobenius": 0.12926575048647113,
+                "D_over_s_relative_frobenius": 0.08556361417957455
+              },
+              {
+                "s_per_s": 1000000.0,
+                "sV_relative_frobenius": 0.014592452161692814,
+                "H_relative_frobenius": 0.014391116185111538,
+                "D_over_s_relative_frobenius": 0.01145173315078667
+              },
+              {
+                "s_per_s": 10000000.0,
+                "sV_relative_frobenius": 0.001459792420553155,
+                "H_relative_frobenius": 0.0014541244480380281,
+                "D_over_s_relative_frobenius": 0.001189776164018124
+              },
+              {
+                "s_per_s": 100000000.0,
+                "sV_relative_frobenius": 0.0014198249636433364,
+                "H_relative_frobenius": 0.00014759340247086697,
+                "D_over_s_relative_frobenius": 0.0011414392937005692
+              }
+            ]
+          ],
+          "relative_difference_from_largest_quadrature": [
+            8.467179512447173e-13,
+            2.0371852357422842e-10,
+            1.9317009109183871e-07,
+            0.00022007552472264679
+          ]
+        },
+        {
+          "quadrature": 256,
+          "points": [
+            {
+              "s_per_s": 100000.0,
+              "mixed_limit_relative_frobenius": 0.1006081297651046,
+              "mixed_limit_relative_energy_operator_norm": 0.2322037535764356,
+              "consistent_mass_relative_frobenius": 0.2180878928381299
+            },
+            {
+              "s_per_s": 1000000.0,
+              "mixed_limit_relative_frobenius": 0.015742102553945408,
+              "mixed_limit_relative_energy_operator_norm": 0.03690701833188766,
+              "consistent_mass_relative_frobenius": 0.155111143161039
+            },
+            {
+              "s_per_s": 10000000.0,
+              "mixed_limit_relative_frobenius": 0.0016441326451616227,
+              "mixed_limit_relative_energy_operator_norm": 0.003873547828946762,
+              "consistent_mass_relative_frobenius": 0.1445346019124119
+            },
+            {
+              "s_per_s": 100000000.0,
+              "mixed_limit_relative_frobenius": 0.00016504338300014527,
+              "mixed_limit_relative_energy_operator_norm": 0.0003954490033733708,
+              "consistent_mass_relative_frobenius": 0.14343437690209815
+            }
+          ],
+          "body_operator_errors": [
+            [
+              {
+                "s_per_s": 100000.0,
+                "sV_relative_frobenius": 0.16009090486006622,
+                "H_relative_frobenius": 0.13129326873015515,
+                "D_over_s_relative_frobenius": 0.08928747512788952
+              },
+              {
+                "s_per_s": 1000000.0,
+                "sV_relative_frobenius": 0.016605408683681936,
+                "H_relative_frobenius": 0.015175640431503316,
+                "D_over_s_relative_frobenius": 0.011167007729884713
+              },
+              {
+                "s_per_s": 10000000.0,
+                "sV_relative_frobenius": 0.0016605756462394726,
+                "H_relative_frobenius": 0.0015405049111553851,
+                "D_over_s_relative_frobenius": 0.0011789995276382536
+              },
+              {
+                "s_per_s": 100000000.0,
+                "sV_relative_frobenius": 0.00017233832244433777,
+                "H_relative_frobenius": 0.0001543017644365472,
+                "D_over_s_relative_frobenius": 0.0001224765212647147
+              }
+            ],
+            [
+              {
+                "s_per_s": 100000.0,
+                "sV_relative_frobenius": 0.14459069043856357,
+                "H_relative_frobenius": 0.12926575048488687,
+                "D_over_s_relative_frobenius": 0.08556361417940107
+              },
+              {
+                "s_per_s": 1000000.0,
+                "sV_relative_frobenius": 0.014592451623827017,
+                "H_relative_frobenius": 0.014391116030185397,
+                "D_over_s_relative_frobenius": 0.01145173274884685
+              },
+              {
+                "s_per_s": 10000000.0,
+                "sV_relative_frobenius": 0.001459253791285252,
+                "H_relative_frobenius": 0.0014541089030243265,
+                "D_over_s_relative_frobenius": 0.001189368483808572
+              },
+              {
+                "s_per_s": 100000000.0,
+                "sV_relative_frobenius": 0.00015541494928716506,
+                "H_relative_frobenius": 0.0001455876494540004,
+                "D_over_s_relative_frobenius": 0.00012666025721245957
+              }
+            ]
+          ],
+          "relative_difference_from_largest_quadrature": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      ],
+      "history_dofs": 11,
+      "mesh_arguments": {
+        "max_panel_length": 150.0,
+        "contact_panel_length": 150.0,
+        "contact_end_length": null,
+        "corner_panel_length": null,
+        "restart_knot_window": null,
+        "restart_knot_subdivisions": 1
+      },
+      "boundary_panels": [
+        13,
+        11
+      ],
+      "frequency_workers": 4,
+      "batch_pairs": 8,
+      "minimum_derived_radiation_eigenvalue": 0.02229743613491241,
+      "estimated_prepared_body_array_mib": {
+        "128": 1693.056884765625,
+        "256": 5233.056884765625
+      },
+      "array_estimate_scope": "Prepared geometry, concurrent frequency matrices and batch scratch; not an OS RSS limit",
+      "peak_process_rss_mib": 5044.015625,
+      "total_seconds_before_reporting": 37.58361279126257,
+      "frozen_input_sha256": {
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/compact-radau6-q12-kernel/summary.json": "72d8987e4990b8f4fe8daedadddf815c4da3be77a5ac8580aa9a1f02ea813f0f",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/radiation_limit_experiment.py": "1deb63a401c77ca0ddadb59dd4222191c9f49a36832cf6c70f87ddc82299cdf2"
+      },
+      "operators_sha256": "eeea91054d43d88fcd76ecbab5debfcbd25fd3ae4d85c194b5c2c061983d609e",
+      "scope": "Positive-real-frequency, fixed-space principal-limit hypothesis and quadrature diagnostic only; no history discarded, time integrator changed or nonlinear event/stability/AD/speed advantage established",
+      "original_tatva_readonly": true,
+      "same_accuracy_fem_advantage_verified": false
+    },
+    "current_mesh_serial_control": {
+      "status": "completed_radiation_limit_diagnostic_not_a_production_split",
+      "records": [
+        {
+          "quadrature": 12,
+          "points": [
+            {
+              "s_per_s": 10000.0,
+              "mixed_limit_relative_frobenius": 3.9811715403589103,
+              "mixed_limit_relative_energy_operator_norm": 1547.5134312672922,
+              "consistent_mass_relative_frobenius": 3.9660187077120637
+            },
+            {
+              "s_per_s": 100000.0,
+              "mixed_limit_relative_frobenius": 0.35718069320272117,
+              "mixed_limit_relative_energy_operator_norm": 153.855378793763,
+              "consistent_mass_relative_frobenius": 0.3468112899110491
+            },
+            {
+              "s_per_s": 1000000.0,
+              "mixed_limit_relative_frobenius": 0.022630268412496397,
+              "mixed_limit_relative_energy_operator_norm": 14.523288102858293,
+              "consistent_mass_relative_frobenius": 0.018987571956675914
+            },
+            {
+              "s_per_s": 3000000.0,
+              "mixed_limit_relative_frobenius": 0.005375864903907595,
+              "mixed_limit_relative_energy_operator_norm": 4.2734915775925195,
+              "consistent_mass_relative_frobenius": 0.012588076076215962
+            }
+          ],
+          "body_operator_errors": [
+            [
+              {
+                "s_per_s": 10000.0,
+                "sV_relative_frobenius": 0.91992858097685,
+                "H_relative_frobenius": 0.42387717805687075,
+                "D_over_s_relative_frobenius": 25.67716238220844
+              },
+              {
+                "s_per_s": 100000.0,
+                "sV_relative_frobenius": 0.6302977577900636,
+                "H_relative_frobenius": 0.2991699864690258,
+                "D_over_s_relative_frobenius": 2.249797781167723
+              },
+              {
+                "s_per_s": 1000000.0,
+                "sV_relative_frobenius": 0.17275987918492475,
+                "H_relative_frobenius": 0.08921030449527963,
+                "D_over_s_relative_frobenius": 0.13753139783464743
+              },
+              {
+                "s_per_s": 3000000.0,
+                "sV_relative_frobenius": 0.06703610909380667,
+                "H_relative_frobenius": 0.03642766152539394,
+                "D_over_s_relative_frobenius": 0.03031326322036044
+              }
+            ],
+            [
+              {
+                "s_per_s": 10000.0,
+                "sV_relative_frobenius": 0.9213816128541532,
+                "H_relative_frobenius": 0.4279860248481303,
+                "D_over_s_relative_frobenius": 26.447342084547746
+              },
+              {
+                "s_per_s": 100000.0,
+                "sV_relative_frobenius": 0.6358636131325904,
+                "H_relative_frobenius": 0.30160321063569334,
+                "D_over_s_relative_frobenius": 2.318501116682675
+              },
+              {
+                "s_per_s": 1000000.0,
+                "sV_relative_frobenius": 0.17860977897018704,
+                "H_relative_frobenius": 0.09212329081648993,
+                "D_over_s_relative_frobenius": 0.14078130856599547
+              },
+              {
+                "s_per_s": 3000000.0,
+                "sV_relative_frobenius": 0.06911898783990733,
+                "H_relative_frobenius": 0.037590861535321034,
+                "D_over_s_relative_frobenius": 0.030988913209407856
+              }
+            ]
+          ],
+          "relative_difference_from_largest_quadrature": [
+            7.646864411895847e-11,
+            3.010133144829819e-09,
+            7.590779225719614e-07,
+            1.7568104616196235e-05
+          ]
+        },
+        {
+          "quadrature": 24,
+          "points": [
+            {
+              "s_per_s": 10000.0,
+              "mixed_limit_relative_frobenius": 3.9811715405375887,
+              "mixed_limit_relative_energy_operator_norm": 1547.5134312664363,
+              "consistent_mass_relative_frobenius": 3.9660187078900155
+            },
+            {
+              "s_per_s": 100000.0,
+              "mixed_limit_relative_frobenius": 0.3571806948511018,
+              "mixed_limit_relative_energy_operator_norm": 153.8553787858277,
+              "consistent_mass_relative_frobenius": 0.3468112914955565
+            },
+            {
+              "s_per_s": 1000000.0,
+              "mixed_limit_relative_frobenius": 0.02263023087245205,
+              "mixed_limit_relative_energy_operator_norm": 14.523288023594928,
+              "consistent_mass_relative_frobenius": 0.018987530641871385
+            },
+            {
+              "s_per_s": 3000000.0,
+              "mixed_limit_relative_frobenius": 0.005376762990521202,
+              "mixed_limit_relative_energy_operator_norm": 4.27349134182999,
+              "consistent_mass_relative_frobenius": 0.012589180339579112
+            }
+          ],
+          "body_operator_errors": [
+            [
+              {
+                "s_per_s": 10000.0,
+                "sV_relative_frobenius": 0.9199285809750382,
+                "H_relative_frobenius": 0.4238771777845253,
+                "D_over_s_relative_frobenius": 25.6771623891193
+              },
+              {
+                "s_per_s": 100000.0,
+                "sV_relative_frobenius": 0.6302977562409744,
+                "H_relative_frobenius": 0.2991699556926736,
+                "D_over_s_relative_frobenius": 2.249797833511516
+              },
+              {
+                "s_per_s": 1000000.0,
+                "sV_relative_frobenius": 0.17275901766084428,
+                "H_relative_frobenius": 0.08920814345828966,
+                "D_over_s_relative_frobenius": 0.13753162748731262
+              },
+              {
+                "s_per_s": 3000000.0,
+                "sV_relative_frobenius": 0.06701505805186407,
+                "H_relative_frobenius": 0.036407752740052965,
+                "D_over_s_relative_frobenius": 0.0303140991170464
+              }
+            ],
+            [
+              {
+                "s_per_s": 10000.0,
+                "sV_relative_frobenius": 0.9213816128522945,
+                "H_relative_frobenius": 0.4279860245792141,
+                "D_over_s_relative_frobenius": 26.44734209126514
+              },
+              {
+                "s_per_s": 100000.0,
+                "sV_relative_frobenius": 0.6358636115772602,
+                "H_relative_frobenius": 0.301603180453387,
+                "D_over_s_relative_frobenius": 2.3185011679908736
+              },
+              {
+                "s_per_s": 1000000.0,
+                "sV_relative_frobenius": 0.1786089449086652,
+                "H_relative_frobenius": 0.09212123092479661,
+                "D_over_s_relative_frobenius": 0.14078153933873228
+              },
+              {
+                "s_per_s": 3000000.0,
+                "sV_relative_frobenius": 0.06909849017961817,
+                "H_relative_frobenius": 0.03757172525842918,
+                "D_over_s_relative_frobenius": 0.03098974712913592
+              }
+            ]
+          ],
+          "relative_difference_from_largest_quadrature": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      ],
+      "history_dofs": 275,
+      "minimum_derived_radiation_eigenvalue": 8.232831765027051e-05,
+      "estimated_prepared_body_array_mib": {
+        "12": 747.80712890625,
+        "24": 2038.705078125
+      },
+      "peak_process_rss_mib": 1787.5,
+      "total_seconds_before_reporting": 355.67460508365184,
+      "frozen_input_sha256": {
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/compact-radau6-q12-kernel/summary.json": "72d8987e4990b8f4fe8daedadddf815c4da3be77a5ac8580aa9a1f02ea813f0f",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/radiation_limit_experiment.py": "67cb447883dd9e2907a3a46e2c745263bb43cdb1e45cb47a1d5f3463a3560e8b"
+      },
+      "operators_sha256": "4afae95d631ea0b4885cc59fab73991e00919bb79e38a02c229efc4bbaefc136",
+      "scope": "Positive-real-frequency, fixed-space principal-limit hypothesis and quadrature diagnostic only; no history discarded, time integrator changed or nonlinear event/stability/AD/speed advantage established",
+      "original_tatva_readonly": true,
+      "same_accuracy_fem_advantage_verified": false
+    }
+  },
+  "thread_environment": {
+    "FDBEM_CORES": "4",
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "VECLIB_MAXIMUM_THREADS": "1",
+    "XLA_FLAGS": "--xla_cpu_multi_thread_eigen=false intra_op_parallelism_threads=4",
+    "JAX_ENABLE_X64": "true"
+  },
+  "batch8_and_batch32_operators_bitwise_equal": true,
+  "same_accuracy_fem_advantage_verified": false,
+  "scope": "Derived mixed-discrete principal coefficient, fresh finite-body operator and quadrature checks only; not a multirate nonlinear solver or a high-frequency bound on the full complex CQ contour.",
+  "current_mesh_replay_operators_bitwise_equal": true
+}

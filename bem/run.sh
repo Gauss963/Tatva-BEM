@@ -75,6 +75,9 @@ elif [ "${1:-}" = slip-variation-audit ]; then
 elif [ "${1:-}" = linear-bulk-compare ]; then
     shift
     exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/compare_linear_bulk_response.py" "$@"
+elif [ "${1:-}" = radiation-limit ]; then
+    shift
+    exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/radiation_limit_experiment.py" "$@"
 elif [ "${1:-}" = disk-spectrum-benchmark ]; then
     shift
     exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/benchmark_disk_spectrum.py" "$@"
