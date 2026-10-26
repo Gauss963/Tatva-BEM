@@ -77,10 +77,13 @@ def test_initialized_complete_contact_gradient_matches_original_z_reinitializati
         AD["initialized_gradient"](
             method, static, jacobian, reference, history, result, constitutive_substeps=substeps
         )
-        for method in ("forward_gradient", "reverse_gradient")
+        for method in ("forward_gradient", "reverse_gradient", "batched_forward_gradient")
     ]
     np.testing.assert_allclose(
         gradients[0]["gradient"], gradients[1]["gradient"], rtol=1e-9, atol=1e-10
+    )
+    np.testing.assert_allclose(
+        gradients[2]["gradient"], gradients[1]["gradient"], rtol=1e-9, atol=1e-10
     )
     wc = reference.constraints.contact_weights
     for j, epsilon in enumerate([1e-3, 1e-3, 1e-5, 1e-5, 1e-5]):

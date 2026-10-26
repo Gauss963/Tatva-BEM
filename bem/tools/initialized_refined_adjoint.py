@@ -15,6 +15,7 @@ import numpy as np
 
 TOOLS = Path(__file__).resolve().parent
 BASE = runpy.run_path(str(TOOLS / "refined_contact_adjoint.py"))
+BATCHED = runpy.run_path(str(TOOLS / "batched_refined_adjoint.py"))
 
 
 def initialized_context(static_system, static_sensitivity):
@@ -80,17 +81,20 @@ def initialized_context(static_system, static_sensitivity):
 def initialized_gradient(
     method, static_system, static_sensitivity, reference, history, result, **keywords
 ):
-    if method not in ("forward_gradient", "reverse_gradient"):
+    if method not in ("forward_gradient", "reverse_gradient", "batched_forward_gradient"):
         raise ValueError("Choose the complete forward or reverse gradient engine")
-    original = BASE[method]
+    original = (
+        BATCHED["forward_gradient_batched"]
+        if method == "batched_forward_gradient"
+        else BASE[method]
+    )
     # Explicitly inject only the mathematical context; reuse the independently
     # tested causal loop, previous-path cotangents and actuator contributions.
-    engine = FunctionType(
-        original.__code__,
-        {**original.__globals__, "context": initialized_context(static_system, static_sensitivity)},
-        original.__name__,
-        original.__defaults__,
-    )
+    context = initialized_context(static_system, static_sensitivity)
+    globals_ = {**original.__globals__, "context": context}
+    if method == "batched_forward_gradient":
+        globals_["AD"] = {**BATCHED["AD"], "context": context}
+    engine = FunctionType(original.__code__, globals_, original.__name__, original.__defaults__)
     engine.__kwdefaults__ = original.__kwdefaults__
     answer = engine(reference, history, result, **keywords)
     answer.update(

@@ -18,3 +18,7 @@ bulk 矩陣之差。Newton 與 active-set 迭代都不反傳。
 平衡，再執行完整短程動態，核對五個接觸參數及 forward/reverse agreement；
 單子步與四子步分開。這是新原型，CI 與真實完整 event 驗證尚待完成，沒有
 切換目前 frozen 的完整事件研究。材料／幾何與載入停止時間導數仍未包含。
+
+同一初始化 context 亦可注入 `batched_forward_gradient`，共用五方向的完整
+kernel FFT。測試會把它與五個 scalar JVP、reverse VJP 及重新初始化的
+original-Z 有限差分分開核對；運算次數下降不代替完整計時。
