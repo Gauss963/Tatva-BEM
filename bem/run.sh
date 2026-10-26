@@ -123,6 +123,9 @@ elif [ "${1:-}" = resolvent-extend ]; then
 elif [ "${1:-}" = refined-contact-simulate ]; then
     shift
     exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/simulate_refined_contact.py" "$@"
+elif [ "${1:-}" = refined-contact-ad-check ]; then
+    shift
+    exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/check_refined_contact_ad.py" "$@"
 elif [ "${1:-}" = resolvent-adjoint ]; then
     shift
     exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/adjoint_resolvent.py" "$@"

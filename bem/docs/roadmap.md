@@ -78,6 +78,13 @@ structure with the original point law, converged-root gating and implicit AD.
 Manufactured full-mesh roots and three-step state derivatives pass independent
 dense/NumPy and JVP checks. The retarded integrator is still not connected;
 these checks have not changed the full-event accuracy or paid kernel cost.
+The [refined contact integration experiment](refined_contact.md) keeps the
+275-DOF bulk operator while using positive, work-conjugate fine contact states.
+Static full-body balance and short sliding trajectories pass direct original-Z
+checks. Since even sticking can produce a correction, the new path requires
+all 45 ms of coefficients from step one; a resource preflight is complete,
+but the actual extension and full-event refinement results remain pending.
+The new independent-grid full-history AD is under separate regression checks.
 
 - [x] Independent Laplace-domain plane-strain Green tensor and source traction.
 - [x] Direct finite-interior boundary operators, jump term and singular integration.

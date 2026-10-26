@@ -55,6 +55,8 @@ def save_trajectory(output, model, space, lift, result, summary):
         contact_interpolation=space.interpolation,
         retained_contact_y=space.bulk_y,
         retained_displacement=q,
+        initial_retained_displacement=lift.retained_displacement,
+        initial_retained_bulk_force=lift.retained_bulk_force,
         contact_jumps=fine_jump,
         moving_starts=ref.moving.starts,
         moving_ends=ref.moving.ends,
