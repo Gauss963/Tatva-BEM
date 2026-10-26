@@ -137,6 +137,26 @@ def test_reconstruction_guard_rejects_nonendpoint_coupling(coarse_reference):
         CHAIN.from_dense(model, bad)
 
 
+def test_two_node_contact_uses_constant_size_jax_solve():
+    jax = pytest.importorskip("jax")
+    import jax.numpy as jnp
+
+    model, _, reference = reference_model(max_panel_length=600, contact_panel_length=600)
+    chain = CHAIN.from_dense(model, reference)
+    assert chain.nodes == 2
+    tangent = mixed_tangent(model)
+    rhs = np.linspace(0.1, 1.0, len(reference))
+    a, spring = 1e5, 5000.0
+    matrix = chain.dense_step(a, tangent, spring)
+    fn = chain.jax_solver()
+    actual = fn(jnp.asarray(rhs), a, jnp.asarray(tangent), spring)
+    np.testing.assert_allclose(actual, np.linalg.solve(matrix, rhs), rtol=2e-11, atol=1e-14)
+    gradient = jax.grad(lambda b: jnp.sum(fn(b, a, jnp.asarray(tangent), spring)))(jnp.asarray(rhs))
+    np.testing.assert_allclose(
+        gradient, np.linalg.solve(matrix.T, np.ones(len(reference))), rtol=2e-11, atol=1e-14
+    )
+
+
 @pytest.mark.parametrize("change", ["pressure_shear", "negative", "nonfinite", "scale", "spring"])
 def test_unsupported_step_inputs_are_rejected(coarse_reference, change):
     model, _, reference = coarse_reference
