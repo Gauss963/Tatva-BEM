@@ -81,6 +81,9 @@ elif [ "${1:-}" = radiation-limit ]; then
 elif [ "${1:-}" = radiation-bar ]; then
     shift
     exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/radiation_bar_experiment.py" "$@"
+elif [ "${1:-}" = radiation-ad-benchmark ]; then
+    shift
+    exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/benchmark_bar_adjoint.py" "$@"
 elif [ "${1:-}" = disk-spectrum-benchmark ]; then
     shift
     exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/benchmark_disk_spectrum.py" "$@"

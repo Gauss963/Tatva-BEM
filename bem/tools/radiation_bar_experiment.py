@@ -144,15 +144,16 @@ def reflected_traction(velocity, delay, radiation):
 def fine_delay_adjoint(parameters, states, forcing, incoming, *, dt, delay, radiation, pressure):
     """Reverse all reflected images with O(N+delay) storage and local JAX VJPs.
 
-    g[n+delay] = g[n] + 2*C*(q[n]-q[n-1])/dt. The cotangent of this recurrence
-    is propagated explicitly; no tape of every complete forward ring is needed.
+    g[n+delay] = g[n] + 2*C*(q[n]-q[n-1])/dt. A reverse-time ring contains the
+    completed future-image cotangents; no complete forward-ring tape is needed.
     The scalar objective is the final cumulative slip on the recorded branches.
     """
     count = len(states)
 
     def backward(carry, index):
         state_bar, history_bar, gradient = carry
-        future = history_bar[index + delay]
+        slot = index % delay
+        future = history_bar[slot]
         current_bar = state_bar.at[0].add(2 * radiation / dt * future)
         previous = jnp.where(index > 0, states[jnp.maximum(index - 1, 0)], jnp.zeros(3))
 
@@ -171,11 +172,11 @@ def fine_delay_adjoint(parameters, states, forcing, incoming, *, dt, delay, radi
 
         _, pullback = jax.vjp(point, previous, incoming[index], parameters)
         old_bar, local_history_bar, parameter_bar = pullback(current_bar)
-        history_bar = history_bar.at[index].set(future + local_history_bar)
+        history_bar = history_bar.at[slot].set(future + local_history_bar)
         old_bar = old_bar.at[0].add(-2 * radiation / dt * future)
         return (old_bar, history_bar, gradient + parameter_bar), None
 
-    initial = (jnp.array([0.0, 0.0, 1.0]), jnp.zeros(count + delay), jnp.zeros_like(parameters))
+    initial = (jnp.array([0.0, 0.0, 1.0]), jnp.zeros(delay), jnp.zeros_like(parameters))
     result, _ = jax.lax.scan(backward, initial, jnp.arange(count - 1, -1, -1))
     return result[2]
 
@@ -450,7 +451,7 @@ def main():
             timing_seconds=fine_time,
             forward_check_seconds=fine_forward_seconds,
             estimated_saved_primal_trace_bytes=count * 5 * 8,
-            reverse_history_cotangent_bytes=(count + delay) * 8,
+            reverse_history_cotangent_bytes=delay * 8,
             naive_ring_tape_bytes=count * delay * 8,
             scope="Full fine reflected history and all five contact parameters; terminal cumulative slip at fixed pressure, material, loading and recorded branches. Array sizes are not total process RSS.",
         ),
