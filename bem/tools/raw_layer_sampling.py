@@ -85,7 +85,16 @@ class RawSamplingOptions:
 
 
 def sample_raw_layers(
-    raw, transform, plan, consume, *, options=None, workers=1, max_workspace_mb=2048, progress=None
+    raw,
+    transform,
+    plan,
+    consume,
+    *,
+    options=None,
+    workers=1,
+    max_workspace_mb=2048,
+    progress=None,
+    diagnostics=None,
 ):
     """Emit (grid index, s, transformed matrix), using bounded piece storage."""
     options = RawSamplingOptions() if options is None else options
@@ -153,6 +162,8 @@ def sample_raw_layers(
                 chunk = theta[first : first + workers]
                 values.extend(pool.map(evaluate, chunk))
                 records["source_evaluations"] += sum(t != 0.0 for t in chunk)
+                if diagnostics is not None:
+                    diagnostics(dict(records))
             return values
 
         def emit(left, theta, packets):
@@ -253,6 +264,8 @@ def sample_raw_layers(
                 del polynomials, exact_nodes, exact
             if progress is not None:
                 progress(records["transformed_grid_points"], half + 1)
+            if diagnostics is not None:
+                diagnostics(dict(records))
     if records["transformed_grid_points"] != half + 1:
         raise ValueError("Raw sampling did not emit the complete frequency grid")
     records["all_fft_grid_points_emitted"] = True

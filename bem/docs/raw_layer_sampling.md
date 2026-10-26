@@ -37,3 +37,22 @@ FEM 速度優勢；後續須計入原始組裝、所有逐頻率線性消去、I
 
 下一個驗證會用已保存的原完整頻譜作**建核後**逐頻率核對，並保留 fresh frequency
 檢查。原頻譜不得用於選樣或產生新插值資料，驗證成本也須與新建核成本分開記錄。
+
+來源 `a0b0c36` 已通過 Python 3.11／3.12 的
+[完整 CI](https://github.com/Gauss963/Tatva-BEM/actions/runs/40365637516)，包括真實有限雙 block
+的每頻率 fresh-BEM 與完整 CQ lags 對照。三個小矩陣／guard 控制亦於本機通過，
+0.46 s 是這三個測試的時間，不是大型效能數據。
+
+`prepare_raw_layer_resolvent.py` 新增完整產物入口：依來源 metadata 建立新頻譜、
+保留全部時間權重及 causal elastic startup，並檢查 lag-zero inverse composition。
+來源的 spectrum／weights 不作為新計算資料；來源只供物理 case 和離散預設值。
+獨立測試會以無效的來源 numerical files 確認此點，再逐頻率重新組裝 BEM 核對產物。
+這個新入口的 CI 尚待執行，預設正式建核入口維持不變。
+
+先執行 preflight，不啟動另一個同時競爭的 heavy job：
+
+```sh
+PYTHONPATH=bem/src python -B bem/tools/prepare_raw_layer_resolvent.py SOURCE_KERNEL \
+  --dt 2e-6 --duration .045 --workers 4 --fft-rows 4 \
+  --max-workspace-mb 3072 --max-memory-mb 8192 --preflight-only --output NEW_PREFLIGHT
+```
