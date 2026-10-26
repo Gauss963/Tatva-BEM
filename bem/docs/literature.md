@@ -9,6 +9,8 @@
 [Energy-Controllable Time Integration for Elastodynamic Contact](https://arxiv.org/html/2602.08094v1)
 的 §1、§4.5 及 limitations。它研究 FEM／barrier 接觸的能量可控積分；
 其動畫案例的低頻能量保留不等於有限 block 反射波及 slip weakening 的精度。
+§4.5 對非保守力另採 implicit 處理，亦說明直接套用可能失去穩定性；
+limitations 指出 A-1/A-search 目前是一階精度。
 因此目前不加入可調能量目標來配合 FEM 曲線，而繼續分開檢查物理摩擦功、
 完整原始因果方程 residual、空間／時間誤差。新的
 [healed 靜態初始化控制](fem_static_initialization.md) 則直接依 archived Tatva
