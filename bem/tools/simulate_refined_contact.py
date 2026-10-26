@@ -1,8 +1,9 @@
 """Run event-16 with refined contact states and the complete fixed bulk CQ.
 
-The physical parameters, bulk mesh, original float64 seed and loading policy
-are fixed. Only the positive contact integration grid changes. Every lag is
-required from step one; a late-start correction prefix is rejected.
+The physical parameters, bulk mesh, restart input and loading policy are
+fixed. Healed static Coulomb initialization is an explicit separate control;
+its plastic offset corrections are recorded. Every lag is required from
+step one; a late-start correction prefix is rejected.
 """
 
 import argparse
@@ -97,6 +98,11 @@ def main():
     parser.add_argument(
         "--seed-interpolation", choices=["coarse-p1", "original-p1"], default="coarse-p1"
     )
+    parser.add_argument(
+        "--static-initialization",
+        choices=["preserve-offset", "fem-active-set"],
+        default="preserve-offset",
+    )
     parser.add_argument("--constitutive-substeps", type=int, default=1)
     parser.add_argument("--kinetic-root-seed", action="store_true")
     parser.add_argument("--fft-cache-mb", type=float, default=512)
@@ -143,6 +149,8 @@ def main():
         "substepped_contact_experiment.py",
         "robust_contact_experiment.py",
     ]
+    if args.static_initialization == "fem-active-set":
+        helpers.append("fem_static_contact.py")
     paths = [
         Path(__file__),
         metadata_path,
@@ -208,7 +216,13 @@ def main():
         raise ValueError("Complete physical correction weights do not match the fixed bulk trace")
     stiffness = nodal_body_stiffness(model, quadrature=options["quadrature"])
     reduction = REFINED["reduce_static_trace"](model, stiffness)
-    lift = REFINED["initialize_refined_contact"](model, space, reduction, state)
+    initialize = REFINED["initialize_refined_contact"]
+    if args.static_initialization == "fem-active-set":
+        initialize = runpy.run_path(str(TOOLS / "fem_static_contact.py"))[
+            "initialize_fem_static_contact"
+        ]
+    lift = initialize(model, space, reduction, state)
+    state = lift.state
     impedance = np.load(args.kernel / "initial_impedance.npy", allow_pickle=False)
     reference = REFINED["dynamic_refined_reference"](model, space, lift, impedance)
     del stiffness, reduction
@@ -278,6 +292,7 @@ def main():
         frozen_input_sha256=frozen,
         restart_seed_override=seed_record,
         seed_interpolation=args.seed_interpolation,
+        static_initialization=args.static_initialization,
         point_seed_scope="P1 interpolation of the same coarse seed field"
         if args.seed_interpolation == "coarse-p1"
         else "Original float64 source P1 field sampled on refined state points",
