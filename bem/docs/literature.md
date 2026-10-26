@@ -1,6 +1,6 @@
 # 近期文獻與 FEM 對照的實作決策
 
-檢索／閱讀日期：2026-10-24；補讀2026-10-25。範圍是有限彈性體的 fully dynamic 接觸、
+檢索／閱讀日期：2026-10-24；補讀2026-10-25、2026-10-26。範圍是有限彈性體的 fully dynamic 接觸、
 時間域 BEM、卷積歷史加速與角落誤差；以下不是整個 BEM 領域的完整系統性回顧。
 目標是在相同物理模型與可量化誤差下重現 FEM，然後證明穩定性或總時間的優勢。
 目前尚未達成這個目標。
@@ -118,6 +118,18 @@ log(rcrit) = theta^4/4 + O(theta^6).
 現有程式使用獨立點、係數尾端、細分與直接取樣 fallback，仍需以 dense 軌跡核對。
 
 ## 從文獻到目前程式
+
+2026-10-26補讀Aimi、Di Credico、Gimperlein、Guardasoni，
+**A Space-Time Adaptive Boundary Element Method for the Wave Equation**，
+SIAM J. Sci. Comput. 48(2) (2026), A984–A1005，
+[出版資料](https://doi.org/10.1137/25M1782170)、
+[作者預印本全文](https://arxiv.org/html/2511.04265v1)。閱讀Theorem 3.1、§4、§5.3與結論。
+它用空間／時間residual導數標記局部張量積網格；局部加密會失去全域Toeplitz結構，
+只有DOF減少足夠多時，記憶體節省才會抵過失去共用矩陣的成本。
+其實驗是2D純量聲學散射，端點奇異例子的收斂改善不能直接當成有限block摩擦的誤差界。
+本專案的下一步判斷是先用固定空間網格加密分離誤差、保留可共用的CQ歷史，
+再研究局部時空加密；不把Newton平衡residual直接用作此文的離散誤差指標。
+這篇自適應演算法目前尚未移植。
 
 補讀高階時間積分的基礎分析：Banjai、Lubich
 [Runge–Kutta convolution coercivity and its use for time-dependent boundary integral equations](https://arxiv.org/html/1702.08385)，

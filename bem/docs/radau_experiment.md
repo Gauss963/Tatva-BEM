@@ -125,7 +125,9 @@ bulk保留Radau，摩擦路徑仍分段線性，未由此宣稱整個接觸問�
 
 原事件6us建核會保存兩份275×275頻譜及全部correction weights，並保留45ms startup。
 大型數值快取可用`--storage-directory`放在原Tatva目錄之外，程式與metadata留在本repository。
-完整建核、非線性事件、與FEM的比較仍須分別通過，不能由短程診斷代替。
+完整建核與45ms非線性事件現已完成，原seed最大滑移0.565404mm，
+相對FEM仍低12.22%，cached forward亦較BDF2慢。
+詳見[完整事件、載入控制與空間誤差分離](radau_event.md)；這仍未通過FEM等價驗收。
 
 ```sh
 FDBEM_CORES=4 bem/run.sh compact-radau-kernel SOURCE_KERNEL --dt 6e-6 \

@@ -4,8 +4,8 @@
 
 此版本已實作彈性波核、完整時間歷史、有限區域邊界、單向接觸、線性滑移弱化與剛性 platen／彈簧耦合。
 **已完成原載入歷程的 45 ms 粗網格推進，尚未完成原解析度的收斂重現。**
-最新[64接觸子步與可選求根初始猜測](docs/substepped_contact.md)最大滑移0.5639 mm，
-與原FEM的0.6441 mm差12.45%；壓力／剪力末分布差仍約20%。
+最新[原float64 seed的完整Radau事件](docs/radau_event.md)最大滑移0.5654 mm，
+與原FEM的0.6441 mm差12.22%；壓力／剪力末分布差仍約20%，尚未證明速度優勢。
 目前驗證包括解析波傳／反射、雙 block 非線性滑動、完整時間範圍的原載入對照，以及 JAX 接觸參數梯度。
 數值與執行條件見 [事件比較](docs/event16_comparison.md) 和 [AD 設計](docs/autodiff.md)。
 新增 [接觸座標縮減](docs/condensation.md) 可降低完整歷史儲存，並提供端點與角落加密。
@@ -26,7 +26,8 @@ Galerkin CLI 可用 `--spectrum-directory` 把完整半頻譜存到磁碟，降�
 新增 [Radau 時間積分研究](docs/radau_experiment.md) 與
 [彈性 resolvent 分解原型](docs/resolvent.md)，均保留獨立驗證與尚未通過的條件。
 Radau新增兩family磁碟權重、完整因果startup及耦合stage接觸；
-真實雙block短程解已與重新組裝的原Z_RK歷史核對，完整原事件仍待驗收。
+真實雙block短程解已與重新組裝的原Z_RK歷史核對，原45ms forward亦完成，精度仍未達標。
+新增指定actuator plateau、完整塑性滑移variation及不含CQ的FEM/BEM線性響應對照，分離誤差來源。
 resolvent 現可直接建立新時間網格，並核對參數、載入及初始狀態的條件式 adjoint；
 小型解與梯度驗證已通過，完整案例的誤差與成本仍需進一步比較。
 另有 [徑向 traction／Horner 組裝實驗](docs/radial_assembly.md)，保留相同積分與物理模型；

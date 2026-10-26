@@ -4,11 +4,14 @@ Fully elastodynamic boundary elements for finite-block frictional contact,
 developed alongside the Tatva-based PMMA finite-element model.
 
 **Research implementation: the full 45 ms event-16 FEM rupture has not yet
-been reproduced or shown to converge.** At 2 us / Q12, local contact substeps
-and residual-checked root recovery reduce the maximum-slip difference from
-20.7% to 13.2% below the archived FEM. Final pressure/shear profile differences
+been reproduced or shown to converge.** The latest full Radau 6 us / Q12 event
+with the original float64 seed reaches 0.5654 mm, 12.22% below the archived FEM.
+Final pressure/shear profile differences
 remain about 20%; temporal and spatial convergence are still open.
-See the [contact substep comparison](bem/docs/substepped_contact.md),
+The cached Radau forward solve is slower than its matched BDF2 control;
+no same-accuracy speed advantage is established.
+See the [full Radau and error-isolation results](bem/docs/radau_event.md),
+the [contact substep comparison](bem/docs/substepped_contact.md),
 the [original one-step comparison](bem/docs/fine2_event.md) and the
 [earlier collocation comparison](bem/docs/event16_comparison.md).
 

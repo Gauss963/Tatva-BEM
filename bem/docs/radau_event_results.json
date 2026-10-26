@@ -1,0 +1,954 @@
+{
+  "date": "2026-10-26",
+  "input_artifacts": {
+    "kernel": {
+      "path": "bem/outputs/compact-radau6-q12-kernel/summary.json",
+      "sha256": "72d8987e4990b8f4fe8daedadddf815c4da3be77a5ac8580aa9a1f02ea813f0f"
+    },
+    "comparison192": {
+      "path": "bem/outputs/radau6-profile-loading-control-final-20261026/event16_results.json",
+      "sha256": "b01f32f110855d580c37d5a6e795293ba77884df559412c43689c1b3baf69441"
+    },
+    "comparison48": {
+      "path": "bem/outputs/radau6-matched-microstep48-profiles-20261026/event16_results.json",
+      "sha256": "f819cddde6c9c0028d291d6a97e9db9d63d1c737c751c521edb16b3d0899d250"
+    },
+    "variation": {
+      "path": "bem/outputs/slip-variation-verified-fem-radau-20261026/summary.json",
+      "sha256": "7960f0ce20f08ef87632e30808e2d01f118a4134a9db1b564b6b3ad2d234bbdf"
+    },
+    "pipeline": {
+      "path": "bem/outputs/radau6-full-pipeline-20261025.json",
+      "sha256": "0901445ecedaed5e7454c1a3c5e26d907a1ea4b0217b03b265175c6178826dc9"
+    }
+  },
+  "fem": {
+    "first_stored_slip_over_1e-7_mm_s": 0.025732864022254942,
+    "actuator_hold_s": 0.02978831934928894,
+    "final_max_cumulative_slip_mm": 0.644122838973999,
+    "final_mean_pressure_mpa": 17.58409881591797,
+    "final_mean_shear_mpa": 8.912893295288086,
+    "final_platen_mm": 10.580398559570312,
+    "final_applied_shear_mpa": 20.538515090942383,
+    "original_recorded_wall_seconds": 6969.130398500711,
+    "original_recorded_shear_steady_seconds": 6630.270908067934,
+    "original_core_count": "not recorded; these are not controlled 4-core timings"
+  },
+  "runs": [
+    {
+      "name": "galerkin-fine2-q12-contact64-original-seed-kinetic",
+      "duration_s": 0.045,
+      "dt_s": 2e-06,
+      "time_method": "bdf2",
+      "segment_substeps": null,
+      "actuator_hold_s": 0.029134,
+      "endpoint": {
+        "max_cumulative_slip_mm": {
+          "bem": 0.563086281449221,
+          "fem_at_same_time": 0.644122838973999,
+          "difference": -0.08103655752477801
+        },
+        "mean_contact_shear_mpa": {
+          "bem": 8.779028700757463,
+          "fem_at_same_time": 8.912963031805669,
+          "difference": -0.13393433104820573
+        },
+        "mean_contact_pressure_mpa": {
+          "bem": 16.15341609519424,
+          "fem_at_same_time": 17.58405314185841,
+          "difference": -1.4306370466641702
+        },
+        "platen_mm": {
+          "bem": 10.548607479081817,
+          "fem_at_same_time": 10.580400123675606,
+          "difference": -0.03179264459378928
+        },
+        "applied_shear_mpa": {
+          "bem": 21.007479665649022,
+          "fem_at_same_time": 20.53847595735571,
+          "difference": 0.46900370829331095
+        },
+        "actuator_mm": {
+          "bem": 11.388906665707777,
+          "fem_at_same_time": 11.401939392089844,
+          "difference": -0.013032726382066429
+        }
+      },
+      "history_relative_l2": {
+        "max_cumulative_slip_mm": 0.1821787390408435,
+        "mean_contact_shear_mpa": 0.0264062667998595,
+        "mean_contact_pressure_mpa": 0.029596312645011624,
+        "platen_mm": 0.0030970951426268693,
+        "applied_shear_mpa": 0.031832883855908364,
+        "actuator_mm": 0.0006810235752740978
+      },
+      "timing_seconds": {
+        "static_lift_and_kernel_load": 19.468801916576922,
+        "time_stepping": 97.78911354206502,
+        "kernel_build": 73048.667585833,
+        "total_excluding_output": 117.29753720853478
+      },
+      "max_residual_mpa": 9.491837715813745e-08,
+      "max_strength_ratio": 1.0,
+      "friction_work_mpa_mm2": 2635.4712669855235,
+      "final_p1_profile_relative_l2": {
+        "cumulative_slip": 0.11508298295937015,
+        "pressure": 0.1994169716054771,
+        "shear": 0.20378338931408674
+      },
+      "state_checks": {
+        "all_saved_fields_finite": true,
+        "minimum_contact_pressure_mpa": 8.871895205296115,
+        "minimum_cumulative_increment_mm": 0.0,
+        "minimum_actuator_minus_platen_mm": 0.8167258103621577,
+        "spring_extension_positive_on_all_saved_states": true
+      },
+      "loading_diagnostic": null,
+      "restart_seed_override": {
+        "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/event16-original-f64-seed/restart_seed.npz",
+        "sha256": "f09f9cfbe88d41cfba9daaffd1d901e66d1b33af2b6826ba8449fa05ef510901",
+        "source_provenance": {
+          "status": "captured_original_float64_restart",
+          "seed_file_sha256": "f09f9cfbe88d41cfba9daaffd1d901e66d1b33af2b6826ba8449fa05ef510901",
+          "original_restart": {
+            "path": "/Volumes/Gauss-T7/tatva/runs/local-mus08-muk06-gap0-v2-ev15/data/simulation.h5",
+            "bytes": 12734514616,
+            "mtime_ns": 1792158143453734215,
+            "plastic_shape": [
+              241
+            ],
+            "checked_u_shape": [
+              91550
+            ],
+            "actuator_mm": 10.806226665707777,
+            "seed_sha256": "097948bec467b2d81f31ea58a056c29785c9f0c22f3952515ff15940357dddc4",
+            "scope": "Static initializer uses plastic slip and actuator; u is checked for size only"
+          },
+          "source_hdf5_size_and_mtime_unchanged": true,
+          "completed_fem": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h2-4c-interface",
+          "initial_saved_plastic_equal_at_storage_precision": true,
+          "cumulative_slip_reset_to_zero": true,
+          "frozen_input_sha256": {
+            "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h2-4c-interface/summary.json": "8f2538542a351197923c063e75dce7f607adc5706ff46313ee78ee1dc73af5e1",
+            "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h2-4c-interface/resolved_run_config.json": "1f95e7f2bd2c8abc342a80c69ffc59bdb60d95727e76a09d8a1f9fdb8bce6bd2",
+            "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/restart_seed_experiment.py": "d9507983063a21db6849a1e8236f71e0d9585133c87576b18ea11b4b21879885",
+            "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/run_fem_reference.py": "83995320c1b6bbe93cabb5005158cee08eece515b88b4df12b08802e4310fe5d"
+          },
+          "scope": "Original float64 event-15 plastic slip and actuator; healed memory reset as specified by event-16. Not a bulk checkpoint or evidence of BEM equivalence."
+        },
+        "provenance_path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/event16-original-f64-seed/restart_seed.json",
+        "provenance_sha256": "6a2b14d9246576ce3b5867d65ca2b510065030d825647acf04132fb2c0dd768c",
+        "maximum_plastic_change_from_packaged_mm": 4.485380031837849e-07,
+        "unchanged_knots_geometry_and_bulk_kernel": true,
+        "scope": "Explicit float64 values on the original seed knots; static lift is recomputed, complete time kernel is unchanged"
+      }
+    },
+    {
+      "name": "compact-radau6-q12-event16-original-seed-contact192",
+      "duration_s": 0.045,
+      "dt_s": 6e-06,
+      "time_method": "radau2",
+      "segment_substeps": [
+        64,
+        128
+      ],
+      "actuator_hold_s": 0.029112000000000002,
+      "endpoint": {
+        "max_cumulative_slip_mm": {
+          "bem": 0.5654041105708321,
+          "fem_at_same_time": 0.644122838973999,
+          "difference": -0.07871872840316696
+        },
+        "mean_contact_shear_mpa": {
+          "bem": 8.866850375478572,
+          "fem_at_same_time": 8.912963031805669,
+          "difference": -0.0461126563270966
+        },
+        "mean_contact_pressure_mpa": {
+          "bem": 16.23927807860543,
+          "fem_at_same_time": 17.58405314185841,
+          "difference": -1.3447750632529782
+        },
+        "platen_mm": {
+          "bem": 10.550607445006321,
+          "fem_at_same_time": 10.580400123675606,
+          "difference": -0.02979267866928481
+        },
+        "applied_shear_mpa": {
+          "bem": 20.946480517536425,
+          "fem_at_same_time": 20.53847595735571,
+          "difference": 0.4080045601807143
+        },
+        "actuator_mm": {
+          "bem": 11.388466665707778,
+          "fem_at_same_time": 11.401939392089844,
+          "difference": -0.013472726382065758
+        }
+      },
+      "history_relative_l2": {
+        "max_cumulative_slip_mm": 0.18459807746936505,
+        "mean_contact_shear_mpa": 0.0255501733112169,
+        "mean_contact_pressure_mpa": 0.03149399682267421,
+        "platen_mm": 0.0030805512447113852,
+        "applied_shear_mpa": 0.031510997774515895,
+        "actuator_mm": 0.0007041830175855895
+      },
+      "timing_seconds": {
+        "static_lift_and_kernel_load": 19.140017041936517,
+        "time_stepping": 148.58160654176027,
+        "kernel_build": 4173.50474558305,
+        "total_excluding_output": 167.76593395788223,
+        "save_outputs": 0.1241012504324317,
+        "total_including_output": 167.89004162419587
+      },
+      "max_residual_mpa": 4.510755680087186e-08,
+      "max_strength_ratio": 1.0,
+      "friction_work_mpa_mm2": 2642.702958889818,
+      "final_p1_profile_relative_l2": {
+        "cumulative_slip": 0.11228735234859462,
+        "pressure": 0.200577133460778,
+        "shear": 0.20545038205115118
+      },
+      "state_checks": {
+        "all_saved_fields_finite": true,
+        "minimum_contact_pressure_mpa": 8.929216080745933,
+        "minimum_cumulative_increment_mm": 0.0,
+        "minimum_actuator_minus_platen_mm": 0.8171580972954562,
+        "spring_extension_positive_on_all_saved_states": true
+      },
+      "loading_diagnostic": null,
+      "restart_seed_override": {
+        "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/event16-original-f64-seed/restart_seed.npz",
+        "sha256": "f09f9cfbe88d41cfba9daaffd1d901e66d1b33af2b6826ba8449fa05ef510901",
+        "source_provenance": {
+          "status": "captured_original_float64_restart",
+          "seed_file_sha256": "f09f9cfbe88d41cfba9daaffd1d901e66d1b33af2b6826ba8449fa05ef510901",
+          "original_restart": {
+            "path": "/Volumes/Gauss-T7/tatva/runs/local-mus08-muk06-gap0-v2-ev15/data/simulation.h5",
+            "bytes": 12734514616,
+            "mtime_ns": 1792158143453734215,
+            "plastic_shape": [
+              241
+            ],
+            "checked_u_shape": [
+              91550
+            ],
+            "actuator_mm": 10.806226665707777,
+            "seed_sha256": "097948bec467b2d81f31ea58a056c29785c9f0c22f3952515ff15940357dddc4",
+            "scope": "Static initializer uses plastic slip and actuator; u is checked for size only"
+          },
+          "source_hdf5_size_and_mtime_unchanged": true,
+          "completed_fem": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h2-4c-interface",
+          "initial_saved_plastic_equal_at_storage_precision": true,
+          "cumulative_slip_reset_to_zero": true,
+          "frozen_input_sha256": {
+            "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h2-4c-interface/summary.json": "8f2538542a351197923c063e75dce7f607adc5706ff46313ee78ee1dc73af5e1",
+            "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h2-4c-interface/resolved_run_config.json": "1f95e7f2bd2c8abc342a80c69ffc59bdb60d95727e76a09d8a1f9fdb8bce6bd2",
+            "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/restart_seed_experiment.py": "d9507983063a21db6849a1e8236f71e0d9585133c87576b18ea11b4b21879885",
+            "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/run_fem_reference.py": "83995320c1b6bbe93cabb5005158cee08eece515b88b4df12b08802e4310fe5d"
+          },
+          "scope": "Original float64 event-15 plastic slip and actuator; healed memory reset as specified by event-16. Not a bulk checkpoint or evidence of BEM equivalence."
+        },
+        "provenance_path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/event16-original-f64-seed/restart_seed.json",
+        "provenance_sha256": "6a2b14d9246576ce3b5867d65ca2b510065030d825647acf04132fb2c0dd768c",
+        "maximum_plastic_change_from_packaged_mm": 4.485380031837849e-07,
+        "unchanged_knots_geometry_and_bulk_kernel": true,
+        "scope": "Explicit float64 values on the original seed knots; static lift is recomputed, complete time kernel is unchanged"
+      }
+    },
+    {
+      "name": "compact-radau6-q12-fem-plateau-diagnostic-contact192",
+      "duration_s": 0.045,
+      "dt_s": 6e-06,
+      "time_method": "radau2",
+      "segment_substeps": [
+        64,
+        128
+      ],
+      "actuator_hold_s": 0.029785615462242978,
+      "endpoint": {
+        "max_cumulative_slip_mm": {
+          "bem": 0.5748613411551747,
+          "fem_at_same_time": 0.644122838973999,
+          "difference": -0.06926149781882429
+        },
+        "mean_contact_shear_mpa": {
+          "bem": 8.87195097931533,
+          "fem_at_same_time": 8.912963031805669,
+          "difference": -0.04101205249033946
+        },
+        "mean_contact_pressure_mpa": {
+          "bem": 16.240706378530966,
+          "fem_at_same_time": 17.58405314185841,
+          "difference": -1.3433467633274425
+        },
+        "platen_mm": {
+          "bem": 10.560879737233279,
+          "fem_at_same_time": 10.580400123675606,
+          "difference": -0.01952038644232701
+        },
+        "applied_shear_mpa": {
+          "bem": 21.02648094298396,
+          "fem_at_same_time": 20.53847595735571,
+          "difference": 0.48800498562824757
+        },
+        "actuator_mm": {
+          "bem": 11.401938974952637,
+          "fem_at_same_time": 11.401939392089844,
+          "difference": -4.1713720655423003e-07
+        }
+      },
+      "history_relative_l2": {
+        "max_cumulative_slip_mm": 0.17703501907012673,
+        "mean_contact_shear_mpa": 0.025699662092999575,
+        "mean_contact_pressure_mpa": 0.031692188959301114,
+        "platen_mm": 0.0027977943066148183,
+        "applied_shear_mpa": 0.03139603218903643,
+        "actuator_mm": 2.9740129562419694e-08
+      },
+      "timing_seconds": {
+        "static_lift_and_kernel_load": 29.53503066673875,
+        "time_stepping": 157.21253933291882,
+        "kernel_build": 4173.50474558305,
+        "total_excluding_output": 186.7995798746124,
+        "save_outputs": 0.14486966747790575,
+        "total_including_output": 186.9444554578513
+      },
+      "max_residual_mpa": 4.510755680087186e-08,
+      "max_strength_ratio": 1.0,
+      "friction_work_mpa_mm2": 2685.6764387806625,
+      "final_p1_profile_relative_l2": {
+        "cumulative_slip": 0.09757005454248707,
+        "pressure": 0.20063075205179892,
+        "shear": 0.2052272334460478
+      },
+      "state_checks": {
+        "all_saved_fields_finite": true,
+        "minimum_contact_pressure_mpa": 8.90361409015717,
+        "minimum_cumulative_increment_mm": 0.0,
+        "minimum_actuator_minus_platen_mm": 0.8205546173770841,
+        "spring_extension_positive_on_all_saved_states": true
+      },
+      "loading_diagnostic": {
+        "actuator_plateau_mm": 11.401938974952637,
+        "affine_ramp_plateau_time_s": 0.029785615462242978,
+        "contact_coverage_feedback_enabled": false,
+        "scope": "Loading-feedback isolation only; not the original endogenous stop policy"
+      },
+      "restart_seed_override": {
+        "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/event16-original-f64-seed/restart_seed.npz",
+        "sha256": "f09f9cfbe88d41cfba9daaffd1d901e66d1b33af2b6826ba8449fa05ef510901",
+        "source_provenance": {
+          "status": "captured_original_float64_restart",
+          "seed_file_sha256": "f09f9cfbe88d41cfba9daaffd1d901e66d1b33af2b6826ba8449fa05ef510901",
+          "original_restart": {
+            "path": "/Volumes/Gauss-T7/tatva/runs/local-mus08-muk06-gap0-v2-ev15/data/simulation.h5",
+            "bytes": 12734514616,
+            "mtime_ns": 1792158143453734215,
+            "plastic_shape": [
+              241
+            ],
+            "checked_u_shape": [
+              91550
+            ],
+            "actuator_mm": 10.806226665707777,
+            "seed_sha256": "097948bec467b2d81f31ea58a056c29785c9f0c22f3952515ff15940357dddc4",
+            "scope": "Static initializer uses plastic slip and actuator; u is checked for size only"
+          },
+          "source_hdf5_size_and_mtime_unchanged": true,
+          "completed_fem": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h2-4c-interface",
+          "initial_saved_plastic_equal_at_storage_precision": true,
+          "cumulative_slip_reset_to_zero": true,
+          "frozen_input_sha256": {
+            "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h2-4c-interface/summary.json": "8f2538542a351197923c063e75dce7f607adc5706ff46313ee78ee1dc73af5e1",
+            "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h2-4c-interface/resolved_run_config.json": "1f95e7f2bd2c8abc342a80c69ffc59bdb60d95727e76a09d8a1f9fdb8bce6bd2",
+            "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/restart_seed_experiment.py": "d9507983063a21db6849a1e8236f71e0d9585133c87576b18ea11b4b21879885",
+            "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/run_fem_reference.py": "83995320c1b6bbe93cabb5005158cee08eece515b88b4df12b08802e4310fe5d"
+          },
+          "scope": "Original float64 event-15 plastic slip and actuator; healed memory reset as specified by event-16. Not a bulk checkpoint or evidence of BEM equivalence."
+        },
+        "provenance_path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/event16-original-f64-seed/restart_seed.json",
+        "provenance_sha256": "6a2b14d9246576ce3b5867d65ca2b510065030d825647acf04132fb2c0dd768c",
+        "maximum_plastic_change_from_packaged_mm": 4.485380031837849e-07,
+        "unchanged_knots_geometry_and_bulk_kernel": true,
+        "scope": "Explicit float64 values on the original seed knots; static lift is recomputed, complete time kernel is unchanged"
+      }
+    },
+    {
+      "name": "galerkin-fine2-q12-contact16-original-seed",
+      "duration_s": 0.045,
+      "dt_s": 2e-06,
+      "time_method": "bdf2",
+      "segment_substeps": null,
+      "actuator_hold_s": 0.029137999999999997,
+      "endpoint": {
+        "max_cumulative_slip_mm": {
+          "bem": 0.5590768612494921,
+          "fem_at_same_time": 0.644122838973999,
+          "difference": -0.08504597772450695
+        },
+        "mean_contact_shear_mpa": {
+          "bem": 8.772047614734186,
+          "fem_at_same_time": 8.912963031805669,
+          "difference": -0.1409154170714828
+        },
+        "mean_contact_pressure_mpa": {
+          "bem": 16.172992025381692,
+          "fem_at_same_time": 17.58405314185841,
+          "difference": -1.4110611164767164
+        },
+        "platen_mm": {
+          "bem": 10.54609611891496,
+          "fem_at_same_time": 10.580400123675606,
+          "difference": -0.03430400476064577
+        },
+        "applied_shear_mpa": {
+          "bem": 21.072263669820444,
+          "fem_at_same_time": 20.53847595735571,
+          "difference": 0.5337877124647328
+        },
+        "actuator_mm": {
+          "bem": 11.388986665707778,
+          "fem_at_same_time": 11.401939392089844,
+          "difference": -0.012952726382065904
+        }
+      },
+      "history_relative_l2": {
+        "max_cumulative_slip_mm": 0.18658871520941242,
+        "mean_contact_shear_mpa": 0.02675853460336145,
+        "mean_contact_pressure_mpa": 0.02878782036554256,
+        "platen_mm": 0.0031491992200787136,
+        "applied_shear_mpa": 0.03225103556011685,
+        "actuator_mm": 0.0006768139420718401
+      },
+      "timing_seconds": {
+        "static_lift_and_kernel_load": 21.387995208613575,
+        "time_stepping": 89.39358104206622,
+        "kernel_build": 73048.667585833,
+        "total_excluding_output": 110.83363141678274
+      },
+      "max_residual_mpa": 9.931078714942032e-08,
+      "max_strength_ratio": 1.0,
+      "friction_work_mpa_mm2": 2617.44440995267,
+      "final_p1_profile_relative_l2": {
+        "cumulative_slip": 0.12129491736377655,
+        "pressure": 0.1994676710047604,
+        "shear": 0.20464330751090382
+      },
+      "state_checks": {
+        "all_saved_fields_finite": true,
+        "minimum_contact_pressure_mpa": 8.834218167609675,
+        "minimum_cumulative_increment_mm": 0.0,
+        "minimum_actuator_minus_platen_mm": 0.8185559203320292,
+        "spring_extension_positive_on_all_saved_states": true
+      },
+      "loading_diagnostic": null,
+      "restart_seed_override": {
+        "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/event16-original-f64-seed/restart_seed.npz",
+        "sha256": "f09f9cfbe88d41cfba9daaffd1d901e66d1b33af2b6826ba8449fa05ef510901",
+        "source_provenance": {
+          "status": "captured_original_float64_restart",
+          "seed_file_sha256": "f09f9cfbe88d41cfba9daaffd1d901e66d1b33af2b6826ba8449fa05ef510901",
+          "original_restart": {
+            "path": "/Volumes/Gauss-T7/tatva/runs/local-mus08-muk06-gap0-v2-ev15/data/simulation.h5",
+            "bytes": 12734514616,
+            "mtime_ns": 1792158143453734215,
+            "plastic_shape": [
+              241
+            ],
+            "checked_u_shape": [
+              91550
+            ],
+            "actuator_mm": 10.806226665707777,
+            "seed_sha256": "097948bec467b2d81f31ea58a056c29785c9f0c22f3952515ff15940357dddc4",
+            "scope": "Static initializer uses plastic slip and actuator; u is checked for size only"
+          },
+          "source_hdf5_size_and_mtime_unchanged": true,
+          "completed_fem": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h2-4c-interface",
+          "initial_saved_plastic_equal_at_storage_precision": true,
+          "cumulative_slip_reset_to_zero": true,
+          "frozen_input_sha256": {
+            "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h2-4c-interface/summary.json": "8f2538542a351197923c063e75dce7f607adc5706ff46313ee78ee1dc73af5e1",
+            "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h2-4c-interface/resolved_run_config.json": "1f95e7f2bd2c8abc342a80c69ffc59bdb60d95727e76a09d8a1f9fdb8bce6bd2",
+            "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/restart_seed_experiment.py": "d9507983063a21db6849a1e8236f71e0d9585133c87576b18ea11b4b21879885",
+            "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/run_fem_reference.py": "83995320c1b6bbe93cabb5005158cee08eece515b88b4df12b08802e4310fe5d"
+          },
+          "scope": "Original float64 event-15 plastic slip and actuator; healed memory reset as specified by event-16. Not a bulk checkpoint or evidence of BEM equivalence."
+        },
+        "provenance_path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/event16-original-f64-seed/restart_seed.json",
+        "provenance_sha256": "6a2b14d9246576ce3b5867d65ca2b510065030d825647acf04132fb2c0dd768c",
+        "maximum_plastic_change_from_packaged_mm": 4.485380031837849e-07,
+        "unchanged_knots_geometry_and_bulk_kernel": true,
+        "scope": "Explicit float64 values on the original seed knots; static lift is recomputed, complete time kernel is unchanged"
+      }
+    },
+    {
+      "name": "galerkin-q12-dt4-contact32-original-seed-kinetic",
+      "duration_s": 0.045,
+      "dt_s": 4e-06,
+      "time_method": "bdf2",
+      "segment_substeps": null,
+      "actuator_hold_s": 0.029088,
+      "endpoint": {
+        "max_cumulative_slip_mm": {
+          "bem": 0.5365742038538124,
+          "fem_at_same_time": 0.644122838973999,
+          "difference": -0.10754863512018664
+        },
+        "mean_contact_shear_mpa": {
+          "bem": 8.884661250286895,
+          "fem_at_same_time": 8.912963031805669,
+          "difference": -0.02830178151877405
+        },
+        "mean_contact_pressure_mpa": {
+          "bem": 15.983501666985795,
+          "fem_at_same_time": 17.58405314185841,
+          "difference": -1.6005514748726135
+        },
+        "platen_mm": {
+          "bem": 10.54379146858479,
+          "fem_at_same_time": 10.580400123675606,
+          "difference": -0.036608655090816455
+        },
+        "applied_shear_mpa": {
+          "bem": 21.10487992807468,
+          "fem_at_same_time": 20.53847595735571,
+          "difference": 0.5664039707189694
+        },
+        "actuator_mm": {
+          "bem": 11.387986665707777,
+          "fem_at_same_time": 11.401939392089844,
+          "difference": -0.013952726382067127
+        }
+      },
+      "history_relative_l2": {
+        "max_cumulative_slip_mm": 0.21438317051639919,
+        "mean_contact_shear_mpa": 0.028244437781292986,
+        "mean_contact_pressure_mpa": 0.03208010872926298,
+        "platen_mm": 0.003335735228385892,
+        "applied_shear_mpa": 0.03308919325181577,
+        "actuator_mm": 0.0007294602548576112
+      },
+      "timing_seconds": {
+        "static_lift_and_kernel_load": 18.77658100053668,
+        "time_stepping": 49.20019683428109,
+        "kernel_build": 4100.885797124356,
+        "total_excluding_output": 67.9951209584251
+      },
+      "max_residual_mpa": 1.4116352531345914e-08,
+      "max_strength_ratio": 1.0,
+      "friction_work_mpa_mm2": 2503.3789616255317,
+      "final_p1_profile_relative_l2": {
+        "cumulative_slip": 0.16145112942887463,
+        "pressure": 0.2015519192895644,
+        "shear": 0.20826376470646563
+      },
+      "state_checks": {
+        "all_saved_fields_finite": true,
+        "minimum_contact_pressure_mpa": 8.731900148476548,
+        "minimum_cumulative_increment_mm": 0.0,
+        "minimum_actuator_minus_platen_mm": 0.8259034056908732,
+        "spring_extension_positive_on_all_saved_states": true
+      },
+      "loading_diagnostic": null,
+      "restart_seed_override": {
+        "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/event16-original-f64-seed/restart_seed.npz",
+        "sha256": "f09f9cfbe88d41cfba9daaffd1d901e66d1b33af2b6826ba8449fa05ef510901",
+        "source_provenance": {
+          "status": "captured_original_float64_restart",
+          "seed_file_sha256": "f09f9cfbe88d41cfba9daaffd1d901e66d1b33af2b6826ba8449fa05ef510901",
+          "original_restart": {
+            "path": "/Volumes/Gauss-T7/tatva/runs/local-mus08-muk06-gap0-v2-ev15/data/simulation.h5",
+            "bytes": 12734514616,
+            "mtime_ns": 1792158143453734215,
+            "plastic_shape": [
+              241
+            ],
+            "checked_u_shape": [
+              91550
+            ],
+            "actuator_mm": 10.806226665707777,
+            "seed_sha256": "097948bec467b2d81f31ea58a056c29785c9f0c22f3952515ff15940357dddc4",
+            "scope": "Static initializer uses plastic slip and actuator; u is checked for size only"
+          },
+          "source_hdf5_size_and_mtime_unchanged": true,
+          "completed_fem": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h2-4c-interface",
+          "initial_saved_plastic_equal_at_storage_precision": true,
+          "cumulative_slip_reset_to_zero": true,
+          "frozen_input_sha256": {
+            "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h2-4c-interface/summary.json": "8f2538542a351197923c063e75dce7f607adc5706ff46313ee78ee1dc73af5e1",
+            "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h2-4c-interface/resolved_run_config.json": "1f95e7f2bd2c8abc342a80c69ffc59bdb60d95727e76a09d8a1f9fdb8bce6bd2",
+            "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/restart_seed_experiment.py": "d9507983063a21db6849a1e8236f71e0d9585133c87576b18ea11b4b21879885",
+            "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/run_fem_reference.py": "83995320c1b6bbe93cabb5005158cee08eece515b88b4df12b08802e4310fe5d"
+          },
+          "scope": "Original float64 event-15 plastic slip and actuator; healed memory reset as specified by event-16. Not a bulk checkpoint or evidence of BEM equivalence."
+        },
+        "provenance_path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/event16-original-f64-seed/restart_seed.json",
+        "provenance_sha256": "6a2b14d9246576ce3b5867d65ca2b510065030d825647acf04132fb2c0dd768c",
+        "maximum_plastic_change_from_packaged_mm": 4.485380031837849e-07,
+        "unchanged_knots_geometry_and_bulk_kernel": true,
+        "scope": "Explicit float64 values on the original seed knots; static lift is recomputed, complete time kernel is unchanged"
+      }
+    },
+    {
+      "name": "compact-radau6-q12-event16-original-seed-contact48",
+      "duration_s": 0.045,
+      "dt_s": 6e-06,
+      "time_method": "radau2",
+      "segment_substeps": [
+        16,
+        32
+      ],
+      "actuator_hold_s": 0.029118,
+      "endpoint": {
+        "max_cumulative_slip_mm": {
+          "bem": 0.5618416397383816,
+          "fem_at_same_time": 0.644122838973999,
+          "difference": -0.08228119923561739
+        },
+        "mean_contact_shear_mpa": {
+          "bem": 8.872251675307961,
+          "fem_at_same_time": 8.912963031805669,
+          "difference": -0.04071135649770774
+        },
+        "mean_contact_pressure_mpa": {
+          "bem": 16.261674928527245,
+          "fem_at_same_time": 17.58405314185841,
+          "difference": -1.322378213331163
+        },
+        "platen_mm": {
+          "bem": 10.548725309876797,
+          "fem_at_same_time": 10.580400123675606,
+          "difference": -0.03167481379880854
+        },
+        "applied_shear_mpa": {
+          "bem": 20.996533895774494,
+          "fem_at_same_time": 20.53847595735571,
+          "difference": 0.45805793841878284
+        },
+        "actuator_mm": {
+          "bem": 11.388586665707777,
+          "fem_at_same_time": 11.401939392089844,
+          "difference": -0.013352726382066749
+        }
+      },
+      "history_relative_l2": {
+        "max_cumulative_slip_mm": 0.1883299245046197,
+        "mean_contact_shear_mpa": 0.02587686891723019,
+        "mean_contact_pressure_mpa": 0.030967842785142283,
+        "platen_mm": 0.0031268350667080693,
+        "applied_shear_mpa": 0.03188839694128646,
+        "actuator_mm": 0.0006978657338252753
+      },
+      "timing_seconds": {
+        "static_lift_and_kernel_load": 19.020806041546166,
+        "time_stepping": 117.69714675005525,
+        "kernel_build": 4173.50474558305,
+        "total_excluding_output": 136.76311541628093,
+        "save_outputs": 0.11837483383715153,
+        "total_including_output": 136.8814949169755
+      },
+      "max_residual_mpa": 3.578137786064417e-08,
+      "max_strength_ratio": 1.0,
+      "friction_work_mpa_mm2": 2626.369534087272,
+      "final_p1_profile_relative_l2": {
+        "cumulative_slip": 0.11797301460812482,
+        "pressure": 0.20065661492206657,
+        "shear": 0.2053552036114869
+      },
+      "state_checks": {
+        "all_saved_fields_finite": true,
+        "minimum_contact_pressure_mpa": 8.934489866485851,
+        "minimum_cumulative_increment_mm": 0.0,
+        "minimum_actuator_minus_platen_mm": 0.8191799283861094,
+        "spring_extension_positive_on_all_saved_states": true
+      },
+      "loading_diagnostic": null,
+      "restart_seed_override": {
+        "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/event16-original-f64-seed/restart_seed.npz",
+        "sha256": "f09f9cfbe88d41cfba9daaffd1d901e66d1b33af2b6826ba8449fa05ef510901",
+        "source_provenance": {
+          "status": "captured_original_float64_restart",
+          "seed_file_sha256": "f09f9cfbe88d41cfba9daaffd1d901e66d1b33af2b6826ba8449fa05ef510901",
+          "original_restart": {
+            "path": "/Volumes/Gauss-T7/tatva/runs/local-mus08-muk06-gap0-v2-ev15/data/simulation.h5",
+            "bytes": 12734514616,
+            "mtime_ns": 1792158143453734215,
+            "plastic_shape": [
+              241
+            ],
+            "checked_u_shape": [
+              91550
+            ],
+            "actuator_mm": 10.806226665707777,
+            "seed_sha256": "097948bec467b2d81f31ea58a056c29785c9f0c22f3952515ff15940357dddc4",
+            "scope": "Static initializer uses plastic slip and actuator; u is checked for size only"
+          },
+          "source_hdf5_size_and_mtime_unchanged": true,
+          "completed_fem": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h2-4c-interface",
+          "initial_saved_plastic_equal_at_storage_precision": true,
+          "cumulative_slip_reset_to_zero": true,
+          "frozen_input_sha256": {
+            "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h2-4c-interface/summary.json": "8f2538542a351197923c063e75dce7f607adc5706ff46313ee78ee1dc73af5e1",
+            "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h2-4c-interface/resolved_run_config.json": "1f95e7f2bd2c8abc342a80c69ffc59bdb60d95727e76a09d8a1f9fdb8bce6bd2",
+            "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/restart_seed_experiment.py": "d9507983063a21db6849a1e8236f71e0d9585133c87576b18ea11b4b21879885",
+            "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/run_fem_reference.py": "83995320c1b6bbe93cabb5005158cee08eece515b88b4df12b08802e4310fe5d"
+          },
+          "scope": "Original float64 event-15 plastic slip and actuator; healed memory reset as specified by event-16. Not a bulk checkpoint or evidence of BEM equivalence."
+        },
+        "provenance_path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/event16-original-f64-seed/restart_seed.json",
+        "provenance_sha256": "6a2b14d9246576ce3b5867d65ca2b510065030d825647acf04132fb2c0dd768c",
+        "maximum_plastic_change_from_packaged_mm": 4.485380031837849e-07,
+        "unchanged_knots_geometry_and_bulk_kernel": true,
+        "scope": "Explicit float64 values on the original seed knots; static lift is recomputed, complete time kernel is unchanged"
+      }
+    }
+  ],
+  "kernel": {
+    "status": "completed_compact_radau_resolvent_kernel_only",
+    "dt_s": 6e-06,
+    "full_steps": 7500,
+    "correction_steps": 3334,
+    "plan": {
+      "dt": 6e-06,
+      "steps": 3334,
+      "dofs": 275,
+      "fft_size": 16384,
+      "radius": 0.9985956006837118,
+      "estimated_peak_bytes": 4679560600,
+      "weight_bytes": 2017675000
+    },
+    "timing_seconds": {
+      "source_verification_and_preparation": 18.79857395775616,
+      "resampling_and_spectrum_writes": 2146.9591712504625,
+      "inverse_fft": 699.5438071256503,
+      "physical_weights_and_startup": 506.33189404103905,
+      "total_before_reporting": 4173.50474558305,
+      "final_checks_and_hashes": 801.5217982493341
+    },
+    "process_cpu_seconds": 1682.791604,
+    "peak_process_rss_mib": 6294.015625,
+    "family_spectra": [
+      {
+        "path": "/Volumes/Gauss-T7/Tatva-BEM-cache/compact-radau6-q12-20261025/work-family0.npy",
+        "bytes": 9913530128,
+        "sha256": "ab3be6d4b12acb02d9e5a04f106525a569513bc7aca6a99629697670668b56dd"
+      },
+      {
+        "path": "/Volumes/Gauss-T7/Tatva-BEM-cache/compact-radau6-q12-20261025/work-family1.npy",
+        "bytes": 9913530128,
+        "sha256": "0d27864e9d46345ac2f1d4fe6c5955677c8dd67c577c28363623d73e6b2a1b6b"
+      }
+    ],
+    "family_weights": [
+      {
+        "path": "/Volumes/Gauss-T7/Tatva-BEM-cache/compact-radau6-q12-20261025/weights0.npy",
+        "bytes": 2017675128,
+        "sha256": "2bdaf180f08c24ab2fa45f897c7cdd00c64d241cb9bfb3d948611c19d13bfa09"
+      },
+      {
+        "path": "/Volumes/Gauss-T7/Tatva-BEM-cache/compact-radau6-q12-20261025/weights1.npy",
+        "bytes": 2017675128,
+        "sha256": "a20458fa73d1614661313a470ede83e17106c868fe715c253820754c9339f455"
+      }
+    ],
+    "source_kernel": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/direct-resolvent-fine2-q12",
+    "source_spectrum_sha256": "a3a41301f5fa30d387c7755b6799578b75416aabbfe312cfae12b9af8d8041e6",
+    "sampled_fresh_bem_relative_errors": [
+      2.841992775902727e-11,
+      2.85688763689911e-11,
+      4.471940165098274e-11,
+      6.917505504782247e-12,
+      4.337979140514772e-11
+    ],
+    "sampled_fmm_relative_errors": [
+      1.5378251833527455e-15,
+      2.4234717954039177e-15,
+      3.656455796185976e-15,
+      1.7545192582818283e-15,
+      1.5627702557170587e-15
+    ],
+    "initial_composition_inf_error": 1.901535998730894e-10
+  },
+  "slip_variation": {
+    "records": [
+      {
+        "source": "verified_fem",
+        "samples": 9000,
+        "metrics": {
+          "net_plastic_slip_mm": {
+            "minimum": 0.6263618469238281,
+            "maximum": 0.6441230773925781,
+            "p1_weighted_mean": 0.6325896501541137
+          },
+          "saved_sample_variation_mm": {
+            "minimum": 0.6263618469238281,
+            "maximum": 0.6441230773925781,
+            "p1_weighted_mean": 0.6325896501541137
+          },
+          "accumulated_slip_increment_mm": {
+            "minimum": 0.6263617277145386,
+            "maximum": 0.644122838973999,
+            "p1_weighted_mean": 0.6325896590948105
+          },
+          "accumulated_minus_net_mm": {
+            "minimum": -8.344650268554688e-07,
+            "maximum": 8.940696716308594e-07,
+            "p1_weighted_mean": 8.940696716308593e-09
+          },
+          "accumulated_minus_sampled_variation_mm": {
+            "minimum": -8.344650268554688e-07,
+            "maximum": 8.940696716308594e-07,
+            "p1_weighted_mean": 8.940696716308593e-09
+          },
+          "minimum_saved_cumulative_increment_mm": 0.0
+        }
+      },
+      {
+        "source": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/galerkin-fine2-q12-contact64-original-seed-kinetic",
+        "samples": 22501,
+        "metrics": {
+          "net_plastic_slip_mm": {
+            "minimum": 0.5330434714110517,
+            "maximum": 0.5630862814493156,
+            "p1_weighted_mean": 0.5600451122632493
+          },
+          "saved_sample_variation_mm": {
+            "minimum": 0.5330434714110517,
+            "maximum": 0.5630862814493156,
+            "p1_weighted_mean": 0.5600451122632493
+          },
+          "accumulated_slip_increment_mm": {
+            "minimum": 0.5330434714109963,
+            "maximum": 0.563086281449221,
+            "p1_weighted_mean": 0.5600451122632534
+          },
+          "accumulated_minus_net_mm": {
+            "minimum": -2.1027624086400465e-13,
+            "maximum": 2.1038726316646716e-13,
+            "p1_weighted_mean": 4.039081875381815e-15
+          },
+          "accumulated_minus_sampled_variation_mm": {
+            "minimum": -2.1027624086400465e-13,
+            "maximum": 2.1038726316646716e-13,
+            "p1_weighted_mean": 4.039081875381815e-15
+          },
+          "minimum_saved_cumulative_increment_mm": 0.0
+        }
+      },
+      {
+        "source": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/compact-radau6-q12-event16-original-seed-contact192",
+        "samples": 7501,
+        "metrics": {
+          "net_plastic_slip_mm": {
+            "minimum": 0.5351091846405112,
+            "maximum": 0.5654041105707854,
+            "p1_weighted_mean": 0.5618867315834898
+          },
+          "saved_sample_variation_mm": {
+            "minimum": 0.5351091846405112,
+            "maximum": 0.5654041105707854,
+            "p1_weighted_mean": 0.5618867315834898
+          },
+          "accumulated_slip_increment_mm": {
+            "minimum": 0.5351091846404757,
+            "maximum": 0.5654041105708321,
+            "p1_weighted_mean": 0.5618867315834994
+          },
+          "accumulated_minus_net_mm": {
+            "minimum": -2.1371793224034263e-13,
+            "maximum": 3.994582442601313e-13,
+            "p1_weighted_mean": 9.730048120630856e-15
+          },
+          "accumulated_minus_sampled_variation_mm": {
+            "minimum": -2.1371793224034263e-13,
+            "maximum": 3.994582442601313e-13,
+            "p1_weighted_mean": 9.730048120630856e-15
+          },
+          "minimum_saved_cumulative_increment_mm": 0.0
+        }
+      },
+      {
+        "source": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/compact-radau6-q12-fem-plateau-diagnostic-contact192",
+        "samples": 7501,
+        "metrics": {
+          "net_plastic_slip_mm": {
+            "minimum": 0.5444263837026906,
+            "maximum": 0.5748613411551595,
+            "p1_weighted_mean": 0.5713171816465739
+          },
+          "saved_sample_variation_mm": {
+            "minimum": 0.5444263837026906,
+            "maximum": 0.5748613411551595,
+            "p1_weighted_mean": 0.5713171816465739
+          },
+          "accumulated_slip_increment_mm": {
+            "minimum": 0.5444263837026531,
+            "maximum": 0.5748613411551747,
+            "p1_weighted_mean": 0.5713171816465703
+          },
+          "accumulated_minus_net_mm": {
+            "minimum": -2.5057733665789783e-13,
+            "maximum": 3.318456620604593e-13,
+            "p1_weighted_mean": -3.4816213221897845e-15
+          },
+          "accumulated_minus_sampled_variation_mm": {
+            "minimum": -2.5057733665789783e-13,
+            "maximum": 3.318456620604593e-13,
+            "p1_weighted_mean": -3.4816213221897845e-15
+          },
+          "minimum_saved_cumulative_increment_mm": 0.0
+        }
+      }
+    ],
+    "fem_provenance": {
+      "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h2-4c-interface/simulation.h5",
+      "bytes": 77038494,
+      "mtime_ns": 1792913256721515841,
+      "history_group": "interface_high_rate",
+      "saved_frames": 9041,
+      "columns": [
+        "time",
+        "applied_shear",
+        "avg_tau",
+        "avg_sigma_n",
+        "max_penetration",
+        "max_slip",
+        "mu_eff_mean",
+        "elastic_energy",
+        "interface_energy",
+        "kinetic_energy",
+        "applied_shear_displacement",
+        "shear_loading_stopped",
+        "loading_face_displacement",
+        "shear_boundary_reaction",
+        "extension_elastic_energy",
+        "normal_loading_coordinate",
+        "normal_external_force"
+      ]
+    },
+    "fem_computational_dtype": "float64",
+    "fem_stored_interface_dtype": "float32",
+    "frozen_input_sha256": {
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h2-4c-interface/summary.json": "8f2538542a351197923c063e75dce7f607adc5706ff46313ee78ee1dc73af5e1",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-field-comparison/summary.json": "30dd777c7eab94f0fff24cce9a0aa66d9a28a8ad0df494afb94d3b18a97a336c",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/audit_slip_variation.py": "08ca089b5c2af27a121db3a8cb8d4da0452339e3bb4d16f7b4aa5f46b84c6fe5",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/fem_reference_io.py": "767d970d36ebb446d838af2bd3c5b252e38614cab8a374e2bcf376f5a6564264",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/galerkin-fine2-q12-contact64-original-seed-kinetic/summary.json": "40520780503bf21117548922c271e48cf3db8ec15918b11e5ca6e707ec4f4174",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/galerkin-fine2-q12-contact64-original-seed-kinetic/trajectory.npz": "006714f870e7db568dd8c9b640c7b39914854c659803390d5664d9a27e9bf674",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/compact-radau6-q12-event16-original-seed-contact192/summary.json": "038564cbf1aaa38fffab8e1582a955df5ea5922a94f20ed562b0e9c8a0a6d5a4",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/compact-radau6-q12-event16-original-seed-contact192/trajectory.npz": "124fe0eb600662fd9a327846007e86d65faccf7339a0d57a5d244941ce8b6c8d",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/compact-radau6-q12-fem-plateau-diagnostic-contact192/summary.json": "f695c5a65c7541f7d6d5d0fba0373bf398450f3c1a61959827a3aaa12f13fd28",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/compact-radau6-q12-fem-plateau-diagnostic-contact192/trajectory.npz": "2280eb3a42564859e4e33950e3e5ab025622f007ae116b7822417cd502ffee90"
+    },
+    "scope": "Accumulated minus absolute net plastic slip measures reversal variation, including between saved frames, up to computation and storage error; not a bound on bulk time-discretization error",
+    "caveat": "Small signed deficits are retained; neither clipping nor a certified floating-point error bound is applied",
+    "same_accuracy_fem_advantage_verified": false
+  },
+  "original_source_paid_build_seconds": 73048.667585833,
+  "cost_scope": "Original source build was contended and remains separately paid; reused kernel or forward-only times are not end-to-end same-accuracy FEM speedups. Radau storage was on a separate external SSD directory.",
+  "loading_diagnostic_scope": "The prescribed plateau uses the true float64 FEM final_state actuator. It disables endogenous coverage stopping solely to isolate feedback and is not an original-policy reproduction.",
+  "autodiff_scope": "Existing full BDF2 N64 five-parameter reverse/forward JVP check passes conditionally; gradients are not demonstrated discretization-converged. Full Radau trajectory adjoint is not implemented.",
+  "same_accuracy_fem_advantage_verified": false,
+  "original_tatva_readonly": true
+}

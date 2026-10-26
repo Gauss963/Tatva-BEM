@@ -38,7 +38,17 @@ families, shares stage FFTs, preserves the finite-DFT lag-zero wrap and commits
 the coupled contact path only at the endpoint. A real two-block 256 us
 diagnostic agrees with freshly assembled original-Z RK-CQ to 4.27e-9 mm in
 displacement and 6.24e-7 MPa in shear; its original-equation residual is
-3.32e-8 MPa. Full 45 ms validation and the Radau trajectory adjoint remain open.
+3.32e-8 MPa. The [full 45 ms Radau event](radau_event.md) now completes at
+0.565404 mm, 12.22% below FEM, with final pressure/shear errors still near 20%.
+Its cached forward takes 167.89 s versus the matched original-seed BDF2
+control's 117.30 s; the new kernel additionally takes 4173.50 s and relies on
+the previously paid source construction. Prescribing the true FEM actuator
+plateau improves maximum slip only to 0.574861 mm and remains a diagnostic.
+Accumulated-vs-net plastic slip rules out unresolved reversals as the main
+0.0707 mm mean-slip deficit, but not other bulk time errors. Independent
+continuous-time FEM/BEM closed-stick responses now separate spatial
+differences from CQ; FEM h1 is closer to the same BEM than h2 at the three
+sampled Laplace points. Nonlinear convergence and the Radau trajectory adjoint remain open.
 
 - [x] Independent Laplace-domain plane-strain Green tensor and source traction.
 - [x] Direct finite-interior boundary operators, jump term and singular integration.

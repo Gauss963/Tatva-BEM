@@ -20,7 +20,8 @@ CONTACT = runpy.run_path(str(TOOLS / "radau_contact_experiment.py"))
 HISTORY = runpy.run_path(str(TOOLS / "compact_radau_history.py"))
 
 
-def test_nonlinear_compact_stages_match_original_impedance_history():
+@pytest.mark.parametrize("actuator_plateau", [None, 18.1])
+def test_nonlinear_compact_stages_match_original_impedance_history(actuator_plateau):
     plan = plan_cq(3, 0.02, 64, max_memory_mb=64)
     mass = np.array([[0.3, 0.02, 0], [0.02, 0.2, 0.01], [0, 0.01, 0.4]])
     stiffness = np.array([[30.0, 0.2, 0.1], [0.2, 30.0, -20], [0.1, -20, 30]])
@@ -72,6 +73,7 @@ def test_nonlinear_compact_stages_match_original_impedance_history():
         segment_substeps=(2, 4),
         cache_mb=0,
         fft_rows=1,
+        actuator_plateau=actuator_plateau,
     )
     # Assemble and invert Z_RK separately. No elastic baseline, compliance,
     # compact coefficients or zero-prefix rebasing is used in this reference.
@@ -86,7 +88,7 @@ def test_nonlinear_compact_stages_match_original_impedance_history():
     q = np.zeros((plan.steps + 1, 6))
     response = np.zeros_like(stages["response"])
     held = None
-    raw_actuator = ramp.copy()
+    raw_actuator = ramp.copy() if actuator_plateau is None else np.minimum(ramp, actuator_plateau)
     for k in range(1, plan.steps + 1):
         if held is not None:
             raw_actuator[k] = held
@@ -96,9 +98,17 @@ def test_nonlinear_compact_stages_match_original_impedance_history():
         assert answer.converged
         q[k], response[k] = answer.displacement, answer.response
         old = ContactState(answer.response[:, 1, 2], answer.response[:, 1, 3])
-        if held is None and old.cumulative_slip[0] >= law.characteristic_slip:
+        if (
+            actuator_plateau is None
+            and held is None
+            and old.cumulative_slip[0] >= law.characteristic_slip
+        ):
             held = raw_actuator[k, 1]
-    assert held is not None
+    if actuator_plateau is None:
+        assert held is not None
+    else:
+        assert result.diagnostics["actuator_hold_time_s"] == pytest.approx(actuator_plateau / 20)
+        assert not result.diagnostics["loading_diagnostic"]["contact_coverage_feedback_enabled"]
     assert result.diagnostics["first_correction_step"] is not None
     np.testing.assert_allclose(stages["displacement"].reshape(-1, 6), q, rtol=1e-7, atol=2e-7)
     np.testing.assert_allclose(stages["response"][1:], response[1:], rtol=1e-7, atol=2e-6)

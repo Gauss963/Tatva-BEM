@@ -47,6 +47,7 @@ def simulate_stages(
     recover=False,
     kinetic_seed=False,
     failure_callback=None,
+    actuator_plateau=None,
 ):
     """Solve coupled stages, then commit endpoint state and macrostep stop rule.
 
@@ -69,6 +70,15 @@ def simulate_stages(
     expected_time = np.zeros_like(stage_time)
     expected_time[1:] = (np.arange(steps)[:, None] + RADAU["C"]) * first.plan.dt
     np.testing.assert_allclose(stage_time, expected_time, rtol=1e-12, atol=1e-15)
+    plateau_time = None
+    if actuator_plateau is not None:
+        rate = (ramp[-1, 1] - ramp[0, 1]) / stage_time[-1, 1]
+        if not np.isfinite(actuator_plateau) or actuator_plateau < ramp[0, 1] or rate <= 0:
+            raise ValueError(
+                "Prescribed actuator plateau must be finite and above its initial value"
+            )
+        np.testing.assert_allclose(ramp, ramp[0, 1] + rate * stage_time, rtol=0, atol=1e-12)
+        plateau_time = float((actuator_plateau - ramp[0, 1]) / rate)
     weights = con.contact_weights
     cdiag = np.r_[weights * law.normal_penalty, weights * law.tangential_penalty, 0]
     spring_matrix = np.zeros((d, d))
@@ -111,6 +121,8 @@ def simulate_stages(
         first, second, wrap, cache_mb=cache_mb, fft_rows=fft_rows
     )
     memory.append(0, np.zeros(2 * d), active=False)
+    if actuator_plateau is not None:
+        actuator = np.minimum(ramp, actuator_plateau)
     old, held, hold_time = state, None, None
     recoveries = []
     for k in range(1, steps + 1):
@@ -171,6 +183,7 @@ def simulate_stages(
         old = ContactState(values[k, :, 1, 2], values[k, :, 1, 3])
         if (
             not diagnostic
+            and actuator_plateau is None
             and held is None
             and np.average(old.cumulative_slip >= law.characteristic_slip, weights=weights)
             >= stop_coverage
@@ -198,6 +211,7 @@ def simulate_stages(
     )
     diagnostics = dict(
         status="completed_requested_horizon",
+        boundary_formulation="P1/P0 symmetric Galerkin; nodal-force interface condensation",
         time_method="radau2",
         history_representation="compact_radau_elastic_resolvent",
         dt_s=first.plan.dt,
@@ -232,6 +246,18 @@ def simulate_stages(
         failure=None,
         scope="Complete causal compact Radau history and endpoint-committed stage contact; no FEM equivalence, gradient convergence or speed advantage asserted",
     )
+    if actuator_plateau is not None:
+        diagnostics.update(
+            schedule="prescribed_actuator_plateau_diagnostic",
+            actuator_hold_time_s=plateau_time if plateau_time <= stage_time[-1, 1] else None,
+            loading_stop_rule="Prescribed affine-ramp plateau; contact coverage feedback disabled",
+            loading_diagnostic=dict(
+                actuator_plateau_mm=float(actuator_plateau),
+                affine_ramp_plateau_time_s=plateau_time,
+                contact_coverage_feedback_enabled=False,
+                scope="Loading-feedback isolation only; not the original endogenous stop policy",
+            ),
+        )
     if memory.online is not None:
         diagnostics["online_fft_cache"] = memory.online.statistics()
     result = DynamicResult(
@@ -266,6 +292,11 @@ def main():
     parser.add_argument("--contact-root-recovery", action="store_true")
     parser.add_argument("--kinetic-root-seed", action="store_true")
     parser.add_argument("--restart-seed", type=Path)
+    parser.add_argument(
+        "--prescribed-actuator-plateau",
+        type=float,
+        help="Diagnostic only: prescribe the ramp plateau and disable the contact-coverage stop",
+    )
     parser.add_argument("--fft-cache-mb", type=float, default=8)
     parser.add_argument("--fft-rows", type=int, default=4)
     parser.add_argument("--max-memory-mb", type=float, default=8192)
@@ -283,6 +314,10 @@ def main():
         or not np.isfinite(args.max_memory_mb)
         or args.max_memory_mb <= 0
         or (args.kinetic_root_seed and not args.contact_root_recovery)
+        or (
+            args.prescribed_actuator_plateau is not None
+            and not np.isfinite(args.prescribed_actuator_plateau)
+        )
     ):
         raise ValueError("Invalid substep/resource options or kinetic seed without root recovery")
     begun = perf_counter()
@@ -430,6 +465,7 @@ def main():
             recover=args.contact_root_recovery,
             kinetic_seed=args.kinetic_root_seed,
             failure_callback=save_failure,
+            actuator_plateau=args.prescribed_actuator_plateau,
         )
     finally:
         for array in maps:
@@ -490,6 +526,7 @@ def main():
                 if args.restart_seed is None
                 else str(args.restart_seed.resolve()),
                 "output": str(output),
+                "prescribed_actuator_plateau": args.prescribed_actuator_plateau,
             },
             environment=environment,
         ),

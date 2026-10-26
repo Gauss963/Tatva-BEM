@@ -81,7 +81,7 @@ def main():
         ("applied_shear_mpa", "applied_shear", "Applied spring shear [MPa]"),
         ("actuator_mm", "applied_shear_displacement", "Actuator displacement [mm]"),
     ]
-    fig, axes = plt.subplots(3, 2, figsize=(11, 10), sharex=True, constrained_layout=True)
+    fig, axes = plt.subplots(3, 2, figsize=(11, 11), sharex=True, constrained_layout=True)
     for ax, (_, fem_key, label) in zip(axes.flat, mappings, strict=True):
         ax.plot(fem_time * 1e3, fem[fem_key], color="black", lw=1.4, label="FEM h=2 mm (archive)")
         ax.set_ylabel(label)
@@ -121,6 +121,8 @@ def main():
         )
         if summary.get("schedule") == "recorded_fem_actuator_diagnostic":
             label += ", FEM actuator replay"
+        if summary.get("schedule") == "prescribed_actuator_plateau_diagnostic":
+            label += ", prescribed actuator plateau"
         if summary.get("constitutive_substeps", 1) > 1:
             label += f", contact substeps={summary['constitutive_substeps']}"
         if summary.get("restart_seed_override"):
@@ -164,8 +166,8 @@ def main():
             profile_errors = None
             if (
                 summary.get("boundary_formulation", "").startswith("P1/P0")
-                and abs(trajectory["time"][-1] - 0.045) < 1e-8
-            ):
+                or summary.get("history_representation") == "compact_radau_elastic_resolvent"
+            ) and abs(trajectory["time"][-1] - 0.045) < 1e-8:
                 reference = read_history(REFERENCE / "frame_09039.csv")
                 fields = ["cumulative_slip", "pressure", "shear"]
                 reference_fields = ["cumulative_slip", "p", "tau"]
@@ -180,7 +182,7 @@ def main():
                 }
                 if profile_figure is None:
                     profile_figure, profile_axes = plt.subplots(
-                        1, 3, figsize=(12, 4), layout="constrained"
+                        1, 3, figsize=(12, 5), layout="constrained"
                     )
                     for ax, other in zip(profile_axes, reference_fields, strict=True):
                         ax.plot(reference["y"], reference[other], "k-", label="FEM h=2")
@@ -195,7 +197,6 @@ def main():
                         }[key],
                     )
                     ax.grid(alpha=0.2)
-                    ax.legend(fontsize=7)
         time = history["time_s"]
         errors = {}
         for ax, (bem_key, fem_key, _) in zip(axes.flat, mappings, strict=True):
@@ -223,6 +224,7 @@ def main():
                 "dt_s": summary["dt_s"],
                 "time_method": summary.get("time_method", "bdf2"),
                 "segment_substeps": summary.get("segment_substeps"),
+                "loading_diagnostic": summary.get("loading_diagnostic"),
                 "first_stored_slip_over_1e-7_mm_s": first_crossing(
                     time, history["max_cumulative_slip_mm"], 1e-7
                 ),
@@ -246,7 +248,7 @@ def main():
         )
     for ax in axes[-1]:
         ax.set_xlabel("Time from shear-phase start [ms]")
-    axes[0, 0].legend(fontsize=8)
+    fig.legend(*axes[0, 0].get_legend_handles_labels(), loc="outside lower center", fontsize=8)
     fig.suptitle(
         "Event 16: full-horizon BEM vs archived FEM\n"
         "Different spatial/temporal discretization and static restart projection"
@@ -254,7 +256,11 @@ def main():
     fig.savefig(figures / "event16_comparison.png", dpi=170)
     plt.close(fig)
     if profile_figure is not None:
+        profile_figure.legend(
+            *profile_axes[0].get_legend_handles_labels(), loc="outside lower center", fontsize=8
+        )
         profile_figure.savefig(figures / "event16_profiles.png", dpi=160)
+        plt.close(profile_figure)
         plt.close(profile_figure)
     record = {
         "fem": fem_metrics,

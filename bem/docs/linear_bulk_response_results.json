@@ -1,0 +1,444 @@
+{
+  "date": "2026-10-26",
+  "input_artifacts": {
+    "bem/outputs/linear-bulk-femh2-bem-current-4c-20261026/summary.json": {
+      "sha256": "da807c256c03f5d8e834631ed6baa53c400b3858b74828bf640dc779d0946d5d",
+      "bytes": 11337
+    },
+    "bem/outputs/linear-bulk-femh2-bem-current-4c-20261026/response-0.npz": {
+      "sha256": "9135a5148c249d1770e03b2116b763c1ae0e2151faa3f81c992d8a93852e8ee7",
+      "bytes": 17174
+    },
+    "bem/outputs/linear-bulk-femh2-bem-current-4c-20261026/response-1.npz": {
+      "sha256": "2aef2ce2e3ae65abd49dd5d4d07c96dee36e295618d9e22d05d8aad317706892",
+      "bytes": 17174
+    },
+    "bem/outputs/linear-bulk-femh2-bem-current-4c-20261026/response-2.npz": {
+      "sha256": "99779d3455de80f9a2c728acd540cfb4e2b7ad026cb260e98953e0c09dab552c",
+      "bytes": 17174
+    },
+    "bem/outputs/linear-bulk-femh1-bem-current-4c-20261026/summary.json": {
+      "sha256": "741f3f1238976bed5e6889ec552d5b70bfd94cad748afb362623598050357cf2",
+      "bytes": 11342
+    },
+    "bem/outputs/linear-bulk-femh1-bem-current-4c-20261026/response-0.npz": {
+      "sha256": "4a79a8df4b0906eba4ef680822c55dc31a09f2902707dcc292f5d508a9ec0543",
+      "bytes": 26774
+    },
+    "bem/outputs/linear-bulk-femh1-bem-current-4c-20261026/response-1.npz": {
+      "sha256": "e2bbfa9864a6bf3f2acc4ed62936c34ddbb3daecbec935c7cf8c77d423dc4e12",
+      "bytes": 26774
+    },
+    "bem/outputs/linear-bulk-femh1-bem-current-4c-20261026/response-2.npz": {
+      "sha256": "2a19245e58a752b4c981f653c619ea2ae16c6c556fda5e490721121f1fa06d40",
+      "bytes": 26774
+    }
+  },
+  "comparisons": [
+    {
+      "records": [
+        {
+          "frequency_hz": 0.0,
+          "laplace_real_per_s": 200.0,
+          "pressure_profile_relative_l2": 0.25089895625623493,
+          "shear_profile_relative_l2": 0.16608196124917318,
+          "platen_relative_error": 0.0005483204605077614,
+          "fem_equation_relative_residual": 1.0802640437826874e-13,
+          "bem_equation_relative_residual": 5.47037025919477e-16,
+          "seconds": 16.346951458603144
+        },
+        {
+          "frequency_hz": 1000.0,
+          "laplace_real_per_s": 200.0,
+          "pressure_profile_relative_l2": 0.24261777032530038,
+          "shear_profile_relative_l2": 0.13064165355604118,
+          "platen_relative_error": 0.00396462949486287,
+          "fem_equation_relative_residual": 5.544707132337401e-13,
+          "bem_equation_relative_residual": 2.913525116300842e-16,
+          "seconds": 17.67928604222834
+        },
+        {
+          "frequency_hz": 10000.0,
+          "laplace_real_per_s": 200.0,
+          "pressure_profile_relative_l2": 0.04535421799026862,
+          "shear_profile_relative_l2": 0.048287463841514756,
+          "platen_relative_error": 0.05212615101129378,
+          "fem_equation_relative_residual": 6.647890012480871e-14,
+          "bem_equation_relative_residual": 3.3523561670270203e-16,
+          "seconds": 25.633838125504553
+        }
+      ],
+      "fem_mesh_mm": 2.0,
+      "fem_full_dofs": 91550,
+      "fem_reduced_dofs": 91100,
+      "fem_contact_nodes": 241,
+      "bem_contact_nodes": 137,
+      "preparation_seconds": 14.93160287477076,
+      "total_seconds_before_reporting": 74.59411720745265,
+      "scope": "Independent spatially discrete, continuous-time closed-stick actuator response; no CQ, slip weakening, branch/event sensitivity or FEM-equivalent nonlinear solution asserted",
+      "frozen_input_sha256": {
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/compact-radau6-q12-kernel/summary.json": "72d8987e4990b8f4fe8daedadddf815c4da3be77a5ac8580aa9a1f02ea813f0f",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compare_linear_bulk_response.py": "d39a3357f47008887750bbb190d2da47ef71044e50cc3e9fa681ee6b1d3998b8",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/fem_static_onset.py": "47308fb6a7dbe317cf3bf5267086259c65323dc97a247a01f265a45924a3d9dc",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/run_fem_reference.py": "83995320c1b6bbe93cabb5005158cee08eece515b88b4df12b08802e4310fe5d",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/validation/static_bem2d/input/case.toml": "6f8cf492023c3928dc5c4d89672dec668077d5092f479a57580ab3aeb1a15f02",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/validation/static_bem2d/input/resolved.json": "6e68fbe8cfaa5364ff5cf88965727f58f584426797c774fa32f6807292e06296"
+      },
+      "fem_source": {
+        "revision": "933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d",
+        "archive_sha256": "ab7c09b46dc617795235e8356365d13210f1c0f0c9be40747bbddd9aefae628e",
+        "files": {
+          "tatva/__init__.py": {
+            "sha256": "2fffd71dc81f5b2e8ca217dde5da7ab0ac25337abe18aa96b7ddd765a680e0a4",
+            "bytes": 167
+          },
+          "tatva/compound/__init__.py": {
+            "sha256": "9243964f6fdbda4ae4d44c0d217904d5ae979e188dc54b84a8c0076d66ae1ef6",
+            "bytes": 16054
+          },
+          "tatva/compound/field.py": {
+            "sha256": "d8c231066b74172e806df24f52f6e5328b334a45132557409611e332237deada",
+            "bytes": 12769
+          },
+          "tatva/compound/field_types.py": {
+            "sha256": "3733beed1625f9386963da0af3426e11b116ffb372b81b23f1db0e27b2ed257e",
+            "bytes": 1572
+          },
+          "tatva/compound/mpi.py": {
+            "sha256": "8aa7281ab7ab4c1d5c797d23a2c45d11a225f4599e32705ff278d299ac6f14f0",
+            "bytes": 20297
+          },
+          "tatva/element/__init__.py": {
+            "sha256": "71dd895712cb676f5381fa8138826019cbc062e99401ca9e65076958781dae2a",
+            "bytes": 889
+          },
+          "tatva/element/base.py": {
+            "sha256": "0e71562ffff69c4ae390aa7878341aa0f903c8654d4f0c163909b93527d4ba00",
+            "bytes": 20539
+          },
+          "tatva/friction.py": {
+            "sha256": "8c2f8ce916d6c2ef3fe95bdcbb429adb2ff328aa59f27f786b349cb6aa2f85c0",
+            "bytes": 9602
+          },
+          "tatva/lifter/__init__.py": {
+            "sha256": "408865557392f003ba39ddb0b00efc93f0f16c6e36544faf27f70f74acd58b99",
+            "bytes": 1764
+          },
+          "tatva/lifter/base.py": {
+            "sha256": "fdbb893c4c32a25aed516187ccb6f58acde8f6a3d78e6cbde0a9f6607a9a00bb",
+            "bytes": 20894
+          },
+          "tatva/lifter/common.py": {
+            "sha256": "36ff7a073320cf7558416a5a09a8f7d4a1ce5cb0c73e84629c3ae1e13a364805",
+            "bytes": 4060
+          },
+          "tatva/lifter/constraints.py": {
+            "sha256": "d376418c4715d0430f37ff94bfc4b11296b1de792400c36361ba18065f21b817",
+            "bytes": 11888
+          },
+          "tatva/linalg.py": {
+            "sha256": "13d8e7171b8de978d1ed8ec4f34f47d6e1ce10d9e1f9f55c67d08618dfcc1973",
+            "bytes": 21644
+          },
+          "tatva/mesh.py": {
+            "sha256": "265dd27ce32b9ba353bb01e70187b2b5ec18b4ac0de65c8b4c4d9a4e6e516534",
+            "bytes": 14803
+          },
+          "tatva/mpi.py": {
+            "sha256": "08a6aef3c249974536b5eba675b7149889e457083178cd642fca80e1f1c8a931",
+            "bytes": 26999
+          },
+          "tatva/operator.py": {
+            "sha256": "d56b0cf61f1a2cbccfd0a09c6a4821169b844ded40718f1b238da192ad572a6c",
+            "bytes": 23736
+          },
+          "tatva/pmma/__init__.py": {
+            "sha256": "19fe57da13f4bacae5c99d759b92c64cb0ad95fdd911b0cfbcf493f4988f465a",
+            "bytes": 331
+          },
+          "tatva/pmma/config.py": {
+            "sha256": "86c6f2fca433947b22cc0fa2813f7d6566a930d1623bb3bf4a0e8fdd164d38f3",
+            "bytes": 25833
+          },
+          "tatva/pmma/dynamics.py": {
+            "sha256": "5f549e3cbd017030cac3db1cbc957ab1998583f868134fe8b69a718c32c13309",
+            "bytes": 245256
+          },
+          "tatva/pmma/estimate.py": {
+            "sha256": "99b18e8b50e8459cbfc30f965cb3921a5016f44d58752853e448a471fa48c1f8",
+            "bytes": 7718
+          },
+          "tatva/pmma/integration_probes.py": {
+            "sha256": "8b42aafc00e09e0de07b5e7fd8608fbeed1f1e8433a714e2ac7d361e24a822e6",
+            "bytes": 3739
+          },
+          "tatva/pmma/lsw.py": {
+            "sha256": "e735304f34f106271e511cf4d19cff94387e14644634fbafeddbc604408d7300",
+            "bytes": 2260
+          },
+          "tatva/pmma/model.py": {
+            "sha256": "41a1e6479f7c0cd94c577218004b3b6912dae31d279e2b556cfed46fd83f2235",
+            "bytes": 1252
+          },
+          "tatva/pmma/mpi.py": {
+            "sha256": "8f59a0abd69f727da7d205ed3572d3fc8c0fa1a8791bdba8350f36713ff025d1",
+            "bytes": 2857
+          },
+          "tatva/pmma/plotting.py": {
+            "sha256": "456b26d923394570547f9697946e6c5c0e98f9ecb5001e3be860e50564261cff",
+            "bytes": 2264
+          },
+          "tatva/pmma/profiles.py": {
+            "sha256": "10c6aae379838788d1ea388d8a9abbce3971a2ec93463279d02b44ebd6aef3dd",
+            "bytes": 7414
+          },
+          "tatva/pmma/runner.py": {
+            "sha256": "df9a30693f548f5de05b12a22c00d4c2eefbb709b08233f2af9ff8938b1de2dc",
+            "bytes": 17616
+          },
+          "tatva/pmma/static_normal.py": {
+            "sha256": "11c9c37658b467cc44957d42928752dcd9eba6f5a8cc2156a6ae12601a9af698",
+            "bytes": 10388
+          },
+          "tatva/py.typed": {
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          },
+          "tatva/sparse/__init__.py": {
+            "sha256": "9a43abf718dd3feef73ba3ebb0032efbfd589d3f31fa3fe90475b6460b6c65b0",
+            "bytes": 1043
+          },
+          "tatva/sparse/_coloring.py": {
+            "sha256": "1254944587f061fd39ad1fd8c1f572c0599e17c183da71eb9af5a5455158788e",
+            "bytes": 11897
+          },
+          "tatva/sparse/_extraction.py": {
+            "sha256": "9602afa5ae1d8daf4ec71259566120ee8b6698a7980463bbe23954d7bb0a0787",
+            "bytes": 8877
+          },
+          "tatva/sparse/base.py": {
+            "sha256": "3c151fe3a8fc76bc3d26114c8655eea716bd8da2ede784fc6f65a73a42ee47bd",
+            "bytes": 9899
+          },
+          "tatva/sparse/tracer.py": {
+            "sha256": "86b9526a1121a1ac9b6b60d976a775ce5994ab968d4cdf5faf8ba3c4436f784c",
+            "bytes": 103582
+          },
+          "tatva/utils.py": {
+            "sha256": "f1139c4edf1066d54fe1924c79f2c896c3060ba9f644ab75a8cfe99b41e532aa",
+            "bytes": 9943
+          }
+        }
+      }
+    },
+    {
+      "records": [
+        {
+          "frequency_hz": 0.0,
+          "laplace_real_per_s": 200.0,
+          "pressure_profile_relative_l2": 0.11258300546474714,
+          "shear_profile_relative_l2": 0.10538051193385364,
+          "platen_relative_error": 0.00021950543844050173,
+          "fem_equation_relative_residual": 2.1486386413707415e-13,
+          "bem_equation_relative_residual": 5.47037025919477e-16,
+          "seconds": 28.566614290699363
+        },
+        {
+          "frequency_hz": 1000.0,
+          "laplace_real_per_s": 200.0,
+          "pressure_profile_relative_l2": 0.1112852465303693,
+          "shear_profile_relative_l2": 0.0782700443506771,
+          "platen_relative_error": 0.0016425078734370417,
+          "fem_equation_relative_residual": 1.0814029494846339e-12,
+          "bem_equation_relative_residual": 2.913525116300842e-16,
+          "seconds": 29.485336542129517
+        },
+        {
+          "frequency_hz": 10000.0,
+          "laplace_real_per_s": 200.0,
+          "pressure_profile_relative_l2": 0.019592112201389834,
+          "shear_profile_relative_l2": 0.024924433610317723,
+          "platen_relative_error": 0.019065499459910682,
+          "fem_equation_relative_residual": 1.20301475502942e-13,
+          "bem_equation_relative_residual": 3.3523561670270203e-16,
+          "seconds": 37.53400054201484
+        }
+      ],
+      "fem_mesh_mm": 1.0,
+      "fem_full_dofs": 362294,
+      "fem_reduced_dofs": 361397,
+      "fem_contact_nodes": 481,
+      "bem_contact_nodes": 137,
+      "preparation_seconds": 20.5358545826748,
+      "total_seconds_before_reporting": 116.12742579169571,
+      "scope": "Independent spatially discrete, continuous-time closed-stick actuator response; no CQ, slip weakening, branch/event sensitivity or FEM-equivalent nonlinear solution asserted",
+      "frozen_input_sha256": {
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/compact-radau6-q12-kernel/summary.json": "72d8987e4990b8f4fe8daedadddf815c4da3be77a5ac8580aa9a1f02ea813f0f",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compare_linear_bulk_response.py": "d39a3357f47008887750bbb190d2da47ef71044e50cc3e9fa681ee6b1d3998b8",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/fem_static_onset.py": "47308fb6a7dbe317cf3bf5267086259c65323dc97a247a01f265a45924a3d9dc",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/run_fem_reference.py": "83995320c1b6bbe93cabb5005158cee08eece515b88b4df12b08802e4310fe5d",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/validation/static_bem2d/input/case.toml": "6f8cf492023c3928dc5c4d89672dec668077d5092f479a57580ab3aeb1a15f02",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/validation/static_bem2d/input/resolved.json": "6e68fbe8cfaa5364ff5cf88965727f58f584426797c774fa32f6807292e06296"
+      },
+      "fem_source": {
+        "revision": "933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d",
+        "archive_sha256": "ab7c09b46dc617795235e8356365d13210f1c0f0c9be40747bbddd9aefae628e",
+        "files": {
+          "tatva/__init__.py": {
+            "sha256": "2fffd71dc81f5b2e8ca217dde5da7ab0ac25337abe18aa96b7ddd765a680e0a4",
+            "bytes": 167
+          },
+          "tatva/compound/__init__.py": {
+            "sha256": "9243964f6fdbda4ae4d44c0d217904d5ae979e188dc54b84a8c0076d66ae1ef6",
+            "bytes": 16054
+          },
+          "tatva/compound/field.py": {
+            "sha256": "d8c231066b74172e806df24f52f6e5328b334a45132557409611e332237deada",
+            "bytes": 12769
+          },
+          "tatva/compound/field_types.py": {
+            "sha256": "3733beed1625f9386963da0af3426e11b116ffb372b81b23f1db0e27b2ed257e",
+            "bytes": 1572
+          },
+          "tatva/compound/mpi.py": {
+            "sha256": "8aa7281ab7ab4c1d5c797d23a2c45d11a225f4599e32705ff278d299ac6f14f0",
+            "bytes": 20297
+          },
+          "tatva/element/__init__.py": {
+            "sha256": "71dd895712cb676f5381fa8138826019cbc062e99401ca9e65076958781dae2a",
+            "bytes": 889
+          },
+          "tatva/element/base.py": {
+            "sha256": "0e71562ffff69c4ae390aa7878341aa0f903c8654d4f0c163909b93527d4ba00",
+            "bytes": 20539
+          },
+          "tatva/friction.py": {
+            "sha256": "8c2f8ce916d6c2ef3fe95bdcbb429adb2ff328aa59f27f786b349cb6aa2f85c0",
+            "bytes": 9602
+          },
+          "tatva/lifter/__init__.py": {
+            "sha256": "408865557392f003ba39ddb0b00efc93f0f16c6e36544faf27f70f74acd58b99",
+            "bytes": 1764
+          },
+          "tatva/lifter/base.py": {
+            "sha256": "fdbb893c4c32a25aed516187ccb6f58acde8f6a3d78e6cbde0a9f6607a9a00bb",
+            "bytes": 20894
+          },
+          "tatva/lifter/common.py": {
+            "sha256": "36ff7a073320cf7558416a5a09a8f7d4a1ce5cb0c73e84629c3ae1e13a364805",
+            "bytes": 4060
+          },
+          "tatva/lifter/constraints.py": {
+            "sha256": "d376418c4715d0430f37ff94bfc4b11296b1de792400c36361ba18065f21b817",
+            "bytes": 11888
+          },
+          "tatva/linalg.py": {
+            "sha256": "13d8e7171b8de978d1ed8ec4f34f47d6e1ce10d9e1f9f55c67d08618dfcc1973",
+            "bytes": 21644
+          },
+          "tatva/mesh.py": {
+            "sha256": "265dd27ce32b9ba353bb01e70187b2b5ec18b4ac0de65c8b4c4d9a4e6e516534",
+            "bytes": 14803
+          },
+          "tatva/mpi.py": {
+            "sha256": "08a6aef3c249974536b5eba675b7149889e457083178cd642fca80e1f1c8a931",
+            "bytes": 26999
+          },
+          "tatva/operator.py": {
+            "sha256": "d56b0cf61f1a2cbccfd0a09c6a4821169b844ded40718f1b238da192ad572a6c",
+            "bytes": 23736
+          },
+          "tatva/pmma/__init__.py": {
+            "sha256": "19fe57da13f4bacae5c99d759b92c64cb0ad95fdd911b0cfbcf493f4988f465a",
+            "bytes": 331
+          },
+          "tatva/pmma/config.py": {
+            "sha256": "86c6f2fca433947b22cc0fa2813f7d6566a930d1623bb3bf4a0e8fdd164d38f3",
+            "bytes": 25833
+          },
+          "tatva/pmma/dynamics.py": {
+            "sha256": "5f549e3cbd017030cac3db1cbc957ab1998583f868134fe8b69a718c32c13309",
+            "bytes": 245256
+          },
+          "tatva/pmma/estimate.py": {
+            "sha256": "99b18e8b50e8459cbfc30f965cb3921a5016f44d58752853e448a471fa48c1f8",
+            "bytes": 7718
+          },
+          "tatva/pmma/integration_probes.py": {
+            "sha256": "8b42aafc00e09e0de07b5e7fd8608fbeed1f1e8433a714e2ac7d361e24a822e6",
+            "bytes": 3739
+          },
+          "tatva/pmma/lsw.py": {
+            "sha256": "e735304f34f106271e511cf4d19cff94387e14644634fbafeddbc604408d7300",
+            "bytes": 2260
+          },
+          "tatva/pmma/model.py": {
+            "sha256": "41a1e6479f7c0cd94c577218004b3b6912dae31d279e2b556cfed46fd83f2235",
+            "bytes": 1252
+          },
+          "tatva/pmma/mpi.py": {
+            "sha256": "8f59a0abd69f727da7d205ed3572d3fc8c0fa1a8791bdba8350f36713ff025d1",
+            "bytes": 2857
+          },
+          "tatva/pmma/plotting.py": {
+            "sha256": "456b26d923394570547f9697946e6c5c0e98f9ecb5001e3be860e50564261cff",
+            "bytes": 2264
+          },
+          "tatva/pmma/profiles.py": {
+            "sha256": "10c6aae379838788d1ea388d8a9abbce3971a2ec93463279d02b44ebd6aef3dd",
+            "bytes": 7414
+          },
+          "tatva/pmma/runner.py": {
+            "sha256": "df9a30693f548f5de05b12a22c00d4c2eefbb709b08233f2af9ff8938b1de2dc",
+            "bytes": 17616
+          },
+          "tatva/pmma/static_normal.py": {
+            "sha256": "11c9c37658b467cc44957d42928752dcd9eba6f5a8cc2156a6ae12601a9af698",
+            "bytes": 10388
+          },
+          "tatva/py.typed": {
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "bytes": 0
+          },
+          "tatva/sparse/__init__.py": {
+            "sha256": "9a43abf718dd3feef73ba3ebb0032efbfd589d3f31fa3fe90475b6460b6c65b0",
+            "bytes": 1043
+          },
+          "tatva/sparse/_coloring.py": {
+            "sha256": "1254944587f061fd39ad1fd8c1f572c0599e17c183da71eb9af5a5455158788e",
+            "bytes": 11897
+          },
+          "tatva/sparse/_extraction.py": {
+            "sha256": "9602afa5ae1d8daf4ec71259566120ee8b6698a7980463bbe23954d7bb0a0787",
+            "bytes": 8877
+          },
+          "tatva/sparse/base.py": {
+            "sha256": "3c151fe3a8fc76bc3d26114c8655eea716bd8da2ede784fc6f65a73a42ee47bd",
+            "bytes": 9899
+          },
+          "tatva/sparse/tracer.py": {
+            "sha256": "86b9526a1121a1ac9b6b60d976a775ce5994ab968d4cdf5faf8ba3c4436f784c",
+            "bytes": 103582
+          },
+          "tatva/utils.py": {
+            "sha256": "f1139c4edf1066d54fe1924c79f2c896c3060ba9f644ab75a8cfe99b41e532aa",
+            "bytes": 9943
+          }
+        }
+      }
+    }
+  ],
+  "thread_environment": {
+    "FDBEM_CORES": "4",
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "VECLIB_MAXIMUM_THREADS": "1",
+    "XLA_FLAGS": "--xla_cpu_multi_thread_eigen=false intra_op_parallelism_threads=4",
+    "JAX_ENABLE_X64": "true"
+  },
+  "hard_cpu_affinity_enforced": false,
+  "sampling_scope": "Three points on Re(s)=200 only. No CQ, nonlinear rupture or continuum-convergence bound is established.",
+  "timing_scope": "Exploratory linear diagnostics, not forward-event speed measurements.",
+  "same_accuracy_fem_advantage_verified": false,
+  "original_tatva_readonly": true
+}
