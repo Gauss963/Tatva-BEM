@@ -12,6 +12,17 @@ trace nodes, 275 retained bulk unknowns, original finite blocks, complete
 dynamic operator, physical parameters and loading policy. It distinguishes
 contact-state resolution from bulk spatial and time resolution.
 
+The full identity control has now passed all seven field-history gates; its
+maximum-slip difference from the existing event is about 1.5e-11 mm. The
+273-state preserve-offset run reaches 0.569536 mm. Four/eight subdivisions
+fail the frozen initial strength check near the upper endpoint, despite
+small full-body force residuals. The separate [healed static initialization
+control](fem_static_initialization.md) follows Tatva's original active-set
+preload policy. [Current evidence](contact_initialization_results.json)
+records these results, complete kernel construction and the first run's
+cache-staging pause. Neither physical convergence nor a fair speed
+advantage follows from the identity check.
+
 ## Discretization and static lift
 
 `tools/refined_contact.py` defines a positive composite nodal trapezoid on
@@ -37,12 +48,15 @@ every source knot.
 
 The static reduction solves the original constrained saddle system for bulk
 displacement, contact jumps and platen motion. There is no artificial spring
-or inverse of an unsupported free body. Initialization must preserve z/c,
+or inverse of an unsupported free body. The default `preserve-offset` initialization must preserve z/c,
 satisfy the frozen friction bound and balance the uncondensed discrete body
 below 1e-7 MPa. The original Galerkin matrix has a small finite-quadrature
 rigid-translation defect; the code records its force resultant rather than
 replacing the resulting mean pressure by an idealized value. The actual
 lifted bulk force and strictly past response to its small residual are retained.
+`--static-initialization fem-active-set` instead permits static Coulomb
+sliding to update the output plastic offset, matching Tatva; its healed
+weakening memory remains unchanged. The original input seed is never rewritten.
 
 ## Complete history is required from step one
 
@@ -57,9 +71,9 @@ FFT size 65536, radius or frequency matrices. The original coefficient prefix
 must remain bitwise equal, and lag-zero inverse composition must pass.
 No source spectrum or existing kernel is overwritten.
 
-The actual resource preflight requires 13,664,243,536 bytes of new disk and
-estimates 2,582,316,000 bytes of IFFT array workspace. It is not a completed
-extension or an OS RSS bound. Full-circle interpolation and late-lag numerical
+The extension has completed with the original 10001 coefficients bitwise
+unchanged. The earlier resource preflight estimated 2,582,316,000 bytes of
+IFFT array workspace; this is not an OS RSS bound. Full-circle interpolation and late-lag numerical
 error still need physical trajectory checks; prefix equality cannot certify
 unseen later coefficients.
 

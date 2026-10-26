@@ -7,7 +7,10 @@
 最新[原float64 seed的完整Radau事件](docs/radau_event.md)最大滑移0.5654 mm，
 與原FEM的0.6441 mm差12.22%；壓力／剪力末分布差仍約20%，尚未證明速度優勢。
 新增[固定bulk的接觸積分加密與完整歷史AD](docs/refined_contact.md)：
-保留275個bulk未知數，以功共軛方式增加接觸狀態點；完整45ms對照仍待實際執行。
+保留275個bulk未知數，以功共軛方式增加接觸狀態點，分離接觸積分與bulk誤差。
+完整identity控制已通過，273狀態點最大滑移0.569536mm；更細積分則暴露端點初始強度超限。
+新增[與Tatva一致的healed靜態接觸初始化](docs/fem_static_initialization.md)，完整事件比較正在執行。
+另有[共用kernel FFT的多右端AD歷史](docs/batched_ad_history.md)，尚待完整梯度與計時驗證。
 目前驗證包括解析波傳／反射、雙 block 非線性滑動、完整時間範圍的原載入對照，以及 JAX 接觸參數梯度。
 數值與執行條件見 [事件比較](docs/event16_comparison.md) 和 [AD 設計](docs/autodiff.md)。
 新增 [接觸座標縮減](docs/condensation.md) 可降低完整歷史儲存，並提供端點與角落加密。

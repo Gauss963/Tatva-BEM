@@ -81,7 +81,12 @@ The [2024–2026 literature review](bem/docs/literature.md) records the next
 accuracy/stability gates and measured adaptive-frequency experiments.
 The [refined contact experiment](bem/docs/refined_contact.md) separates contact
 integration from bulk resolution and requires a full-event identity control
-before attributing a change to refinement; its full-event results are pending.
+before attributing a change to refinement. The complete identity control passed;
+273 states reach 0.569536 mm. Finer integration exposes initially inadmissible
+frozen offsets near an endpoint. The new [healed static contact control](bem/docs/fem_static_initialization.md)
+matches Tatva's Coulomb preload policy; its complete-event comparisons are running.
+The [batched AD history prototype](bem/docs/batched_ad_history.md) shares kernel FFTs
+across derivative directions, with full-event runtime validation still pending.
 The [original-equation audit](bem/docs/original_history_audit.md) additionally
 checks causal force histories and the initial P1 seed-field projection.
 The [Galerkin implementation and validation](bem/docs/galerkin.md) addresses
