@@ -184,7 +184,9 @@ def test_refined_jax_local_tangents_and_state_derivatives_match_numpy_and_fd(sta
 
 
 @pytest.mark.parametrize("subdivisions", [1, 3])
-def test_refined_resolvent_trajectory_matches_fresh_original_z_history(static_case, subdivisions):
+def test_refined_resolvent_trajectory_matches_fresh_original_z_history(
+    static_case, subdivisions, tmp_path
+):
     pytest.importorskip("jax")
     from finiteblock_bem.cq import BoundaryHistory, convolution_weights, plan_cq
     from finiteblock_bem.jax_backend import JaxContactEquilibrium
@@ -284,6 +286,25 @@ def test_refined_resolvent_trajectory_matches_fresh_original_z_history(static_ca
     assert actual.diagnostics["correction_start"] == 1
     assert actual.diagnostics["micro_friction_work_mpa_mm2"] > 0
     assert np.min(np.diff(actual.cumulative_slip, axis=0)) >= 0
+    writer = runpy.run_path(str(ROOT / "tools/simulate_refined_contact.py"))
+    writer["save_trajectory"](tmp_path, model, space, lift, actual, actual.diagnostics)
+    with np.load(tmp_path / "trajectory.npz", allow_pickle=False) as saved:
+        np.testing.assert_array_equal(saved["contact_y"], space.y)
+        np.testing.assert_array_equal(saved["retained_contact_y"], space.bulk_y)
+        assert saved["contact_jumps"].shape == (steps + 1, 2 * space.points)
+        assert saved["retained_displacement"].shape == (steps + 1, space.dofs)
+        np.testing.assert_allclose(
+            saved["contact_jumps"][0, : space.points], reference.base_dn, rtol=0, atol=0
+        )
+        np.testing.assert_allclose(
+            saved["contact_jumps"][0, space.points :], reference.base_ds, rtol=0, atol=0
+        )
+        np.testing.assert_array_equal(saved["cumulative_slip"], actual.cumulative_slip)
+    if subdivisions > 1:
+        ad = runpy.run_path(str(ROOT / "tools/refined_contact_adjoint.py"))
+        forward = ad["forward_gradient"](reference, BoundaryHistory(plan, resolvent), actual)
+        reverse = ad["reverse_gradient"](reference, BoundaryHistory(plan, resolvent), actual)
+        np.testing.assert_allclose(reverse["gradient"], forward["gradient"], rtol=2e-9, atol=2e-10)
 
 
 @pytest.mark.parametrize(

@@ -117,6 +117,12 @@ elif [ "${1:-}" = resolvent-replay ]; then
 elif [ "${1:-}" = resolvent-simulate ]; then
     shift
     exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/simulate_resolvent.py" "$@"
+elif [ "${1:-}" = resolvent-extend ]; then
+    shift
+    exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/extend_resolvent_window.py" "$@"
+elif [ "${1:-}" = refined-contact-simulate ]; then
+    shift
+    exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/simulate_refined_contact.py" "$@"
 elif [ "${1:-}" = resolvent-adjoint ]; then
     shift
     exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/adjoint_resolvent.py" "$@"
