@@ -206,7 +206,8 @@ def test_refined_resolvent_trajectory_matches_fresh_original_z_history(
             samples[s] = transfer.evaluate(s)
         return samples[s]
 
-    original = convolution_weights(impedance, plan)
+    original_samples = np.empty((plan.fft_size // 2 + 1, space.dofs, space.dofs), dtype=complex)
+    original = convolution_weights(impedance, plan, spectrum=original_samples)
     law, wc = model.reference.contact, model.constraints.contact_weights
     diagonal = np.r_[wc * law.normal_penalty, wc * law.tangential_penalty, 0]
     linear_reference = np.diag(diagonal)
@@ -286,6 +287,27 @@ def test_refined_resolvent_trajectory_matches_fresh_original_z_history(
     assert actual.diagnostics["correction_start"] == 1
     assert actual.diagnostics["micro_friction_work_mpa_mm2"] > 0
     assert np.min(np.diff(actual.cumulative_slip, axis=0)) >= 0
+    audit = runpy.run_path(str(ROOT / "tools/original_history_audit.py"))
+    line = np.r_[wc, wc, model.constraints.platen_width]
+    scale = np.sqrt(line)
+    original_work = (original_samples + linear_reference) / (
+        scale[None, :, None] * scale[None, None, :]
+    )
+    action, _ = audit["causal_original_action"](
+        original_work, plan, actual.bulk_displacement, line, fft_rows=3
+    )
+    force = audit["physical_residual"](
+        action[..., 0],
+        actual.bulk_displacement,
+        space.pull_force(actual.pressure, actual.shear),
+        lift.retained_bulk_force,
+        diagonal,
+        reference.spring,
+        reference.base_platen,
+        actual.actuator,
+    )
+    original_error = float(np.max(abs(force) / reference.constraints.reduced_weights))
+    assert original_error < 1e-5, original_error
     writer = runpy.run_path(str(ROOT / "tools/simulate_refined_contact.py"))
     writer["save_trajectory"](tmp_path, model, space, lift, actual, actual.diagnostics)
     with np.load(tmp_path / "trajectory.npz", allow_pickle=False) as saved:
