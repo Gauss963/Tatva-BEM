@@ -53,6 +53,14 @@ The [discrete radiation-limit experiment](radiation_limit.md) now tests a
 possible instantaneous/history split against fresh operators, including the
 P0-projection contribution to the P1/P0 leading term. It is not a production
 multirate solver and has not improved the full-event result.
+The [fully reflected finite-bar control](radiation_bar.md) now couples the
+instantaneous term to the original LSW update and an independent volume
+reference. Fine-history states agree closely; interval-average histories fail
+the reflected-traction and sensitivity checks despite close slip. A complete
+fine-history reverse-ring custom VJP passes independent forward AD with lower
+compiler-planned storage and measured bar-only gradient runtime. The full h1
+FEM spatial control has started at the original h2 time step, using the
+corrected original float64 seed projection; its full result remains pending.
 
 - [x] Independent Laplace-domain plane-strain Green tensor and source traction.
 - [x] Direct finite-interior boundary operators, jump term and singular integration.

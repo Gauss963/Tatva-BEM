@@ -1,5 +1,14 @@
 # JAX 自動微分的現況與設計
 
+2026-10-26新增[完整反射有限bar的custom VJP](radiation_bar.md)：
+80,000個細步保留所有返回波，以局部VJP與反向delay ring取代完整ring tape。
+與獨立正向JVP最大絕對差1.64e−14。更完整的同程序鏡像對照發現，普通JAX
+移除整個history carry的checkpoint後，暫存即由約5.13GB降至16.77MB；
+自訂reverse ring再降至8.38MB，這次耗時比不做macro checkpoint的普通AD降低約19%。
+因此已修正預設，不將大部分收益誤歸因於自訂VJP。這是1D控制，不是2D event-16效能結論。
+同一控制也顯示：平均歷史的末滑移接近、AD內部核對通過，mu_s gradient卻與細歷史反號。
+因此完整原算子、時間解析度和gradient收斂須分開驗收。
+
 2026-10-24新增[接觸子步的完整條件式adjoint](substepped_contact.md)：
 局部JAX scan配合平衡根隱式微分，反向另傳前一步位移的cotangent。
 20步獨立原始Z-history／JAX scan已核對五參數、初始z/c與全部actuator導數，

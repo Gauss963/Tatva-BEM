@@ -1,0 +1,1719 @@
+{
+  "date": "2026-10-26",
+  "input_artifacts": {
+    "primary": {
+      "path": "bem/outputs/radiation-bar-final-policy-20261026/summary.json",
+      "sha256": "ca3dd96c91093162c0317c54191182b924084e7bf5654c7af0efecfe46426611"
+    },
+    "before_reverse_ring": {
+      "path": "bem/outputs/radiation-bar-fine-history-ad-20261026/summary.json",
+      "sha256": "a22ac1eca680acb5cc140d5624c3d8a4207c5f99483b9beafdc86c4062e9fba1"
+    },
+    "micro_6_25_ns": {
+      "path": "bem/outputs/radiation-bar-micro625ns-20261026/summary.json",
+      "sha256": "0a6c4cc0da12c4432beacc0ed2517727208e3a8793fef2bf3d16b969accbe000"
+    },
+    "micro_3_125_ns": {
+      "path": "bem/outputs/radiation-bar-micro3125ns-20261026/summary.json",
+      "sha256": "186afcdfc324230ff333192d7b43b62df292bb00f6faa0eae006c85cb1178728"
+    },
+    "adjoint_benchmark": {
+      "path": "bem/outputs/radiation-bar-ad-final-policy-20261026/summary.json",
+      "sha256": "80df7f035e48b9452623cea619b873dfb7bbc33d85aade501efc4b296a1558c2"
+    },
+    "h1_restart_preflight": {
+      "path": "bem/outputs/fem-event16-authored-f64-h1-original-dt-preflight/reference_manifest.json",
+      "sha256": "9a238de1cafa3148b5e877008e2aa858bf402ca9ac0c495d75a393104df1bafa"
+    },
+    "primary_with_macro_checkpoint": {
+      "path": "bem/outputs/radiation-bar-fine-history-reverse-ring-20261026/summary.json",
+      "sha256": "c42d0ab14eb87a121d935083c1cdb99ea36e8581324c253cec92cfc5502a9502"
+    },
+    "checkpoint_only_benchmark": {
+      "path": "bem/outputs/radiation-bar-ad-mirrored-timing-20261026/summary.json",
+      "sha256": "6019dfd78c2148ef8330a57f442b3d4265ad0c7f7308b41214ebfb54c53853f1"
+    },
+    "ordinary_scan_control": {
+      "path": "bem/outputs/radiation-bar-ad-no-checkpoint-20261026/summary.json",
+      "sha256": "cf2e35fafc91d5000927cce9bfdc5da47d8803c84b0eb18e4e2cfd0f3ce1c0ef"
+    }
+  },
+  "controls": {
+    "primary": {
+      "records": [
+        {
+          "name": "delay-1.25e-08",
+          "kind": "exact_delay",
+          "macro_dt_s": 1.25e-08,
+          "final_cumulative_slip_mm": 0.40629209281607737,
+          "max_jump_mm": 0.40759723507658374,
+          "maximum_microstep_residual_mpa": 6.733280599746649e-12,
+          "maximum_reflected_traction_defect_mpa": 2.6645352591003757e-15,
+          "external_work": 5.682692326848056,
+          "friction_work": 4.083961499817954,
+          "interface_energy": 0.0023709154704716715,
+          "bulk_energy": 1.5963104910807908,
+          "mechanical_remainder": 4.94204788394903e-05,
+          "all_finite": true,
+          "cumulative_monotone": true,
+          "timing_seconds": {
+            "first_including_jit": 0.07434183452278376,
+            "warm_seconds": 0.0024585407227277756
+          },
+          "jump_history_relative_l2_vs_finest_volume": 7.67279707668045e-05,
+          "cumulative_history_relative_l2_vs_finest_volume": 7.683130563606632e-05
+        },
+        {
+          "name": "delay-1.25e-07",
+          "kind": "macro_average_history",
+          "macro_dt_s": 1.25e-07,
+          "final_cumulative_slip_mm": 0.40628965736334,
+          "max_jump_mm": 0.40759479962384637,
+          "maximum_microstep_residual_mpa": 6.147082842744567e-12,
+          "maximum_reflected_traction_defect_mpa": 1.5701539523599441,
+          "external_work": 5.682658244485088,
+          "friction_work": 4.083937145286624,
+          "interface_energy": 0.0023709217908515906,
+          "bulk_energy": 1.59665061800982,
+          "mechanical_remainder": -0.00030044060220779656,
+          "all_finite": true,
+          "cumulative_monotone": true,
+          "timing_seconds": {
+            "first_including_jit": 0.07832683436572552,
+            "warm_seconds": 0.006480958312749863
+          },
+          "jump_history_relative_l2_vs_finest_volume": 7.430296686879227e-05,
+          "cumulative_history_relative_l2_vs_finest_volume": 7.439721928062836e-05
+        },
+        {
+          "name": "delay-5e-07",
+          "kind": "macro_average_history",
+          "macro_dt_s": 5e-07,
+          "final_cumulative_slip_mm": 0.4062698769145748,
+          "max_jump_mm": 0.40757501917508115,
+          "maximum_microstep_residual_mpa": 6.0103033661107474e-12,
+          "maximum_reflected_traction_defect_mpa": 7.75342279346523,
+          "external_work": 5.6823814883371435,
+          "friction_work": 4.083739340795487,
+          "interface_energy": 0.002371000166285915,
+          "bulk_energy": 1.6003670189683925,
+          "mechanical_remainder": -0.004095871593022382,
+          "all_finite": true,
+          "cumulative_monotone": true,
+          "timing_seconds": {
+            "first_including_jit": 0.08027308247983456,
+            "warm_seconds": 0.008198666386306286
+          },
+          "jump_history_relative_l2_vs_finest_volume": 7.228474374770878e-05,
+          "cumulative_history_relative_l2_vs_finest_volume": 7.125819330488134e-05
+        },
+        {
+          "name": "delay-2e-06",
+          "kind": "macro_average_history",
+          "macro_dt_s": 2e-06,
+          "final_cumulative_slip_mm": 0.40622804527022244,
+          "max_jump_mm": 0.4075331875307288,
+          "maximum_microstep_residual_mpa": 7.143619029648107e-12,
+          "maximum_reflected_traction_defect_mpa": 18.520262244525878,
+          "external_work": 5.681796922849796,
+          "friction_work": 4.083321026105652,
+          "interface_energy": 0.0023714741016938917,
+          "bulk_energy": 1.6097114877453669,
+          "mechanical_remainder": -0.013607065102916316,
+          "all_finite": true,
+          "cumulative_monotone": true,
+          "timing_seconds": {
+            "first_including_jit": 0.13423137459903955,
+            "warm_seconds": 0.0030203750357031822
+          },
+          "jump_history_relative_l2_vs_finest_volume": 0.0001570271712015399,
+          "cumulative_history_relative_l2_vs_finest_volume": 0.00014643637342421834
+        },
+        {
+          "name": "fem-500",
+          "kind": "volume_reference",
+          "elements": 500,
+          "final_cumulative_slip_mm": 0.4062650196642747,
+          "max_jump_mm": 0.40757016192478107,
+          "external_work": 5.682336328865762,
+          "friction_work": 4.083690652880007,
+          "bulk_energy": 1.596225203282476,
+          "interface_energy": 0.0023731061857113623,
+          "mechanical_remainder": 4.736651756746856e-05,
+          "all_finite": true,
+          "cumulative_monotone": true,
+          "timing_seconds": {
+            "first_including_jit": 0.12436337489634752,
+            "warm_seconds": 0.05751720815896988
+          },
+          "jump_history_relative_l2_vs_finest_volume": 3.848483760919307e-05,
+          "cumulative_history_relative_l2_vs_finest_volume": 3.146343365550625e-05
+        },
+        {
+          "name": "fem-1000",
+          "kind": "volume_reference",
+          "elements": 1000,
+          "final_cumulative_slip_mm": 0.4062754013697043,
+          "max_jump_mm": 0.4075805436302107,
+          "external_work": 5.682476565671697,
+          "friction_work": 4.083794449548077,
+          "bulk_energy": 1.5962634616023086,
+          "interface_energy": 0.002371284590019662,
+          "mechanical_remainder": 4.736993129196305e-05,
+          "all_finite": true,
+          "cumulative_monotone": true,
+          "timing_seconds": {
+            "first_including_jit": 0.13977137487381697,
+            "warm_seconds": 0.08067649975419044
+          },
+          "jump_history_relative_l2_vs_finest_volume": 1.1073459110077952e-05,
+          "cumulative_history_relative_l2_vs_finest_volume": 6.243616328005769e-06
+        },
+        {
+          "name": "fem-2000",
+          "kind": "volume_reference",
+          "elements": 2000,
+          "final_cumulative_slip_mm": 0.4062779705217877,
+          "max_jump_mm": 0.4075831127822941,
+          "external_work": 5.682511329551223,
+          "friction_work": 4.083820135042282,
+          "bulk_energy": 1.596272962745811,
+          "interface_energy": 0.0023708608145894088,
+          "mechanical_remainder": 4.7370948540643304e-05,
+          "all_finite": true,
+          "cumulative_monotone": true,
+          "timing_seconds": {
+            "first_including_jit": 0.2049131253734231,
+            "warm_seconds": 0.12338279187679291
+          },
+          "jump_history_relative_l2_vs_finest_volume": 0.0,
+          "cumulative_history_relative_l2_vs_finest_volume": 0.0
+        }
+      ],
+      "parameters": [
+        76620.0,
+        7662.0,
+        0.8,
+        0.6,
+        0.0125959
+      ],
+      "pressure_mpa": 16.666666666666668,
+      "micro_dt_s": 1.25e-08,
+      "differentiable_rollout_checkpoint_macro": false,
+      "duration_s": 0.001,
+      "length_mm": 83.38050349074021,
+      "one_way_transit_s": 5e-05,
+      "radiation_mpa_s_per_mm": 0.0009572081800736975,
+      "peak_applied_traction_mpa": 14.0,
+      "loading_rise_s": 0.000125,
+      "ad": {
+        "macro_dt_s": 5e-07,
+        "loss": 0.4062698769145748,
+        "reverse": [
+          -1.9260827861876224e-24,
+          3.634273972182155e-07,
+          -0.0184638933911609,
+          -1.7416472659750546,
+          -0.6399410539155187
+        ],
+        "forward": [
+          -4.3132216881968826e-24,
+          3.6342739721821183e-07,
+          -0.01846389339116021,
+          -1.7416472659749114,
+          -0.6399410539155324
+        ],
+        "max_abs_difference": 1.432187701766452e-13,
+        "passed": true,
+        "timing_seconds": {
+          "first_including_jit": 0.5465155001729727,
+          "warm_seconds": 0.18557087518274784
+        },
+        "forward_check_seconds": 0.3725972920656204
+      },
+      "fine_history_ad": {
+        "loss": 0.40629209281607737,
+        "reverse": [
+          5.072943600422865e-25,
+          3.636430945011296e-07,
+          0.03916602086978345,
+          -1.7385658768550727,
+          -0.53917665146634
+        ],
+        "forward": [
+          -1.1247864123611615e-24,
+          3.636430945011287e-07,
+          0.03916602086978299,
+          -1.7385658768550891,
+          -0.5391766514663434
+        ],
+        "max_abs_difference": 1.6431300764452317e-14,
+        "passed": true,
+        "timing_seconds": {
+          "first_including_jit": 0.5465220836922526,
+          "warm_seconds": 0.33731374982744455
+        },
+        "forward_check_seconds": 0.9887500423938036,
+        "estimated_saved_primal_trace_bytes": 3200000,
+        "reverse_history_cotangent_bytes": 64000,
+        "naive_ring_tape_bytes": 5120000000,
+        "scope": "Full fine reflected history and all five contact parameters; terminal cumulative slip at fixed pressure, material, loading and recorded branches. Array sizes are not total process RSS."
+      },
+      "source_sha256": "c4c258722d7c4ac858620d3e0c8e4464b35ccd68e7e243e8863d0dc14a797e7e",
+      "scope": "Two symmetric anti-plane 1D bars with fixed remote ends, constant normal pressure and original previous-state LSW. Macro-history averaging is an approximation with its physical reflected-traction defect reported; not event-16 or a validated 2D multirate backend.",
+      "full_original_event_reproduced": false,
+      "same_accuracy_fem_advantage_verified": false
+    },
+    "before_reverse_ring": {
+      "records": [
+        {
+          "name": "delay-1.25e-08",
+          "kind": "exact_delay",
+          "macro_dt_s": 1.25e-08,
+          "final_cumulative_slip_mm": 0.40629209281607737,
+          "max_jump_mm": 0.40759723507658374,
+          "maximum_microstep_residual_mpa": 6.733280599746649e-12,
+          "maximum_reflected_traction_defect_mpa": 2.6645352591003757e-15,
+          "external_work": 5.682692326848056,
+          "friction_work": 4.083961499817954,
+          "interface_energy": 0.0023709154704716715,
+          "bulk_energy": 1.5963104910807908,
+          "mechanical_remainder": 4.94204788394903e-05,
+          "all_finite": true,
+          "cumulative_monotone": true,
+          "timing_seconds": {
+            "first_including_jit": 0.07188504189252853,
+            "warm_seconds": 0.002327375113964081
+          },
+          "jump_history_relative_l2_vs_finest_volume": 7.67279707668045e-05,
+          "cumulative_history_relative_l2_vs_finest_volume": 7.683130563606632e-05
+        },
+        {
+          "name": "delay-1.25e-07",
+          "kind": "macro_average_history",
+          "macro_dt_s": 1.25e-07,
+          "final_cumulative_slip_mm": 0.40628965736334,
+          "max_jump_mm": 0.40759479962384637,
+          "maximum_microstep_residual_mpa": 6.147082842744567e-12,
+          "maximum_reflected_traction_defect_mpa": 1.5701539523599441,
+          "external_work": 5.682658244485088,
+          "friction_work": 4.083937145286624,
+          "interface_energy": 0.0023709217908515906,
+          "bulk_energy": 1.59665061800982,
+          "mechanical_remainder": -0.00030044060220779656,
+          "all_finite": true,
+          "cumulative_monotone": true,
+          "timing_seconds": {
+            "first_including_jit": 0.07788483332842588,
+            "warm_seconds": 0.005811374634504318
+          },
+          "jump_history_relative_l2_vs_finest_volume": 7.430296686879227e-05,
+          "cumulative_history_relative_l2_vs_finest_volume": 7.439721928062836e-05
+        },
+        {
+          "name": "delay-5e-07",
+          "kind": "macro_average_history",
+          "macro_dt_s": 5e-07,
+          "final_cumulative_slip_mm": 0.4062698769145748,
+          "max_jump_mm": 0.40757501917508115,
+          "maximum_microstep_residual_mpa": 6.0103033661107474e-12,
+          "maximum_reflected_traction_defect_mpa": 7.75342279346523,
+          "external_work": 5.6823814883371435,
+          "friction_work": 4.083739340795487,
+          "interface_energy": 0.002371000166285915,
+          "bulk_energy": 1.6003670189683925,
+          "mechanical_remainder": -0.004095871593022382,
+          "all_finite": true,
+          "cumulative_monotone": true,
+          "timing_seconds": {
+            "first_including_jit": 0.07960312440991402,
+            "warm_seconds": 0.0033471249043941498
+          },
+          "jump_history_relative_l2_vs_finest_volume": 7.228474374770878e-05,
+          "cumulative_history_relative_l2_vs_finest_volume": 7.125819330488134e-05
+        },
+        {
+          "name": "delay-2e-06",
+          "kind": "macro_average_history",
+          "macro_dt_s": 2e-06,
+          "final_cumulative_slip_mm": 0.40622804527022244,
+          "max_jump_mm": 0.4075331875307288,
+          "maximum_microstep_residual_mpa": 7.143619029648107e-12,
+          "maximum_reflected_traction_defect_mpa": 18.520262244525878,
+          "external_work": 5.681796922849796,
+          "friction_work": 4.083321026105652,
+          "interface_energy": 0.0023714741016938917,
+          "bulk_energy": 1.6097114877453669,
+          "mechanical_remainder": -0.013607065102916316,
+          "all_finite": true,
+          "cumulative_monotone": true,
+          "timing_seconds": {
+            "first_including_jit": 0.07701212540268898,
+            "warm_seconds": 0.0026891250163316727
+          },
+          "jump_history_relative_l2_vs_finest_volume": 0.0001570271712015399,
+          "cumulative_history_relative_l2_vs_finest_volume": 0.00014643637342421834
+        },
+        {
+          "name": "fem-500",
+          "kind": "volume_reference",
+          "elements": 500,
+          "final_cumulative_slip_mm": 0.4062650196642747,
+          "max_jump_mm": 0.40757016192478107,
+          "external_work": 5.682336328865762,
+          "friction_work": 4.083690652880007,
+          "bulk_energy": 1.596225203282476,
+          "interface_energy": 0.0023731061857113623,
+          "mechanical_remainder": 4.736651756746856e-05,
+          "all_finite": true,
+          "cumulative_monotone": true,
+          "timing_seconds": {
+            "first_including_jit": 0.11617891676723957,
+            "warm_seconds": 0.05184583365917206
+          },
+          "jump_history_relative_l2_vs_finest_volume": 3.848483760919307e-05,
+          "cumulative_history_relative_l2_vs_finest_volume": 3.146343365550625e-05
+        },
+        {
+          "name": "fem-1000",
+          "kind": "volume_reference",
+          "elements": 1000,
+          "final_cumulative_slip_mm": 0.4062754013697043,
+          "max_jump_mm": 0.4075805436302107,
+          "external_work": 5.682476565671697,
+          "friction_work": 4.083794449548077,
+          "bulk_energy": 1.5962634616023086,
+          "interface_energy": 0.002371284590019662,
+          "mechanical_remainder": 4.736993129196305e-05,
+          "all_finite": true,
+          "cumulative_monotone": true,
+          "timing_seconds": {
+            "first_including_jit": 0.13971637468785048,
+            "warm_seconds": 0.0794489998370409
+          },
+          "jump_history_relative_l2_vs_finest_volume": 1.1073459110077952e-05,
+          "cumulative_history_relative_l2_vs_finest_volume": 6.243616328005769e-06
+        },
+        {
+          "name": "fem-2000",
+          "kind": "volume_reference",
+          "elements": 2000,
+          "final_cumulative_slip_mm": 0.4062779705217877,
+          "max_jump_mm": 0.4075831127822941,
+          "external_work": 5.682511329551223,
+          "friction_work": 4.083820135042282,
+          "bulk_energy": 1.596272962745811,
+          "interface_energy": 0.0023708608145894088,
+          "mechanical_remainder": 4.7370948540643304e-05,
+          "all_finite": true,
+          "cumulative_monotone": true,
+          "timing_seconds": {
+            "first_including_jit": 0.21245891600847244,
+            "warm_seconds": 0.12439470738172531
+          },
+          "jump_history_relative_l2_vs_finest_volume": 0.0,
+          "cumulative_history_relative_l2_vs_finest_volume": 0.0
+        }
+      ],
+      "parameters": [
+        76620.0,
+        7662.0,
+        0.8,
+        0.6,
+        0.0125959
+      ],
+      "pressure_mpa": 16.666666666666668,
+      "micro_dt_s": 1.25e-08,
+      "duration_s": 0.001,
+      "length_mm": 83.38050349074021,
+      "one_way_transit_s": 5e-05,
+      "radiation_mpa_s_per_mm": 0.0009572081800736975,
+      "peak_applied_traction_mpa": 14.0,
+      "loading_rise_s": 0.000125,
+      "ad": {
+        "macro_dt_s": 5e-07,
+        "loss": 0.4062698769145748,
+        "reverse": [
+          -1.9260827861876224e-24,
+          3.634273972182155e-07,
+          -0.0184638933911609,
+          -1.7416472659750546,
+          -0.6399410539155187
+        ],
+        "forward": [
+          -4.3132216881968826e-24,
+          3.6342739721821183e-07,
+          -0.01846389339116021,
+          -1.7416472659749114,
+          -0.6399410539155324
+        ],
+        "max_abs_difference": 1.432187701766452e-13,
+        "passed": true,
+        "timing_seconds": {
+          "first_including_jit": 0.40072020795196295,
+          "warm_seconds": 0.10115612484514713
+        },
+        "forward_check_seconds": 0.3441182915121317
+      },
+      "fine_history_ad": {
+        "loss": 0.40629209281607737,
+        "reverse": [
+          5.072943600422865e-25,
+          3.636430945011296e-07,
+          0.03916602086978345,
+          -1.7385658768550727,
+          -0.53917665146634
+        ],
+        "forward": [
+          -1.1247864123611615e-24,
+          3.636430945011287e-07,
+          0.03916602086978299,
+          -1.7385658768550891,
+          -0.5391766514663434
+        ],
+        "max_abs_difference": 1.6431300764452317e-14,
+        "passed": true,
+        "timing_seconds": {
+          "first_including_jit": 2.346012791618705,
+          "warm_seconds": 1.7719815839082003
+        },
+        "forward_check_seconds": 0.8936910424381495,
+        "estimated_saved_primal_trace_bytes": 3200000,
+        "reverse_history_cotangent_bytes": 704000,
+        "naive_ring_tape_bytes": 5120000000,
+        "scope": "Full fine reflected history and all five contact parameters; terminal cumulative slip at fixed pressure, material, loading and recorded branches. Array sizes are not total process RSS."
+      },
+      "source_sha256": "8f87da96e51f19ff0760c7d36c4991cf5c586f7b805d320801eebedf128377e8",
+      "scope": "Two symmetric anti-plane 1D bars with fixed remote ends, constant normal pressure and original previous-state LSW. Macro-history averaging is an approximation with its physical reflected-traction defect reported; not event-16 or a validated 2D multirate backend.",
+      "full_original_event_reproduced": false,
+      "same_accuracy_fem_advantage_verified": false
+    },
+    "micro_6_25_ns": {
+      "records": [
+        {
+          "name": "delay-6.25e-09",
+          "kind": "exact_delay",
+          "macro_dt_s": 6.25e-09,
+          "final_cumulative_slip_mm": 0.4062992779479294,
+          "max_jump_mm": 0.4076044202084358,
+          "maximum_microstep_residual_mpa": 1.5203838188426744e-11,
+          "maximum_reflected_traction_defect_mpa": 2.6645352591003757e-15,
+          "external_work": 5.682789981083239,
+          "friction_work": 4.084009638552896,
+          "interface_energy": 0.0023709134421597867,
+          "bulk_energy": 1.5963843978335643,
+          "mechanical_remainder": 2.5031254619056753e-05,
+          "all_finite": true,
+          "cumulative_monotone": true,
+          "timing_seconds": {
+            "first_including_jit": 0.07426775060594082,
+            "warm_seconds": 0.004529625177383423
+          },
+          "jump_history_relative_l2_vs_finest_volume": 3.928500595210954e-05,
+          "cumulative_history_relative_l2_vs_finest_volume": 3.912280007258454e-05
+        },
+        {
+          "name": "delay-1.25e-07",
+          "kind": "macro_average_history",
+          "macro_dt_s": 1.25e-07,
+          "final_cumulative_slip_mm": 0.40629713699423997,
+          "max_jump_mm": 0.40760227925474635,
+          "maximum_microstep_residual_mpa": 1.3214318528298463e-11,
+          "maximum_reflected_traction_defect_mpa": 1.732688295153658,
+          "external_work": 5.6827600221298,
+          "friction_work": 4.083988229009144,
+          "interface_energy": 0.0023709199587449,
+          "bulk_energy": 1.5967476277182138,
+          "mechanical_remainder": -0.0003467545563022867,
+          "all_finite": true,
+          "cumulative_monotone": true,
+          "timing_seconds": {
+            "first_including_jit": 0.07888908311724663,
+            "warm_seconds": 0.008127416484057903
+          },
+          "jump_history_relative_l2_vs_finest_volume": 3.713267755620814e-05,
+          "cumulative_history_relative_l2_vs_finest_volume": 3.6980567875055175e-05
+        },
+        {
+          "name": "delay-5e-07",
+          "kind": "macro_average_history",
+          "macro_dt_s": 5e-07,
+          "final_cumulative_slip_mm": 0.406278244525198,
+          "max_jump_mm": 0.4075833867857044,
+          "maximum_microstep_residual_mpa": 1.1358913809544902e-11,
+          "maximum_reflected_traction_defect_mpa": 8.236959299166546,
+          "external_work": 5.682495701043407,
+          "friction_work": 4.083799304221267,
+          "interface_energy": 0.002370999525133742,
+          "bulk_energy": 1.600632923813462,
+          "mechanical_remainder": -0.0043075265164558285,
+          "all_finite": true,
+          "cumulative_monotone": true,
+          "timing_seconds": {
+            "first_including_jit": 0.075163415633142,
+            "warm_seconds": 0.005743750371038914
+          },
+          "jump_history_relative_l2_vs_finest_volume": 4.888813615066772e-05,
+          "cumulative_history_relative_l2_vs_finest_volume": 4.723369226452382e-05
+        },
+        {
+          "name": "delay-2e-06",
+          "kind": "macro_average_history",
+          "macro_dt_s": 2e-06,
+          "final_cumulative_slip_mm": 0.40623298687095605,
+          "max_jump_mm": 0.4075381291314624,
+          "maximum_microstep_residual_mpa": 1.0897949209720537e-11,
+          "maximum_reflected_traction_defect_mpa": 19.411730191739906,
+          "external_work": 5.681863180651038,
+          "friction_work": 4.083346727940736,
+          "interface_energy": 0.0023714741071180425,
+          "bulk_energy": 1.6102416203983079,
+          "mechanical_remainder": -0.014096641795123821,
+          "all_finite": true,
+          "cumulative_monotone": true,
+          "timing_seconds": {
+            "first_including_jit": 0.07348858285695314,
+            "warm_seconds": 0.004909208044409752
+          },
+          "jump_history_relative_l2_vs_finest_volume": 0.0001647947897002356,
+          "cumulative_history_relative_l2_vs_finest_volume": 0.00015483716046857396
+        },
+        {
+          "name": "fem-2000",
+          "kind": "volume_reference",
+          "elements": 2000,
+          "final_cumulative_slip_mm": 0.406291714413997,
+          "max_jump_mm": 0.40759685667450335,
+          "external_work": 5.682692374864004,
+          "friction_work": 4.083933982863918,
+          "bulk_energy": 1.5963638739427315,
+          "interface_energy": 0.002370826616809169,
+          "mechanical_remainder": 2.3691440545186432e-05,
+          "all_finite": true,
+          "cumulative_monotone": true,
+          "timing_seconds": {
+            "first_including_jit": 0.30144441593438387,
+            "warm_seconds": 0.25143604259938
+          },
+          "jump_history_relative_l2_vs_finest_volume": 0.0,
+          "cumulative_history_relative_l2_vs_finest_volume": 0.0
+        }
+      ],
+      "parameters": [
+        76620.0,
+        7662.0,
+        0.8,
+        0.6,
+        0.0125959
+      ],
+      "pressure_mpa": 16.666666666666668,
+      "micro_dt_s": 6.25e-09,
+      "duration_s": 0.001,
+      "length_mm": 83.38050349074021,
+      "one_way_transit_s": 5e-05,
+      "radiation_mpa_s_per_mm": 0.0009572081800736975,
+      "peak_applied_traction_mpa": 14.0,
+      "loading_rise_s": 0.000125,
+      "ad": {
+        "macro_dt_s": 5e-07,
+        "loss": 0.406278244525198,
+        "reverse": [
+          -1.6857137129231592e-24,
+          3.6333311782077004e-07,
+          -0.017248860669429992,
+          -1.7416533274322905,
+          -0.6383093807270522
+        ],
+        "forward": [
+          -4.253938119352092e-24,
+          3.633331178207724e-07,
+          -0.017248860669437538,
+          -1.7416533274319161,
+          -0.638309380727041
+        ],
+        "max_abs_difference": 3.743672039036028e-13,
+        "passed": true,
+        "timing_seconds": {
+          "first_including_jit": 0.6091252090409398,
+          "warm_seconds": 0.2746394583955407
+        },
+        "forward_check_seconds": 0.3939022496342659
+      },
+      "fine_history_ad": {
+        "loss": 0.4062992779479294,
+        "reverse": [
+          5.8100552302613785e-25,
+          3.635588639666101e-07,
+          0.03858563645215873,
+          -1.738659693377319,
+          -0.5406662873397289
+        ],
+        "forward": [
+          -1.1417792792347556e-24,
+          3.6355886396660887e-07,
+          0.03858563645215368,
+          -1.7386596933773397,
+          -0.5406662873397331
+        ],
+        "max_abs_difference": 2.0650148258027912e-14,
+        "passed": true,
+        "timing_seconds": {
+          "first_including_jit": 1.1522289169952273,
+          "warm_seconds": 0.9260084163397551
+        },
+        "forward_check_seconds": 3.4861232908442616,
+        "estimated_saved_primal_trace_bytes": 6400000,
+        "reverse_history_cotangent_bytes": 128000,
+        "naive_ring_tape_bytes": 20480000000,
+        "scope": "Full fine reflected history and all five contact parameters; terminal cumulative slip at fixed pressure, material, loading and recorded branches. Array sizes are not total process RSS."
+      },
+      "source_sha256": "58d835f6001bc53a178fd54d45bdc19c18e581ab55195a0fe707f77947b52b0b",
+      "scope": "Two symmetric anti-plane 1D bars with fixed remote ends, constant normal pressure and original previous-state LSW. Macro-history averaging is an approximation with its physical reflected-traction defect reported; not event-16 or a validated 2D multirate backend.",
+      "full_original_event_reproduced": false,
+      "same_accuracy_fem_advantage_verified": false
+    },
+    "micro_3_125_ns": {
+      "records": [
+        {
+          "name": "delay-3.125e-09",
+          "kind": "exact_delay",
+          "macro_dt_s": 3.125e-09,
+          "final_cumulative_slip_mm": 0.4063028708420924,
+          "max_jump_mm": 0.40760801310259875,
+          "maximum_microstep_residual_mpa": 2.226308026820334e-11,
+          "maximum_reflected_traction_defect_mpa": 3.552713678800501e-15,
+          "external_work": 5.6828388083963794,
+          "friction_work": 4.084033724036825,
+          "interface_energy": 0.0023709124279352426,
+          "bulk_energy": 1.596421570697096,
+          "mechanical_remainder": 1.2601234523401672e-05,
+          "all_finite": true,
+          "cumulative_monotone": true,
+          "timing_seconds": {
+            "first_including_jit": 0.07893666718155146,
+            "warm_seconds": 0.009517249651253223
+          },
+          "jump_history_relative_l2_vs_finest_volume": 2.0690949828021844e-05,
+          "cumulative_history_relative_l2_vs_finest_volume": 2.020717037274521e-05
+        },
+        {
+          "name": "delay-1.25e-07",
+          "kind": "macro_average_history",
+          "macro_dt_s": 1.25e-07,
+          "final_cumulative_slip_mm": 0.4063009145430879,
+          "max_jump_mm": 0.4076060568035943,
+          "maximum_microstep_residual_mpa": 2.185540637356098e-11,
+          "maximum_reflected_traction_defect_mpa": 1.819599695827228,
+          "external_work": 5.682811434837856,
+          "friction_work": 4.084014161048561,
+          "interface_energy": 0.0023709190343574596,
+          "bulk_energy": 1.596796469555511,
+          "mechanical_remainder": -0.00037011480057391744,
+          "all_finite": true,
+          "cumulative_monotone": true,
+          "timing_seconds": {
+            "first_including_jit": 0.08729462511837482,
+            "warm_seconds": 0.01341570820659399
+          },
+          "jump_history_relative_l2_vs_finest_volume": 1.8723614657334938e-05,
+          "cumulative_history_relative_l2_vs_finest_volume": 1.8266418422236147e-05
+        },
+        {
+          "name": "delay-5e-07",
+          "kind": "macro_average_history",
+          "macro_dt_s": 5e-07,
+          "final_cumulative_slip_mm": 0.4062824150127831,
+          "max_jump_mm": 0.4075875572732895,
+          "maximum_microstep_residual_mpa": 2.290434508722683e-11,
+          "maximum_reflected_traction_defect_mpa": 8.49632275783781,
+          "external_work": 5.682552615467449,
+          "friction_work": 4.083829165775432,
+          "interface_energy": 0.0023709992125426935,
+          "bulk_energy": 1.600769986239881,
+          "mechanical_remainder": -0.004417535760407043,
+          "all_finite": true,
+          "cumulative_monotone": true,
+          "timing_seconds": {
+            "first_including_jit": 0.08249945845454931,
+            "warm_seconds": 0.010640459135174751
+          },
+          "jump_history_relative_l2_vs_finest_volume": 4.4551852767352244e-05,
+          "cumulative_history_relative_l2_vs_finest_volume": 4.273268087925762e-05
+        },
+        {
+          "name": "delay-2e-06",
+          "kind": "macro_average_history",
+          "macro_dt_s": 2e-06,
+          "final_cumulative_slip_mm": 0.40623543729151457,
+          "max_jump_mm": 0.40754057955202094,
+          "maximum_microstep_residual_mpa": 1.7919887795869727e-11,
+          "maximum_reflected_traction_defect_mpa": 19.89000172671108,
+          "external_work": 5.6818960193925845,
+          "friction_work": 4.083359389189811,
+          "interface_energy": 0.002371474109831958,
+          "bulk_energy": 1.6105159664497761,
+          "mechanical_remainder": -0.014350810356834387,
+          "all_finite": true,
+          "cumulative_monotone": true,
+          "timing_seconds": {
+            "first_including_jit": 0.08225850015878677,
+            "warm_seconds": 0.010217791423201561
+          },
+          "jump_history_relative_l2_vs_finest_volume": 0.00017225843500566902,
+          "cumulative_history_relative_l2_vs_finest_volume": 0.00016283092680174406
+        },
+        {
+          "name": "fem-2000",
+          "kind": "volume_reference",
+          "elements": 2000,
+          "final_cumulative_slip_mm": 0.40629864184730985,
+          "max_jump_mm": 0.4076037841078162,
+          "external_work": 5.682783867101099,
+          "friction_work": 4.0839914289469945,
+          "bulk_energy": 1.59640968766123,
+          "interface_energy": 0.0023709032062142737,
+          "mechanical_remainder": 1.184728666034536e-05,
+          "all_finite": true,
+          "cumulative_monotone": true,
+          "timing_seconds": {
+            "first_including_jit": 0.5500201676040888,
+            "warm_seconds": 0.49379133339971304
+          },
+          "jump_history_relative_l2_vs_finest_volume": 0.0,
+          "cumulative_history_relative_l2_vs_finest_volume": 0.0
+        }
+      ],
+      "parameters": [
+        76620.0,
+        7662.0,
+        0.8,
+        0.6,
+        0.0125959
+      ],
+      "pressure_mpa": 16.666666666666668,
+      "micro_dt_s": 3.125e-09,
+      "duration_s": 0.001,
+      "length_mm": 83.38050349074021,
+      "one_way_transit_s": 5e-05,
+      "radiation_mpa_s_per_mm": 0.0009572081800736975,
+      "peak_applied_traction_mpa": 14.0,
+      "loading_rise_s": 0.000125,
+      "ad": {
+        "macro_dt_s": 5e-07,
+        "loss": 0.4062824150127831,
+        "reverse": [
+          -1.7551334725826083e-24,
+          3.6332915571780935e-07,
+          -0.015754377389560897,
+          -1.7415650085767913,
+          -0.6351791197007673
+        ],
+        "forward": [
+          -4.179487712532472e-24,
+          3.633291557177968e-07,
+          -0.015754377389564492,
+          -1.7415650085776078,
+          -0.635179119700722
+        ],
+        "max_abs_difference": 8.164580123093401e-13,
+        "passed": true,
+        "timing_seconds": {
+          "first_including_jit": 0.8569704163819551,
+          "warm_seconds": 0.5150069585070014
+        },
+        "forward_check_seconds": 0.5204815836623311
+      },
+      "fine_history_ad": {
+        "loss": 0.4063028708420924,
+        "reverse": [
+          7.48117817188157e-25,
+          3.635726084446239e-07,
+          0.040111119247351106,
+          -1.738559341415394,
+          -0.5373449624315779
+        ],
+        "forward": [
+          -1.0835721509920249e-24,
+          3.6357260844462327e-07,
+          0.04011111924735061,
+          -1.7385593414153309,
+          -0.5373449624315768
+        ],
+        "max_abs_difference": 6.306066779870889e-14,
+        "passed": true,
+        "timing_seconds": {
+          "first_including_jit": 4.6210543336346745,
+          "warm_seconds": 2.9605292500928044
+        },
+        "forward_check_seconds": 29.645564124919474,
+        "estimated_saved_primal_trace_bytes": 12800000,
+        "reverse_history_cotangent_bytes": 256000,
+        "naive_ring_tape_bytes": 81920000000,
+        "scope": "Full fine reflected history and all five contact parameters; terminal cumulative slip at fixed pressure, material, loading and recorded branches. Array sizes are not total process RSS."
+      },
+      "source_sha256": "58d835f6001bc53a178fd54d45bdc19c18e581ab55195a0fe707f77947b52b0b",
+      "scope": "Two symmetric anti-plane 1D bars with fixed remote ends, constant normal pressure and original previous-state LSW. Macro-history averaging is an approximation with its physical reflected-traction defect reported; not event-16 or a validated 2D multirate backend.",
+      "full_original_event_reproduced": false,
+      "same_accuracy_fem_advantage_verified": false
+    },
+    "adjoint_benchmark": {
+      "records": {
+        "array_adjoint": {
+          "compilation_seconds": 0.2187987919896841,
+          "compiler_memory_plan": {
+            "argument_size_in_bytes": 40,
+            "output_size_in_bytes": 64,
+            "temp_size_in_bytes": 9024961,
+            "alias_size_in_bytes": 0
+          },
+          "warm_seconds": [
+            2.677702125161886,
+            1.9239296251907945,
+            1.8093870002776384,
+            2.1976092075929046
+          ],
+          "warmup_seconds": 3.008545416407287,
+          "gradient": [
+            5.072943600422865e-25,
+            3.636430945011296e-07,
+            0.03916602086978345,
+            -1.7385658768550727,
+            -0.53917665146634
+          ],
+          "loss": 0.40629209281607737,
+          "status": "executed_gradient_guard_passed",
+          "median_warm_seconds": 2.0607694163918495
+        },
+        "reverse_ring_adjoint": {
+          "compilation_seconds": 0.20570233464241028,
+          "compiler_memory_plan": {
+            "argument_size_in_bytes": 40,
+            "output_size_in_bytes": 64,
+            "temp_size_in_bytes": 8384961,
+            "alias_size_in_bytes": 0
+          },
+          "warm_seconds": [
+            0.32470141630619764,
+            0.3294858755543828,
+            0.3251694580540061,
+            0.32593158446252346
+          ],
+          "warmup_seconds": 0.32089441642165184,
+          "gradient": [
+            5.072943600422865e-25,
+            3.636430945011296e-07,
+            0.03916602086978345,
+            -1.7385658768550727,
+            -0.53917665146634
+          ],
+          "loss": 0.40629209281607737,
+          "status": "executed_gradient_guard_passed",
+          "median_warm_seconds": 0.3255505212582648
+        },
+        "automatic_reverse_scan": {
+          "compilation_seconds": 0.3038599994033575,
+          "compiler_memory_plan": {
+            "argument_size_in_bytes": 40,
+            "output_size_in_bytes": 64,
+            "temp_size_in_bytes": 16770369,
+            "alias_size_in_bytes": 0
+          },
+          "warm_seconds": [
+            0.39691787492483854,
+            0.40712787583470345,
+            0.393393374979496,
+            0.4087747912853956
+          ],
+          "warmup_seconds": 0.39851383306086063,
+          "gradient": [
+            5.072943600422865e-25,
+            3.6364309450112967e-07,
+            0.03916602086978345,
+            -1.7385658768550727,
+            -0.53917665146634
+          ],
+          "loss": 0.40629209281607737,
+          "status": "executed_gradient_guard_passed",
+          "median_warm_seconds": 0.402022875379771
+        },
+        "automatic_reverse_with_macro_checkpoint": {
+          "compilation_seconds": 0.31036724988371134,
+          "compiler_memory_plan": {
+            "argument_size_in_bytes": 40,
+            "output_size_in_bytes": 64,
+            "temp_size_in_bytes": 5127873537,
+            "alias_size_in_bytes": 0
+          },
+          "warm_seconds": [
+            1.2347014583647251,
+            1.0694345002993941,
+            1.1694232085719705,
+            1.1055824579671025
+          ],
+          "warmup_seconds": 2.3172627920284867,
+          "gradient": [
+            5.072943600422865e-25,
+            3.6364309450112967e-07,
+            0.03916602086978345,
+            -1.7385658768550727,
+            -0.53917665146634
+          ],
+          "loss": 0.40629209281607737,
+          "status": "executed_gradient_guard_passed",
+          "median_warm_seconds": 1.1375028332695365
+        },
+        "forward_parameter_jvp": {
+          "compilation_seconds": 0.18392487429082394,
+          "compiler_memory_plan": {
+            "argument_size_in_bytes": 40,
+            "output_size_in_bytes": 40,
+            "temp_size_in_bytes": 26946416,
+            "alias_size_in_bytes": 0
+          },
+          "warm_seconds": [
+            0.767207084223628,
+            0.7734950836747885,
+            0.7767907911911607,
+            0.8262580828741193
+          ],
+          "warmup_seconds": 0.7909900825470686,
+          "gradient": [
+            -1.1247864123611615e-24,
+            3.636430945011287e-07,
+            0.03916602086978299,
+            -1.7385658768550891,
+            -0.5391766514663434
+          ],
+          "status": "executed_gradient_guard_passed",
+          "median_warm_seconds": 0.7751429374329746
+        }
+      },
+      "schedule": [
+        "array_adjoint",
+        "reverse_ring_adjoint",
+        "automatic_reverse_scan",
+        "automatic_reverse_with_macro_checkpoint",
+        "forward_parameter_jvp",
+        "forward_parameter_jvp",
+        "automatic_reverse_with_macro_checkpoint",
+        "automatic_reverse_scan",
+        "reverse_ring_adjoint",
+        "array_adjoint",
+        "array_adjoint",
+        "reverse_ring_adjoint",
+        "automatic_reverse_scan",
+        "automatic_reverse_with_macro_checkpoint",
+        "forward_parameter_jvp",
+        "forward_parameter_jvp",
+        "automatic_reverse_with_macro_checkpoint",
+        "automatic_reverse_scan",
+        "reverse_ring_adjoint",
+        "array_adjoint"
+      ],
+      "baseline_revision": "b7f007b4f22a98b1d67d73b30f6865d5dea7af11",
+      "baseline_source_sha256": "8f87da96e51f19ff0760c7d36c4991cf5c586f7b805d320801eebedf128377e8",
+      "automatic_reverse_scan_checkpoint_macro": false,
+      "frozen_input_sha256": {
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/radiation_bar_experiment.py": "c4c258722d7c4ac858620d3e0c8e4464b35ccd68e7e243e8863d0dc14a797e7e",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/radiation-bar-final-policy-20261026/summary.json": "ca3dd96c91093162c0317c54191182b924084e7bf5654c7af0efecfe46426611",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/benchmark_bar_adjoint.py": "0c3963b1bd2ba67de90feb069b787b7d4c5ee36d7876e66907ce093e21a86ab1"
+      },
+      "scope": "One process, all variants compiled and warmed before mirrored timing order; compiler array plans are not process RSS. This bar-only AD comparison is not an event-16 or same-accuracy 2D FEM benchmark.",
+      "same_accuracy_fem_advantage_verified": false
+    },
+    "primary_with_macro_checkpoint": {
+      "records": [
+        {
+          "name": "delay-1.25e-08",
+          "kind": "exact_delay",
+          "macro_dt_s": 1.25e-08,
+          "final_cumulative_slip_mm": 0.40629209281607737,
+          "max_jump_mm": 0.40759723507658374,
+          "maximum_microstep_residual_mpa": 6.733280599746649e-12,
+          "maximum_reflected_traction_defect_mpa": 2.6645352591003757e-15,
+          "external_work": 5.682692326848056,
+          "friction_work": 4.083961499817954,
+          "interface_energy": 0.0023709154704716715,
+          "bulk_energy": 1.5963104910807908,
+          "mechanical_remainder": 4.94204788394903e-05,
+          "all_finite": true,
+          "cumulative_monotone": true,
+          "timing_seconds": {
+            "first_including_jit": 0.07115987502038479,
+            "warm_seconds": 0.0023061661049723625
+          },
+          "jump_history_relative_l2_vs_finest_volume": 7.67279707668045e-05,
+          "cumulative_history_relative_l2_vs_finest_volume": 7.683130563606632e-05
+        },
+        {
+          "name": "delay-1.25e-07",
+          "kind": "macro_average_history",
+          "macro_dt_s": 1.25e-07,
+          "final_cumulative_slip_mm": 0.40628965736334,
+          "max_jump_mm": 0.40759479962384637,
+          "maximum_microstep_residual_mpa": 6.147082842744567e-12,
+          "maximum_reflected_traction_defect_mpa": 1.5701539523599441,
+          "external_work": 5.682658244485088,
+          "friction_work": 4.083937145286624,
+          "interface_energy": 0.0023709217908515906,
+          "bulk_energy": 1.59665061800982,
+          "mechanical_remainder": -0.00030044060220779656,
+          "all_finite": true,
+          "cumulative_monotone": true,
+          "timing_seconds": {
+            "first_including_jit": 0.07199458312243223,
+            "warm_seconds": 0.005787708796560764
+          },
+          "jump_history_relative_l2_vs_finest_volume": 7.430296686879227e-05,
+          "cumulative_history_relative_l2_vs_finest_volume": 7.439721928062836e-05
+        },
+        {
+          "name": "delay-5e-07",
+          "kind": "macro_average_history",
+          "macro_dt_s": 5e-07,
+          "final_cumulative_slip_mm": 0.4062698769145748,
+          "max_jump_mm": 0.40757501917508115,
+          "maximum_microstep_residual_mpa": 6.0103033661107474e-12,
+          "maximum_reflected_traction_defect_mpa": 7.75342279346523,
+          "external_work": 5.6823814883371435,
+          "friction_work": 4.083739340795487,
+          "interface_energy": 0.002371000166285915,
+          "bulk_energy": 1.6003670189683925,
+          "mechanical_remainder": -0.004095871593022382,
+          "all_finite": true,
+          "cumulative_monotone": true,
+          "timing_seconds": {
+            "first_including_jit": 0.06920454278588295,
+            "warm_seconds": 0.003812500275671482
+          },
+          "jump_history_relative_l2_vs_finest_volume": 7.228474374770878e-05,
+          "cumulative_history_relative_l2_vs_finest_volume": 7.125819330488134e-05
+        },
+        {
+          "name": "delay-2e-06",
+          "kind": "macro_average_history",
+          "macro_dt_s": 2e-06,
+          "final_cumulative_slip_mm": 0.40622804527022244,
+          "max_jump_mm": 0.4075331875307288,
+          "maximum_microstep_residual_mpa": 7.143619029648107e-12,
+          "maximum_reflected_traction_defect_mpa": 18.520262244525878,
+          "external_work": 5.681796922849796,
+          "friction_work": 4.083321026105652,
+          "interface_energy": 0.0023714741016938917,
+          "bulk_energy": 1.6097114877453669,
+          "mechanical_remainder": -0.013607065102916316,
+          "all_finite": true,
+          "cumulative_monotone": true,
+          "timing_seconds": {
+            "first_including_jit": 0.07630908396095037,
+            "warm_seconds": 0.002811124548316002
+          },
+          "jump_history_relative_l2_vs_finest_volume": 0.0001570271712015399,
+          "cumulative_history_relative_l2_vs_finest_volume": 0.00014643637342421834
+        },
+        {
+          "name": "fem-500",
+          "kind": "volume_reference",
+          "elements": 500,
+          "final_cumulative_slip_mm": 0.4062650196642747,
+          "max_jump_mm": 0.40757016192478107,
+          "external_work": 5.682336328865762,
+          "friction_work": 4.083690652880007,
+          "bulk_energy": 1.596225203282476,
+          "interface_energy": 0.0023731061857113623,
+          "mechanical_remainder": 4.736651756746856e-05,
+          "all_finite": true,
+          "cumulative_monotone": true,
+          "timing_seconds": {
+            "first_including_jit": 0.11762412544339895,
+            "warm_seconds": 0.05347049981355667
+          },
+          "jump_history_relative_l2_vs_finest_volume": 3.848483760919307e-05,
+          "cumulative_history_relative_l2_vs_finest_volume": 3.146343365550625e-05
+        },
+        {
+          "name": "fem-1000",
+          "kind": "volume_reference",
+          "elements": 1000,
+          "final_cumulative_slip_mm": 0.4062754013697043,
+          "max_jump_mm": 0.4075805436302107,
+          "external_work": 5.682476565671697,
+          "friction_work": 4.083794449548077,
+          "bulk_energy": 1.5962634616023086,
+          "interface_energy": 0.002371284590019662,
+          "mechanical_remainder": 4.736993129196305e-05,
+          "all_finite": true,
+          "cumulative_monotone": true,
+          "timing_seconds": {
+            "first_including_jit": 0.14218637440353632,
+            "warm_seconds": 0.07952612452208996
+          },
+          "jump_history_relative_l2_vs_finest_volume": 1.1073459110077952e-05,
+          "cumulative_history_relative_l2_vs_finest_volume": 6.243616328005769e-06
+        },
+        {
+          "name": "fem-2000",
+          "kind": "volume_reference",
+          "elements": 2000,
+          "final_cumulative_slip_mm": 0.4062779705217877,
+          "max_jump_mm": 0.4075831127822941,
+          "external_work": 5.682511329551223,
+          "friction_work": 4.083820135042282,
+          "bulk_energy": 1.596272962745811,
+          "interface_energy": 0.0023708608145894088,
+          "mechanical_remainder": 4.7370948540643304e-05,
+          "all_finite": true,
+          "cumulative_monotone": true,
+          "timing_seconds": {
+            "first_including_jit": 0.2137093748897314,
+            "warm_seconds": 0.12132066674530506
+          },
+          "jump_history_relative_l2_vs_finest_volume": 0.0,
+          "cumulative_history_relative_l2_vs_finest_volume": 0.0
+        }
+      ],
+      "parameters": [
+        76620.0,
+        7662.0,
+        0.8,
+        0.6,
+        0.0125959
+      ],
+      "pressure_mpa": 16.666666666666668,
+      "micro_dt_s": 1.25e-08,
+      "duration_s": 0.001,
+      "length_mm": 83.38050349074021,
+      "one_way_transit_s": 5e-05,
+      "radiation_mpa_s_per_mm": 0.0009572081800736975,
+      "peak_applied_traction_mpa": 14.0,
+      "loading_rise_s": 0.000125,
+      "ad": {
+        "macro_dt_s": 5e-07,
+        "loss": 0.4062698769145748,
+        "reverse": [
+          -1.9260827861876224e-24,
+          3.634273972182155e-07,
+          -0.0184638933911609,
+          -1.7416472659750546,
+          -0.6399410539155187
+        ],
+        "forward": [
+          -4.3132216881968826e-24,
+          3.6342739721821183e-07,
+          -0.01846389339116021,
+          -1.7416472659749114,
+          -0.6399410539155324
+        ],
+        "max_abs_difference": 1.432187701766452e-13,
+        "passed": true,
+        "timing_seconds": {
+          "first_including_jit": 0.40298041608184576,
+          "warm_seconds": 0.1017654575407505
+        },
+        "forward_check_seconds": 0.3448927914723754
+      },
+      "fine_history_ad": {
+        "loss": 0.40629209281607737,
+        "reverse": [
+          5.072943600422865e-25,
+          3.636430945011296e-07,
+          0.03916602086978345,
+          -1.7385658768550727,
+          -0.53917665146634
+        ],
+        "forward": [
+          -1.1247864123611615e-24,
+          3.636430945011287e-07,
+          0.03916602086978299,
+          -1.7385658768550891,
+          -0.5391766514663434
+        ],
+        "max_abs_difference": 1.6431300764452317e-14,
+        "passed": true,
+        "timing_seconds": {
+          "first_including_jit": 0.5070328749716282,
+          "warm_seconds": 0.31130762584507465
+        },
+        "forward_check_seconds": 0.9351172503083944,
+        "estimated_saved_primal_trace_bytes": 3200000,
+        "reverse_history_cotangent_bytes": 64000,
+        "naive_ring_tape_bytes": 5120000000,
+        "scope": "Full fine reflected history and all five contact parameters; terminal cumulative slip at fixed pressure, material, loading and recorded branches. Array sizes are not total process RSS."
+      },
+      "source_sha256": "58d835f6001bc53a178fd54d45bdc19c18e581ab55195a0fe707f77947b52b0b",
+      "scope": "Two symmetric anti-plane 1D bars with fixed remote ends, constant normal pressure and original previous-state LSW. Macro-history averaging is an approximation with its physical reflected-traction defect reported; not event-16 or a validated 2D multirate backend.",
+      "full_original_event_reproduced": false,
+      "same_accuracy_fem_advantage_verified": false
+    },
+    "checkpoint_only_benchmark": {
+      "records": {
+        "array_adjoint": {
+          "compilation_seconds": 0.21627500001341105,
+          "compiler_memory_plan": {
+            "argument_size_in_bytes": 40,
+            "output_size_in_bytes": 64,
+            "temp_size_in_bytes": 9024961,
+            "alias_size_in_bytes": 0
+          },
+          "warm_seconds": [
+            1.663153124973178,
+            1.9348500007763505,
+            1.6836439995095134,
+            2.3617875408381224
+          ],
+          "warmup_seconds": 2.7820659996941686,
+          "gradient": [
+            5.072943600422865e-25,
+            3.636430945011296e-07,
+            0.03916602086978345,
+            -1.7385658768550727,
+            -0.53917665146634
+          ],
+          "status": "executed_gradient_guard_passed",
+          "median_warm_seconds": 1.809247000142932
+        },
+        "reverse_ring_adjoint": {
+          "compilation_seconds": 0.18889008462429047,
+          "compiler_memory_plan": {
+            "argument_size_in_bytes": 40,
+            "output_size_in_bytes": 64,
+            "temp_size_in_bytes": 8384961,
+            "alias_size_in_bytes": 0
+          },
+          "warm_seconds": [
+            0.29682070948183537,
+            0.2979748332872987,
+            0.3010030407458544,
+            0.3044334575533867
+          ],
+          "warmup_seconds": 0.2893561664968729,
+          "gradient": [
+            5.072943600422865e-25,
+            3.636430945011296e-07,
+            0.03916602086978345,
+            -1.7385658768550727,
+            -0.53917665146634
+          ],
+          "status": "executed_gradient_guard_passed",
+          "median_warm_seconds": 0.29948893701657653
+        },
+        "automatic_reverse_scan": {
+          "compilation_seconds": 0.2831116244196892,
+          "compiler_memory_plan": {
+            "argument_size_in_bytes": 40,
+            "output_size_in_bytes": 64,
+            "temp_size_in_bytes": 5127873537,
+            "alias_size_in_bytes": 0
+          },
+          "warm_seconds": [
+            1.2905850829556584,
+            1.102891624905169,
+            1.2136536678299308,
+            1.184375749900937
+          ],
+          "warmup_seconds": 1.3295760415494442,
+          "gradient": [
+            5.072943600422865e-25,
+            3.6364309450112967e-07,
+            0.03916602086978345,
+            -1.7385658768550727,
+            -0.53917665146634
+          ],
+          "status": "executed_gradient_guard_passed",
+          "median_warm_seconds": 1.199014708865434
+        },
+        "forward_parameter_jvp": {
+          "compilation_seconds": 0.16544616594910622,
+          "compiler_memory_plan": {
+            "argument_size_in_bytes": 40,
+            "output_size_in_bytes": 40,
+            "temp_size_in_bytes": 26946416,
+            "alias_size_in_bytes": 0
+          },
+          "warm_seconds": [
+            0.7537677502259612,
+            0.7562472503632307,
+            0.7181736249476671,
+            0.7565734162926674
+          ],
+          "warmup_seconds": 0.7463837498798966,
+          "gradient": [
+            -1.1247864123611615e-24,
+            3.636430945011287e-07,
+            0.03916602086978299,
+            -1.7385658768550891,
+            -0.5391766514663434
+          ],
+          "status": "executed_gradient_guard_passed",
+          "median_warm_seconds": 0.755007500294596
+        }
+      },
+      "schedule": [
+        "array_adjoint",
+        "reverse_ring_adjoint",
+        "automatic_reverse_scan",
+        "forward_parameter_jvp",
+        "forward_parameter_jvp",
+        "automatic_reverse_scan",
+        "reverse_ring_adjoint",
+        "array_adjoint",
+        "array_adjoint",
+        "reverse_ring_adjoint",
+        "automatic_reverse_scan",
+        "forward_parameter_jvp",
+        "forward_parameter_jvp",
+        "automatic_reverse_scan",
+        "reverse_ring_adjoint",
+        "array_adjoint"
+      ],
+      "baseline_revision": "b7f007b4f22a98b1d67d73b30f6865d5dea7af11",
+      "baseline_source_sha256": "8f87da96e51f19ff0760c7d36c4991cf5c586f7b805d320801eebedf128377e8",
+      "frozen_input_sha256": {
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/radiation_bar_experiment.py": "58d835f6001bc53a178fd54d45bdc19c18e581ab55195a0fe707f77947b52b0b",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/radiation-bar-fine-history-reverse-ring-20261026/summary.json": "c42d0ab14eb87a121d935083c1cdb99ea36e8581324c253cec92cfc5502a9502",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/benchmark_bar_adjoint.py": "ab389418a364453f434690222c7092e2ca7ccc4a51908abac75ca57cc1e19fe7"
+      },
+      "scope": "One process, all variants compiled and warmed before mirrored timing order; compiler array plans are not process RSS. This bar-only AD comparison is not an event-16 or same-accuracy 2D FEM benchmark.",
+      "same_accuracy_fem_advantage_verified": false
+    },
+    "ordinary_scan_control": {
+      "records": {
+        "array_adjoint": {
+          "compilation_seconds": 0.21263325028121471,
+          "compiler_memory_plan": {
+            "argument_size_in_bytes": 40,
+            "output_size_in_bytes": 64,
+            "temp_size_in_bytes": 9024961,
+            "alias_size_in_bytes": 0
+          },
+          "warm_seconds": [
+            1.7493237499147654,
+            1.87415162473917,
+            2.139530250802636,
+            3.3571691662073135
+          ],
+          "warmup_seconds": 2.6083242492750287,
+          "gradient": [
+            5.072943600422865e-25,
+            3.636430945011296e-07,
+            0.03916602086978345,
+            -1.7385658768550727,
+            -0.53917665146634
+          ],
+          "status": "executed_gradient_guard_passed",
+          "median_warm_seconds": 2.006840937770903
+        },
+        "reverse_ring_adjoint": {
+          "compilation_seconds": 0.1853950833901763,
+          "compiler_memory_plan": {
+            "argument_size_in_bytes": 40,
+            "output_size_in_bytes": 64,
+            "temp_size_in_bytes": 8384961,
+            "alias_size_in_bytes": 0
+          },
+          "warm_seconds": [
+            0.3399193324148655,
+            0.3476007916033268,
+            0.39098320715129375,
+            0.35403620824217796
+          ],
+          "warmup_seconds": 0.33928041625767946,
+          "gradient": [
+            5.072943600422865e-25,
+            3.636430945011296e-07,
+            0.03916602086978345,
+            -1.7385658768550727,
+            -0.53917665146634
+          ],
+          "status": "executed_gradient_guard_passed",
+          "median_warm_seconds": 0.3508184999227524
+        },
+        "automatic_reverse_scan": {
+          "compilation_seconds": 0.2805784586817026,
+          "compiler_memory_plan": {
+            "argument_size_in_bytes": 40,
+            "output_size_in_bytes": 64,
+            "temp_size_in_bytes": 5127873537,
+            "alias_size_in_bytes": 0
+          },
+          "warm_seconds": [
+            1.3024705415591598,
+            1.2335232915356755,
+            1.2622129172086716,
+            1.2183359172195196
+          ],
+          "warmup_seconds": 3.422347624786198,
+          "gradient": [
+            5.072943600422865e-25,
+            3.6364309450112967e-07,
+            0.03916602086978345,
+            -1.7385658768550727,
+            -0.53917665146634
+          ],
+          "status": "executed_gradient_guard_passed",
+          "median_warm_seconds": 1.2478681043721735
+        },
+        "automatic_reverse_without_macro_checkpoint": {
+          "compilation_seconds": 0.3422903325408697,
+          "compiler_memory_plan": {
+            "argument_size_in_bytes": 40,
+            "output_size_in_bytes": 64,
+            "temp_size_in_bytes": 16770369,
+            "alias_size_in_bytes": 0
+          },
+          "warm_seconds": [
+            0.39325508289039135,
+            0.39232120756059885,
+            0.4008696675300598,
+            0.3986428342759609
+          ],
+          "warmup_seconds": 0.39455287531018257,
+          "gradient": [
+            5.072943600422865e-25,
+            3.6364309450112967e-07,
+            0.03916602086978345,
+            -1.7385658768550727,
+            -0.53917665146634
+          ],
+          "status": "executed_gradient_guard_passed",
+          "median_warm_seconds": 0.39594895858317614
+        },
+        "forward_parameter_jvp": {
+          "compilation_seconds": 0.14887274987995625,
+          "compiler_memory_plan": {
+            "argument_size_in_bytes": 40,
+            "output_size_in_bytes": 40,
+            "temp_size_in_bytes": 26946416,
+            "alias_size_in_bytes": 0
+          },
+          "warm_seconds": [
+            0.7865879172459245,
+            0.7724017919972539,
+            0.7848653336986899,
+            0.7792556658387184
+          ],
+          "warmup_seconds": 0.8426867499947548,
+          "gradient": [
+            -1.1247864123611615e-24,
+            3.636430945011287e-07,
+            0.03916602086978299,
+            -1.7385658768550891,
+            -0.5391766514663434
+          ],
+          "status": "executed_gradient_guard_passed",
+          "median_warm_seconds": 0.7820604997687042
+        }
+      },
+      "schedule": [
+        "array_adjoint",
+        "reverse_ring_adjoint",
+        "automatic_reverse_scan",
+        "automatic_reverse_without_macro_checkpoint",
+        "forward_parameter_jvp",
+        "forward_parameter_jvp",
+        "automatic_reverse_without_macro_checkpoint",
+        "automatic_reverse_scan",
+        "reverse_ring_adjoint",
+        "array_adjoint",
+        "array_adjoint",
+        "reverse_ring_adjoint",
+        "automatic_reverse_scan",
+        "automatic_reverse_without_macro_checkpoint",
+        "forward_parameter_jvp",
+        "forward_parameter_jvp",
+        "automatic_reverse_without_macro_checkpoint",
+        "automatic_reverse_scan",
+        "reverse_ring_adjoint",
+        "array_adjoint"
+      ],
+      "baseline_revision": "b7f007b4f22a98b1d67d73b30f6865d5dea7af11",
+      "baseline_source_sha256": "8f87da96e51f19ff0760c7d36c4991cf5c586f7b805d320801eebedf128377e8",
+      "ordinary_scan_source_sha256": "23ce3fa802d1cff98ea073d110577b9fe8a21ede13284c4d676d8e79b10b0566",
+      "ordinary_scan_transform": "Remove the macro-level checkpoint only; identical primal and delayed-history recurrence",
+      "frozen_input_sha256": {
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/radiation_bar_experiment.py": "58d835f6001bc53a178fd54d45bdc19c18e581ab55195a0fe707f77947b52b0b",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/radiation-bar-fine-history-reverse-ring-20261026/summary.json": "c42d0ab14eb87a121d935083c1cdb99ea36e8581324c253cec92cfc5502a9502",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/benchmark_bar_adjoint.py": "dd58072f9bdc60217849b07943a915e93c57ead41c509240582bf967a7aef945"
+      },
+      "scope": "One process, all variants compiled and warmed before mirrored timing order; compiler array plans are not process RSS. This bar-only AD comparison is not an event-16 or same-accuracy 2D FEM benchmark.",
+      "same_accuracy_fem_advantage_verified": false
+    }
+  },
+  "environment": {
+    "package_version": "0.1.0",
+    "python": "3.12.13",
+    "numpy": "2.4.4",
+    "scipy": "1.17.1",
+    "platform": "macOS-15.7.9-arm64-arm-64bit",
+    "available_logical_cpus": 10,
+    "hard_cpu_affinity_enforced": false,
+    "thread_environment": {
+      "FDBEM_CORES": "4",
+      "OPENBLAS_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "VECLIB_MAXIMUM_THREADS": "1",
+      "XLA_FLAGS": "--xla_cpu_multi_thread_eigen=false intra_op_parallelism_threads=4",
+      "JAX_ENABLE_X64": "true"
+    },
+    "blas_threadpools": [],
+    "source_sha256": {
+      "__init__.py": "984855d6ff3848411c946ecca174ac08baf7afe6f1d2c3be00284da9b8dbf288",
+      "adjoint.py": "7863386b78318e6502d6257469322ee82746f2384ee915c16cbb98cda69c5bc0",
+      "benchmarks.py": "c24b97264ca60d0da1dab2095d50e9ef1b88b7208fba2d46178b8cf9038eb571",
+      "case.py": "4f0c91b18309a2eae5ce5a78da3bac9fde0be9fb1c0a4d2d5e5e1fc84bd85fa7",
+      "cli.py": "82e53ce34714809933dbe456ef403bce27c6b60b20ac4481f2feded9eeadfcea",
+      "comparison.py": "631c111752342fac7d0f64553620e04940e7888b1ab2fc52566a23b5c35ee24c",
+      "condensation.py": "12010fb51d8490ae5c3a9a2cf5b04e414cb7e6205b409ce7891b454e384de7d2",
+      "constraints.py": "830071941c6df0f70e455530fe094242042fb0c1e31498e8f9b75c9aa825cb91",
+      "cq.py": "e9af920593db01f56f1f7138832f0aa603daf07cbf1d688fba8a806f712c1e15",
+      "cq_storage.py": "da2534ef95e95813a464ff04f78a092be374110650d1866cbc1fb8ea5b5105b2",
+      "dynamics.py": "b6d84d8d2c1ac6fc465565c289d1249f378f3424e00cb93441791960b3c180f8",
+      "friction.py": "1424c1639cdc1eb4dd8f780bfdc0433f33cf29752b07a17814a3a2f326d81086",
+      "galerkin.py": "85541ddfe5020debde77b2bf2d4a045fe9a52b6183d4af2f762f577be18ab66d",
+      "galerkin_fast.py": "e6167f6c553e15697b6d67a3a33f559574d22fd49db4aad49c8262d68224b614",
+      "io.py": "d292e6338381aa7935dbbfcadc0df884e89f10b7096fa70cf1b05a83c1c12b03",
+      "jax_backend.py": "4de0aadb88b73ef6792ff36894134ee31bc412b1a54b177a4d1aaaa43328d547",
+      "kernels.py": "4008ae38c62c3022034d654a13da75369bd67309af4614006942398e22c1ad08",
+      "linear.py": "3a4d7c2259fd3e67b507d0c9dcd18082c24ffda30fccb12749976c97fa5a577c",
+      "material.py": "7c4d34d911831f12e3bc99bda2e13e76d468acdf80038dcb60310a568a5342d1",
+      "mesh.py": "a37e853ed57dd80633c44805b6c13158643ac65db3e4a4cfc12520bbdfa15c4c",
+      "nodal.py": "632f1a755bb09d784c125d3198f662213ea60045ada9db1555e1b47b3ab39856",
+      "nodal_dynamics.py": "839db57190f62795aebef30545fcc9c1b41fdef503f038cc7f425068962eb39d",
+      "nonlinear.py": "019c5fc176c70964c89f9e7c74147ad48b4235267dd2faf0ee22f789a2b97590",
+      "operators.py": "bb77a3b2c66dce871c9e71cc2cdc02488e90ad32278cc9a67fea8b909b722825",
+      "sampling.py": "c518d2298b167aaa1d5ca327a612426276901876a50322a7fe4595c7ee4f1f11",
+      "statics.py": "9f81cbd95a1ff1f742387ee4ae94251304177999208a95703371272ac79dc250"
+    },
+    "jax": "0.9.2",
+    "jax_x64": true,
+    "jax_devices": [
+      "TFRT_CPU_0"
+    ]
+  },
+  "h1_restart_preflight": {
+    "authored_input_dtype": "float64",
+    "source_restart": {
+      "path": "/Volumes/Gauss-T7/tatva/runs/local-mus08-muk06-gap0-v2-ev15/data/simulation.h5",
+      "bytes": 12734514616,
+      "mtime_ns": 1792158143453734215,
+      "plastic_shape": [
+        241
+      ],
+      "checked_u_shape": [
+        91550
+      ],
+      "actuator_mm": 10.806226665707777,
+      "seed_sha256": "097948bec467b2d81f31ea58a056c29785c9f0c22f3952515ff15940357dddc4",
+      "scope": "Static initializer uses plastic slip and actuator; u is checked for size only"
+    },
+    "actual_restart": {
+      "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h1-original-dt-preflight/projected_restart.h5",
+      "bytes": 2906352,
+      "mtime_ns": 1792990604084240574,
+      "plastic_shape": [
+        481
+      ],
+      "checked_u_shape": [
+        362294
+      ],
+      "actuator_mm": 10.806226665707777,
+      "seed_sha256": "81f345709f81ae5e25b93fb37d293675705b8ac8c9d72516b71955c1be3ad9a0",
+      "scope": "Static initializer uses plastic slip and actuator; u is checked for size only"
+    },
+    "restart_projection": {
+      "authority": "Original final_state/plastic_slip and recorded actuator; P1 interpolation on original interface knots",
+      "source_plastic_dtype": "float64",
+      "source_coordinate_dtype": "float32",
+      "source_coordinate_sha256": "9a177bdf58633cc1687bceea96cc73b3b0a29a07397fc24ce0eabaeb2bce281a",
+      "target_coordinate_sha256": "18cf088cf65ea91e50ed36af1c8139da80cd7f314d1c4e972736f11fe9c8fb05",
+      "source_nodes": 241,
+      "target_nodes": 481,
+      "source_restart": {
+        "path": "/Volumes/Gauss-T7/tatva/runs/local-mus08-muk06-gap0-v2-ev15/data/simulation.h5",
+        "bytes": 12734514616,
+        "mtime_ns": 1792158143453734215,
+        "plastic_shape": [
+          241
+        ],
+        "checked_u_shape": [
+          91550
+        ],
+        "actuator_mm": 10.806226665707777,
+        "seed_sha256": "097948bec467b2d81f31ea58a056c29785c9f0c22f3952515ff15940357dddc4",
+        "scope": "Static initializer uses plastic slip and actuator; u is checked for size only"
+      }
+    },
+    "requested_cores": 4
+  },
+  "full_2d_h1_status": "Started separately; full result pending. Preflight is not a completed reference.",
+  "same_accuracy_fem_advantage_verified": false,
+  "scope": "Finite-bar controls and complete-history AD benchmark; original 2D event-16 accuracy/stability/time objective remains open.",
+  "primal_fields_bitwise_equal_after_checkpoint_policy_change": true,
+  "h1_scheduling_annotations": {
+    "bem/outputs/fem-h1-scheduled-ad-pause-20261026.json": {
+      "sha256": "4386377ae89e05fb774a2a22c96aa15e658b68152ebdbb48324695d585a2de29",
+      "record": {
+        "fem_pid": 23692,
+        "wrapper_pid": 24400,
+        "command": [
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/run.sh",
+          "radiation-ad-benchmark",
+          "bem/outputs/radiation-bar-fine-history-reverse-ring-20261026",
+          "--output",
+          "bem/outputs/radiation-bar-ad-no-checkpoint-20261026"
+        ],
+        "reason": "Serialize a necessary no-checkpoint AD control within the requested CPU settings",
+        "spatial_fields_affected": false,
+        "timing_scope": "The h1 wrapper wall clock includes this scheduled pause; it is not an uninterrupted speed benchmark",
+        "paused_utc": "2026-10-26T05:34:45.713382+00:00",
+        "verified_stopped_state": "T",
+        "benchmark_pid": 24413,
+        "benchmark_exit_code": 0,
+        "resumed_utc": "2026-10-26T05:35:15.456774+00:00",
+        "paused_seconds": 29.74349766690284,
+        "state_after_resume": "R"
+      }
+    },
+    "bem/outputs/fem-h1-final-ad-pause-20261026.json": {
+      "sha256": "1663f57c769b4f80a8ff3f4988df0b59fd3e48cdc516b4de7327bcebe38a9c9e",
+      "record": {
+        "fem_pid": 23692,
+        "wrapper_pid": 24910,
+        "commands": [
+          [
+            "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/run.sh",
+            "radiation-bar",
+            "--output",
+            "bem/outputs/radiation-bar-final-policy-20261026"
+          ],
+          [
+            "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/run.sh",
+            "radiation-ad-benchmark",
+            "bem/outputs/radiation-bar-final-policy-20261026",
+            "--output",
+            "bem/outputs/radiation-bar-ad-final-policy-20261026"
+          ]
+        ],
+        "reason": "Serialize a necessary no-checkpoint AD control within the requested CPU settings",
+        "spatial_fields_affected": false,
+        "timing_scope": "The h1 wrapper wall clock includes this scheduled pause; it is not an uninterrupted speed benchmark",
+        "paused_utc": "2026-10-26T05:42:25.781102+00:00",
+        "verified_stopped_state": "T",
+        "benchmark_pid": 24939,
+        "active_command": [
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/run.sh",
+          "radiation-ad-benchmark",
+          "bem/outputs/radiation-bar-final-policy-20261026",
+          "--output",
+          "bem/outputs/radiation-bar-ad-final-policy-20261026"
+        ],
+        "benchmark_exit_code": 0,
+        "resumed_utc": "2026-10-26T05:42:58.450827+00:00",
+        "paused_seconds": 32.669827999547124,
+        "state_after_resume": "R"
+      }
+    }
+  },
+  "h1_total_recorded_suspension_seconds": 62.413325666449964,
+  "h1_timing_scope": "Full h1 run resumes for spatial convergence. Its wall clock includes the recorded suspensions; do not use as an uninterrupted speed benchmark."
+}

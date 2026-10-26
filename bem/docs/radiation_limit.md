@@ -68,6 +68,10 @@ Q12/Q24在最高點的完整Z相對差為1.76e−5；該積分差無法解釋這
 同一最高點，換用一致P1 mass的相對Frobenius差仍為14.34%，不隨s一起消失。
 這支持混合P1/P0主導項的推導，但不是原137節點模型的全頻段驗證。
 
+後續[完整反射的非線性有限bar控制](radiation_bar.md)已實作：
+細歷史與獨立體積FEM的滑移接近，但單純平均速度的macro history出現大traction defect及gradient變號，
+因此尚未接回2D時間積分器。完整細歷史另有通過正向JVP核對的reverse-ring custom VJP。
+
 高階積分需要按`batch_pairs * Q² * concurrent_workers`計入暫存。
 初次batch32四worker控制的RSS達8749MiB，保留為數值／資源研究紀錄；
 新預設改為batch8，preflight也加入隨Q²成長的worker scratch。

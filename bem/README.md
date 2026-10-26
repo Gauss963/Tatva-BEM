@@ -30,6 +30,9 @@ Radau新增兩family磁碟權重、完整因果startup及耦合stage接觸；
 新增指定actuator plateau、完整塑性滑移variation及不含CQ的FEM/BEM線性響應對照，分離誤差來源。
 另有[離散高頻輻射項研究](docs/radiation_limit.md)，先核對瞬時／完整歷史分解的係數；
 目前仍是算子診斷，尚未替換正式模擬器或證明加速。
+新增[完整反射有限bar控制與AD benchmark](docs/radiation_bar.md)：
+保留細歷史可與獨立體積解核對；單純平均歷史雖保留接近的滑移，卻有大的反射應力差及與細歷史相反的gradient方向。
+新的reverse-ring custom VJP在此1D控制降低時間與配置；2D事件的精度／速度目標仍未完成。
 resolvent 現可直接建立新時間網格，並核對參數、載入及初始狀態的條件式 adjoint；
 小型解與梯度驗證已通過，完整案例的誤差與成本仍需進一步比較。
 另有 [徑向 traction／Horner 組裝實驗](docs/radial_assembly.md)，保留相同積分與物理模型；
