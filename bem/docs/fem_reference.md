@@ -98,6 +98,8 @@ manifest保留source/target座標hash、節點數與原儲存dtype。
 先前使用mesh override的coarse診斷保留為歷史資料，不能當成本次精確seed的網格控制。
 新的h1 preflight已確認241→481個界面節點的插值與獨立原float64 seed完全相同，
 且可使用原`dt=1.2492928633545953e-8s`；完整h1控制將固定此dt，分離空間差異。
+完整h1正在執行；完成後使用[固定時間步的空間比較](fem_mesh_control.md)，
+逐一檢查相同step IDs、float64 source seed與P1時空誤差，不由兩張網格直接宣稱空間收斂。
 
 完成後使用`tools/compare_fem_reference.py`對原始HDF5核對，不插值不同step的軌跡。
 它要求完整h2／float64、相同來源／輸入與精確相同的shear step IDs，

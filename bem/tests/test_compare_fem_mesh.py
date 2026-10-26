@@ -146,6 +146,7 @@ def test_float64_endpoint_pressure_uses_geometry_gap_and_correct_body_layout(tmp
         stream["interface/slave_nodes"] = [1, 0]
         stream["interface/contact_line_y"] = [0.0, 1.0]
         stream["final_state/u"] = [0.03, 0.1, 0.3, 0.2, 0.02, 0.04, 0.01, 0.01]
+        stream["final_state/v_half"] = np.zeros(8)
         stream["final_state/plastic_slip"] = [0.01, 0.02]
         stream["final_state/cumulative_slip"] = [0.02, 0.04]
     y, fields = TOOL["read_final_fields"](path, dict(normal_penalty=100.0, tangential_penalty=10.0))
@@ -207,6 +208,7 @@ def test_full_mesh_comparison_checks_projection_and_reports_static_initializatio
             stream["interface/slave_nodes"] = np.arange(n)
             stream["interface/contact_line_y"] = y
             stream["final_state/u"] = np.r_[np.tile([0.03, 0.1], n), np.tile([0.01, 0.01], n)]
+            stream["final_state/v_half"] = np.zeros(4 * n)
             stream["final_state/plastic_slip"] = expected + 0.02
             stream["final_state/cumulative_slip"] = np.full(n, 0.02)
             high = stream.create_group("interface_high_rate")
@@ -221,6 +223,7 @@ def test_full_mesh_comparison_checks_projection_and_reports_static_initializatio
             high["step_id"] = [0, 2, 3, 10]
             high["contact_line_y"] = y
             high["plastic_slip"] = np.repeat((expected + 1e-5)[None], 4, axis=0).astype(np.float32)
+            high["plastic_slip"][-1] = (expected + 0.02).astype(np.float32)
             high["cumulative_slip"] = np.tile([0.0, 0.0, 0.0, 0.02], (n, 1)).T.astype(np.float32)
             high["friction_coefficient"] = np.full((4, n), 0.8, dtype=np.float32)
             high["friction_strength"] = np.full((4, n), 1.6, dtype=np.float32)
@@ -277,6 +280,31 @@ def test_full_mesh_comparison_checks_projection_and_reports_static_initializatio
     assert all(
         check["first_shear_minus_input_maximum_mm"] > 9.9e-6 for check in result["initialization"]
     )
+    assert all(
+        check["saved_final_slip_matches_float64_after_storage_rounding"]
+        for check in result["endpoint_storage_checks"]
+    )
+    bad_output = output.with_name("bad")
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "compare_fem_mesh.py",
+            *map(str, records),
+            "--field-verification",
+            str(verified),
+            "--output",
+            str(bad_output),
+        ],
+    )
+    with h5py.File(records[1] / "simulation.h5", "a") as stream:
+        stream["interface_high_rate/plastic_slip"][-1, 0] += 0.001
+    with pytest.raises(ValueError, match="Saved final slip"):
+        main()
+    with h5py.File(records[1] / "simulation.h5", "a") as stream:
+        stream["interface_high_rate/plastic_slip"][-1] = stream["final_state/plastic_slip"][
+            :
+        ].astype(np.float32)
     # A changed projected seed is rejected even when it still has float64 storage.
     with h5py.File(records[1] / "projected.h5", "a") as stream:
         stream["final_state/plastic_slip"][1] += 2**-45

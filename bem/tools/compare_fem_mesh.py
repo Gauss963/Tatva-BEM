@@ -167,11 +167,18 @@ def read_final_fields(path, config):
             np.asarray(interface[f"{kind}_nodes"][:], dtype=int) for kind in ("master", "slave")
         )
         y = np.asarray(interface["contact_line_y"][:], dtype=float)
-        if any(final[key].dtype != np.float64 for key in ("u", "plastic_slip", "cumulative_slip")):
+        if any(
+            final[key].dtype != np.float64
+            for key in ("u", "v_half", "plastic_slip", "cumulative_slip")
+        ):
             raise ValueError("Endpoint control requires true float64 final_state arrays")
         u, z, c = (final[key][:] for key in ("u", "plastic_slip", "cumulative_slip"))
+        velocity = final["v_half"][:]
         if (
             u.shape != (2 * (len(moving) + len(stationary)),)
+            or velocity.shape != u.shape
+            or not np.all(np.isfinite(u))
+            or not np.all(np.isfinite(velocity))
             or z.shape != y.shape
             or c.shape != y.shape
             or master.shape != y.shape
@@ -250,7 +257,14 @@ def main():
         == frozen[str(baseline["path"] / "summary.json")]
     ):
         raise ValueError("The h2 baseline must have passed the archived-field verification")
-    traces, final_fields, seed_checks, files, restart_records = [], [], [], [], []
+    traces, final_fields, seed_checks, files, restart_records, storage_checks = (
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+    )
     for record in (baseline, refined):
         for path, digest in record["manifest"]["protected_input_sha256"].items():
             if fingerprint(path) != digest:
@@ -307,7 +321,30 @@ def main():
             )
         )
         traces.append(trace)
-        final_fields.append(read_final_fields(path, record["config"]))
+        yy, values = read_final_fields(path, record["config"])
+        with h5py.File(path, "r") as stream:
+            group = stream[trace["provenance"]["history_group"]]
+            for key in ("plastic_slip", "cumulative_slip"):
+                saved = group[key][-1]
+                if not np.array_equal(values[key].astype(saved.dtype), saved):
+                    raise ValueError(
+                        "Saved final slip is not the storage-rounded float64 final_state"
+                    )
+        mu, strength = (
+            trace["interface_fields"][key][-1]
+            for key in ("friction_coefficient", "friction_strength")
+        )
+        if np.any(mu <= 0):
+            raise ValueError("Reconstructing pressure requires strictly positive stored mu")
+        storage_checks.append(
+            dict(
+                saved_final_slip_matches_float64_after_storage_rounding=True,
+                pressure=error_report(
+                    yy, values["pressure"][None], trace["y"], (strength / mu)[None]
+                ),
+            )
+        )
+        final_fields.append((yy, values))
         files.append((path, before))
     rows = ALIGN(*traces)
     time = traces[0]["history"]["time"][rows[0]]
@@ -386,8 +423,10 @@ def main():
         raise ValueError("Comparison code or input artifacts changed")
     if any(SEED["restart_seed_record"](saved["path"]) != saved for saved in restart_records):
         raise ValueError("FEM source or projected restart changed during the comparison")
-    events = []
-    for record, trace, indices in zip((baseline, refined), traces, rows, strict=True):
+    events, sampled_stability = [], []
+    for record, trace, indices, (_, final) in zip(
+        (baseline, refined), traces, rows, final_fields, strict=True
+    ):
         t = trace["history"]["time"][indices] - record["config"]["normal_phase_time"]
         events.append(
             dict(
@@ -402,6 +441,23 @@ def main():
                 timing_seconds=record["summary"]["timing_seconds"],
             )
         )
+        data = trace["interface_fields"]
+        sampled_stability.append(
+            dict(
+                minimum_saved_shear_c_increment_mm=float(
+                    np.min(np.diff(data["cumulative_slip"][indices], axis=0))
+                ),
+                minimum_saved_shear_cumulative_slip_mm=float(
+                    np.min(data["cumulative_slip"][indices])
+                ),
+                minimum_saved_shear_friction_strength_mpa=float(
+                    np.min(data["friction_strength"][indices])
+                ),
+                final_u_and_v_half_finite=True,
+                final_maximum_cumulative_slip_mm=float(np.max(final["cumulative_slip"])),
+                final_maximum_pressure_mpa=float(np.max(final["pressure"])),
+            )
+        )
     result = dict(
         status="completed_same_dt_spatial_comparison",
         fem_mesh_convergence_verified=False,
@@ -413,6 +469,8 @@ def main():
         refined=traces[1]["provenance"],
         initialization=seed_checks,
         events=events,
+        sampled_stability=sampled_stability,
+        endpoint_storage_checks=storage_checks,
         scalar_history=history,
         stored_interface_fields=fields,
         true_float64_final_state=endpoint,
@@ -422,6 +480,7 @@ def main():
         pressure_scope="Saved pressure is strength/mu from float32 values; final pressure is kn*positive(normal jump minus geometric gap) from float64 u",
         shear_scope="Endpoint elastic_trial_shear is kt*(tangential jump-z), not an independently re-evaluated return map",
         timing_scope="Raw run times retained; known scheduling pauses and overlap controls must be assessed separately",
+        stability_scope="Finite saved interface fields and float64 final u/v_half, with unclipped saved c increments; not a bound on unsaved states or a stability proof",
     )
     args.output.mkdir(parents=True)
     write_json(args.output / "summary.json", result)
