@@ -1,5 +1,6 @@
 import runpy
 from pathlib import Path
+from types import SimpleNamespace
 
 import numpy as np
 import pytest
@@ -15,16 +16,19 @@ LOCAL = runpy.run_path(str(ROOT / "tests/test_substepped_contact.py"))
 def test_affine_shortcut_matches_coupled_original_history_through_sliding(substeps):
     from finiteblock_bem.friction import ContactState
 
-    ref, original, _, time, actuator = SYNTHETIC["problem"]()
+    ref, original, history, time, actuator = SYNTHETIC["problem"]()
     expected = SYNTHETIC["direct_trajectory"](ref, original, time, actuator, substeps)
     system = TOOL["AffineStickContactEquilibrium"](ref, substeps=substeps)
     q = np.zeros_like(expected.bulk_displacement)
+    plastic = np.zeros_like(expected.plastic_slip)
+    cumulative = np.zeros_like(expected.cumulative_slip)
     old = ContactState(expected.plastic_slip[0], expected.cumulative_slip[0])
     for i in range(1, len(time)):
         past = sum((original[i - j] @ q[j] for j in range(i)), start=np.zeros(q.shape[1]))
         answer = system.solve(0.0, actuator[i], old, past=past, guess=q[i - 1])
         assert answer.converged and answer.residual_mpa < 1e-7
         q[i], old = answer.reduced_displacement, answer.contact.state
+        plastic[i], cumulative[i] = old.plastic_slip, old.cumulative_slip
         np.testing.assert_allclose(
             old.plastic_slip, expected.plastic_slip[i], rtol=1e-11, atol=1e-12
         )
@@ -35,6 +39,15 @@ def test_affine_shortcut_matches_coupled_original_history_through_sliding(subste
     assert system.fast_stick_steps > 0
     assert system.nonlinear_steps > 0
     assert len(system.accepted_micro_work) == len(time) - 1
+    actual = SimpleNamespace(
+        time=time, bulk_displacement=q, plastic_slip=plastic, cumulative_slip=cumulative
+    )
+    for method in ("forward_gradient", "reverse_gradient"):
+        baseline = SYNTHETIC["AD"][method](ref, history, expected, constitutive_substeps=substeps)
+        candidate = SYNTHETIC["AD"][method](ref, history, actual, constitutive_substeps=substeps)
+        np.testing.assert_allclose(
+            candidate["gradient"], baseline["gradient"], rtol=1e-10, atol=1e-11
+        )
 
 
 def test_inside_final_cone_is_insufficient_after_previous_state_weakening():
