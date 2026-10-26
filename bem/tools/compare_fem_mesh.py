@@ -144,8 +144,10 @@ def validate_mesh_pair(baseline, refined):
         ma["source"] == mb["source"]
         and ma["protected_input_sha256"] == mb["protected_input_sha256"]
         and ma["source_restart"] == mb["source_restart"]
-        and ma["restart_projection"] is None
-        and mb["restart_projection"] is not None
+        # Older original-grid manifests omitted a null projection field.
+        # The actual/source seed equality below still proves no projection.
+        and ma.get("restart_projection") is None
+        and mb.get("restart_projection") is not None
         and mb["restart_projection"]["source_plastic_dtype"] == "float64"
         and mb["restart_projection"]["source_restart"] == ma["source_restart"]
         and ma["actual_restart"] == ma["source_restart"]

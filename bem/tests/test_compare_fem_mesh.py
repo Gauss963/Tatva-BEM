@@ -114,6 +114,19 @@ def test_spatial_control_allows_only_mesh_and_verified_projection_path():
     TOOL["validate_mesh_pair"](*mesh_records())
 
 
+def test_legacy_projection_field_is_optional_only_for_the_original_unprojected_seed():
+    a, b = mesh_records()
+    del a["manifest"]["restart_projection"]
+    TOOL["validate_mesh_pair"](a, b)
+    a["manifest"]["actual_restart"] = dict(path="other.h5", seed_sha256="other")
+    with pytest.raises(ValueError, match="source seed"):
+        TOOL["validate_mesh_pair"](a, b)
+    a, b = mesh_records()
+    del b["manifest"]["restart_projection"]
+    with pytest.raises(ValueError, match="source seed"):
+        TOOL["validate_mesh_pair"](a, b)
+
+
 @pytest.mark.parametrize(
     "change", ["dt", "physics", "precision", "source", "seed", "incomplete", "coarser"]
 )
