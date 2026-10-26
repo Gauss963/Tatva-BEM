@@ -10,14 +10,16 @@ It checks time-domain algebra and causality, not interpolation accuracy or
 physical convergence. Fresh BEM frequency checks are a separate requirement.
 """
 
+from concurrent.futures import ThreadPoolExecutor
 from time import perf_counter
 
 import numpy as np
 from scipy.fft import irfft, rfft
 from scipy.linalg import solve
+from threadpoolctl import threadpool_limits
 
 
-def invert_work_spectrum(source, target, *, block_matrices=16, residual_limit=1e-7):
+def invert_work_spectrum(source, target, *, block_matrices=16, residual_limit=1e-7, workers=1):
     """Invert complete frequency matrices with an independently checked identity."""
     if (
         len(source.shape) != 3
@@ -25,6 +27,8 @@ def invert_work_spectrum(source, target, *, block_matrices=16, residual_limit=1e
         or source.shape != target.shape
         or not isinstance(block_matrices, int)
         or block_matrices < 1
+        or not isinstance(workers, int)
+        or workers < 1
         or not np.isfinite(residual_limit)
         or residual_limit <= 0
     ):
@@ -32,25 +36,29 @@ def invert_work_spectrum(source, target, *, block_matrices=16, residual_limit=1e
     identity = np.eye(source.shape[1])
     maximum, asymmetry = 0.0, 0.0
     begun = perf_counter()
-    for first in range(0, source.shape[0], block_matrices):
-        last = min(first + block_matrices, source.shape[0])
-        block = np.asarray(source[first:last])
-        if not np.all(np.isfinite(block)):
-            raise ValueError("Nonfinite source resolvent")
-        values = np.stack([solve(a, identity, check_finite=False) for a in block])
-        if not np.all(np.isfinite(values)):
+
+    def invert_one(a):
+        value = solve(a, identity, check_finite=False)
+        if not np.all(np.isfinite(value)):
             raise ValueError("Nonfinite reconstructed original operator")
-        error = np.max(np.sum(abs(values @ block - identity), axis=2))
-        maximum = max(maximum, float(error))
-        norms = np.linalg.norm(values, axis=(1, 2))
-        relative = np.linalg.norm(values - values.transpose(0, 2, 1), axis=(1, 2)) / np.maximum(
-            norms, 1e-300
-        )
-        asymmetry = max(asymmetry, float(np.max(relative)))
-        if maximum > residual_limit:
-            raise ValueError(f"Original-operator inverse identity failed: {maximum}")
-        # Preserve the source arithmetic, including any small asymmetry.
-        target[first:last] = values
+        error = float(np.linalg.norm(value @ a - identity, ord=np.inf))
+        relative = float(np.linalg.norm(value - value.T) / max(np.linalg.norm(value), 1e-300))
+        return value, error, relative
+
+    # Independent frequencies provide parallelism with one BLAS thread each.
+    with threadpool_limits(limits=1, user_api="blas"), ThreadPoolExecutor(workers) as pool:
+        for first in range(0, source.shape[0], block_matrices):
+            last = min(first + block_matrices, source.shape[0])
+            block = np.asarray(source[first:last])
+            if not np.all(np.isfinite(block)):
+                raise ValueError("Nonfinite source resolvent")
+            results = list(pool.map(invert_one, block))
+            maximum = max(maximum, max(v[1] for v in results))
+            asymmetry = max(asymmetry, max(v[2] for v in results))
+            if maximum > residual_limit:
+                raise ValueError(f"Original-operator inverse identity failed: {maximum}")
+            # Preserve source arithmetic, including any small asymmetry.
+            target[first:last] = np.stack([v[0] for v in results])
     if hasattr(target, "sync"):
         target.sync()
     return dict(
@@ -58,6 +66,8 @@ def invert_work_spectrum(source, target, *, block_matrices=16, residual_limit=1e
         maximum_inverse_composition_inf_error=maximum,
         maximum_relative_transpose_asymmetry=asymmetry,
         inversion_seconds=perf_counter() - begun,
+        frequency_workers=workers,
+        blas_threads_per_worker=1,
         no_symmetrization_or_regularization=True,
     )
 

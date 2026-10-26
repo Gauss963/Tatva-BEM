@@ -12,7 +12,8 @@ TOOL = runpy.run_path(str(Path(__file__).resolve().parents[1] / "tools/original_
 
 
 @pytest.mark.parametrize("rows", [1, 3])
-def test_original_action_matches_independent_bdf2_matrix_recurrence(rows):
+@pytest.mark.parametrize("workers", [1, 2])
+def test_original_action_matches_independent_bdf2_matrix_recurrence(rows, workers):
     rng = np.random.default_rng(154)
     d, steps, dt, decay = 5, 17, 0.01, 30.0
     plan = replace(plan_cq(d, dt, steps, max_memory_mb=16), radius=0.8)
@@ -25,7 +26,7 @@ def test_original_action_matches_independent_bdf2_matrix_recurrence(rows):
     physical = s[:, None, None] * mass + stiffness + memory / (s[:, None, None] + decay)
     source = np.linalg.inv(physical) * scale[None, :, None] * scale[None, None, :]
     target = np.empty_like(source)
-    inversion = TOOL["invert_work_spectrum"](source, target, block_matrices=7)
+    inversion = TOOL["invert_work_spectrum"](source, target, block_matrices=7, workers=workers)
     assert inversion["maximum_inverse_composition_inf_error"] < 1e-12
     q = rng.normal(size=(steps + 1, d, 3)) * 0.001
     actual, diagnostics = TOOL["causal_original_action"](
