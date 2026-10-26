@@ -7,6 +7,7 @@ friction parameters or history terms are removed by this adapter.
 
 from dataclasses import dataclass
 from itertools import pairwise
+from time import perf_counter
 
 import numpy as np
 from scipy.linalg import solve
@@ -241,6 +242,10 @@ def initialize_refined_contact(model, quadrature, reduction, state):
     )
     physical_error = float(np.max(abs(uncondensed) / model.constraints.reduced_weights))
     trace_error = float(np.max(abs(reduction.jump @ reduced - q)))
+    moving_test = np.sum(model.constraints.prolongation[: model.reference.moving.dofs : 2], axis=0)
+    bulk_normal_force = float(moving_test @ (reduction.reduced_stiffness @ reduced))
+    applied_normal_force = float(moving_test @ reduction.reduced_load)
+    contact_normal_force = float(np.dot(quadrature.weights, response.pressure))
     if ratio > 1 + 1e-6 or physical_error >= 1e-7 or trace_error >= 1e-9:
         raise ValueError("Refined static lift violates friction or original full-body balance")
     if not np.array_equal(response.state.plastic_slip, state.plastic_slip) or not np.array_equal(
@@ -257,6 +262,13 @@ def initialize_refined_contact(model, quadrature, reduction, state):
         trace_constraint_error_mm=trace_error,
         maximum_strength_ratio=ratio,
         mean_pressure_mpa=float(np.average(response.pressure, weights=quadrature.weights)),
+        moving_bulk_normal_force_mpa_mm=bulk_normal_force,
+        applied_normal_force_mpa_mm=applied_normal_force,
+        contact_normal_force_mpa_mm=contact_normal_force,
+        moving_normal_balance_defect_mpa_mm=bulk_normal_force
+        + contact_normal_force
+        - applied_normal_force,
+        force_scope="Original discrete Galerkin balance; its finite-quadrature rigid-translation defect is retained, not clipped",
         mean_shear_mpa=float(np.average(response.shear, weights=quadrature.weights)),
         platen_mm=float(q[-1]),
         seed_unchanged=True,
@@ -287,4 +299,193 @@ def dynamic_refined_reference(model, quadrature, lift, instantaneous_impedance):
         base_tangent=quadrature.interpolate(q0[n : 2 * n]),
         base_platen=q0[-1],
         base_force=base_force,
+    )
+
+
+@dataclass(frozen=True)
+class RefinedTrajectory:
+    time: np.ndarray
+    bulk_displacement: np.ndarray
+    pressure: np.ndarray
+    shear: np.ndarray
+    friction_coefficient: np.ndarray
+    plastic_slip: np.ndarray
+    cumulative_slip: np.ndarray
+    actuator: np.ndarray
+    platen: np.ndarray
+    residual: np.ndarray
+    iterations: np.ndarray
+    diagnostics: dict
+
+
+def simulate_refined_prepared(
+    model,
+    quadrature,
+    reference,
+    state,
+    history,
+    elastic,
+    time,
+    ramp,
+    *,
+    equilibrium_factory=None,
+    history_factory=None,
+    failure_callback=None,
+    schedule_name="event16_original_actuator_rate",
+):
+    """Complete original-grid CQ with work-conjugate refined contact forces.
+
+    Dref remains the original coarse diagonal elastic reference. Changing
+    contact integration can activate its correction immediately, so require
+    every lag from step one, even when the nominal prefix remains sticking.
+    """
+    from finiteblock_bem.jax_backend import JaxContactEquilibrium
+
+    steps, d, m = len(time) - 1, quadrature.dofs, quadrature.points
+    if (
+        history.plan.dofs != d
+        or history.plan.steps < steps
+        or elastic.shape != (steps + 1, d)
+        or ramp.shape != (steps + 1,)
+        or len(state.plastic_slip) != m
+        or not np.array_equal(time, np.arange(steps + 1) * history.plan.dt)
+        or not np.all(np.isfinite(elastic))
+        or not np.all(np.isfinite(ramp))
+    ):
+        raise ValueError("Refined contact requires complete same-grid history from the first step")
+    if history_factory is None:
+        import runpy
+        from pathlib import Path
+
+        history_factory = runpy.run_path(str(Path(__file__).with_name("replay_resolvent.py")))[
+            "CorrectionHistory"
+        ]
+    begun = perf_counter()
+    law = model.reference.contact
+    wc = model.constraints.contact_weights
+    diagonal = np.r_[wc * law.normal_penalty, wc * law.tangential_penalty, 0]
+    a0 = reference.matrix + np.diag(diagonal)
+    composition = float(np.linalg.norm(history.instantaneous @ a0 - np.eye(d), ord=np.inf))
+    if composition > 1e-6 or not np.isfinite(composition):
+        raise ValueError("Original coarse-reference lag-zero inverse composition failed")
+    initial, _, contact = reference.evaluate(
+        np.zeros(d), np.zeros(d), model.reference.normal_pressure, ramp[0], state, jacobian=False
+    )
+    if np.max(abs(initial)) >= 1e-7:
+        raise ValueError("Refined static initialization is not in the original equilibrium")
+    fc0 = quadrature.pull_force(contact.pressure, contact.shear)
+    q = np.zeros((steps + 1, d))
+    pressure, shear, mu, plastic, cumulative = [np.zeros((steps + 1, m)) for _ in range(5)]
+    pressure[0], shear[0], mu[0], plastic[0], cumulative[0] = (
+        contact.pressure,
+        contact.shear,
+        contact.friction_coefficient,
+        state.plastic_slip,
+        state.cumulative_slip,
+    )
+    residual, iterations = np.zeros(steps + 1), np.zeros(steps + 1, dtype=int)
+    residual[0] = np.max(abs(initial))
+    factory = JaxContactEquilibrium if equilibrium_factory is None else equilibrium_factory
+    system, memory = factory(reference), history_factory(history)
+    actuator = ramp.copy()
+    force = reference.spring * (ramp - ramp[0])
+    old, held, hold_time, work = state, None, None, 0.0
+    for index in range(1, steps + 1):
+        if held is not None:
+            actuator[index] = held
+        past = -a0 @ (elastic[index] + memory.past(index))
+        past[-1] += force[index]
+        answer = system.solve(
+            model.reference.normal_pressure, actuator[index], old, past=past, guess=q[index - 1]
+        )
+        if not answer.converged:
+            if failure_callback is not None:
+                failure_callback(
+                    index,
+                    dict(
+                        failed_displacement=answer.reduced_displacement,
+                        previous_displacement=q[index - 1],
+                        plastic_slip=old.plastic_slip,
+                        cumulative_slip=old.cumulative_slip,
+                        past=past,
+                        time=time[index],
+                        residual_mpa=answer.residual_mpa,
+                    ),
+                )
+            raise ValueError(
+                f"Refined contact root failed at {time[index]} s: {answer.residual_mpa}"
+            )
+        q[index], contact = answer.reduced_displacement, answer.contact
+        pressure[index], shear[index], mu[index], plastic[index], cumulative[index] = (
+            contact.pressure,
+            contact.shear,
+            contact.friction_coefficient,
+            contact.state.plastic_slip,
+            contact.state.cumulative_slip,
+        )
+        residual[index], iterations[index] = answer.residual_mpa, answer.iterations
+        correction = (
+            fc0 + diagonal * q[index] - quadrature.pull_force(pressure[index], shear[index])
+        )
+        correction[-1] += reference.spring * (actuator[index] - ramp[index])
+        memory.append(index, correction, active=True)
+        micro = (
+            system.accepted_micro_work[-1]
+            if hasattr(system, "accepted_micro_work")
+            else shear[index] * (plastic[index] - old.plastic_slip)
+        )
+        work += float(np.dot(quadrature.weights, micro))
+        old = contact.state
+        if (
+            held is None
+            and np.average(cumulative[index] >= law.characteristic_slip, weights=quadrature.weights)
+            >= model.reference.payload["loading"]["stop_coverage"]
+        ):
+            held, hold_time = actuator[index], time[index]
+    diagnostics = dict(
+        status="completed_requested_horizon",
+        duration_s=float(time[-1]),
+        dt_s=history.plan.dt,
+        boundary_formulation="P1/P0 symmetric Galerkin; coarse P1 jumps and refined contact quadrature",
+        history_representation="elastic_resolvent_refined_contact",
+        schedule=schedule_name,
+        bulk_contact_nodes=quadrature.bulk_nodes,
+        contact_nodes=m,
+        subdivisions=quadrature.subdivisions,
+        history_dofs=[d],
+        panels=[model.reference.moving.count, model.reference.stationary.count],
+        completed_steps=steps,
+        requested_steps=steps,
+        correction_start=memory.start,
+        all_history_retained=True,
+        correction_history_steps=history.plan.steps,
+        inverse_cq_composition_inf_error=composition,
+        actuator_hold_time_s=hold_time,
+        micro_friction_work_mpa_mm2=work,
+        max_cumulative_slip_mm=float(np.max(cumulative)),
+        max_boundary_contact_residual_mpa=float(np.max(residual)),
+        time_stepping_seconds=perf_counter() - begun,
+        full_original_event_reproduced=False,
+        full_trajectory_substep_ad_validated=False,
+        scope="Complete original CQ history; refined state quadrature is not bulk spatial or temporal convergence",
+    )
+    if hasattr(system, "substeps"):
+        diagnostics["constitutive_substeps"] = system.substeps
+    if hasattr(system, "recovery_events"):
+        diagnostics["contact_root_recovery_events"] = system.recovery_events
+    if memory.online is not None and hasattr(memory.online, "statistics"):
+        diagnostics["online_fft_cache"] = memory.online.statistics()
+    return RefinedTrajectory(
+        time,
+        q,
+        pressure,
+        shear,
+        mu,
+        plastic,
+        cumulative,
+        actuator,
+        reference.base_platen + q[:, -1],
+        residual,
+        iterations,
+        diagnostics,
     )
