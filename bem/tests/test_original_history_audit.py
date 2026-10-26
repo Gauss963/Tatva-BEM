@@ -90,3 +90,34 @@ def test_original_audit_rejects_singular_spectra_and_insufficient_workspace():
             np.ones(3),
             max_workspace_mb=0.00001,
         )
+
+
+def test_selected_port_work_matches_independent_bdf2_energy_identity():
+    rng = np.random.default_rng(166)
+    q = rng.normal(size=(25, 3)) * 0.02
+    q[0] = 0
+    dt = 0.03
+    a, b = rng.normal(size=(2, 3, 3))
+    mass, stiffness = a.T @ a + np.eye(3), b.T @ b + np.eye(3)
+
+    def derivative(value):
+        padded = np.pad(value, ((2, 0), (0, 0)))
+        return (1.5 * padded[2:] - 2 * padded[1:-1] + 0.5 * padded[:-2]) / dt
+
+    velocity = derivative(q)
+    force = derivative(velocity) @ mass.T + q @ stiffness.T
+    work, weighted, diagnostics = TOOL["selected_bulk_port_work"](force, q, dt, 1.0)
+    # Exact discrete G-energy plus the two BDF2 numerical dissipation sums.
+    # This is independent of the dot(force, velocity) accumulation under test.
+    expected = 0.0
+    for values, matrix in ((q, stiffness), (velocity, mass)):
+        last = values[-1]
+        predictor = 2 * values[-1] - values[-2]
+        expected += (last @ matrix @ last + predictor @ matrix @ predictor) / 4
+        padded = np.pad(values, ((2, 0), (0, 0)))
+        difference = padded[2:] - 2 * padded[1:-1] + padded[:-2]
+        expected += np.einsum("ti,ij,tj->", difference, matrix, difference) / 4
+    np.testing.assert_allclose(work[-1], expected, rtol=3e-15)
+    np.testing.assert_array_equal(work, weighted)
+    assert work.min() >= 0
+    assert diagnostics["minimum_prefix_discrete_bulk_port_work_mpa_mm2"] == 0

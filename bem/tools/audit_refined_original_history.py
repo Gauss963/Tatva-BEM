@@ -124,7 +124,9 @@ def main():
         *[p / "summary.json" for p in args.runs],
     ]
     frozen = {str(p.resolve()): fingerprint(p) for p in selected}
-    required_disk = spectrum_bytes(plan) + (plan.steps + 1) * plan.dofs * len(records) * 8 + 65536
+    required_disk = (
+        spectrum_bytes(plan) + (plan.steps + 1) * (plan.dofs + 2) * len(records) * 8 + 65536
+    )
     output.parent.mkdir(parents=True, exist_ok=True)
     free = shutil.disk_usage(output.parent).free
     if required_disk > free:
@@ -247,6 +249,11 @@ def main():
             raise ValueError("Nonfinite original-equation residual")
         location = np.unravel_index(np.argmax(abs(residual)), residual.shape)
         maximum = float(np.max(abs(residual)))
+        body_force = action[..., column] - diagonal * q[..., column]
+        body_force[:, -1] -= spring * q[:, -1, column]
+        work, weighted_work, work_diagnostics = AUDIT["selected_bulk_port_work"](
+            body_force, q[..., column], plan.dt, plan.radius
+        )
         results.append(
             dict(
                 run=str(folder.resolve()),
@@ -258,10 +265,16 @@ def main():
                 requested_absolute_tolerance_mpa=args.residual_tolerance_mpa,
                 original_equilibrium_passed=maximum <= args.residual_tolerance_mpa,
                 replay_root_residual_mpa=records[column]["max_boundary_contact_residual_mpa"],
+                selected_bulk_port_work=work_diagnostics,
             )
         )
-        np.savez(output / f"original_residual_{column}.npz", residual_mpa=residual)
-        del residual, contact
+        np.savez(
+            output / f"original_residual_{column}.npz",
+            residual_mpa=residual,
+            discrete_bulk_port_work_mpa_mm2=work,
+            radius_weighted_bulk_port_work_mpa_mm2=weighted_work,
+        )
+        del residual, contact, body_force
     frequency_passed = (
         max(c["relative_work_frobenius"] for c in checks) <= args.frequency_relative_tolerance
     )

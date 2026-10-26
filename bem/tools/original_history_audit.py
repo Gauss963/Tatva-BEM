@@ -186,3 +186,47 @@ def physical_residual(
     residual = action - diagonal * q + contact + base_force
     residual[:, -1] += spring * (platen0 - actuator)
     return residual
+
+
+def selected_bulk_port_work(body_force, displacement, dt, radius):
+    """Signed BDF2 port work for the saved perturbation trace, without a proof.
+
+    Initial q and velocity are zero; negative-time samples are zero. The
+    radius-weighted sum is reported separately from the unweighted work.
+    Neither is a reconstruction of the full physical bulk energy: CQ time
+    discretization and the sampled operator still require independent checks.
+    """
+    force, q = (np.asarray(v, dtype=float) for v in (body_force, displacement))
+    if (
+        q.ndim != 2
+        or len(q) < 2
+        or force.shape != q.shape
+        or not np.all(np.isfinite(q))
+        or not np.all(np.isfinite(force))
+        or np.any(q[0] != 0)
+        or not np.isfinite(dt)
+        or dt <= 0
+        or not np.isfinite(radius)
+        or not 0 < radius <= 1
+    ):
+        raise ValueError("Require finite aligned zero-lift perturbations and valid dt/radius")
+    velocity = 1.5 * q
+    velocity[1:] -= 2 * q[:-1]
+    velocity[2:] += 0.5 * q[:-2]
+    velocity /= dt
+    increments = dt * np.einsum("ti,ti->t", force, velocity)
+    cumulative = np.cumsum(increments)
+    weighted = np.cumsum(increments * radius ** (2 * np.arange(len(q))))
+    return (
+        cumulative,
+        weighted,
+        dict(
+            total_discrete_bulk_port_work_mpa_mm2=float(cumulative[-1]),
+            minimum_prefix_discrete_bulk_port_work_mpa_mm2=float(cumulative.min()),
+            total_radius_weighted_port_work_mpa_mm2=float(weighted[-1]),
+            minimum_prefix_radius_weighted_port_work_mpa_mm2=float(weighted.min()),
+            absolute_increment_sum_mpa_mm2=float(np.sum(abs(increments))),
+            derivative="BDF2 of retained displacement; zero initial and negative-time perturbations",
+            scope="Selected perturbation trace work; not a total-energy reconstruction or an operator passivity/stability proof",
+        ),
+    )
