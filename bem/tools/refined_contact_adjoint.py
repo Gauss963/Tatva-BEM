@@ -187,7 +187,9 @@ def reverse_gradient(
             jnp.stack((zbar + dz, cbar + dc), axis=1),
             parameter_bar + dp,
             path_bar + root_path_bar,
-            reference.spring * raw[-1],
+            # The recorded actuator enters both the current physical root
+            # and the correction source consumed by every future root.
+            reference.spring * (raw[-1] + correction_bar[-1]),
         )
 
     reverse = convolution_factory(BoundaryHistory(history.plan, history.weights.transpose(0, 2, 1)))
