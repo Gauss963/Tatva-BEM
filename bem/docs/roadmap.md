@@ -84,7 +84,9 @@ Static full-body balance and short sliding trajectories pass direct original-Z
 checks. Since even sticking can produce a correction, the new path requires
 all 45 ms of coefficients from step one; a resource preflight is complete,
 but the actual extension and full-event refinement results remain pending.
-The new independent-grid full-history AD is under separate regression checks.
+The new independent-grid full-history AD passes reverse/JVP checks and
+original-Z parameter/actuator finite differences on short controls, including
+substepped friction. The full refined event and its gradient remain pending.
 
 - [x] Independent Laplace-domain plane-strain Green tensor and source traction.
 - [x] Direct finite-interior boundary operators, jump term and singular integration.

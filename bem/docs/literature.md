@@ -17,7 +17,7 @@
 |Melenk, Nick, **Parsimonious convolution quadrature**, arXiv:2410.15079v1 (2024) 預印本。[全文](https://arxiv.org/html/2410.15079v1)。已讀分段插值、BDF2 延伸與實作章節。|先減少重複 Laplace 求解，保留 dense CQ 對照。採自適應 Chebyshev 版本，另加獨立點檢查及直接計算 fallback；這不是原文預設分割的逐式重現，也不沿用其複雜度／誤差證明。|
 |Kramer, Marussig, Schanz, **A higher-order time-domain boundary element formulation based on isogeometric analysis and the convolution quadrature method**, CMAME 451 (2026), 118609；2025 年預印本。[全文](https://arxiv.org/html/2510.06804v1)，[出版資料](https://tugraz.elsevierpure.com/en/publications/a-higher-order-time-domain-boundary-element-formulation-based-on-/)。已讀混合算子、空間基底與收斂實驗。|P1／更高階空間離散及 Radau IIA 值得實作，但平滑波的高階收斂不能直接套到接觸開閉、yield 與 weakening 切換。先分離空間和時間誤差，不直接放大 dt。|
 |Keshava, Schanz, **A 3D-ACA accelerated time domain boundary element method for elastodynamics using FMM and H-matrix techniques**, 2026 預印本。[全文](https://arxiv.org/html/2607.15292v1)。已讀 gCQ、face/fiber 壓縮及數值比較。|後續以頻率／空間張量壓縮解除 fine-mesh 歷史儲存瓶頸。其 3D 線性案例不是 2D 摩擦驗證；FMM 也不保證在本機四核心比 H-matrix 快。|
-|Schanz, Keshava, **Comparison of H-matrix- and FMM-based 3D-ACA for a time-domain boundary element method**, Computational Mechanics 78 (2026), 563–578，2026-03-25 出版。[全文](https://link.springer.com/article/10.1007/s00466-026-02768-9)。|這篇是 acoustic wave／gCQ 的壓縮比較，與上面的 elastodynamics 預印本分開看待。借鑑其誤差與成本比較方式，不把聲學結果當成本問題的證明。|
+|Schanz, Keshava, De Gersem, **Comparison of H-matrix- and FMM-based 3D-ACA for a time-domain boundary element method**, Computational Mechanics 78 (2026), 563–578，2026-03-25 出版。[全文](https://link.springer.com/article/10.1007/s00466-026-02768-9)。|這篇是 acoustic wave／gCQ 的壓縮比較，與上面的 elastodynamics 預印本分開看待。借鑑其誤差與成本比較方式，不把聲學結果當成本問題的證明。|
 |Aimi, Desiderio, Gimperlein, Guardasoni, **Space-Time Boundary Elements on Graded Meshes for 3D Elastodynamics**, IJNME 126 (2025), e70163。[出版全文](https://onlinelibrary.wiley.com/doi/10.1002/nme.70163)。已讀奇異性、§5.1 grading、積分精度的數值比較與結論。|角落加密須配合鄰接面與積分精度；單看最小面板長度或成核時間不足以判斷收斂。其 3D 線性 Dirichlet 問題的 large-CFL 結果不能替本案 slip-weakening／BDF2 的時間精度背書。|
 |Matsumoto, Maruyama, **A fast direct solver for two-dimensional transmission problems of elastic waves**, Engineering with Computers 42 (2026), 68，2026-03-22 出版。[出版全文](https://doi.org/10.1007/s00366-026-02302-8)。已讀 mixed P1/P0 基底、§4 proxy 與 recursive skeletonization、§5 精度／成本、Remark 4–5 及結論。|與現有 P1/P0 基底相容的分塊低秩求解值得研究；節點與面板須用各自的 tree。其固定低實頻 O(N) 結果不能直接套到完整複數 CQ contour；還要驗證所有所需頻率的 rank、消去誤差與轉置求解。論文也記錄 DOF 增加時的精度退化。尚未實作此 solver，亦未借用其速度比。|
 |Hipperson, Hargreaves, Cox, **JAX-BEM: Gradient-Based Acoustic Shape Optimisation via a Differentiable Boundary Element Method**, arXiv:2604.21431v1，2026-04-23。[全文](https://arxiv.org/html/2604.21431v1)，[作者程式](https://github.com/jrhip/jax-bem)。已讀 §3.1–3.2、§4 與 §5。|將拓撲／積分類型選擇放在可微分序列外，對線性平衡根做 custom VJP，避免反傳 GMRES 迭代。它是 3D 聲學形狀最佳化，不能直接證明本案 transient friction 的精度或速度。其記憶體討論也支持先使用局部 VJP／完整轉置歷史，再研究分批 bulk 材料導數；本專案尚未具備完整材料／幾何 AD。|
@@ -26,6 +26,27 @@
 因此未作為程式推導或速度結論的依據。高階 p-version CQ 的 SIAM 2025
 [出版資料](https://epubs.siam.org/doi/10.1137/24M1642524) 亦列為後續閱讀，
 目前不據此宣稱對不光滑摩擦歷程有指數收斂。
+
+2026-10-26 另檢索到 Wang、Li、Ding，
+**A differentiable Boussinesq framework for forward and inverse three-dimensional elastic contact**，
+Engineering Analysis with Boundary Elements 191 (2026-10), 106954，
+[出版頁](https://doi.org/10.1016/j.enganabound.2026.106954)。
+本次讀取範圍是出版方搜尋索引提供的摘要、引言與章節預覽；直接全文請求回傳 403，
+未取得完整算法與實驗表。其 BEINN 把固定 Boussinesq 算子及 zero-padded FFT 卷積
+放進可微分計算圖，以壓力場為網路輸出，並示範模數與剛體壓入量的反算。
+這是三維彈性半空間法向接觸，不能當作有限 block 動態波傳、LSW 或反射歷史的替代。
+對本案可借鑑的推論，是將可重用的線性物理作用與局部非線性 AD 分開；
+目前採收斂平衡根的隱式微分及完整歷史轉置，不新增神經網路或改變原摩擦律。
+
+同日再核對 Matsumoto、Maruyama 的出版全文 §5.2。其量測指出，在其固定低頻
+案例約 10000 DOF 以下，傳統 dense LU 可以比 fast direct solver 更快。
+所以低秩漸近複雜度本身不足以證明目前中小型頻率矩陣會加速；
+若接續實作 proxy／skeletonization，須量測實際 CQ 輪廓上的 rank、
+所有準備成本及相同誤差下的交叉點。
+
+本輪新增[固定 bulk 的接觸積分加密](refined_contact.md)，以正權重與功共軛映射
+保留原方程。短程原始 Z 歷史、全邊界靜態平衡及細網格 AD 分別驗證，
+完整事件的細接觸結果仍須等待 h1 FEM 及完整歷史擴充後的實際執行。
 
 2026-10-25另讀Ferry、Molinari，**Do slip-weakening laws shapes influence
 rupture dynamics?**，Extreme Mechanics Letters 74 (2025), 102272，

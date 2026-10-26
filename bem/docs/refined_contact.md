@@ -118,6 +118,13 @@ against independent direct original-Z histories. Substepping is checked
 separately. Short regression success is not a measured full-event gradient
 or a runtime advantage.
 
+Numerical source commit `3d58e98` passed the complete Python 3.11/3.12
+[BEM verification workflow](https://github.com/Gauss963/Tatva-BEM/actions/runs/40308979926).
+The actuator finite-difference control first caught a missing future-history
+cotangent; the fix adds the correction-source contribution with the original
+tolerances retained. [Machine-readable evidence](refined_contact_results.json)
+records the source, preflight and waiting local study separately.
+
 ## Literature and limits of transfer
 
 [Aimi, Di Credico and Gimperlein (2024)](https://arxiv.org/abs/2405.08566)

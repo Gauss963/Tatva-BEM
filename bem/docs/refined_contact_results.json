@@ -1,0 +1,110 @@
+{
+  "recorded_utc": "2026-10-26T10:46:28.401305+00:00",
+  "status": "short_refined_contact_and_ad_checks_passed_full_event_pending",
+  "numerical_source_commit": "3d58e98be4b6b1585e32f292f2e62ac54bdd4ad0",
+  "ci": {
+    "run_id": 40308979926,
+    "url": "https://github.com/Gauss963/Tatva-BEM/actions/runs/40308979926",
+    "conclusion": "success",
+    "python_versions": [
+      "3.11",
+      "3.12"
+    ]
+  },
+  "regression_scope": [
+    "Positive work-conjugate P1 interpolation and force pullback",
+    "Frozen-state lift and original uncondensed static force balance",
+    "Fresh finite-block original-Z versus complete resolvent sliding histories, subdivisions 1 and 3",
+    "Fine-state and retained-bulk output coordinates remain distinct",
+    "Five conditional full-history reverse gradients versus independent forward JVPs",
+    "All five parameters and actuator finite differences against original-Z direct histories, one and four local substeps",
+    "Actual finite-block refined-state reverse/JVP short-trajectory check"
+  ],
+  "tolerances_are_test_criteria_not_measured_error": {
+    "synthetic_reverse_jvp": {
+      "rtol": 1e-10,
+      "atol": 1e-11
+    },
+    "finiteblock_reverse_jvp": {
+      "rtol": 2e-09,
+      "atol": 2e-10
+    },
+    "original_z_parameter_and_actuator_finite_difference": {
+      "rtol": 0.0002,
+      "atol": 2e-07
+    }
+  },
+  "prior_actuator_cotangent_failure": {
+    "failing_run_url": "https://github.com/Gauss963/Tatva-BEM/actions/runs/40308062625",
+    "cause": "Current actuator root contribution was present; its future correction-source cotangent was missing",
+    "correction": "spring * (current raw multiplier[-1] + future correction cotangent[-1])",
+    "original_tolerances_preserved": true
+  },
+  "full_history_preflight": {
+    "path": "/Volumes/Gauss-T7/Tatva-BEM-cache/direct-resolvent-fine2-q12-full45-preflight-20261026/preflight.json",
+    "sha256": "d95d68e664bf2838e5ed6ad0b32c2a0e61ce7013a72885c290725e2322964758",
+    "status": "preflight_only_not_a_complete_kernel",
+    "source_kernel": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/direct-resolvent-fine2-q12",
+    "unchanged_frequency_circle": {
+      "dt": 2e-06,
+      "radius": 0.999648715112665,
+      "fft_size": 65536
+    },
+    "old_correction_steps": 10000,
+    "full_correction_steps": 22500,
+    "required_disk_bytes": 13664243536,
+    "available_disk_bytes": 1126754156544,
+    "estimated_ifft_array_bytes": 2582316000,
+    "max_workspace_mb": 3072.0,
+    "scope": "Array estimate, not an OS RSS bound; no new frequency evaluations or physical trajectory",
+    "frozen_input_sha256": {
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/extend_resolvent_window.py": "549d33fdba84c21045d53571d9aaba271e316f1f30afc2b6eecfe41a9559788f",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/direct-resolvent-fine2-q12/summary.json": "1ea8df55ac77b5204fbdd4867e44b4a57b2ae304b8a5a0e029a3f92dbd9ace1f",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/native_spectrum.py": "1372b238742add3bf117897131316dff04e9a336afd0af6d71c069b89b0552e3",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/prepare_native_resolvent.py": "38a41a371a44078a13026e4b59563e17208950b8352b6793a5cdc5f79f52f462",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/replay_resolvent.py": "129d75f1dc47ba11f2da171a820e422c3bde36ccce6ed2624690230c9e66bafc"
+    },
+    "source_spectrum_sha256": "a3a41301f5fa30d387c7755b6799578b75416aabbfe312cfae12b9af8d8041e6"
+  },
+  "source_kernel": {
+    "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/direct-resolvent-fine2-q12",
+    "summary_sha256": "1ea8df55ac77b5204fbdd4867e44b4a57b2ae304b8a5a0e029a3f92dbd9ace1f",
+    "recorded_preparation_seconds": 73048.667585833,
+    "timing_scope": "Previously paid contended source construction, not an isolated fair speed benchmark"
+  },
+  "local_fem_observed": {
+    "phase": "running_full_h1_same_original_dt",
+    "latest_progress": "[progress] shear t=29.548062 ms steps=2365183/3762129 frames=24/37 ranks=1",
+    "fraction_of_requested_steps": 0.6286820574201469,
+    "original_solver_pid": 23692,
+    "thread_settings_cores": 4,
+    "hard_cpu_affinity_enforced": false
+  },
+  "serialized_local_study": {
+    "observer_pid": 42674,
+    "phase": "waiting_for_full_h1_and_its_comparison",
+    "script": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/refined-contact-study-20261026.py",
+    "script_sha256": "d8cdc326d3b97c39751d21c97fa2b3684b56b8935f9df7c882515ee5d8c45dc7",
+    "status_path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/refined-contact-study-20261026/status.json",
+    "frozen_input_count": 51,
+    "all_frozen_inputs_unchanged_at_snapshot": true,
+    "waits_for_original_fem_and_postprocessing": true,
+    "required_successful_ci_commit": "3d58e98be4b6b1585e32f292f2e62ac54bdd4ad0",
+    "planned_sequence": [
+      "Complete 45 ms lags from the same original frequency circle",
+      "One-subdivision original-seed N64 trajectory",
+      "All-field identity gate against the existing complete event",
+      "Subdivisions 2, 4, 8; same coarse P1 seed and original loading",
+      "Full FEM h2/h1 endpoint and history comparisons",
+      "Full conditional reverse/JVP checks for subdivisions 1, 4, 8"
+    ],
+    "automatic_process_restart": false,
+    "automatic_failure_tolerance_relaxation": false
+  },
+  "full_refined_event_completed": false,
+  "full_refined_event_gradient_checked": false,
+  "best_prior_full_event_maximum_slip_mm": 0.5654041105708321,
+  "verified_h2_fem_maximum_slip_mm": 0.6441228205817715,
+  "same_accuracy_fem_advantage_verified": false,
+  "original_tatva_readonly": true
+}
