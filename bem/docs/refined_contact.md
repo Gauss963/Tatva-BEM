@@ -30,6 +30,7 @@ Early **true float64 endpoint** comparisons against FEM h1 now show:
 |1 / preserve-offset|0.563086|8.282%|10.531%|10.846%|
 |2 / preserve-offset|0.569536|7.947%|17.528%|20.442%|
 |4 / FEM healed active set|0.570714|7.888%|21.641%|24.441%|
+|8 / FEM healed active set|0.570585|7.884%|22.962%|25.858%|
 
 The four-subdivision run includes one static sliding point with a maximum
 0.000931592 mm output-offset correction; its weakening memory stays zero.
@@ -39,6 +40,13 @@ profiles move farther from this FEM mesh. No endpoints were excluded. The
 FEM h2/h1 pressure difference itself is 17.62%; bulk/corner/time refinement
 and the complete original-equation audit remain necessary. These early
 endpoint checks are separate from the still-running full history comparison.
+Four/eight subdivisions differ by only 0.000128565 mm in maximum slip, while
+the stress-profile discrepancy persists. The bulk end-node spacing remains
+0.5 mm; contact-state refinement does not add boundary displacement modes.
+The healed-policy identity control also passes all seven complete-field
+gates against the canonical original event. A first observer invocation
+supplied a refined baseline to a tool expecting that canonical format;
+its failed log is retained, and the corrected input uses unchanged tolerances.
 
 ## Discretization and static lift
 

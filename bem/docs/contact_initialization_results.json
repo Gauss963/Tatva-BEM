@@ -474,7 +474,7 @@
     "Kernel preparation is previously paid, contended work and must be counted separately.",
     "Four-core thread settings are recorded, without macOS hard CPU affinity."
   ],
-  "last_updated_utc": "2026-10-26T16:43:23.676317+00:00",
+  "last_updated_utc": "2026-10-26T16:50:37.560206+00:00",
   "healed_static_completed_controls": [
     {
       "summary_path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv8-n64-coarse-p1-fem-static/summary.json",
@@ -928,5 +928,405 @@
     "ci_url": "https://github.com/Gauss963/Tatva-BEM/actions/runs/40358049373",
     "conclusion": "success",
     "full_event_runtime_benchmarked": false
+  },
+  "endpoint_metrics_versus_fem_h1": [
+    {
+      "subdivisions": 1,
+      "static_initialization": "preserve-offset",
+      "max_slip_mm": 0.5630862814341431,
+      "cumulative_slip_relative_p1_l2": 0.08281987407096379,
+      "pressure_relative_p1_l2": 0.1053075339577887,
+      "shear_relative_p1_l2": 0.10845813793020967
+    },
+    {
+      "subdivisions": 2,
+      "static_initialization": "preserve-offset",
+      "max_slip_mm": 0.5695357760610849,
+      "cumulative_slip_relative_p1_l2": 0.07946592977326801,
+      "pressure_relative_p1_l2": 0.17528479681529663,
+      "shear_relative_p1_l2": 0.20442137197452834
+    },
+    {
+      "subdivisions": 4,
+      "static_initialization": "fem-active-set",
+      "max_slip_mm": 0.5707136966650297,
+      "cumulative_slip_relative_p1_l2": 0.07888340052536211,
+      "pressure_relative_p1_l2": 0.21640789883964792,
+      "shear_relative_p1_l2": 0.24440564924679736
+    },
+    {
+      "subdivisions": 8,
+      "static_initialization": "fem-active-set",
+      "max_slip_mm": 0.5705851319163915,
+      "cumulative_slip_relative_p1_l2": 0.07884394667128738,
+      "pressure_relative_p1_l2": 0.22962284233532654,
+      "shear_relative_p1_l2": 0.25858075625465227
+    }
+  ],
+  "identity_with_healed_policy": {
+    "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/identity-check-canonical-source/summary.json",
+    "sha256": "d9f66ae5decef89e409b4d13b3e6f0effd4068489e5e60d8b49352ee2b6e42a7",
+    "data": {
+      "status": "passed_complete_identity_grid_check",
+      "original_run": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/galerkin-fine2-q12-contact64-original-seed-kinetic",
+      "identity_run": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv1-n64-coarse-p1-fem-static",
+      "frozen_input_sha256": {
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/galerkin-fine2-q12-contact64-original-seed-kinetic/summary.json": "40520780503bf21117548922c271e48cf3db8ec15918b11e5ca6e707ec4f4174",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv1-n64-coarse-p1-fem-static/summary.json": "14fda9b2cd2786ef82c557d406f6230114bb65e34e6e7da3925aa49c25bb6453",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compare_refined_contact_identity.py": "d684c932d7e8f392c0d87b2a7cfb6fbd1751b44da8043ae22dcc34ae0790667f"
+      },
+      "trajectory_sha256": {
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/galerkin-fine2-q12-contact64-original-seed-kinetic/trajectory.npz": "006714f870e7db568dd8c9b640c7b39914854c659803390d5664d9a27e9bf674",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv1-n64-coarse-p1-fem-static/trajectory.npz": "7d491d0c1872f332c01c065a547f87382b45920d6981d9a466b8ce4b55a2258a"
+      },
+      "fields": {
+        "pressure": {
+          "maximum_absolute_difference": 5.1047322813246865e-08,
+          "absolute_tolerance": 0.001,
+          "passed": true
+        },
+        "shear": {
+          "maximum_absolute_difference": 5.319600049347173e-07,
+          "absolute_tolerance": 0.001,
+          "passed": true
+        },
+        "plastic_slip": {
+          "maximum_absolute_difference": 1.1649685660586329e-09,
+          "absolute_tolerance": 1e-06,
+          "passed": true
+        },
+        "cumulative_slip": {
+          "maximum_absolute_difference": 1.1649705991545467e-09,
+          "absolute_tolerance": 1e-06,
+          "passed": true
+        },
+        "actuator": {
+          "maximum_absolute_difference": 0.0,
+          "absolute_tolerance": 1e-06,
+          "passed": true
+        },
+        "platen": {
+          "maximum_absolute_difference": 1.6113332890199672e-11,
+          "absolute_tolerance": 1e-06,
+          "passed": true
+        },
+        "contact_jumps": {
+          "maximum_absolute_difference": 1.0955414353475135e-09,
+          "absolute_tolerance": 1e-06,
+          "passed": true
+        }
+      },
+      "scope": "Implementation identity at fixed bulk/time/local grid; not physical convergence or agreement with FEM",
+      "same_accuracy_fem_advantage_verified": false,
+      "original_tatva_readonly": true
+    },
+    "superseded_observer_error": "Observer supplied a refined baseline to a tool requiring canonical elastic_resolvent input. Failed invocation remains preserved; rerun uses the canonical existing event at unchanged tolerances."
+  },
+  "eight_subdivision_endpoint_report": {
+    "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/refined-contact-subdiv8-endpoints-20261027.json",
+    "sha256": "0d4d8ff368eed34ddcac0bb30a2e751a3324902b25f6ece6a3aaa8d788f9818d",
+    "data": {
+      "cumulative_slip": {
+        "final_relative_p1_l2": 0.07884394667128738,
+        "final_absolute_p1_l2": 1.0544468787449683,
+        "final_maximum_absolute_difference": 0.08149545824164484,
+        "final_reference_maximum": 0.6198840786124796,
+        "final_actual_maximum": 0.5705851319163915,
+        "final_reference_p1_mean": 0.6104150840687479,
+        "final_actual_p1_mean": 0.5623751672960533,
+        "maximum_saved_absolute_difference": 0.08149545824164484,
+        "peak_y_mm": 411.16813155555553
+      },
+      "pressure": {
+        "final_relative_p1_l2": 0.22962284233532654,
+        "final_absolute_p1_l2": 121.1725070874007,
+        "final_maximum_absolute_difference": 233.24455903207024,
+        "final_reference_maximum": 491.6474895984227,
+        "final_actual_maximum": 724.8920486304929,
+        "final_reference_p1_mean": 16.691754045295173,
+        "final_actual_p1_mean": 15.921544796617288,
+        "maximum_saved_absolute_difference": 233.24455903207024,
+        "peak_y_mm": 480.0
+      },
+      "shear": {
+        "final_relative_p1_l2": 0.25858075625465227,
+        "final_absolute_p1_l2": 71.97142276209757,
+        "final_maximum_absolute_difference": 158.62883278511413,
+        "final_reference_maximum": 264.63692577751294,
+        "final_actual_maximum": 423.26575856262707,
+        "final_reference_p1_mean": 8.661864315858214,
+        "final_actual_p1_mean": 8.968107711033916,
+        "maximum_saved_absolute_difference": 158.62883278511413,
+        "peak_y_mm": 480.0
+      },
+      "bulk_contact_nodes_near_end_mm": [
+        474.5,
+        475.0,
+        475.5,
+        476.0,
+        476.5,
+        477.0,
+        477.5,
+        478.0,
+        478.5,
+        479.0,
+        479.5,
+        480.0
+      ],
+      "run": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv8-n64-coarse-p1-fem-static",
+      "summary_sha256": "5e1162fd6c87c0fa2100571231a83c700b767fa8d5ae8240a21fd3ec74aef21c",
+      "scope": "Endpoint versus FEM h1, no excluded endpoints; not a full history check",
+      "initialization": {
+        "status": "admissible_refined_contact_static_lift",
+        "bulk_dofs": 275,
+        "contact_state_points": 1089,
+        "subdivisions": 8,
+        "residual_mpa": 1.461819507996276e-10,
+        "original_full_balance_mpa": 1.6970247429526353e-10,
+        "trace_constraint_error_mm": 2.3092638912203256e-14,
+        "maximum_strength_ratio": 0.9999999999998489,
+        "mean_pressure_mpa": 16.666666666665996,
+        "moving_bulk_normal_force_mpa_mm": 4.7847947826085147e-11,
+        "applied_normal_force_mpa_mm": 8000.0,
+        "contact_normal_force_mpa_mm": 7999.999999999678,
+        "moving_normal_balance_defect_mpa_mm": -2.737579052336514e-10,
+        "force_scope": "Original discrete Galerkin balance; its finite-quadrature rigid-translation defect is retained, not clipped",
+        "mean_shear_mpa": 8.816554630046477,
+        "platen_mm": 9.959837421222307,
+        "seed_unchanged": false,
+        "reduction": {
+          "saddle_scaled_residual": 1.6825651982799172e-11,
+          "relative_impedance_symmetry": 4.874351766507857e-16,
+          "no_free_body_inverse_or_regularization": true
+        },
+        "static_initialization": {
+          "policy": "Tatva healed Coulomb active set, then retain prescribed weakening memory",
+          "active_set_iterations": [
+            {
+              "iteration": 1,
+              "open": 0,
+              "sliding": 3
+            },
+            {
+              "iteration": 2,
+              "open": 0,
+              "sliding": 3
+            }
+          ],
+          "static_sliding_points": 3,
+          "static_open_points": 0,
+          "original_force_residual_mpa": 1.461819507996276e-10,
+          "maximum_strength_excess_mpa": 5.684341886080802e-14,
+          "maximum_plastic_offset_change_mm": 0.0022264377062874985,
+          "input_seed_unchanged": false,
+          "weakening_memory_unchanged": true,
+          "no_dynamic_weakening_during_preload": true
+        }
+      }
+    }
+  },
+  "initialized_batched_ad_short_check": {
+    "source_commit": "966447a357879f4d02e8501418b27643e96cea09",
+    "ci_url": "https://github.com/Gauss963/Tatva-BEM/actions/runs/40360681317",
+    "conclusion": "success",
+    "full_event_validated": false
+  },
+  "initialized_ad_serial_queue": {
+    "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/initialized-contact-ad-queue-20261027/status.json",
+    "observer_pid": 62674,
+    "waits_for_parent_pid": 60217,
+    "requires_original_equation_audit_success": true
+  },
+  "current_study_latest_snapshot": {
+    "phase": "subdiv4-n64-original-p1-fem-static",
+    "observer_pid": 60217,
+    "updated_utc": "2026-10-26T16:49:34.865511+00:00",
+    "elapsed_seconds": 2057.142158959061,
+    "stages": [
+      {
+        "name": "subdiv4-n64-coarse-p1-fem-static",
+        "exit_code": 0,
+        "elapsed_seconds": 451.2050245003775,
+        "command": [
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/run.sh",
+          "refined-contact-simulate",
+          "/Volumes/Gauss-T7/Tatva-BEM-cache/direct-resolvent-fine2-q12-full45-20261026",
+          "--restart-seed",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/event16-original-f64-seed/restart_seed.npz",
+          "--subdivisions",
+          "4",
+          "--seed-interpolation",
+          "coarse-p1",
+          "--constitutive-substeps",
+          "64",
+          "--kinetic-root-seed",
+          "--static-initialization",
+          "fem-active-set",
+          "--output",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv4-n64-coarse-p1-fem-static"
+        ]
+      },
+      {
+        "name": "subdiv8-n64-coarse-p1-fem-static",
+        "exit_code": 0,
+        "elapsed_seconds": 677.0063014999032,
+        "command": [
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/run.sh",
+          "refined-contact-simulate",
+          "/Volumes/Gauss-T7/Tatva-BEM-cache/direct-resolvent-fine2-q12-full45-20261026",
+          "--restart-seed",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/event16-original-f64-seed/restart_seed.npz",
+          "--subdivisions",
+          "8",
+          "--seed-interpolation",
+          "coarse-p1",
+          "--constitutive-substeps",
+          "64",
+          "--kinetic-root-seed",
+          "--static-initialization",
+          "fem-active-set",
+          "--output",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv8-n64-coarse-p1-fem-static"
+        ]
+      },
+      {
+        "name": "subdiv1-n64-coarse-p1-fem-static",
+        "exit_code": 0,
+        "elapsed_seconds": 250.7348890416324,
+        "command": [
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/run.sh",
+          "refined-contact-simulate",
+          "/Volumes/Gauss-T7/Tatva-BEM-cache/direct-resolvent-fine2-q12-full45-20261026",
+          "--restart-seed",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/event16-original-f64-seed/restart_seed.npz",
+          "--subdivisions",
+          "1",
+          "--seed-interpolation",
+          "coarse-p1",
+          "--constitutive-substeps",
+          "64",
+          "--kinetic-root-seed",
+          "--static-initialization",
+          "fem-active-set",
+          "--output",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv1-n64-coarse-p1-fem-static"
+        ]
+      },
+      {
+        "name": "identity_check",
+        "exit_code": 1,
+        "elapsed_seconds": 5.021328208036721,
+        "command": [
+          "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python",
+          "-B",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compare_refined_contact_identity.py",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/refined-contact-recovered-20261026/subdiv1-n64-coarse-p1",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv1-n64-coarse-p1-fem-static",
+          "--output",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/identity-check"
+        ]
+      },
+      {
+        "name": "subdiv2-n64-coarse-p1-fem-static",
+        "exit_code": 0,
+        "elapsed_seconds": 310.8947456246242,
+        "command": [
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/run.sh",
+          "refined-contact-simulate",
+          "/Volumes/Gauss-T7/Tatva-BEM-cache/direct-resolvent-fine2-q12-full45-20261026",
+          "--restart-seed",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/event16-original-f64-seed/restart_seed.npz",
+          "--subdivisions",
+          "2",
+          "--seed-interpolation",
+          "coarse-p1",
+          "--constitutive-substeps",
+          "64",
+          "--kinetic-root-seed",
+          "--static-initialization",
+          "fem-active-set",
+          "--output",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv2-n64-coarse-p1-fem-static"
+        ]
+      }
+    ],
+    "frozen_input_sha256": {
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-study-20261027.py": "f63a6996d46a27ffa3ed45317b31328305936ae1d6205e55c5817e055aafaaf8",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/event16-original-f64-seed/restart_seed.npz": "f09f9cfbe88d41cfba9daaffd1d901e66d1b33af2b6826ba8449fa05ef510901",
+      "/Volumes/Gauss-T7/Tatva-BEM-cache/direct-resolvent-fine2-q12-full45-20261026/summary.json": "df571df1a29850fa1cca99964135a78d970bf2e80be8bd62bf4a22d12e3c124e",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h2-4c-interface/summary.json": "8f2538542a351197923c063e75dce7f607adc5706ff46313ee78ee1dc73af5e1",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h1-original-dt-4c-interface/summary.json": "eed65bf9c5294b2f09cf3b4bee62e26d614d63ddfd4fc406ff36b213b947a1c7",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/run.sh": "86fd38aaa63668531efdd6119b0b705bb3b9a0a486f37cc2ae55a764b73d2938",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/friction.py": "1424c1639cdc1eb4dd8f780bfdc0433f33cf29752b07a17814a3a2f326d81086",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/nodal.py": "632f1a755bb09d784c125d3198f662213ea60045ada9db1555e1b47b3ab39856",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/nonlinear.py": "019c5fc176c70964c89f9e7c74147ad48b4235267dd2faf0ee22f789a2b97590",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/material.py": "7c4d34d911831f12e3bc99bda2e13e76d468acdf80038dcb60310a568a5342d1",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/adjoint.py": "7863386b78318e6502d6257469322ee82746f2384ee915c16cbb98cda69c5bc0",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/nodal_dynamics.py": "839db57190f62795aebef30545fcc9c1b41fdef503f038cc7f425068962eb39d",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/cq.py": "e9af920593db01f56f1f7138832f0aa603daf07cbf1d688fba8a806f712c1e15",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/linear.py": "3a4d7c2259fd3e67b507d0c9dcd18082c24ffda30fccb12749976c97fa5a577c",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/statics.py": "9f81cbd95a1ff1f742387ee4ae94251304177999208a95703371272ac79dc250",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/io.py": "d292e6338381aa7935dbbfcadc0df884e89f10b7096fa70cf1b05a83c1c12b03",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/__init__.py": "984855d6ff3848411c946ecca174ac08baf7afe6f1d2c3be00284da9b8dbf288",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/galerkin.py": "85541ddfe5020debde77b2bf2d4a045fe9a52b6183d4af2f762f577be18ab66d",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/condensation.py": "12010fb51d8490ae5c3a9a2cf5b04e414cb7e6205b409ce7891b454e384de7d2",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/mesh.py": "a37e853ed57dd80633c44805b6c13158643ac65db3e4a4cfc12520bbdfa15c4c",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/galerkin_fast.py": "e6167f6c553e15697b6d67a3a33f559574d22fd49db4aad49c8262d68224b614",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/comparison.py": "631c111752342fac7d0f64553620e04940e7888b1ab2fc52566a23b5c35ee24c",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/cli.py": "82e53ce34714809933dbe456ef403bce27c6b60b20ac4481f2feded9eeadfcea",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/cq_storage.py": "da2534ef95e95813a464ff04f78a092be374110650d1866cbc1fb8ea5b5105b2",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/sampling.py": "c518d2298b167aaa1d5ca327a612426276901876a50322a7fe4595c7ee4f1f11",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/kernels.py": "4008ae38c62c3022034d654a13da75369bd67309af4614006942398e22c1ad08",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/case.py": "4f0c91b18309a2eae5ce5a78da3bac9fde0be9fb1c0a4d2d5e5e1fc84bd85fa7",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/jax_backend.py": "4de0aadb88b73ef6792ff36894134ee31bc412b1a54b177a4d1aaaa43328d547",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/constraints.py": "830071941c6df0f70e455530fe094242042fb0c1e31498e8f9b75c9aa825cb91",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/operators.py": "bb77a3b2c66dce871c9e71cc2cdc02488e90ad32278cc9a67fea8b909b722825",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/benchmarks.py": "c24b97264ca60d0da1dab2095d50e9ef1b88b7208fba2d46178b8cf9038eb571",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/dynamics.py": "b6d84d8d2c1ac6fc465565c289d1249f378f3424e00cb93441791960b3c180f8",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/simulate_refined_contact.py": "d39b39f32ab52b4cbbf0d8b700d4b743480c745e2dde95a455eee603e0fd18ba",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/refined_contact.py": "c055f15f8c15d6c3da2f6792a97ec3ed44baa652478f6a24990fa1f478fa3741",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/fem_static_contact.py": "093ee005753ebbe4efe4e9eefd95a05ccf5748b1f976cb29f0045316c1728589",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/refined_contact_adjoint.py": "bcb3d37eb7daa37c248814f0f73e06ebb70aa69eb59610d211f582b76e553108",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/check_refined_contact_ad.py": "3a69058c75310f8da3d034760f42eb5f4b2bf357ae186c94ace892420d3f4fdd",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compare_refined_contact_identity.py": "d684c932d7e8f392c0d87b2a7cfb6fbd1751b44da8043ae22dcc34ae0790667f",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/substepped_contact_experiment.py": "d40fcb95f5fa29c0c8630a8901f8d5e63591bfc11ed1c9fbdee7c2ecc8d36225",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/robust_contact_experiment.py": "912e5e24598a4dac62e137df1567e73189380b0cf0fbdb2e9f8430bab19e1b52",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/restart_seed_experiment.py": "d9507983063a21db6849a1e8236f71e0d9585133c87576b18ea11b4b21879885",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/bounded_history.py": "bbf1d66ab1b1ff573a6ec613d249e86cd5dc460434ca3c9217cb064429273c55",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/replay_resolvent.py": "129d75f1dc47ba11f2da171a820e422c3bde36ccce6ed2624690230c9e66bafc",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compare_fem_mesh.py": "a747c5b4ff52ad84556d5de0c91fb21e0612f3f3d71f165626058c22608b3e0b",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compare_fem_reference.py": "3b00acec7e558fe8dd8b0e695b2d2ef66d33812a92706573364c2a5f0e4c9342",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/fem_reference_io.py": "767d970d36ebb446d838af2bd3c5b252e38614cab8a374e2bcf376f5a6564264",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/run_fem_reference.py": "e334ceb519bc3997d93bbb5ac4e783f4afc6875bc3656a25293851b3da4a63a0",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/plot_contact_refinement.py": "fdb42352838ef352484660e24e71bb191dadbb8b3b7350def00f43a1d705c219",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/original_history_audit.py": "fe363a39a51ba5d1ea5c8eb589d028a41d2a778232cd500b18be1dac6d65c978",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/audit_refined_original_history.py": "f5c74979014289b9c47d900e6032240abced88484325fc94946265f223b61427"
+    },
+    "required_ci_commit": "76f6bf67a65c15c9ebe2a1f480f2292630cd17dc",
+    "thread_settings_cores": 4,
+    "hard_cpu_affinity_enforced": false,
+    "original_tatva_readonly": true,
+    "does_not_restart_fem_or_kernel": true,
+    "predecessor_failure_preserved": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/refined-contact-recovered-20261026/status.json",
+    "same_accuracy_fem_advantage_verified": false,
+    "child_pid": 62762,
+    "command": [
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/run.sh",
+      "refined-contact-simulate",
+      "/Volumes/Gauss-T7/Tatva-BEM-cache/direct-resolvent-fine2-q12-full45-20261026",
+      "--restart-seed",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/event16-original-f64-seed/restart_seed.npz",
+      "--subdivisions",
+      "4",
+      "--seed-interpolation",
+      "original-p1",
+      "--constitutive-substeps",
+      "64",
+      "--kinetic-root-seed",
+      "--static-initialization",
+      "fem-active-set",
+      "--output",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv4-n64-original-p1-fem-static"
+    ]
   }
 }
