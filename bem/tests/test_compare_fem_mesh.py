@@ -1,5 +1,7 @@
 import copy
+import json
 import runpy
+import sys
 from pathlib import Path
 
 import h5py
@@ -155,3 +157,140 @@ def test_float64_endpoint_pressure_uses_geometry_gap_and_correct_body_layout(tmp
         stream["final_state/u"] = np.zeros(8, dtype=np.float32)
     with pytest.raises(ValueError, match="true float64"):
         TOOL["read_final_fields"](path, dict(normal_penalty=100.0, tangential_penalty=10.0))
+
+
+def test_full_mesh_comparison_checks_projection_and_reports_static_initialization(
+    tmp_path, monkeypatch
+):
+    baseline, refined = mesh_records()
+    original = tmp_path / "original.h5"
+    y0 = np.array([0.0, 2.0])
+    plastic0 = np.array([0.01 + 2**-40, 0.02 + 2**-40])
+    with h5py.File(original, "w") as stream:
+        stream["interface/contact_line_y"] = y0.astype(np.float32)
+        stream["final_state/u"] = np.zeros(8)
+        stream["final_state/plastic_slip"] = plastic0
+        stream["final_state"].attrs["applied_shear_displacement"] = 3.0
+    source = TOOL["SEED"]["restart_seed_record"](original)
+    case = tmp_path / "case.toml"
+    case.write_text("fixture = true\n")
+    records = []
+    for i, record in enumerate((baseline, refined)):
+        path = tmp_path / f"mesh-{i}"
+        path.mkdir()
+        y = y0 if i == 0 else np.array([0.0, 1.0, 2.0])
+        n = len(y)
+        expected = np.interp(y, y0, plastic0)
+        record["config"]["restart_from_file"] = str(original)
+        record["manifest"].update(
+            source_restart=source,
+            actual_restart=source,
+            protected_input_sha256={str(case): TOOL["fingerprint"](case)},
+        )
+        if i:
+            projected = path / "projected.h5"
+            with h5py.File(projected, "w") as stream:
+                stream["final_state/u"] = np.zeros(4 * n)
+                stream["final_state/plastic_slip"] = expected
+                stream["final_state"].attrs["applied_shear_displacement"] = 3.0
+            _, _, projection = TOOL["SEED"]["project_restart_seed"](original, y, source)
+            record["config"]["restart_from_file"] = str(projected)
+            record["manifest"].update(
+                actual_restart=TOOL["SEED"]["restart_seed_record"](projected),
+                restart_projection=projection,
+            )
+        hdf5 = path / "simulation.h5"
+        with h5py.File(hdf5, "w") as stream:
+            stream["moving/coords"] = np.c_[np.ones(n), y]
+            stream["stationary/coords"] = np.c_[np.ones(n), y]
+            stream["interface/master_nodes"] = np.arange(n)
+            stream["interface/slave_nodes"] = np.arange(n)
+            stream["interface/contact_line_y"] = y
+            stream["final_state/u"] = np.r_[np.tile([0.03, 0.1], n), np.tile([0.01, 0.01], n)]
+            stream["final_state/plastic_slip"] = expected + 0.02
+            stream["final_state/cumulative_slip"] = np.full(n, 0.02)
+            high = stream.create_group("interface_high_rate")
+            high["history_columns"] = np.array([b"time", b"max_slip", b"shear_loading_stopped"])
+            high["history"] = [
+                [0.0, 0.0, 0.0],
+                [0.002, 0.0, 0.0],
+                [0.00200001, 0.0, 0.0],
+                [0.047, 0.02, 1.0],
+            ]
+            high["phase_id"] = [0, 1, 2, 2]
+            high["step_id"] = [0, 2, 3, 10]
+            high["contact_line_y"] = y
+            high["plastic_slip"] = np.repeat((expected + 1e-5)[None], 4, axis=0).astype(np.float32)
+            high["cumulative_slip"] = np.tile([0.0, 0.0, 0.0, 0.02], (n, 1)).T.astype(np.float32)
+            high["friction_coefficient"] = np.full((4, n), 0.8, dtype=np.float32)
+            high["friction_strength"] = np.full((4, n), 1.6, dtype=np.float32)
+            stream.attrs["saved_interface_frames"] = 4
+        for key, name in (
+            ("config", "resolved_run_config.json"),
+            ("manifest", "reference_manifest.json"),
+        ):
+            (path / name).write_text(json.dumps(record[key]))
+        record["summary"]["reference_manifest_sha256"] = TOOL["fingerprint"](
+            path / "reference_manifest.json"
+        )
+        record["summary"]["timing_seconds"] = dict(simulation_including_outputs=1.0)
+        (path / "summary.json").write_text(json.dumps(record["summary"]))
+        records.append(path)
+    verified = tmp_path / "verification.json"
+    trace = TOOL["READER"]["read_fem_trace"](records[0] / "simulation.h5")
+    verified.write_text(
+        json.dumps(
+            dict(
+                original_fem_reference_verified=True,
+                rerun=trace["provenance"],
+                frozen_input_sha256={
+                    str(records[0] / "summary.json"): TOOL["fingerprint"](
+                        records[0] / "summary.json"
+                    )
+                },
+            )
+        )
+    )
+    output = tmp_path / "outputs/comparison"
+    main = TOOL["main"]
+    monkeypatch.setitem(main.__globals__, "ROOT", tmp_path)
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "compare_fem_mesh.py",
+            *map(str, records),
+            "--field-verification",
+            str(verified),
+            "--output",
+            str(output),
+        ],
+    )
+    main()
+    result = json.loads((output / "summary.json").read_text())
+    assert result["exact_same_steps_and_saved_times"]
+    assert result["compared_shear_rows"] == 2
+    assert not result["fem_mesh_convergence_verified"]
+    assert not result["same_accuracy_fem_advantage_verified"]
+    assert result["true_float64_final_state"]["pressure"]["final_relative_p1_l2"] == 0
+    assert result["true_float64_final_state"]["plastic_slip"]["final_relative_p1_l2"] < 1e-15
+    assert all(
+        check["first_shear_minus_input_maximum_mm"] > 9.9e-6 for check in result["initialization"]
+    )
+    # A changed projected seed is rejected even when it still has float64 storage.
+    with h5py.File(records[1] / "projected.h5", "a") as stream:
+        stream["final_state/plastic_slip"][1] += 2**-45
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "compare_fem_mesh.py",
+            *map(str, records),
+            "--field-verification",
+            str(verified),
+            "--output",
+            str(output.with_name("bad")),
+        ],
+    )
+    with pytest.raises(ValueError, match="restart changed"):
+        main()
