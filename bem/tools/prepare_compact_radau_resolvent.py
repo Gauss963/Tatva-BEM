@@ -136,6 +136,7 @@ def main():
                 "audit_cauchy_reuse.py",
                 "replay_resolvent.py",
                 "prepare_native_resolvent.py",
+                "bounded_weight_conversion.py",
             ]
         ],
     ]

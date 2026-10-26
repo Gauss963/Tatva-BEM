@@ -140,6 +140,7 @@ def main():
         metadata_path,
         TOOLS / "native_spectrum.py",
         TOOLS / "prepare_native_resolvent.py",
+        TOOLS / "bounded_weight_conversion.py",
         TOOLS / "replay_resolvent.py",
     ]
     frozen = {str(p.resolve()): fingerprint(p) for p in frozen_paths}

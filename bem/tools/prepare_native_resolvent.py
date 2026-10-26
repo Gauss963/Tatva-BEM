@@ -11,7 +11,6 @@ import ast
 import hashlib
 import json
 import math
-import mmap
 import os
 import resource
 import runpy
@@ -104,17 +103,9 @@ def preflight_time_storage(folder, plan, full_steps):
 
 
 def physical_weights_file_inplace(path, line_weights):
-    """Convert the stored prefix from work coordinates in bounded time blocks."""
-    weights = np.load(path, mmap_mode="r+", allow_pickle=False)
-    root = np.sqrt(line_weights)
-    scale = root[:, None] * root[None, :]
-    for first in range(0, len(weights), 64):
-        weights[first : first + 64] /= scale
-        weights.flush()
-        if hasattr(weights._mmap, "madvise") and hasattr(mmap, "MADV_DONTNEED"):
-            weights._mmap.madvise(mmap.MADV_DONTNEED)
-    weights._mmap.close()
-    return np.load(path, mmap_mode="r", allow_pickle=False)
+    """Keep the original division, with only the current writable block mapped."""
+    converter = runpy.run_path(str(TOOLS / "bounded_weight_conversion.py"))
+    return converter["convert_physical_weights"](path, line_weights)
 
 
 def main():
@@ -157,6 +148,7 @@ def main():
         TOOLS / "polynomial_spectrum.py",
         TOOLS / "build_resolvent_history.py",
         TOOLS / "replay_resolvent.py",
+        TOOLS / "bounded_weight_conversion.py",
         args.source / "summary.json",
         args.source / "run_manifest.json",
     ]

@@ -108,6 +108,7 @@ def main():
                 "cauchy_reuse_experiment.py",
                 "native_spectrum.py",
                 "prepare_native_resolvent.py",
+                "bounded_weight_conversion.py",
                 "replay_resolvent.py",
             ]
         ],
