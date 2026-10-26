@@ -76,6 +76,52 @@ def restart_seed_record(path):
     )
 
 
+def project_restart_seed(path, target_y, expected_record):
+    """Interpolate the original final-state seed, preserving its float64 values."""
+    import h5py
+    import numpy as np
+
+    if expected_record is None or restart_seed_record(path) != expected_record:
+        raise ValueError("Original restart differs from its recorded source")
+    with h5py.File(path, "r") as stream:
+        plastic = stream["final_state/plastic_slip"][:]
+        coordinates = stream["interface/contact_line_y"][:]
+    y, target = np.asarray(coordinates, dtype=float), np.asarray(target_y, dtype=float)
+    if plastic.dtype != np.float64:
+        raise ValueError("Mesh refinement requires the original float64 final-state plastic seed")
+    if (
+        y.ndim != 1
+        or len(y) < 2
+        or plastic.shape != y.shape
+        or target.ndim != 1
+        or len(target) < 2
+        or not all(np.all(np.isfinite(a)) for a in [y, plastic, target])
+        or np.any(np.diff(y) <= 0)
+        or np.any(np.diff(target) <= 0)
+        or target[0] != y[0]
+        or target[-1] != y[-1]
+    ):
+        raise ValueError(
+            "Restart interpolation must preserve ordered finite nodes and the contact interval"
+        )
+    if restart_seed_record(path) != expected_record:
+        raise ValueError("Original restart changed during projection")
+    return (
+        np.interp(target, y, plastic),
+        float(expected_record["actuator_mm"]),
+        dict(
+            authority="Original final_state/plastic_slip and recorded actuator; P1 interpolation on original interface knots",
+            source_plastic_dtype=str(plastic.dtype),
+            source_coordinate_dtype=str(coordinates.dtype),
+            source_coordinate_sha256=hashlib.sha256(y.tobytes()).hexdigest(),
+            target_coordinate_sha256=hashlib.sha256(target.tobytes()).hexdigest(),
+            source_nodes=len(y),
+            target_nodes=len(target),
+            source_restart=expected_record,
+        ),
+    )
+
+
 def verify_snapshot(snapshot, expected):
     """A cached directory must still contain the exact archived Python source."""
     for name, record in expected.items():
@@ -221,6 +267,7 @@ def main():
     )
     config = RunConfig(**values)
     source_restart = restart_seed_record(config.restart_from_file)
+    restart_projection = None
     if args.mesh_size is not None:
         config = replace(config, mesh_size=args.mesh_size)
     if args.time_step is not None:
@@ -242,19 +289,17 @@ def main():
         # The archived static initializer uses only plastic slip and actuator;
         # its u array is checked for size but is not reused in the static solve.
         model = build_case_model(case, replace(config, restart_from_file=None))
-        seed = np.genfromtxt(
-            PROJECT / "bem/src/finiteblock_bem/resources/data/ev16_restart_interface.csv",
-            delimiter=",",
-            names=True,
-        )
         moving, stationary = model["moving"], model["stationary"]
         yy = np.asarray(moving.mesh.coords)[np.asarray(model["master_nodes"]), 1]
+        plastic, actuator, restart_projection = project_restart_seed(
+            values["restart_from_file"], yy, source_restart
+        )
         restart_path = output / "projected_restart.h5"
         with h5py.File(restart_path, "w") as stream:
             group = stream.create_group("final_state")
             group["u"] = np.zeros(2 * (moving.n_nodes + stationary.n_nodes))
-            group["plastic_slip"] = np.interp(yy, seed["y"], seed["plastic_slip"])
-            group.attrs["applied_shear_displacement"] = 10.806226665707777
+            group["plastic_slip"] = plastic
+            group.attrs["applied_shear_displacement"] = actuator
         config = replace(config, restart_from_file=str(restart_path))
     actual_restart = restart_seed_record(config.restart_from_file)
     (output / "resolved_run_config.json").write_text(json.dumps(asdict(config), indent=2) + "\n")
@@ -278,6 +323,7 @@ def main():
         historical_statistics_dtype=archived.get("dtype"),
         source_restart=source_restart,
         actual_restart=actual_restart,
+        restart_projection=restart_projection,
         output_options=output_options,
         requested_cores=args.cores,
         source_snapshot_path=str(snapshot),
@@ -306,6 +352,8 @@ def main():
         raise ValueError("FEM runner or protected input changed during simulation")
     if restart_seed_record(config.restart_from_file) != actual_restart:
         raise ValueError("FEM restart input changed during simulation")
+    if restart_seed_record(values["restart_from_file"]) != source_restart:
+        raise ValueError("Original FEM restart source changed during simulation")
     summary = simulation["summary"]
     record = {
         "status": "completed",
@@ -336,6 +384,7 @@ def main():
         "stored_history_dtype": summary.get("dtype"),
         "historical_statistics_dtype": manifest["historical_statistics_dtype"],
         "actual_restart": actual_restart,
+        "restart_projection": restart_projection,
         "jax_enable_x64": bool(jax.config.read("jax_enable_x64")),
         "output_options": output_options,
         "comparison_history_group": "interface_high_rate"

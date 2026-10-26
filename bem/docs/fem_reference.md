@@ -89,6 +89,16 @@ bem/run.sh compare COMPLETED_BEM_RUN \
 wrapper 的 timings 不含監督程序的 polling 延遲，並將 preparation／simulation／output 範圍列出。
 同精度比較仍需 BEM 誤差達標，並另核對冷建核、初始化、JIT、推進與輸出成本。
 
+2026-10-26修正`--mesh-size`的restart projection：直接讀原checkpoint的
+`final_state/plastic_slip` float64與actuator，按原`interface/contact_line_y`節點作P1插值，
+不再從早期float32輸出轉出的packaged CSV取得塑性值。
+projection前後都核對原restart指紋，完整模擬結束後也再次核對；
+manifest保留source/target座標hash、節點數與原儲存dtype。
+原h2完整驗證沒有使用mesh override，因此既有精確欄位對照不受此修正影響。
+先前使用mesh override的coarse診斷保留為歷史資料，不能當成本次精確seed的網格控制。
+新的h1 preflight已確認241→481個界面節點的插值與獨立原float64 seed完全相同，
+且可使用原`dt=1.2492928633545953e-8s`；完整h1控制將固定此dt，分離空間差異。
+
 完成後使用`tools/compare_fem_reference.py`對原始HDF5核對，不插值不同step的軌跡。
 它要求完整h2／float64、相同來源／輸入與精確相同的shear step IDs，
 再逐項比對全部scalar history、四個界面狀態、初始場及最後u／v_half／滑移。

@@ -149,3 +149,34 @@ def test_static_restart_seed_values_are_fingerprinted(tmp_path):
         stream["final_state/plastic_slip"][0] += 0.01
     after = TOOL["restart_seed_record"](path)
     assert before["seed_sha256"] != after["seed_sha256"]
+
+
+def test_refined_mesh_seed_uses_original_float64_values_and_actuator(tmp_path):
+    import h5py
+    import numpy as np
+
+    path = tmp_path / "seed.h5"
+    source = np.array([9.0000000123, 9.123456789, 9.9000000456])
+    with h5py.File(path, "w") as stream:
+        group = stream.create_group("final_state")
+        group["plastic_slip"] = source
+        group["u"] = np.zeros(12)
+        group.attrs["applied_shear_displacement"] = 10.123456789123
+        stream["interface/contact_line_y"] = np.array([0, 2, 4], dtype=np.float32)
+    before = path.stat()
+    record = TOOL["restart_seed_record"](path)
+    values, actuator, projection = TOOL["project_restart_seed"](path, [0, 1, 2, 3, 4], record)
+    np.testing.assert_array_equal(values[[0, 2, 4]], source)
+    np.testing.assert_allclose(values[[1, 3]], (source[:-1] + source[1:]) / 2, rtol=0, atol=2e-15)
+    assert values[0] != float(np.float32(source[0]))
+    assert actuator == record["actuator_mm"]
+    assert projection["source_plastic_dtype"] == "float64"
+    assert projection["target_nodes"] == 5
+    assert (before.st_size, before.st_mtime_ns) == (path.stat().st_size, path.stat().st_mtime_ns)
+    for target in [[-1, 2, 4], [0, 2, 5], [0, 2, 2, 4]]:
+        with pytest.raises(ValueError, match="contact interval"):
+            TOOL["project_restart_seed"](path, target, record)
+    with h5py.File(path, "r+") as stream:
+        stream["final_state/plastic_slip"][0] += 1e-5
+    with pytest.raises(ValueError, match="recorded source"):
+        TOOL["project_restart_seed"](path, [0, 1, 2, 3, 4], record)
