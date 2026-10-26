@@ -85,7 +85,11 @@ def main():
     labels = []
     for folder, record in zip(args.runs, records, strict=True):
         mode = record["seed_interpolation"]
-        label = f"BEM subdivisions={record['subdivisions']}, {record['contact_nodes']} states, {mode} seed"
+        initialization = record.get("static_initialization", "preserve-offset")
+        label = (
+            f"BEM subdivisions={record['subdivisions']}, {record['contact_nodes']} states, "
+            f"{mode} seed, {initialization} init"
+        )
         labels.append(dict(run=str(folder.resolve()), label=label))
         style = "--" if mode == "original-p1" else "-"
         color = palette[record["subdivisions"]]
@@ -111,7 +115,7 @@ def main():
         ax.grid(alpha=0.25)
     for fig, first_ax in ((figure, axes[0, 0]), (endpoint, profile_axes[0])):
         fig.legend(*first_ax.get_legend_handles_labels(), loc="outside lower center", fontsize=8)
-    figure.suptitle("Fixed bulk/time grid: contact integration and original seed-field controls")
+    figure.suptitle("Fixed bulk/time grid: contact integration, seed field and initialization")
     endpoint.suptitle("Nominal 45 ms endpoint; FEM uses true float64 final_state")
     output.mkdir(parents=True)
     figure.savefig(output / "contact_refinement_histories.png", dpi=170)
@@ -130,6 +134,7 @@ def main():
             source_size_and_mtime_ns=stats,
             bem_curves=labels,
             initial_seed_field_modes_shown_separately=True,
+            static_initialization_policies_shown_separately=True,
             scope="Saved histories and endpoints; physical convergence and timing require the numerical comparison reports",
         ),
     )
