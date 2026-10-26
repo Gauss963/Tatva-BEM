@@ -78,6 +78,9 @@ elif [ "${1:-}" = linear-bulk-compare ]; then
 elif [ "${1:-}" = radiation-limit ]; then
     shift
     exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/radiation_limit_experiment.py" "$@"
+elif [ "${1:-}" = radiation-bar ]; then
+    shift
+    exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/radiation_bar_experiment.py" "$@"
 elif [ "${1:-}" = disk-spectrum-benchmark ]; then
     shift
     exec "$FDBEM_PYTHON" -B "$FDBEM_ROOT/tools/benchmark_disk_spectrum.py" "$@"
