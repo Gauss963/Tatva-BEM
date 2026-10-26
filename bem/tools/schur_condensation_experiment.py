@@ -14,8 +14,8 @@ from finiteblock_bem.nodal import NodalInterfaceTransfer
 
 
 class ConstrainedSchurTransfer(NodalInterfaceTransfer):
-    def __init__(self, model, *, quadrature=12):
-        super().__init__(model, quadrature=quadrature)
+    def __init__(self, model, *, quadrature=12, prepared=True):
+        super().__init__(model, quadrature=quadrature, prepared=prepared)
         q, r = qr(self.jump.T, mode="full", check_finite=False)
         d = self.dofs
         if np.min(abs(np.diag(r[:d]))) <= np.finfo(float).eps * np.linalg.norm(r):
@@ -27,17 +27,21 @@ class ConstrainedSchurTransfer(NodalInterfaceTransfer):
         self.lifting.flags.writeable = False
         self.interior.flags.writeable = False
 
-    def assemble_reduced(self, s):
+    def assemble_reduced(self, s, *, operators=None):
         """Supported nodal stiffness plus separate body blocks for an audit."""
         con, ref = self.constraints, self.model.reference
         stiffness = np.zeros((con.size, con.size), dtype=float if s is None else complex)
         parts = []
         first = 0
-        for prepared, mesh in zip(self.prepared, [ref.moving, ref.stationary], strict=True):
+        if operators is None:
+            if self.prepared is None:
+                raise ValueError("Prepared geometry or explicit raw operators required")
+            operators = [prepared.assemble(s) for prepared in self.prepared]
+        for operator, mesh in zip(operators, [ref.moving, ref.stationary], strict=True):
             p = con.prolongation[first : first + mesh.dofs]
             columns = np.flatnonzero(np.any(p != 0, axis=0))
             p = p[:, columns]
-            block = p.T @ prepared.assemble(s).force_stiffness() @ p
+            block = p.T @ operator.force_stiffness() @ p
             stiffness[np.ix_(columns, columns)] += block
             parts.append((columns, block))
             first += mesh.dofs
@@ -53,6 +57,14 @@ class ConstrainedSchurTransfer(NodalInterfaceTransfer):
 
     def evaluate(self, s, *, reconstruction=False):
         stiffness, _ = self.assemble_reduced(s)
+        return self._from_reduced(stiffness, reconstruction=reconstruction)
+
+    def evaluate_operators(self, operators, *, reconstruction=False):
+        """Condense supplied raw layers without rebuilding quadrature geometry."""
+        stiffness, _ = self.assemble_reduced(1.0, operators=operators)
+        return self._from_reduced(stiffness, reconstruction=reconstruction)
+
+    def _from_reduced(self, stiffness, *, reconstruction=False):
         impedance, response, _ = self.condense(stiffness)
         if not reconstruction:
             return impedance

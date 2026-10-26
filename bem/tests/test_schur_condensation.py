@@ -74,3 +74,16 @@ def test_four_workers_share_readonly_trace_bases_and_preserve_results_bitwise():
         actual = list(pool.map(operator.evaluate, frequencies))
     for a, b in zip(actual, expected, strict=True):
         np.testing.assert_array_equal(a, b)
+
+
+def test_explicit_raw_operators_reuse_same_elimination_without_geometry_allocation():
+    model = load_nodal_model(CASE, max_panel_length=160)
+    original = TRANSFER(model, quadrature=4)
+    independent = TRANSFER(model, quadrature=4, prepared=False)
+    assert independent.prepared is None
+    for s in [100 + 2000j, 1e6 + 3e5j]:
+        packets = [p.assemble(s) for p in original.prepared]
+        expected, full = original.evaluate(s, reconstruction=True)
+        actual, reconstruction = independent.evaluate_operators(packets, reconstruction=True)
+        np.testing.assert_array_equal(actual, expected)
+        np.testing.assert_array_equal(reconstruction, full)
