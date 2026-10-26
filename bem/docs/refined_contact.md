@@ -23,6 +23,23 @@ records these results, complete kernel construction and the first run's
 cache-staging pause. Neither physical convergence nor a fair speed
 advantage follows from the identity check.
 
+Early **true float64 endpoint** comparisons against FEM h1 now show:
+
+|Contact subdivisions / initialization|Maximum cumulative slip (mm)|Cumulative-slip P1 L2 difference|Pressure P1 L2 difference|Shear P1 L2 difference|
+|---|---:|---:|---:|---:|
+|1 / preserve-offset|0.563086|8.282%|10.531%|10.846%|
+|2 / preserve-offset|0.569536|7.947%|17.528%|20.442%|
+|4 / FEM healed active set|0.570714|7.888%|21.641%|24.441%|
+
+The four-subdivision run includes one static sliding point with a maximum
+0.000931592 mm output-offset correction; its weakening memory stays zero.
+It completed at the original 1e-7 MPa root tolerance. Better maximum slip
+therefore does **not** establish a better solution: the full pressure/shear
+profiles move farther from this FEM mesh. No endpoints were excluded. The
+FEM h2/h1 pressure difference itself is 17.62%; bulk/corner/time refinement
+and the complete original-equation audit remain necessary. These early
+endpoint checks are separate from the still-running full history comparison.
+
 ## Discretization and static lift
 
 `tools/refined_contact.py` defines a positive composite nodal trapezoid on
