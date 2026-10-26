@@ -1,0 +1,165 @@
+{
+  "recorded_utc": "2026-10-26T15:07:47.829961+00:00",
+  "status": "short_original_history_audit_verified_projection_measured_full_runs_pending",
+  "ci": [
+    {
+      "run_id": 40312542278,
+      "url": "https://github.com/Gauss963/Tatva-BEM/actions/runs/40312542278",
+      "source_commit": "0833a0127948329feacd20ae9eea631ada6d71b8",
+      "conclusion": "success"
+    },
+    {
+      "run_id": 40340519718,
+      "url": "https://github.com/Gauss963/Tatva-BEM/actions/runs/40340519718",
+      "source_commit": "bf58ebf9cdf3f05eacc21fe861c0fb0dc16d68cd",
+      "conclusion": "success"
+    },
+    {
+      "run_id": 40341272186,
+      "url": "https://github.com/Gauss963/Tatva-BEM/actions/runs/40341272186",
+      "source_commit": "38fd0976f23ad652709da566ff21d5a91caf94f4",
+      "conclusion": "success"
+    },
+    {
+      "run_id": 40342215822,
+      "url": "https://github.com/Gauss963/Tatva-BEM/actions/runs/40342215822",
+      "source_commit": "509259186847379512b23e1614405e40607860df",
+      "conclusion": "success"
+    }
+  ],
+  "projection": {
+    "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/restart-projection-source-verified-20261026/summary.json",
+    "sha256": "0f0ad68cfc9bc3db0b8c3ccb208e18c68e719dc881cac71ae5ecf3fedb64db8b",
+    "result": {
+      "status": "completed_p1_projection_audit",
+      "frozen_input_sha256": {
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/audit_restart_projection.py": "718b09bd568737abd39d4ee3a731f2aabda5734dbe4a59ab31e3d7bb6e0a0b07",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/direct-resolvent-fine2-q12/summary.json": "1ea8df55ac77b5204fbdd4867e44b4a57b2ae304b8a5a0e029a3f92dbd9ace1f",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/event16-original-f64-seed/restart_seed.npz": "f09f9cfbe88d41cfba9daaffd1d901e66d1b33af2b6826ba8449fa05ef510901"
+      },
+      "environment": {
+        "package_version": "0.1.0",
+        "python": "3.12.13",
+        "numpy": "2.4.4",
+        "scipy": "1.17.1",
+        "platform": "macOS-15.7.9-arm64-arm-64bit",
+        "available_logical_cpus": 10,
+        "hard_cpu_affinity_enforced": false,
+        "thread_environment": {
+          "FDBEM_CORES": "1",
+          "OPENBLAS_NUM_THREADS": "1",
+          "OMP_NUM_THREADS": null,
+          "VECLIB_MAXIMUM_THREADS": "1",
+          "XLA_FLAGS": null,
+          "JAX_ENABLE_X64": null
+        },
+        "blas_threadpools": [],
+        "source_sha256": {
+          "__init__.py": "984855d6ff3848411c946ecca174ac08baf7afe6f1d2c3be00284da9b8dbf288",
+          "adjoint.py": "7863386b78318e6502d6257469322ee82746f2384ee915c16cbb98cda69c5bc0",
+          "benchmarks.py": "c24b97264ca60d0da1dab2095d50e9ef1b88b7208fba2d46178b8cf9038eb571",
+          "case.py": "4f0c91b18309a2eae5ce5a78da3bac9fde0be9fb1c0a4d2d5e5e1fc84bd85fa7",
+          "cli.py": "82e53ce34714809933dbe456ef403bce27c6b60b20ac4481f2feded9eeadfcea",
+          "comparison.py": "631c111752342fac7d0f64553620e04940e7888b1ab2fc52566a23b5c35ee24c",
+          "condensation.py": "12010fb51d8490ae5c3a9a2cf5b04e414cb7e6205b409ce7891b454e384de7d2",
+          "constraints.py": "830071941c6df0f70e455530fe094242042fb0c1e31498e8f9b75c9aa825cb91",
+          "cq.py": "e9af920593db01f56f1f7138832f0aa603daf07cbf1d688fba8a806f712c1e15",
+          "cq_storage.py": "da2534ef95e95813a464ff04f78a092be374110650d1866cbc1fb8ea5b5105b2",
+          "dynamics.py": "b6d84d8d2c1ac6fc465565c289d1249f378f3424e00cb93441791960b3c180f8",
+          "friction.py": "1424c1639cdc1eb4dd8f780bfdc0433f33cf29752b07a17814a3a2f326d81086",
+          "galerkin.py": "85541ddfe5020debde77b2bf2d4a045fe9a52b6183d4af2f762f577be18ab66d",
+          "galerkin_fast.py": "e6167f6c553e15697b6d67a3a33f559574d22fd49db4aad49c8262d68224b614",
+          "io.py": "d292e6338381aa7935dbbfcadc0df884e89f10b7096fa70cf1b05a83c1c12b03",
+          "jax_backend.py": "4de0aadb88b73ef6792ff36894134ee31bc412b1a54b177a4d1aaaa43328d547",
+          "kernels.py": "4008ae38c62c3022034d654a13da75369bd67309af4614006942398e22c1ad08",
+          "linear.py": "3a4d7c2259fd3e67b507d0c9dcd18082c24ffda30fccb12749976c97fa5a577c",
+          "material.py": "7c4d34d911831f12e3bc99bda2e13e76d468acdf80038dcb60310a568a5342d1",
+          "mesh.py": "a37e853ed57dd80633c44805b6c13158643ac65db3e4a4cfc12520bbdfa15c4c",
+          "nodal.py": "632f1a755bb09d784c125d3198f662213ea60045ada9db1555e1b47b3ab39856",
+          "nodal_dynamics.py": "839db57190f62795aebef30545fcc9c1b41fdef503f038cc7f425068962eb39d",
+          "nonlinear.py": "019c5fc176c70964c89f9e7c74147ad48b4235267dd2faf0ee22f789a2b97590",
+          "operators.py": "bb77a3b2c66dce871c9e71cc2cdc02488e90ad32278cc9a67fea8b909b722825",
+          "sampling.py": "c518d2298b167aaa1d5ca327a612426276901876a50322a7fe4595c7ee4f1f11",
+          "statics.py": "9f81cbd95a1ff1f742387ee4ae94251304177999208a95703371272ac79dc250"
+        },
+        "case_sha256": "82d8f491a63ca1c348507678f08406dccbc62ed1d4abea8882879f7894d2315d",
+        "restart_data_sha256": "cae42101ff5a57004fa803ea5ce928eb8079e5be0ab887d108689e37754c25f6"
+      },
+      "original_tatva_readonly": true,
+      "original_seed_nodes": 241,
+      "bulk_contact_nodes": 137,
+      "maximum_seed_difference_mm": 0.00017776872262764698,
+      "p1_l2_seed_difference_mm_sqrt_mm": 0.0007012595831258367,
+      "largest_error_y_mm": 458.0,
+      "maximum_frozen_jump_trial_shear_difference_mpa": 1.3620639527730312,
+      "scope": "Exact P1 difference on the knot union; trial shear holds jumps fixed. No new static solve or full-event result."
+    }
+  },
+  "frozen_prior_lift_probe": {
+    "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/original-seed-p1-field-difference-20261026.json",
+    "sha256": "e8410ff85bc6db4be3f65e769380d7656ed85d0b4dc010d06ab07f3365d16ef7",
+    "result": {
+      "recorded_utc": "2026-10-26T11:15:58.537135+00:00",
+      "status": "exact_p1_field_difference_and_frozen_jump_diagnostic",
+      "source_seed": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/event16-original-f64-seed/restart_seed.npz",
+      "source_seed_sha256": "f09f9cfbe88d41cfba9daaffd1d901e66d1b33af2b6826ba8449fa05ef510901",
+      "kernel_summary_sha256": "1ea8df55ac77b5204fbdd4867e44b4a57b2ae304b8a5a0e029a3f92dbd9ace1f",
+      "bulk_contact_nodes": 137,
+      "original_seed_nodes": 241,
+      "maximum_seed_difference_mm": 0.00017776872262764698,
+      "p1_l2_seed_difference_mm_sqrt_mm": 0.0007012595831258367,
+      "maximum_frozen_jump_trial_shear_difference_mpa": 1.3620639527730312,
+      "largest_error_y_mm": 458.0,
+      "frozen_prior_lift": {
+        "source_run": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/galerkin-fine2-q12-contact64-original-seed-kinetic",
+        "maximum_original_seed_trial_strength_ratio": 0.7869412986226333,
+        "maximum_original_seed_trial_excess_mpa": -2.491374674285847
+      },
+      "scope": "Original/coarse P1 interpolation difference is exact on their knot union. Trial shear holds the old lift fixed; a new admissible static solve and full event are still required.",
+      "original_tatva_readonly": true,
+      "full_original_seed_refined_event_completed": false
+    }
+  },
+  "short_checks": [
+    "Noncommuting matrix memory versus independent BDF2 recurrence",
+    "Independent causal force on fresh finite-block sliding histories",
+    "Future-only input cannot cause an early force",
+    "Work-coordinate transformation and multiple RHS",
+    "BDF2 mass/stiffness G-energy identity with numerical dissipation"
+  ],
+  "full_original_equation_audit_completed": false,
+  "completed_fem_comparison": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/docs/fem_mesh_completed_results.json",
+  "active_recovery": {
+    "status_path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/refined-contact-recovered-20261026/status.json",
+    "script_path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/refined-contact-recovery-20261026.py",
+    "script_sha256": "ef400fb4fc66d9a3696d9916fb65010f167cd92ca30614edf7ff47a7bbb7b90a",
+    "observer_pid": 56264,
+    "phase": "waiting_for_existing_complete_kernel",
+    "required_ci_commit": "509259186847379512b23e1614405e40607860df",
+    "all_frozen_source_inputs_unchanged": true,
+    "kernel_pid": 55521,
+    "kernel_session_id": 26186,
+    "kernel_path": "/Volumes/Gauss-T7/Tatva-BEM-cache/direct-resolvent-fine2-q12-full45-20261026",
+    "does_not_restart_fem_or_kernel": true
+  },
+  "profiling": {
+    "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/full45-extension-profile-20261026.txt",
+    "sha256": "083d3f99921d32e2b4432de1460c4cc4d4f81d7078ffe319e87a9be248d956a2",
+    "sample_duration_seconds": 1,
+    "sampling_interval_ms": 10,
+    "main_thread_samples": 82,
+    "mapped_flush_samples": 41,
+    "inplace_double_divide_samples": 40,
+    "scope": "One short sample during coordinate conversion; not a phase-wide timing estimate or a measured speedup"
+  },
+  "bounded_conversion_candidate": {
+    "source": "bem/tools/bounded_weight_conversion.py",
+    "source_sha256": "70f1e50888e6da66aa757e249fc1f880317ff26d83fe48237111acb7731706b7",
+    "integrated_into_running_kernel": false,
+    "runtime_advantage_measured": false
+  },
+  "full_original_seed_refined_event_completed": false,
+  "physical_convergence_verified": false,
+  "same_accuracy_fem_advantage_verified": false,
+  "original_tatva_readonly": true
+}

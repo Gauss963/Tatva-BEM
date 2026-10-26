@@ -124,6 +124,9 @@ The actuator finite-difference control first caught a missing future-history
 cotangent; the fix adds the correction-source contribution with the original
 tolerances retained. [Machine-readable evidence](refined_contact_results.json)
 records the source, preflight and waiting local study separately.
+The additional [original-history and seed-field controls](original_history_audit.md)
+measure original-equation residuals independently of the replay recurrence
+and distinguish the original P1 seed field from its coarse nodal projection.
 
 ## Literature and limits of transfer
 
@@ -143,6 +146,8 @@ finite-block reflected histories or transplanting their leading coefficient.
 separate operator-acceleration direction. Its reported performance is not a
 measured speedup of the present plane-strain nonlinear solver.
 
-The next physical evidence is the same-dt h1/h2 FEM comparison, then the
-full-history identity and contact-grid controls. Runtime conclusions must
+The same-dt h1/h2 FEM comparison is now complete: maximum slip is
+0.644123/0.619884 mm and the final pressure P1 L2 difference is 17.62%.
+The next physical evidence is the full-history identity and contact-grid
+controls, including original-P1 seed sampling. Runtime conclusions must
 include kernel construction/reuse costs and use comparable accuracy.

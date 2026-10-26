@@ -48,6 +48,13 @@ Engineering Analysis with Boundary Elements 191 (2026-10), 106954，
 保留原方程。短程原始 Z 歷史、全邊界靜態平衡及細網格 AD 分別驗證，
 完整事件的細接觸結果仍須等待 h1 FEM 及完整歷史擴充後的實際執行。
 
+為了把 CQ 反轉與時間離散誤差分開，另補讀 Betcke、Salles、Smigaj，
+[Overresolving in the Laplace domain for convolution quadrature methods](https://arxiv.org/pdf/1603.01761)
+(2016) 的 §2.1、Theorem 4.1、Theorem 4.5 與 Remark 4.6。
+其反轉誤差由較晚的離散時間係數疊加，較小輪廓半徑同時會放大有限精度影響。
+該文的外域聲學分析沒有給出本案非線性接觸的誤差上界；本專案據此增加
+[原始因果方程稽核](original_history_audit.md)，直接量測完整事件的 retained-force 殘差。
+
 2026-10-25另讀Ferry、Molinari，**Do slip-weakening laws shapes influence
 rupture dynamics?**，Extreme Mechanics Letters 74 (2025), 102272，
 [出版全文（EPFL）](https://infoscience.epfl.ch/server/api/core/bitstreams/3145f407-d973-4fc9-a2d3-0c42b621e883/content)，

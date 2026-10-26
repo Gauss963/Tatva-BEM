@@ -1,6 +1,8 @@
 # 固定原時間步的 FEM 空間控制
 
-2026-10-26。完整 h1 控制仍在執行，尚無 h1 最終解。
+2026-10-26。完整 h1 控制已完成，並已通過相同步數／保存時間、原始 float64 seed
+及末端資料檢查。h2／h1 最大累積滑移分別為0.644122821／0.619884079 mm；
+兩網格末端累積滑移 P1 L2 差3.52%，壓力場差17.62%。
 原 h2 已逐欄核對原存檔；本控制只縮小 FEM 網格，保留原來源版本、float64、
 `dt=1.2492928633545953e-8 s`、2 ms normal、45 ms shear、摩擦參數與停止載入政策。
 restart 的241個原始 float64 塑性值作 P1 插值至481個節點；
@@ -21,7 +23,7 @@ Linder 等（2026）的[動態 FE–BE 接觸研究](https://arxiv.org/html/2603
 因此不採用論文的速度比，也不據此宣稱 event-16 的誤差來自邊界質量。
 本控制保持原 FEM 方程與 penalty，先量測網格改變帶來的差異。
 
-## 完成後的驗收
+## 已執行的驗收
 
 `tools/compare_fem_mesh.py` / `bem/run.sh fem-mesh-compare` 要求：
 
@@ -61,7 +63,7 @@ FDBEM_CORES=1 bem/run.sh fem-mesh-compare \
   --field-verification bem/outputs/fem-event16-authored-f64-field-comparison/summary.json \
   --bem-runs bem/outputs/galerkin-fine2-q12-contact64-original-seed-kinetic \
   bem/outputs/compact-radau6-q12-event16-original-seed-contact192 \
-  --output bem/outputs/fem-h2-h1-original-dt-comparison-20261026
+  --output bem/outputs/fem-h2-h1-original-dt-comparison-schemafix-20261026
 ```
 
 BEM 末端另對 h2、h1 分別比較相同 nominal 45 ms shear 終點，保留各 run 的 dt 與 schedule。
@@ -79,14 +81,39 @@ FEM 最後一步可略超過45 ms；保存時間與 summary 中的實際終點�
 [完整反射控制紀錄](radiation_bar_results.json)中的 `h1_scheduling_annotations`。
 該紀錄保留先前兩筆，另兩筆及最新總數見非線性根的驗證紀錄。
 既有 h2 的8032.347 s模擬時間屬另外已驗證的四核心控制。
+h1 含輸出的原始模擬時間為30716.085 s，準備加模擬為30723.748 s；
+上述已記錄暫停保留在原始數值中，不將扣除暫停後的時間包裝成新速度基準。
+
+## 完整結果的含義
+
+|末端量／事件|FEM h2|FEM h1|
+|---|---:|---:|
+|最大累積滑移 [mm]|0.644122821|0.619884079|
+|P1 平均累積滑移 [mm]|0.632589659|0.610415084|
+|最大壓力 [MPa]|345.203168|491.647490|
+|首次保存滑移超過1e-7 mm，shear時間 [ms]|25.732864|28.143138|
+|首次保存停止載入，shear時間 [ms]|29.788319|29.448275|
+
+首次滑移依保存間隔判定，並非解析成核時間。端點壓力峰值隨網格增大，
+不能從兩個峰值或兩張網格推出局部角落已收斂。完整最大滑移歷史 L2 差9.22%，
+動能歷史 L2 差51.31%；末端滑移接近也不代表整段波傳一致。
+
+既有原始 seed／N64 BDF2 相對 h1 的末端累積滑移 P1 L2 差8.28%、
+壓力差10.53%；Radau 相應差7.99%、10.04%。
+Radau 的最大累積滑移仍比 h1 低8.79%，相對原 h2 的差仍為12.22%。
+這些量測顯示 FEM 空間誤差確實影響比較，剩餘 BEM 差異仍須由時間／接觸控制處理。
 
 單元測試以獨立 tensor-product Gauss 積分檢查時空 norm，
 另以小型完整 HDF5 fixture 檢查來源／投影、初始化差、float64 endpoint、
 不相同時間步與被修改的 seed 會被拒絕。
-正式 h1 結果只有在真實工作完成並通過上述檢查後才產生。
+真實 h1 工作已完成，以上比較使用完整9000筆 shear 資料與真正 float64 末端。
 
 [機讀稽核紀錄](fem_mesh_control_results.json)保存 h2 儲存／末端核對的來源指紋，
 以及 h1 原程序與已啟動後處理 observer 的派送狀態。
 observer 等原 solver 與 supervisor 都結束，確認正式完成、source SHA 與比較程式 CI 後，
 才執行網格／BEM末端比較及歷史曲線繪圖；它不重啟或傳送 signal 給 FEM。
-該紀錄的 `pending_full_h1_spatial_result` 明確表示尚無完整 h1 結果。
+該舊紀錄的 `pending_full_h1_spatial_result` 是執行中的歷史快照，仍保留。
+最新[完整結果紀錄](fem_mesh_completed_results.json)另外保存真正完成與比較的指紋。
+原後處理先遇到舊 h2 manifest 沒有 `restart_projection` 欄位；
+修正後以 actual/source seed 完全相同確認它未經投影，再接受缺少的 null 欄位。
+來源、物理量與 seed 檢查均保留，沒有更改既有模擬資料。

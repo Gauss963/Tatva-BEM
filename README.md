@@ -10,6 +10,10 @@ Final pressure/shear profile differences
 remain about 20%; temporal and spatial convergence are still open.
 The cached Radau forward solve is slower than its matched BDF2 control;
 no same-accuracy speed advantage is established.
+The completed same-dt FEM h1 control reaches 0.619884 mm; h2/h1 endpoint
+pressure fields still differ by 17.62% in P1 L2. Radau differs from h1 by
+8.79% in maximum slip and 10.04% in the pressure profile, so the remaining
+accuracy gates are still open. See [the completed mesh control](bem/docs/fem_mesh_control.md).
 See the [full Radau and error-isolation results](bem/docs/radau_event.md),
 the [contact substep comparison](bem/docs/substepped_contact.md),
 the [original one-step comparison](bem/docs/fine2_event.md) and the
@@ -78,6 +82,8 @@ accuracy/stability gates and measured adaptive-frequency experiments.
 The [refined contact experiment](bem/docs/refined_contact.md) separates contact
 integration from bulk resolution and requires a full-event identity control
 before attributing a change to refinement; its full-event results are pending.
+The [original-equation audit](bem/docs/original_history_audit.md) additionally
+checks causal force histories and the initial P1 seed-field projection.
 The [Galerkin implementation and validation](bem/docs/galerkin.md) addresses
 the sampled passivity failures of the original collocation backend.
 

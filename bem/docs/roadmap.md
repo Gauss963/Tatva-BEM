@@ -59,14 +59,17 @@ reference. Fine-history states agree closely; interval-average histories fail
 the reflected-traction and sensitivity checks despite close slip. A complete
 fine-history reverse-ring custom VJP passes independent forward AD with lower
 compiler-planned storage and measured bar-only gradient runtime. The full h1
-FEM spatial control has started at the original h2 time step, using the
-corrected original float64 seed projection; its full result remains pending.
+FEM spatial control has completed at the original h2 time step, using the
+corrected original float64 seed projection. Maximum cumulative slip is
+0.619884 mm; the h2/h1 final pressure P1 L2 difference remains 17.62%.
 The [fixed-dt mesh comparison](fem_mesh_control.md) now checks both original
 restart values and identical saved step IDs/times, integrates saved P1 fields
 in space/time, and checks true float64 endpoints against storage-rounded slip.
-Its Python 3.11/3.12 CI passed. A separate observer waits for the original h1
-processes to finish successfully before producing the actual comparison;
-this is not evidence that two FEM meshes or the BEM event have converged.
+Its Python 3.11/3.12 CI passed. The comparison now covers all 9000 saved shear
+rows and true float64 endpoints. The original h2 manifest's missing null
+projection field is accepted only with identical actual/source restart
+records. Existing Radau differs from h1 by 8.79% in maximum slip and 10.04%
+in the pressure profile; neither two FEM meshes nor the BEM event have converged.
 The [guarded contact-chain radiation solve](structured_radiation.md) now
 reconstructs the full discrete Cinf, with O(n) forward/transpose solves and
 implicit JAX derivatives checked on the actual 137-node contact mesh.
@@ -87,6 +90,13 @@ but the actual extension and full-event refinement results remain pending.
 The new independent-grid full-history AD passes reverse/JVP checks and
 original-Z parameter/actuator finite differences on short controls, including
 substepped friction. The full refined event and its gradient remain pending.
+The [original-history and seed-field audit](original_history_audit.md) now
+checks causal force algebra independently of the replay recurrence. Short
+finite-block checks and a separate discrete energy identity pass CI. The
+original 241-knot seed and its 137-node P1 projection differ enough to change
+fixed-jump trial shear by up to 1.362 MPa. Original-field subdivisions 4/8
+controls are therefore queued separately from pure integration refinement;
+their actual full results and the original-equation audit remain pending.
 
 - [x] Independent Laplace-domain plane-strain Green tensor and source traction.
 - [x] Direct finite-interior boundary operators, jump term and singular integration.
