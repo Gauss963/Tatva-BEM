@@ -149,6 +149,30 @@ def main():
         if answer["relative_residual"] > 1e-8 or any(
             not np.all(np.isfinite(answer[key])) for key in ["u", "sigma_n", "tau", "plastic_slip"]
         ):
+            np.savez(
+                output / "failed_static.npz",
+                y=yy,
+                full_displacement=answer["u"],
+                pressure=answer["sigma_n"],
+                shear=answer["tau"],
+                plastic_slip=answer["plastic_slip"],
+            )
+            write_json(
+                output / "failure.json",
+                dict(
+                    status="failed_original_fem_static_acceptance_gate",
+                    mesh_size=args.mesh_size,
+                    end_size=fine,
+                    dofs=total,
+                    contact_nodes=len(yy),
+                    relative_force_residual=answer["relative_residual"],
+                    required_relative_force_residual=1e-8,
+                    snapshot=str(output / "failed_static.npz"),
+                    snapshot_sha256=fingerprint(output / "failed_static.npz"),
+                    frozen_input_sha256=frozen,
+                    original_tolerance_relaxed=False,
+                ),
+            )
             raise ValueError("Original FEM static equilibrium did not pass its residual check")
         if dynamics.build_case_model is not original_builder:
             raise RuntimeError("Original FEM builder binding changed")

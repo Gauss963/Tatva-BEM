@@ -93,6 +93,8 @@ def main():
         "source", type=Path, help="Prepared BEM kernel supplying its numerical mesh"
     )
     parser.add_argument("--fem-mesh", type=float, default=2)
+    parser.add_argument("--fem-end-size", type=float)
+    parser.add_argument("--fem-grading-growth", type=float, default=1.2)
     parser.add_argument("--frequencies", type=float, nargs="+", default=[0, 1000, 10000])
     parser.add_argument("--laplace-real", type=float, default=200)
     parser.add_argument("--output", type=Path, required=True)
@@ -105,6 +107,12 @@ def main():
         or not np.isfinite(args.laplace_real)
         or args.laplace_real <= 0
         or any(not np.isfinite(f) or f < 0 for f in args.frequencies)
+        or not np.isfinite(args.fem_grading_growth)
+        or args.fem_grading_growth <= 1
+        or (
+            args.fem_end_size is not None
+            and (not np.isfinite(args.fem_end_size) or not 0 < args.fem_end_size < args.fem_mesh)
+        )
     ):
         raise ValueError("Require positive mesh/real part and nonnegative frequencies")
     begun = perf_counter()
@@ -118,6 +126,8 @@ def main():
         TOOLS / "fem_static_onset.py",
         TOOLS / "run_fem_reference.py",
     ]
+    if args.fem_end_size is not None:
+        frozen_paths.append(TOOLS / "chamfer_mesh_refinement.py")
     frozen = {str(p.resolve()): fingerprint(p) for p in frozen_paths}
     frozen.update(inputs["input_sha256"])
     environment = environment_record(options["case"])
@@ -135,7 +145,7 @@ def main():
     sys.path.insert(0, str(snapshot))
     from dataclasses import replace
 
-    from tatva.pmma import static_normal
+    from tatva.pmma import dynamics, static_normal
     from tatva.pmma.dynamics import RunConfig, build_case_model
     from tatva.pmma.model import (
         BlockSpec,
@@ -158,8 +168,15 @@ def main():
         mesh_size=args.fem_mesh,
         restart_from_file=None,
         time_step_override=None,
+        fault_end_refinement_size=args.fem_end_size,
+        fault_end_refinement_growth=args.fem_grading_growth,
     )
-    model = build_case_model(case, config)
+    builder = build_case_model
+    if args.fem_end_size is not None:
+        builder = runpy.run_path(str(TOOLS / "chamfer_mesh_refinement.py"))[
+            "make_chamfer_refined_builder"
+        ](dynamics)
+    model = builder(case, config)
     if not model["shear_spring_rigid_face"] or model["shear_loading_mode"] != "spring-displacement":
         raise ValueError("Require the original rigid platen spring")
     moving, stationary = model["moving"], model["stationary"]
@@ -255,12 +272,18 @@ def main():
         write_json(args.output / "progress.json", dict(records=records))
     if any(fingerprint(p) != digest for p, digest in frozen.items()):
         raise ValueError("Source code or authored input changed during response comparison")
+    STATIC["REFERENCE_TOOL"]["verify_snapshot"](snapshot, archived["files"])
+    if dynamics.build_case_model is not build_case_model:
+        raise RuntimeError("Original FEM builder binding changed")
     write_json(
         args.output / "summary.json",
         dict(
             status="completed_linear_stick_response_comparison",
             records=records,
             fem_mesh_mm=args.fem_mesh,
+            fem_end_size_mm=args.fem_end_size,
+            fem_grading_growth=args.fem_grading_growth,
+            explicit_chamfer_mesh_adapter=args.fem_end_size is not None,
             fem_full_dofs=total,
             fem_reduced_dofs=p.shape[1],
             fem_contact_nodes=len(fy),
