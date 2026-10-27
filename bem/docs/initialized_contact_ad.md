@@ -38,3 +38,28 @@ thread environment，並與其他 heavy 求解序列執行。例如 Python 環�
 PYTHONPATH=bem/src python -B bem/tools/check_initialized_contact_ad.py \
   COMPLETED_PRIMAL --output NEW_AD_OUTPUT
 ```
+
+## 完整離散 AD 通過，但敏感度尚未收斂
+
+2026-10-27 完成固定初始化、coarse-P1 seed 的 Γ4／Γ8 全 45 ms conditional AD。
+兩者 reverse／五方向 scalar JVP 最大差分別為 3.16e-11／1.12e-11。
+其解的最大累積滑移僅相差約 0.000129 mm，梯度卻有大的變化：
+
+|參數|Γ4 reverse derivative|Γ8 reverse derivative|
+|---|---:|---:|
+|mu_s|129.65743|52.80832|
+|mu_k|−7.06022|−8.95183|
+|Dc|33.68019|9.64383|
+
+目標為末端接觸權重平均 cumulative slip，導數的單位為 mm／各參數單位。
+每組完整原始數據、版本指紋與逐參數差見
+[contact_gradient_resolution_results.json](contact_gradient_resolution_results.json)。
+不同接觸點／active set 的條件式導數尚未收斂，不應用於物理參數識別。
+正反向一致只能驗證同一離散、同一分支的微分一致性；短程獨立有限差分
+雖已通過，完整事件的有限擾動、初始場與 mesh／time 敏感度仍要分開檢查。
+
+Γ8 原布局耗時為 reverse 15818.89 s、五方向 forward 1399.37 s，
+完整讀檔／hashing／輸出總計 17226.93 s；peak RSS 9034.50 MiB。
+這是包含 IO／JIT 的程序計時，並非硬 CPU 隔離或同精度 FEM 速度對照。
+新的 [layout-aware history](layout_history.md) 正在對相同 Γ4 primal 核對
+全部五參數梯度與 22501 個 actuator cotangents；通過後才執行包含初始化的全事件導數。
