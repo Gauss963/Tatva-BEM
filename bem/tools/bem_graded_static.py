@@ -29,6 +29,9 @@ def main():
     parser.add_argument("--contact-h", type=float, default=2)
     parser.add_argument("--end-sizes", type=float, nargs="+", default=[1, 0.5, 0.25, 0.125])
     parser.add_argument("--quadrature", type=int)
+    parser.add_argument(
+        "--static-backend", choices=["condensed", "uncondensed"], default="condensed"
+    )
     parser.add_argument("--fem-studies", type=Path, nargs="*", default=[])
     parser.add_argument("--max-boundary-dofs", type=int, default=5000)
     args = parser.parse_args()
@@ -56,6 +59,8 @@ def main():
         "restart_seed_experiment.py",
         "compare_fem_mesh.py",
     ]
+    if args.static_backend == "uncondensed":
+        names.append("uncondensed_static_contact.py")
     helpers = {n: runpy.run_path(str(TOOLS / n)) for n in names}
     paths = [
         Path(__file__),
@@ -148,9 +153,12 @@ def main():
                 )
             stiffness = nodal_body_stiffness(model, quadrature=q)
             reduction = helpers["refined_contact.py"]["reduce_static_trace"](model, stiffness)
-            lift = helpers["fem_static_contact.py"]["initialize_fem_static_contact"](
-                model, space, reduction, state
+            initializer = (
+                helpers["uncondensed_static_contact.py"]["initialize_uncondensed_contact"]
+                if args.static_backend == "uncondensed"
+                else helpers["fem_static_contact.py"]["initialize_fem_static_contact"]
             )
+            lift = initializer(model, space, reduction, state)
             law = model.reference.contact
             comparisons = []
             for row, path in fem:
