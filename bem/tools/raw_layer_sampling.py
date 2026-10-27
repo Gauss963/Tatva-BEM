@@ -161,7 +161,7 @@ def sample_raw_layers(
             for first in range(0, len(theta), workers):
                 chunk = theta[first : first + workers]
                 values.extend(pool.map(evaluate, chunk))
-                records["source_evaluations"] += sum(t != 0.0 for t in chunk)
+                records["source_evaluations"] += int(sum(t != 0.0 for t in chunk))
                 if diagnostics is not None:
                     diagnostics(dict(records))
             return values

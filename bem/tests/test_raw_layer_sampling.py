@@ -1,3 +1,4 @@
+import json
 import runpy
 from pathlib import Path
 
@@ -23,6 +24,7 @@ def collect(raw, transform, plan, **kwargs):
         values[index] = value
 
     record = RAW["sample_raw_layers"](raw, transform, plan, consume, **kwargs)
+    json.dumps(record, allow_nan=False)
     assert sorted(visited) == list(range(len(values)))
     assert len(visited) == len(set(visited))
     return values, record
