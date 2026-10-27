@@ -63,3 +63,12 @@ C／Fortran 全部時間權重及 causal startup；reference 為逐頻率重組�
 任何被替換的部分建核和已付費時間都保留、累加，不把中止成本當成零。
 新 kernel 完成後，原始因果方程稽核、完整 float64 FEM 比較、
 子步／時間／空間收斂與 fine AD 仍是必要工作；本項不替代這些門檻。
+
+切換時另保留已完成的細網格頻譜前段，作為新建核的早期 rejection gate。
+`compare_raw_kernel_spectrum.py` 的 `compare_emitted_prefix` 要求 caller 提供已寫完的數量，
+只讀對照已保存的區間；除 Frobenius 差，也計算 reference solve composition，
+避免很軟方向上的誤差被全域範數掩蓋。
+streaming SHA 僅涵蓋 NPY header 與這段資料，live candidate 會再次讀取相同前段核對 SHA。
+它不把部分檔案標成完整 kernel；此反解仍來自 reference approximant，
+不能替代獨立的原始算子稽核。回歸測試明確驗證：未寫完的 tail 不可被當成已驗證，
+且全域範數很小的弱方向誤差仍會使早期檢查失敗。

@@ -23,6 +23,163 @@ from finiteblock_bem.io import fingerprint, write_json
 TOOLS = Path(__file__).resolve().parent
 
 
+def compare_emitted_prefix(
+    reference,
+    candidate,
+    *,
+    count,
+    reference_written,
+    candidate_written,
+    block=4,
+    relative_tolerance=1e-9,
+    absolute_tolerance=1e-14,
+    composition_tolerance=1e-6,
+    candidate_live=False,
+    max_workspace_mb=256,
+):
+    """Early rejection check only; caller must prove the emitted prefix/grid.
+
+    No incomplete file is promoted to complete. Reference solve composition
+    catches weak directions hidden by a global norm, but is not an independent
+    original BEM operator audit. A live candidate prefix is hashed a second time.
+    """
+    if (
+        any(
+            isinstance(v, bool) or not isinstance(v, int)
+            for v in [count, reference_written, candidate_written, block]
+        )
+        or not 1 <= count <= min(reference_written, candidate_written)
+        or block < 1
+        or any(
+            not np.isfinite(v) or v <= 0
+            for v in [
+                relative_tolerance,
+                absolute_tolerance,
+                composition_tolerance,
+                max_workspace_mb,
+            ]
+        )
+    ):
+        raise ValueError("Require a proven emitted prefix, positive chunks and finite tolerances")
+    paths = [Path(reference), Path(candidate)]
+    if paths[0].resolve() == paths[1].resolve():
+        raise ValueError("The early prefix control requires two separate artifacts")
+    before = [p.stat() for p in paths]
+    streams = []
+    headers = []
+    hashes = []
+    begun = perf_counter()
+    maximum_normalized, maximum_composition = 0.0, 0.0
+    worst = None
+    try:
+        for path in paths:
+            stream = path.open("rb")
+            streams.append(stream)
+            version = np.lib.format.read_magic(stream)
+            reader = {
+                (1, 0): np.lib.format.read_array_header_1_0,
+                (2, 0): np.lib.format.read_array_header_2_0,
+            }.get(version)
+            if reader is None:
+                raise ValueError("Unsupported prefix NPY format")
+            shape, fortran, dtype = reader(stream)
+            offset = stream.tell()
+            if (
+                len(shape) != 3
+                or shape[1] != shape[2]
+                or fortran
+                or dtype != np.dtype("complex128")
+            ):
+                raise ValueError("Require C-order complex128 matrix half spectra")
+            if (
+                count > shape[0]
+                or max(reference_written, candidate_written) > shape[0]
+                or path.stat().st_size != offset + int(np.prod(shape)) * dtype.itemsize
+            ):
+                raise ValueError("Prefix exceeds the declared complete file storage")
+            headers.append((shape, offset, dtype))
+            stream.seek(0)
+            h = hashlib.sha256()
+            h.update(stream.read(offset))
+            hashes.append(h)
+        if headers[0][0] != headers[1][0]:
+            raise ValueError("Prefix physical grid shapes differ")
+        d = headers[0][0][1]
+        if (3 * block + 8) * d * d * 16 > max_workspace_mb * 1024**2:
+            raise ValueError("Prefix chunks exceed the conservative array budget")
+        with threadpool_limits(limits=1, user_api="blas"):
+            for first in range(0, count, block):
+                rows = min(block, count - first)
+                data = []
+                for stream, h in zip(streams, hashes, strict=True):
+                    value = stream.read(rows * d * d * 16)
+                    if len(value) != rows * d * d * 16:
+                        raise ValueError("Truncated emitted prefix")
+                    h.update(value)
+                    data.append(np.frombuffer(value, dtype="complex128").reshape(rows, d, d))
+                if any(not np.all(np.isfinite(a)) for a in data):
+                    raise ValueError("Nonfinite emitted prefix")
+                for j, (old, new) in enumerate(zip(*data, strict=True)):
+                    normalized = float(
+                        np.linalg.norm(new - old)
+                        / (absolute_tolerance + relative_tolerance * np.linalg.norm(old))
+                    )
+                    try:
+                        composition = float(
+                            np.max(np.sum(abs(np.linalg.solve(old, new) - np.eye(d)), axis=1))
+                        )
+                    except np.linalg.LinAlgError as error:
+                        raise ValueError(f"Singular reference prefix at {first + j}") from error
+                    if not np.isfinite(normalized + composition):
+                        raise ValueError("Nonfinite prefix metric")
+                    maximum_normalized = max(maximum_normalized, normalized)
+                    if worst is None or composition > maximum_composition:
+                        maximum_composition = composition
+                        worst = first + j
+    finally:
+        for stream in streams:
+            stream.close()
+    after = [p.stat() for p in paths]
+    for i in [0, 1]:
+        if before[i].st_size != after[i].st_size or (
+            (i == 0 or not candidate_live) and before[i].st_mtime_ns != after[i].st_mtime_ns
+        ):
+            raise ValueError("A frozen prefix artifact changed during comparison")
+    digests = [h.hexdigest() for h in hashes]
+    if candidate_live:
+        again = hashlib.sha256()
+        remaining = headers[1][1] + count * d * d * 16
+        with paths[1].open("rb") as stream:
+            while remaining:
+                value = stream.read(min(4 * 1024**2, remaining))
+                if not value:
+                    raise ValueError("Live prefix was truncated")
+                again.update(value)
+                remaining -= len(value)
+        if again.hexdigest() != digests[1]:
+            raise ValueError("Live candidate prefix changed after it was compared")
+    return dict(
+        passed=maximum_normalized <= 1 and maximum_composition <= composition_tolerance,
+        frequency_prefix_matrices=count,
+        complete_half_spectrum_matrices=headers[0][0][0],
+        claimed_written_matrices=[reference_written, candidate_written],
+        maximum_normalized_prefix_difference=maximum_normalized,
+        maximum_reference_solve_composition_inf=maximum_composition,
+        worst_reference_solve_index=worst,
+        relative_tolerance=relative_tolerance,
+        absolute_tolerance=absolute_tolerance,
+        reference_solve_composition_tolerance=composition_tolerance,
+        streamed_npy_prefix_sha256=digests,
+        hash_scope="NPY header and the compared prefix only; never a complete-file hash",
+        candidate_live=candidate_live,
+        seconds=perf_counter() - begun,
+        scope="Only an already emitted immutable prefix; reference inverse is derived from its approximant",
+        caller_must_verify_same_physical_grid_and_work_coordinates=True,
+        whole_kernel_verified=False,
+        original_operator_audit_verified=False,
+    )
+
+
 def compare_complete_spectra(
     reference,
     candidate,
