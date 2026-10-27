@@ -20,20 +20,25 @@ restart refinement knots。其接觸 bulk trace 也有 241 個節點、483 retai
 
 ## 執行順序與驗證條件
 
-本機 observer PID 90521 等待現有完整 AD／layout study 完成；數值工作不重疊。
+本機 observer PID 92049 等待現有完整 AD／layout study 完成；數值工作不重疊。
 來源、輸入 metadata 及所有必要 helpers 在排程時保存 SHA-256，改動即停止。
 新建核與 storage source `d7cedee` 已通過
 [Python 3.11／3.12 CI](https://github.com/Gauss963/Tatva-BEM/actions/runs/40440738067)。
 四核心 thread 設定是 `workers=4, BLAS=1` 與相同 JAX 設定，macOS 沒有硬 affinity。
 
-1. 在原 fine2/Q12／2 us／45 ms grid 全新建核，原 spectrum／weights 不作為產生資料。
-2. 每個頻率核對新舊 work resolvent 及 `A_old * L_new - I`；保留原有容差。
-3. 完整重跑原 Γ1/coarse-P1 與 Γ8/original-P1，核對所有 saved fields，
+1. 先以 241-node 接觸 trace 做 outer h20／h10／h5 靜態 lift，與 FEM 初態比較；
+   再做 h2／h1 的三個 continuous-time 線性頻率響應，尚未引入 CQ。
+   初態相對 FEM h2 全界面壓力／剪力差超過 5%，h10／h5 靜態差超過 1%，
+   或三個 h2 線性響應的任一場／platen 相對差超過 5%，就先停止大型建核並檢查原因。
+   這些是節省無效計算的工程篩選條件，不是論文誤差界，也沒有取代最終事件驗收。
+2. 在原 fine2/Q12／2 us／45 ms grid 全新建核，原 spectrum／weights 不作為產生資料。
+3. 每個頻率核對新舊 work resolvent 及 `A_old * L_new - I`；保留原有容差。
+4. 完整重跑原 Γ1/coarse-P1 與 Γ8/original-P1，核對所有 saved fields，
    包含 interior histories、初始位移和 bulk force；不是只看 endpoint。
-4. 前述等價性通過後，建立 241-node 接觸 bulk kernel，完整推進 N64 與 N160。
+5. 前述等價性通過後，建立 241-node 接觸 bulk kernel，完整推進 N64 與 N160。
    兩者 bulk dt 同為 2 us；局部步長分別為 31.25 ns 和 12.5 ns。
    原 FEM dt 為 12.4929286 ns；局部子步接近它不代表 bulk 時間離散已等價。
-5. 對兩條新軌跡重新做 original causal equation audit，再與 FEM h2／h1 的
+6. 對兩條新軌跡重新做 original causal equation audit，再與 FEM h2／h1 的
    true float64 final_state、事件及保存歷程比較。任何 gate 失敗就保留結果並停止後續工作。
 
 完整工作含所有 lags，沒有尾端截斷、材料調參、人工阻尼或端點排除。
@@ -67,13 +72,42 @@ FDBEM_CORES=4 bem/run.sh refined-contact-simulate COMPLETED_MATCHED_KERNEL \
   --constitutive-substeps 160 --kinetic-root-seed --output FRESH_PRIMAL_DIRECTORY
 ```
 
-本機排程來源為 `bem/outputs/raw-layer-contact-study-20261027-v2.py`；狀態及每階段
-command、exit code、計時、RSS samples 另存 `bem/outputs/raw-layer-contact-study-20261027-v2/`。
+本機排程來源為 `bem/outputs/raw-layer-contact-study-20261027-v3.py`；狀態及每階段
+command、exit code、計時、RSS samples 另存 `bem/outputs/raw-layer-contact-study-20261027-v3/`。
 v1 尚在等待、沒有數值子程序時已由 v2 取代，transition record 保留在 v1 的
 `superseded.json`。v2 增加建核前原 bulk 及新模型的時空場比較，並等待新工具的
-`0d7f860` CI 通過；既有 initialized AD 程序未停止。
+`0d7f860` CI 已通過。v3 再將初態／空間／線性控制移到昂貴建核之前；
+v2 同樣在沒有數值子程序時由 v3 取代，transition record 保留在 v2 的
+`superseded.json`。既有 initialized AD 程序未停止。
 這些大型本機產物不提交 Git；實作、測試與重跑設定保留在倉庫。
 原 `/Volumes/Gauss-T7/tatva` 全程只讀。同精度 FEM 優勢仍未驗證。
+
+## 完整保存資料的時空誤差
+
+## 起跑前就存在的空間差異
+
+另已擷取 FEM h2／h1 最後一個 normal-phase static bulk frame，依 step ID
+核對相同 high-rate frame。pressure 使用 strength／mu；shear 用同一 saved frame
+的 paired displacements 和輸出 plastic offset 重建。healed memory 均為零。
+這些是 float32 保存資料，不是假稱重新取得 true float64 初態。
+
+|既有 BEM 初態|對照 FEM|壓力 P1 L2 差|剪力 P1 L2 差|
+|---|---|---:|---:|
+|Γ1、coarse-P1 seed|h2|19.52%|12.83%|
+|Γ8、original-P1 seed|h2|32.96%|16.22%|
+|Γ1、coarse-P1 seed|h1|9.09%|7.59%|
+|Γ8、original-P1 seed|h1|23.04%|10.60%|
+
+兩組 BEM 都是先前已完成的 healed-static controls，保留同一 137-node bulk trace。
+此表不是單一變數的 refinement 實驗：seed 插值和接觸狀態積分也不同。
+完整來源、frame／step、snapshot SHA-256 與儲存界見
+[initial_contact_snapshot_results.json](initial_contact_snapshot_results.json)。
+primary pressure 的 strength／mu rounding bound 最大約 0.000123／0.000171 MPa，
+saved shear reconstruction bound 約 0.0182 MPa。額外的 displacement／coordinate
+pressure reconstruction bound 較鬆，不能混稱 primary target 的不確定度。
+
+以上差異發生在 CQ 動態推進之前。因此 bulk／初態空間差異不能只靠縮短 dt 消除；
+是否解釋動態誤差的主要部分，仍須由新網格的完整事件檢查。沒有排除端點。
 
 ## 完整保存資料的時空誤差
 
