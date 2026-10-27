@@ -47,7 +47,8 @@ FEM 速度優勢；後續須計入原始組裝、所有逐頻率線性消去、I
 保留全部時間權重及 causal elastic startup，並檢查 lag-zero inverse composition。
 來源的 spectrum／weights 不作為新計算資料；來源只供物理 case 和離散預設值。
 獨立測試會以無效的來源 numerical files 確認此點，再逐頻率重新組裝 BEM 核對產物。
-這個新入口的 CI 尚待執行，預設正式建核入口維持不變。
+這個新入口已通過 [Python 3.11／3.12 CI](https://github.com/Gauss963/Tatva-BEM/actions/runs/40435777232)，
+包含重新組裝真實雙 block 每個頻率、所有權重及 causal startup 的對照；預設正式建核入口維持不變。
 
 先執行 preflight，不啟動另一個同時競爭的 heavy job：
 
@@ -70,3 +71,25 @@ Frobenius norm 掩蓋。三個 NPY 檔在同一讀取 pass 核對完整 SHA-256�
 包含 retained displacement、初始 trace／force 與完整 45 ms histories；沿用既有
 壓力／剪力 1e-3 MPa、位移／slip 1e-6 mm 容差。只對末端看起來相近不算通過。
 這些是新 solver 的等價性 gate，沒有把未達標的 BEM/FEM 差異改名成成功。
+
+## 時間連續的權重儲存
+
+`--weight-layout fortran` 在完成原 C-order IFFT、physical scaling 及 lag-zero
+composition 後，將這次新建的權重轉成標準 Fortran-order NPY。
+邏輯 shape 仍為 `(lag, row, column)`；每個矩陣元素的完整時間序列連續儲存，
+供重複的歷史 FFT 使用。所有 lag、matrix entry 與 float64 bits 都保留。
+預設 `c` 不變，原來源 kernel 始終只讀。
+
+轉換按明確 workspace 分塊，逐塊重新讀取並核對 uint64 bits，全部通過後才取代
+**本次新產物**的 C-order 檔。preflight 計入兩份權重同時存在的峰值磁碟需求，
+總計時亦包括轉換、驗證及輸出 hashing。這不是低秩或記憶截斷。
+
+本機已核對 C／Fortran 與其轉置的全部非對稱 causal pairs 和 forward/reverse
+inner product；signed zero 與 subnormal 的檔案 bitwise 控制也通過。
+新 producer 的兩種 layout 都有 fresh-BEM 全頻譜、全權重及 startup 測試。
+完整事件的 runtime、primal 及 gradient equivalence 仍須另測，不能由 layout 推定加速。
+
+下一個物理對照將直接使用原 FEM h2 的 241 個接觸節點 `y=0,2,...,480 mm`，
+以相同 nodal contact rule、原 float64 restart、2 us bulk step 與 N64 局部子步推進。
+bulk 接觸 trace 也增加到這些節點；僅增加接觸狀態積分點不會增加 bulk 空間模式。
+外邊界與時間收斂仍要分別檢驗，此設定不是宣稱 FEM 或 BEM 已收斂。

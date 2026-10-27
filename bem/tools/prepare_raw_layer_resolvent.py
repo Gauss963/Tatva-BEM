@@ -46,6 +46,7 @@ def main():
     parser.add_argument("--output-rtol", type=float, default=1e-9)
     parser.add_argument("--workers", type=int, default=int(os.environ.get("FDBEM_CORES", "1")))
     parser.add_argument("--fft-rows", type=int, default=4)
+    parser.add_argument("--weight-layout", choices=["c", "fortran"], default="c")
     parser.add_argument("--max-workspace-mb", type=float, default=3072)
     parser.add_argument("--max-memory-mb", type=float, default=8192)
     parser.add_argument("--preflight-only", action="store_true")
@@ -103,6 +104,18 @@ def main():
     ifft = 4 * plan.fft_size * rows * d * 8 + (steps + 1) * rows * d * 8 + 64 * d * d * 16
     startup = 8 * plan.fft_size * d * 16 + 24 * (steps + 1) * d * 8
     peak = max(geometry + interpolation + solver, max(ifft, startup)) + 128 * 1024**2
+    weight_bytes = (steps + 1) * d * d * 8
+    conversion = 0
+    if args.weight_layout == "fortran":
+        conversion_rows = min(
+            d,
+            32,
+            int((args.max_workspace_mb * 1024**2 - 64 * 1024**2) // (2 * (steps + 1) * d * 8)),
+        )
+        if conversion_rows < 1:
+            raise ValueError("Fortran conversion budget cannot hold one bounded row tile")
+        conversion = 2 * (steps + 1) * conversion_rows * d * 8 + 64 * 1024**2
+        peak = max(peak, conversion + 128 * 1024**2)
     if (
         interpolation > args.max_workspace_mb * 1024**2
         or ifft > args.max_workspace_mb * 1024**2
@@ -119,17 +132,16 @@ def main():
         "bounded_weight_conversion.py",
         "replay_resolvent.py",
         "build_resolvent_history.py",
+        "fortran_weight_storage.py",
     ]
     paths = [Path(__file__), source_path, *[TOOLS / n for n in names]]
     frozen = {str(p.resolve()): fingerprint(p) for p in paths}
     output.parent.mkdir(parents=True, exist_ok=True)
-    required = (
-        spectrum_bytes(plan)
-        + (steps + 1) * d * d * 8
-        + (steps + 1) * (d + 2) * 8
-        + d * d * 8
-        + 65536
-    )
+    required = spectrum_bytes(plan) + weight_bytes + (steps + 1) * (d + 2) * 8 + d * d * 8 + 65536
+    if args.weight_layout == "fortran":
+        # Preserve the newly computed C-order file until its complete Fortran
+        # copy has passed the bitwise read-back check. Source kernels are read-only.
+        required += weight_bytes + 8192
     if required > shutil.disk_usage(output.parent).free:
         raise ValueError("Insufficient disk for complete spectrum, all time weights and startup")
     output.mkdir()
@@ -144,6 +156,8 @@ def main():
             estimated_peak_array_mib=peak / 1024**2,
             interpolation_array_mib=interpolation / 1024**2,
             ifft_array_mib=ifft / 1024**2,
+            weight_layout=args.weight_layout,
+            storage_conversion_array_mib=conversion / 1024**2,
             numerical_discretization_overrides=overrides,
             frozen_input_sha256=frozen,
             original_tatva_readonly=True,
@@ -229,6 +243,23 @@ def main():
     weights._mmap.close()
     if not np.isfinite(composition) or composition > 1e-6:
         raise ValueError(f"Raw-layer lag-zero inverse composition failed: {composition}")
+    conversion_record = None
+    if args.weight_layout == "fortran":
+        write_json(
+            output / "progress.json",
+            dict(
+                phase="bitwise_fortran_storage_conversion", elapsed_seconds=perf_counter() - begun
+            ),
+        )
+        convert = runpy.run_path(str(TOOLS / "fortran_weight_storage.py"))[
+            "convert_weights_fortran"
+        ]
+        converted = output / "weights-fortran.npy"
+        conversion_record = convert(
+            output / "weights.npy", converted, max_workspace_mb=args.max_workspace_mb
+        )
+        # Only replace this fresh build's own temporary file, after validation.
+        converted.replace(output / "weights.npy")
     np.save(output / "initial_impedance.npy", impedance.real, allow_pickle=False)
     time = np.arange(steps + 1) * dt
     increment = options.get("diagnostic_actuator_increment")
@@ -273,6 +304,8 @@ def main():
             spectrum_storage=storage,
             assembly="raw_layers_before_constrained_schur",
             time_weights_storage="disk_mmap",
+            time_weights_layout=args.weight_layout,
+            storage_conversion=conversion_record,
             initial_composition_inf_error=composition,
             estimated_construction_array_peak_mib=peak / 1024**2,
             environment=environment,

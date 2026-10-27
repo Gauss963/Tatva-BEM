@@ -5,6 +5,7 @@ from dataclasses import asdict
 from pathlib import Path
 
 import numpy as np
+import pytest
 
 from finiteblock_bem.cq import CQPlan, bdf2_symbol, invert_spectrum
 from finiteblock_bem.io import environment_record
@@ -45,8 +46,9 @@ def source_metadata(path):
     return options
 
 
+@pytest.mark.parametrize("layout", ["c", "fortran"])
 def test_fresh_raw_kernel_outputs_all_lags_and_causal_startup_against_dense_bem(
-    tmp_path, monkeypatch
+    tmp_path, monkeypatch, layout
 ):
     tool = runpy.run_path(str(TOOLS / "prepare_raw_layer_resolvent.py"))
     source, output = tmp_path / "source", tmp_path / "fresh"
@@ -60,7 +62,9 @@ def test_fresh_raw_kernel_outputs_all_lags_and_causal_startup_against_dense_bem(
             "--output",
             str(output),
             "--max-workspace-mb",
-            "64",
+            "65",
+            "--weight-layout",
+            layout,
             "--max-memory-mb",
             "1024",
             "--workers",
@@ -98,6 +102,9 @@ def test_fresh_raw_kernel_outputs_all_lags_and_causal_startup_against_dense_bem(
     spectrum = np.array(spectrum)
     expected = invert_spectrum(spectrum.copy(), plan) / (root[:, None] * root[None, :])
     actual = np.load(output / "weights.npy", allow_pickle=False)
+    assert summary["time_weights_layout"] == layout
+    assert actual.flags.f_contiguous == (layout == "fortran")
+    assert not (output / "weights-fortran.npy").exists()
     np.testing.assert_allclose(actual, expected, rtol=1e-8, atol=1e-12)
     helper = runpy.run_path(str(TOOLS / "replay_resolvent.py"))
     time = np.arange(plan.steps + 1) * plan.dt
@@ -113,8 +120,9 @@ def test_fresh_raw_kernel_outputs_all_lags_and_causal_startup_against_dense_bem(
     assert summary["initial_composition_inf_error"] < 1e-6
 
 
+@pytest.mark.parametrize("layout", ["c", "fortran"])
 def test_preflight_uses_complete_storage_and_does_not_create_numerical_spectrum(
-    tmp_path, monkeypatch
+    tmp_path, monkeypatch, layout
 ):
     tool = runpy.run_path(str(TOOLS / "prepare_raw_layer_resolvent.py"))
     source, output = tmp_path / "source", tmp_path / "preflight"
@@ -129,7 +137,9 @@ def test_preflight_uses_complete_storage_and_does_not_create_numerical_spectrum(
             str(output),
             "--preflight-only",
             "--max-workspace-mb",
-            "64",
+            "65",
+            "--weight-layout",
+            layout,
             "--max-memory-mb",
             "1024",
         ],
@@ -140,6 +150,9 @@ def test_preflight_uses_complete_storage_and_does_not_create_numerical_spectrum(
     assert asdict(plan) == preflight["plan"]
     needed = (plan.fft_size // 2 + 1) * plan.dofs**2 * 16 + (plan.steps + 1) * plan.dofs**2 * 8
     assert preflight["required_disk_bytes"] > needed
+    if layout == "fortran":
+        assert preflight["required_disk_bytes"] > needed + (plan.steps + 1) * plan.dofs**2 * 8
+        assert preflight["storage_conversion_array_mib"] > 0
     assert not (output / "summary.json").exists()
     assert not (output / "weights.npy").exists()
     assert not (output / "work-resolvent.npy").exists()

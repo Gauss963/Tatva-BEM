@@ -12,10 +12,11 @@ TOOL = runpy.run_path(str(TOOLS / "layout_aware_history.py"))
 
 @pytest.mark.parametrize("cache_mb", [0, 0.02])
 @pytest.mark.parametrize("transposed", [False, True])
-def test_layout_streaming_retains_every_nonsymmetric_causal_pair(cache_mb, transposed):
+@pytest.mark.parametrize("order", ["C", "F"])
+def test_layout_streaming_retains_every_nonsymmetric_causal_pair(cache_mb, transposed, order):
     rng = np.random.default_rng(319)
     n, d = 130, 7
-    weights = rng.normal(size=(n + 1, d, d))
+    weights = np.array(rng.normal(size=(n + 1, d, d)), order=order)
     if transposed:
         weights = weights.transpose(0, 2, 1)
     history = BoundaryHistory(plan_cq(d, 0.01, n, max_memory_mb=32), weights)
@@ -27,18 +28,19 @@ def test_layout_streaming_retains_every_nonsymmetric_causal_pair(cache_mb, trans
         expected = sum((weights[i - j] @ inputs[j] for j in range(i)), start=np.zeros(d))
         np.testing.assert_allclose(memory.past(i), expected, rtol=1e-12, atol=1e-12)
         memory.append(inputs[i])
-    assert (memory.column_streamed_updates > 0) == transposed
+    assert (memory.column_streamed_updates > 0) == (transposed != (order == "F"))
     assert memory.cache_peak_bytes <= memory.cache_limit_bytes
     assert memory.statistics()["all_history_terms_retained"]
     with pytest.raises(ValueError, match="already complete"):
         memory.append(inputs[-1])
 
 
-def test_complete_forward_reverse_history_pairing_with_transposed_disk_layout(tmp_path):
+@pytest.mark.parametrize("order", ["C", "F"])
+def test_complete_forward_reverse_history_pairing_with_transposed_disk_layout(tmp_path, order):
     rng = np.random.default_rng(602)
     n, d = 95, 9
     path = tmp_path / "weights.npy"
-    np.save(path, rng.normal(size=(n + 1, d, d)))
+    np.save(path, np.array(rng.normal(size=(n + 1, d, d)), order=order))
     weights = np.load(path, mmap_mode="r", allow_pickle=False)
     inputs, bars = rng.normal(size=(2, n + 1, d))
     plan = plan_cq(d, 0.01, n, max_memory_mb=32)
@@ -57,5 +59,5 @@ def test_complete_forward_reverse_history_pairing_with_transposed_disk_layout(tm
     np.testing.assert_allclose(
         np.sum(bars * action), np.sum(inputs * transpose), rtol=1e-12, atol=1e-12
     )
-    assert reverse.column_streamed_updates > 0
-    assert not forward.prefer_input_columns
+    assert (reverse.column_streamed_updates > 0) == (order == "C")
+    assert forward.prefer_input_columns == (order == "F")
