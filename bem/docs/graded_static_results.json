@@ -1,0 +1,1553 @@
+{
+  "status": "completed_static_endpoint_controls_dynamic_goal_unproven",
+  "studies": [
+    {
+      "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-chamfer-graded-static-h2-20261027/summary.json",
+      "sha256": "72d78c87e65c9d42459604c95ecb15a2c7dfedae2559d19b2aab0798bf2a4f99",
+      "status": "completed_graded_fem_static_controls",
+      "records": [
+        {
+          "name": "unrefined",
+          "end_size_mm": null,
+          "contact_nodes": 241,
+          "maximum_pressure_mpa": 344.61618773272687,
+          "maximum_shear_mpa": 193.78369437978407,
+          "snapshot": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-chamfer-graded-static-h2-20261027/unrefined/static.npz",
+          "snapshot_sha256": "ec50451526b5d946c47fd30b4388b2bc79c4c0274527fd3ed079db6dd90d5921",
+          "dofs": 91550,
+          "relative_force_residual": 2.441581317579633e-11,
+          "seconds": 9.298007207922637,
+          "automatic_dt_s": 1.5300650083520456e-08
+        },
+        {
+          "name": "end-1",
+          "end_size_mm": 1.0,
+          "contact_nodes": 244,
+          "maximum_pressure_mpa": 479.8842995285368,
+          "maximum_shear_mpa": 231.02644027103167,
+          "snapshot": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-chamfer-graded-static-h2-20261027/end-1/static.npz",
+          "snapshot_sha256": "c376531edf39102411b3293a1454d25a707f78e76e65fd44e89a3d2250175948",
+          "dofs": 95542,
+          "relative_force_residual": 7.665603668237428e-11,
+          "seconds": 9.193998999893665,
+          "automatic_dt_s": 1.5300650083520456e-08
+        },
+        {
+          "name": "end-0.5",
+          "end_size_mm": 0.5,
+          "contact_nodes": 249,
+          "maximum_pressure_mpa": 654.6906007666413,
+          "maximum_shear_mpa": 258.8099363143774,
+          "snapshot": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-chamfer-graded-static-h2-20261027/end-0.5/static.npz",
+          "snapshot_sha256": "320575140647a4f5349d180d6706ba62d0ae73b3541a9afb4cef8ec0bd11600a",
+          "dofs": 102246,
+          "relative_force_residual": 2.1264172869164143e-10,
+          "seconds": 9.81815187446773,
+          "automatic_dt_s": 1.081919343061983e-08
+        },
+        {
+          "name": "end-0.25",
+          "end_size_mm": 0.25,
+          "contact_nodes": 256,
+          "maximum_pressure_mpa": 865.7143463947662,
+          "maximum_shear_mpa": 274.8507091445456,
+          "snapshot": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-chamfer-graded-static-h2-20261027/end-0.25/static.npz",
+          "snapshot_sha256": "0e329d22f2ed31a38c1781ff05dbbd683b6646273bef014b26b97d3d8d36c1c0",
+          "dofs": 112126,
+          "relative_force_residual": 3.4750376259856524e-10,
+          "seconds": 10.79548062570393,
+          "automatic_dt_s": 7.65032504175414e-09
+        },
+        {
+          "name": "end-0.125",
+          "end_size_mm": 0.125,
+          "contact_nodes": 263,
+          "maximum_pressure_mpa": 1091.4159145523374,
+          "maximum_shear_mpa": 281.9448580784319,
+          "snapshot": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-chamfer-graded-static-h2-20261027/end-0.125/static.npz",
+          "snapshot_sha256": "7ce94f1773910a4dc0a40b8f93b235ce70ddae40515b16cc9807b7a49d7f4c48",
+          "dofs": 121956,
+          "relative_force_residual": 7.571908913271933e-10,
+          "seconds": 12.112592584453523,
+          "automatic_dt_s": 5.409596715303765e-09
+        }
+      ],
+      "total_seconds": 51.78524299990386,
+      "peak_process_rss_mib": 3207.84375,
+      "successive_refinement": [
+        {
+          "coarser": "unrefined",
+          "finer": "end-1",
+          "pressure": {
+            "final_relative_p1_l2": 0.1633928595451044,
+            "final_absolute_p1_l2": 84.68076967486564,
+            "final_maximum_absolute_difference": 135.26811179580994,
+            "final_reference_maximum": 479.8842995285368,
+            "final_actual_maximum": 344.61618773272687,
+            "final_reference_p1_mean": 16.666666666665286,
+            "final_actual_p1_mean": 16.666666666665883,
+            "maximum_saved_absolute_difference": 135.26811179580994
+          },
+          "shear": {
+            "final_relative_p1_l2": 0.11324704523525657,
+            "final_absolute_p1_l2": 31.224315395355895,
+            "final_maximum_absolute_difference": 39.17414282275165,
+            "final_reference_maximum": 231.02644027103167,
+            "final_actual_maximum": 193.78369437978407,
+            "final_reference_p1_mean": 8.821500165097516,
+            "final_actual_p1_mean": 8.826535374494318,
+            "maximum_saved_absolute_difference": 39.17414282275165
+          }
+        },
+        {
+          "coarser": "end-1",
+          "finer": "end-0.5",
+          "pressure": {
+            "final_relative_p1_l2": 0.14734456313076172,
+            "final_absolute_p1_l2": 77.74094153560951,
+            "final_maximum_absolute_difference": 174.80630123810448,
+            "final_reference_maximum": 654.6906007666413,
+            "final_actual_maximum": 479.8842995285368,
+            "final_reference_p1_mean": 16.666666666662014,
+            "final_actual_p1_mean": 16.666666666665286,
+            "maximum_saved_absolute_difference": 174.80630123810448
+          },
+          "shear": {
+            "final_relative_p1_l2": 0.07012552489527077,
+            "final_absolute_p1_l2": 19.136343813908603,
+            "final_maximum_absolute_difference": 34.95667097728858,
+            "final_reference_maximum": 258.8099363143774,
+            "final_actual_maximum": 231.02644027103167,
+            "final_reference_p1_mean": 8.818802319014454,
+            "final_actual_p1_mean": 8.821500165097516,
+            "maximum_saved_absolute_difference": 34.95667097728858
+          }
+        },
+        {
+          "coarser": "end-0.5",
+          "finer": "end-0.25",
+          "pressure": {
+            "final_relative_p1_l2": 0.1263749568128861,
+            "final_absolute_p1_l2": 67.44655084614872,
+            "final_maximum_absolute_difference": 211.02374562812486,
+            "final_reference_maximum": 865.7143463947662,
+            "final_actual_maximum": 654.6906007666413,
+            "final_reference_p1_mean": 16.66666666664908,
+            "final_actual_p1_mean": 16.666666666662014,
+            "maximum_saved_absolute_difference": 211.02374562812486
+          },
+          "shear": {
+            "final_relative_p1_l2": 0.03832799360245079,
+            "final_absolute_p1_l2": 10.37520566490223,
+            "final_maximum_absolute_difference": 27.141421344715923,
+            "final_reference_maximum": 274.8507091445456,
+            "final_actual_maximum": 258.8099363143774,
+            "final_reference_p1_mean": 8.817493062024207,
+            "final_actual_p1_mean": 8.818802319014454,
+            "maximum_saved_absolute_difference": 27.141421344715923
+          }
+        },
+        {
+          "coarser": "end-0.25",
+          "finer": "end-0.125",
+          "pressure": {
+            "final_relative_p1_l2": 0.09820694317860795,
+            "final_absolute_p1_l2": 52.653825167757105,
+            "final_maximum_absolute_difference": 225.70156815757127,
+            "final_reference_maximum": 1091.4159145523374,
+            "final_actual_maximum": 865.7143463947662,
+            "final_reference_p1_mean": 16.66666666665735,
+            "final_actual_p1_mean": 16.66666666664908,
+            "maximum_saved_absolute_difference": 225.70156815757127
+          },
+          "shear": {
+            "final_relative_p1_l2": 0.01936467134275467,
+            "final_absolute_p1_l2": 5.218141281551685,
+            "final_maximum_absolute_difference": 18.443004199118263,
+            "final_reference_maximum": 281.9448580784319,
+            "final_actual_maximum": 274.8507091445456,
+            "final_reference_p1_mean": 8.81689496503107,
+            "final_actual_p1_mean": 8.817493062024209,
+            "maximum_saved_absolute_difference": 18.443004199118263
+          }
+        }
+      ],
+      "frozen_input_sha256": {
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/fem_graded_static.py": "a77c234fa3a199049d3fdd033e6d83883092694638897e8cc7de7dc3bd2a939a",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/chamfer_mesh_refinement.py": "ba8e3220254d0ce5f3222d844b83951b65aa7c1a6a6711bd41d943cceaad57fb",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/fem_static_onset.py": "47308fb6a7dbe317cf3bf5267086259c65323dc97a247a01f265a45924a3d9dc",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/run_fem_reference.py": "e334ceb519bc3997d93bbb5ac4e783f4afc6875bc3656a25293851b3da4a63a0",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compare_fem_mesh.py": "a747c5b4ff52ad84556d5de0c91fb21e0612f3f3d71f165626058c22608b3e0b",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/event16-original-f64-seed/restart_seed.npz": "f09f9cfbe88d41cfba9daaffd1d901e66d1b33af2b6826ba8449fa05ef510901",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/validation/static_bem2d/input/case.toml": "6f8cf492023c3928dc5c4d89672dec668077d5092f479a57580ab3aeb1a15f02",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/validation/static_bem2d/input/resolved.json": "6e68fbe8cfaa5364ff5cf88965727f58f584426797c774fa32f6807292e06296"
+      }
+    },
+    {
+      "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-chamfer-graded-static-h2-fine-20261027/summary.json",
+      "sha256": "df5e53f17ce4fb72b22a040b35fcd986c920f4a1d4798b899b0eea16bb8b0074",
+      "status": "completed_graded_fem_static_controls",
+      "records": [
+        {
+          "name": "end-0.0625",
+          "end_size_mm": 0.0625,
+          "contact_nodes": 270,
+          "maximum_pressure_mpa": 1293.0167513626425,
+          "maximum_shear_mpa": 284.1214330975017,
+          "snapshot": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-chamfer-graded-static-h2-fine-20261027/end-0.0625/static.npz",
+          "snapshot_sha256": "399c013f1edec5a898ba1f65f32b5c7fcf2a417be306044f62e4bc541ae9927a",
+          "dofs": 133112,
+          "relative_force_residual": 1.492306097974899e-09,
+          "seconds": 12.312122165225446,
+          "automatic_dt_s": 3.825162520870547e-09
+        },
+        {
+          "name": "end-0.03125",
+          "end_size_mm": 0.03125,
+          "contact_nodes": 277,
+          "maximum_pressure_mpa": 1437.2876224384445,
+          "maximum_shear_mpa": 284.3012667397726,
+          "snapshot": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-chamfer-graded-static-h2-fine-20261027/end-0.03125/static.npz",
+          "snapshot_sha256": "6c19f51c66448aeb5b343141440e6ace15594d9aa14365b2a542275aa1c03772",
+          "dofs": 144218,
+          "relative_force_residual": 2.7819943471167416e-09,
+          "seconds": 13.517688125371933,
+          "automatic_dt_s": 2.7047983576475775e-09
+        },
+        {
+          "name": "end-0.015625",
+          "end_size_mm": 0.015625,
+          "contact_nodes": 285,
+          "maximum_pressure_mpa": 1519.7601055535758,
+          "maximum_shear_mpa": 283.9653379295777,
+          "snapshot": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-chamfer-graded-static-h2-fine-20261027/end-0.015625/static.npz",
+          "snapshot_sha256": "72f50c3aa0679a309b615fa0663e0dec540b2217b81c7ca1025e8082fe6c6361",
+          "dofs": 157506,
+          "relative_force_residual": 5.271106818740381e-09,
+          "seconds": 15.470631540752947,
+          "automatic_dt_s": 1.9125812604139645e-09
+        }
+      ],
+      "total_seconds": 41.620078625157475,
+      "peak_process_rss_mib": 3403.71875,
+      "successive_refinement": [
+        {
+          "coarser": "end-0.0625",
+          "finer": "end-0.03125",
+          "pressure": {
+            "final_relative_p1_l2": 0.037889709944500125,
+            "final_absolute_p1_l2": 20.24357431388733,
+            "final_maximum_absolute_difference": 144.4451928713678,
+            "final_reference_maximum": 1437.2876224384445,
+            "final_actual_maximum": 1293.0167513626425,
+            "final_reference_p1_mean": 16.666666666672857,
+            "final_actual_p1_mean": 16.666666666634743,
+            "maximum_saved_absolute_difference": 144.4451928713678
+          },
+          "shear": {
+            "final_relative_p1_l2": 0.004929455521097861,
+            "final_absolute_p1_l2": 1.3243613570364532,
+            "final_maximum_absolute_difference": 6.599509469419019,
+            "final_reference_maximum": 284.3012667397726,
+            "final_actual_maximum": 284.1214330975017,
+            "final_reference_p1_mean": 8.816496140662906,
+            "final_actual_p1_mean": 8.81661205300935,
+            "maximum_saved_absolute_difference": 6.599509469419019
+          }
+        },
+        {
+          "coarser": "end-0.03125",
+          "finer": "end-0.015625",
+          "pressure": {
+            "final_relative_p1_l2": 0.018834202256949692,
+            "final_absolute_p1_l2": 10.040751639756582,
+            "final_maximum_absolute_difference": 105.91472381259439,
+            "final_reference_maximum": 1519.7601055535758,
+            "final_actual_maximum": 1437.2876224384445,
+            "final_reference_p1_mean": 16.666666666581303,
+            "final_actual_p1_mean": 16.666666666672857,
+            "maximum_saved_absolute_difference": 105.91472381259439
+          },
+          "shear": {
+            "final_relative_p1_l2": 0.003160600019027773,
+            "final_absolute_p1_l2": 0.8488610090468818,
+            "final_maximum_absolute_difference": 3.6159456996599033,
+            "final_reference_maximum": 283.9653379295777,
+            "final_actual_maximum": 284.3012667397726,
+            "final_reference_p1_mean": 8.816445271805987,
+            "final_actual_p1_mean": 8.816496140662904,
+            "maximum_saved_absolute_difference": 3.6159456996599033
+          }
+        }
+      ],
+      "frozen_input_sha256": {
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/fem_graded_static.py": "a77c234fa3a199049d3fdd033e6d83883092694638897e8cc7de7dc3bd2a939a",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/chamfer_mesh_refinement.py": "ba8e3220254d0ce5f3222d844b83951b65aa7c1a6a6711bd41d943cceaad57fb",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/fem_static_onset.py": "47308fb6a7dbe317cf3bf5267086259c65323dc97a247a01f265a45924a3d9dc",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/run_fem_reference.py": "e334ceb519bc3997d93bbb5ac4e783f4afc6875bc3656a25293851b3da4a63a0",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compare_fem_mesh.py": "a747c5b4ff52ad84556d5de0c91fb21e0612f3f3d71f165626058c22608b3e0b",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/event16-original-f64-seed/restart_seed.npz": "f09f9cfbe88d41cfba9daaffd1d901e66d1b33af2b6826ba8449fa05ef510901",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/validation/static_bem2d/input/case.toml": "6f8cf492023c3928dc5c4d89672dec668077d5092f479a57580ab3aeb1a15f02",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/validation/static_bem2d/input/resolved.json": "6e68fbe8cfaa5364ff5cf88965727f58f584426797c774fa32f6807292e06296"
+      }
+    },
+    {
+      "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/bem-chamfer-uncondensed-static-20261027/summary.json",
+      "sha256": "329456e1dfd7b6cc88f34eee062a7eb65771e9ad355fe170e8e995c4cc6c3b5a",
+      "status": "completed_graded_bem_static_controls",
+      "records": [
+        {
+          "name": "end-0.0625",
+          "end_size_mm": 0.0625,
+          "contact_nodes": 257,
+          "maximum_pressure_mpa": 1187.7106777500017,
+          "maximum_shear_mpa": 280.4109174870386,
+          "snapshot": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/bem-chamfer-uncondensed-static-20261027/end-0.0625/static.npz",
+          "snapshot_sha256": "55c07c451db578159f4fbd5144a17166094b224dc12b676e646c44ab0a040888",
+          "initialization": {
+            "status": "admissible_uncondensed_static_lift",
+            "static_backend": "uncondensed_body_active_set",
+            "body_displacement_dofs": 1634,
+            "bulk_dofs": 515,
+            "contact_state_points": 257,
+            "subdivisions": 1,
+            "residual_mpa": 5.079527909402574e-09,
+            "original_full_balance_mpa": 5.079527909402574e-09,
+            "nonport_force_projection_residual_mpa": 5.079527909402574e-09,
+            "actual_port_equilibrium_residual_mpa": 9.48439210766348e-10,
+            "trace_constraint_error_mm": 0.0,
+            "maximum_strength_ratio": 0.7743309578923913,
+            "retained_schur_on_direct_trace_residual_mpa": 1.8189858508321777e-09,
+            "bulk_force_source": "Measured Kr*u-F, projected through the original work-conjugate trace",
+            "mean_pressure_mpa": 16.66666666666543,
+            "mean_shear_mpa": 8.81609120284409,
+            "moving_bulk_normal_force_mpa_mm": -4.403588604873221e-11,
+            "applied_normal_force_mpa_mm": 8000.0,
+            "contact_normal_force_mpa_mm": 7999.999999999407,
+            "moving_normal_balance_defect_mpa_mm": -6.366462912410498e-10,
+            "force_scope": "Original Galerkin balance, including its finite-quadrature rigid-mode defect",
+            "platen_mm": 9.959881910233488,
+            "seed_unchanged": true,
+            "static_initialization": {
+              "policy": "Tatva healed Coulomb active set, then retain prescribed weakening memory",
+              "active_set_iterations": [
+                {
+                  "iteration": 1,
+                  "open": 0,
+                  "sliding": 0
+                }
+              ],
+              "static_sliding_points": 0,
+              "static_open_points": 0,
+              "original_force_residual_mpa": 5.079527909402574e-09,
+              "maximum_strength_excess_mpa": -3.1375538645411414,
+              "maximum_plastic_offset_change_mm": 0.0,
+              "input_seed_unchanged": true,
+              "weakening_memory_unchanged": true,
+              "no_dynamic_weakening_during_preload": true
+            },
+            "reduction": {
+              "saddle_scaled_residual": 1.7586057893187646e-10,
+              "relative_impedance_symmetry": 6.94814514904135e-16,
+              "no_free_body_inverse_or_regularization": true
+            },
+            "dynamic_or_ad_backend_changed": false,
+            "original_tolerance_relaxed": false
+          },
+          "seconds": 55.153355333954096,
+          "source_p1_projection": {
+            "final_relative_p1_l2": 2.1107362805057116e-06,
+            "final_absolute_p1_l2": 0.0003995892250095062,
+            "final_maximum_absolute_difference": 0.0004312100982435396,
+            "final_reference_maximum": 9.117343213272274,
+            "final_actual_maximum": 9.117343213272274,
+            "final_reference_p1_mean": 8.637845368264985,
+            "final_actual_p1_mean": 8.637845321208097,
+            "maximum_saved_absolute_difference": 0.0004312100982435396
+          },
+          "maximum_fixed_jump_trial_shear_projection_change_mpa": 3.3039317727420006
+        },
+        {
+          "name": "end-0.03125",
+          "end_size_mm": 0.03125,
+          "contact_nodes": 261,
+          "maximum_pressure_mpa": 1371.2329081020941,
+          "maximum_shear_mpa": 282.39439843437805,
+          "snapshot": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/bem-chamfer-uncondensed-static-20261027/end-0.03125/static.npz",
+          "snapshot_sha256": "4b769bc0ac1d42a976124a6cfd3f4d01765351bf6ca6c0305a1f3c5bf3285aad",
+          "initialization": {
+            "status": "admissible_uncondensed_static_lift",
+            "static_backend": "uncondensed_body_active_set",
+            "body_displacement_dofs": 1702,
+            "bulk_dofs": 523,
+            "contact_state_points": 261,
+            "subdivisions": 1,
+            "residual_mpa": 1.1787051334978937e-08,
+            "original_full_balance_mpa": 1.1787051334978937e-08,
+            "nonport_force_projection_residual_mpa": 1.1787051334978937e-08,
+            "actual_port_equilibrium_residual_mpa": 3.6331471164885443e-09,
+            "trace_constraint_error_mm": 0.0,
+            "maximum_strength_ratio": 0.7744134971286556,
+            "retained_schur_on_direct_trace_residual_mpa": 9.968687209038762e-09,
+            "bulk_force_source": "Measured Kr*u-F, projected through the original work-conjugate trace",
+            "mean_pressure_mpa": 16.66666666666113,
+            "mean_shear_mpa": 8.816047538416065,
+            "moving_bulk_normal_force_mpa_mm": -9.204015327668458e-11,
+            "applied_normal_force_mpa_mm": 8000.0,
+            "contact_normal_force_mpa_mm": 7999.999999997341,
+            "moving_normal_balance_defect_mpa_mm": -2.751221472863108e-09,
+            "force_scope": "Original Galerkin balance, including its finite-quadrature rigid-mode defect",
+            "platen_mm": 9.959886102016924,
+            "seed_unchanged": true,
+            "static_initialization": {
+              "policy": "Tatva healed Coulomb active set, then retain prescribed weakening memory",
+              "active_set_iterations": [
+                {
+                  "iteration": 1,
+                  "open": 0,
+                  "sliding": 0
+                }
+              ],
+              "static_sliding_points": 0,
+              "static_open_points": 0,
+              "original_force_residual_mpa": 1.1787051334978937e-08,
+              "maximum_strength_excess_mpa": -3.1362945374942672,
+              "maximum_plastic_offset_change_mm": 0.0,
+              "input_seed_unchanged": true,
+              "weakening_memory_unchanged": true,
+              "no_dynamic_weakening_during_preload": true
+            },
+            "reduction": {
+              "saddle_scaled_residual": 1.546140993013978e-11,
+              "relative_impedance_symmetry": 6.646651088013444e-16,
+              "no_free_body_inverse_or_regularization": true
+            },
+            "dynamic_or_ad_backend_changed": false,
+            "original_tolerance_relaxed": false
+          },
+          "seconds": 61.50946741551161,
+          "source_p1_projection": {
+            "final_relative_p1_l2": 2.158153739350101e-06,
+            "final_absolute_p1_l2": 0.00040856595308612326,
+            "final_maximum_absolute_difference": 0.0004867086931792386,
+            "final_reference_maximum": 9.117343213272274,
+            "final_actual_maximum": 9.117343213272274,
+            "final_reference_p1_mean": 8.637845368264985,
+            "final_actual_p1_mean": 8.637845331347398,
+            "maximum_saved_absolute_difference": 0.0004867086931792386
+          },
+          "maximum_fixed_jump_trial_shear_projection_change_mpa": 3.729162007139326
+        },
+        {
+          "name": "end-0.015625",
+          "end_size_mm": 0.015625,
+          "contact_nodes": 265,
+          "maximum_pressure_mpa": 1487.8128675805365,
+          "maximum_shear_mpa": 282.7985432422932,
+          "snapshot": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/bem-chamfer-uncondensed-static-20261027/end-0.015625/static.npz",
+          "snapshot_sha256": "ae8a564d2377b90d138d682c881d320cbdbb10d956fb6fcb54f7935d68948c48",
+          "initialization": {
+            "status": "admissible_uncondensed_static_lift",
+            "static_backend": "uncondensed_body_active_set",
+            "body_displacement_dofs": 1770,
+            "bulk_dofs": 531,
+            "contact_state_points": 265,
+            "subdivisions": 1,
+            "residual_mpa": 1.1871937507144422e-08,
+            "original_full_balance_mpa": 1.1871937507144422e-08,
+            "nonport_force_projection_residual_mpa": 1.1871937507144422e-08,
+            "actual_port_equilibrium_residual_mpa": 7.549374458903912e-09,
+            "trace_constraint_error_mm": 0.0,
+            "maximum_strength_ratio": 0.7746988439252932,
+            "retained_schur_on_direct_trace_residual_mpa": 2.396035370111349e-08,
+            "bulk_force_source": "Measured Kr*u-F, projected through the original work-conjugate trace",
+            "mean_pressure_mpa": 16.666666666661193,
+            "mean_shear_mpa": 8.816029121220724,
+            "moving_bulk_normal_force_mpa_mm": -2.332409820837711e-10,
+            "applied_normal_force_mpa_mm": 8000.0,
+            "contact_normal_force_mpa_mm": 7999.9999999973725,
+            "moving_normal_balance_defect_mpa_mm": -2.8603608370758593e-09,
+            "force_scope": "Original Galerkin balance, including its finite-quadrature rigid-mode defect",
+            "platen_mm": 9.959887870068256,
+            "seed_unchanged": true,
+            "static_initialization": {
+              "policy": "Tatva healed Coulomb active set, then retain prescribed weakening memory",
+              "active_set_iterations": [
+                {
+                  "iteration": 1,
+                  "open": 0,
+                  "sliding": 0
+                }
+              ],
+              "static_sliding_points": 0,
+              "static_open_points": 0,
+              "original_force_residual_mpa": 1.1871937507144422e-08,
+              "maximum_strength_excess_mpa": -3.1342425725041565,
+              "maximum_plastic_offset_change_mm": 0.0,
+              "input_seed_unchanged": true,
+              "weakening_memory_unchanged": true,
+              "no_dynamic_weakening_during_preload": true
+            },
+            "reduction": {
+              "saddle_scaled_residual": 3.246896085329354e-10,
+              "relative_impedance_symmetry": 6.809120191795315e-16,
+              "no_free_body_inverse_or_regularization": true
+            },
+            "dynamic_or_ad_backend_changed": false,
+            "original_tolerance_relaxed": false
+          },
+          "seconds": 67.24442404229194,
+          "source_p1_projection": {
+            "final_relative_p1_l2": 1.972546111657757e-06,
+            "final_absolute_p1_l2": 0.00037342806836294636,
+            "final_maximum_absolute_difference": 0.0004728627124226392,
+            "final_reference_maximum": 9.117343213272274,
+            "final_actual_maximum": 9.117343213272274,
+            "final_reference_p1_mean": 8.637845368264985,
+            "final_actual_p1_mean": 8.637845350642298,
+            "maximum_saved_absolute_difference": 0.0004728627124226392
+          },
+          "maximum_fixed_jump_trial_shear_projection_change_mpa": 3.6230741025822617
+        },
+        {
+          "name": "end-0.0078125",
+          "end_size_mm": 0.0078125,
+          "contact_nodes": 271,
+          "maximum_pressure_mpa": 1546.1805836276103,
+          "maximum_shear_mpa": 282.7783129173076,
+          "snapshot": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/bem-chamfer-uncondensed-static-20261027/end-0.0078125/static.npz",
+          "snapshot_sha256": "c65ce64c8b2717a56862b5b8d3ad3277a556cbdac3d60ca6c42266dd644389bf",
+          "initialization": {
+            "status": "admissible_uncondensed_static_lift",
+            "static_backend": "uncondensed_body_active_set",
+            "body_displacement_dofs": 1852,
+            "bulk_dofs": 543,
+            "contact_state_points": 271,
+            "subdivisions": 1,
+            "residual_mpa": 1.99361238628505e-08,
+            "original_full_balance_mpa": 1.99361238628505e-08,
+            "nonport_force_projection_residual_mpa": 1.99361238628505e-08,
+            "actual_port_equilibrium_residual_mpa": 1.216409373228089e-08,
+            "trace_constraint_error_mm": 0.0,
+            "maximum_strength_ratio": 0.7747459589757767,
+            "retained_schur_on_direct_trace_residual_mpa": 2.773236928987899e-08,
+            "bulk_force_source": "Measured Kr*u-F, projected through the original work-conjugate trace",
+            "mean_pressure_mpa": 16.666666666660586,
+            "mean_shear_mpa": 8.816020564173236,
+            "moving_bulk_normal_force_mpa_mm": -1.3784529073745944e-10,
+            "applied_normal_force_mpa_mm": 8000.0,
+            "contact_normal_force_mpa_mm": 7999.9999999970805,
+            "moving_normal_balance_defect_mpa_mm": -3.0577211873605847e-09,
+            "force_scope": "Original Galerkin balance, including its finite-quadrature rigid-mode defect",
+            "platen_mm": 9.959888691545109,
+            "seed_unchanged": true,
+            "static_initialization": {
+              "policy": "Tatva healed Coulomb active set, then retain prescribed weakening memory",
+              "active_set_iterations": [
+                {
+                  "iteration": 1,
+                  "open": 0,
+                  "sliding": 0
+                }
+              ],
+              "static_sliding_points": 0,
+              "static_open_points": 0,
+              "original_force_residual_mpa": 1.99361238628505e-08,
+              "maximum_strength_excess_mpa": -3.1466721736973025,
+              "maximum_plastic_offset_change_mm": 0.0,
+              "input_seed_unchanged": true,
+              "weakening_memory_unchanged": true,
+              "no_dynamic_weakening_during_preload": true
+            },
+            "reduction": {
+              "saddle_scaled_residual": 5.370566213969141e-10,
+              "relative_impedance_symmetry": 8.084828327363419e-16,
+              "no_free_body_inverse_or_regularization": true
+            },
+            "dynamic_or_ad_backend_changed": false,
+            "original_tolerance_relaxed": false
+          },
+          "seconds": 73.0825177077204,
+          "source_p1_projection": {
+            "final_relative_p1_l2": 2.0018876513286205e-06,
+            "final_absolute_p1_l2": 0.0003789827950267894,
+            "final_maximum_absolute_difference": 0.0004254273192358937,
+            "final_reference_maximum": 9.117343213272274,
+            "final_actual_maximum": 9.117343213272274,
+            "final_reference_p1_mean": 8.637845368264985,
+            "final_actual_p1_mean": 8.637845848979302,
+            "maximum_saved_absolute_difference": 0.0004254273192358937
+          },
+          "maximum_fixed_jump_trial_shear_projection_change_mpa": 3.2596241199854177
+        }
+      ],
+      "total_seconds": 257.03593904245645,
+      "peak_process_rss_mib": 903.515625,
+      "successive_refinement": [
+        {
+          "coarser": "end-0.0625",
+          "finer": "end-0.03125",
+          "pressure": {
+            "final_relative_p1_l2": 0.036667899851787984,
+            "final_absolute_p1_l2": 19.47224771610165,
+            "final_maximum_absolute_difference": 183.5222303520925,
+            "final_reference_maximum": 1371.2329081020941,
+            "final_actual_maximum": 1187.7106777500017,
+            "final_reference_p1_mean": 16.66666666666113,
+            "final_actual_p1_mean": 16.66666666666543,
+            "maximum_saved_absolute_difference": 183.5222303520925
+          },
+          "shear": {
+            "final_relative_p1_l2": 0.004053900375437769,
+            "final_absolute_p1_l2": 1.0866683594390985,
+            "final_maximum_absolute_difference": 5.860904396864953,
+            "final_reference_maximum": 282.39439843437805,
+            "final_actual_maximum": 280.4109174870386,
+            "final_reference_p1_mean": 8.816047538416065,
+            "final_actual_p1_mean": 8.81609120284409,
+            "maximum_saved_absolute_difference": 5.860904396864953
+          }
+        },
+        {
+          "coarser": "end-0.03125",
+          "finer": "end-0.015625",
+          "pressure": {
+            "final_relative_p1_l2": 0.01883568994836598,
+            "final_absolute_p1_l2": 10.005423222576667,
+            "final_maximum_absolute_difference": 116.57995947844233,
+            "final_reference_maximum": 1487.8128675805365,
+            "final_actual_maximum": 1371.2329081020941,
+            "final_reference_p1_mean": 16.66666666666119,
+            "final_actual_p1_mean": 16.66666666666113,
+            "maximum_saved_absolute_difference": 116.57995947844233
+          },
+          "shear": {
+            "final_relative_p1_l2": 0.0019339635047228134,
+            "final_absolute_p1_l2": 0.5184353931482107,
+            "final_maximum_absolute_difference": 3.209646948327986,
+            "final_reference_maximum": 282.7985432422932,
+            "final_actual_maximum": 282.39439843437805,
+            "final_reference_p1_mean": 8.816029121220724,
+            "final_actual_p1_mean": 8.816047538416065,
+            "maximum_saved_absolute_difference": 3.209646948327986
+          }
+        },
+        {
+          "coarser": "end-0.015625",
+          "finer": "end-0.0078125",
+          "pressure": {
+            "final_relative_p1_l2": 0.009087089394907997,
+            "final_absolute_p1_l2": 4.827031357331778,
+            "final_maximum_absolute_difference": 62.52338704755243,
+            "final_reference_maximum": 1546.1805836276103,
+            "final_actual_maximum": 1487.8128675805365,
+            "final_reference_p1_mean": 16.666666666660586,
+            "final_actual_p1_mean": 16.66666666666119,
+            "maximum_saved_absolute_difference": 62.52338704755243
+          },
+          "shear": {
+            "final_relative_p1_l2": 0.0011246289785291,
+            "final_absolute_p1_l2": 0.3014903169229217,
+            "final_maximum_absolute_difference": 1.6737673573815641,
+            "final_reference_maximum": 282.7783129173076,
+            "final_actual_maximum": 282.7985432422932,
+            "final_reference_p1_mean": 8.816020564173236,
+            "final_actual_p1_mean": 8.816029121220724,
+            "maximum_saved_absolute_difference": 1.6737673573815641
+          }
+        }
+      ],
+      "frozen_input_sha256": {
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/bem_graded_static.py": "d48eb730b07772f4b4daa0373811bd155ad3d8ec1d3c16889093391509fa7fd7",
+        "/Volumes/Gauss-T7/Tatva-BEM-cache/direct-resolvent-fine2-q12-full45-20261026/summary.json": "df571df1a29850fa1cca99964135a78d970bf2e80be8bd62bf4a22d12e3c124e",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/event16-original-f64-seed/restart_seed.npz": "f09f9cfbe88d41cfba9daaffd1d901e66d1b33af2b6826ba8449fa05ef510901",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/refined_contact.py": "c055f15f8c15d6c3da2f6792a97ec3ed44baa652478f6a24990fa1f478fa3741",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/fem_static_contact.py": "093ee005753ebbe4efe4e9eefd95a05ccf5748b1f976cb29f0045316c1728589",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/restart_seed_experiment.py": "d9507983063a21db6849a1e8236f71e0d9585133c87576b18ea11b4b21879885",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compare_fem_mesh.py": "a747c5b4ff52ad84556d5de0c91fb21e0612f3f3d71f165626058c22608b3e0b",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/uncondensed_static_contact.py": "3c672b13b415ee3d96487858a869b9e4cb0af3583ac63959ceb7101c509c4bef",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-chamfer-graded-static-h2-20261027/summary.json": "72d78c87e65c9d42459604c95ecb15a2c7dfedae2559d19b2aab0798bf2a4f99",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-chamfer-graded-static-h2-fine-20261027/summary.json": "df5e53f17ce4fb72b22a040b35fcd986c920f4a1d4798b899b0eea16bb8b0074",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-chamfer-graded-static-h2-20261027/unrefined/static.npz": "ec50451526b5d946c47fd30b4388b2bc79c4c0274527fd3ed079db6dd90d5921",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-chamfer-graded-static-h2-20261027/end-1/static.npz": "c376531edf39102411b3293a1454d25a707f78e76e65fd44e89a3d2250175948",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-chamfer-graded-static-h2-20261027/end-0.5/static.npz": "320575140647a4f5349d180d6706ba62d0ae73b3541a9afb4cef8ec0bd11600a",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-chamfer-graded-static-h2-20261027/end-0.25/static.npz": "0e329d22f2ed31a38c1781ff05dbbd683b6646273bef014b26b97d3d8d36c1c0",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-chamfer-graded-static-h2-20261027/end-0.125/static.npz": "7ce94f1773910a4dc0a40b8f93b235ce70ddae40515b16cc9807b7a49d7f4c48",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-chamfer-graded-static-h2-fine-20261027/end-0.0625/static.npz": "399c013f1edec5a898ba1f65f32b5c7fcf2a417be306044f62e4bc541ae9927a",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-chamfer-graded-static-h2-fine-20261027/end-0.03125/static.npz": "6c19f51c66448aeb5b343141440e6ace15594d9aa14365b2a542275aa1c03772",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-chamfer-graded-static-h2-fine-20261027/end-0.015625/static.npz": "72f50c3aa0679a309b615fa0663e0dec540b2217b81c7ca1025e8082fe6c6361"
+      }
+    }
+  ],
+  "cross_method_whole_interface_p1_comparisons": [
+    {
+      "bem_end_size_mm": 0.0625,
+      "fem_end_size_mm": null,
+      "pressure": {
+        "final_relative_p1_l2": 0.3331051438519793,
+        "final_absolute_p1_l2": 168.7587741695723,
+        "final_maximum_absolute_difference": 843.0944900172748,
+        "final_reference_maximum": 344.61618773272687,
+        "final_actual_maximum": 1187.7106777500017,
+        "final_reference_p1_mean": 16.666666666665883,
+        "final_actual_p1_mean": 16.66666666666543,
+        "maximum_saved_absolute_difference": 843.0944900172748
+      },
+      "shear": {
+        "final_relative_p1_l2": 0.1426962739759549,
+        "final_absolute_p1_l2": 39.64248757017838,
+        "final_maximum_absolute_difference": 86.62722310725454,
+        "final_reference_maximum": 193.78369437978407,
+        "final_actual_maximum": 280.4109174870386,
+        "final_reference_p1_mean": 8.82653537449432,
+        "final_actual_p1_mean": 8.81609120284409,
+        "maximum_saved_absolute_difference": 86.62722310725454
+      }
+    },
+    {
+      "bem_end_size_mm": 0.0625,
+      "fem_end_size_mm": 1.0,
+      "pressure": {
+        "final_relative_p1_l2": 0.2571832360167002,
+        "final_absolute_p1_l2": 133.2890215276199,
+        "final_maximum_absolute_difference": 707.8263782214649,
+        "final_reference_maximum": 479.8842995285368,
+        "final_actual_maximum": 1187.7106777500017,
+        "final_reference_p1_mean": 16.666666666665286,
+        "final_actual_p1_mean": 16.66666666666543,
+        "maximum_saved_absolute_difference": 707.8263782214649
+      },
+      "shear": {
+        "final_relative_p1_l2": 0.09130538431084927,
+        "final_absolute_p1_l2": 25.17459162924427,
+        "final_maximum_absolute_difference": 49.38447721600693,
+        "final_reference_maximum": 231.02644027103167,
+        "final_actual_maximum": 280.4109174870386,
+        "final_reference_p1_mean": 8.821500165097516,
+        "final_actual_p1_mean": 8.81609120284409,
+        "maximum_saved_absolute_difference": 49.38447721600693
+      }
+    },
+    {
+      "bem_end_size_mm": 0.0625,
+      "fem_end_size_mm": 0.5,
+      "pressure": {
+        "final_relative_p1_l2": 0.1836345783839309,
+        "final_absolute_p1_l2": 96.88803386245225,
+        "final_maximum_absolute_difference": 533.0200769833604,
+        "final_reference_maximum": 654.6906007666413,
+        "final_actual_maximum": 1187.7106777500017,
+        "final_reference_p1_mean": 16.666666666662014,
+        "final_actual_p1_mean": 16.66666666666543,
+        "maximum_saved_absolute_difference": 533.0200769833604
+      },
+      "shear": {
+        "final_relative_p1_l2": 0.054663895101056965,
+        "final_absolute_p1_l2": 14.917066110000789,
+        "final_maximum_absolute_difference": 28.809127809459426,
+        "final_reference_maximum": 258.8099363143774,
+        "final_actual_maximum": 280.4109174870386,
+        "final_reference_p1_mean": 8.818802319014454,
+        "final_actual_p1_mean": 8.81609120284409,
+        "maximum_saved_absolute_difference": 28.809127809459426
+      }
+    },
+    {
+      "bem_end_size_mm": 0.0625,
+      "fem_end_size_mm": 0.25,
+      "pressure": {
+        "final_relative_p1_l2": 0.11539834286679641,
+        "final_absolute_p1_l2": 61.58831145043013,
+        "final_maximum_absolute_difference": 321.9963313552355,
+        "final_reference_maximum": 865.7143463947662,
+        "final_actual_maximum": 1187.7106777500017,
+        "final_reference_p1_mean": 16.66666666664908,
+        "final_actual_p1_mean": 16.66666666666543,
+        "maximum_saved_absolute_difference": 321.9963313552355
+      },
+      "shear": {
+        "final_relative_p1_l2": 0.030311251162681213,
+        "final_absolute_p1_l2": 8.205111596376794,
+        "final_maximum_absolute_difference": 23.715437040779335,
+        "final_reference_maximum": 274.8507091445456,
+        "final_actual_maximum": 280.4109174870386,
+        "final_reference_p1_mean": 8.817493062024209,
+        "final_actual_p1_mean": 8.816091202844088,
+        "maximum_saved_absolute_difference": 23.715437040779335
+      }
+    },
+    {
+      "bem_end_size_mm": 0.0625,
+      "fem_end_size_mm": 0.125,
+      "pressure": {
+        "final_relative_p1_l2": 0.05979493489334329,
+        "final_absolute_p1_l2": 32.05915942282712,
+        "final_maximum_absolute_difference": 173.9213393524957,
+        "final_reference_maximum": 1091.4159145523374,
+        "final_actual_maximum": 1187.7106777500017,
+        "final_reference_p1_mean": 16.666666666657346,
+        "final_actual_p1_mean": 16.66666666666543,
+        "maximum_saved_absolute_difference": 173.9213393524957
+      },
+      "shear": {
+        "final_relative_p1_l2": 0.01586508335271574,
+        "final_absolute_p1_l2": 4.275117553649526,
+        "final_maximum_absolute_difference": 18.04100940805884,
+        "final_reference_maximum": 281.9448580784319,
+        "final_actual_maximum": 280.4109174870386,
+        "final_reference_p1_mean": 8.816894965031072,
+        "final_actual_p1_mean": 8.816091202844088,
+        "maximum_saved_absolute_difference": 18.04100940805884
+      }
+    },
+    {
+      "bem_end_size_mm": 0.0625,
+      "fem_end_size_mm": 0.0625,
+      "pressure": {
+        "final_relative_p1_l2": 0.02983326980316414,
+        "final_absolute_p1_l2": 15.982648643746753,
+        "final_maximum_absolute_difference": 105.30607361264083,
+        "final_reference_maximum": 1293.0167513626425,
+        "final_actual_maximum": 1187.7106777500017,
+        "final_reference_p1_mean": 16.666666666634743,
+        "final_actual_p1_mean": 16.66666666666543,
+        "maximum_saved_absolute_difference": 105.30607361264083
+      },
+      "shear": {
+        "final_relative_p1_l2": 0.008830886206391381,
+        "final_absolute_p1_l2": 2.3745859338197772,
+        "final_maximum_absolute_difference": 6.635011349818825,
+        "final_reference_maximum": 284.1214330975017,
+        "final_actual_maximum": 280.4109174870386,
+        "final_reference_p1_mean": 8.81661205300935,
+        "final_actual_p1_mean": 8.816091202844088,
+        "maximum_saved_absolute_difference": 6.635011349818825
+      }
+    },
+    {
+      "bem_end_size_mm": 0.0625,
+      "fem_end_size_mm": 0.03125,
+      "pressure": {
+        "final_relative_p1_l2": 0.044980673857128686,
+        "final_absolute_p1_l2": 24.0321083283375,
+        "final_maximum_absolute_difference": 249.57694468844284,
+        "final_reference_maximum": 1437.2876224384445,
+        "final_actual_maximum": 1187.7106777500017,
+        "final_reference_p1_mean": 16.666666666672857,
+        "final_actual_p1_mean": 16.66666666666543,
+        "maximum_saved_absolute_difference": 249.57694468844284
+      },
+      "shear": {
+        "final_relative_p1_l2": 0.006700203935804064,
+        "final_absolute_p1_l2": 1.800095596534807,
+        "final_maximum_absolute_difference": 6.121838831194822,
+        "final_reference_maximum": 284.3012667397726,
+        "final_actual_maximum": 280.4109174870386,
+        "final_reference_p1_mean": 8.816496140662906,
+        "final_actual_p1_mean": 8.81609120284409,
+        "maximum_saved_absolute_difference": 6.121838831194822
+      }
+    },
+    {
+      "bem_end_size_mm": 0.0625,
+      "fem_end_size_mm": 0.015625,
+      "pressure": {
+        "final_relative_p1_l2": 0.04752947408963905,
+        "final_absolute_p1_l2": 25.338564298693143,
+        "final_maximum_absolute_difference": 332.0494278035742,
+        "final_reference_maximum": 1519.7601055535758,
+        "final_actual_maximum": 1187.7106777500017,
+        "final_reference_p1_mean": 16.666666666581303,
+        "final_actual_p1_mean": 16.66666666666543,
+        "maximum_saved_absolute_difference": 332.0494278035742
+      },
+      "shear": {
+        "final_relative_p1_l2": 0.00711761535716558,
+        "final_absolute_p1_l2": 1.911619982825187,
+        "final_maximum_absolute_difference": 5.603007340765913,
+        "final_reference_maximum": 283.9653379295777,
+        "final_actual_maximum": 280.4109174870386,
+        "final_reference_p1_mean": 8.816445271805987,
+        "final_actual_p1_mean": 8.81609120284409,
+        "maximum_saved_absolute_difference": 5.603007340765913
+      }
+    },
+    {
+      "bem_end_size_mm": 0.03125,
+      "fem_end_size_mm": null,
+      "pressure": {
+        "final_relative_p1_l2": 0.34042659627193006,
+        "final_absolute_p1_l2": 172.4679913892283,
+        "final_maximum_absolute_difference": 1026.6167203693672,
+        "final_reference_maximum": 344.61618773272687,
+        "final_actual_maximum": 1371.2329081020941,
+        "final_reference_p1_mean": 16.666666666665883,
+        "final_actual_p1_mean": 16.666666666661126,
+        "maximum_saved_absolute_difference": 1026.6167203693672
+      },
+      "shear": {
+        "final_relative_p1_l2": 0.14236495068307187,
+        "final_absolute_p1_l2": 39.55044256329866,
+        "final_maximum_absolute_difference": 88.61070405459398,
+        "final_reference_maximum": 193.78369437978407,
+        "final_actual_maximum": 282.39439843437805,
+        "final_reference_p1_mean": 8.826535374494318,
+        "final_actual_p1_mean": 8.816047538416065,
+        "maximum_saved_absolute_difference": 88.61070405459398
+      }
+    },
+    {
+      "bem_end_size_mm": 0.03125,
+      "fem_end_size_mm": 1.0,
+      "pressure": {
+        "final_relative_p1_l2": 0.2663956685146266,
+        "final_absolute_p1_l2": 138.06350112650844,
+        "final_maximum_absolute_difference": 891.3486085735574,
+        "final_reference_maximum": 479.8842995285368,
+        "final_actual_maximum": 1371.2329081020941,
+        "final_reference_p1_mean": 16.666666666665286,
+        "final_actual_p1_mean": 16.666666666661126,
+        "maximum_saved_absolute_difference": 891.3486085735574
+      },
+      "shear": {
+        "final_relative_p1_l2": 0.09075318715918003,
+        "final_absolute_p1_l2": 25.022340610347314,
+        "final_maximum_absolute_difference": 51.36795816334637,
+        "final_reference_maximum": 231.02644027103167,
+        "final_actual_maximum": 282.39439843437805,
+        "final_reference_p1_mean": 8.821500165097515,
+        "final_actual_p1_mean": 8.816047538416067,
+        "maximum_saved_absolute_difference": 51.36795816334637
+      }
+    },
+    {
+      "bem_end_size_mm": 0.03125,
+      "fem_end_size_mm": 0.5,
+      "pressure": {
+        "final_relative_p1_l2": 0.19567637954295358,
+        "final_absolute_p1_l2": 103.2414475208594,
+        "final_maximum_absolute_difference": 716.5423073354528,
+        "final_reference_maximum": 654.6906007666413,
+        "final_actual_maximum": 1371.2329081020941,
+        "final_reference_p1_mean": 16.666666666662014,
+        "final_actual_p1_mean": 16.666666666661126,
+        "maximum_saved_absolute_difference": 716.5423073354528
+      },
+      "shear": {
+        "final_relative_p1_l2": 0.053904453559393745,
+        "final_absolute_p1_l2": 14.709824389250226,
+        "final_maximum_absolute_difference": 29.131758465662216,
+        "final_reference_maximum": 258.8099363143774,
+        "final_actual_maximum": 282.39439843437805,
+        "final_reference_p1_mean": 8.818802319014454,
+        "final_actual_p1_mean": 8.816047538416067,
+        "maximum_saved_absolute_difference": 29.131758465662216
+      }
+    },
+    {
+      "bem_end_size_mm": 0.03125,
+      "fem_end_size_mm": 0.25,
+      "pressure": {
+        "final_relative_p1_l2": 0.13134158109524863,
+        "final_absolute_p1_l2": 70.09724751613899,
+        "final_maximum_absolute_difference": 505.518561707328,
+        "final_reference_maximum": 865.7143463947662,
+        "final_actual_maximum": 1371.2329081020941,
+        "final_reference_p1_mean": 16.66666666664908,
+        "final_actual_p1_mean": 16.666666666661126,
+        "maximum_saved_absolute_difference": 505.518561707328
+      },
+      "shear": {
+        "final_relative_p1_l2": 0.02966805052493563,
+        "final_absolute_p1_l2": 8.031000241380635,
+        "final_maximum_absolute_difference": 20.999478753705944,
+        "final_reference_maximum": 274.8507091445456,
+        "final_actual_maximum": 282.39439843437805,
+        "final_reference_p1_mean": 8.817493062024209,
+        "final_actual_p1_mean": 8.816047538416065,
+        "maximum_saved_absolute_difference": 20.999478753705944
+      }
+    },
+    {
+      "bem_end_size_mm": 0.03125,
+      "fem_end_size_mm": 0.125,
+      "pressure": {
+        "final_relative_p1_l2": 0.0785359368517347,
+        "final_absolute_p1_l2": 42.107180557046505,
+        "final_maximum_absolute_difference": 279.8169935497567,
+        "final_reference_maximum": 1091.4159145523374,
+        "final_actual_maximum": 1371.2329081020941,
+        "final_reference_p1_mean": 16.666666666657346,
+        "final_actual_p1_mean": 16.66666666666113,
+        "maximum_saved_absolute_difference": 279.8169935497567
+      },
+      "shear": {
+        "final_relative_p1_l2": 0.01579941254360868,
+        "final_absolute_p1_l2": 4.257421433021965,
+        "final_maximum_absolute_difference": 15.648379396590997,
+        "final_reference_maximum": 281.9448580784319,
+        "final_actual_maximum": 282.39439843437805,
+        "final_reference_p1_mean": 8.816894965031073,
+        "final_actual_p1_mean": 8.816047538416067,
+        "maximum_saved_absolute_difference": 15.648379396590997
+      }
+    },
+    {
+      "bem_end_size_mm": 0.03125,
+      "fem_end_size_mm": 0.0625,
+      "pressure": {
+        "final_relative_p1_l2": 0.040487722617461856,
+        "final_absolute_p1_l2": 21.69058401073219,
+        "final_maximum_absolute_difference": 166.2882894047258,
+        "final_reference_maximum": 1293.0167513626425,
+        "final_actual_maximum": 1371.2329081020941,
+        "final_reference_p1_mean": 16.666666666634743,
+        "final_actual_p1_mean": 16.666666666661126,
+        "maximum_saved_absolute_difference": 166.2882894047258
+      },
+      "shear": {
+        "final_relative_p1_l2": 0.009214509109287217,
+        "final_absolute_p1_l2": 2.4777404222615225,
+        "final_maximum_absolute_difference": 11.033667877005882,
+        "final_reference_maximum": 284.1214330975017,
+        "final_actual_maximum": 282.39439843437805,
+        "final_reference_p1_mean": 8.81661205300935,
+        "final_actual_p1_mean": 8.816047538416065,
+        "maximum_saved_absolute_difference": 11.033667877005882
+      }
+    },
+    {
+      "bem_end_size_mm": 0.03125,
+      "fem_end_size_mm": 0.03125,
+      "pressure": {
+        "final_relative_p1_l2": 0.016262458175199647,
+        "final_absolute_p1_l2": 8.688646101497145,
+        "final_maximum_absolute_difference": 66.05471433635034,
+        "final_reference_maximum": 1437.2876224384445,
+        "final_actual_maximum": 1371.2329081020941,
+        "final_reference_p1_mean": 16.666666666672857,
+        "final_actual_p1_mean": 16.666666666661126,
+        "maximum_saved_absolute_difference": 66.05471433635034
+      },
+      "shear": {
+        "final_relative_p1_l2": 0.0062404830000098764,
+        "final_absolute_p1_l2": 1.6765856795103684,
+        "final_maximum_absolute_difference": 4.434158407919824,
+        "final_reference_maximum": 284.3012667397726,
+        "final_actual_maximum": 282.39439843437805,
+        "final_reference_p1_mean": 8.816496140662906,
+        "final_actual_p1_mean": 8.816047538416065,
+        "maximum_saved_absolute_difference": 4.434158407919824
+      }
+    },
+    {
+      "bem_end_size_mm": 0.03125,
+      "fem_end_size_mm": 0.015625,
+      "pressure": {
+        "final_relative_p1_l2": 0.02014692820801024,
+        "final_absolute_p1_l2": 10.740582461675181,
+        "final_maximum_absolute_difference": 148.5271974514817,
+        "final_reference_maximum": 1519.7601055535758,
+        "final_actual_maximum": 1371.2329081020941,
+        "final_reference_p1_mean": 16.666666666581303,
+        "final_actual_p1_mean": 16.666666666661126,
+        "maximum_saved_absolute_difference": 148.5271974514817
+      },
+      "shear": {
+        "final_relative_p1_l2": 0.006468836237914889,
+        "final_absolute_p1_l2": 1.7373735440160472,
+        "final_maximum_absolute_difference": 3.8882709413688303,
+        "final_reference_maximum": 283.9653379295777,
+        "final_actual_maximum": 282.39439843437805,
+        "final_reference_p1_mean": 8.816445271805991,
+        "final_actual_p1_mean": 8.816047538416065,
+        "maximum_saved_absolute_difference": 3.8882709413688303
+      }
+    },
+    {
+      "bem_end_size_mm": 0.015625,
+      "fem_end_size_mm": null,
+      "pressure": {
+        "final_relative_p1_l2": 0.34154900559449114,
+        "final_absolute_p1_l2": 173.03662992540197,
+        "final_maximum_absolute_difference": 1143.1966798478097,
+        "final_reference_maximum": 344.61618773272687,
+        "final_actual_maximum": 1487.8128675805365,
+        "final_reference_p1_mean": 16.666666666665883,
+        "final_actual_p1_mean": 16.66666666666119,
+        "maximum_saved_absolute_difference": 1143.1966798478097
+      },
+      "shear": {
+        "final_relative_p1_l2": 0.14224464071226636,
+        "final_absolute_p1_l2": 39.51701922021243,
+        "final_maximum_absolute_difference": 89.01484886250913,
+        "final_reference_maximum": 193.78369437978407,
+        "final_actual_maximum": 282.7985432422932,
+        "final_reference_p1_mean": 8.826535374494318,
+        "final_actual_p1_mean": 8.816029121220724,
+        "maximum_saved_absolute_difference": 89.01484886250913
+      }
+    },
+    {
+      "bem_end_size_mm": 0.015625,
+      "fem_end_size_mm": 1.0,
+      "pressure": {
+        "final_relative_p1_l2": 0.26790129177637756,
+        "final_absolute_p1_l2": 138.84381268357652,
+        "final_maximum_absolute_difference": 1007.9285680519997,
+        "final_reference_maximum": 479.8842995285368,
+        "final_actual_maximum": 1487.8128675805365,
+        "final_reference_p1_mean": 16.666666666665286,
+        "final_actual_p1_mean": 16.66666666666119,
+        "maximum_saved_absolute_difference": 1007.9285680519997
+      },
+      "shear": {
+        "final_relative_p1_l2": 0.09051759131472994,
+        "final_absolute_p1_l2": 24.957382456802005,
+        "final_maximum_absolute_difference": 51.77210297126152,
+        "final_reference_maximum": 231.02644027103167,
+        "final_actual_maximum": 282.7985432422932,
+        "final_reference_p1_mean": 8.821500165097516,
+        "final_actual_p1_mean": 8.816029121220724,
+        "maximum_saved_absolute_difference": 51.77210297126152
+      }
+    },
+    {
+      "bem_end_size_mm": 0.015625,
+      "fem_end_size_mm": 0.5,
+      "pressure": {
+        "final_relative_p1_l2": 0.19781002591555977,
+        "final_absolute_p1_l2": 104.3671875847343,
+        "final_maximum_absolute_difference": 833.1222668138952,
+        "final_reference_maximum": 654.6906007666413,
+        "final_actual_maximum": 1487.8128675805365,
+        "final_reference_p1_mean": 16.666666666662014,
+        "final_actual_p1_mean": 16.666666666661193,
+        "maximum_saved_absolute_difference": 833.1222668138952
+      },
+      "shear": {
+        "final_relative_p1_l2": 0.05357125259391224,
+        "final_absolute_p1_l2": 14.61889817879971,
+        "final_maximum_absolute_difference": 29.026826166148794,
+        "final_reference_maximum": 258.8099363143774,
+        "final_actual_maximum": 282.7985432422932,
+        "final_reference_p1_mean": 8.818802319014454,
+        "final_actual_p1_mean": 8.816029121220726,
+        "maximum_saved_absolute_difference": 29.026826166148794
+      }
+    },
+    {
+      "bem_end_size_mm": 0.015625,
+      "fem_end_size_mm": 0.25,
+      "pressure": {
+        "final_relative_p1_l2": 0.13436240808550395,
+        "final_absolute_p1_l2": 71.70946853155222,
+        "final_maximum_absolute_difference": 622.0985211857703,
+        "final_reference_maximum": 865.7143463947662,
+        "final_actual_maximum": 1487.8128675805365,
+        "final_reference_p1_mean": 16.66666666664908,
+        "final_actual_p1_mean": 16.66666666666119,
+        "maximum_saved_absolute_difference": 622.0985211857703
+      },
+      "shear": {
+        "final_relative_p1_l2": 0.029254343010863975,
+        "final_absolute_p1_l2": 7.919011584000606,
+        "final_maximum_absolute_difference": 21.268916016250415,
+        "final_reference_maximum": 274.8507091445456,
+        "final_actual_maximum": 282.7985432422932,
+        "final_reference_p1_mean": 8.817493062024209,
+        "final_actual_p1_mean": 8.816029121220724,
+        "maximum_saved_absolute_difference": 21.268916016250415
+      }
+    },
+    {
+      "bem_end_size_mm": 0.015625,
+      "fem_end_size_mm": 0.125,
+      "pressure": {
+        "final_relative_p1_l2": 0.08281023411523816,
+        "final_absolute_p1_l2": 44.39885254624815,
+        "final_maximum_absolute_difference": 396.39695302819905,
+        "final_reference_maximum": 1091.4159145523374,
+        "final_actual_maximum": 1487.8128675805365,
+        "final_reference_p1_mean": 16.666666666657346,
+        "final_actual_p1_mean": 16.66666666666119,
+        "maximum_saved_absolute_difference": 396.39695302819905
+      },
+      "shear": {
+        "final_relative_p1_l2": 0.015456708178788194,
+        "final_absolute_p1_l2": 4.165073891368137,
+        "final_maximum_absolute_difference": 13.938579984355869,
+        "final_reference_maximum": 281.9448580784319,
+        "final_actual_maximum": 282.7985432422932,
+        "final_reference_p1_mean": 8.816894965031072,
+        "final_actual_p1_mean": 8.816029121220726,
+        "maximum_saved_absolute_difference": 13.938579984355869
+      }
+    },
+    {
+      "bem_end_size_mm": 0.015625,
+      "fem_end_size_mm": 0.0625,
+      "pressure": {
+        "final_relative_p1_l2": 0.04651163966181664,
+        "final_absolute_p1_l2": 24.917791427627154,
+        "final_maximum_absolute_difference": 194.796116217894,
+        "final_reference_maximum": 1293.0167513626425,
+        "final_actual_maximum": 1487.8128675805365,
+        "final_reference_p1_mean": 16.666666666634743,
+        "final_actual_p1_mean": 16.666666666661193,
+        "maximum_saved_absolute_difference": 194.796116217894
+      },
+      "shear": {
+        "final_relative_p1_l2": 0.009057460359782056,
+        "final_absolute_p1_l2": 2.4355107136249154,
+        "final_maximum_absolute_difference": 9.589998218392793,
+        "final_reference_maximum": 284.1214330975017,
+        "final_actual_maximum": 282.7985432422932,
+        "final_reference_p1_mean": 8.81661205300935,
+        "final_actual_p1_mean": 8.816029121220724,
+        "maximum_saved_absolute_difference": 9.589998218392793
+      }
+    },
+    {
+      "bem_end_size_mm": 0.015625,
+      "fem_end_size_mm": 0.03125,
+      "pressure": {
+        "final_relative_p1_l2": 0.023537248460929094,
+        "final_absolute_p1_l2": 12.575394191752356,
+        "final_maximum_absolute_difference": 134.31880306838286,
+        "final_reference_maximum": 1437.2876224384445,
+        "final_actual_maximum": 1487.8128675805365,
+        "final_reference_p1_mean": 16.666666666672857,
+        "final_actual_p1_mean": 16.666666666661193,
+        "maximum_saved_absolute_difference": 134.31880306838286
+      },
+      "shear": {
+        "final_relative_p1_l2": 0.006093643297108647,
+        "final_absolute_p1_l2": 1.6371353127571269,
+        "final_maximum_absolute_difference": 6.380160304985168,
+        "final_reference_maximum": 284.3012667397726,
+        "final_actual_maximum": 282.7985432422932,
+        "final_reference_p1_mean": 8.816496140662904,
+        "final_actual_p1_mean": 8.816029121220724,
+        "maximum_saved_absolute_difference": 6.380160304985168
+      }
+    },
+    {
+      "bem_end_size_mm": 0.015625,
+      "fem_end_size_mm": 0.015625,
+      "pressure": {
+        "final_relative_p1_l2": 0.00916540334887483,
+        "final_absolute_p1_l2": 4.886192547406031,
+        "final_maximum_absolute_difference": 31.947237973039364,
+        "final_reference_maximum": 1519.7601055535758,
+        "final_actual_maximum": 1487.8128675805365,
+        "final_reference_p1_mean": 16.666666666581303,
+        "final_actual_p1_mean": 16.66666666666119,
+        "maximum_saved_absolute_difference": 31.947237973039364
+      },
+      "shear": {
+        "final_relative_p1_l2": 0.006189079391765505,
+        "final_absolute_p1_l2": 1.6622375960060272,
+        "final_maximum_absolute_difference": 2.764214605754887,
+        "final_reference_maximum": 283.9653379295777,
+        "final_actual_maximum": 282.7985432422932,
+        "final_reference_p1_mean": 8.816445271805991,
+        "final_actual_p1_mean": 8.816029121220724,
+        "maximum_saved_absolute_difference": 2.764214605754887
+      }
+    },
+    {
+      "bem_end_size_mm": 0.0078125,
+      "fem_end_size_mm": null,
+      "pressure": {
+        "final_relative_p1_l2": 0.3415736580866375,
+        "final_absolute_p1_l2": 173.0491194483998,
+        "final_maximum_absolute_difference": 1201.5643958948835,
+        "final_reference_maximum": 344.61618773272687,
+        "final_actual_maximum": 1546.1805836276103,
+        "final_reference_p1_mean": 16.666666666665883,
+        "final_actual_p1_mean": 16.666666666660586,
+        "maximum_saved_absolute_difference": 1201.5643958948835
+      },
+      "shear": {
+        "final_relative_p1_l2": 0.1421980425979755,
+        "final_absolute_p1_l2": 39.50407378642429,
+        "final_maximum_absolute_difference": 88.99461853752351,
+        "final_reference_maximum": 193.78369437978407,
+        "final_actual_maximum": 282.7783129173076,
+        "final_reference_p1_mean": 8.82653537449432,
+        "final_actual_p1_mean": 8.816020564173236,
+        "maximum_saved_absolute_difference": 88.99461853752351
+      }
+    },
+    {
+      "bem_end_size_mm": 0.0078125,
+      "fem_end_size_mm": 1.0,
+      "pressure": {
+        "final_relative_p1_l2": 0.267938128978241,
+        "final_absolute_p1_l2": 138.862904109084,
+        "final_maximum_absolute_difference": 1066.2962840990735,
+        "final_reference_maximum": 479.8842995285368,
+        "final_actual_maximum": 1546.1805836276103,
+        "final_reference_p1_mean": 16.666666666665286,
+        "final_actual_p1_mean": 16.666666666660586,
+        "maximum_saved_absolute_difference": 1066.2962840990735
+      },
+      "shear": {
+        "final_relative_p1_l2": 0.09042014165839173,
+        "final_absolute_p1_l2": 24.93051377516574,
+        "final_maximum_absolute_difference": 51.7518726462759,
+        "final_reference_maximum": 231.02644027103167,
+        "final_actual_maximum": 282.7783129173076,
+        "final_reference_p1_mean": 8.821500165097515,
+        "final_actual_p1_mean": 8.816020564173236,
+        "maximum_saved_absolute_difference": 51.7518726462759
+      }
+    },
+    {
+      "bem_end_size_mm": 0.0078125,
+      "fem_end_size_mm": 0.5,
+      "pressure": {
+        "final_relative_p1_l2": 0.1978503408752676,
+        "final_absolute_p1_l2": 104.38845829102343,
+        "final_maximum_absolute_difference": 891.489982860969,
+        "final_reference_maximum": 654.6906007666413,
+        "final_actual_maximum": 1546.1805836276103,
+        "final_reference_p1_mean": 16.666666666662014,
+        "final_actual_p1_mean": 16.666666666660586,
+        "maximum_saved_absolute_difference": 891.489982860969
+      },
+      "shear": {
+        "final_relative_p1_l2": 0.05342724648209779,
+        "final_absolute_p1_l2": 14.579600783577343,
+        "final_maximum_absolute_difference": 29.138920640074645,
+        "final_reference_maximum": 258.8099363143774,
+        "final_actual_maximum": 282.7783129173076,
+        "final_reference_p1_mean": 8.818802319014454,
+        "final_actual_p1_mean": 8.816020564173236,
+        "maximum_saved_absolute_difference": 29.138920640074645
+      }
+    },
+    {
+      "bem_end_size_mm": 0.0078125,
+      "fem_end_size_mm": 0.25,
+      "pressure": {
+        "final_relative_p1_l2": 0.13437273937287153,
+        "final_absolute_p1_l2": 71.71498235894583,
+        "final_maximum_absolute_difference": 680.4662372328442,
+        "final_reference_maximum": 865.7143463947662,
+        "final_actual_maximum": 1546.1805836276103,
+        "final_reference_p1_mean": 16.66666666664908,
+        "final_actual_p1_mean": 16.666666666660586,
+        "maximum_saved_absolute_difference": 680.4662372328442
+      },
+      "shear": {
+        "final_relative_p1_l2": 0.029074572902026728,
+        "final_absolute_p1_l2": 7.870348670127936,
+        "final_maximum_absolute_difference": 21.13617546063992,
+        "final_reference_maximum": 274.8507091445456,
+        "final_actual_maximum": 282.7783129173076,
+        "final_reference_p1_mean": 8.817493062024209,
+        "final_actual_p1_mean": 8.816020564173236,
+        "maximum_saved_absolute_difference": 21.13617546063992
+      }
+    },
+    {
+      "bem_end_size_mm": 0.0078125,
+      "fem_end_size_mm": 0.125,
+      "pressure": {
+        "final_relative_p1_l2": 0.08265826128069592,
+        "final_absolute_p1_l2": 44.31737204394108,
+        "final_maximum_absolute_difference": 454.7646690752729,
+        "final_reference_maximum": 1091.4159145523374,
+        "final_actual_maximum": 1546.1805836276103,
+        "final_reference_p1_mean": 16.666666666657346,
+        "final_actual_p1_mean": 16.666666666660586,
+        "maximum_saved_absolute_difference": 454.7646690752729
+      },
+      "shear": {
+        "final_relative_p1_l2": 0.01522110115448358,
+        "final_absolute_p1_l2": 4.101585556452117,
+        "final_maximum_absolute_difference": 14.067323996683143,
+        "final_reference_maximum": 281.9448580784319,
+        "final_actual_maximum": 282.7783129173076,
+        "final_reference_p1_mean": 8.816894965031072,
+        "final_actual_p1_mean": 8.816020564173236,
+        "maximum_saved_absolute_difference": 14.067323996683143
+      }
+    },
+    {
+      "bem_end_size_mm": 0.0078125,
+      "fem_end_size_mm": 0.0625,
+      "pressure": {
+        "final_relative_p1_l2": 0.04638341843742451,
+        "final_absolute_p1_l2": 24.849099165878727,
+        "final_maximum_absolute_difference": 253.16383226496782,
+        "final_reference_maximum": 1293.0167513626425,
+        "final_actual_maximum": 1546.1805836276103,
+        "final_reference_p1_mean": 16.666666666634747,
+        "final_actual_p1_mean": 16.666666666660586,
+        "maximum_saved_absolute_difference": 253.16383226496782
+      },
+      "shear": {
+        "final_relative_p1_l2": 0.008820391114492072,
+        "final_absolute_p1_l2": 2.371763850393971,
+        "final_maximum_absolute_difference": 8.627600296825278,
+        "final_reference_maximum": 284.1214330975017,
+        "final_actual_maximum": 282.7783129173076,
+        "final_reference_p1_mean": 8.81661205300935,
+        "final_actual_p1_mean": 8.816020564173236,
+        "maximum_saved_absolute_difference": 8.627600296825278
+      }
+    },
+    {
+      "bem_end_size_mm": 0.0078125,
+      "fem_end_size_mm": 0.03125,
+      "pressure": {
+        "final_relative_p1_l2": 0.02446221907471952,
+        "final_absolute_p1_l2": 13.069584075651068,
+        "final_maximum_absolute_difference": 108.89296118916582,
+        "final_reference_maximum": 1437.2876224384445,
+        "final_actual_maximum": 1546.1805836276103,
+        "final_reference_p1_mean": 16.666666666672857,
+        "final_actual_p1_mean": 16.666666666660586,
+        "maximum_saved_absolute_difference": 108.89296118916582
+      },
+      "shear": {
+        "final_relative_p1_l2": 0.005963067694201063,
+        "final_absolute_p1_l2": 1.602054504760704,
+        "final_maximum_absolute_difference": 5.615209258613845,
+        "final_reference_maximum": 284.3012667397726,
+        "final_actual_maximum": 282.7783129173076,
+        "final_reference_p1_mean": 8.816496140662904,
+        "final_actual_p1_mean": 8.816020564173236,
+        "maximum_saved_absolute_difference": 5.615209258613845
+      }
+    },
+    {
+      "bem_end_size_mm": 0.0078125,
+      "fem_end_size_mm": 0.015625,
+      "pressure": {
+        "final_relative_p1_l2": 0.012205569080404217,
+        "final_absolute_p1_l2": 6.506943383440072,
+        "final_maximum_absolute_difference": 92.69904567430262,
+        "final_reference_maximum": 1519.7601055535758,
+        "final_actual_maximum": 1546.1805836276103,
+        "final_reference_p1_mean": 16.666666666581303,
+        "final_actual_p1_mean": 16.666666666660586,
+        "maximum_saved_absolute_difference": 92.69904567430262
+      },
+      "shear": {
+        "final_relative_p1_l2": 0.0059786784842598625,
+        "final_absolute_p1_l2": 1.6057289819535099,
+        "final_maximum_absolute_difference": 3.639272003901226,
+        "final_reference_maximum": 283.9653379295777,
+        "final_actual_maximum": 282.7783129173076,
+        "final_reference_p1_mean": 8.816445271805987,
+        "final_actual_p1_mean": 8.816020564173236,
+        "maximum_saved_absolute_difference": 3.639272003901226
+      }
+    }
+  ],
+  "unchanged_mesh_backend_comparisons": [
+    {
+      "end_size_mm": 0.0625,
+      "pressure": {
+        "final_relative_p1_l2": 9.839151041083245e-13,
+        "final_absolute_p1_l2": 5.214093139290213e-10,
+        "final_maximum_absolute_difference": 5.241318490334379e-10,
+        "final_reference_maximum": 1187.7106777500017,
+        "final_actual_maximum": 1187.7106777503293,
+        "final_reference_p1_mean": 16.66666666666543,
+        "final_actual_p1_mean": 16.666666666664746,
+        "maximum_saved_absolute_difference": 5.241318490334379e-10
+      },
+      "shear": {
+        "final_relative_p1_l2": 1.0526186975865497e-11,
+        "final_absolute_p1_l2": 2.8215787816289304e-09,
+        "final_maximum_absolute_difference": 9.663381206337363e-10,
+        "final_reference_maximum": 280.4109174870386,
+        "final_actual_maximum": 280.4109174878552,
+        "final_reference_p1_mean": 8.81609120284409,
+        "final_actual_p1_mean": 8.816091202847208,
+        "maximum_saved_absolute_difference": 9.663381206337363e-10
+      }
+    },
+    {
+      "end_size_mm": 0.03125,
+      "pressure": {
+        "final_relative_p1_l2": 1.0599039844756256e-12,
+        "final_absolute_p1_l2": 5.628550591774939e-10,
+        "final_maximum_absolute_difference": 6.592131285287905e-10,
+        "final_reference_maximum": 1371.2329081020941,
+        "final_actual_maximum": 1371.2329081022672,
+        "final_reference_p1_mean": 16.66666666666113,
+        "final_actual_p1_mean": 16.666666666666206,
+        "maximum_saved_absolute_difference": 6.592131285287905e-10
+      },
+      "shear": {
+        "final_relative_p1_l2": 1.1981416664757607e-11,
+        "final_absolute_p1_l2": 3.2116789227812368e-09,
+        "final_maximum_absolute_difference": 2.5315785023849458e-09,
+        "final_reference_maximum": 282.39439843437805,
+        "final_actual_maximum": 282.3943984369096,
+        "final_reference_p1_mean": 8.816047538416067,
+        "final_actual_p1_mean": 8.816047538437049,
+        "maximum_saved_absolute_difference": 2.5315785023849458e-09
+      }
+    }
+  ],
+  "rejected_condensed_finest_lift": {
+    "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fine-static-lift-diagnostic-20261027-v2/summary.json",
+    "sha256": "26ebab42eee443010a6093bb85c33018a123390522895b6f6f535670fb460019",
+    "result": {
+      "status": "direct_full_body_static_root_diagnostic",
+      "checkpoint_sha256": "39694a52e9ce6abb692409b2ab56edbc1472f9ecd5888dceeb86a0a912d3cc80",
+      "original_force_residual_mpa": 1.9315393728890853e-07,
+      "original_trace_error_mm": 1.1232854923992619e-13,
+      "direct_root": {
+        "policy": "Tatva healed Coulomb active set, then retain prescribed weakening memory",
+        "active_set_iterations": [
+          {
+            "iteration": 1,
+            "open": 0,
+            "sliding": 0
+          }
+        ],
+        "static_sliding_points": 0,
+        "static_open_points": 0,
+        "original_force_residual_mpa": 1.1677911970766169e-08,
+        "maximum_strength_excess_mpa": -3.1342425724871443,
+        "maximum_plastic_offset_change_mm": 0.0,
+        "input_seed_unchanged": true,
+        "weakening_memory_unchanged": true,
+        "no_dynamic_weakening_during_preload": true
+      },
+      "full_evaluate_residual_mpa": 1.1677911970766169e-08,
+      "actual_port_equilibrium_residual_mpa": 7.6539663496078e-09,
+      "nonport_projection_residual_mpa": 1.1677911970766169e-08,
+      "old_schur_force_on_direct_trace_residual_mpa": 2.4381449748034356e-08,
+      "direct_vs_old_retained_displacement_max_mm": 1.213251721310371e-12,
+      "direct_vs_old_full_displacement_max_mm": 6.544098596350523e-12,
+      "maximum_pressure_mpa": 1487.8128675804853,
+      "maximum_shear_mpa": 282.79854324227955,
+      "seconds": 0.25958783365786076,
+      "physics_changed": false,
+      "original_guard_relaxed": false,
+      "physical_convergence_verified": false,
+      "same_accuracy_fem_advantage_verified": false
+    }
+  },
+  "attempted_fem_background_h1": {
+    "status": "failed_original_static_residual_gate_no_fields_accepted",
+    "log": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-chamfer-graded-static-h1-fine-20261027.log",
+    "log_sha256": "435ee44f19365c8b2c63abe3bf14e75f02f85ccf3d4db5a7a547cbc37648121c",
+    "observed_residual_value_not_captured": true
+  },
+  "source_p1_projection_caveat": "All meshes sample the original P1 source, but do not retain all its knots. Trial shear projection bounds are recorded; dynamic sensitivity to this approximation remains unresolved.",
+  "timing_scope": "Sequential local static controls, four-core thread settings, BLAS=1. Includes mesh/assembly/static solve; not complete-event timings or a same-accuracy speed benchmark.",
+  "endpoint_and_background_and_quadrature_convergence_certified": false,
+  "full_dynamic_fem_agreement_verified": false,
+  "same_accuracy_fem_advantage_verified": false,
+  "original_tatva_readonly": true
+}
