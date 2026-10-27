@@ -128,6 +128,9 @@ NumPy、SciPy、threadpoolctl 是核心依賴；JAX 為可選的 AD 後端，Mat
 這是 241 knots 的 P1 塑性 offset、healed 零 memory 與 actuator，沒有包含 bulk checkpoint。
 因此 BEM 端不必取得原 12.7 GB FEM restart HDF5 才能重現相同輸入。
 FEM 動態參考的來源與執行仍見[graded transient／resume](docs/graded_fem_transient.md)。
+新增[真正雙精度壓力／signed shear 觀測](docs/float64_contact_comparison.md)，
+已通過原 49 datasets 及中斷／接續全部 69 datasets 的逐位元相等控制。
+新的完整事件比較會使用這些場與整數剪切步數。
 
 ## 4 核心完整時間範圍對照
 

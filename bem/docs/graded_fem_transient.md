@@ -38,9 +38,13 @@ PYTHONDONTWRITEBYTECODE=1 python -B bem/tools/run_fem_reference.py \
   --shear-duration .045 --normal-duration .002 \
   --normal-frames 4 --shear-frames 64 \
   --interface-normal-frames 4 --interface-shear-frames 9000 \
-  --checkpoint-interval 600
+  --float64-contact-observations --checkpoint-interval 600
 ```
 
 先加 `--prepare-only` 可建立配置與投影 restart，不能當成已執行時間積分。
 完整 graded FEM transient 尚未完成；目前 h2／h1 的 complete events 仍是原未端點加密的參考。
 原 `/Volumes/Gauss-T7/tatva` 保持只讀，所有新輸出寫入本 checkout。
+
+新增的[雙精度接觸觀測與完整時空比較](float64_contact_comparison.md)已通過
+真實 FEM 的原輸出逐位元相等及中斷／接續控制。
+它直接保存帶正負號的 endpoint shear，供新的完整 graded 參考使用。

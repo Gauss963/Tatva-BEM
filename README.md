@@ -113,6 +113,9 @@ preserves the primal, all five gradients and every actuator cotangent, with
 substantially shorter measured AD time on this machine.
 The [original-equation audit](bem/docs/original_history_audit.md) additionally
 checks causal force histories and the initial P1 seed-field projection.
+The [float64 contact output control](bem/docs/float64_contact_comparison.md)
+adds signed FEM endpoint shear without changing the original numerical state;
+all original datasets and checkpoint/resume outputs passed bitwise identity.
 The [Galerkin implementation and validation](bem/docs/galerkin.md) addresses
 the sampled passivity failures of the original collocation backend.
 

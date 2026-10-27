@@ -241,6 +241,7 @@ def main():
     parser.add_argument("--shear-frames", type=int, default=32)
     parser.add_argument("--interface-normal-frames", type=int)
     parser.add_argument("--interface-shear-frames", type=int)
+    parser.add_argument("--float64-contact-observations", action="store_true")
     parser.add_argument("--time-step", type=float, help="0 selects FEM's assembled stability limit")
     args = parser.parse_args()
     output = args.output.resolve()
@@ -276,6 +277,12 @@ def main():
             raise ValueError("Frame targets must be positive")
     if args.resume and (args.prepare_only or args.checkpoint_interval is None):
         raise ValueError("Resume requires checkpointing and cannot be prepare-only")
+    if (
+        args.float64_contact_observations
+        and args.interface_normal_frames is None
+        and args.interface_shear_frames is None
+    ):
+        raise ValueError("Float64 contact observations require separate interface sampling")
     if not args.resume and (
         (output / "simulation.h5").exists() or (output / "summary.json").exists()
     ):
@@ -355,6 +362,7 @@ def main():
     config = RunConfig(**values)
     original_builder, original_runner = build_case_model, run_simulation_dumped
     mesh_adapter = None
+    contact_observations = None
     if args.contact_end_size is not None:
         target_h = config.mesh_size if args.mesh_size is None else args.mesh_size
         if args.contact_end_size >= target_h:
@@ -376,6 +384,20 @@ def main():
             scope="Explicit mesh-only adapter; original material, contact, static and transient kernels",
             end_size_mm=args.contact_end_size,
             grading_growth=args.grading_growth,
+        )
+    if args.float64_contact_observations:
+        if config.dtype != "float64":
+            raise ValueError("Endpoint contact observations require the authored float64 model")
+        observer_path = Path(__file__).with_name("fem_contact_observations.py")
+        run_simulation_dumped = runpy.run_path(str(observer_path))["make_observed_runner"](
+            run_simulation_dumped
+        )
+        contact_observations = dict(
+            source=str(observer_path.resolve()),
+            sha256=digest(observer_path),
+            schema_version=1,
+            only_high_rate_writer_augmented=True,
+            scope="Float64 endpoint kinematics and elastic contact traction; integration equations unchanged",
         )
     source_restart = restart_seed_record(config.restart_from_file)
     restart_projection = None
@@ -453,13 +475,21 @@ def main():
         restart_projection=restart_projection,
         output_options=output_options,
         mesh_adapter=mesh_adapter,
+        contact_observations=contact_observations,
         checkpoint_interval_seconds=args.checkpoint_interval,
         requested_cores=args.cores,
         source_snapshot_path=str(snapshot),
         arguments=arguments,
     )
     if args.resume:
-        for key in ["source", "actual_restart", "source_restart", "mesh_adapter", "output_options"]:
+        for key in [
+            "source",
+            "actual_restart",
+            "source_restart",
+            "mesh_adapter",
+            "output_options",
+            "contact_observations",
+        ]:
             if previous[key] != manifest[key]:
                 raise ValueError(f"FEM resume provenance changed: {key}")
         manifest = previous
@@ -521,6 +551,21 @@ def main():
         raise ValueError("Original FEM function bindings changed")
     if mesh_adapter is not None and digest(mesh_adapter["source"]) != mesh_adapter["sha256"]:
         raise ValueError("Explicit FEM mesh adapter changed during simulation")
+    if contact_observations is not None:
+        if digest(contact_observations["source"]) != contact_observations["sha256"]:
+            raise ValueError("Contact observation adapter changed during simulation")
+        import h5py
+
+        with h5py.File(output / "simulation.h5", "r") as stream:
+            observed, high = stream["contact_observations"], stream["interface_high_rate"]
+            if (
+                int(observed.attrs["written_frames"]) != int(stream.attrs["saved_interface_frames"])
+                or not np.array_equal(observed["step_id"][:], high["step_id"][:])
+                or not np.array_equal(observed["phase_id"][:], high["phase_id"][:])
+            ):
+                raise ValueError(
+                    "Float64 contact observations do not cover the complete source trace"
+                )
     if runner_sha != digest(Path(__file__)) or any(
         digest(path) != checksum for path, checksum in protected.items()
     ):
@@ -563,6 +608,7 @@ def main():
         "actual_restart": actual_restart,
         "restart_projection": restart_projection,
         "mesh_adapter": mesh_adapter,
+        "contact_observations": contact_observations,
         "checkpoint_interval_seconds": args.checkpoint_interval,
         "jax_enable_x64": bool(jax.config.read("jax_enable_x64")),
         "output_options": output_options,
