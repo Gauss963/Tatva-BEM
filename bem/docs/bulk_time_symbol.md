@@ -73,6 +73,35 @@ PYTHONPATH=bem/src OPENBLAS_NUM_THREADS=1 FDBEM_CORES=1 python -B \
 核對串流組裝所得的全部 responses；單模態控制檢查二階誤差與符號，
 複數內部相位錯誤即使端點及振幅相同仍會被 profile metric 捕捉。
 
+## 同網格 Radau IIA 的對照入口
+
+`--method radau` 使用既有兩階段 Radau IIA tableau，預設仍是 BDF2。
+依 [Banjai、Lubich §3.1 的 stage convolution 與 composition rule](https://arxiv.org/html/1702.08385#S3.SS1)，
+令 `Delta(exp(-s*dt))/dt=P*diag(lambda)*P^-1`，本診斷使用
+
+```text
+v_i = exp(s*dt*(c_i-1))
+q_endpoint = sum_l P[-1,l] * (P^-1*v)[l] * T(lambda_l) * bspring,
+T(s) = [Z(s)+Dcontact+Dspring]^-1.
+```
+
+兩個 modes 都必須實際組裝；不能只保留接近 s 的 eigenvalue，
+也不能把兩個 stage 的 actuator 都當成 endpoint 值。
+輸出保存每個 mode 的參數、複數權重、response 與獨立方程殘差。
+新增控制包括：與完整 coupled-stage oscillator root 核對、
+與獨立 Radau interval quadrature 核對三階 endpoint 誤差，
+以及真實兩有限體上先建立完整 stage operator、再直接解耦合根的比較。
+相關 31 項測試已通過；實際細網格 Radau 數字另行量測。
+該論文的 coercivity／非線性分析條件不直接涵蓋本案 slip weakening，
+此診斷亦沒有更動正式接觸律或宣稱非線性高階收斂。
+
+```sh
+PYTHONPATH=bem/src OPENBLAS_NUM_THREADS=1 FDBEM_CORES=1 python -B \
+  bem/tools/audit_bulk_time_symbol.py MESH_SUMMARY_JSON \
+  --method radau --dt 2e-6 1e-6 --frequencies 1000 10000 \
+  --max-memory-mb 4096 --output FRESH_RADAU_DIAGNOSTIC
+```
+
 2026-10-28 的細網格量測以一個 worker 執行，與兩-worker fresh kernel 重疊，
 已知 numerical worker 合計三個；這份時間不能用作受控 FEM／BEM 速度比較。
 診斷 wall time 為 909.67 s，包含 geometry、24 次 body assembly、磁碟暫存及求解。
