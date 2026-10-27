@@ -1,0 +1,116 @@
+{
+  "status": "verified_fast_route_running_in_persistent_direct_sessions",
+  "verified_utc": "2026-10-27T18:56:45.224972+00:00",
+  "ci": {
+    "id": 40561029256,
+    "head_sha": "4eff70e3bc9012f33e7703dca898eb3ddaf41200",
+    "conclusion": "success",
+    "html_url": "https://github.com/Gauss963/Tatva-BEM/actions/runs/40561029256"
+  },
+  "kernel_command": [
+    "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python",
+    "-B",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/prepare_trace_raw_resolvent.py",
+    "/Volumes/Gauss-T7/Tatva-BEM-cache/direct-resolvent-fine2-q12-full45-20261026",
+    "--output",
+    "/Volumes/Gauss-T7/Tatva-BEM-cache/graded-end015625-trace-seeded-q12-degree16-full45-20261028-v2",
+    "--dt",
+    "2e-06",
+    "--duration",
+    "0.045",
+    "--h",
+    "10",
+    "--contact-h",
+    "2",
+    "--contact-end-h",
+    "0.015625",
+    "--corner-h",
+    "0.015625",
+    "--clear-restart-knots",
+    "--quadrature",
+    "12",
+    "--degree",
+    "16",
+    "--workers",
+    "2",
+    "--weight-layout",
+    "fortran",
+    "--max-workspace-mb",
+    "10240",
+    "--max-memory-mb",
+    "18432",
+    "--primitive-partition"
+  ],
+  "kernel_child_pid": 48857,
+  "kernel_child_live_observation": "Wed Oct 28 02:49:40 2026     R    07:05 196.2 3920320 /opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python -B /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/prepare_trace_raw_resolvent.py /Volumes/Gauss-T7/Tatva-BEM-cache/direct-resolvent-fine2-q12-full45-20261026 --output /Volumes/Gauss-T7/Tatva-BEM-cache/graded-end015625-trace-seeded-q12-degree16-full45-20261028-v2 --dt 2e-06 --duration 0.045 --h 10 --contact-h 2 --contact-end-h 0.015625 --corner-h 0.015625 --clear-restart-knots --quadrature 12 --degree 16 --workers 2 --weight-layout fortran --max-workspace-mb 10240 --max-memory-mb 18432 --primitive-partition",
+  "earlier_inherited_constructor_seconds": 2870.7012187922373,
+  "retired_constructor_stage_seconds": 32422.962226958014,
+  "transition_preparation_seconds": 7.55043762549758,
+  "failed_launcher_and_recovery_elapsed_seconds_upper_bound": 313.46442,
+  "inherited_paid_build_seconds_upper_bound": 35614.678303375746,
+  "launch_failure": {
+    "status": "verified_launcher_children_missing",
+    "observed_utc": "2026-10-27T18:49:39.589181+00:00",
+    "missing_pids": [
+      48631,
+      48635,
+      48637,
+      48641
+    ],
+    "failed_directory": "graded-full-event-study-20261028",
+    "mechanism": "Launcher returned and its exec session ended; its child processes disappeared. Separate persistent exec sessions are used for recovery.",
+    "launch_and_recovery_elapsed_seconds_upper_bound": 313.46442,
+    "exact_child_cpu_time_unavailable": true,
+    "no_valid_numerical_kernel_completed": true,
+    "all_artifacts_preserved": true
+  },
+  "new_supervisors": {
+    "bem": {
+      "pid": 48846,
+      "lstart": "Wed Oct 28 02:49:39 2026",
+      "script": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/graded-full-event-study-20261028-v2.py",
+      "exec_session_id": 98063,
+      "verified_utc": "2026-10-27T18:50:21.660855+00:00",
+      "live_observation": "Wed Oct 28 02:49:39 2026     Ss   /opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python -B bem/outputs/graded-full-event-study-20261028-v2.py"
+    },
+    "fem": {
+      "pid": 48921,
+      "lstart": "Wed Oct 28 02:50:21 2026",
+      "script": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/graded-fem-event-study-20261028-v2.py",
+      "exec_session_id": 56034,
+      "verified_utc": "2026-10-27T18:51:30.048360+00:00",
+      "live_observation": "Wed Oct 28 02:50:21 2026     Ss   /opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python -B bem/outputs/graded-fem-event-study-20261028-v2.py"
+    },
+    "ad": {
+      "pid": 49007,
+      "lstart": "Wed Oct 28 02:51:30 2026",
+      "script": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/graded-fine-ad-study-20261028-v2.py",
+      "exec_session_id": 9083,
+      "verified_utc": "2026-10-27T18:53:32.339406+00:00",
+      "live_observation": "Wed Oct 28 02:51:30 2026     Ss   /opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python -B bem/outputs/graded-fine-ad-study-20261028-v2.py"
+    }
+  },
+  "frozen_reference_prefix": {
+    "path": "/Volumes/Gauss-T7/Tatva-BEM-cache/graded-end015625-raw-q12-degree16-full45-20261027/work-resolvent.npy",
+    "count": 1024,
+    "reported_written": 1024,
+    "plan": {
+      "dt": 2e-06,
+      "steps": 22500,
+      "dofs": 531,
+      "fft_size": 65536,
+      "radius": 0.999648715112665,
+      "estimated_peak_bytes": 200833736760,
+      "weight_bytes": 50755235688
+    },
+    "header_and_prefix_sha256": "459d6cca7366fd4a7ad045941e32f09078ca967c8439ce7a1cc15f38e898186b",
+    "hash_scope": "NPY header and first 1024 matrices only",
+    "complete_kernel": false
+  },
+  "early_prefix_check_status": "Pending the fresh builder reaching 1024 emitted matrices",
+  "all_retired_outputs_preserved": true,
+  "original_tatva_readonly": true,
+  "whole_dynamic_fem_agreement_or_advantage_verified": false,
+  "goal_achieved": false,
+  "scope": "Operational route change and paid-work preservation; not a numerical completion result"
+}

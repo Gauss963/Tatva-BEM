@@ -72,3 +72,18 @@ streaming SHA 僅涵蓋 NPY header 與這段資料，live candidate 會再次讀
 它不把部分檔案標成完整 kernel；此反解仍來自 reference approximant，
 不能替代獨立的原始算子稽核。回歸測試明確驗證：未寫完的 tail 不可被當成已驗證，
 且全域範數很小的弱方向誤差仍會使早期檢查失敗。
+
+## 2026-10-28 的實際候選切換
+
+CI 與資源檢查通過後，已啟動 trace＋advisory 的 fresh fine kernel，
+後接同一 45 ms N64／N160 事件、完整原方程稽核、真正 float64 graded FEM 比較與 gated AD。
+舊 joint 建核未完成，但原檔案及前 1024 個已寫完的細網格矩陣保留，
+以 header＋prefix SHA 固定，供新建核達到該區間時自動核對。
+
+第一次 launcher 結束後，工具亦結束其子程序；實際 PID 缺失已確認，
+現改成三個獨立、持續存在的 exec sessions，並以後續 `ps` 觀測核對建核 child 正在運算。
+這次啟動失敗與恢復期間採保守 elapsed upper bound 記帳。
+連同先前兩次未完成建核，帶入的新路徑已付費時間上界為 **35614.68 s（9.89 h）**；
+沒有刪除中止成本、暫停時間或錯誤啟動紀錄。
+[切換、成本與存活觀測](fast_route_transition_results.json)保存具體來源。
+此時新的完整動態精度與總耗時優勢仍未驗證，不能把這份操作紀錄視為完成證明。
