@@ -1,0 +1,962 @@
+{
+  "status": "passed_seeded_raw_matrix_screen",
+  "all_fft_grid_points_compared": 32769,
+  "records": [
+    {
+      "method": "raw_layers_before_condensation",
+      "source_evaluations": 3982,
+      "transformed_grid_points": 32769,
+      "direct_grid_points": 128,
+      "interpolated_grid_points": 32641,
+      "accepted_intervals": 79,
+      "rejected_intervals": 82,
+      "maximum_raw_normalized_check": 0.0028497892335689907,
+      "maximum_raw_normalized_tail": 0.10487645298117397,
+      "maximum_output_normalized_check": 0.00033879616600906423,
+      "estimated_interpolation_array_bytes": 5289600,
+      "provider_geometry_and_solver_workspace_excluded": true,
+      "certified_error_bound": false,
+      "all_fft_grid_points_emitted": true,
+      "raw_evaluation_ratio": 0.12151728768042967,
+      "advisory_partition": false,
+      "diagnostic_seconds": 43.196146790869534
+    },
+    {
+      "method": "raw_layers_before_condensation",
+      "source_evaluations": 2144,
+      "transformed_grid_points": 32769,
+      "direct_grid_points": 128,
+      "interpolated_grid_points": 32641,
+      "accepted_intervals": 79,
+      "rejected_intervals": 5,
+      "maximum_raw_normalized_check": 0.0028497892335689907,
+      "maximum_raw_normalized_tail": 0.10487645298117397,
+      "maximum_output_normalized_check": 0.00033879616600906423,
+      "estimated_interpolation_array_bytes": 5289600,
+      "provider_geometry_and_solver_workspace_excluded": true,
+      "certified_error_bound": false,
+      "all_fft_grid_points_emitted": true,
+      "raw_evaluation_ratio": 0.06542769080533431,
+      "initial_intervals": [
+        [
+          0,
+          32
+        ],
+        [
+          32,
+          64
+        ],
+        [
+          64,
+          96
+        ],
+        [
+          96,
+          128
+        ],
+        [
+          128,
+          192
+        ],
+        [
+          192,
+          256
+        ],
+        [
+          256,
+          384
+        ],
+        [
+          384,
+          512
+        ],
+        [
+          512,
+          640
+        ],
+        [
+          640,
+          768
+        ],
+        [
+          768,
+          896
+        ],
+        [
+          896,
+          1024
+        ],
+        [
+          1024,
+          1152
+        ],
+        [
+          1152,
+          1280
+        ],
+        [
+          1280,
+          1408
+        ],
+        [
+          1408,
+          1536
+        ],
+        [
+          1536,
+          1664
+        ],
+        [
+          1664,
+          1792
+        ],
+        [
+          1792,
+          1920
+        ],
+        [
+          1920,
+          2048
+        ],
+        [
+          2048,
+          2176
+        ],
+        [
+          2176,
+          2304
+        ],
+        [
+          2304,
+          2432
+        ],
+        [
+          2432,
+          2560
+        ],
+        [
+          2560,
+          2688
+        ],
+        [
+          2688,
+          2816
+        ],
+        [
+          2816,
+          2944
+        ],
+        [
+          2944,
+          3072
+        ],
+        [
+          3072,
+          3200
+        ],
+        [
+          3200,
+          3328
+        ],
+        [
+          3328,
+          3456
+        ],
+        [
+          3456,
+          3584
+        ],
+        [
+          3584,
+          3712
+        ],
+        [
+          3712,
+          3840
+        ],
+        [
+          3840,
+          3968
+        ],
+        [
+          3968,
+          4096
+        ],
+        [
+          4096,
+          4224
+        ],
+        [
+          4224,
+          4352
+        ],
+        [
+          4352,
+          4480
+        ],
+        [
+          4480,
+          4608
+        ],
+        [
+          4608,
+          4736
+        ],
+        [
+          4736,
+          4864
+        ],
+        [
+          4864,
+          4992
+        ],
+        [
+          4992,
+          5120
+        ],
+        [
+          5120,
+          5248
+        ],
+        [
+          5248,
+          5376
+        ],
+        [
+          5376,
+          5504
+        ],
+        [
+          5504,
+          5632
+        ],
+        [
+          5632,
+          5760
+        ],
+        [
+          5760,
+          5888
+        ],
+        [
+          5888,
+          6016
+        ],
+        [
+          6016,
+          6144
+        ],
+        [
+          6144,
+          6272
+        ],
+        [
+          6272,
+          6400
+        ],
+        [
+          6400,
+          6528
+        ],
+        [
+          6528,
+          6656
+        ],
+        [
+          6656,
+          6912
+        ],
+        [
+          6912,
+          7168
+        ],
+        [
+          7168,
+          7424
+        ],
+        [
+          7424,
+          7680
+        ],
+        [
+          7680,
+          7936
+        ],
+        [
+          7936,
+          8192
+        ],
+        [
+          8192,
+          8448
+        ],
+        [
+          8448,
+          8704
+        ],
+        [
+          8704,
+          9216
+        ],
+        [
+          9216,
+          9728
+        ],
+        [
+          9728,
+          10240
+        ],
+        [
+          10240,
+          10752
+        ],
+        [
+          10752,
+          11264
+        ],
+        [
+          11264,
+          12288
+        ],
+        [
+          12288,
+          13312
+        ],
+        [
+          13312,
+          14336
+        ],
+        [
+          14336,
+          16384
+        ],
+        [
+          16384,
+          18432
+        ],
+        [
+          18432,
+          20480
+        ],
+        [
+          20480,
+          24576
+        ],
+        [
+          24576,
+          28672
+        ],
+        [
+          28672,
+          32769
+        ]
+      ],
+      "initial_partition_only_changed": true,
+      "original_acceptance_checks_retained": true,
+      "primitive_partition_screen": {
+        "distances_mm": [
+          0.015625,
+          0.125,
+          1.0,
+          10.0,
+          100.0,
+          500.0
+        ],
+        "sampling_options": {
+          "degree": 16,
+          "check_points": 7,
+          "raw_rtol": 1e-11,
+          "raw_atol": 1e-14,
+          "output_rtol": 1e-09,
+          "output_atol": 1e-14
+        },
+        "records": {
+          "method": "raw_layers_before_condensation",
+          "source_evaluations": 3742,
+          "transformed_grid_points": 32769,
+          "direct_grid_points": 128,
+          "interpolated_grid_points": 32641,
+          "accepted_intervals": 74,
+          "rejected_intervals": 77,
+          "maximum_raw_normalized_check": 0.0011254064255400693,
+          "maximum_raw_normalized_tail": 0.20383693653689225,
+          "maximum_output_normalized_check": 0.0,
+          "estimated_interpolation_array_bytes": 164160,
+          "provider_geometry_and_solver_workspace_excluded": true,
+          "certified_error_bound": false,
+          "all_fft_grid_points_emitted": true,
+          "raw_evaluation_ratio": 0.11419329244102658
+        },
+        "intervals": [
+          [
+            0,
+            32
+          ],
+          [
+            32,
+            64
+          ],
+          [
+            64,
+            96
+          ],
+          [
+            96,
+            128
+          ],
+          [
+            128,
+            192
+          ],
+          [
+            192,
+            256
+          ],
+          [
+            256,
+            384
+          ],
+          [
+            384,
+            512
+          ],
+          [
+            512,
+            640
+          ],
+          [
+            640,
+            768
+          ],
+          [
+            768,
+            896
+          ],
+          [
+            896,
+            1024
+          ],
+          [
+            1024,
+            1152
+          ],
+          [
+            1152,
+            1280
+          ],
+          [
+            1280,
+            1408
+          ],
+          [
+            1408,
+            1536
+          ],
+          [
+            1536,
+            1664
+          ],
+          [
+            1664,
+            1792
+          ],
+          [
+            1792,
+            1920
+          ],
+          [
+            1920,
+            2048
+          ],
+          [
+            2048,
+            2176
+          ],
+          [
+            2176,
+            2304
+          ],
+          [
+            2304,
+            2432
+          ],
+          [
+            2432,
+            2560
+          ],
+          [
+            2560,
+            2688
+          ],
+          [
+            2688,
+            2816
+          ],
+          [
+            2816,
+            2944
+          ],
+          [
+            2944,
+            3072
+          ],
+          [
+            3072,
+            3200
+          ],
+          [
+            3200,
+            3328
+          ],
+          [
+            3328,
+            3456
+          ],
+          [
+            3456,
+            3584
+          ],
+          [
+            3584,
+            3712
+          ],
+          [
+            3712,
+            3840
+          ],
+          [
+            3840,
+            3968
+          ],
+          [
+            3968,
+            4096
+          ],
+          [
+            4096,
+            4224
+          ],
+          [
+            4224,
+            4352
+          ],
+          [
+            4352,
+            4480
+          ],
+          [
+            4480,
+            4608
+          ],
+          [
+            4608,
+            4736
+          ],
+          [
+            4736,
+            4864
+          ],
+          [
+            4864,
+            4992
+          ],
+          [
+            4992,
+            5120
+          ],
+          [
+            5120,
+            5248
+          ],
+          [
+            5248,
+            5376
+          ],
+          [
+            5376,
+            5504
+          ],
+          [
+            5504,
+            5632
+          ],
+          [
+            5632,
+            5760
+          ],
+          [
+            5760,
+            5888
+          ],
+          [
+            5888,
+            6016
+          ],
+          [
+            6016,
+            6144
+          ],
+          [
+            6144,
+            6272
+          ],
+          [
+            6272,
+            6400
+          ],
+          [
+            6400,
+            6528
+          ],
+          [
+            6528,
+            6656
+          ],
+          [
+            6656,
+            6912
+          ],
+          [
+            6912,
+            7168
+          ],
+          [
+            7168,
+            7424
+          ],
+          [
+            7424,
+            7680
+          ],
+          [
+            7680,
+            7936
+          ],
+          [
+            7936,
+            8192
+          ],
+          [
+            8192,
+            8448
+          ],
+          [
+            8448,
+            8704
+          ],
+          [
+            8704,
+            9216
+          ],
+          [
+            9216,
+            9728
+          ],
+          [
+            9728,
+            10240
+          ],
+          [
+            10240,
+            10752
+          ],
+          [
+            10752,
+            11264
+          ],
+          [
+            11264,
+            12288
+          ],
+          [
+            12288,
+            13312
+          ],
+          [
+            13312,
+            14336
+          ],
+          [
+            14336,
+            16384
+          ],
+          [
+            16384,
+            18432
+          ],
+          [
+            18432,
+            20480
+          ],
+          [
+            20480,
+            24576
+          ],
+          [
+            24576,
+            28672
+          ],
+          [
+            28672,
+            32769
+          ]
+        ],
+        "diagnostic_seconds": 2.0281141251325607,
+        "body_operator_values_reused": false,
+        "partition_certified_for_body_matrices": false,
+        "scope": "Advisory scalar Green partition; actual raw/output acceptance checks remain mandatory"
+      },
+      "advisory_partition": true,
+      "diagnostic_seconds": 32.20584949944168
+    }
+  ],
+  "maximum_normalized_spectral_difference": 0.0,
+  "independent_fresh_frequency_audits": [
+    {
+      "index": 0,
+      "normalized_errors": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "index": 1,
+      "normalized_errors": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "index": 11,
+      "normalized_errors": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "index": 101,
+      "normalized_errors": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "index": 500,
+      "normalized_errors": [
+        8.182726182523216e-06,
+        8.182726182523216e-06
+      ]
+    },
+    {
+      "index": 1000,
+      "normalized_errors": [
+        1.2352406882264604e-05,
+        1.2352406882264604e-05
+      ]
+    },
+    {
+      "index": 4096,
+      "normalized_errors": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "index": 8192,
+      "normalized_errors": [
+        8.4744964694436e-08,
+        8.4744964694436e-08
+      ]
+    },
+    {
+      "index": 16384,
+      "normalized_errors": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "index": 32768,
+      "normalized_errors": [
+        4.276328462057221e-07,
+        4.276328462057221e-07
+      ]
+    }
+  ],
+  "accuracy_screen_passed": true,
+  "actual_matrix_evaluations_reduced": true,
+  "matrix_source_evaluation_ratio": 0.538422903063787,
+  "frequency_grid": {
+    "dt": 2e-06,
+    "fft_size": 65536,
+    "radius": 0.999648715112665
+  },
+  "raw_sampling_options": {
+    "degree": 16,
+    "check_points": 7,
+    "raw_rtol": 1e-11,
+    "raw_atol": 1e-14,
+    "output_rtol": 1e-09,
+    "output_atol": 1e-14
+  },
+  "actual_mesh_arguments": {
+    "h": 160,
+    "contact_h": 160,
+    "contact_end_h": 160,
+    "corner_h": 160,
+    "quadrature": 4
+  },
+  "retained_dofs": 11,
+  "environment": {
+    "package_version": "0.1.0",
+    "python": "3.12.13",
+    "numpy": "2.4.4",
+    "scipy": "1.17.1",
+    "platform": "macOS-15.7.9-arm64-arm-64bit",
+    "available_logical_cpus": 10,
+    "hard_cpu_affinity_enforced": false,
+    "thread_environment": {
+      "FDBEM_CORES": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "VECLIB_MAXIMUM_THREADS": "1",
+      "XLA_FLAGS": null,
+      "JAX_ENABLE_X64": null
+    },
+    "blas_threadpools": [],
+    "source_sha256": {
+      "__init__.py": "984855d6ff3848411c946ecca174ac08baf7afe6f1d2c3be00284da9b8dbf288",
+      "adjoint.py": "7863386b78318e6502d6257469322ee82746f2384ee915c16cbb98cda69c5bc0",
+      "benchmarks.py": "c24b97264ca60d0da1dab2095d50e9ef1b88b7208fba2d46178b8cf9038eb571",
+      "case.py": "4f0c91b18309a2eae5ce5a78da3bac9fde0be9fb1c0a4d2d5e5e1fc84bd85fa7",
+      "cli.py": "82e53ce34714809933dbe456ef403bce27c6b60b20ac4481f2feded9eeadfcea",
+      "comparison.py": "631c111752342fac7d0f64553620e04940e7888b1ab2fc52566a23b5c35ee24c",
+      "condensation.py": "12010fb51d8490ae5c3a9a2cf5b04e414cb7e6205b409ce7891b454e384de7d2",
+      "constraints.py": "830071941c6df0f70e455530fe094242042fb0c1e31498e8f9b75c9aa825cb91",
+      "cq.py": "e9af920593db01f56f1f7138832f0aa603daf07cbf1d688fba8a806f712c1e15",
+      "cq_storage.py": "da2534ef95e95813a464ff04f78a092be374110650d1866cbc1fb8ea5b5105b2",
+      "dynamics.py": "b6d84d8d2c1ac6fc465565c289d1249f378f3424e00cb93441791960b3c180f8",
+      "friction.py": "1424c1639cdc1eb4dd8f780bfdc0433f33cf29752b07a17814a3a2f326d81086",
+      "galerkin.py": "85541ddfe5020debde77b2bf2d4a045fe9a52b6183d4af2f762f577be18ab66d",
+      "galerkin_fast.py": "e6167f6c553e15697b6d67a3a33f559574d22fd49db4aad49c8262d68224b614",
+      "io.py": "d292e6338381aa7935dbbfcadc0df884e89f10b7096fa70cf1b05a83c1c12b03",
+      "jax_backend.py": "4de0aadb88b73ef6792ff36894134ee31bc412b1a54b177a4d1aaaa43328d547",
+      "kernels.py": "4008ae38c62c3022034d654a13da75369bd67309af4614006942398e22c1ad08",
+      "linear.py": "3a4d7c2259fd3e67b507d0c9dcd18082c24ffda30fccb12749976c97fa5a577c",
+      "material.py": "7c4d34d911831f12e3bc99bda2e13e76d468acdf80038dcb60310a568a5342d1",
+      "mesh.py": "a37e853ed57dd80633c44805b6c13158643ac65db3e4a4cfc12520bbdfa15c4c",
+      "nodal.py": "632f1a755bb09d784c125d3198f662213ea60045ada9db1555e1b47b3ab39856",
+      "nodal_dynamics.py": "839db57190f62795aebef30545fcc9c1b41fdef503f038cc7f425068962eb39d",
+      "nonlinear.py": "019c5fc176c70964c89f9e7c74147ad48b4235267dd2faf0ee22f789a2b97590",
+      "operators.py": "bb77a3b2c66dce871c9e71cc2cdc02488e90ad32278cc9a67fea8b909b722825",
+      "sampling.py": "c518d2298b167aaa1d5ca327a612426276901876a50322a7fe4595c7ee4f1f11",
+      "statics.py": "9f81cbd95a1ff1f742387ee4ae94251304177999208a95703371272ac79dc250"
+    },
+    "case_sha256": "82d8f491a63ca1c348507678f08406dccbc62ed1d4abea8882879f7894d2315d",
+    "restart_data_sha256": "cae42101ff5a57004fa803ea5ce928eb8079e5be0ab887d108689e37754c25f6"
+  },
+  "frozen_input_sha256": {
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/screen_seeded_raw_sampling.py": "501f49da8420ff2966807381f9cb2562331c7c7ca6ff6e666c09b86ae01807e5",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/cases/pmma_event16.toml": "82d8f491a63ca1c348507678f08406dccbc62ed1d4abea8882879f7894d2315d",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/seeded_raw_sampling.py": "c6b6ab8097880e8dbe10ee467c50a992daff1603994749bdaffb4eb9b530d5c4",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/raw_layer_sampling.py": "07a043bf8c533b83ed35ad562cca2015669515627cd0329e91349ecda2eadf95",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/trace_schur_experiment.py": "25f854e753f033c96c410c00ff1142c09a32c7690cf723ff9e7202d8d227f4ba",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/schur_condensation_experiment.py": "3ae73c3dbdaf26ee52964f5f61989eb43837341b704ba004242be0d6b739fc74",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/build_resolvent_history.py": "00f67ff54c940cbd610a091f675ee1f8ef2996d1e3daf7ff5da2074b3fc36a36",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/replay_resolvent.py": "129d75f1dc47ba11f2da171a820e422c3bde36ccce6ed2624690230c9e66bafc",
+    "/Volumes/Gauss-T7/Tatva-BEM-cache/graded-full45-raw-degree16-resource-preflight-20261027/preflight.json": "f142cc87119e22e9978909cb782cdfc653684b031bfb4a63f0202c421ea556e3"
+  },
+  "spectra_sha256": "8018f24e52094b6df53d3eda7cf8e441eef3fa63625b294b5f0965b2d2f2d334",
+  "estimated_arrays_mib": 498.2431335449219,
+  "diagnostic_seconds": 75.70551700051874,
+  "scope": "Actual coarse finite bodies and whole FFT circle; no fine-kernel or nonlinear-event certificate",
+  "timing_scope": "Diagnostic may overlap the owned two-worker build; compare evaluation counts, not a solver wall-time ratio",
+  "complete_time_weights_or_fem_advantage_verified": false,
+  "original_tatva_readonly": true,
+  "saved_spectra_byte_identity": {
+    "passed": true,
+    "shape": [
+      32769,
+      11,
+      11
+    ],
+    "dtype": "complex128",
+    "scope": "Additional readback of the saved paired spectra; no full time weights or nonlinear trajectory"
+  },
+  "fine_resource_preflight": {
+    "path": "/Volumes/Gauss-T7/Tatva-BEM-cache/graded-trace-seeded-full45-resource-preflight-20261028-v2/preflight.json",
+    "sha256": "c3e7db4486d87b0c88c82cba0d86b1285b4d6daf88fe72eae0bdf76323975ba4",
+    "record": {
+      "status": "preflight_only_not_a_complete_kernel",
+      "plan": {
+        "dt": 2e-06,
+        "steps": 22500,
+        "dofs": 531,
+        "fft_size": 65536,
+        "radius": 0.999648715112665,
+        "estimated_peak_bytes": 200833736760,
+        "weight_bytes": 50755235688
+      },
+      "source_kernel_metadata": "/Volumes/Gauss-T7/Tatva-BEM-cache/direct-resolvent-fine2-q12-full45-20261026/summary.json",
+      "fresh_raw_samples_no_source_frequency_reuse": true,
+      "required_disk_bytes": 249442025200,
+      "estimated_peak_array_mib": 17776.142822265625,
+      "interpolation_array_mib": 8563.825927734375,
+      "ifft_array_mib": 4887.977508544922,
+      "weight_layout": "fortran",
+      "storage_conversion_array_mib": 5897.99951171875,
+      "numerical_discretization_overrides": {
+        "h": 10.0,
+        "contact_h": 2.0,
+        "contact_end_h": 0.015625,
+        "corner_h": 0.015625,
+        "quadrature": 12,
+        "restart_knot_window": null,
+        "restart_knot_subdivisions": 1
+      },
+      "frozen_input_sha256": {
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/prepare_raw_layer_resolvent.py": "7c88b0f12120cf05c0fc542296e2bb65ad67e287d57977d10ece8f6311776b0e",
+        "/Volumes/Gauss-T7/Tatva-BEM-cache/direct-resolvent-fine2-q12-full45-20261026/summary.json": "df571df1a29850fa1cca99964135a78d970bf2e80be8bd62bf4a22d12e3c124e",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/raw_layer_sampling.py": "07a043bf8c533b83ed35ad562cca2015669515627cd0329e91349ecda2eadf95",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/schur_condensation_experiment.py": "3ae73c3dbdaf26ee52964f5f61989eb43837341b704ba004242be0d6b739fc74",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/prepare_native_resolvent.py": "6e0a1337a521da60904a8014817b37ae943aababaa9dce6b4a6ef211028174dc",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/native_spectrum.py": "1372b238742add3bf117897131316dff04e9a336afd0af6d71c069b89b0552e3",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/bounded_weight_conversion.py": "70f1e50888e6da66aa757e249fc1f880317ff26d83fe48237111acb7731706b7",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/replay_resolvent.py": "129d75f1dc47ba11f2da171a820e422c3bde36ccce6ed2624690230c9e66bafc",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/build_resolvent_history.py": "00f67ff54c940cbd610a091f675ee1f8ef2996d1e3daf7ff5da2074b3fc36a36",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/fortran_weight_storage.py": "c9e50864c950faf6d2122811a3131b9e41aa95dd1793f3486bd381725d3283cf",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/operator_resolvent.py": "c4ae7374344afd9af2810e40c7454288d68d6c3679d1b629ed71623e097dd567",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/prepare_trace_raw_resolvent.py": "6a426723334d94a42d24b7fb5403bbc372cdc40b4a79a8dc6c5efbbacbb064bb",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/trace_schur_experiment.py": "25f854e753f033c96c410c00ff1142c09a32c7690cf723ff9e7202d8d227f4ba",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/seeded_raw_sampling.py": "c6b6ab8097880e8dbe10ee467c50a992daff1603994749bdaffb4eb9b530d5c4"
+      },
+      "original_tatva_readonly": true,
+      "same_accuracy_fem_advantage_verified": false,
+      "experimental_operator": {
+        "method": "raw_layers_before_partitioned_two_stage_trace_schur",
+        "formulation": "trace",
+        "basis_depends_on_frequency": false,
+        "raw_quadrature_changed": false,
+        "sampling_acceptance_criteria_changed": false,
+        "initial_sampling_partition_changed": true,
+        "initial_partition": "advisory_scalar_green",
+        "proxy_distances_mm": [
+          0.015625,
+          0.125,
+          1.0,
+          10.0,
+          100.0,
+          500.0
+        ],
+        "time_history_or_contact_modes_removed": false,
+        "construction_allowance": "Original conservative raw-producer matrix allowance retained",
+        "source_sha256": {
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/prepare_trace_raw_resolvent.py": "6a426723334d94a42d24b7fb5403bbc372cdc40b4a79a8dc6c5efbbacbb064bb",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/trace_schur_experiment.py": "25f854e753f033c96c410c00ff1142c09a32c7690cf723ff9e7202d8d227f4ba",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/schur_condensation_experiment.py": "3ae73c3dbdaf26ee52964f5f61989eb43837341b704ba004242be0d6b739fc74",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/seeded_raw_sampling.py": "c6b6ab8097880e8dbe10ee467c50a992daff1603994749bdaffb4eb9b530d5c4"
+        }
+      }
+    }
+  }
+}

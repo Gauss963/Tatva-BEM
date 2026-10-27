@@ -135,6 +135,8 @@ FEM 動態參考的來源與執行仍見[graded transient／resume](docs/graded_
 以固定 bulk／time／contact grid 的 pressure、signed shear 與累積滑移判斷是否繼續 fine AD。
 細網格亦新增[兩階段消去的配對量測與 fresh raw 入口](docs/schur_condensation.md)：
 取樣頻率的消去階段約快 2.4 倍，完整建核及事件的加速仍待量測。
+另有[advisory 起始分段](docs/seeded_raw_sampling.md)：粗網格整個所需頻率半圓的頻譜
+逐位元相同，raw 矩陣呼叫由 3982 降到 2144；所有原檢查仍保留，fine 結果尚待驗證。
 
 ## 4 核心完整時間範圍對照
 

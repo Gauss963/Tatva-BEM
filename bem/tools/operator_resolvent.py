@@ -92,7 +92,7 @@ def prepare_operator(factory, definition, source_paths, arguments, *, extra_work
         sys.argv = previous
 
 
-def prepare_raw_operator(factory, definition, source_paths, arguments):
+def prepare_raw_operator(factory, definition, source_paths, arguments, *, sampling_factory=None):
     """Bind a Schur factory only in the fresh raw producer's private namespace.
 
     The original conservative allowance of 32 matrices per worker is retained.
@@ -117,6 +117,11 @@ def prepare_raw_operator(factory, definition, source_paths, arguments):
         namespace = runpy.run_path(str(path))
         if Path(path).resolve() == tools / "schur_condensation_experiment.py":
             return {**namespace, "ConstrainedSchurTransfer": transfer}
+        if sampling_factory is not None and Path(path).resolve() == tools / "raw_layer_sampling.py":
+            return {
+                **namespace,
+                "sample_raw_layers": sampling_factory(namespace["sample_raw_layers"]),
+            }
         return namespace
 
     original_write = producer["write_json"]

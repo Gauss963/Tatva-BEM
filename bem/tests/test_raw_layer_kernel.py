@@ -47,7 +47,7 @@ def source_metadata(path):
 
 
 @pytest.mark.parametrize("layout", ["c", "fortran"])
-@pytest.mark.parametrize("formulation", ["joint", "trace"])
+@pytest.mark.parametrize("formulation", ["joint", "trace", "trace-seeded"])
 def test_fresh_raw_kernel_outputs_all_lags_and_causal_startup_against_dense_bem(
     tmp_path, monkeypatch, layout, formulation
 ):
@@ -80,11 +80,13 @@ def test_fresh_raw_kernel_outputs_all_lags_and_causal_startup_against_dense_bem(
             "2",
         ],
     )
+    if formulation == "trace-seeded":
+        monkeypatch.setattr(sys, "argv", [*sys.argv, "--primitive-partition"])
     tool["main"]()
     assert runpy.run_path is original_loader
     summary = json.loads((output / "summary.json").read_text())
     assert summary["status"] == "completed_resolvent_kernel_only"
-    if formulation == "trace":
+    if formulation.startswith("trace"):
         assert summary["experimental_operator"]["formulation"] == "trace"
         assert summary["experimental_operator"]["time_history_or_contact_modes_removed"] is False
         definition = summary["experimental_operator"]
@@ -99,6 +101,13 @@ def test_fresh_raw_kernel_outputs_all_lags_and_causal_startup_against_dense_bem(
             "trace_schur_experiment.py",
         ]:
             path = TOOLS / name
+            assert summary["frozen_inputs_sha256"][str(path.resolve())] == fingerprint(path)
+        assert definition["sampling_acceptance_criteria_changed"] is False
+        assert definition["initial_sampling_partition_changed"] == (formulation == "trace-seeded")
+        if formulation == "trace-seeded":
+            assert summary["frequency_sampling"]["original_acceptance_checks_retained"]
+            assert definition["proxy_partition_intervals"] >= 1
+            path = TOOLS / "seeded_raw_sampling.py"
             assert summary["frozen_inputs_sha256"][str(path.resolve())] == fingerprint(path)
     plan = CQPlan(**summary["plan"])
     model = load_nodal_model(
@@ -145,7 +154,7 @@ def test_fresh_raw_kernel_outputs_all_lags_and_causal_startup_against_dense_bem(
 
 
 @pytest.mark.parametrize("layout", ["c", "fortran"])
-@pytest.mark.parametrize("formulation", ["joint", "trace"])
+@pytest.mark.parametrize("formulation", ["joint", "trace", "trace-seeded"])
 def test_preflight_uses_complete_storage_and_does_not_create_numerical_spectrum(
     tmp_path, monkeypatch, layout, formulation
 ):
@@ -174,9 +183,11 @@ def test_preflight_uses_complete_storage_and_does_not_create_numerical_spectrum(
             "1024",
         ],
     )
+    if formulation == "trace-seeded":
+        monkeypatch.setattr(sys, "argv", [*sys.argv, "--primitive-partition"])
     tool["main"]()
     preflight = json.loads((output / "preflight.json").read_text())
-    if formulation == "trace":
+    if formulation.startswith("trace"):
         assert preflight["experimental_operator"]["formulation"] == "trace"
     plan = CQPlan(**preflight["plan"])
     assert asdict(plan) == preflight["plan"]
