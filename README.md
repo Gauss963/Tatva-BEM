@@ -74,7 +74,8 @@ See [BEM usage and current results](bem/README.md),
 [validation](bem/docs/validation.md), and
 [remaining acceptance gates](bem/docs/roadmap.md).
 The [AD design](bem/docs/autodiff.md) explains conditional contact gradients;
-material/geometry, initialization and load-hold event-time derivatives remain open.
+material/geometry and load-hold event-time derivatives remain open. A selected
+static-active-set initialization derivative is implemented, with full-event validation pending.
 See the [latest refinement and adjoint results](bem/docs/refinement.md) for
 45 ms conditional gradients and the remaining physical solution differences.
 The [2024–2026 literature review](bem/docs/literature.md) records the next
@@ -84,7 +85,10 @@ integration from bulk resolution and requires a full-event identity control
 before attributing a change to refinement. The complete identity control passed;
 273 states reach 0.569536 mm. Finer integration exposes initially inadmissible
 frozen offsets near an endpoint. The new [healed static contact control](bem/docs/fem_static_initialization.md)
-matches Tatva's Coulomb preload policy; its complete-event comparisons are running.
+matches Tatva's Coulomb preload policy. Six complete controls and original causal
+equation audits have passed their algebraic checks; FEM agreement remains below target.
+The next [FEM-contact-grid study](bem/docs/fem_contact_grid_study.md) increases
+the bulk contact trace to the original FEM's 241 nodes and tests two local time resolutions.
 The [batched AD history prototype](bem/docs/batched_ad_history.md) shares kernel FFTs
 across derivative directions, with full-event runtime validation still pending.
 The [original-equation audit](bem/docs/original_history_audit.md) additionally

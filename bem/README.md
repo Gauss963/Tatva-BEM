@@ -38,7 +38,9 @@ Radau新增兩family磁碟權重、完整因果startup及耦合stage接觸；
 最大累積滑移為0.619884mm；h2／h1末端壓力P1 L2差17.62%，尚未空間收斂。
 既有Radau相對h1最大滑移仍差8.79%、壓力分布差10.04%。
 另有[原始因果方程與重啟場投影稽核](docs/original_history_audit.md)，
-準備區分原始seed場與137節點P1近似造成的差異。
+六組完整事件的原方程檢查已通過，FEM 精度仍未達標。
+下一輪[與原 FEM 一致的 241-node bulk 接觸網格](docs/fem_contact_grid_study.md)
+已完成座標核對與資源 preflight，排在完整 AD 驗證之後依序執行。
 另有[離散高頻輻射項研究](docs/radiation_limit.md)，先核對瞬時／完整歷史分解的係數；
 其[二維接觸線快速線性解與隱式AD](docs/structured_radiation.md)已實作，尚未接入完整時間積分。
 後續[非線性接觸根與狀態導數控制](docs/radiation_contact.md)已通過完整mesh的製造解與三步AD檢查。
