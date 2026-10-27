@@ -82,8 +82,6 @@ v2 同樣在沒有數值子程序時由 v3 取代，transition record 保留在 
 這些大型本機產物不提交 Git；實作、測試與重跑設定保留在倉庫。
 原 `/Volumes/Gauss-T7/tatva` 全程只讀。同精度 FEM 優勢仍未驗證。
 
-## 完整保存資料的時空誤差
-
 ## 起跑前就存在的空間差異
 
 另已擷取 FEM h2／h1 最後一個 normal-phase static bulk frame，依 step ID

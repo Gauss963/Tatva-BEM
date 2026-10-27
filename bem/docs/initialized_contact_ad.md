@@ -16,8 +16,8 @@ bulk 矩陣之差。Newton 與 active-set 迭代都不反傳。
 
 新增測試從獨立 original-Z 歷史求解：每次參數有限差分都重新解 healed static
 平衡，再執行完整短程動態，核對五個接觸參數及 forward/reverse agreement；
-單子步與四子步分開。這是新原型，真實完整 event 驗證尚待完成，沒有
-切換目前 frozen 的完整事件研究。材料／幾何與載入停止時間導數仍未包含。
+單子步與四子步分開。真實完整 event 的 coarse-P1 Γ8 控制現已通過，見下方；
+original-P1 Γ8 仍在序列執行。材料／幾何與載入停止時間導數仍未包含。
 
 static sensitivity 的來源 `7810755` 與含初始化的完整短程來源 `a2f1a77`
 已分別通過 Python 3.11／3.12 的
@@ -61,5 +61,29 @@ PYTHONPATH=bem/src python -B bem/tools/check_initialized_contact_ad.py \
 Γ8 原布局耗時為 reverse 15818.89 s、五方向 forward 1399.37 s，
 完整讀檔／hashing／輸出總計 17226.93 s；peak RSS 9034.50 MiB。
 這是包含 IO／JIT 的程序計時，並非硬 CPU 隔離或同精度 FEM 速度對照。
-新的 [layout-aware history](layout_history.md) 正在對相同 Γ4 primal 核對
-全部五參數梯度與 22501 個 actuator cotangents；通過後才執行包含初始化的全事件導數。
+新的 [layout-aware history](layout_history.md) 已對相同 Γ4 primal 核對
+全部五參數梯度與 22501 個 actuator cotangents，現正繼續 initialized controls。
+
+## 包含初始化的完整 Γ8 檢查
+
+coarse-P1 Γ8／N64／45 ms 的 initialized reverse／batched-forward 檢查已通過，
+五參數梯度最大差 1.684e-11。與先前 conditional 檢查使用完全相同的 primal SHA-256，
+但初態導數的定義不同，不能要求兩者 gradient 相同：
+
+|參數|固定初始化|包含 selected static active set|
+|---|---:|---:|
+|kn|9.21467e-7|6.46159e-8|
+|kt|1.22279e-5|1.85402e-5|
+|mu_s|52.80832|52.81354|
+|mu_k|−8.95183|−8.95183|
+|Dc|9.64383|9.64383|
+
+目標與導數單位同前。healed strength 與零 cumulative memory 不依賴 mu_k／Dc，
+因此這兩項的初始化貢獻為零；它們數值上保持一致。
+kn／kt 則顯著改變，不能把固定初態的 conditional gradient 當成完整輸入導數。
+
+本次 reverse 484.69 s、五方向 batched forward 716.22 s，包含讀檔、static rebuild、
+hashing 與 JIT 的總時間 1229.33 s，peak RSS 8570.64 MiB。
+[完整結果](initialized_coarse_full_ad_results.json)保存 scope、逐參數對照與來源指紋。
+這仍不是材料／幾何、event-time 或跨 active-set 的導數；也沒有解決已觀察到的
+mesh／time gradient convergence 問題。original-P1 Γ8 正在後續執行。
