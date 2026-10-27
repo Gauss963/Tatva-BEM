@@ -99,6 +99,72 @@ def reference_inputs(tmp_path):
     return reference, resolved
 
 
+@pytest.mark.parametrize(
+    "arguments",
+    [
+        ["--contact-end-size", "nan"],
+        ["--checkpoint-interval", "0"],
+        ["--grading-growth", "1"],
+    ],
+)
+def test_invalid_grading_and_checkpoint_controls_do_not_touch_reference(
+    tmp_path, monkeypatch, arguments
+):
+    main = TOOL["main"]
+    monkeypatch.setitem(main.__globals__, "PROJECT", tmp_path)
+    output = tmp_path / "bem/outputs/invalid"
+    monkeypatch.setattr(sys, "argv", ["reference", "--output", str(output), *arguments])
+    with pytest.raises(ValueError, match="positive endpoint/checkpoint"):
+        main()
+    assert not output.exists()
+
+
+def test_resume_rejects_source_or_configuration_changes_before_mutation(tmp_path):
+    arguments = dict(resume=False, prepare_only=False, mesh_size=2, contact_end_size=0.015625)
+    manifest = dict(runner_sha256="source", arguments=arguments)
+    p = tmp_path / "reference_manifest.json"
+    p.write_text(json.dumps(manifest))
+    (tmp_path / "checkpoint.npz").write_bytes(b"original checkpoint")
+    (tmp_path / "simulation.h5").write_bytes(b"partial hdf5")
+    before = {q.name: q.read_bytes() for q in tmp_path.iterdir()}
+    assert TOOL["resume_manifest"](tmp_path, dict(arguments, resume=True), "source") == manifest
+    with pytest.raises(ValueError, match="argument: contact_end_size"):
+        TOOL["resume_manifest"](tmp_path, dict(arguments, contact_end_size=0.03125), "source")
+    with pytest.raises(ValueError, match="same FEM runner source"):
+        TOOL["resume_manifest"](tmp_path, arguments, "modified")
+    assert {q.name: q.read_bytes() for q in tmp_path.iterdir()} == before
+    (tmp_path / "summary.json").write_text("{}")
+    with pytest.raises(ValueError, match="completed FEM run"):
+        TOOL["resume_manifest"](tmp_path, arguments, "source")
+
+
+def test_invocation_accounting_includes_interrupted_work_and_rejects_missing_end(tmp_path):
+    event = TOOL["invocation_event"]
+    for identity, status in [("first", "checkpointed"), ("second", "completed")]:
+        event(tmp_path, dict(event="started", id=identity))
+        event(
+            tmp_path,
+            dict(
+                event="ended",
+                id=identity,
+                status=status,
+                preparation_seconds=3,
+                simulation_seconds=10,
+                simulation_cpu_seconds=25,
+                total_seconds=13,
+                total_cpu_seconds=28,
+            ),
+        )
+    totals = TOOL["invocation_totals"](tmp_path)
+    assert totals["all_invocations_accounted"]
+    assert totals["simulation_seconds"] == 20
+    assert totals["total_seconds"] == 26
+    event(tmp_path, dict(event="started", id="killed_without_end_record"))
+    missing = TOOL["invocation_totals"](tmp_path)
+    assert not missing["all_invocations_accounted"]
+    assert missing["simulation_seconds"] is None
+
+
 def test_fem_uses_authored_resolved_precision_instead_of_stale_statistics(tmp_path):
     reference, expected = reference_inputs(tmp_path)
     actual = TOOL["load_reference_input"](reference, revision="test-revision")

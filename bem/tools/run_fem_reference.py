@@ -12,10 +12,12 @@ import io
 import json
 import math
 import os
+import runpy
 import subprocess
 import sys
 import tarfile
 import tomllib
+import uuid
 from pathlib import Path
 from time import perf_counter, process_time
 
@@ -25,6 +27,53 @@ REVISION = "933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d"
 
 def digest(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def resume_manifest(output, arguments, runner_sha256):
+    """Validate a checkpoint continuation before changing any saved run file."""
+    output = Path(output)
+    record = json.loads((output / "reference_manifest.json").read_text())
+    if record["runner_sha256"] != runner_sha256:
+        raise ValueError("Resume requires the same FEM runner source")
+    for name, value in arguments.items():
+        if name not in {"resume", "prepare_only"} and record["arguments"].get(name) != value:
+            raise ValueError(f"Resume changes the recorded argument: {name}")
+    if not (output / "checkpoint.npz").is_file() or not (output / "simulation.h5").is_file():
+        raise ValueError("Resume requires both the original checkpoint and partial HDF5 output")
+    if (output / "summary.json").exists():
+        raise ValueError("A completed FEM run cannot be resumed")
+    return record
+
+
+def invocation_event(output, event):
+    with (Path(output) / "invocations.jsonl").open("a") as stream:
+        stream.write(json.dumps(event) + "\n")
+
+
+def invocation_totals(output):
+    rows = [
+        json.loads(line) for line in (Path(output) / "invocations.jsonl").read_text().splitlines()
+    ]
+    starts = [row["id"] for row in rows if row["event"] == "started"]
+    ends = [row for row in rows if row["event"] == "ended"]
+    complete = len(starts) == len(set(starts)) == len(ends) and set(starts) == {
+        r["id"] for r in ends
+    }
+    return dict(
+        all_invocations_accounted=complete,
+        invocation_count=len(starts),
+        segments=ends,
+        **{
+            key: sum(row[key] for row in ends) if complete else None
+            for key in [
+                "preparation_seconds",
+                "simulation_seconds",
+                "simulation_cpu_seconds",
+                "total_seconds",
+                "total_cpu_seconds",
+            ]
+        },
+    )
 
 
 def load_reference_input(reference, *, revision=REVISION):
@@ -175,9 +224,19 @@ def main():
     parser.add_argument("--output", type=Path, default=PROJECT / "bem/outputs/fem-4c-timing")
     parser.add_argument("--cores", type=int, default=4)
     parser.add_argument("--prepare-only", action="store_true")
+    parser.add_argument(
+        "--resume", action="store_true", help="Repeat the same arguments with a saved checkpoint"
+    )
     parser.add_argument("--shear-duration", type=float, default=5e-5)
     parser.add_argument("--normal-duration", type=float, default=5e-8)
     parser.add_argument("--mesh-size", type=float, help="Optional coarse FEM comparison mesh")
+    parser.add_argument(
+        "--contact-end-size", type=float, help="Explicit chamfer-preserving endpoint grading"
+    )
+    parser.add_argument("--grading-growth", type=float, default=1.2)
+    parser.add_argument(
+        "--checkpoint-interval", type=float, help="Seconds between original-source checkpoints"
+    )
     parser.add_argument("--normal-frames", type=int, default=4)
     parser.add_argument("--shear-frames", type=int, default=32)
     parser.add_argument("--interface-normal-frames", type=int)
@@ -192,6 +251,19 @@ def main():
     for value in [args.normal_duration, args.shear_duration, args.mesh_size]:
         if value is not None and (not math.isfinite(value) or value <= 0):
             raise ValueError("Durations and optional mesh size must be finite and positive")
+    if (
+        not math.isfinite(args.grading_growth)
+        or args.grading_growth <= 1
+        or (
+            args.contact_end_size is not None
+            and (not math.isfinite(args.contact_end_size) or args.contact_end_size <= 0)
+        )
+        or (
+            args.checkpoint_interval is not None
+            and (not math.isfinite(args.checkpoint_interval) or args.checkpoint_interval <= 0)
+        )
+    ):
+        raise ValueError("Require positive endpoint/checkpoint sizes and grading growth > 1")
     if args.time_step is not None and (not math.isfinite(args.time_step) or args.time_step < 0):
         raise ValueError("Time step must be finite and nonnegative")
     for value in [
@@ -202,13 +274,25 @@ def main():
     ]:
         if value is not None and value < 1:
             raise ValueError("Frame targets must be positive")
-    if (output / "simulation.h5").exists() or (output / "summary.json").exists():
+    if args.resume and (args.prepare_only or args.checkpoint_interval is None):
+        raise ValueError("Resume requires checkpointing and cannot be prepare-only")
+    if not args.resume and (
+        (output / "simulation.h5").exists() or (output / "summary.json").exists()
+    ):
         raise ValueError(
             "Choose a new output directory; existing FEM results are never overwritten"
         )
+    runner_sha = digest(Path(__file__))
+    arguments = {
+        key: str(value.resolve()) if isinstance(value, Path) else value
+        for key, value in vars(args).items()
+    }
+    previous = resume_manifest(output, arguments, runner_sha) if args.resume else None
     output.mkdir(parents=True, exist_ok=True)
     total_started, total_cpu = perf_counter(), process_time()
-    runner_sha = digest(Path(__file__))
+    invocation = uuid.uuid4().hex
+    if not args.prepare_only:
+        invocation_event(output, dict(event="started", id=invocation, resume=args.resume))
     protected = {
         str(path): digest(path)
         for path in [
@@ -218,6 +302,8 @@ def main():
         ]
     }
     resolved_input = load_reference_input(args.reference_run)
+    if previous is not None and protected != previous["protected_input_sha256"]:
+        raise ValueError("Protected FEM inputs changed before resume")
     for name in (
         "OPENBLAS_NUM_THREADS",
         "OMP_NUM_THREADS",
@@ -243,6 +329,7 @@ def main():
 
     import jax
     import numpy as np
+    from tatva.pmma import dynamics
     from tatva.pmma.dynamics import RunConfig, build_case_model, run_simulation_dumped
     from tatva.pmma.model import (
         BlockSpec,
@@ -266,6 +353,30 @@ def main():
         shear_phase_time=args.shear_duration,
     )
     config = RunConfig(**values)
+    original_builder, original_runner = build_case_model, run_simulation_dumped
+    mesh_adapter = None
+    if args.contact_end_size is not None:
+        target_h = config.mesh_size if args.mesh_size is None else args.mesh_size
+        if args.contact_end_size >= target_h:
+            raise ValueError("Endpoint size must be smaller than the background FEM mesh")
+        adapter_path = Path(__file__).with_name("chamfer_mesh_refinement.py")
+        adapter = runpy.run_path(str(adapter_path))
+        build_case_model = adapter["make_chamfer_refined_builder"](dynamics)
+        run_simulation_dumped = adapter["rebind"](
+            original_runner, {"build_case_model": build_case_model}
+        )
+        config = replace(
+            config,
+            fault_end_refinement_size=args.contact_end_size,
+            fault_end_refinement_growth=args.grading_growth,
+        )
+        mesh_adapter = dict(
+            source=str(adapter_path.resolve()),
+            sha256=digest(adapter_path),
+            scope="Explicit mesh-only adapter; original material, contact, static and transient kernels",
+            end_size_mm=args.contact_end_size,
+            grading_growth=args.grading_growth,
+        )
     source_restart = restart_seed_record(config.restart_from_file)
     restart_projection = None
     if args.mesh_size is not None:
@@ -283,7 +394,7 @@ def main():
         FrictionReference(**legacy["friction"]),
         LoadingReference(**legacy["simulation"]),
     )
-    if args.mesh_size is not None:
+    if args.mesh_size is not None or args.contact_end_size is not None:
         import h5py
 
         # The archived static initializer uses only plastic slip and actuator;
@@ -295,14 +406,30 @@ def main():
             values["restart_from_file"], yy, source_restart
         )
         restart_path = output / "projected_restart.h5"
-        with h5py.File(restart_path, "w") as stream:
-            group = stream.create_group("final_state")
-            group["u"] = np.zeros(2 * (moving.n_nodes + stationary.n_nodes))
-            group["plastic_slip"] = plastic
-            group.attrs["applied_shear_displacement"] = actuator
+        if args.resume:
+            with h5py.File(restart_path, "r") as stream:
+                np.testing.assert_array_equal(stream["final_state/plastic_slip"][:], plastic)
+                if stream["final_state/u"].shape != (2 * (moving.n_nodes + stationary.n_nodes),):
+                    raise ValueError("Projected restart mesh changed before resume")
+                if stream["final_state"].attrs["applied_shear_displacement"] != actuator:
+                    raise ValueError("Projected restart actuator changed before resume")
+        else:
+            with h5py.File(restart_path, "w") as stream:
+                group = stream.create_group("final_state")
+                group["u"] = np.zeros(2 * (moving.n_nodes + stationary.n_nodes))
+                group["plastic_slip"] = plastic
+                group.attrs["applied_shear_displacement"] = actuator
         config = replace(config, restart_from_file=str(restart_path))
+        # The runner builds its own model. Avoid retaining this projection-only
+        # model during a long fine-mesh transient.
+        del model, moving, stationary
     actual_restart = restart_seed_record(config.restart_from_file)
-    (output / "resolved_run_config.json").write_text(json.dumps(asdict(config), indent=2) + "\n")
+    config_path = output / "resolved_run_config.json"
+    if args.resume:
+        if json.loads(config_path.read_text()) != asdict(config):
+            raise ValueError("Effective FEM configuration changed before resume")
+    else:
+        config_path.write_text(json.dumps(asdict(config), indent=2) + "\n")
     output_options = dict(
         frames_per_phase=args.normal_frames,
         shear_frames_per_phase=args.shear_frames,
@@ -325,27 +452,75 @@ def main():
         actual_restart=actual_restart,
         restart_projection=restart_projection,
         output_options=output_options,
+        mesh_adapter=mesh_adapter,
+        checkpoint_interval_seconds=args.checkpoint_interval,
         requested_cores=args.cores,
         source_snapshot_path=str(snapshot),
-        arguments={
-            key: str(value) if isinstance(value, Path) else value
-            for key, value in vars(args).items()
-        },
+        arguments=arguments,
     )
-    (output / "reference_manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
+    if args.resume:
+        for key in ["source", "actual_restart", "source_restart", "mesh_adapter", "output_options"]:
+            if previous[key] != manifest[key]:
+                raise ValueError(f"FEM resume provenance changed: {key}")
+        manifest = previous
+    else:
+        (output / "reference_manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
     if args.prepare_only:
         print(f"Archived FEM source and resolved settings ready: {output}")
         return
     started, cpu = perf_counter(), process_time()
     preparation_seconds = started - total_started
-    simulation = run_simulation_dumped(
-        case,
-        config,
-        output / "simulation.h5",
-        **output_options,
-    )
+    runtime_options = dict(output_options)
+    if args.checkpoint_interval is not None:
+        runtime_options.update(
+            checkpoint_path=output / "checkpoint.npz",
+            checkpoint_interval_seconds=args.checkpoint_interval,
+            resume=args.resume,
+        )
+    try:
+        simulation = run_simulation_dumped(
+            case, config, output / "simulation.h5", **runtime_options
+        )
+    except BaseException as error:
+        invocation_event(
+            output,
+            dict(
+                event="ended",
+                id=invocation,
+                status="checkpointed"
+                if isinstance(error, dynamics.SimulationCheckpointed)
+                else "failed",
+                preparation_seconds=preparation_seconds,
+                simulation_seconds=perf_counter() - started,
+                simulation_cpu_seconds=process_time() - cpu,
+                total_seconds=perf_counter() - total_started,
+                total_cpu_seconds=process_time() - total_cpu,
+            ),
+        )
+        raise
     solver_seconds, solver_cpu = perf_counter() - started, process_time() - cpu
+    invocation_event(
+        output,
+        dict(
+            event="ended",
+            id=invocation,
+            status="completed",
+            preparation_seconds=preparation_seconds,
+            simulation_seconds=solver_seconds,
+            simulation_cpu_seconds=solver_cpu,
+            total_seconds=perf_counter() - total_started,
+            total_cpu_seconds=process_time() - total_cpu,
+        ),
+    )
+    accounted = invocation_totals(output)
     verify_snapshot(snapshot, archived_source["files"])
+    if (
+        dynamics.build_case_model is not original_builder
+        or dynamics.run_simulation_dumped is not original_runner
+    ):
+        raise ValueError("Original FEM function bindings changed")
+    if mesh_adapter is not None and digest(mesh_adapter["source"]) != mesh_adapter["sha256"]:
+        raise ValueError("Explicit FEM mesh adapter changed during simulation")
     if runner_sha != digest(Path(__file__)) or any(
         digest(path) != checksum for path, checksum in protected.items()
     ):
@@ -365,14 +540,16 @@ def main():
         "jax_version": jax.__version__,
         "devices": [str(d) for d in jax.devices()],
         "blas_threadpools": threadpool_info(),
-        "wall_seconds": solver_seconds,
-        "process_cpu_seconds": solver_cpu,
+        "wall_seconds": accounted["simulation_seconds"],
+        "process_cpu_seconds": accounted["simulation_cpu_seconds"],
+        "current_invocation_simulation_seconds": solver_seconds,
+        "invocation_timing": accounted,
         "timing_seconds": {
-            "source_and_config_preparation": preparation_seconds,
-            "simulation_including_outputs": solver_seconds,
-            "total_before_reporting": perf_counter() - total_started,
+            "source_and_config_preparation": accounted["preparation_seconds"],
+            "simulation_including_outputs": accounted["simulation_seconds"],
+            "total_before_reporting": accounted["total_seconds"],
         },
-        "total_process_cpu_seconds": process_time() - total_cpu,
+        "total_process_cpu_seconds": accounted["total_cpu_seconds"],
         "timing_control": "Not established by this runner; concurrent jobs must be recorded separately",
         "runner_sha256": runner_sha,
         "reference_manifest_sha256": digest(output / "reference_manifest.json"),
@@ -385,6 +562,8 @@ def main():
         "historical_statistics_dtype": manifest["historical_statistics_dtype"],
         "actual_restart": actual_restart,
         "restart_projection": restart_projection,
+        "mesh_adapter": mesh_adapter,
+        "checkpoint_interval_seconds": args.checkpoint_interval,
         "jax_enable_x64": bool(jax.config.read("jax_enable_x64")),
         "output_options": output_options,
         "comparison_history_group": "interface_high_rate"
@@ -394,6 +573,8 @@ def main():
         "full_original_horizon": args.shear_duration == 0.045 and args.normal_duration == 0.002,
         "output_frames_reduced": True,
         "restart_projected_to_coarse_mesh": args.mesh_size is not None,
+        "restart_projected_to_target_mesh": args.mesh_size is not None
+        or args.contact_end_size is not None,
     }
 
     def encode(value):

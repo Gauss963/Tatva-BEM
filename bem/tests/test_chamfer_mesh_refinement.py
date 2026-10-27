@@ -137,3 +137,23 @@ def test_adapter_rejects_other_element_families():
     config.element_type = "tri3"
     with pytest.raises(ValueError, match="2D quad4"):
         TOOL["make_chamfer_refined_builder"](module)(case, config)
+
+
+def test_transient_entry_rebinding_preserves_original_module_and_keyword_defaults():
+    module = geometry_module()
+    exec(
+        "def run_simulation_dumped(case, config, *, marker='original'):\n"
+        "    return build_case_model(case, config), marker\n",
+        module.__dict__,
+    )
+    builder, original = module.build_case_model, module.run_simulation_dumped
+    case, config = inputs(0.025)
+    adapted = TOOL["make_chamfer_refined_builder"](module)
+    runner = TOOL["rebind"](original, {"build_case_model": adapted})
+    meshes, marker = runner(case, config)
+    assert marker == "original"
+    assert len(meshes[0][0].coords) > 0
+    assert module.build_case_model is builder
+    assert module.run_simulation_dumped is original
+    with pytest.raises(ValueError, match="not combined with a chamfer"):
+        original(case, config)
