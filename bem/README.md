@@ -131,6 +131,8 @@ FEM 動態參考的來源與執行仍見[graded transient／resume](docs/graded_
 新增[真正雙精度壓力／signed shear 觀測](docs/float64_contact_comparison.md)，
 已通過原 49 datasets 及中斷／接續全部 69 datasets 的逐位元相等控制。
 新的完整事件比較會使用這些場與整數剪切步數。
+並新增[全歷史摩擦子步收斂檢查](docs/constitutive_refinement.md)，
+以固定 bulk／time／contact grid 的 pressure、signed shear 與累積滑移判斷是否繼續 fine AD。
 
 ## 4 核心完整時間範圍對照
 
