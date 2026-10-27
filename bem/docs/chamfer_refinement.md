@@ -93,7 +93,9 @@ PYTHONPATH=bem/src FDBEM_CORES=4 OPENBLAS_NUM_THREADS=1 JAX_ENABLE_X64=true \
   --fem-studies FEM_H2_STATIC FEM_H2_FINE_STATIC --output FRESH_BEM_STATIC
 ```
 
-這個 backend 目前由 static driver 明確選用；既有 transient／AD backend 沒有改變。
+此輪量測由 static driver 明確選用新 backend。後續新增
+`simulate_refined_contact.py --static-initialization fem-body-active-set` 及
+`check_initialized_contact_ad.py` 的對應接口；新 backend 的完整事件尚未執行完畢。
 
 ## FEM background h1 的殘差修正與完成結果
 
@@ -124,13 +126,19 @@ active set、共用其原 elastic assembly，然後在支承／platen 約束下�
 BEM uncondensed static sensitivity 另以原 selected-set JAX root differentiation
 求 `du/dp`，再用原 trace 與 `Kr*du/dp` 的量測 force projection 取得初始 trace／bulk-force
 導數。小模型已與 condensed derivative、兩個 penalty 參數各自重新求解的 centered
-finite differences 核對；尚未將這個新 backend 接回完整事件 AD。
+finite differences 核對。transient／AD 接口保留這個量測到的初始 bulk-force 導數，
+不用 condensed matrix 乘位移導數代替。包含 sliding static set、完整短程原始 Z-history
+及重新初始化 finite differences 的四項測試通過；新 backend 的完整事件 AD 仍未完成。
 
 最細 BEM end 0.0078125 mm 的相同網格 Q12／Q24 static control 亦完成：
 pressure／shear 全接觸面 P1 L2 差為 4.30e-11／9.25e-12，
 最大 absolute difference 為 2.02e-7／2.01e-8 MPa；Q24 full-body residual 為 1.97e-8 MPa。
 [積分控制報告](graded_quadrature_results.json)保留原值、來源與指紋。
 這只驗證 static quadrature，未驗證整個複數 CQ contour 的積分誤差。
+
+候選 end 0.015625 mm 的 outer h10／h5 static control 亦完成。
+pressure／shear 全接觸面 P1 L2 差為 5.54e-6／2.73e-5，通過原 1% 門檻；
+見[完整結果](graded_outer_results.json)。這不是 dynamic outer-mesh convergence 證明。
 
 ## 連續時間的 linear dynamic response
 

@@ -100,7 +100,7 @@ def main():
     )
     parser.add_argument(
         "--static-initialization",
-        choices=["preserve-offset", "fem-active-set"],
+        choices=["preserve-offset", "fem-active-set", "fem-body-active-set"],
         default="preserve-offset",
     )
     parser.add_argument("--constitutive-substeps", type=int, default=1)
@@ -149,8 +149,10 @@ def main():
         "substepped_contact_experiment.py",
         "robust_contact_experiment.py",
     ]
-    if args.static_initialization == "fem-active-set":
+    if args.static_initialization in ("fem-active-set", "fem-body-active-set"):
         helpers.append("fem_static_contact.py")
+    if args.static_initialization == "fem-body-active-set":
+        helpers.append("uncondensed_static_contact.py")
     paths = [
         Path(__file__),
         metadata_path,
@@ -220,6 +222,10 @@ def main():
     if args.static_initialization == "fem-active-set":
         initialize = runpy.run_path(str(TOOLS / "fem_static_contact.py"))[
             "initialize_fem_static_contact"
+        ]
+    elif args.static_initialization == "fem-body-active-set":
+        initialize = runpy.run_path(str(TOOLS / "uncondensed_static_contact.py"))[
+            "initialize_uncondensed_contact"
         ]
     lift = initialize(model, space, reduction, state)
     state = lift.state

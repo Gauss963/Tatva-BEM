@@ -37,7 +37,7 @@ def load_primal(run, *, cache_mb, fft_rows, max_memory_mb):
         record["status"] != "completed_requested_horizon"
         or record["history_representation"] != "elastic_resolvent_refined_contact"
         or record["correction_start"] != 1
-        or record.get("static_initialization") != "fem-active-set"
+        or record.get("static_initialization") not in ("fem-active-set", "fem-body-active-set")
         or record["duration_s"] != 0.045
         or not record["all_history_retained"]
         or record["max_boundary_contact_residual_mpa"] >= 1e-7
@@ -93,9 +93,15 @@ def load_primal(run, *, cache_mb, fft_rows, max_memory_mb):
     static = refined["RefinedContactEquilibrium"](
         model, space, reduction.impedance, base_force=-reduction.effective_load
     )
-    lift = runpy.run_path(str(TOOLS / "fem_static_contact.py"))["initialize_fem_static_contact"](
-        model, space, reduction, seed
-    )
+    body_static = record["static_initialization"] == "fem-body-active-set"
+    if body_static:
+        lift = runpy.run_path(str(TOOLS / "uncondensed_static_contact.py"))[
+            "initialize_uncondensed_contact"
+        ](model, space, reduction, seed)
+    else:
+        lift = runpy.run_path(str(TOOLS / "fem_static_contact.py"))[
+            "initialize_fem_static_contact"
+        ](model, space, reduction, seed)
     trajectory_sha = READ["digest_file"](run / "trajectory.npz")
     with np.load(run / "trajectory.npz", allow_pickle=False) as data:
         np.testing.assert_array_equal(data["contact_y"], space.y)
@@ -115,15 +121,20 @@ def load_primal(run, *, cache_mb, fft_rows, max_memory_mb):
     reference = refined["dynamic_refined_reference"](
         model, space, lift, np.load(kernel / "initial_impedance.npy", allow_pickle=False)
     )
-    jacobian = runpy.run_path(str(TOOLS / "fem_static_contact_ad.py"))[
-        "healed_static_parameter_jacobian"
-    ](
-        static,
-        model.reference.normal_pressure,
-        model.reference.restart_actuator,
-        seed,
-        lift.retained_displacement,
-    )
+    if body_static:
+        jacobian = runpy.run_path(str(TOOLS / "uncondensed_static_contact_ad.py"))[
+            "uncondensed_static_parameter_jacobian"
+        ](model, space, reduction, seed, lift)
+    else:
+        jacobian = runpy.run_path(str(TOOLS / "fem_static_contact_ad.py"))[
+            "healed_static_parameter_jacobian"
+        ](
+            static,
+            model.reference.normal_pressure,
+            model.reference.restart_actuator,
+            seed,
+            lift.retained_displacement,
+        )
     history = BoundaryHistory(
         plan, np.load(kernel / "weights.npy", mmap_mode="r", allow_pickle=False)
     )
@@ -177,6 +188,8 @@ def main():
         "substepped_contact_experiment.py",
         "restart_seed_experiment.py",
         "layout_aware_history.py",
+        "uncondensed_static_contact.py",
+        "uncondensed_static_contact_ad.py",
     ]
     paths = [Path(__file__), args.run / "summary.json", *[TOOLS / n for n in names]]
     if args.legacy_ad is not None:

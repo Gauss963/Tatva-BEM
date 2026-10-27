@@ -36,6 +36,17 @@ def initialized_context(static_system, static_sensitivity):
         # Shifting absolute contact kinematics must add the STATIC bulk
         # force, not the instantaneous dynamic impedance times that shift.
         difference = jnp.asarray(static_system.matrix - reference.matrix)
+        measured_bulk = static_sensitivity.get("retained_bulk_force_jacobian")
+        bulk_correction = None
+        if measured_bulk is not None:
+            dynamic_bulk = np.array(reference.matrix, copy=True)
+            dynamic_bulk[-1, -1] -= reference.spring
+            measured_bulk = jnp.asarray(measured_bulk)
+            if measured_bulk.shape != (d, 5):
+                raise ValueError(
+                    "Measured static bulk-force sensitivities must align with the trace"
+                )
+            bulk_correction = measured_bulk - jnp.asarray(dynamic_bulk) @ dq0
         initial_z = jnp.asarray(result.plastic_slip[0])
         dn0, ds0 = jnp.asarray(reference.base_dn), jnp.asarray(reference.base_ds)
 
@@ -53,9 +64,13 @@ def initialized_context(static_system, static_sensitivity):
 
         def shifted_equation(q, z, c, parameters, previous):
             shift, offset = dq0 @ (parameters - parameters0), dz0 @ (parameters - parameters0)
+            bulk_shift = (
+                difference @ shift
+                if bulk_correction is None
+                else bulk_correction @ (parameters - parameters0)
+            )
             return (
-                equation(q + shift, z + offset, c, parameters, previous + shift)
-                + (difference @ shift) / wr
+                equation(q + shift, z + offset, c, parameters, previous + shift) + bulk_shift / wr
             )
 
         def correction_force(local):
@@ -101,6 +116,8 @@ def initialized_gradient(
         initial_static_contact_sensitivity_included=True,
         initial_plastic_offset_sensitivity_included=True,
         initial_contact_force_history_source_included=True,
+        initial_measured_bulk_force_sensitivity_included="retained_bulk_force_jacobian"
+        in static_sensitivity,
         scope="Fixed bulk/restart input/recorded loading; selected healed static and transient branches",
     )
     return answer

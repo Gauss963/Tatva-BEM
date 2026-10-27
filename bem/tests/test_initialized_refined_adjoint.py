@@ -66,13 +66,19 @@ def problem(parameters, substeps):
     return reference, history, result, static, old, q0, diagnostics
 
 
-@pytest.mark.parametrize("substeps", [1, 4])
-def test_initialized_complete_contact_gradient_matches_original_z_reinitialization(substeps):
+@pytest.mark.parametrize("substeps,measured_bulk", [(1, False), (4, False), (4, True)])
+def test_initialized_complete_contact_gradient_matches_original_z_reinitialization(
+    substeps, measured_bulk
+):
     p = np.array([100.0, 40.0, 0.8, 0.5, 0.2])
     reference, history, result, static, seed, q0, diagnostic = problem(p, substeps)
     assert diagnostic["static_sliding_points"] > 0
     assert result.cumulative_slip[-1].max() > 0
     jacobian = STATIC_AD["healed_static_parameter_jacobian"](static, 0.0, 1.1, seed, q0)
+    if measured_bulk:
+        bulk = static.matrix.copy()
+        bulk[-1, -1] -= reference.spring
+        jacobian["retained_bulk_force_jacobian"] = bulk @ jacobian["displacement_jacobian"]
     gradients = [
         AD["initialized_gradient"](
             method, static, jacobian, reference, history, result, constitutive_substeps=substeps
@@ -95,3 +101,4 @@ def test_initialized_complete_contact_gradient_matches_original_z_reinitializati
         finite = (losses[1] - losses[0]) / (2 * epsilon)
         np.testing.assert_allclose(gradients[1]["gradient"][j], finite, rtol=3e-4, atol=3e-7)
     assert gradients[1]["initial_contact_force_history_source_included"]
+    assert gradients[1]["initial_measured_bulk_force_sensitivity_included"] == measured_bulk
