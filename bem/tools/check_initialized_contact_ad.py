@@ -12,7 +12,6 @@ import os
 import resource
 import runpy
 import sys
-from functools import partial
 from pathlib import Path
 from time import perf_counter
 from types import SimpleNamespace
@@ -150,6 +149,11 @@ def main():
     parser.add_argument("--fft-cache-mb", type=float, default=512)
     parser.add_argument("--fft-rows", type=int, default=4)
     parser.add_argument("--max-memory-mb", type=float, default=8192)
+    parser.add_argument(
+        "--initialization-gradient", choices=["active-set", "fixed"], default="active-set"
+    )
+    parser.add_argument("--history-layout", choices=["auto", "row"], default="auto")
+    parser.add_argument("--legacy-ad", type=Path)
     args = parser.parse_args()
     output = args.output.resolve()
     if output.exists() or output.is_relative_to(Path("/Volumes/Gauss-T7/tatva")):
@@ -158,6 +162,8 @@ def main():
         np.isfinite(v) and v > 0 for v in (args.fft_cache_mb, args.max_memory_mb)
     ):
         raise ValueError("Require positive finite history budgets")
+    if args.legacy_ad is not None and args.initialization_gradient != "fixed":
+        raise ValueError("A conditional legacy gradient requires fixed initialization scope")
     names = [
         "initialized_refined_adjoint.py",
         "fem_static_contact_ad.py",
@@ -170,8 +176,11 @@ def main():
         "replay_resolvent.py",
         "substepped_contact_experiment.py",
         "restart_seed_experiment.py",
+        "layout_aware_history.py",
     ]
     paths = [Path(__file__), args.run / "summary.json", *[TOOLS / n for n in names]]
+    if args.legacy_ad is not None:
+        paths.append(args.legacy_ad)
     frozen = {str(p.resolve()): fingerprint(p) for p in paths}
     begun = perf_counter()
     (
@@ -209,35 +218,88 @@ def main():
         "initialized_gradient"
     ]
     keyword = dict(constitutive_substeps=record["constitutive_substeps"])
+    factory = bounded["BoundedOnlineConvolution"]
+    if args.history_layout == "auto":
+        factory = runpy.run_path(str(TOOLS / "layout_aware_history.py"))[
+            "LayoutAwareBoundedConvolution"
+        ]
+    reverse_memories = []
+
+    def reverse_factory(data):
+        memory = factory(data, cache_mb=args.fft_cache_mb, fft_rows=args.fft_rows)
+        reverse_memories.append(memory)
+        return memory
+
     with set_workers(int(os.environ.get("FDBEM_CORES", "1"))):
-        reverse = initialized(
-            "reverse_gradient",
-            static,
-            jacobian,
-            reference,
-            history,
-            result,
-            convolution_factory=partial(
-                bounded["BoundedOnlineConvolution"],
+        if args.initialization_gradient == "active-set":
+            reverse = initialized(
+                "reverse_gradient",
+                static,
+                jacobian,
+                reference,
+                history,
+                result,
+                convolution_factory=reverse_factory,
+                **keyword,
+            )
+        else:
+            conditional = runpy.run_path(str(TOOLS / "refined_contact_adjoint.py"))
+            reverse = conditional["reverse_gradient"](
+                reference, history, result, convolution_factory=reverse_factory, **keyword
+            )
+        reverse_history_statistics = [m.statistics() for m in reverse_memories]
+        reverse_memories.clear()
+        gc.collect()
+        if args.initialization_gradient == "active-set":
+            forward = initialized(
+                "batched_forward_gradient",
+                static,
+                jacobian,
+                reference,
+                history,
+                result,
                 cache_mb=args.fft_cache_mb,
                 fft_rows=args.fft_rows,
-            ),
-            **keyword,
-        )
-        gc.collect()
-        forward = initialized(
-            "batched_forward_gradient",
-            static,
-            jacobian,
-            reference,
-            history,
-            result,
-            cache_mb=args.fft_cache_mb,
-            fft_rows=args.fft_rows,
-            **keyword,
-        )
+                **keyword,
+            )
+        else:
+            forward = runpy.run_path(str(TOOLS / "batched_refined_adjoint.py"))[
+                "forward_gradient_batched"
+            ](
+                reference,
+                history,
+                result,
+                cache_mb=args.fft_cache_mb,
+                fft_rows=args.fft_rows,
+                **keyword,
+            )
     error = np.asarray(reverse["gradient"]) - np.asarray(forward["gradient"])
     passed = bool(np.allclose(reverse["gradient"], forward["gradient"], rtol=1e-7, atol=1e-7))
+    legacy = None
+    if args.legacy_ad is not None:
+        legacy = json.loads(args.legacy_ad.read_text())
+        if (
+            legacy["status"] != "passed_discrete_reverse_jvp_check"
+            or Path(legacy["primal_run"]).resolve() != args.run.resolve()
+            or legacy["primal_trajectory_sha256"] != trajectory_sha
+            or legacy["parameter_order"] != reverse["parameter_order"]
+        ):
+            raise ValueError("Legacy AD does not identify the same complete conditional primal")
+        legacy_difference = float(
+            np.max(abs(np.asarray(legacy["reverse_gradient"]) - reverse["gradient"]))
+        )
+        legacy_passed = bool(
+            np.allclose(legacy["reverse_gradient"], reverse["gradient"], rtol=1e-7, atol=1e-7)
+        )
+        passed = passed and legacy_passed
+        legacy = dict(
+            path=str(args.legacy_ad.resolve()),
+            maximum_absolute_difference=legacy_difference,
+            passed=legacy_passed,
+            reverse_seconds_including_jit=legacy["reverse_seconds_including_jit"],
+            forward_seconds_including_jit=legacy["forward_seconds_including_jit"],
+            total_including_input_hashes_seconds=legacy["total_including_input_hashes_seconds"],
+        )
     if (
         any(fingerprint(p) != v for p, v in frozen.items())
         or READ["digest_file"](args.run / "trajectory.npz") != trajectory_sha
@@ -263,10 +325,23 @@ def main():
     write_json(
         output / "summary.json",
         dict(
-            status="passed_initialized_full_history_ad_check"
-            if passed
-            else "failed_initialized_full_history_ad_check",
+            status=("passed_" if passed else "failed_")
+            + (
+                "initialized_full_history_ad_check"
+                if args.initialization_gradient == "active-set"
+                else "conditional_layout_ad_check"
+            ),
             primal_run=str(args.run.resolve()),
+            objective=reverse["objective"],
+            value_mm=float(
+                np.average(
+                    result.cumulative_slip[-1], weights=reference.constraints.contact_weights
+                )
+            ),
+            initialization_gradient=args.initialization_gradient,
+            history_layout=args.history_layout,
+            reverse_history_statistics=reverse_history_statistics,
+            legacy_conditional_comparison=legacy,
             frozen_input_sha256=frozen,
             primal_trajectory_sha256=trajectory_sha,
             reverse={
@@ -284,11 +359,11 @@ def main():
             environment=environment,
             original_tatva_readonly=True,
             same_accuracy_fem_advantage_verified=False,
-            scope="Full event discrete parameter gradients; fixed bulk/restart input/recorded actuator, selected static and transient branches",
+            scope="Full event discrete parameter gradients with selected static/transient branches; fixed bulk/restart input/recorded actuator; initialization scope is explicit",
         ),
     )
     if not passed:
-        raise ValueError("Full initialized reverse/JVP gradient check failed at original tolerance")
+        raise ValueError("Full discrete reverse/JVP gradient check failed at original tolerance")
     print(output / "summary.json", flush=True)
 
 
