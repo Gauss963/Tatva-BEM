@@ -107,6 +107,15 @@ pressure reconstruction bound 較鬆，不能混稱 primary target 的不確定�
 以上差異發生在 CQ 動態推進之前。因此 bulk／初態空間差異不能只靠縮短 dt 消除；
 是否解釋動態誤差的主要部分，仍須由新網格的完整事件檢查。沒有排除端點。
 
+![初始接觸場與 FEM 的完整區間及細節對照](figures/initial_contact_comparison.png)
+
+圖中 interior 曲線接近，但端點差大；Γ8 在上端附近還有明顯的 pressure dip。
+較多接觸積分點並沒有自動給出較好的壓力解。這是觀察結果，尚未證明 dip 的
+唯一成因或非線性穩定性；接續使用原 FEM 的相同 nodal rule 做隔離控制。
+所有量化誤差仍積分整段區間。圖形的初始 rows、座標與 metadata 指紋保存於
+[figure manifest](initial_contact_figure_manifest.json)，只讀繪圖資料所需的第一列，
+並重新核對其 norm 與前述捕獲紀錄，沒有載入或重算完整軌跡。
+
 ## 完整保存資料的時空誤差
 
 `compare_refined_fem_history.py` 補上場與 scalar histories 的定量比較。

@@ -1,0 +1,38 @@
+{
+  "status": "completed_saved_initial_contact_figure",
+  "figure": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/docs/figures/initial_contact_comparison.png",
+  "figure_sha256": "740aef1aac85a08040842d3ba912911145fe046f3dafea18fe9d9ce6ba5d3de1",
+  "reference_record_sha256": "56717aa5e163ee5b4f1abc1d82510f23e651e55c465f067802bce12642bd950e",
+  "inputs": [
+    {
+      "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/initial-contact-snapshots-20261027/fem-event16-authored-f64-h2-4c-interface.npz",
+      "sha256": "fde2d15b393ed32f810aa6836eca99f54f9015aa989aca98d67e23ea8b148f9f",
+      "label": "FEM h2, saved static frame"
+    },
+    {
+      "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/initial-contact-snapshots-20261027/fem-event16-authored-f64-h1-original-dt-4c-interface.npz",
+      "sha256": "478f8dac91eab78502cd7b0d0c2626f94905d82d37099c651dbade77d98f87fd",
+      "label": "FEM h1, saved static frame"
+    },
+    {
+      "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv1-n64-coarse-p1-fem-static/trajectory.npz",
+      "summary_sha256": "14fda9b2cd2786ef82c557d406f6230114bb65e34e6e7da3925aa49c25bb6453",
+      "first_pressure_row_sha256": "2625f22fc584845854a4531f24d0ef9a88b9e40f4df26da2feaef6786a232748",
+      "first_shear_row_sha256": "794d431ee9bd47b35cb9584c05809da83968199d8c86d6cea70faa9925c470e1",
+      "contact_y_sha256": "c80484b97bea0589c838d7da6fab3116408fb587b7778c034b62efacd861c017",
+      "label": "BEM 137 bulk nodes, subdivision 1, coarse-P1 seed",
+      "scope": "Only the plotted initial rows and coordinates were read; not a complete NPZ hash"
+    },
+    {
+      "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv8-n64-original-p1-fem-static/trajectory.npz",
+      "summary_sha256": "5a814e5d0b94e6e9b0b486daf1a3a4441c30aa0e9794205048a77fb61854c769",
+      "first_pressure_row_sha256": "14ff18038be8ae1b3b6c459603da2f8ae120b2ea7c990f5320cd68c153597990",
+      "first_shear_row_sha256": "564fd582c24dd69a7601a61efa78901a1cdc0915bc79ac51d683f9234b636d37",
+      "contact_y_sha256": "08f327b5cb705d3fa0d40dbb6798fb9500d346ceab372beacf4819032753a65f",
+      "label": "BEM 137 bulk nodes, subdivision 8, original-P1 seed",
+      "scope": "Only the plotted initial rows and coordinates were read; not a complete NPZ hash"
+    }
+  ],
+  "scope": "Saved float32 FEM static frames versus BEM lifted initial fields. Visual zooms do not change full-interval metrics. Shear reconstruction bound <=0.0182 MPa.",
+  "same_accuracy_fem_advantage_verified": false
+}
