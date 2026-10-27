@@ -33,6 +33,7 @@ def main():
     parser.add_argument("--growth", type=float, default=1.2)
     parser.add_argument("--include-unrefined", action="store_true")
     parser.add_argument("--max-dofs", type=int, default=500000)
+    parser.add_argument("--defect-correction", action="store_true")
     args = parser.parse_args()
     output = args.output.resolve()
     if output.exists() or output.is_relative_to(Path("/Volumes/Gauss-T7/tatva")):
@@ -89,6 +90,14 @@ def main():
         ]
     }
     frozen.update(inputs["input_sha256"])
+    if args.defect_correction:
+        path = TOOLS / "fem_static_defect_correction.py"
+        frozen[str(path.resolve())] = fingerprint(path)
+        defect = runpy.run_path(str(path))
+        # The numerical adapter also reads these unchanged equation/map helpers.
+        for name in ["compare_linear_bulk_response.py", "chamfer_mesh_refinement.py"]:
+            path = TOOLS / name
+            frozen[str(path.resolve())] = fingerprint(path)
     with np.load(args.restart_seed, allow_pickle=False) as data:
         if set(data.files) != {"y", "plastic_slip", "cumulative_slip", "actuator"}:
             raise ValueError("Require the captured complete interface seed schema")
@@ -143,9 +152,18 @@ def main():
             raise ValueError("Refined FEM contact does not align with the original seed interval")
         interpolated = np.interp(yy, y, z)
         preparation = perf_counter() - start
-        answer = static_normal.solve_static_normal_phase(
-            model, config, actuator_displacement=float(actuator), plastic_slip=interpolated
-        )
+        if args.defect_correction:
+            answer = defect["solve_refined_static"](
+                static_normal,
+                model,
+                config,
+                actuator_displacement=float(actuator),
+                plastic_slip=interpolated,
+            )
+        else:
+            answer = static_normal.solve_static_normal_phase(
+                model, config, actuator_displacement=float(actuator), plastic_slip=interpolated
+            )
         if answer["relative_residual"] > 1e-8 or any(
             not np.all(np.isfinite(answer[key])) for key in ["u", "sigma_n", "tau", "plastic_slip"]
         ):
@@ -215,6 +233,7 @@ def main():
             snapshot_sha256=fingerprint(target / "static.npz"),
             source_builder_binding_unchanged=True,
             healed_memory_reset_to_zero=True,
+            numerical_defect_correction=answer.get("numerical_defect_correction"),
         )
         write_json(target / "summary.json", record)
         records.append(record)
