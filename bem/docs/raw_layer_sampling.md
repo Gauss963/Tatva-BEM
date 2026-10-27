@@ -56,3 +56,17 @@ PYTHONPATH=bem/src python -B bem/tools/prepare_raw_layer_resolvent.py SOURCE_KER
   --dt 2e-6 --duration .045 --workers 4 --fft-rows 4 \
   --max-workspace-mb 3072 --max-memory-mb 8192 --preflight-only --output NEW_PREFLIGHT
 ```
+
+fine2/Q12、2 us、45 ms 的實際 preflight 已完成：完整產物需約
+53,314,127,752 bytes 磁碟，插值陣列估計 2348.99 MiB，整體陣列估計
+6168.79 MiB。這仍只是 preflight，不是完成的核心或 RSS 實測。
+
+`compare_raw_kernel_spectrum.py` 用既有完整 work resolvent 與已獨立稽核的原算子，
+對每個新頻率檢查相對矩陣差及 `A_old * L_new - I`，後者避免弱方向誤差被
+Frobenius norm 掩蓋。三個 NPY 檔在同一讀取 pass 核對完整 SHA-256，
+驗證成本與新建核時間分開。弱方向注入誤差的測試已通過。
+
+`compare_refined_primal.py` 再核對相同 bulk/time/contact grid 的所有 saved fields，
+包含 retained displacement、初始 trace／force 與完整 45 ms histories；沿用既有
+壓力／剪力 1e-3 MPa、位移／slip 1e-6 mm 容差。只對末端看起來相近不算通過。
+這些是新 solver 的等價性 gate，沒有把未達標的 BEM/FEM 差異改名成成功。
