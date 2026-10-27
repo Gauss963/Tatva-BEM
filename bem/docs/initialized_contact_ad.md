@@ -17,7 +17,7 @@ bulk 矩陣之差。Newton 與 active-set 迭代都不反傳。
 新增測試從獨立 original-Z 歷史求解：每次參數有限差分都重新解 healed static
 平衡，再執行完整短程動態，核對五個接觸參數及 forward/reverse agreement；
 單子步與四子步分開。真實完整 event 的 coarse-P1 Γ8 控制現已通過，見下方；
-original-P1 Γ8 仍在序列執行。材料／幾何與載入停止時間導數仍未包含。
+original-P1 Γ8 也已完成。材料／幾何與載入停止時間導數仍未包含。
 
 static sensitivity 的來源 `7810755` 與含初始化的完整短程來源 `a2f1a77`
 已分別通過 Python 3.11／3.12 的
@@ -86,4 +86,21 @@ kn／kt 則顯著改變，不能把固定初態的 conditional gradient 當成�
 hashing 與 JIT 的總時間 1229.33 s，peak RSS 8570.64 MiB。
 [完整結果](initialized_coarse_full_ad_results.json)保存 scope、逐參數對照與來源指紋。
 這仍不是材料／幾何、event-time 或跨 active-set 的導數；也沒有解決已觀察到的
-mesh／time gradient convergence 問題。original-P1 Γ8 正在後續執行。
+mesh／time gradient convergence 問題。
+
+## original-P1 完整控制亦通過
+
+相同 137-node bulk／1089 contact states，直接採原 float64 seed P1 場的全事件
+initialized AD 亦已通過：reverse／batched-forward 最大差 1.629e-11，
+reverse 479.25 s、forward 713.59 s，總時間 1221.50 s，peak RSS 8443.22 MiB。
+完整 source／primal 指紋見 [initialized_original_full_ad_results.json](initialized_original_full_ad_results.json)。
+
+依 kn、kt、mu_s、mu_k、Dc 的順序，梯度為：
+
+```text
+[2.7287601e-8, 7.1070735e-6, 20.4623157, -9.3152155, 2.3317912]
+```
+
+與 coarse-P1 的差異屬於不同初始場近似下的條件式敏感度，不能混稱同一 primal
+的 AD 誤差；兩者各自的正反向檢查都通過。這也再次說明，準確微分離散方程並不
+代替物理場及 gradient 的空間／時間收斂，尚不應開始物理參數反算。

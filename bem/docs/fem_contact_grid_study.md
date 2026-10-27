@@ -20,7 +20,9 @@ restart refinement knots。其接觸 bulk trace 也有 241 個節點、483 retai
 
 ## 執行順序與驗證條件
 
-本機 observer PID 92049 等待現有完整 AD／layout study 完成；數值工作不重疊。
+完整 AD／layout study 已完成。v3 已執行三組靜態網格控制，因原物理精度篩選未通過
+而停在建核之前；其 observer PID 92049 已結束，不是仍在等待的程序。
+後續獨立線性診斷亦已完成，詳見下方；數值工作持續依序執行。
 來源、輸入 metadata 及所有必要 helpers 在排程時保存 SHA-256，改動即停止。
 新建核與 storage source `d7cedee` 已通過
 [Python 3.11／3.12 CI](https://github.com/Gauss963/Tatva-BEM/actions/runs/40440738067)。
@@ -81,6 +83,30 @@ v2 同樣在沒有數值子程序時由 v3 取代，transition record 保留在 
 `superseded.json`。既有 initialized AD 程序未停止。
 這些大型本機產物不提交 Git；實作、測試與重跑設定保留在倉庫。
 原 `/Volumes/Gauss-T7/tatva` 全程只讀。同精度 FEM 優勢仍未驗證。
+
+## 已完成的篩選：尚未通過
+
+241-node、outer h10、contact/end/corner h2 的靜態解，相對 FEM h2 的壓力／剪力
+P1 L2 差為 9.5266%／11.9350%；outer h5 的結果為 9.5464%／11.9905%。
+h10／h5 之間僅差 0.0224%／0.0596%，不足以解釋與 FEM 的差異。
+全體力平衡和 mean pressure 仍符合原方程；沒有裁剪端點或更動 penalty。
+
+獨立的 continuous-time closed-stick linear response 也未通過原 spatial screen：
+
+|頻率 Hz（Re(s)=200/s）|壓力 P1 L2 差|剪力 P1 L2 差|platen 相對差|
+|---|---:|---:|---:|
+|0|12.4863%|9.6894%|0.0378%|
+|1000|11.8887%|10.2132%|0.2953%|
+|10000|3.4670%|3.6711%|4.5224%|
+
+這些尚未使用 CQ 或 slip weakening。FEM/BEM 方程 residual 分別約 1e-13／1e-15，
+因此小代數 residual 不代表空間場吻合。0 Hz 那列仍有 Re(s)=200/s，不是純靜態 s=0。
+完整數據、controller 的原失敗理由與未建立的 kernel 路徑檢查保存於
+[matched_static_screen_results.json](matched_static_screen_results.json)。原容差維持不變。
+
+下一步是 [保持 chamfer 的局部 FEM 端點加密](chamfer_refinement.md)，
+以原始 static kernels 和 true float64 roots 獨立量化 reference 的空間誤差。
+不以選擇較接近 BEM 的 mesh 取代收斂檢查；原 h2／h1 比較仍保留。
 
 ## 起跑前就存在的空間差異
 
