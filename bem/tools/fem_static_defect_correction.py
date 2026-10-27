@@ -136,7 +136,12 @@ def solve_refined_static(module, model, config, *, actuator_displacement, plasti
         np.add.at(rhs, index, value)
     matrix = (p.T @ (k + contact) @ p).tocsc()
     matrix += sps.csc_matrix(([spring], ([p.shape[1] - 1], [p.shape[1] - 1])), shape=matrix.shape)
-    q = np.asarray(p.T @ answer["u"]) / np.asarray(p.sum(axis=0)).ravel()
+    columns = p.tocsc()
+    # Read one representative coordinate per column. Averaging already tied
+    # face values can change their last bit and corrupt this roundoff audit.
+    q = np.asarray(answer["u"])[columns.indices[columns.indptr[:-1]]].copy()
+    if not np.array_equal(p @ q, answer["u"]):
+        raise ValueError("Original static displacement violates its support/platen constraints")
     denominator = max(np.linalg.norm(p.T @ force), 1e-30)
 
     def residual(q):
@@ -151,7 +156,10 @@ def solve_refined_static(module, model, config, *, actuator_displacement, plasti
 
     initial_error = float(np.linalg.norm(residual(q)) / denominator)
     if abs(initial_error - answer["relative_residual"]) > 1e-11:
-        raise ValueError("Reconstructed split-force residual differs from the original equation")
+        raise ValueError(
+            f"Reconstructed split-force residual {initial_error:.17g} differs from "
+            f"the original equation {answer['relative_residual']:.17g}"
+        )
     q, records = correct_fixed_set(matrix, q, residual, admissible, denominator)
     u = p @ q
     _, _, _, pressure, trial = contact_set(u)

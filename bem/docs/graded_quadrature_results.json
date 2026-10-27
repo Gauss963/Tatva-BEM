@@ -1,0 +1,318 @@
+{
+  "status": "passed_same_mesh_static_quadrature_control",
+  "q24_source": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/bem-graded-q24-static-20261027/summary.json",
+  "q24_source_sha256": "39d70114be8ff0496f5af14194bed3a85255ff8ebf6be4fc10cc3dc910dc63fc",
+  "q12_source": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/bem-chamfer-uncondensed-static-20261027/summary.json",
+  "q12_source_sha256": "329456e1dfd7b6cc88f34eee062a7eb65771e9ad355fe170e8e995c4cc6c3b5a",
+  "result": {
+    "status": "completed_graded_bem_static_controls",
+    "records": [
+      {
+        "name": "end-0.0078125",
+        "source_mesh_arguments": {
+          "case": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/cases/pmma_event16.toml",
+          "h": 10.0,
+          "contact_h": 2.0,
+          "contact_end_h": 0.0078125,
+          "corner_h": 0.0078125,
+          "restart_knot_window": null,
+          "restart_knot_subdivisions": 1,
+          "dt": 2e-06,
+          "steps": 8,
+          "duration": 0.045,
+          "quadrature": 24,
+          "workers": 4,
+          "max_memory_mb": 8192.0,
+          "backend": "jax",
+          "sampling": "dense",
+          "sampling_rtol": 1e-12,
+          "diagnostic_actuator_increment": null,
+          "cache": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fine2-q12-seed-cache",
+          "spectrum_directory": null,
+          "name": "galerkin-fine2-q12-kernel-seed8"
+        },
+        "environment": {
+          "package_version": "0.1.0",
+          "python": "3.12.13",
+          "numpy": "2.4.4",
+          "scipy": "1.17.1",
+          "platform": "macOS-15.7.9-arm64-arm-64bit",
+          "available_logical_cpus": 10,
+          "hard_cpu_affinity_enforced": false,
+          "thread_environment": {
+            "FDBEM_CORES": "4",
+            "OPENBLAS_NUM_THREADS": "1",
+            "OMP_NUM_THREADS": "1",
+            "VECLIB_MAXIMUM_THREADS": "1",
+            "XLA_FLAGS": "--xla_cpu_multi_thread_eigen=false intra_op_parallelism_threads=4",
+            "JAX_ENABLE_X64": "true"
+          },
+          "blas_threadpools": [],
+          "source_sha256": {
+            "__init__.py": "984855d6ff3848411c946ecca174ac08baf7afe6f1d2c3be00284da9b8dbf288",
+            "adjoint.py": "7863386b78318e6502d6257469322ee82746f2384ee915c16cbb98cda69c5bc0",
+            "benchmarks.py": "c24b97264ca60d0da1dab2095d50e9ef1b88b7208fba2d46178b8cf9038eb571",
+            "case.py": "4f0c91b18309a2eae5ce5a78da3bac9fde0be9fb1c0a4d2d5e5e1fc84bd85fa7",
+            "cli.py": "82e53ce34714809933dbe456ef403bce27c6b60b20ac4481f2feded9eeadfcea",
+            "comparison.py": "631c111752342fac7d0f64553620e04940e7888b1ab2fc52566a23b5c35ee24c",
+            "condensation.py": "12010fb51d8490ae5c3a9a2cf5b04e414cb7e6205b409ce7891b454e384de7d2",
+            "constraints.py": "830071941c6df0f70e455530fe094242042fb0c1e31498e8f9b75c9aa825cb91",
+            "cq.py": "e9af920593db01f56f1f7138832f0aa603daf07cbf1d688fba8a806f712c1e15",
+            "cq_storage.py": "da2534ef95e95813a464ff04f78a092be374110650d1866cbc1fb8ea5b5105b2",
+            "dynamics.py": "b6d84d8d2c1ac6fc465565c289d1249f378f3424e00cb93441791960b3c180f8",
+            "friction.py": "1424c1639cdc1eb4dd8f780bfdc0433f33cf29752b07a17814a3a2f326d81086",
+            "galerkin.py": "85541ddfe5020debde77b2bf2d4a045fe9a52b6183d4af2f762f577be18ab66d",
+            "galerkin_fast.py": "e6167f6c553e15697b6d67a3a33f559574d22fd49db4aad49c8262d68224b614",
+            "io.py": "d292e6338381aa7935dbbfcadc0df884e89f10b7096fa70cf1b05a83c1c12b03",
+            "jax_backend.py": "4de0aadb88b73ef6792ff36894134ee31bc412b1a54b177a4d1aaaa43328d547",
+            "kernels.py": "4008ae38c62c3022034d654a13da75369bd67309af4614006942398e22c1ad08",
+            "linear.py": "3a4d7c2259fd3e67b507d0c9dcd18082c24ffda30fccb12749976c97fa5a577c",
+            "material.py": "7c4d34d911831f12e3bc99bda2e13e76d468acdf80038dcb60310a568a5342d1",
+            "mesh.py": "a37e853ed57dd80633c44805b6c13158643ac65db3e4a4cfc12520bbdfa15c4c",
+            "nodal.py": "632f1a755bb09d784c125d3198f662213ea60045ada9db1555e1b47b3ab39856",
+            "nodal_dynamics.py": "839db57190f62795aebef30545fcc9c1b41fdef503f038cc7f425068962eb39d",
+            "nonlinear.py": "019c5fc176c70964c89f9e7c74147ad48b4235267dd2faf0ee22f789a2b97590",
+            "operators.py": "bb77a3b2c66dce871c9e71cc2cdc02488e90ad32278cc9a67fea8b909b722825",
+            "sampling.py": "c518d2298b167aaa1d5ca327a612426276901876a50322a7fe4595c7ee4f1f11",
+            "statics.py": "9f81cbd95a1ff1f742387ee4ae94251304177999208a95703371272ac79dc250"
+          },
+          "case_sha256": "82d8f491a63ca1c348507678f08406dccbc62ed1d4abea8882879f7894d2315d",
+          "restart_data_sha256": "cae42101ff5a57004fa803ea5ce928eb8079e5be0ab887d108689e37754c25f6"
+        },
+        "panels": [
+          512,
+          518
+        ],
+        "contact_nodes": 271,
+        "initialization": {
+          "status": "admissible_uncondensed_static_lift",
+          "static_backend": "uncondensed_body_active_set",
+          "body_displacement_dofs": 1852,
+          "bulk_dofs": 543,
+          "contact_state_points": 271,
+          "subdivisions": 1,
+          "residual_mpa": 1.97057185384015e-08,
+          "original_full_balance_mpa": 1.97057185384015e-08,
+          "nonport_force_projection_residual_mpa": 1.97057185384015e-08,
+          "actual_port_equilibrium_residual_mpa": 1.461444298911374e-08,
+          "trace_constraint_error_mm": 0.0,
+          "maximum_strength_ratio": 0.7747459589792125,
+          "retained_schur_on_direct_trace_residual_mpa": 6.104812655394198e-08,
+          "bulk_force_source": "Measured Kr*u-F, projected through the original work-conjugate trace",
+          "mean_pressure_mpa": 16.666666666659697,
+          "mean_shear_mpa": 8.816020564166399,
+          "moving_bulk_normal_force_mpa_mm": -3.366551482031355e-11,
+          "applied_normal_force_mpa_mm": 8000.0,
+          "contact_normal_force_mpa_mm": 7999.999999996654,
+          "moving_normal_balance_defect_mpa_mm": -3.3796823117882013e-09,
+          "force_scope": "Original Galerkin balance, including its finite-quadrature rigid-mode defect",
+          "platen_mm": 9.959888691544966,
+          "seed_unchanged": true,
+          "static_initialization": {
+            "policy": "Tatva healed Coulomb active set, then retain prescribed weakening memory",
+            "active_set_iterations": [
+              {
+                "iteration": 1,
+                "open": 0,
+                "sliding": 0
+              }
+            ],
+            "static_sliding_points": 0,
+            "static_open_points": 0,
+            "original_force_residual_mpa": 1.97057185384015e-08,
+            "maximum_strength_excess_mpa": -3.1466721737823686,
+            "maximum_plastic_offset_change_mm": 0.0,
+            "input_seed_unchanged": true,
+            "weakening_memory_unchanged": true,
+            "no_dynamic_weakening_during_preload": true
+          },
+          "reduction": {
+            "saddle_scaled_residual": 3.029961736767437e-10,
+            "relative_impedance_symmetry": 8.163735077015376e-16,
+            "no_free_body_inverse_or_regularization": true
+          },
+          "dynamic_or_ad_backend_changed": false,
+          "original_tolerance_relaxed": false
+        },
+        "restart_seed": {
+          "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/event16-original-f64-seed/restart_seed.npz",
+          "sha256": "f09f9cfbe88d41cfba9daaffd1d901e66d1b33af2b6826ba8449fa05ef510901",
+          "source_provenance": {
+            "status": "captured_original_float64_restart",
+            "seed_file_sha256": "f09f9cfbe88d41cfba9daaffd1d901e66d1b33af2b6826ba8449fa05ef510901",
+            "original_restart": {
+              "path": "/Volumes/Gauss-T7/tatva/runs/local-mus08-muk06-gap0-v2-ev15/data/simulation.h5",
+              "bytes": 12734514616,
+              "mtime_ns": 1792158143453734215,
+              "plastic_shape": [
+                241
+              ],
+              "checked_u_shape": [
+                91550
+              ],
+              "actuator_mm": 10.806226665707777,
+              "seed_sha256": "097948bec467b2d81f31ea58a056c29785c9f0c22f3952515ff15940357dddc4",
+              "scope": "Static initializer uses plastic slip and actuator; u is checked for size only"
+            },
+            "source_hdf5_size_and_mtime_unchanged": true,
+            "completed_fem": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h2-4c-interface",
+            "initial_saved_plastic_equal_at_storage_precision": true,
+            "cumulative_slip_reset_to_zero": true,
+            "frozen_input_sha256": {
+              "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h2-4c-interface/summary.json": "8f2538542a351197923c063e75dce7f607adc5706ff46313ee78ee1dc73af5e1",
+              "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h2-4c-interface/resolved_run_config.json": "1f95e7f2bd2c8abc342a80c69ffc59bdb60d95727e76a09d8a1f9fdb8bce6bd2",
+              "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/restart_seed_experiment.py": "d9507983063a21db6849a1e8236f71e0d9585133c87576b18ea11b4b21879885",
+              "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/run_fem_reference.py": "83995320c1b6bbe93cabb5005158cee08eece515b88b4df12b08802e4310fe5d"
+            },
+            "scope": "Original float64 event-15 plastic slip and actuator; healed memory reset as specified by event-16. Not a bulk checkpoint or evidence of BEM equivalence."
+          },
+          "provenance_path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/event16-original-f64-seed/restart_seed.json",
+          "provenance_sha256": "6a2b14d9246576ce3b5867d65ca2b510065030d825647acf04132fb2c0dd768c",
+          "maximum_plastic_change_from_packaged_mm": 4.567271236766146e-07,
+          "unchanged_knots_geometry_and_bulk_kernel": true,
+          "scope": "Explicit float64 values on the original seed knots; static lift is recomputed, complete time kernel is unchanged"
+        },
+        "source_p1_projection": {
+          "final_relative_p1_l2": 2.0018876513286205e-06,
+          "final_absolute_p1_l2": 0.0003789827950267894,
+          "final_maximum_absolute_difference": 0.0004254273192358937,
+          "final_reference_maximum": 9.117343213272274,
+          "final_actual_maximum": 9.117343213272274,
+          "final_reference_p1_mean": 8.637845368264985,
+          "final_actual_p1_mean": 8.637845848979302,
+          "maximum_saved_absolute_difference": 0.0004254273192358937
+        },
+        "maximum_fixed_jump_trial_shear_projection_change_mpa": 3.2596241199854177,
+        "maximum_pressure_mpa": 1546.1805838298658,
+        "maximum_shear_mpa": 282.77831289720496,
+        "comparisons": [
+          {
+            "fem_snapshot": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-chamfer-graded-static-h1-corrected-v2-20261027/end-0.03125/static.npz",
+            "fem_mesh_size": 1.0,
+            "fem_end_size": 0.03125,
+            "pressure": {
+              "final_relative_p1_l2": 0.02447098635537358,
+              "final_absolute_p1_l2": 13.075359727932195,
+              "final_maximum_absolute_difference": 108.70904824395188,
+              "final_reference_maximum": 1437.471535585914,
+              "final_actual_maximum": 1546.1805838298658,
+              "final_reference_p1_mean": 16.66666666666927,
+              "final_actual_p1_mean": 16.666666666659694,
+              "maximum_saved_absolute_difference": 108.70904824395188
+            },
+            "shear": {
+              "final_relative_p1_l2": 0.005976684246845843,
+              "final_absolute_p1_l2": 1.6056944048738577,
+              "final_maximum_absolute_difference": 5.615673693974088,
+              "final_reference_maximum": 284.3018801764475,
+              "final_actual_maximum": 282.77831289720496,
+              "final_reference_p1_mean": 8.816278732759027,
+              "final_actual_p1_mean": 8.816020564166399,
+              "maximum_saved_absolute_difference": 5.615673693974088
+            }
+          },
+          {
+            "fem_snapshot": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-chamfer-graded-static-h1-corrected-v2-20261027/end-0.015625/static.npz",
+            "fem_mesh_size": 1.0,
+            "fem_end_size": 0.015625,
+            "pressure": {
+              "final_relative_p1_l2": 0.012202341371977605,
+              "final_absolute_p1_l2": 6.5057988852371595,
+              "final_maximum_absolute_difference": 92.8804862969946,
+              "final_reference_maximum": 1519.9783047638603,
+              "final_actual_maximum": 1546.1805838298658,
+              "final_reference_p1_mean": 16.666666666654393,
+              "final_actual_p1_mean": 16.666666666659694,
+              "maximum_saved_absolute_difference": 92.8804862969946
+            },
+            "shear": {
+              "final_relative_p1_l2": 0.006082012051376171,
+              "final_absolute_p1_l2": 1.6334931274413724,
+              "final_maximum_absolute_difference": 3.6512211519627726,
+              "final_reference_maximum": 283.9778485174778,
+              "final_actual_maximum": 282.77831289720496,
+              "final_reference_p1_mean": 8.81623343947324,
+              "final_actual_p1_mean": 8.816020564166399,
+              "maximum_saved_absolute_difference": 3.6512211519627726
+            }
+          },
+          {
+            "fem_snapshot": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-chamfer-graded-static-h1-corrected-v2-20261027/end-0.0078125/static.npz",
+            "fem_mesh_size": 1.0,
+            "fem_end_size": 0.0078125,
+            "pressure": {
+              "final_relative_p1_l2": 0.0058489104175512814,
+              "final_absolute_p1_l2": 3.1149074155954013,
+              "final_maximum_absolute_difference": 24.94967847436328,
+              "final_reference_maximum": 1559.2922372379287,
+              "final_actual_maximum": 1546.1805838298658,
+              "final_reference_p1_mean": 16.666666666749638,
+              "final_actual_p1_mean": 16.666666666659694,
+              "maximum_saved_absolute_difference": 24.94967847436328
+            },
+            "shear": {
+              "final_relative_p1_l2": 0.0050844505505497585,
+              "final_absolute_p1_l2": 1.3653725196766937,
+              "final_maximum_absolute_difference": 1.702413350572101,
+              "final_reference_maximum": 283.59694370401587,
+              "final_actual_maximum": 282.77831289720496,
+              "final_reference_p1_mean": 8.816214213494428,
+              "final_actual_p1_mean": 8.816020564166399,
+              "maximum_saved_absolute_difference": 1.702413350572101
+            }
+          }
+        ],
+        "static_seconds": 179.42902337480336,
+        "snapshot": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/bem-graded-q24-static-20261027/end-0.0078125/static.npz",
+        "snapshot_sha256": "e48dc1c47c79557971a6a116d935d9e1dbaf9704ff02259557b8740210eea086",
+        "status": "completed_static_mesh_control_not_a_dynamic_kernel"
+      }
+    ],
+    "successive_refinement": [],
+    "frozen_input_sha256": {
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/bem_graded_static.py": "d48eb730b07772f4b4daa0373811bd155ad3d8ec1d3c16889093391509fa7fd7",
+      "/Volumes/Gauss-T7/Tatva-BEM-cache/direct-resolvent-fine2-q12-full45-20261026/summary.json": "df571df1a29850fa1cca99964135a78d970bf2e80be8bd62bf4a22d12e3c124e",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/event16-original-f64-seed/restart_seed.npz": "f09f9cfbe88d41cfba9daaffd1d901e66d1b33af2b6826ba8449fa05ef510901",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/refined_contact.py": "c055f15f8c15d6c3da2f6792a97ec3ed44baa652478f6a24990fa1f478fa3741",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/fem_static_contact.py": "093ee005753ebbe4efe4e9eefd95a05ccf5748b1f976cb29f0045316c1728589",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/restart_seed_experiment.py": "d9507983063a21db6849a1e8236f71e0d9585133c87576b18ea11b4b21879885",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compare_fem_mesh.py": "a747c5b4ff52ad84556d5de0c91fb21e0612f3f3d71f165626058c22608b3e0b",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/uncondensed_static_contact.py": "3c672b13b415ee3d96487858a869b9e4cb0af3583ac63959ceb7101c509c4bef",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-chamfer-graded-static-h1-corrected-v2-20261027/summary.json": "20fc5e7d46c0befabf26fcbdf853173626c0027f440f50c453bd0abfe0bb180b",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-chamfer-graded-static-h1-corrected-v2-20261027/end-0.03125/static.npz": "8e3eed429122df8e2b656c1e0ce602373899e10e21e69e044e305157f72ec5ad",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-chamfer-graded-static-h1-corrected-v2-20261027/end-0.015625/static.npz": "fda66f6dc56be07822c3697d26029f467820f32454bd6472b9196611b6ccd772",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-chamfer-graded-static-h1-corrected-v2-20261027/end-0.0078125/static.npz": "043113a47cfb0773fa161085f217783af18cc63eec8f21c79fa286f580081036"
+    },
+    "total_seconds": 179.4496667077765,
+    "peak_process_rss_mib": 590.078125,
+    "physical_convergence_verified": false,
+    "same_accuracy_fem_advantage_verified": false,
+    "original_tatva_readonly": true,
+    "scope": "Independent static endpoint/corner refinement at fixed contact/outer scale. Source P1 projection errors recorded; no transient or continuum certificate."
+  },
+  "q12_against_q24": {
+    "pressure": {
+      "final_relative_p1_l2": 4.2997610848044e-11,
+      "final_absolute_p1_l2": 2.284018642657444e-08,
+      "final_maximum_absolute_difference": 2.0225547814334277e-07,
+      "final_reference_maximum": 1546.1805838298658,
+      "final_actual_maximum": 1546.1805836276103,
+      "final_reference_p1_mean": 16.666666666659694,
+      "final_actual_p1_mean": 16.666666666660586,
+      "maximum_saved_absolute_difference": 2.0225547814334277e-07
+    },
+    "shear": {
+      "final_relative_p1_l2": 9.245620684618278e-12,
+      "final_absolute_p1_l2": 2.478564187453189e-09,
+      "final_maximum_absolute_difference": 2.0102618236705894e-08,
+      "final_reference_maximum": 282.77831289720496,
+      "final_actual_maximum": 282.7783129173076,
+      "final_reference_p1_mean": 8.8160205641664,
+      "final_actual_p1_mean": 8.816020564173236,
+      "maximum_saved_absolute_difference": 2.0102618236705894e-08
+    }
+  },
+  "required_static_relative_p1_l2_tolerance": 0.01,
+  "dynamic_quadrature_convergence_verified": false,
+  "same_accuracy_fem_advantage_verified": false
+}

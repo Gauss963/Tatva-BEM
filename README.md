@@ -4,7 +4,7 @@ Fully elastodynamic boundary elements for finite-block frictional contact,
 developed alongside the Tatva-based PMMA finite-element model.
 
 **Research implementation: the full 45 ms event-16 FEM rupture has not yet
-been reproduced or shown to converge.** The latest full Radau 6 us / Q12 event
+been reproduced or shown to converge.** The completed Radau 6 us / Q12 event
 with the original float64 seed reaches 0.5654 mm, 12.22% below the archived FEM.
 Final pressure/shear profile differences
 remain about 20%; temporal and spatial convergence are still open.
@@ -18,6 +18,14 @@ See the [full Radau and error-isolation results](bem/docs/radau_event.md),
 the [contact substep comparison](bem/docs/substepped_contact.md),
 the [original one-step comparison](bem/docs/fine2_event.md) and the
 [earlier collocation comparison](bem/docs/event16_comparison.md).
+
+The latest [independent endpoint controls](bem/docs/chamfer_refinement.md)
+reduce the initial whole-interface pressure/shear differences to 0.58%/0.51%
+against FEM h1 at matching 0.0078125 mm endpoint sizes. Three continuous-time linear response
+samples pass the unchanged 5% screen. These are static and linear controls;
+they do not establish complete nonlinear event agreement or a speed advantage.
+An explicit uncondensed static backend also resolves a fine-panel reconstruction
+roundoff failure at the original equilibrium tolerance.
 
 This repository preserves the existing Tatva/PMMA Git history. Its upstream
 is [smec-ethz/tatva](https://github.com/smec-ethz/tatva); the inherited PMMA
@@ -75,7 +83,9 @@ See [BEM usage and current results](bem/README.md),
 [remaining acceptance gates](bem/docs/roadmap.md).
 The [AD design](bem/docs/autodiff.md) explains conditional contact gradients;
 material/geometry and load-hold event-time derivatives remain open. A selected
-static-active-set initialization derivative is implemented, with full-event validation pending.
+static-active-set initialization derivative has passed full-event reverse/forward
+checks for both seed interpolation modes. Gradients remain mesh dependent; see
+[initialized full-history AD](bem/docs/initialized_contact_ad.md).
 See the [latest refinement and adjoint results](bem/docs/refinement.md) for
 45 ms conditional gradients and the remaining physical solution differences.
 The [2024–2026 literature review](bem/docs/literature.md) records the next
@@ -87,10 +97,13 @@ before attributing a change to refinement. The complete identity control passed;
 frozen offsets near an endpoint. The new [healed static contact control](bem/docs/fem_static_initialization.md)
 matches Tatva's Coulomb preload policy. Six complete controls and original causal
 equation audits have passed their algebraic checks; FEM agreement remains below target.
-The next [FEM-contact-grid study](bem/docs/fem_contact_grid_study.md) increases
-the bulk contact trace to the original FEM's 241 nodes and tests two local time resolutions.
+The [241-node static screen](bem/docs/fem_contact_grid_study.md) failed its original
+accuracy gate; its large-kernel stages were not started. Independent endpoint
+refinement is now resolving the spatial discrepancy before new transient runs.
 The [batched AD history prototype](bem/docs/batched_ad_history.md) shares kernel FFTs
-across derivative directions, with full-event runtime validation still pending.
+across derivative directions. The [complete-event layout control](bem/docs/layout_history.md)
+preserves the primal, all five gradients and every actuator cotangent, with
+substantially shorter measured AD time on this machine.
 The [original-equation audit](bem/docs/original_history_audit.md) additionally
 checks causal force histories and the initial P1 seed-field projection.
 The [Galerkin implementation and validation](bem/docs/galerkin.md) addresses

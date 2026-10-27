@@ -79,7 +79,7 @@ BEM 的固定 jump trial-shear projection bound 約 3.26–3.73 MPa，已列入
 
 FEM background h1 的 end 0.03125 mm 嘗試未通過原 1e-8 static relative residual
 門檻，未接受其場，也未完成第二級。該次失敗沒有捕捉殘差的具體數值；
-工具已補上失敗 snapshot／診斷保存，後續須先定位再修正數值求解。
+工具已補上失敗 snapshot／診斷保存。後續數值修正與背景控制見下一節。
 BEM Q12／Q24 積分控制及 graded linear dynamic responses 亦是進入完整事件前的控制。
 目前只證實上面的靜態差異與數值初始化改善，沒有同精度 FEM 速度或動態穩定性優勢。
 
@@ -94,6 +94,43 @@ PYTHONPATH=bem/src FDBEM_CORES=4 OPENBLAS_NUM_THREADS=1 JAX_ENABLE_X64=true \
 ```
 
 這個 backend 目前由 static driver 明確選用；既有 transient／AD backend 沒有改變。
+
+## FEM background h1 的殘差修正與完成結果
+
+重跑捕捉到原 source 的相對殘差 1.02956e-8，確實略高於 1e-8 門檻。
+以完全相同的 sparse matrix 修正原 split-force defect，第一次即降至 1.59e-10。
+`fem_static_defect_correction.py` 現提供可重現的數值 adapter：先由原 solver 選擇
+active set、共用其原 elastic assembly，然後在支承／platen 約束下修正
+`K*u + C*u - rhs + spring`，要求每一步保留原 contact set，並達到更嚴的 1e-9 target。
+它不修改原 source bindings、原 constitutive/contact kernels 或物理參數。
+不能只看合併矩陣的 residual，因為 contact offset 與整體位移相減的 roundoff
+在 split force 中不同；兩者的實際量測已保留。
+
+三項數值測試核對 split-force 平衡、platen tie、拒絕 branch 改變和未收斂／寬鬆 target；
+真實 h40 小模型亦保持原解。背景 h1 的三組真實控制現已完成：
+
+|Endpoint size [mm]|FEM DOFs|Pressure peak [MPa]|Relative force residual|BEM/FEM pressure P1 L2|Shear P1 L2|
+|---|---:|---:|---:|---:|---:|
+|0.03125|442416|1437.4715|1.59e-10|1.6276%|0.6246%|
+|0.015625|461222|1519.9783|2.54e-10|0.9162%|0.6230%|
+|0.0078125|484790|1559.2922|5.31e-10|0.5849%|0.5084%|
+
+最後兩級 FEM pressure／shear 的變化為 0.8539%／0.2187%。
+最細兩組均只需一次 residual correction，所有組 active set 均未改變。
+這些完整 static controls 共 113.67 s、峰值 process RSS 4699.83 MiB；
+包含 mesh、JAX 組裝、原 static solve、數值修正與輸出，不是完整動態成本。
+[原始結果、失敗紀錄及指紋](fem_background_static_results.json)包含 h2／h1 的全場比較。
+
+BEM uncondensed static sensitivity 另以原 selected-set JAX root differentiation
+求 `du/dp`，再用原 trace 與 `Kr*du/dp` 的量測 force projection 取得初始 trace／bulk-force
+導數。小模型已與 condensed derivative、兩個 penalty 參數各自重新求解的 centered
+finite differences 核對；尚未將這個新 backend 接回完整事件 AD。
+
+最細 BEM end 0.0078125 mm 的相同網格 Q12／Q24 static control 亦完成：
+pressure／shear 全接觸面 P1 L2 差為 4.30e-11／9.25e-12，
+最大 absolute difference 為 2.02e-7／2.01e-8 MPa；Q24 full-body residual 為 1.97e-8 MPa。
+[積分控制報告](graded_quadrature_results.json)保留原值、來源與指紋。
+這只驗證 static quadrature，未驗證整個複數 CQ contour 的積分誤差。
 
 ## 連續時間的 linear dynamic response
 

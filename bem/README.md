@@ -9,8 +9,13 @@
 新增[固定bulk的接觸積分加密與完整歷史AD](docs/refined_contact.md)：
 保留275個bulk未知數，以功共軛方式增加接觸狀態點，分離接觸積分與bulk誤差。
 完整identity控制已通過，273狀態點最大滑移0.569536mm；更細積分則暴露端點初始強度超限。
-新增[與Tatva一致的healed靜態接觸初始化](docs/fem_static_initialization.md)，完整事件比較正在執行。
-另有[共用kernel FFT的多右端AD歷史](docs/batched_ad_history.md)，尚待完整梯度與計時驗證。
+新增[與Tatva一致的healed靜態接觸初始化](docs/fem_static_initialization.md)，六組完整事件及原方程檢查已完成，精度尚未達標。
+最新[獨立端點加密](docs/chamfer_refinement.md)在同 end 0.0078125 mm、對 FEM h1 的初始 pressure／shear
+全接觸面 P1 L2 差降至 0.58%／0.51%；三個連續時間 linear response 通過原 5% screen。
+這些是靜態／線性控制，完整非線性事件、時間與空間收斂仍未完成。
+另有[共用 kernel FFT 的完整事件 AD 控制](docs/layout_history.md)，
+解、五個參數梯度與全部 actuator cotangents 已核對，並量測到較短的 AD 時間。
+[含初始化的完整歷史 AD](docs/initialized_contact_ad.md)亦完成兩種 seed interpolation 的 reverse／forward 核對；跨網格梯度仍未收斂。
 目前驗證包括解析波傳／反射、雙 block 非線性滑動、完整時間範圍的原載入對照，以及 JAX 接觸參數梯度。
 數值與執行條件見 [事件比較](docs/event16_comparison.md) 和 [AD 設計](docs/autodiff.md)。
 新增 [接觸座標縮減](docs/condensation.md) 可降低完整歷史儲存，並提供端點與角落加密。
@@ -39,8 +44,8 @@ Radau新增兩family磁碟權重、完整因果startup及耦合stage接觸；
 既有Radau相對h1最大滑移仍差8.79%、壓力分布差10.04%。
 另有[原始因果方程與重啟場投影稽核](docs/original_history_audit.md)，
 六組完整事件的原方程檢查已通過，FEM 精度仍未達標。
-下一輪[與原 FEM 一致的 241-node bulk 接觸網格](docs/fem_contact_grid_study.md)
-已完成座標核對與資源 preflight，排在完整 AD 驗證之後依序執行。
+[與原 FEM 一致的 241-node bulk 接觸網格](docs/fem_contact_grid_study.md)
+未通過原靜態精度門檻，大型建核沒有啟動；後續改以獨立端點加密分離空間誤差。
 另有[離散高頻輻射項研究](docs/radiation_limit.md)，先核對瞬時／完整歷史分解的係數；
 其[二維接觸線快速線性解與隱式AD](docs/structured_radiation.md)已實作，尚未接入完整時間積分。
 後續[非線性接觸根與狀態導數控制](docs/radiation_contact.md)已通過完整mesh的製造解與三步AD檢查。
