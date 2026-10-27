@@ -52,6 +52,13 @@ The BEM package is independent of the Tatva FEM time integrator. A shared
 backend interface and memory-compressed production history remain
 future work. No files in the external original Tatva checkout are modified.
 
+The exact captured float64 restart is now included as
+[`ev16_restart_float64.npz`](bem/src/finiteblock_bem/resources/data/ev16_restart_float64.npz),
+with provenance and a verified wheel payload. Pass it explicitly to the research
+tools' `--restart-seed` option; the existing default CSV remains unchanged.
+It contains the 241-knot plastic offset, healed zero memory and actuator,
+allowing the BEM input to be reproduced without the original large FEM HDF5.
+
 ## Quick start
 
 Python 3.11 or newer:

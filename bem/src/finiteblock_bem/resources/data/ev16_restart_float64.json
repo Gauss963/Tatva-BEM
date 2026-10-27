@@ -1,0 +1,19 @@
+{
+  "status": "captured_original_float64_restart",
+  "seed_file_sha256": "f09f9cfbe88d41cfba9daaffd1d901e66d1b33af2b6826ba8449fa05ef510901",
+  "source_revision": "933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d",
+  "source_event": "local-mus08-muk06-gap0-v2-ev15",
+  "target_event": "local-mus08-muk06-gap0-v2-ev16",
+  "source_plastic_and_actuator_sha256": "097948bec467b2d81f31ea58a056c29785c9f0c22f3952515ff15940357dddc4",
+  "source_arrays_dtype": "float64",
+  "source_contact_nodes": 241,
+  "contact_interval_mm": [
+    0,
+    480
+  ],
+  "cumulative_slip_reset_to_zero": true,
+  "source_hdf5_size_and_mtime_unchanged": true,
+  "scope": "Original float64 event-15 plastic slip and actuator; healed memory reset as specified by event-16. Not a bulk checkpoint or evidence of BEM equivalence.",
+  "bulk_checkpoint_included": false,
+  "fem_hdf5_included": false
+}

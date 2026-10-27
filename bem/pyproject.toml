@@ -22,7 +22,7 @@ finiteblock-bem = "finiteblock_bem.cli:main"
 where = ["src"]
 
 [tool.setuptools.package-data]
-finiteblock_bem = ["resources/cases/*.toml", "resources/data/*.csv", "resources/data/*.json"]
+finiteblock_bem = ["resources/cases/*.toml", "resources/data/*.csv", "resources/data/*.json", "resources/data/*.npz"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

@@ -1,0 +1,10 @@
+{
+  "status": "verified_float64_restart_in_built_wheel",
+  "wheel": "finiteblock_bem-0.1.0-py3-none-any.whl",
+  "wheel_sha256": "fe15ca4db657ecb88222722b8acc32a03e610668a0bdc98db14be16f52f2c644",
+  "member": "finiteblock_bem/resources/data/ev16_restart_float64.npz",
+  "member_bytes": 6814,
+  "seed_sha256": "f09f9cfbe88d41cfba9daaffd1d901e66d1b33af2b6826ba8449fa05ef510901",
+  "original_seed_copy_bitwise_identical": true,
+  "scope": "Packaging/input fidelity only; no dynamic accuracy certificate"
+}

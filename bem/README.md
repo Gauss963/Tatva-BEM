@@ -121,6 +121,14 @@ python -m venv .venv
 NumPy、SciPy、threadpoolctl 是核心依賴；JAX 為可選的 AD 後端，Matplotlib 供產圖。
 套件包含預設 case 與小型重啟界面資料，wheel 不依賴外部 Tatva 路徑。
 
+完整原事件控制使用的精確 float64 seed 亦已收錄於
+[`ev16_restart_float64.npz`](src/finiteblock_bem/resources/data/ev16_restart_float64.npz)，
+附來源與 SHA，與實際控制使用的 captured file 逐位元相同，並已核對 wheel 內的內容。
+研究工具的 `--restart-seed` 可明確指定此檔；既有 default CSV 沒有被替換。
+這是 241 knots 的 P1 塑性 offset、healed 零 memory 與 actuator，沒有包含 bulk checkpoint。
+因此 BEM 端不必取得原 12.7 GB FEM restart HDF5 才能重現相同輸入。
+FEM 動態參考的來源與執行仍見[graded transient／resume](docs/graded_fem_transient.md)。
+
 ## 4 核心完整時間範圍對照
 
 以下從 repository 根目錄執行，完整歷史 FFT 是預設值：
