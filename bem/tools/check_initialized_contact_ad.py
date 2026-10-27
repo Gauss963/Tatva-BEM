@@ -181,6 +181,7 @@ def main():
     paths = [Path(__file__), args.run / "summary.json", *[TOOLS / n for n in names]]
     if args.legacy_ad is not None:
         paths.append(args.legacy_ad)
+        paths.append(args.legacy_ad.parent / "gradients.npz")
     frozen = {str(p.resolve()): fingerprint(p) for p in paths}
     begun = perf_counter()
     (
@@ -291,11 +292,22 @@ def main():
         legacy_passed = bool(
             np.allclose(legacy["reverse_gradient"], reverse["gradient"], rtol=1e-7, atol=1e-7)
         )
+        with np.load(args.legacy_ad.parent / "gradients.npz", allow_pickle=False) as data:
+            legacy_actuator = data["actuator_gradient"]
+        if legacy_actuator.shape != reverse["actuator_gradient"].shape:
+            raise ValueError("Legacy actuator cotangent does not cover the same complete time grid")
+        actuator_difference = float(np.max(abs(legacy_actuator - reverse["actuator_gradient"])))
+        actuator_passed = bool(
+            np.allclose(legacy_actuator, reverse["actuator_gradient"], rtol=1e-7, atol=1e-7)
+        )
+        legacy_passed = legacy_passed and actuator_passed
         passed = passed and legacy_passed
         legacy = dict(
             path=str(args.legacy_ad.resolve()),
             maximum_absolute_difference=legacy_difference,
             passed=legacy_passed,
+            complete_actuator_cotangent_maximum_absolute_difference=actuator_difference,
+            complete_actuator_cotangent_passed=actuator_passed,
             reverse_seconds_including_jit=legacy["reverse_seconds_including_jit"],
             forward_seconds_including_jit=legacy["forward_seconds_including_jit"],
             total_including_input_hashes_seconds=legacy["total_including_input_hashes_seconds"],
