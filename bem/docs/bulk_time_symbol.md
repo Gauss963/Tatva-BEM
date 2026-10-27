@@ -41,8 +41,8 @@ platen 使用複數相對差，不只比較振幅大小。
 它顯示 2 µs BDF2 對這個取樣頻率的響應尚未解析，
 增加局部 constitutive substeps 不會改變該 bulk 時間符號。
 尚未量測實際 graded rupture 對各頻率的激發／敏感度，
-因此既有 2 µs 完整事件保留為對照，下一步另檢查同網格的 Radau IIA 響應，
-再選擇完整事件的時間加密方式；不由 A-stability 或局部殘差推論時間精度。
+因此既有 2 µs 完整事件建核保留為對照，另檢查下方同網格的 Radau IIA 響應，
+據此選擇完整事件的時間加密方式；不由 A-stability 或局部殘差推論時間精度。
 
 新的 continuous-time responses 與先前原 compliance-condensation 路徑的三個保存結果，
 pressure／shear／platen 最大相對差為 1.54e-11。
@@ -91,7 +91,7 @@ T(s) = [Z(s)+Dcontact+Dspring]^-1.
 新增控制包括：與完整 coupled-stage oscillator root 核對、
 與獨立 Radau interval quadrature 核對三階 endpoint 誤差，
 以及真實兩有限體上先建立完整 stage operator、再直接解耦合根的比較。
-相關 31 項測試已通過；實際細網格 Radau 數字另行量測。
+相關 31 項測試及 Python 3.11／3.12 CI 已通過。
 該論文的 coercivity／非線性分析條件不直接涵蓋本案 slip weakening，
 此診斷亦沒有更動正式接觸律或宣稱非線性高階收斂。
 
@@ -101,6 +101,39 @@ PYTHONPATH=bem/src OPENBLAS_NUM_THREADS=1 FDBEM_CORES=1 python -B \
   --method radau --dt 2e-6 1e-6 --frequencies 1000 10000 \
   --max-memory-mb 4096 --output FRESH_RADAU_DIAGNOSTIC
 ```
+
+### 實際 Radau 細網格結果
+
+在相同 10 kHz、Re(s)=200 /s 的連續時間 reference 下：
+
+|方法|Bulk step [µs]|Pressure P1 L2|Signed shear P1 L2|Platen|
+|---|---:|---:|---:|---:|
+|BDF2|2|59.1631%|46.5904%|68.5451%|
+|Radau IIA|2|0.66565%|0.43276%|0.55977%|
+|Radau IIA|1|0.08363%|0.05430%|0.07023%|
+
+Radau 的 1 kHz／2 µs pressure／shear 差則為 0.0000310%／0.0000315%。
+減半時間步後，這些取樣接近三階縮減；不能將此現象延伸成 nonsmooth rupture 的高階收斂結論。
+新的 continuous-time baselines 與先前原 compliance-condensation 路徑最大相對差為 1.34e-13；
+各模式 full-body 平衡與接觸根最大相對殘差為 1.02e-14／5.35e-16。
+[完整結果](radau_time_symbol_results.json)保存 modes、權重、responses、來源與 CI。
+BDF2 量測對應 `38e02e0`，Radau 量測對應 `5ecb0bd`，程式指紋各自保留。
+
+![同網格的 BDF2／Radau 時間響應差](figures/radau_time_symbol.png)
+
+本次 Radau 診斷共計算 10 個實際 Laplace 參數、20 次 body assembly，
+wall time 為 751.28 s，與兩-worker 主建核重疊。
+它與上方 BDF2 診斷的頻率／評估數不同，兩份 wall time 不構成方法速度比。
+此時尚未建立這個細網格的完整 Radau kernel，也未重跑其 45 ms event 或 AD。
+
+### 小時間步的建核限制
+
+另以目前 BDF2 2 µs／65536 圓逐一核對全部 target contour nodes。
+1／1.5／2／3／4.5 µs 的 Radau modes 均有 preimage 超出解析 unit disk，
+既有 Cauchy producer 必須拒絕；6 µs 通過的是 domain guard，仍須獨立算子檢查。
+這個限制不能用移除 guard 或把較粗 RK kernel 重標為較小 dt 處理。
+新的[直接 Radau branch 取樣核心](raw_radau.md)用實際 Green kernels 重組兩模式，
+目標是支援可驗證的小步長完整 kernel；目前僅完成下述小型全權重控制。
 
 2026-10-28 的細網格量測以一個 worker 執行，與兩-worker fresh kernel 重疊，
 已知 numerical worker 合計三個；這份時間不能用作受控 FEM／BEM 速度比較。
