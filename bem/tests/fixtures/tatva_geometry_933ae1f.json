@@ -11,5 +11,14 @@
     "_structured_2d_grid": "ef956e42ba8de1c305f0d54f5f0c8615061d7ded2e8ca616494a678a673c343d",
     "create_structured_quad_block": "834debe1a519bcc77561f7bd31d6840a8451e4d4ac4cf9eeab3b5c0cfd8872a6"
   },
-  "scope": "Exact source segments; only the test harness substitutes NumPy and a simple mesh record for JAX/FEM setup"
+  "scope": "Exact source segments; only the test harness substitutes NumPy and a simple mesh record for JAX/FEM setup",
+  "function_source_sha256": {
+    "_axis_coordinates": "ef81445bc6a73ea09f530fc1a7f2724ab932cc0e5345cf9c8473b04eafeea070",
+    "_graded_segment": "62e88166b0bef84744024a2aec8b6292d2245cabce4b13620e18b554f5a17d59",
+    "_graded_axis_coordinates": "606a552a8cffdde088d4109c2e412da41a23f900ae94f39f9131bd7ae6c4109d",
+    "_structured_2d_boundary": "01ecad0b7a1f1777d23fc1dbc29c06a78697412eee1cc3918bf23fb26f4e5fc0",
+    "_structured_2d_grid": "14807e32e7b34b98cfa337844d7a973f78606c37571760b8e982a67c6b0b67c9",
+    "create_structured_quad_block": "8f1dd68ee55f5f740b7241fb421f9c0a1fd4298daea0b87abcf84b9c6445ff1b"
+  },
+  "ast_fingerprint_python_version": "3.12; informational only because AST fields vary across Python releases"
 }

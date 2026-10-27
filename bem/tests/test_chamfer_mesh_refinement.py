@@ -27,13 +27,14 @@ def geometry_module():
     fixture = folder / "tatva_geometry_933ae1f.py.txt"
     manifest = json.loads((folder / "tatva_geometry_933ae1f.json").read_text())
     assert hashlib.sha256(fixture.read_bytes()).hexdigest() == manifest["fixture_sha256"]
-    source = ast.parse(fixture.read_text())
+    text = fixture.read_text()
+    source = ast.parse(text)
     nodes = [n for n in source.body if isinstance(n, ast.FunctionDef) and n.name in names]
     assert len(nodes) == len(names)
     for node in nodes:
         assert (
-            hashlib.sha256(ast.dump(node, include_attributes=False).encode()).hexdigest()
-            == manifest["functions"][node.name]
+            hashlib.sha256(ast.get_source_segment(text, node).encode()).hexdigest()
+            == manifest["function_source_sha256"][node.name]
         )
     future = ast.ImportFrom(module="__future__", names=[ast.alias(name="annotations")], level=0)
     tree = ast.fix_missing_locations(ast.Module(body=[future, *nodes], type_ignores=[]))
