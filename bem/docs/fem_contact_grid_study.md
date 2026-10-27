@@ -71,3 +71,29 @@ FDBEM_CORES=4 bem/run.sh refined-contact-simulate COMPLETED_MATCHED_KERNEL \
 command、exit code、計時、RSS samples 另存 `bem/outputs/raw-layer-contact-study-20261027/`。
 這些大型本機產物不提交 Git；實作、測試與重跑設定保留在倉庫。
 原 `/Volumes/Gauss-T7/tatva` 全程只讀。同精度 FEM 優勢仍未驗證。
+
+## 完整保存資料的時空誤差
+
+`compare_refined_fem_history.py` 補上場與 scalar histories 的定量比較。
+它在兩模型所有保存時間／空間節點的聯集上，逐塊精確積分 tensor-product P1
+插值的平方差，不靠擬合平移、重設 rupture time 或外插。共同區間、保留的節點數
+與最大插值場差都另行記錄；保存點之間或未保存的高頻振盪仍沒有誤差界。
+
+FEM 時鐘由實際 `dt`、pressure steps、shear step IDs 重建，先核對每個
+float32 timestamp 的 rounding。真實 h2 的 9000 筆剪切時間核對已通過，
+保留 normal-phase 略微超過 2 ms 的差，沒有把第一個 shear sample 平移到零。
+共同區間從約 17.93 ns 開始至 45 ms；這不是原始連續解的完整區間證書。
+
+保存場包括 cumulative／plastic slip、mu、strength；pressure 使用保存的
+strength／positive mu，儲存誤差另由 true float64 endpoint comparison 檢查。
+工具不以 strength 代替局部實際 shear；高率 FEM 資料未保存該場，僅比較已存的
+平均 shear history，局部 endpoint shear 仍用獨立 float64 final_state 核對。
+
+本機五項控制已通過：獨立逐 cell Gauss 積分、解析 bilinear 場、內部脈衝、
+零 reference／不交區間，以及實際格式的 CLI 讀寫與 clock rounding guard。
+新工具的真實完整數據誤差尚待依序執行，不將單元測試當作 FEM 一致性結果。
+
+```sh
+PYTHONPATH=bem/src python -B bem/tools/compare_refined_fem_history.py \
+  COMPLETED_BEM_RUN COMPLETED_FLOAT64_FEM_RUN --output FRESH_COMPARISON_DIRECTORY
+```
