@@ -20,7 +20,7 @@ restart refinement knots。其接觸 bulk trace 也有 241 個節點、483 retai
 
 ## 執行順序與驗證條件
 
-本機 observer PID 88922 等待現有完整 AD／layout study 完成；數值工作不重疊。
+本機 observer PID 90521 等待現有完整 AD／layout study 完成；數值工作不重疊。
 來源、輸入 metadata 及所有必要 helpers 在排程時保存 SHA-256，改動即停止。
 新建核與 storage source `d7cedee` 已通過
 [Python 3.11／3.12 CI](https://github.com/Gauss963/Tatva-BEM/actions/runs/40440738067)。
@@ -67,8 +67,11 @@ FDBEM_CORES=4 bem/run.sh refined-contact-simulate COMPLETED_MATCHED_KERNEL \
   --constitutive-substeps 160 --kinetic-root-seed --output FRESH_PRIMAL_DIRECTORY
 ```
 
-本機排程來源為 `bem/outputs/raw-layer-contact-study-20261027.py`；狀態及每階段
-command、exit code、計時、RSS samples 另存 `bem/outputs/raw-layer-contact-study-20261027/`。
+本機排程來源為 `bem/outputs/raw-layer-contact-study-20261027-v2.py`；狀態及每階段
+command、exit code、計時、RSS samples 另存 `bem/outputs/raw-layer-contact-study-20261027-v2/`。
+v1 尚在等待、沒有數值子程序時已由 v2 取代，transition record 保留在 v1 的
+`superseded.json`。v2 增加建核前原 bulk 及新模型的時空場比較，並等待新工具的
+`0d7f860` CI 通過；既有 initialized AD 程序未停止。
 這些大型本機產物不提交 Git；實作、測試與重跑設定保留在倉庫。
 原 `/Volumes/Gauss-T7/tatva` 全程只讀。同精度 FEM 優勢仍未驗證。
 
