@@ -5,6 +5,14 @@
 目標是在相同物理模型與可量化誤差下重現 FEM，然後證明穩定性或總時間的優勢。
 目前尚未達成這個目標。
 
+2026-10-28 新增[相同實際細網格的 bulk 時間符號比較](bulk_time_symbol.md)。
+在 closed-stick 線性 transfer、Re(s)=200 /s 的 10 kHz 取樣，
+2 µs BDF2 相對連續時間的 pressure／signed shear 差達 59.16%／46.59%；
+0.5 µs 仍為 7.57%／5.01%。1 kHz 的 2 µs 差則僅約 0.05%。
+這是本專案的實測，不是引用論文的數字，也不是 rupture 的頻譜或非線性誤差上界。
+因此接觸子步及小 Newton residual 仍不足以證明 bulk 時間精度；
+下一個獨立控制會比較同網格的 Radau IIA transfer，完整原事件的空間／時間收斂仍保留。
+
 2026-10-27 的端點控制已把上述 graded-mesh 文獻方向轉成
 [相同幾何的獨立 FEM／BEM 靜態加密與 linear dynamic controls](chamfer_refinement.md)。
 同 end 0.015625 mm 的全接觸面 pressure／shear P1 L2 差為 0.9165%／0.6189%；
