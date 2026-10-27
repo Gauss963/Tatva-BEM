@@ -94,3 +94,21 @@ PYTHONPATH=bem/src FDBEM_CORES=4 OPENBLAS_NUM_THREADS=1 JAX_ENABLE_X64=true \
 ```
 
 這個 backend 目前由 static driver 明確選用；既有 transient／AD backend 沒有改變。
+
+## 連續時間的 linear dynamic response
+
+`compare_linear_bulk_response.py` 現可明確套用相同 mesh adapter。
+FEM h2／end 0.015625 與上述同尺寸端點 BEM 的三個頻率控制已完成。
+`Re(s)=200 /s`，原 lumped FEM mass、支承、platen spring 與有限 penalty 均保留：
+
+|Frequency|Pressure P1 L2|Shear P1 L2|Platen difference|
+|---|---:|---:|---:|
+|0 Hz|1.0708%|0.4428%|0.00250%|
+|1000 Hz|1.1089%|0.4056%|0.01559%|
+|10000 Hz|3.3997%|3.1473%|4.3129%|
+
+三項場在三個取樣頻率都通過沿用的 5% linear screen；其原 FEM 方程 relative
+residual 為 4.53e-11、1.34e-10、4.60e-12，BEM 為 4.00e-17、9.54e-16、1.89e-15。
+[原始報告與指紋](graded_linear_results.json)保留所有值及輸入來源。
+這是三個連續時間 closed-stick 線性控制，不含 CQ 誤差、branch switching、
+slip weakening 或完整事件；也沒有證明高於 10 kHz 的所有頻率都通過。

@@ -1,0 +1,261 @@
+{
+  "source_summary": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/graded-linear-h2-end015625-20261027/summary.json",
+  "source_summary_sha256": "1c68e76cad62f435647ee05d54988769b05701df754246e979da2d145bf4f1f9",
+  "result": {
+    "status": "completed_linear_stick_response_comparison",
+    "records": [
+      {
+        "frequency_hz": 0.0,
+        "laplace_real_per_s": 200.0,
+        "pressure_profile_relative_l2": 0.01070799162974947,
+        "shear_profile_relative_l2": 0.004427977376323347,
+        "platen_relative_error": 2.499884911909166e-05,
+        "fem_equation_relative_residual": 4.531291741170698e-11,
+        "bem_equation_relative_residual": 4.001602065703142e-17,
+        "seconds": 62.04980483278632
+      },
+      {
+        "frequency_hz": 1000.0,
+        "laplace_real_per_s": 200.0,
+        "pressure_profile_relative_l2": 0.011089240490319719,
+        "shear_profile_relative_l2": 0.0040563901728252385,
+        "platen_relative_error": 0.00015593973769796433,
+        "fem_equation_relative_residual": 1.3419868843767918e-10,
+        "bem_equation_relative_residual": 9.543508228958881e-16,
+        "seconds": 64.8400258757174
+      },
+      {
+        "frequency_hz": 10000.0,
+        "laplace_real_per_s": 200.0,
+        "pressure_profile_relative_l2": 0.03399651706540478,
+        "shear_profile_relative_l2": 0.031472650192928144,
+        "platen_relative_error": 0.04312921074223168,
+        "fem_equation_relative_residual": 4.603215559237256e-12,
+        "bem_equation_relative_residual": 1.889594578267771e-15,
+        "seconds": 94.72413887549192
+      }
+    ],
+    "fem_mesh_mm": 2.0,
+    "fem_end_size_mm": 0.015625,
+    "fem_grading_growth": 1.2,
+    "explicit_chamfer_mesh_adapter": true,
+    "fem_full_dofs": 157506,
+    "fem_reduced_dofs": 156902,
+    "fem_contact_nodes": 285,
+    "bem_contact_nodes": 265,
+    "fem_source": {
+      "revision": "933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d",
+      "archive_sha256": "ab7c09b46dc617795235e8356365d13210f1c0f0c9be40747bbddd9aefae628e",
+      "files": {
+        "tatva/__init__.py": {
+          "sha256": "2fffd71dc81f5b2e8ca217dde5da7ab0ac25337abe18aa96b7ddd765a680e0a4",
+          "bytes": 167
+        },
+        "tatva/compound/__init__.py": {
+          "sha256": "9243964f6fdbda4ae4d44c0d217904d5ae979e188dc54b84a8c0076d66ae1ef6",
+          "bytes": 16054
+        },
+        "tatva/compound/field.py": {
+          "sha256": "d8c231066b74172e806df24f52f6e5328b334a45132557409611e332237deada",
+          "bytes": 12769
+        },
+        "tatva/compound/field_types.py": {
+          "sha256": "3733beed1625f9386963da0af3426e11b116ffb372b81b23f1db0e27b2ed257e",
+          "bytes": 1572
+        },
+        "tatva/compound/mpi.py": {
+          "sha256": "8aa7281ab7ab4c1d5c797d23a2c45d11a225f4599e32705ff278d299ac6f14f0",
+          "bytes": 20297
+        },
+        "tatva/element/__init__.py": {
+          "sha256": "71dd895712cb676f5381fa8138826019cbc062e99401ca9e65076958781dae2a",
+          "bytes": 889
+        },
+        "tatva/element/base.py": {
+          "sha256": "0e71562ffff69c4ae390aa7878341aa0f903c8654d4f0c163909b93527d4ba00",
+          "bytes": 20539
+        },
+        "tatva/friction.py": {
+          "sha256": "8c2f8ce916d6c2ef3fe95bdcbb429adb2ff328aa59f27f786b349cb6aa2f85c0",
+          "bytes": 9602
+        },
+        "tatva/lifter/__init__.py": {
+          "sha256": "408865557392f003ba39ddb0b00efc93f0f16c6e36544faf27f70f74acd58b99",
+          "bytes": 1764
+        },
+        "tatva/lifter/base.py": {
+          "sha256": "fdbb893c4c32a25aed516187ccb6f58acde8f6a3d78e6cbde0a9f6607a9a00bb",
+          "bytes": 20894
+        },
+        "tatva/lifter/common.py": {
+          "sha256": "36ff7a073320cf7558416a5a09a8f7d4a1ce5cb0c73e84629c3ae1e13a364805",
+          "bytes": 4060
+        },
+        "tatva/lifter/constraints.py": {
+          "sha256": "d376418c4715d0430f37ff94bfc4b11296b1de792400c36361ba18065f21b817",
+          "bytes": 11888
+        },
+        "tatva/linalg.py": {
+          "sha256": "13d8e7171b8de978d1ed8ec4f34f47d6e1ce10d9e1f9f55c67d08618dfcc1973",
+          "bytes": 21644
+        },
+        "tatva/mesh.py": {
+          "sha256": "265dd27ce32b9ba353bb01e70187b2b5ec18b4ac0de65c8b4c4d9a4e6e516534",
+          "bytes": 14803
+        },
+        "tatva/mpi.py": {
+          "sha256": "08a6aef3c249974536b5eba675b7149889e457083178cd642fca80e1f1c8a931",
+          "bytes": 26999
+        },
+        "tatva/operator.py": {
+          "sha256": "d56b0cf61f1a2cbccfd0a09c6a4821169b844ded40718f1b238da192ad572a6c",
+          "bytes": 23736
+        },
+        "tatva/pmma/__init__.py": {
+          "sha256": "19fe57da13f4bacae5c99d759b92c64cb0ad95fdd911b0cfbcf493f4988f465a",
+          "bytes": 331
+        },
+        "tatva/pmma/config.py": {
+          "sha256": "86c6f2fca433947b22cc0fa2813f7d6566a930d1623bb3bf4a0e8fdd164d38f3",
+          "bytes": 25833
+        },
+        "tatva/pmma/dynamics.py": {
+          "sha256": "5f549e3cbd017030cac3db1cbc957ab1998583f868134fe8b69a718c32c13309",
+          "bytes": 245256
+        },
+        "tatva/pmma/estimate.py": {
+          "sha256": "99b18e8b50e8459cbfc30f965cb3921a5016f44d58752853e448a471fa48c1f8",
+          "bytes": 7718
+        },
+        "tatva/pmma/integration_probes.py": {
+          "sha256": "8b42aafc00e09e0de07b5e7fd8608fbeed1f1e8433a714e2ac7d361e24a822e6",
+          "bytes": 3739
+        },
+        "tatva/pmma/lsw.py": {
+          "sha256": "e735304f34f106271e511cf4d19cff94387e14644634fbafeddbc604408d7300",
+          "bytes": 2260
+        },
+        "tatva/pmma/model.py": {
+          "sha256": "41a1e6479f7c0cd94c577218004b3b6912dae31d279e2b556cfed46fd83f2235",
+          "bytes": 1252
+        },
+        "tatva/pmma/mpi.py": {
+          "sha256": "8f59a0abd69f727da7d205ed3572d3fc8c0fa1a8791bdba8350f36713ff025d1",
+          "bytes": 2857
+        },
+        "tatva/pmma/plotting.py": {
+          "sha256": "456b26d923394570547f9697946e6c5c0e98f9ecb5001e3be860e50564261cff",
+          "bytes": 2264
+        },
+        "tatva/pmma/profiles.py": {
+          "sha256": "10c6aae379838788d1ea388d8a9abbce3971a2ec93463279d02b44ebd6aef3dd",
+          "bytes": 7414
+        },
+        "tatva/pmma/runner.py": {
+          "sha256": "df9a30693f548f5de05b12a22c00d4c2eefbb709b08233f2af9ff8938b1de2dc",
+          "bytes": 17616
+        },
+        "tatva/pmma/static_normal.py": {
+          "sha256": "11c9c37658b467cc44957d42928752dcd9eba6f5a8cc2156a6ae12601a9af698",
+          "bytes": 10388
+        },
+        "tatva/py.typed": {
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        "tatva/sparse/__init__.py": {
+          "sha256": "9a43abf718dd3feef73ba3ebb0032efbfd589d3f31fa3fe90475b6460b6c65b0",
+          "bytes": 1043
+        },
+        "tatva/sparse/_coloring.py": {
+          "sha256": "1254944587f061fd39ad1fd8c1f572c0599e17c183da71eb9af5a5455158788e",
+          "bytes": 11897
+        },
+        "tatva/sparse/_extraction.py": {
+          "sha256": "9602afa5ae1d8daf4ec71259566120ee8b6698a7980463bbe23954d7bb0a0787",
+          "bytes": 8877
+        },
+        "tatva/sparse/base.py": {
+          "sha256": "3c151fe3a8fc76bc3d26114c8655eea716bd8da2ede784fc6f65a73a42ee47bd",
+          "bytes": 9899
+        },
+        "tatva/sparse/tracer.py": {
+          "sha256": "86b9526a1121a1ac9b6b60d976a775ce5994ab968d4cdf5faf8ba3c4436f784c",
+          "bytes": 103582
+        },
+        "tatva/utils.py": {
+          "sha256": "f1139c4edf1066d54fe1924c79f2c896c3060ba9f644ab75a8cfe99b41e532aa",
+          "bytes": 9943
+        }
+      }
+    },
+    "frozen_input_sha256": {
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/bem-chamfer-uncondensed-static-20261027/end-0.015625/summary.json": "4627911cac89d31b233c078698763eb4b091a206c04141103e21e49d66a38bb1",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compare_linear_bulk_response.py": "d986928360ca540609219a423576fcbbed6c72822a7a80a14acffb8e8e6013a8",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/fem_static_onset.py": "47308fb6a7dbe317cf3bf5267086259c65323dc97a247a01f265a45924a3d9dc",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/run_fem_reference.py": "e334ceb519bc3997d93bbb5ac4e783f4afc6875bc3656a25293851b3da4a63a0",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/chamfer_mesh_refinement.py": "ba8e3220254d0ce5f3222d844b83951b65aa7c1a6a6711bd41d943cceaad57fb",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/validation/static_bem2d/input/case.toml": "6f8cf492023c3928dc5c4d89672dec668077d5092f479a57580ab3aeb1a15f02",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/validation/static_bem2d/input/resolved.json": "6e68fbe8cfaa5364ff5cf88965727f58f584426797c774fa32f6807292e06296"
+    },
+    "environment": {
+      "package_version": "0.1.0",
+      "python": "3.12.13",
+      "numpy": "2.4.4",
+      "scipy": "1.17.1",
+      "platform": "macOS-15.7.9-arm64-arm-64bit",
+      "available_logical_cpus": 10,
+      "hard_cpu_affinity_enforced": false,
+      "thread_environment": {
+        "FDBEM_CORES": "4",
+        "OPENBLAS_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "VECLIB_MAXIMUM_THREADS": "1",
+        "XLA_FLAGS": "--xla_cpu_multi_thread_eigen=false intra_op_parallelism_threads=4",
+        "JAX_ENABLE_X64": "true"
+      },
+      "blas_threadpools": [],
+      "source_sha256": {
+        "__init__.py": "984855d6ff3848411c946ecca174ac08baf7afe6f1d2c3be00284da9b8dbf288",
+        "adjoint.py": "7863386b78318e6502d6257469322ee82746f2384ee915c16cbb98cda69c5bc0",
+        "benchmarks.py": "c24b97264ca60d0da1dab2095d50e9ef1b88b7208fba2d46178b8cf9038eb571",
+        "case.py": "4f0c91b18309a2eae5ce5a78da3bac9fde0be9fb1c0a4d2d5e5e1fc84bd85fa7",
+        "cli.py": "82e53ce34714809933dbe456ef403bce27c6b60b20ac4481f2feded9eeadfcea",
+        "comparison.py": "631c111752342fac7d0f64553620e04940e7888b1ab2fc52566a23b5c35ee24c",
+        "condensation.py": "12010fb51d8490ae5c3a9a2cf5b04e414cb7e6205b409ce7891b454e384de7d2",
+        "constraints.py": "830071941c6df0f70e455530fe094242042fb0c1e31498e8f9b75c9aa825cb91",
+        "cq.py": "e9af920593db01f56f1f7138832f0aa603daf07cbf1d688fba8a806f712c1e15",
+        "cq_storage.py": "da2534ef95e95813a464ff04f78a092be374110650d1866cbc1fb8ea5b5105b2",
+        "dynamics.py": "b6d84d8d2c1ac6fc465565c289d1249f378f3424e00cb93441791960b3c180f8",
+        "friction.py": "1424c1639cdc1eb4dd8f780bfdc0433f33cf29752b07a17814a3a2f326d81086",
+        "galerkin.py": "85541ddfe5020debde77b2bf2d4a045fe9a52b6183d4af2f762f577be18ab66d",
+        "galerkin_fast.py": "e6167f6c553e15697b6d67a3a33f559574d22fd49db4aad49c8262d68224b614",
+        "io.py": "d292e6338381aa7935dbbfcadc0df884e89f10b7096fa70cf1b05a83c1c12b03",
+        "jax_backend.py": "4de0aadb88b73ef6792ff36894134ee31bc412b1a54b177a4d1aaaa43328d547",
+        "kernels.py": "4008ae38c62c3022034d654a13da75369bd67309af4614006942398e22c1ad08",
+        "linear.py": "3a4d7c2259fd3e67b507d0c9dcd18082c24ffda30fccb12749976c97fa5a577c",
+        "material.py": "7c4d34d911831f12e3bc99bda2e13e76d468acdf80038dcb60310a568a5342d1",
+        "mesh.py": "a37e853ed57dd80633c44805b6c13158643ac65db3e4a4cfc12520bbdfa15c4c",
+        "nodal.py": "632f1a755bb09d784c125d3198f662213ea60045ada9db1555e1b47b3ab39856",
+        "nodal_dynamics.py": "839db57190f62795aebef30545fcc9c1b41fdef503f038cc7f425068962eb39d",
+        "nonlinear.py": "019c5fc176c70964c89f9e7c74147ad48b4235267dd2faf0ee22f789a2b97590",
+        "operators.py": "bb77a3b2c66dce871c9e71cc2cdc02488e90ad32278cc9a67fea8b909b722825",
+        "sampling.py": "c518d2298b167aaa1d5ca327a612426276901876a50322a7fe4595c7ee4f1f11",
+        "statics.py": "9f81cbd95a1ff1f742387ee4ae94251304177999208a95703371272ac79dc250"
+      },
+      "case_sha256": "82d8f491a63ca1c348507678f08406dccbc62ed1d4abea8882879f7894d2315d",
+      "restart_data_sha256": "cae42101ff5a57004fa803ea5ce928eb8079e5be0ab887d108689e37754c25f6"
+    },
+    "cores_requested": 4,
+    "hard_cpu_affinity_enforced": false,
+    "timing_scope": "Exploratory diagnostic timings; not a controlled forward-simulation or FEM speed benchmark",
+    "preparation_seconds": 38.95043612457812,
+    "total_seconds_before_reporting": 260.5769881652668,
+    "scope": "Independent spatially discrete, continuous-time closed-stick actuator response; no CQ, slip weakening, branch/event sensitivity or FEM-equivalent nonlinear solution asserted",
+    "original_tatva_readonly": true,
+    "same_accuracy_fem_advantage_verified": false
+  },
+  "unchanged_five_percent_linear_screen_passed": true,
+  "full_nonlinear_dynamic_accuracy_verified": false,
+  "same_accuracy_fem_advantage_verified": false
+}

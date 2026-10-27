@@ -5,6 +5,14 @@
 目標是在相同物理模型與可量化誤差下重現 FEM，然後證明穩定性或總時間的優勢。
 目前尚未達成這個目標。
 
+2026-10-27 的端點控制已把上述 graded-mesh 文獻方向轉成
+[相同幾何的獨立 FEM／BEM 靜態加密與 linear dynamic controls](chamfer_refinement.md)。
+同 end 0.015625 mm 的全接觸面 pressure／shear P1 L2 差為 0.9165%／0.6189%；
+三個連續時間取樣頻率亦通過原 5% linear screen。
+這些是本專案的量測，不是文獻定理對本接觸律的保證。
+新的 full-body 靜態 backend 解決了最細面板的重建 roundoff 超標；
+完整事件、FEM 背景加密、積分精度與時間收斂仍各自保留為必要驗證。
+
 2026-10-27 補讀 You、Zheng、Li，
 [Energy-Controllable Time Integration for Elastodynamic Contact](https://arxiv.org/html/2602.08094v1)
 的 §1、§4.5 及 limitations。它研究 FEM／barrier 接觸的能量可控積分；
