@@ -76,10 +76,11 @@ def test_four_workers_share_readonly_trace_bases_and_preserve_results_bitwise():
         np.testing.assert_array_equal(a, b)
 
 
-def test_explicit_raw_operators_reuse_same_elimination_without_geometry_allocation():
+@pytest.mark.parametrize("factory", [TRANSFER, TRACE])
+def test_explicit_raw_operators_reuse_same_elimination_without_geometry_allocation(factory):
     model = load_nodal_model(CASE, max_panel_length=160)
-    original = TRANSFER(model, quadrature=4)
-    independent = TRANSFER(model, quadrature=4, prepared=False)
+    original = factory(model, quadrature=4)
+    independent = factory(model, quadrature=4, prepared=False)
     assert independent.prepared is None
     for s in [100 + 2000j, 1e6 + 3e5j]:
         packets = [p.assemble(s) for p in original.prepared]

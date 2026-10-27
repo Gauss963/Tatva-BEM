@@ -90,3 +90,60 @@ def prepare_operator(factory, definition, source_paths, arguments, *, extra_work
         clone()
     finally:
         sys.argv = previous
+
+
+def prepare_raw_operator(factory, definition, source_paths, arguments):
+    """Bind a Schur factory only in the fresh raw producer's private namespace.
+
+    The original conservative allowance of 32 matrices per worker is retained.
+    The supported trace variant uses smaller elimination blocks; no tighter
+    RSS or memory estimate is inferred from this binding.
+    """
+    tools = Path(__file__).resolve().parent
+    producer_path = tools / "prepare_raw_layer_resolvent.py"
+    paths = [Path(__file__).resolve(), producer_path, *map(Path, source_paths)]
+    frozen = {str(path.resolve()): fingerprint(path) for path in paths}
+    producer = runpy.run_path(str(producer_path))
+
+    def check():
+        if any(fingerprint(path) != value for path, value in frozen.items()):
+            raise ValueError("Experimental raw operator, wrapper or base producer changed")
+
+    def transfer(model, *, quadrature):
+        check()
+        return factory(model, quadrature=quadrature)
+
+    def load(path):
+        namespace = runpy.run_path(str(path))
+        if Path(path).resolve() == tools / "schur_condensation_experiment.py":
+            return {**namespace, "ConstrainedSchurTransfer": transfer}
+        return namespace
+
+    original_write = producer["write_json"]
+
+    def write(path, record):
+        check()
+        keys = [k for k in ["frozen_input_sha256", "frozen_inputs_sha256"] if k in record]
+        if keys:
+            record.update(experimental_operator=dict(definition))
+            for key in keys:
+                record[key].update(frozen)
+        if record.get("status") == "completed_resolvent_kernel_only":
+            record["assembly"] = definition["method"]
+        return original_write(path, record)
+
+    original = producer["main"]
+    clone = FunctionType(
+        original.__code__,
+        {**original.__globals__, "runpy": SimpleNamespace(run_path=load), "write_json": write},
+        original.__name__,
+        original.__defaults__,
+    )
+    clone.__kwdefaults__ = original.__kwdefaults__
+    previous = sys.argv
+    try:
+        sys.argv = [previous[0], *arguments]
+        clone()
+        check()
+    finally:
+        sys.argv = previous

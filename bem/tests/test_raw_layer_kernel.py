@@ -8,7 +8,7 @@ import numpy as np
 import pytest
 
 from finiteblock_bem.cq import CQPlan, bdf2_symbol, invert_spectrum
-from finiteblock_bem.io import environment_record
+from finiteblock_bem.io import environment_record, fingerprint
 from finiteblock_bem.nodal import NodalInterfaceTransfer, load_nodal_model
 
 TOOLS = Path(__file__).resolve().parents[1] / "tools"
@@ -47,10 +47,17 @@ def source_metadata(path):
 
 
 @pytest.mark.parametrize("layout", ["c", "fortran"])
+@pytest.mark.parametrize("formulation", ["joint", "trace"])
 def test_fresh_raw_kernel_outputs_all_lags_and_causal_startup_against_dense_bem(
-    tmp_path, monkeypatch, layout
+    tmp_path, monkeypatch, layout, formulation
 ):
-    tool = runpy.run_path(str(TOOLS / "prepare_raw_layer_resolvent.py"))
+    name = (
+        "prepare_raw_layer_resolvent.py"
+        if formulation == "joint"
+        else "prepare_trace_raw_resolvent.py"
+    )
+    tool = runpy.run_path(str(TOOLS / name))
+    original_loader = runpy.run_path
     source, output = tmp_path / "source", tmp_path / "fresh"
     options = source_metadata(source)
     monkeypatch.setattr(
@@ -74,8 +81,25 @@ def test_fresh_raw_kernel_outputs_all_lags_and_causal_startup_against_dense_bem(
         ],
     )
     tool["main"]()
+    assert runpy.run_path is original_loader
     summary = json.loads((output / "summary.json").read_text())
     assert summary["status"] == "completed_resolvent_kernel_only"
+    if formulation == "trace":
+        assert summary["experimental_operator"]["formulation"] == "trace"
+        assert summary["experimental_operator"]["time_history_or_contact_modes_removed"] is False
+        definition = summary["experimental_operator"]
+        assert definition["trace_dofs"] >= definition["retained_dofs"]
+        assert (
+            sum(definition["body_interior_dofs"]) + definition["common_trace_elimination_dofs"]
+            == definition["full_reduced_dofs"] - definition["retained_dofs"]
+        )
+        for name in [
+            "prepare_trace_raw_resolvent.py",
+            "operator_resolvent.py",
+            "trace_schur_experiment.py",
+        ]:
+            path = TOOLS / name
+            assert summary["frozen_inputs_sha256"][str(path.resolve())] == fingerprint(path)
     plan = CQPlan(**summary["plan"])
     model = load_nodal_model(
         CASE,
@@ -121,10 +145,16 @@ def test_fresh_raw_kernel_outputs_all_lags_and_causal_startup_against_dense_bem(
 
 
 @pytest.mark.parametrize("layout", ["c", "fortran"])
+@pytest.mark.parametrize("formulation", ["joint", "trace"])
 def test_preflight_uses_complete_storage_and_does_not_create_numerical_spectrum(
-    tmp_path, monkeypatch, layout
+    tmp_path, monkeypatch, layout, formulation
 ):
-    tool = runpy.run_path(str(TOOLS / "prepare_raw_layer_resolvent.py"))
+    name = (
+        "prepare_raw_layer_resolvent.py"
+        if formulation == "joint"
+        else "prepare_trace_raw_resolvent.py"
+    )
+    tool = runpy.run_path(str(TOOLS / name))
     source, output = tmp_path / "source", tmp_path / "preflight"
     source_metadata(source)
     monkeypatch.setattr(
@@ -146,6 +176,8 @@ def test_preflight_uses_complete_storage_and_does_not_create_numerical_spectrum(
     )
     tool["main"]()
     preflight = json.loads((output / "preflight.json").read_text())
+    if formulation == "trace":
+        assert preflight["experimental_operator"]["formulation"] == "trace"
     plan = CQPlan(**preflight["plan"])
     assert asdict(plan) == preflight["plan"]
     needed = (plan.fft_size // 2 + 1) * plan.dofs**2 * 16 + (plan.steps + 1) * plan.dofs**2 * 8

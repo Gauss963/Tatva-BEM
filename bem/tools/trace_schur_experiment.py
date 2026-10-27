@@ -20,10 +20,10 @@ BASE = runpy.run_path(str(Path(__file__).with_name("schur_condensation_experimen
 
 
 class TraceSchurTransfer(BASE):
-    def __init__(self, model, *, quadrature=12):
+    def __init__(self, model, *, quadrature=12, prepared=True):
         # Reuse the assembly/comparison interface without constructing the
         # larger QR basis of BASE. The two trace bases below replace it.
-        NodalInterfaceTransfer.__init__(self, model, quadrature=quadrature)
+        NodalInterfaceTransfer.__init__(self, model, quadrature=quadrature, prepared=prepared)
         trace = np.any(self.jump != 0, axis=0)
         self.trace_indices = np.flatnonzero(trace)
         b = self.jump[:, trace]

@@ -86,6 +86,7 @@ fine2 的 trace 有 548 個 DOFs：分別消去兩個 body 的 198／160 個內�
 這是新消去形式的整合核對，不是原 45 ms 載入或 FEM 物理精度驗證。
 
 四個 frequency workers 共用唯讀 trace 基底的測試，亦與序列結果逐位元相同。
+
 prepared kernel 與 native 頻譜保存實際 formulation、basis 尺寸及 source hashes；
 construction estimate 額外計入 QR／投影／recovery 工作陣列。
 共用的 `operator_resolvent.py` 提供私有 factory binding，不改 numerical package globals。
@@ -114,3 +115,52 @@ SOURCE_RUN 決定原幾何和積分階數。預設取樣包含靜態、接近靜
 從指定時間網格算出的真正 CQ 端點；不配置完整 CQ 時間權重。
 第二個命令預設沿用 SOURCE_RUN 的時間網格與完整 horizon，
 也可明確給 `--dt`／`--duration`。完成 kernel 仍需另跑原方程、分支與 AD 比較。
+
+## 2026-10-28：細網格配對計時與 raw-layer 入口
+
+另以目前候選 h10／contact2／end0.015625／Q12 的**同一份** supported body stiffness，
+配對量測 joint 與既有兩階段 trace 消去。這裡沒有加入新的稀疏座標近似。
+1770 個 supported DOFs 保留 531 個界面 DOFs；joint 一次消去 1239 維，
+trace 依序消去 396、314 個 body interior DOFs 及 529 個共同 trace DOFs。
+全部被消去的方向相同，沒有移除模態、截斷歷史、加阻尼或改接觸律。
+
+三個實際 CQ contour 角度，各做兩次交替順序量測，BLAS 限一 thread：
+
+|角度 θ|joint median [s]|trace median [s]|joint／trace|加權 Z 相對差|
+|---|---:|---:|---:|---:|
+|0|0.4888|0.1992|2.454|1.60e-15|
+|0.1|0.4815|0.2026|2.377|3.84e-15|
+|π|0.4873|0.1991|2.448|1.22e-13|
+
+完整重建位移相對差最大 1.11e-14，兩側 full equilibrium 與 jump checks 亦通過。
+共同 raw assembly 每個頻率仍花 56.2–96.9 s，geometry 準備 24.65 s。
+所以 **2.4 倍只屬消去階段**，不能當成完整建核或 FEM／BEM 的速度比。
+[完整量測與來源](paired_schur_graded_results.json)保留每次計時及方程檢查。
+量測期間暫停已確認身分的自有建核程序 245.48 s，完成後核對已恢復；
+這段時間仍保留於該建核的實際 wall time。
+
+量測工具可獨立重跑；它會共享 raw operators，先後交替 condensation，
+將 full equilibrium 與 reconstruction 檢查放在配對 timer 之外：
+
+```sh
+PYTHONPATH=bem/src OPENBLAS_NUM_THREADS=1 python -B \
+  bem/tools/benchmark_schur_condensation.py --output FRESH_BENCHMARK
+```
+
+新增 `prepare_trace_raw_resolvent.py` 將相同 trace operator 接到 fresh raw-layer sampler。
+所有參數傳給原 producer；sampling checks、全部時間權重、startup、儲存格式與原陣列估計保留。
+wrapper 只在複製的 main 函式 namespace 中替換 factory，不更動原 module bindings；
+preflight 與完成檔案都記錄實際 wrapper／trace sources 的 SHA。
+
+```sh
+PYTHONPATH=bem/src python -B bem/tools/prepare_trace_raw_resolvent.py SOURCE_KERNEL \
+  --output FRESH_KERNEL --dt 2e-6 --duration .045 \
+  --h 10 --contact-h 2 --contact-end-h .015625 --corner-h .015625 \
+  --clear-restart-knots --quadrature 12 --degree 16 --workers 2 \
+  --weight-layout fortran --max-workspace-mb 10240 --max-memory-mb 18432
+```
+
+小型整合測試已對 C／Fortran 兩種布局逐一核對全部權重與 causal startup，
+reference 是每個 CQ 節點重新組裝的獨立 dense BEM；假來源 numerical files 不會被讀取。
+目前長時間建核仍使用原 joint 路徑，沒有替換或重啟。
+新的入口尚須完整 45 ms trajectory／original-equation／AD 核對，才能作為正式速度結論。

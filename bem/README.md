@@ -133,6 +133,8 @@ FEM 動態參考的來源與執行仍見[graded transient／resume](docs/graded_
 新的完整事件比較會使用這些場與整數剪切步數。
 並新增[全歷史摩擦子步收斂檢查](docs/constitutive_refinement.md)，
 以固定 bulk／time／contact grid 的 pressure、signed shear 與累積滑移判斷是否繼續 fine AD。
+細網格亦新增[兩階段消去的配對量測與 fresh raw 入口](docs/schur_condensation.md)：
+取樣頻率的消去階段約快 2.4 倍，完整建核及事件的加速仍待量測。
 
 ## 4 核心完整時間範圍對照
 
