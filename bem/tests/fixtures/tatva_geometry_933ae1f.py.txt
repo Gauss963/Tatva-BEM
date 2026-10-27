@@ -1,0 +1,189 @@
+# Unmodified geometry functions from Tatva, commit 933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d.
+# Original source: tatva/pmma/dynamics.py; MIT license (see repository LICENSE).
+# Test fixture only: AST-executed with NumPy to check geometry without FEM/JAX setup.
+
+def _axis_coordinates(start: float, length: float, mesh_size: float, dtype: jnp.dtype) -> jax.Array:
+    if mesh_size <= 0.0:
+        raise ValueError(f"mesh_size must be positive, got {mesh_size}")
+    n_full = int(math.floor(length / mesh_size + 1e-12))
+    coords = [start + i * mesh_size for i in range(n_full + 1)]
+    end = start + length
+    if not math.isclose(coords[-1], end, rel_tol=0.0, abs_tol=1e-9):
+        coords.append(end)
+    return jnp.asarray(coords, dtype=dtype)
+
+def _graded_segment(a: float, b: float, mesh_size: float, fine_size: float, growth: float,
+                    fine_at_a: bool, fine_at_b: bool) -> list[float]:
+    """Node positions on [a, b]: geometric growth from fine_size at refined ends up to
+    mesh_size, uniform in between. Deterministic, so equal inputs give equal nodes."""
+    def ramp() -> list[float]:
+        sizes, size = [], fine_size
+        while size < mesh_size:
+            sizes.append(size)
+            size *= growth
+        return sizes
+
+    left = ramp() if fine_at_a else []
+    right = ramp() if fine_at_b else []
+    length = b - a
+    while left or right:
+        if sum(left) + sum(right) <= 0.9 * length:
+            break
+        (left if len(left) >= len(right) else right).pop()
+    middle = length - sum(left) - sum(right)
+    n_middle = max(1, int(math.ceil(middle / mesh_size - 1e-9)))
+    sizes = left + [middle / n_middle] * n_middle + right[::-1]
+    nodes = [a]
+    for size in sizes[:-1]:
+        nodes.append(nodes[-1] + size)
+    nodes.append(b)
+    return nodes
+
+def _graded_axis_coordinates(start: float, length: float, mesh_size: float, fine_size: float,
+                             growth: float, points: list[float], dtype: jnp.dtype) -> jax.Array:
+    """Axis refined to fine_size around each point of `points` that lies in [start, end]."""
+    end = start + length
+    inside = sorted({float(p) for p in points if start - 1e-9 <= p <= end + 1e-9})
+    breaks = sorted({start, end, *inside})
+    is_fine = lambda value: any(math.isclose(value, p, abs_tol=1e-9) for p in inside)
+    nodes = [start]
+    for a, b in zip(breaks[:-1], breaks[1:]):
+        nodes.extend(_graded_segment(a, b, mesh_size, fine_size, growth, is_fine(a), is_fine(b))[1:])
+    return jnp.asarray(nodes, dtype=dtype)
+
+def _structured_2d_boundary(
+    spec: LegacyBlockSpec, nx: int, ny: int
+) -> tuple[dict[str, jax.Array], dict[str, jax.Array]]:
+    def make_edge_nodes(which: str) -> jax.Array:
+        if which == "back":
+            return jnp.arange(0, (ny + 1) * (nx + 1), nx + 1, dtype=jnp.int32)
+        if which == "front":
+            return jnp.arange(nx, (ny + 1) * (nx + 1) + nx, nx + 1, dtype=jnp.int32)
+        if which == "right":
+            return jnp.arange(nx + 1, dtype=jnp.int32)
+        if which == "left":
+            return jnp.arange(ny * (nx + 1), (ny + 1) * (nx + 1), dtype=jnp.int32)
+        raise ValueError(which)
+
+    boundary_nodes = {
+        f"{spec.name}-back": make_edge_nodes("back"),
+        f"{spec.name}-front": make_edge_nodes("front"),
+        f"{spec.name}-right": make_edge_nodes("right"),
+        f"{spec.name}-left": make_edge_nodes("left"),
+    }
+    boundary_segments = {
+        name: jnp.stack([nodes[:-1], nodes[1:]], axis=-1)
+        for name, nodes in boundary_nodes.items()
+    }
+    return boundary_nodes, boundary_segments
+
+def _structured_2d_grid(
+    spec: LegacyBlockSpec, mesh_size: float, dtype: jnp.dtype, refinement: dict | None = None
+) -> tuple[jax.Array, jax.Array, jax.Array, jax.Array, jax.Array, int, int]:
+    x0, y0 = spec.origin
+    lx, ly = spec.dimensions
+    if refinement:
+        graded = lambda start, length, points: _graded_axis_coordinates(
+            start, length, mesh_size, refinement["size"], refinement["growth"], points, dtype)
+        x_vals = graded(x0, lx, refinement["x_points"])
+        y_vals = graded(y0, ly, refinement["y_points"])
+    else:
+        x_vals = _axis_coordinates(x0, lx, mesh_size, dtype)
+        y_vals = _axis_coordinates(y0, ly, mesh_size, dtype)
+    nx = int(x_vals.shape[0] - 1)
+    ny = int(y_vals.shape[0] - 1)
+    X, Y = jnp.meshgrid(x_vals, y_vals, indexing="xy")
+    coords = jnp.stack([X.reshape(-1), Y.reshape(-1)], axis=-1)
+
+    ix, iy = jnp.meshgrid(
+        jnp.arange(nx, dtype=jnp.int32),
+        jnp.arange(ny, dtype=jnp.int32),
+        indexing="xy",
+    )
+    n00 = (iy * (nx + 1) + ix).reshape(-1)
+    n10 = n00 + 1
+    n01 = n00 + (nx + 1)
+    n11 = n01 + 1
+    return n00, n10, n01, n11, coords, nx, ny
+
+def create_structured_quad_block(
+    spec: LegacyBlockSpec,
+    mesh_size: float,
+    dtype: jnp.dtype,
+    *,
+    leading_chamfer_along_fault: float = 0.0,
+    leading_chamfer_perpendicular: float = 0.0,
+    leading_fillet_radius: float = 0.0,
+    loading_fillet_radius: float = 0.0,
+    refinement: dict | None = None,
+) -> tuple[Mesh, dict[str, jax.Array], dict[str, jax.Array]]:
+    if refinement and leading_chamfer_along_fault > 0.0:
+        raise ValueError("Fault-end mesh refinement is not combined with a chamfer; use a fillet.")
+    n00, n10, n01, n11, coords, nx, ny = _structured_2d_grid(spec, mesh_size, dtype, refinement)
+    elements = jnp.stack([n00, n10, n11, n01], axis=-1)
+    boundary_nodes, boundary_segments = _structured_2d_boundary(spec, nx, ny)
+    chamfer_length = float(leading_chamfer_along_fault)
+    chamfer_depth = float(leading_chamfer_perpendicular)
+    if (chamfer_length == 0.0) != (chamfer_depth == 0.0):
+        raise ValueError("Leading chamfer length and depth must be enabled together.")
+    if chamfer_length > 0.0:
+        x0, y0 = spec.origin
+        lx, ly = spec.dimensions
+        if chamfer_length >= ly or chamfer_depth >= lx:
+            raise ValueError("Leading chamfer dimensions must fit inside the block.")
+        cut_y = y0 + ly - chamfer_length
+        y_coordinates = np.asarray(coords[:, 1], dtype=np.float64)
+        if not np.any(np.isclose(y_coordinates, cut_y, atol=1.0e-9, rtol=0.0)):
+            raise ValueError(
+                "The leading chamfer start must coincide with a mesh row; "
+                "choose a chamfer length aligned with numerics.mesh_size."
+            )
+
+        # Map the logical rectangle continuously onto the chamfered polygon.
+        # Keeping the structured topology avoids staircase edges and mixed elements.
+        progress = np.clip((y_coordinates - cut_y) / chamfer_length, 0.0, 1.0)
+        scale = 1.0 - (chamfer_depth / lx) * progress
+        mapped = np.asarray(coords, dtype=np.float64).copy()
+        mapped[:, 0] = x0 + (mapped[:, 0] - x0) * scale
+        coords = jnp.asarray(mapped, dtype=dtype)
+
+        interface_name = f"{spec.name}-front"
+        full_front = np.asarray(boundary_nodes[interface_name], dtype=np.int32)
+        active_front = full_front[
+            np.asarray(coords[full_front, 1], dtype=np.float64) <= cut_y + 1.0e-9
+        ]
+        if active_front.size < 2:
+            raise ValueError("Leading chamfer leaves fewer than two interface nodes.")
+        boundary_nodes[interface_name] = jnp.asarray(active_front, dtype=jnp.int32)
+        boundary_segments[interface_name] = jnp.stack(
+            [boundary_nodes[interface_name][:-1], boundary_nodes[interface_name][1:]],
+            axis=-1,
+        )
+    if leading_fillet_radius > 0.0 or loading_fillet_radius > 0.0:
+        if chamfer_length > 0.0 and leading_fillet_radius > 0.0:
+            raise ValueError("A leading fillet and a leading chamfer are mutually exclusive.")
+        x0, y0 = spec.origin
+        lx, ly = spec.dimensions
+        if leading_fillet_radius < 0.0 or loading_fillet_radius < 0.0:
+            raise ValueError("Fillet radii must be non-negative.")
+        if max(leading_fillet_radius, loading_fillet_radius) >= lx or (
+            leading_fillet_radius + loading_fillet_radius >= ly
+        ):
+            raise ValueError("Fault-corner fillets must fit inside the block.")
+        # Quarter circles tangent to the fault face (x = x0 + lx) and to the end faces.
+        # g(y) is the recess of the fault face; mapping each row by 1 - g/lx keeps the
+        # structured topology and leaves the far (normal-loaded) face in place.
+        y = np.asarray(coords[:, 1], dtype=np.float64)
+        recess = np.zeros_like(y)
+        if leading_fillet_radius > 0.0:
+            r = leading_fillet_radius
+            d = np.clip(y - (y0 + ly - r), 0.0, r)
+            recess += r - np.sqrt(r * r - d * d)
+        if loading_fillet_radius > 0.0:
+            r = loading_fillet_radius
+            d = np.clip((y0 + r) - y, 0.0, r)
+            recess += r - np.sqrt(r * r - d * d)
+        mapped = np.asarray(coords, dtype=np.float64).copy()
+        mapped[:, 0] = x0 + (mapped[:, 0] - x0) * (1.0 - recess / lx)
+        coords = jnp.asarray(mapped, dtype=dtype)
+    return Mesh(coords=coords, elements=elements), boundary_nodes, boundary_segments

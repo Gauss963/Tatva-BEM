@@ -1,0 +1,15 @@
+{
+  "source_revision": "933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d",
+  "source_file": "tatva/pmma/dynamics.py",
+  "source_file_sha256": "5f549e3cbd017030cac3db1cbc957ab1998583f868134fe8b69a718c32c13309",
+  "fixture_sha256": "854ad20e58762e6a05e161e9b4480549507a0cb73afa1da9d746bdf152deafe0",
+  "functions": {
+    "_axis_coordinates": "fe0000d0abe56b7469bd65c47b58d0e9fb3ea7be9562b7c45523ddc7e16e6142",
+    "_graded_segment": "8160ee13342132500a9463de59388bbb8d71a6f4eb9dad769a8865614456e15c",
+    "_graded_axis_coordinates": "25a38f0be0b19cae3af5cf8572ffb4b0d00425c795d3e88a45ce9b6b48aaaa10",
+    "_structured_2d_boundary": "c74bdc349d94ee4f93a27a42bc3a6f7576049ec59f7106ceabfd9ea3be9f735c",
+    "_structured_2d_grid": "ef956e42ba8de1c305f0d54f5f0c8615061d7ded2e8ca616494a678a673c343d",
+    "create_structured_quad_block": "834debe1a519bcc77561f7bd31d6840a8451e4d4ac4cf9eeab3b5c0cfd8872a6"
+  },
+  "scope": "Exact source segments; only the test harness substitutes NumPy and a simple mesh record for JAX/FEM setup"
+}
