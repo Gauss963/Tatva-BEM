@@ -290,6 +290,22 @@ Matsumoto、Maruyama、Ma、Yokota 的
 
 ## 一致性與效能驗收
 
+### 接觸空間配對與 penalty 模型
+
+配合已觀察到的初態 pressure dip，重讀
+[Aimi、Di Credico、Gimperlein (2024)](https://arxiv.org/html/2405.08566v1) §3.3、§5.3。
+其 Theorem 3–4 對位移／接觸 multiplier 的 mesh/time 配對及 coercivity 有條件；
+數值實驗則採相同 mesh/time 尺度。這不是「接觸點越多越穩定」的結論。
+我們的 pointwise penalty internal states 也不是其獨立 P0 contact multiplier，
+不能直接把該 inf-sup 條件當成目前程式已滿足或必然違反的證明。
+
+[MOOSE 的原始 penalty-friction 文件](https://mooseframework.inl.gov/source/userobjects/PenaltyFrictionUserObject.html)
+同樣明列 AD traction Jacobian 與 dual mortar basis，並將 augmented Lagrange
+收斂解與 Lagrange-multiplier enforcement 聯繫。對本任務的建模判斷是：
+不能為求穩定就把 Tatva 指定的有限 kn／kt 改成 exact contact，否則比較的是不同模型。
+本階段先保留原 penalty、nodal rule 與完整歷史，使用已排程的 bulk 空間控制
+確認誤差；mixed/dual-mortar 形式若日後採用，仍須對同一有限 penalty 問題重新驗證。
+
 第一輪工程門檻暫定為：成核與停止載入時間偏差不超過 2%；最大滑移、
 末界面滑移分布與剪力歷程的相對差不超過 5%，且 BEM 自身網格／時間加密的
 差異應低於與 FEM 的允許差。壓力、platen、破裂前緣與波反射也要一起檢查。

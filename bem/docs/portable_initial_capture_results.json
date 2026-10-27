@@ -1,0 +1,204 @@
+{
+  "recorded_utc": "2026-10-27T03:52:57.079132+00:00",
+  "source_path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/initial-contact-portable-capture-20261027/summary.json",
+  "source_sha256": "91c124c97d61a275f415a0ab7ab5049bbff90ca939f5d1859e476071946e203b",
+  "result": {
+    "status": "captured_saved_static_frames_with_storage_bounds",
+    "records": [
+      {
+        "source": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h2-4c-interface/simulation.h5",
+        "source_bytes": 77038494,
+        "source_mtime_ns": 1792913256721515841,
+        "frame": 4,
+        "step_id": 160091,
+        "high_rate_frame": 40,
+        "pressure_strength_vs_displacement_maximum_difference_mpa": 0.0018277936675623607,
+        "maximum_pressure_storage_bound_mpa": 6.382288436139945e-05,
+        "maximum_displacement_pressure_storage_bound_mpa": 0.004566912238033183,
+        "maximum_shear_storage_bound_mpa": 0.015070796012878418,
+        "healed_memory_maximum_mm": 0.0,
+        "stored_dtypes": {
+          "moving_u": "float32",
+          "stationary_u": "float32",
+          "moving_coordinates": "float64",
+          "stationary_coordinates": "float64",
+          "plastic_slip": "float32",
+          "friction_coefficient": "float32",
+          "friction_strength": "float32",
+          "cumulative_slip": "float32"
+        },
+        "snapshot": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/initial-contact-portable-capture-20261027/fem-0-fem-event16-authored-f64-h2-4c-interface.npz",
+        "snapshot_sha256": "1a73c5424ecff8205d7a0fbda7b56db2973322bc61fb7850eee315133386ed81",
+        "old_bem_initial_comparisons": [
+          {
+            "run": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv1-n64-coarse-p1-fem-static",
+            "pressure": {
+              "final_relative_p1_l2": 0.19519389915118446,
+              "final_absolute_p1_l2": 98.88974613014828,
+              "final_maximum_absolute_difference": 201.53820200970978,
+              "final_reference_maximum": 344.61619817292393,
+              "final_actual_maximum": 546.1544001826337,
+              "final_reference_p1_mean": 16.666666458050415,
+              "final_actual_p1_mean": 16.666666666665993,
+              "maximum_saved_absolute_difference": 201.53820200970978
+            },
+            "shear": {
+              "final_relative_p1_l2": 0.1283088768545609,
+              "final_absolute_p1_l2": 35.64482216111216,
+              "final_maximum_absolute_difference": 37.71176662935835,
+              "final_reference_maximum": 193.78075182437897,
+              "final_actual_maximum": 231.49251845373732,
+              "final_reference_p1_mean": 8.826458107680082,
+              "final_actual_p1_mean": 8.81675914589778,
+              "maximum_saved_absolute_difference": 37.71176662935835
+            },
+            "initial_row_sha256": {
+              "pressure": "2625f22fc584845854a4531f24d0ef9a88b9e40f4df26da2feaef6786a232748",
+              "shear": "794d431ee9bd47b35cb9584c05809da83968199d8c86d6cea70faa9925c470e1"
+            }
+          },
+          {
+            "run": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv8-n64-original-p1-fem-static",
+            "pressure": {
+              "final_relative_p1_l2": 0.32964993285003735,
+              "final_absolute_p1_l2": 167.00828413756702,
+              "final_maximum_absolute_difference": 390.20745624482885,
+              "final_reference_maximum": 344.61619817292393,
+              "final_actual_maximum": 734.8236544177528,
+              "final_reference_p1_mean": 16.66666645805041,
+              "final_actual_p1_mean": 16.666666666665996,
+              "maximum_saved_absolute_difference": 390.20745624482885
+            },
+            "shear": {
+              "final_relative_p1_l2": 0.1621896077780739,
+              "final_absolute_p1_l2": 45.0570519153015,
+              "final_maximum_absolute_difference": 66.58910808866295,
+              "final_reference_maximum": 193.78075182437897,
+              "final_actual_maximum": 260.3698599130419,
+              "final_reference_p1_mean": 8.826458107680082,
+              "final_actual_p1_mean": 8.816565818173261,
+              "maximum_saved_absolute_difference": 66.58910808866295
+            },
+            "initial_row_sha256": {
+              "pressure": "14ff18038be8ae1b3b6c459603da2f8ae120b2ea7c990f5320cd68c153597990",
+              "shear": "564fd582c24dd69a7601a61efa78901a1cdc0915bc79ac51d683f9234b636d37"
+            }
+          }
+        ]
+      },
+      {
+        "source": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h1-original-dt-4c-interface/simulation.h5",
+        "source_bytes": 235058766,
+        "source_mtime_ns": 1793022725942679627,
+        "frame": 4,
+        "step_id": 160091,
+        "high_rate_frame": 40,
+        "pressure_strength_vs_displacement_maximum_difference_mpa": 0.0020173833231069693,
+        "maximum_pressure_storage_bound_mpa": 7.38417449814078e-05,
+        "maximum_displacement_pressure_storage_bound_mpa": 0.004566912238033183,
+        "maximum_shear_storage_bound_mpa": 0.015070796012878418,
+        "healed_memory_maximum_mm": 0.0,
+        "stored_dtypes": {
+          "moving_u": "float32",
+          "stationary_u": "float32",
+          "moving_coordinates": "float64",
+          "stationary_coordinates": "float64",
+          "plastic_slip": "float32",
+          "friction_coefficient": "float32",
+          "friction_strength": "float32",
+          "cumulative_slip": "float32"
+        },
+        "snapshot": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/initial-contact-portable-capture-20261027/fem-1-fem-event16-authored-f64-h1-original-dt-4c-interface.npz",
+        "snapshot_sha256": "44d2031e389a403fbca4874f31b7a0faeeadd90017764ff24c614922613e7227",
+        "old_bem_initial_comparisons": [
+          {
+            "run": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv1-n64-coarse-p1-fem-static",
+            "pressure": {
+              "final_relative_p1_l2": 0.09085711446179846,
+              "final_absolute_p1_l2": 47.10897862186815,
+              "final_maximum_absolute_difference": 86.43971136457037,
+              "final_reference_maximum": 479.08705951143713,
+              "final_actual_maximum": 546.1544001826337,
+              "final_reference_p1_mean": 16.666666410863403,
+              "final_actual_p1_mean": 16.666666666665993,
+              "maximum_saved_absolute_difference": 86.43971136457037
+            },
+            "shear": {
+              "final_relative_p1_l2": 0.07587548764792046,
+              "final_absolute_p1_l2": 20.935187631538707,
+              "final_maximum_absolute_difference": 35.980803795852694,
+              "final_reference_maximum": 231.19651472568512,
+              "final_actual_maximum": 231.49251845373732,
+              "final_reference_p1_mean": 8.820705706626176,
+              "final_actual_p1_mean": 8.81675914589778,
+              "maximum_saved_absolute_difference": 35.980803795852694
+            },
+            "initial_row_sha256": {
+              "pressure": "2625f22fc584845854a4531f24d0ef9a88b9e40f4df26da2feaef6786a232748",
+              "shear": "794d431ee9bd47b35cb9584c05809da83968199d8c86d6cea70faa9925c470e1"
+            }
+          },
+          {
+            "run": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv8-n64-original-p1-fem-static",
+            "pressure": {
+              "final_relative_p1_l2": 0.23037529570557702,
+              "final_absolute_p1_l2": 119.44848727243806,
+              "final_maximum_absolute_difference": 255.73659490631564,
+              "final_reference_maximum": 479.08705951143713,
+              "final_actual_maximum": 734.8236544177528,
+              "final_reference_p1_mean": 16.666666410863403,
+              "final_actual_p1_mean": 16.666666666665996,
+              "maximum_saved_absolute_difference": 255.73659490631564
+            },
+            "shear": {
+              "final_relative_p1_l2": 0.10595319489241153,
+              "final_absolute_p1_l2": 29.23407919994327,
+              "final_maximum_absolute_difference": 64.5424453313238,
+              "final_reference_maximum": 231.19651472568512,
+              "final_actual_maximum": 260.3698599130419,
+              "final_reference_p1_mean": 8.820705706626176,
+              "final_actual_p1_mean": 8.816565818173261,
+              "maximum_saved_absolute_difference": 64.5424453313238
+            },
+            "initial_row_sha256": {
+              "pressure": "14ff18038be8ae1b3b6c459603da2f8ae120b2ea7c990f5320cd68c153597990",
+              "shear": "564fd582c24dd69a7601a61efa78901a1cdc0915bc79ac51d683f9234b636d37"
+            }
+          }
+        ]
+      }
+    ],
+    "frozen_input_sha256": {
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/capture_initial_contact.py": "011f99bb415a3f2f6caecd4638b39536b7c62cb99433f1ec6354db252cce211b",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compare_fem_mesh.py": "a747c5b4ff52ad84556d5de0c91fb21e0612f3f3d71f165626058c22608b3e0b",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compare_refined_fem_history.py": "0779900b9556045208297bfc4cddca883a03fbb31bcb0aea24dabbd0d30a0540",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h2-4c-interface/summary.json": "8f2538542a351197923c063e75dce7f607adc5706ff46313ee78ee1dc73af5e1",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h2-4c-interface/resolved_run_config.json": "1f95e7f2bd2c8abc342a80c69ffc59bdb60d95727e76a09d8a1f9fdb8bce6bd2",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h2-4c-interface/reference_manifest.json": "a19d658036d7add09664a6c4832c3cba4edd61bd017496ff2e827039415679ec",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h1-original-dt-4c-interface/summary.json": "eed65bf9c5294b2f09cf3b4bee62e26d614d63ddfd4fc406ff36b213b947a1c7",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h1-original-dt-4c-interface/resolved_run_config.json": "a6f44b3f1cc4dcff33adeea95a53f5e3f2ab2c1fa97ceaa769f780350d3ddd7d",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h1-original-dt-4c-interface/reference_manifest.json": "24b8654cf4ad30c494993c457d7c1a72b41016eadbd03f4ad26df43e7a3f502b",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv1-n64-coarse-p1-fem-static/summary.json": "14fda9b2cd2786ef82c557d406f6230114bb65e34e6e7da3925aa49c25bb6453",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv8-n64-original-p1-fem-static/summary.json": "5a814e5d0b94e6e9b0b486daf1a3a4441c30aa0e9794205048a77fb61854c769"
+    },
+    "original_tatva_readonly": true,
+    "same_accuracy_fem_advantage_verified": false,
+    "scope": "Saved FEM static frames cast to float64; explicit full-ulp storage bounds, not true float64 static solutions or dynamic convergence"
+  },
+  "reproduced_prior_physical_array_bits": [
+    "y",
+    "pressure",
+    "shear",
+    "plastic_slip",
+    "cumulative_slip",
+    "normal_jump",
+    "tangential_jump"
+  ],
+  "reproduced_prior_p1_error_metrics_exactly": true,
+  "prior_capture": "initial_contact_snapshot_results.json",
+  "rounding_bound_method": "Full ULP intervals of the actual stored dtypes, with positive-denominator ratio propagation; not a changed physical tolerance",
+  "local_tests_passed": 7,
+  "physical_convergence_verified": false,
+  "same_accuracy_fem_advantage_verified": false,
+  "original_tatva_readonly": true
+}

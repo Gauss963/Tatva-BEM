@@ -104,6 +104,24 @@ primary pressure 的 strength／mu rounding bound 最大約 0.000123／0.000171 
 saved shear reconstruction bound 約 0.0182 MPa。額外的 displacement／coordinate
 pressure reconstruction bound 較鬆，不能混稱 primary target 的不確定度。
 
+擷取現已整理成 `tools/capture_initial_contact.py`，可在不同 checkout 重跑。
+它使用實際 stored dtype 的完整 ULP interval 傳播誤差，將 primary ratio 與
+displacement／coordinate reconstruction 的 bounds 分開保存。
+七項本機控制涵蓋 float32／float64 手算接觸律、phase/step、損壞 NPZ、
+壓力不一致、CLI 及不含完整 trajectory 配置的 first-row 讀取。
+新工具在兩組真實 FEM、兩組既有 BEM 上已重現舊報告的所有物理 array bits
+與 P1 誤差；較精確的 primary rounding bound 最大為 0.0000638／0.0000738 MPa。
+這是 storage bound 計算法的改進，沒有改動物理場或驗收容差。
+來源與完整數據見 [portable_initial_capture_results.json](portable_initial_capture_results.json)。
+
+```sh
+PYTHONPATH=bem/src python -B bem/tools/capture_initial_contact.py FEM_H2 FEM_H1 \
+  --bem-runs COMPLETED_BEM_SUBDIV1 COMPLETED_BEM_SUBDIV8 --output FRESH_CAPTURE_DIRECTORY
+```
+
+不提供 `--bem-runs` 時只擷取 FEM reference，供後續靜態對照使用。
+輸出仍只是保存資料的浮點值與 rounding bounds，不是假稱恢復 true float64 初態。
+
 以上差異發生在 CQ 動態推進之前。因此 bulk／初態空間差異不能只靠縮短 dt 消除；
 是否解釋動態誤差的主要部分，仍須由新網格的完整事件檢查。沒有排除端點。
 
