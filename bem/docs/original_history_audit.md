@@ -57,7 +57,22 @@ coordinate transformations, batched histories, explicit future-wrap detection,
 and freshly assembled finite-block sliding histories. Numerical source
 `0833a01` passed Python 3.11/3.12
 [CI](https://github.com/Gauss963/Tatva-BEM/actions/runs/40312542278).
-The full-event audit is queued after the existing serialized study.
+The six full-event audits completed on 2026-10-27. Maximum original-equation
+residuals are 7.4550e-7 to 7.4930e-7 MPa, below the unchanged 1e-4 MPa audit
+tolerance. Every frequency inverse identity was checked, with maximum error
+2.3831e-11; the five fresh BEM checks differ by at most 1.125e-15 in relative
+work Frobenius norm. The complete zero-padded causal action includes all
+22501 lags for all six trajectories. Total audit time including hashing and
+output was 1731.25 s, peak process RSS 2487.70 MiB.
+
+Full records, SHA-256 provenance and unchanged tolerances are preserved in
+[fem_initialized_completed_results.json](fem_initialized_completed_results.json).
+The earlier pending snapshot remains in `original_history_audit_results.json`.
+This excludes a large residual in the tested discrete causal equation as the
+explanation of the remaining FEM discrepancy. It does not certify continuous
+accuracy, untested frequencies or nonlinear stability. Signed perturbation
+port-work prefixes were nonnegative for these paths; they still provide no
+total-energy or operator passivity proof.
 
 ## Initial seed values and their P1 field
 
@@ -85,9 +100,12 @@ full-body static balance solve.
 The initial integration controls use `--seed-interpolation coarse-p1` to
 isolate quadrature effects. Additional subdivisions 4/8 controls instead use
 `--seed-interpolation original-p1`, directly sampling the original source
-field at fine state points. They recompute an admissible frozen-state lift,
-preserve z/c without artificial relaxation, and retain the complete dynamic
-history. The fine grid does not automatically contain all source knots, so
+field at fine state points. The first frozen-offset attempts failed their
+static strength check at the fine end points. The completed controls instead
+use the explicitly labelled [Tatva healed static active set](fem_static_initialization.md),
+which can change the initial plastic offset while keeping weakening memory
+healed. The source seed file is read-only and the complete dynamic history is
+retained. The fine grid does not automatically contain all source knots, so
 this remains a contact integration refinement rather than exact integration.
 
 All successful controls are compared to both completed FEM meshes and get

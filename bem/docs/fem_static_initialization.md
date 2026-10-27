@@ -27,11 +27,29 @@ memory 是否不變；動態求解明確從 `lift.state` 開始。預設仍為 `
 過去實驗的物理定義保持可重現。兩種初始化必須分別標示，不能混稱純積分加密。
 
 單點飽和靜態方程與開啟／stick 控制，加上既有 refined-contact 測試，本機
-15 tests passed。完整 Γ4/Γ8 事件與 FEM 比較尚待實跑；尚未證明同精度優勢。
-目前 AD 仍以完成的 lift 與初態固定為條件，沒有宣稱微分了這個 active-set lift。
+15 tests passed。六組 45 ms／2 us／N64 事件已完成，見下表與
+[完整證據](fem_initialized_completed_results.json)；尚未證明同精度優勢。
+
+|接觸積分細分|seed P1 場|最大累積滑移 mm|總推進與輸出時間 s|
+|---|---|---:|---:|
+|1|coarse|0.563086|246.28|
+|2|coarse|0.569536|305.26|
+|4|coarse|0.570714|446.21|
+|8|coarse|0.570585|674.62|
+|4|original|0.565583|421.28|
+|8|original|0.565718|675.80|
+
+所有控制使用相同 137-node bulk trace；增加接觸狀態點不會增加 bulk 模式。
+original-P1 Γ8 相對 FEM h1，末端 P1 L2 差為 cumulative slip 8.48%、
+pressure 22.73%、shear 25.31%，仍未達原驗收要求。FEM h2 的最大滑移
+0.644123 mm，h1 為 0.619884 mm；兩者本身也未證明空間收斂。
+表中不含先前已付出的 kernel 建立成本，不能用來宣稱 FEM 速度優勢。
 
 另有 `fem_static_contact_ad.py` 原型：固定已選定的開閉／滑動集合，使用 JAX
 微分收斂的線性平衡及輸出 plastic offset，避免反傳 active-set 迭代。
 新增正負滑動及 stick 的五參數有限差分與 JVP/VJP 對照，交由 CI 核對。
-它尚未接入完整 transient gradient；接續仍須傳遞初始位移、bulk force、
-plastic offset 與 initial contact force 對所有後續歷史的影響。
+它已接入 [initialized transient AD](initialized_contact_ad.md)，保留初始位移、
+bulk force、plastic offset 與 initial contact force 對所有後續歷史的影響。
+短程重新初始化有限差分與完整 causal JVP/VJP 已通過 CI；真實全事件的
+initialized gradient 仍待執行。已完成的 Γ4 conditional AD 固定了 lift／初態，
+與包含初始化的目標導數分開記錄。

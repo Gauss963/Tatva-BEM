@@ -273,6 +273,21 @@ trapezoidal的積分敏感性與本專案先前的Radau反例都提醒，不能�
 目前只有資源規劃，沒有將它列為已完成或已驗證的破裂模擬。
 本輪本機 49 個 BEM tests、Ruff、formatting 及 wheel 建置通過。
 
+## 2026-10-27 補讀：保留複數對稱性的壓縮
+
+Matsumoto、Maruyama、Ma、Yokota 的
+[2026-09-27 preprint](https://arxiv.org/html/2609.33216v1)
+以對稱 Galerkin P1 位移／P0 traction 延伸 HSS proxy 壓縮至 2D 彈性波傳遞。
+重點是 bilinear transpose 的**複數對稱**，不是 Hermitian；可共用左右低秩基底。
+其 192–1536 CPU core 研究不能直接預測本機四核心摩擦接觸的速度，
+也沒有 slip-weakening 的非線性穩定性證明。
+
+對本專案的推論是：未來做空間壓縮時，應從原 V／D 與 H／H.T 配對保存對稱性，
+避免獨立近似兩半後破壞功共軛。當前優先量測完整 raw-layer 建核與 IO；
+尚未實作這篇的 HSS／proxy 演算法，也不把對稱性當成正定性或被動性。
+新近 elastodynamic [3D-ACA／FMM preprint](https://arxiv.org/html/2607.15292v1)
+仍提供頻率與空間壓縮分開控制的路線；其線性、零初態條件也不能取代本事件驗證。
+
 ## 一致性與效能驗收
 
 第一輪工程門檻暫定為：成核與停止載入時間偏差不超過 2%；最大滑移、

@@ -1,0 +1,3035 @@
+{
+  "recorded_utc": "2026-10-27T02:51:49.879298+00:00",
+  "status": "six_complete_primals_and_original_causal_equations_checked_fem_accuracy_not_met",
+  "primals": [
+    {
+      "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv1-n64-coarse-p1-fem-static/summary.json",
+      "sha256": "14fda9b2cd2786ef82c557d406f6230114bb65e34e6e7da3925aa49c25bb6453",
+      "result": {
+        "status": "completed_requested_horizon",
+        "subdivisions": 1,
+        "seed_interpolation": "coarse-p1",
+        "static_initialization": "fem-active-set",
+        "bulk_contact_nodes": 137,
+        "contact_nodes": 137,
+        "dt_s": 2e-06,
+        "completed_steps": 22500,
+        "max_cumulative_slip_mm": 0.5630862814341431,
+        "actuator_hold_time_s": 0.029134,
+        "max_boundary_contact_residual_mpa": 9.489399133144616e-08,
+        "timing_seconds": {
+          "static_lift_kernel_hashing_and_load": 25.291863415390253,
+          "time_stepping": 220.66101187467575,
+          "kernel_recorded_preparation": 75362.1032901248,
+          "total_before_output": 246.00162212457508,
+          "total_including_output": 246.28438645787537
+        },
+        "peak_process_rss_mb": 8953.6875,
+        "contact_root_recovery_events": [
+          {
+            "step": 14551,
+            "primary_residual_mpa": 1.6724393824987371,
+            "primary_newton_iterations": 15,
+            "attempts": [
+              {
+                "method": "powell_hybrid",
+                "contact_fraction": 1.0,
+                "reported_success": false,
+                "residual_mpa": 0.9495192781639783,
+                "nfev": 47,
+                "accepted": false
+              },
+              {
+                "method": "hybrid_from_previous_state_root",
+                "contact_fraction": 1.0,
+                "reported_success": false,
+                "residual_mpa": 0.915382730111969,
+                "nfev": 40,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.125,
+                "reported_success": false,
+                "residual_mpa": 8.547829111194005e-12,
+                "nfev": 21,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.3125,
+                "reported_success": false,
+                "residual_mpa": 1.011731769212765e-11,
+                "nfev": 23,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.5625,
+                "reported_success": false,
+                "residual_mpa": 8.208529418219817e-12,
+                "nfev": 28,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.8125,
+                "reported_success": false,
+                "residual_mpa": 6.6893904302001665e-12,
+                "nfev": 25,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 1.0,
+                "reported_success": false,
+                "residual_mpa": 7.958078640513122e-12,
+                "nfev": 19,
+                "accepted": true
+              }
+            ],
+            "recovered": true,
+            "final_residual_mpa": 7.958078640513122e-12
+          },
+          {
+            "step": 14561,
+            "primary_residual_mpa": 16.45626789658826,
+            "primary_newton_iterations": 16,
+            "attempts": [
+              {
+                "method": "powell_hybrid",
+                "contact_fraction": 1.0,
+                "reported_success": false,
+                "residual_mpa": 7.765142081774826,
+                "nfev": 30,
+                "accepted": false
+              },
+              {
+                "method": "hybrid_from_previous_state_root",
+                "contact_fraction": 1.0,
+                "reported_success": true,
+                "residual_mpa": 7.673861546209082e-13,
+                "nfev": 12,
+                "accepted": true
+              }
+            ],
+            "recovered": true,
+            "final_residual_mpa": 7.673861546209082e-13
+          },
+          {
+            "step": 14567,
+            "primary_residual_mpa": 20.28910768531813,
+            "primary_newton_iterations": 22,
+            "attempts": [
+              {
+                "method": "powell_hybrid",
+                "contact_fraction": 1.0,
+                "reported_success": false,
+                "residual_mpa": 11.002903499001889,
+                "nfev": 40,
+                "accepted": false
+              },
+              {
+                "method": "hybrid_from_previous_state_root",
+                "contact_fraction": 1.0,
+                "reported_success": false,
+                "residual_mpa": 1.2967404927621828e-13,
+                "nfev": 27,
+                "accepted": true
+              }
+            ],
+            "recovered": true,
+            "final_residual_mpa": 1.2967404927621828e-13
+          }
+        ]
+      },
+      "initialization": {
+        "status": "admissible_refined_contact_static_lift",
+        "bulk_dofs": 275,
+        "contact_state_points": 137,
+        "subdivisions": 1,
+        "residual_mpa": 1.9655210792279831e-10,
+        "original_full_balance_mpa": 2.1251622683848836e-10,
+        "trace_constraint_error_mm": 1.9539925233402755e-14,
+        "maximum_strength_ratio": 0.7869412986230441,
+        "mean_pressure_mpa": 16.666666666665993,
+        "moving_bulk_normal_force_mpa_mm": 6.370726168825058e-11,
+        "applied_normal_force_mpa_mm": 8000.0,
+        "contact_normal_force_mpa_mm": 7999.999999999676,
+        "moving_normal_balance_defect_mpa_mm": -2.601154847070575e-10,
+        "force_scope": "Original discrete Galerkin balance; its finite-quadrature rigid-translation defect is retained, not clipped",
+        "mean_shear_mpa": 8.81675914589778,
+        "platen_mm": 9.959817787701667,
+        "seed_unchanged": true,
+        "reduction": {
+          "saddle_scaled_residual": 1.6825651982799172e-11,
+          "relative_impedance_symmetry": 4.874351766507857e-16,
+          "no_free_body_inverse_or_regularization": true
+        },
+        "static_initialization": {
+          "policy": "Tatva healed Coulomb active set, then retain prescribed weakening memory",
+          "active_set_iterations": [
+            {
+              "iteration": 1,
+              "open": 0,
+              "sliding": 0
+            }
+          ],
+          "static_sliding_points": 0,
+          "static_open_points": 0,
+          "original_force_residual_mpa": 1.9655210792279831e-10,
+          "maximum_strength_excess_mpa": -3.2167879392153047,
+          "maximum_plastic_offset_change_mm": 0.0,
+          "input_seed_unchanged": true,
+          "weakening_memory_unchanged": true,
+          "no_dynamic_weakening_during_preload": true
+        }
+      }
+    },
+    {
+      "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv2-n64-coarse-p1-fem-static/summary.json",
+      "sha256": "256aa288cad6e9c228637fae63b82e996ea18024a4a93fb2734307e5562d9441",
+      "result": {
+        "status": "completed_requested_horizon",
+        "subdivisions": 2,
+        "seed_interpolation": "coarse-p1",
+        "static_initialization": "fem-active-set",
+        "bulk_contact_nodes": 137,
+        "contact_nodes": 273,
+        "dt_s": 2e-06,
+        "completed_steps": 22500,
+        "max_cumulative_slip_mm": 0.5695357760610849,
+        "actuator_hold_time_s": 0.029065999999999998,
+        "max_boundary_contact_residual_mpa": 4.092392025256686e-08,
+        "timing_seconds": {
+          "static_lift_kernel_hashing_and_load": 24.847819458693266,
+          "time_stepping": 279.6904346672818,
+          "kernel_recorded_preparation": 75362.1032901248,
+          "total_before_output": 304.5929000834003,
+          "total_including_output": 305.26446437556297
+        },
+        "peak_process_rss_mb": 8680.828125,
+        "contact_root_recovery_events": [
+          {
+            "step": 14525,
+            "primary_residual_mpa": 4.066999655766196,
+            "primary_newton_iterations": 20,
+            "attempts": [
+              {
+                "method": "powell_hybrid",
+                "contact_fraction": 1.0,
+                "reported_success": false,
+                "residual_mpa": 1.1265914758018027,
+                "nfev": 37,
+                "accepted": false
+              },
+              {
+                "method": "hybrid_from_previous_state_root",
+                "contact_fraction": 1.0,
+                "reported_success": false,
+                "residual_mpa": 1.0884566447474526,
+                "nfev": 32,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.125,
+                "reported_success": true,
+                "residual_mpa": 2.7284841053187847e-12,
+                "nfev": 9,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.3125,
+                "reported_success": true,
+                "residual_mpa": 1.8900436771218665e-12,
+                "nfev": 16,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.5625,
+                "reported_success": true,
+                "residual_mpa": 4.019895527562767e-12,
+                "nfev": 12,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.8125,
+                "reported_success": true,
+                "residual_mpa": 5.662137425588298e-12,
+                "nfev": 20,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 1.0,
+                "reported_success": false,
+                "residual_mpa": 1.0384727922436525,
+                "nfev": 36,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.9375,
+                "reported_success": false,
+                "residual_mpa": 0.59226708099734,
+                "nfev": 35,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.875,
+                "reported_success": false,
+                "residual_mpa": 0.13103153253743471,
+                "nfev": 40,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.84375,
+                "reported_success": true,
+                "residual_mpa": 2.3931967518819874e-12,
+                "nfev": 6,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.890625,
+                "reported_success": false,
+                "residual_mpa": 0.2378693601306141,
+                "nfev": 41,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.8671875,
+                "reported_success": false,
+                "residual_mpa": 0.07359930970514483,
+                "nfev": 35,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.85546875,
+                "reported_success": true,
+                "residual_mpa": 2.685074385055941e-12,
+                "nfev": 31,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.873046875,
+                "reported_success": false,
+                "residual_mpa": 0.11179710753177446,
+                "nfev": 41,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.8642578125,
+                "reported_success": false,
+                "residual_mpa": 0.04941826172830144,
+                "nfev": 33,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.85986328125,
+                "reported_success": false,
+                "residual_mpa": 0.019050143633573657,
+                "nfev": 37,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.857666015625,
+                "reported_success": false,
+                "residual_mpa": 0.004126951446074667,
+                "nfev": 39,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.8565673828125,
+                "reported_success": true,
+                "residual_mpa": 3.6104730316566247e-12,
+                "nfev": 6,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.85821533203125,
+                "reported_success": false,
+                "residual_mpa": 0.00775080279289958,
+                "nfev": 30,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.857391357421875,
+                "reported_success": false,
+                "residual_mpa": 0.0020631354636861943,
+                "nfev": 36,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.8569793701171875,
+                "reported_success": true,
+                "residual_mpa": 4.22040180581007e-12,
+                "nfev": 16,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.8575973510742188,
+                "reported_success": false,
+                "residual_mpa": 0.0034914635441509745,
+                "nfev": 41,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.8572883605957031,
+                "reported_success": false,
+                "residual_mpa": 0.0013745327793271978,
+                "nfev": 35,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.8571338653564453,
+                "reported_success": false,
+                "residual_mpa": 0.00030058512570008133,
+                "nfev": 33,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.8570566177368164,
+                "reported_success": true,
+                "residual_mpa": 8.956391184256063e-12,
+                "nfev": 15,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.8571724891662598,
+                "reported_success": false,
+                "residual_mpa": 0.0005777434646176971,
+                "nfev": 40,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.8571145534515381,
+                "reported_success": false,
+                "residual_mpa": 0.00017412061461641315,
+                "nfev": 31,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.8570855855941772,
+                "reported_success": true,
+                "residual_mpa": 3.959606947878669e-12,
+                "nfev": 6,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.8571290373802185,
+                "reported_success": false,
+                "residual_mpa": 0.0002822559163271343,
+                "nfev": 32,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.8571073114871979,
+                "reported_success": false,
+                "residual_mpa": 0.00012680652110252932,
+                "nfev": 33,
+                "accepted": false
+              },
+              {
+                "method": "constant_kinetic_law_seed",
+                "accepted": false,
+                "seed_residual_mpa": 4.476419235288631e-13,
+                "final_parameters_and_state_unchanged": true
+              },
+              {
+                "method": "hybrid_from_kinetic_seed",
+                "accepted": true,
+                "reported_success": false,
+                "nfev": 22,
+                "residual_mpa": 2.9558577807620168e-12
+              }
+            ],
+            "recovered": true,
+            "final_residual_mpa": 2.9558577807620168e-12
+          },
+          {
+            "step": 14533,
+            "primary_residual_mpa": 14.382326590762432,
+            "primary_newton_iterations": 51,
+            "attempts": [
+              {
+                "method": "powell_hybrid",
+                "contact_fraction": 1.0,
+                "reported_success": false,
+                "residual_mpa": 5.6244403139736505,
+                "nfev": 51,
+                "accepted": false
+              },
+              {
+                "method": "hybrid_from_previous_state_root",
+                "contact_fraction": 1.0,
+                "reported_success": false,
+                "residual_mpa": 1.0658141036401503e-13,
+                "nfev": 22,
+                "accepted": true
+              }
+            ],
+            "recovered": true,
+            "final_residual_mpa": 1.0658141036401503e-13
+          }
+        ]
+      },
+      "initialization": {
+        "status": "admissible_refined_contact_static_lift",
+        "bulk_dofs": 275,
+        "contact_state_points": 273,
+        "subdivisions": 2,
+        "residual_mpa": 1.8824627424915567e-10,
+        "original_full_balance_mpa": 1.880399626323474e-10,
+        "trace_constraint_error_mm": 2.1316282072803006e-14,
+        "maximum_strength_ratio": 0.8642676920751519,
+        "mean_pressure_mpa": 16.666666666665996,
+        "moving_bulk_normal_force_mpa_mm": 3.679190285765799e-11,
+        "applied_normal_force_mpa_mm": 8000.0,
+        "contact_normal_force_mpa_mm": 7999.999999999678,
+        "moving_normal_balance_defect_mpa_mm": -2.8558133635669947e-10,
+        "force_scope": "Original discrete Galerkin balance; its finite-quadrature rigid-translation defect is retained, not clipped",
+        "mean_shear_mpa": 8.816631235675443,
+        "platen_mm": 9.959830067083068,
+        "seed_unchanged": true,
+        "reduction": {
+          "saddle_scaled_residual": 1.6825651982799172e-11,
+          "relative_impedance_symmetry": 4.874351766507857e-16,
+          "no_free_body_inverse_or_regularization": true
+        },
+        "static_initialization": {
+          "policy": "Tatva healed Coulomb active set, then retain prescribed weakening memory",
+          "active_set_iterations": [
+            {
+              "iteration": 1,
+              "open": 0,
+              "sliding": 0
+            }
+          ],
+          "static_sliding_points": 0,
+          "static_open_points": 0,
+          "original_force_residual_mpa": 1.8824627424915567e-10,
+          "maximum_strength_excess_mpa": -3.1848178001266945,
+          "maximum_plastic_offset_change_mm": 0.0,
+          "input_seed_unchanged": true,
+          "weakening_memory_unchanged": true,
+          "no_dynamic_weakening_during_preload": true
+        }
+      }
+    },
+    {
+      "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv4-n64-coarse-p1-fem-static/summary.json",
+      "sha256": "c73a0c04d7862e385dc2f6f9e34842922c034fa95964abf008374dd2d49c6d35",
+      "result": {
+        "status": "completed_requested_horizon",
+        "subdivisions": 4,
+        "seed_interpolation": "coarse-p1",
+        "static_initialization": "fem-active-set",
+        "bulk_contact_nodes": 137,
+        "contact_nodes": 545,
+        "dt_s": 2e-06,
+        "completed_steps": 22500,
+        "max_cumulative_slip_mm": 0.5707136966650297,
+        "actuator_hold_time_s": 0.02904,
+        "max_boundary_contact_residual_mpa": 9.768362474460446e-08,
+        "timing_seconds": {
+          "static_lift_kernel_hashing_and_load": 24.075571374967694,
+          "time_stepping": 420.712115874514,
+          "kernel_recorded_preparation": 75362.1032901248,
+          "total_before_output": 444.85147658362985,
+          "total_including_output": 446.207419000566
+        },
+        "peak_process_rss_mb": 8319.453125,
+        "contact_root_recovery_events": [
+          {
+            "step": 14512,
+            "primary_residual_mpa": 3.7493296062467607,
+            "primary_newton_iterations": 13,
+            "attempts": [
+              {
+                "method": "powell_hybrid",
+                "contact_fraction": 1.0,
+                "reported_success": false,
+                "residual_mpa": 1.1234240062055818,
+                "nfev": 41,
+                "accepted": false
+              },
+              {
+                "method": "hybrid_from_previous_state_root",
+                "contact_fraction": 1.0,
+                "reported_success": false,
+                "residual_mpa": 1.070769898186711,
+                "nfev": 36,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.125,
+                "reported_success": true,
+                "residual_mpa": 5.343281372915953e-12,
+                "nfev": 7,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.3125,
+                "reported_success": true,
+                "residual_mpa": 2.1884716261411086e-12,
+                "nfev": 9,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.5625,
+                "reported_success": true,
+                "residual_mpa": 3.014477556462225e-12,
+                "nfev": 10,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.8125,
+                "reported_success": true,
+                "residual_mpa": 1.6697754290362354e-11,
+                "nfev": 15,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 1.0,
+                "reported_success": false,
+                "residual_mpa": 0.981976784707669,
+                "nfev": 37,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.9375,
+                "reported_success": false,
+                "residual_mpa": 0.4560782007782853,
+                "nfev": 38,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.875,
+                "reported_success": true,
+                "residual_mpa": 5.5706550483591855e-12,
+                "nfev": 13,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.96875,
+                "reported_success": false,
+                "residual_mpa": 0.7172944528632019,
+                "nfev": 35,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.921875,
+                "reported_success": false,
+                "residual_mpa": 0.3390591109177463,
+                "nfev": 32,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.8984375,
+                "reported_success": false,
+                "residual_mpa": 0.14555597842626233,
+                "nfev": 26,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.88671875,
+                "reported_success": false,
+                "residual_mpa": 0.04435055391693776,
+                "nfev": 39,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.880859375,
+                "reported_success": true,
+                "residual_mpa": 9.101608355877033e-12,
+                "nfev": 20,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.8896484375,
+                "reported_success": false,
+                "residual_mpa": 0.06981380454308517,
+                "nfev": 37,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.88525390625,
+                "reported_success": false,
+                "residual_mpa": 0.03352189088438684,
+                "nfev": 37,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.883056640625,
+                "reported_success": false,
+                "residual_mpa": 0.012897640182455206,
+                "nfev": 38,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.8819580078125,
+                "reported_success": false,
+                "residual_mpa": 0.0035933178593011705,
+                "nfev": 43,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.88140869140625,
+                "reported_success": true,
+                "residual_mpa": 4.490630090003833e-12,
+                "nfev": 16,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.882232666015625,
+                "reported_success": false,
+                "residual_mpa": 0.006333349997085569,
+                "nfev": 40,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.8818206787109375,
+                "reported_success": false,
+                "residual_mpa": 0.0024558562554737318,
+                "nfev": 40,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.8816146850585938,
+                "reported_success": false,
+                "residual_mpa": 0.0007040537175372341,
+                "nfev": 48,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.8815116882324219,
+                "reported_success": true,
+                "residual_mpa": 6.473155345076975e-12,
+                "nfev": 11,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.8816661834716797,
+                "reported_success": false,
+                "residual_mpa": 0.001173320094621344,
+                "nfev": 35,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.8815889358520508,
+                "reported_success": false,
+                "residual_mpa": 0.0004939215274840647,
+                "nfev": 37,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.8815503120422363,
+                "reported_success": false,
+                "residual_mpa": 0.0001705449651815405,
+                "nfev": 43,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.8815310001373291,
+                "reported_success": false,
+                "residual_mpa": 5.5999669146267195e-06,
+                "nfev": 54,
+                "accepted": false
+              },
+              {
+                "method": "constant_kinetic_law_seed",
+                "accepted": false,
+                "seed_residual_mpa": 2.1600499167107046e-12,
+                "final_parameters_and_state_unchanged": true
+              },
+              {
+                "method": "hybrid_from_kinetic_seed",
+                "accepted": true,
+                "reported_success": true,
+                "nfev": 33,
+                "residual_mpa": 1.6484591469634324e-12
+              }
+            ],
+            "recovered": true,
+            "final_residual_mpa": 1.6484591469634324e-12
+          }
+        ]
+      },
+      "initialization": {
+        "status": "admissible_refined_contact_static_lift",
+        "bulk_dofs": 275,
+        "contact_state_points": 545,
+        "subdivisions": 4,
+        "residual_mpa": 1.7042865092008352e-10,
+        "original_full_balance_mpa": 1.744346889154258e-10,
+        "trace_constraint_error_mm": 1.9539925233402755e-14,
+        "maximum_strength_ratio": 1.0000000000004103,
+        "mean_pressure_mpa": 16.66666666666599,
+        "moving_bulk_normal_force_mpa_mm": 5.10453901370056e-11,
+        "applied_normal_force_mpa_mm": 8000.0,
+        "contact_normal_force_mpa_mm": 7999.999999999676,
+        "moving_normal_balance_defect_mpa_mm": -2.7284841053187847e-10,
+        "force_scope": "Original discrete Galerkin balance; its finite-quadrature rigid-translation defect is retained, not clipped",
+        "mean_shear_mpa": 8.816576410386377,
+        "platen_mm": 9.959835330310227,
+        "seed_unchanged": false,
+        "reduction": {
+          "saddle_scaled_residual": 1.6825651982799172e-11,
+          "relative_impedance_symmetry": 4.874351766507857e-16,
+          "no_free_body_inverse_or_regularization": true
+        },
+        "static_initialization": {
+          "policy": "Tatva healed Coulomb active set, then retain prescribed weakening memory",
+          "active_set_iterations": [
+            {
+              "iteration": 1,
+              "open": 0,
+              "sliding": 1
+            },
+            {
+              "iteration": 2,
+              "open": 0,
+              "sliding": 1
+            }
+          ],
+          "static_sliding_points": 1,
+          "static_open_points": 0,
+          "original_force_residual_mpa": 1.7042865092008352e-10,
+          "maximum_strength_excess_mpa": 1.5205614545266144e-12,
+          "maximum_plastic_offset_change_mm": 0.0009315923747212906,
+          "input_seed_unchanged": false,
+          "weakening_memory_unchanged": true,
+          "no_dynamic_weakening_during_preload": true
+        }
+      }
+    },
+    {
+      "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv8-n64-coarse-p1-fem-static/summary.json",
+      "sha256": "5e1162fd6c87c0fa2100571231a83c700b767fa8d5ae8240a21fd3ec74aef21c",
+      "result": {
+        "status": "completed_requested_horizon",
+        "subdivisions": 8,
+        "seed_interpolation": "coarse-p1",
+        "static_initialization": "fem-active-set",
+        "bulk_contact_nodes": 137,
+        "contact_nodes": 1089,
+        "dt_s": 2e-06,
+        "completed_steps": 22500,
+        "max_cumulative_slip_mm": 0.5705851319163915,
+        "actuator_hold_time_s": 0.029036,
+        "max_boundary_contact_residual_mpa": 9.962952443805187e-08,
+        "timing_seconds": {
+          "static_lift_kernel_hashing_and_load": 24.8822379168123,
+          "time_stepping": 648.1309132082388,
+          "kernel_recorded_preparation": 75362.1032901248,
+          "total_before_output": 673.2387463748455,
+          "total_including_output": 674.6154730003327
+        },
+        "peak_process_rss_mb": 8221.0,
+        "contact_root_recovery_events": []
+      },
+      "initialization": {
+        "status": "admissible_refined_contact_static_lift",
+        "bulk_dofs": 275,
+        "contact_state_points": 1089,
+        "subdivisions": 8,
+        "residual_mpa": 1.461819507996276e-10,
+        "original_full_balance_mpa": 1.6970247429526353e-10,
+        "trace_constraint_error_mm": 2.3092638912203256e-14,
+        "maximum_strength_ratio": 0.9999999999998489,
+        "mean_pressure_mpa": 16.666666666665996,
+        "moving_bulk_normal_force_mpa_mm": 4.7847947826085147e-11,
+        "applied_normal_force_mpa_mm": 8000.0,
+        "contact_normal_force_mpa_mm": 7999.999999999678,
+        "moving_normal_balance_defect_mpa_mm": -2.737579052336514e-10,
+        "force_scope": "Original discrete Galerkin balance; its finite-quadrature rigid-translation defect is retained, not clipped",
+        "mean_shear_mpa": 8.816554630046477,
+        "platen_mm": 9.959837421222307,
+        "seed_unchanged": false,
+        "reduction": {
+          "saddle_scaled_residual": 1.6825651982799172e-11,
+          "relative_impedance_symmetry": 4.874351766507857e-16,
+          "no_free_body_inverse_or_regularization": true
+        },
+        "static_initialization": {
+          "policy": "Tatva healed Coulomb active set, then retain prescribed weakening memory",
+          "active_set_iterations": [
+            {
+              "iteration": 1,
+              "open": 0,
+              "sliding": 3
+            },
+            {
+              "iteration": 2,
+              "open": 0,
+              "sliding": 3
+            }
+          ],
+          "static_sliding_points": 3,
+          "static_open_points": 0,
+          "original_force_residual_mpa": 1.461819507996276e-10,
+          "maximum_strength_excess_mpa": 5.684341886080802e-14,
+          "maximum_plastic_offset_change_mm": 0.0022264377062874985,
+          "input_seed_unchanged": false,
+          "weakening_memory_unchanged": true,
+          "no_dynamic_weakening_during_preload": true
+        }
+      }
+    },
+    {
+      "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv4-n64-original-p1-fem-static/summary.json",
+      "sha256": "f6f960cbd1f2293469b64d9df08faa5dfef1b1aea96fedba1880e4a72b583b4d",
+      "result": {
+        "status": "completed_requested_horizon",
+        "subdivisions": 4,
+        "seed_interpolation": "original-p1",
+        "static_initialization": "fem-active-set",
+        "bulk_contact_nodes": 137,
+        "contact_nodes": 545,
+        "dt_s": 2e-06,
+        "completed_steps": 22500,
+        "max_cumulative_slip_mm": 0.5655834515593171,
+        "actuator_hold_time_s": 0.028978,
+        "max_boundary_contact_residual_mpa": 9.549329860192302e-08,
+        "timing_seconds": {
+          "static_lift_kernel_hashing_and_load": 25.162454959005117,
+          "time_stepping": 394.89815525058657,
+          "kernel_recorded_preparation": 75362.1032901248,
+          "total_before_output": 420.1205420419574,
+          "total_including_output": 421.28323637507856
+        },
+        "peak_process_rss_mb": 8756.71875,
+        "contact_root_recovery_events": [
+          {
+            "step": 14489,
+            "primary_residual_mpa": 0.8839784534392265,
+            "primary_newton_iterations": 14,
+            "attempts": [
+              {
+                "method": "powell_hybrid",
+                "contact_fraction": 1.0,
+                "reported_success": false,
+                "residual_mpa": 0.3399106440806463,
+                "nfev": 48,
+                "accepted": false
+              },
+              {
+                "method": "hybrid_from_previous_state_root",
+                "contact_fraction": 1.0,
+                "reported_success": false,
+                "residual_mpa": 0.30106482482864294,
+                "nfev": 40,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.125,
+                "reported_success": true,
+                "residual_mpa": 1.8971491044794675e-12,
+                "nfev": 6,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.3125,
+                "reported_success": false,
+                "residual_mpa": 0.15117827089898128,
+                "nfev": 33,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.21875,
+                "reported_success": false,
+                "residual_mpa": 0.05032844883703547,
+                "nfev": 37,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.171875,
+                "reported_success": false,
+                "residual_mpa": 0.00579440942135534,
+                "nfev": 34,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.1484375,
+                "reported_success": true,
+                "residual_mpa": 1.4210854715202004e-13,
+                "nfev": 8,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.18359375,
+                "reported_success": false,
+                "residual_mpa": 0.0186846939420775,
+                "nfev": 31,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.166015625,
+                "reported_success": true,
+                "residual_mpa": 2.2737367544323206e-13,
+                "nfev": 13,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.1923828125,
+                "reported_success": false,
+                "residual_mpa": 0.028460896010074066,
+                "nfev": 34,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.17919921875,
+                "reported_success": false,
+                "residual_mpa": 0.014028067038566405,
+                "nfev": 21,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.172607421875,
+                "reported_success": false,
+                "residual_mpa": 0.006715152559991111,
+                "nfev": 25,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.1693115234375,
+                "reported_success": false,
+                "residual_mpa": 0.002919535325304423,
+                "nfev": 39,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.16766357421875,
+                "reported_success": false,
+                "residual_mpa": 0.0012621066994142893,
+                "nfev": 29,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.166839599609375,
+                "reported_success": false,
+                "residual_mpa": 0.0003939219806170513,
+                "nfev": 30,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.1664276123046875,
+                "reported_success": true,
+                "residual_mpa": 4.023004152031717e-12,
+                "nfev": 5,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.16704559326171875,
+                "reported_success": false,
+                "residual_mpa": 0.0005903710829215925,
+                "nfev": 42,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.16673660278320312,
+                "reported_success": false,
+                "residual_mpa": 0.00027290448770145304,
+                "nfev": 32,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.1665821075439453,
+                "reported_success": false,
+                "residual_mpa": 0.00011933034204503201,
+                "nfev": 29,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.1665048599243164,
+                "reported_success": false,
+                "residual_mpa": 3.312918477149651e-05,
+                "nfev": 23,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.16646623611450195,
+                "reported_success": true,
+                "residual_mpa": 2.0605739337042905e-13,
+                "nfev": 9,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.16652417182922363,
+                "reported_success": false,
+                "residual_mpa": 5.143688031239435e-05,
+                "nfev": 29,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.1664952039718628,
+                "reported_success": false,
+                "residual_mpa": 2.250342947718309e-05,
+                "nfev": 29,
+                "accepted": false
+              },
+              {
+                "method": "constant_kinetic_law_seed",
+                "accepted": false,
+                "seed_residual_mpa": 2.5224267119483557e-13,
+                "final_parameters_and_state_unchanged": true
+              },
+              {
+                "method": "kinetic_seed_original_equation",
+                "accepted": true,
+                "residual_mpa": 2.5224267119483557e-13,
+                "nfev": 1
+              }
+            ],
+            "recovered": true,
+            "final_residual_mpa": 2.5224267119483557e-13
+          }
+        ]
+      },
+      "initialization": {
+        "status": "admissible_refined_contact_static_lift",
+        "bulk_dofs": 275,
+        "contact_state_points": 545,
+        "subdivisions": 4,
+        "residual_mpa": 1.4833805248513938e-10,
+        "original_full_balance_mpa": 1.4820729160124726e-10,
+        "trace_constraint_error_mm": 1.9539925233402755e-14,
+        "maximum_strength_ratio": 1.0000000000003764,
+        "mean_pressure_mpa": 16.666666666665996,
+        "moving_bulk_normal_force_mpa_mm": 6.043876510375412e-11,
+        "applied_normal_force_mpa_mm": 8000.0,
+        "contact_normal_force_mpa_mm": 7999.999999999678,
+        "moving_normal_balance_defect_mpa_mm": -2.6193447411060333e-10,
+        "force_scope": "Original discrete Galerkin balance; its finite-quadrature rigid-translation defect is retained, not clipped",
+        "mean_shear_mpa": 8.816588066106897,
+        "platen_mm": 9.95983421136148,
+        "seed_unchanged": false,
+        "reduction": {
+          "saddle_scaled_residual": 1.6825651982799172e-11,
+          "relative_impedance_symmetry": 4.874351766507857e-16,
+          "no_free_body_inverse_or_regularization": true
+        },
+        "static_initialization": {
+          "policy": "Tatva healed Coulomb active set, then retain prescribed weakening memory",
+          "active_set_iterations": [
+            {
+              "iteration": 1,
+              "open": 0,
+              "sliding": 1
+            },
+            {
+              "iteration": 2,
+              "open": 0,
+              "sliding": 1
+            }
+          ],
+          "static_sliding_points": 1,
+          "static_open_points": 0,
+          "original_force_residual_mpa": 1.485240235200088e-10,
+          "maximum_strength_excess_mpa": -2.0747847884194925e-12,
+          "maximum_plastic_offset_change_mm": 0.0009328948725038089,
+          "input_seed_unchanged": false,
+          "weakening_memory_unchanged": true,
+          "no_dynamic_weakening_during_preload": true
+        }
+      }
+    },
+    {
+      "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv8-n64-original-p1-fem-static/summary.json",
+      "sha256": "5a814e5d0b94e6e9b0b486daf1a3a4441c30aa0e9794205048a77fb61854c769",
+      "result": {
+        "status": "completed_requested_horizon",
+        "subdivisions": 8,
+        "seed_interpolation": "original-p1",
+        "static_initialization": "fem-active-set",
+        "bulk_contact_nodes": 137,
+        "contact_nodes": 1089,
+        "dt_s": 2e-06,
+        "completed_steps": 22500,
+        "max_cumulative_slip_mm": 0.5657181767887627,
+        "actuator_hold_time_s": 0.028974,
+        "max_boundary_contact_residual_mpa": 9.781876997294603e-08,
+        "timing_seconds": {
+          "static_lift_kernel_hashing_and_load": 24.938571833074093,
+          "time_stepping": 648.7212835000828,
+          "kernel_recorded_preparation": 75362.1032901248,
+          "total_before_output": 673.7260739998892,
+          "total_including_output": 675.8027997501194
+        },
+        "peak_process_rss_mb": 8713.453125,
+        "contact_root_recovery_events": [
+          {
+            "step": 14479,
+            "primary_residual_mpa": 5.076480423200124,
+            "primary_newton_iterations": 51,
+            "attempts": [
+              {
+                "method": "powell_hybrid",
+                "contact_fraction": 1.0,
+                "reported_success": false,
+                "residual_mpa": 1.7988438511269464,
+                "nfev": 37,
+                "accepted": false
+              },
+              {
+                "method": "hybrid_from_previous_state_root",
+                "contact_fraction": 1.0,
+                "reported_success": false,
+                "residual_mpa": 1.8137933969311604,
+                "nfev": 35,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.125,
+                "reported_success": true,
+                "residual_mpa": 7.034373084024992e-13,
+                "nfev": 12,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.3125,
+                "reported_success": true,
+                "residual_mpa": 1.602273869139026e-12,
+                "nfev": 9,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.5625,
+                "reported_success": true,
+                "residual_mpa": 6.863842827442568e-12,
+                "nfev": 11,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.8125,
+                "reported_success": false,
+                "residual_mpa": 0.20028442069662855,
+                "nfev": 41,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.6875,
+                "reported_success": true,
+                "residual_mpa": 4.092726157978177e-12,
+                "nfev": 14,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.875,
+                "reported_success": false,
+                "residual_mpa": 0.7098406794147198,
+                "nfev": 34,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.78125,
+                "reported_success": true,
+                "residual_mpa": 1.340350053169459e-11,
+                "nfev": 16,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.921875,
+                "reported_success": false,
+                "residual_mpa": 1.1053463582147542,
+                "nfev": 37,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.8515625,
+                "reported_success": false,
+                "residual_mpa": 0.5337928003862231,
+                "nfev": 38,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.81640625,
+                "reported_success": false,
+                "residual_mpa": 0.218620986988878,
+                "nfev": 41,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.798828125,
+                "reported_success": false,
+                "residual_mpa": 0.050046757625575866,
+                "nfev": 41,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.7900390625,
+                "reported_success": true,
+                "residual_mpa": 4.353406524160164e-12,
+                "nfev": 11,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.80322265625,
+                "reported_success": false,
+                "residual_mpa": 0.09157559957220163,
+                "nfev": 27,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.796630859375,
+                "reported_success": false,
+                "residual_mpa": 0.027914430658663614,
+                "nfev": 31,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.7933349609375,
+                "reported_success": true,
+                "residual_mpa": 5.3859139370615594e-12,
+                "nfev": 15,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.79827880859375,
+                "reported_success": false,
+                "residual_mpa": 0.043750422397800914,
+                "nfev": 38,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.795806884765625,
+                "reported_success": false,
+                "residual_mpa": 0.02053883432982828,
+                "nfev": 38,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.7945709228515625,
+                "reported_success": false,
+                "residual_mpa": 0.007884296654536271,
+                "nfev": 35,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.7939529418945312,
+                "reported_success": false,
+                "residual_mpa": 0.0021514084280074286,
+                "nfev": 40,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.7936439514160156,
+                "reported_success": true,
+                "residual_mpa": 1.935784865736423e-12,
+                "nfev": 15,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.7941074371337891,
+                "reported_success": false,
+                "residual_mpa": 0.003535093753472829,
+                "nfev": 36,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.7938756942749023,
+                "reported_success": false,
+                "residual_mpa": 0.001362999665585063,
+                "nfev": 34,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.793759822845459,
+                "reported_success": false,
+                "residual_mpa": 0.0002477549177581917,
+                "nfev": 44,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.7937018871307373,
+                "reported_success": true,
+                "residual_mpa": 3.142375248899043e-12,
+                "nfev": 11,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.7937887907028198,
+                "reported_success": false,
+                "residual_mpa": 0.0005028026256266305,
+                "nfev": 36,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.7937453389167786,
+                "reported_success": false,
+                "residual_mpa": 8.651723846830883e-05,
+                "nfev": 44,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.7937236130237579,
+                "reported_success": true,
+                "residual_mpa": 4.4326764481184e-12,
+                "nfev": 8,
+                "accepted": true
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.7937562018632889,
+                "reported_success": false,
+                "residual_mpa": 0.00018864633332249525,
+                "nfev": 33,
+                "accepted": false
+              },
+              {
+                "method": "contact_continuation",
+                "contact_fraction": 0.7937399074435234,
+                "reported_success": false,
+                "residual_mpa": 3.1808949840561596e-05,
+                "nfev": 42,
+                "accepted": false
+              },
+              {
+                "method": "constant_kinetic_law_seed",
+                "accepted": false,
+                "seed_residual_mpa": 3.232969447708456e-13,
+                "final_parameters_and_state_unchanged": true
+              },
+              {
+                "method": "hybrid_from_kinetic_seed",
+                "accepted": true,
+                "reported_success": true,
+                "nfev": 15,
+                "residual_mpa": 3.979039320256561e-13
+              }
+            ],
+            "recovered": true,
+            "final_residual_mpa": 3.979039320256561e-13
+          }
+        ]
+      },
+      "initialization": {
+        "status": "admissible_refined_contact_static_lift",
+        "bulk_dofs": 275,
+        "contact_state_points": 1089,
+        "subdivisions": 8,
+        "residual_mpa": 1.4046770017352212e-10,
+        "original_full_balance_mpa": 1.574012031824168e-10,
+        "trace_constraint_error_mm": 2.1316282072803006e-14,
+        "maximum_strength_ratio": 1.0000000000000595,
+        "mean_pressure_mpa": 16.666666666665996,
+        "moving_bulk_normal_force_mpa_mm": 7.653966349607799e-11,
+        "applied_normal_force_mpa_mm": 8000.0,
+        "contact_normal_force_mpa_mm": 7999.999999999678,
+        "moving_normal_balance_defect_mpa_mm": -2.455635694786906e-10,
+        "force_scope": "Original discrete Galerkin balance; its finite-quadrature rigid-translation defect is retained, not clipped",
+        "mean_shear_mpa": 8.816565818173263,
+        "platen_mm": 9.959836347162454,
+        "seed_unchanged": false,
+        "reduction": {
+          "saddle_scaled_residual": 1.6825651982799172e-11,
+          "relative_impedance_symmetry": 4.874351766507857e-16,
+          "no_free_body_inverse_or_regularization": true
+        },
+        "static_initialization": {
+          "policy": "Tatva healed Coulomb active set, then retain prescribed weakening memory",
+          "active_set_iterations": [
+            {
+              "iteration": 1,
+              "open": 0,
+              "sliding": 3
+            },
+            {
+              "iteration": 2,
+              "open": 0,
+              "sliding": 3
+            }
+          ],
+          "static_sliding_points": 3,
+          "static_open_points": 0,
+          "original_force_residual_mpa": 1.4046770017352212e-10,
+          "maximum_strength_excess_mpa": 6.195932655828074e-12,
+          "maximum_plastic_offset_change_mm": 0.002227908295127534,
+          "input_seed_unchanged": false,
+          "weakening_memory_unchanged": true,
+          "no_dynamic_weakening_during_preload": true
+        }
+      }
+    }
+  ],
+  "canonical_identity": {
+    "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/identity-check-canonical-source/summary.json",
+    "sha256": "d9f66ae5decef89e409b4d13b3e6f0effd4068489e5e60d8b49352ee2b6e42a7",
+    "result": {
+      "status": "passed_complete_identity_grid_check",
+      "original_run": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/galerkin-fine2-q12-contact64-original-seed-kinetic",
+      "identity_run": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv1-n64-coarse-p1-fem-static",
+      "frozen_input_sha256": {
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/galerkin-fine2-q12-contact64-original-seed-kinetic/summary.json": "40520780503bf21117548922c271e48cf3db8ec15918b11e5ca6e707ec4f4174",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv1-n64-coarse-p1-fem-static/summary.json": "14fda9b2cd2786ef82c557d406f6230114bb65e34e6e7da3925aa49c25bb6453",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compare_refined_contact_identity.py": "d684c932d7e8f392c0d87b2a7cfb6fbd1751b44da8043ae22dcc34ae0790667f"
+      },
+      "trajectory_sha256": {
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/galerkin-fine2-q12-contact64-original-seed-kinetic/trajectory.npz": "006714f870e7db568dd8c9b640c7b39914854c659803390d5664d9a27e9bf674",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv1-n64-coarse-p1-fem-static/trajectory.npz": "7d491d0c1872f332c01c065a547f87382b45920d6981d9a466b8ce4b55a2258a"
+      },
+      "fields": {
+        "pressure": {
+          "maximum_absolute_difference": 5.1047322813246865e-08,
+          "absolute_tolerance": 0.001,
+          "passed": true
+        },
+        "shear": {
+          "maximum_absolute_difference": 5.319600049347173e-07,
+          "absolute_tolerance": 0.001,
+          "passed": true
+        },
+        "plastic_slip": {
+          "maximum_absolute_difference": 1.1649685660586329e-09,
+          "absolute_tolerance": 1e-06,
+          "passed": true
+        },
+        "cumulative_slip": {
+          "maximum_absolute_difference": 1.1649705991545467e-09,
+          "absolute_tolerance": 1e-06,
+          "passed": true
+        },
+        "actuator": {
+          "maximum_absolute_difference": 0.0,
+          "absolute_tolerance": 1e-06,
+          "passed": true
+        },
+        "platen": {
+          "maximum_absolute_difference": 1.6113332890199672e-11,
+          "absolute_tolerance": 1e-06,
+          "passed": true
+        },
+        "contact_jumps": {
+          "maximum_absolute_difference": 1.0955414353475135e-09,
+          "absolute_tolerance": 1e-06,
+          "passed": true
+        }
+      },
+      "scope": "Implementation identity at fixed bulk/time/local grid; not physical convergence or agreement with FEM",
+      "same_accuracy_fem_advantage_verified": false,
+      "original_tatva_readonly": true
+    }
+  },
+  "original_causal_equations": {
+    "path": "/Volumes/Gauss-T7/Tatva-BEM-cache/fem-initialized-contact-original-history-20261027/summary.json",
+    "sha256": "e488b4163a0244b4dfca9f11af7ce8e781b9cde0eacfa334e19ebf3b4df1d156",
+    "result": {
+      "status": "passed_original_causal_equation_audit",
+      "environment": {
+        "package_version": "0.1.0",
+        "python": "3.12.13",
+        "numpy": "2.4.4",
+        "scipy": "1.17.1",
+        "platform": "macOS-15.7.9-arm64-arm-64bit",
+        "available_logical_cpus": 10,
+        "hard_cpu_affinity_enforced": false,
+        "thread_environment": {
+          "FDBEM_CORES": "4",
+          "OPENBLAS_NUM_THREADS": "1",
+          "OMP_NUM_THREADS": "1",
+          "VECLIB_MAXIMUM_THREADS": "1",
+          "XLA_FLAGS": "--xla_cpu_multi_thread_eigen=false intra_op_parallelism_threads=4",
+          "JAX_ENABLE_X64": "true"
+        },
+        "blas_threadpools": [],
+        "source_sha256": {
+          "__init__.py": "984855d6ff3848411c946ecca174ac08baf7afe6f1d2c3be00284da9b8dbf288",
+          "adjoint.py": "7863386b78318e6502d6257469322ee82746f2384ee915c16cbb98cda69c5bc0",
+          "benchmarks.py": "c24b97264ca60d0da1dab2095d50e9ef1b88b7208fba2d46178b8cf9038eb571",
+          "case.py": "4f0c91b18309a2eae5ce5a78da3bac9fde0be9fb1c0a4d2d5e5e1fc84bd85fa7",
+          "cli.py": "82e53ce34714809933dbe456ef403bce27c6b60b20ac4481f2feded9eeadfcea",
+          "comparison.py": "631c111752342fac7d0f64553620e04940e7888b1ab2fc52566a23b5c35ee24c",
+          "condensation.py": "12010fb51d8490ae5c3a9a2cf5b04e414cb7e6205b409ce7891b454e384de7d2",
+          "constraints.py": "830071941c6df0f70e455530fe094242042fb0c1e31498e8f9b75c9aa825cb91",
+          "cq.py": "e9af920593db01f56f1f7138832f0aa603daf07cbf1d688fba8a806f712c1e15",
+          "cq_storage.py": "da2534ef95e95813a464ff04f78a092be374110650d1866cbc1fb8ea5b5105b2",
+          "dynamics.py": "b6d84d8d2c1ac6fc465565c289d1249f378f3424e00cb93441791960b3c180f8",
+          "friction.py": "1424c1639cdc1eb4dd8f780bfdc0433f33cf29752b07a17814a3a2f326d81086",
+          "galerkin.py": "85541ddfe5020debde77b2bf2d4a045fe9a52b6183d4af2f762f577be18ab66d",
+          "galerkin_fast.py": "e6167f6c553e15697b6d67a3a33f559574d22fd49db4aad49c8262d68224b614",
+          "io.py": "d292e6338381aa7935dbbfcadc0df884e89f10b7096fa70cf1b05a83c1c12b03",
+          "jax_backend.py": "4de0aadb88b73ef6792ff36894134ee31bc412b1a54b177a4d1aaaa43328d547",
+          "kernels.py": "4008ae38c62c3022034d654a13da75369bd67309af4614006942398e22c1ad08",
+          "linear.py": "3a4d7c2259fd3e67b507d0c9dcd18082c24ffda30fccb12749976c97fa5a577c",
+          "material.py": "7c4d34d911831f12e3bc99bda2e13e76d468acdf80038dcb60310a568a5342d1",
+          "mesh.py": "a37e853ed57dd80633c44805b6c13158643ac65db3e4a4cfc12520bbdfa15c4c",
+          "nodal.py": "632f1a755bb09d784c125d3198f662213ea60045ada9db1555e1b47b3ab39856",
+          "nodal_dynamics.py": "839db57190f62795aebef30545fcc9c1b41fdef503f038cc7f425068962eb39d",
+          "nonlinear.py": "019c5fc176c70964c89f9e7c74147ad48b4235267dd2faf0ee22f789a2b97590",
+          "operators.py": "bb77a3b2c66dce871c9e71cc2cdc02488e90ad32278cc9a67fea8b909b722825",
+          "sampling.py": "c518d2298b167aaa1d5ca327a612426276901876a50322a7fe4595c7ee4f1f11",
+          "statics.py": "9f81cbd95a1ff1f742387ee4ae94251304177999208a95703371272ac79dc250"
+        },
+        "case_sha256": "82d8f491a63ca1c348507678f08406dccbc62ed1d4abea8882879f7894d2315d",
+        "restart_data_sha256": "cae42101ff5a57004fa803ea5ce928eb8079e5be0ab887d108689e37754c25f6"
+      },
+      "frozen_input_sha256": {
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/audit_refined_original_history.py": "f5c74979014289b9c47d900e6032240abced88484325fc94946265f223b61427",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/original_history_audit.py": "fe363a39a51ba5d1ea5c8eb589d028a41d2a778232cd500b18be1dac6d65c978",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/refined_contact.py": "c055f15f8c15d6c3da2f6792a97ec3ed44baa652478f6a24990fa1f478fa3741",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/replay_resolvent.py": "129d75f1dc47ba11f2da171a820e422c3bde36ccce6ed2624690230c9e66bafc",
+        "/Volumes/Gauss-T7/Tatva-BEM-cache/direct-resolvent-fine2-q12-full45-20261026/summary.json": "df571df1a29850fa1cca99964135a78d970bf2e80be8bd62bf4a22d12e3c124e",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv4-n64-coarse-p1-fem-static/summary.json": "c73a0c04d7862e385dc2f6f9e34842922c034fa95964abf008374dd2d49c6d35",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv8-n64-coarse-p1-fem-static/summary.json": "5e1162fd6c87c0fa2100571231a83c700b767fa8d5ae8240a21fd3ec74aef21c",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv1-n64-coarse-p1-fem-static/summary.json": "14fda9b2cd2786ef82c557d406f6230114bb65e34e6e7da3925aa49c25bb6453",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv2-n64-coarse-p1-fem-static/summary.json": "256aa288cad6e9c228637fae63b82e996ea18024a4a93fb2734307e5562d9441",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv4-n64-original-p1-fem-static/summary.json": "f6f960cbd1f2293469b64d9df08faa5dfef1b1aea96fedba1880e4a72b583b4d",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv8-n64-original-p1-fem-static/summary.json": "5a814e5d0b94e6e9b0b486daf1a3a4441c30aa0e9794205048a77fb61854c769"
+      },
+      "primal_trajectory_sha256": {
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv4-n64-coarse-p1-fem-static": "4e6a9bc737b7f2bee52775b347c0b1263ccc14ad047b6345a96e03a63d1dddad",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv8-n64-coarse-p1-fem-static": "8902fab94e4a9f9fe993358842e74100119f21d8dd3bbc8968752aef74a16de5",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv1-n64-coarse-p1-fem-static": "7d491d0c1872f332c01c065a547f87382b45920d6981d9a466b8ce4b55a2258a",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv2-n64-coarse-p1-fem-static": "dbcd7787377e20f9876069123a2a937e659087f5ad7e251b0aa9fc6544669664",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv4-n64-original-p1-fem-static": "99a4ba9b8d39f3d72ddfe4870ad215cfe1b61d31077b686912ab84f1e357b4d3",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv8-n64-original-p1-fem-static": "f47c5f84a8655243e1d58d7854fd0e037d805282deeab7caf89dfabd20fb2801"
+      },
+      "source_resolvent_sha256": "a3a41301f5fa30d387c7755b6799578b75416aabbfe312cfae12b9af8d8041e6",
+      "inverse_operator_storage": {
+        "backend": "disk_half_spectrum",
+        "path": "/Volumes/Gauss-T7/Tatva-BEM-cache/fem-initialized-contact-original-history-20261027/work-original-operator.npy",
+        "shape": [
+          32769,
+          275,
+          275
+        ],
+        "bytes": 39650490128,
+        "sha256": "e8dbd838af735acc67d3b392ac4896709069c0d538ec703c928d18221f925225",
+        "implementation_sha256": "da2534ef95e95813a464ff04f78a092be374110650d1866cbc1fb8ea5b5105b2",
+        "all_frequency_matrices_written": true,
+        "coordinates": "inv(diag(sqrt(w)) * L * diag(sqrt(w)))"
+      },
+      "inversion": {
+        "complete_frequency_matrices": 32769,
+        "maximum_inverse_composition_inf_error": 2.3831312251118594e-11,
+        "maximum_relative_transpose_asymmetry": 1.0829417835754932e-09,
+        "inversion_seconds": 810.7104972498491,
+        "frequency_workers": 4,
+        "blas_threads_per_worker": 1,
+        "no_symmetrization_or_regularization": true
+      },
+      "fresh_frequency_checks": [
+        {
+          "index": 0,
+          "s_real": 175.6732939355299,
+          "s_imag": 0.0,
+          "relative_work_frobenius": 4.606391373840203e-16
+        },
+        {
+          "index": 131,
+          "s_real": 175.70409769904205,
+          "s_imag": 6280.062898261004,
+          "relative_work_frobenius": 5.923315211619969e-16
+        },
+        {
+          "index": 1311,
+          "s_real": 209.53713825755392,
+          "s_imag": 63174.03909144019,
+          "relative_work_frobenius": 5.754025393805184e-16
+        },
+        {
+          "index": 6554,
+          "s_real": 18471.49295678055,
+          "s_imag": 350006.7533095535,
+          "relative_work_frobenius": 1.124467326006903e-15
+        },
+        {
+          "index": 32768,
+          "s_real": 1999473.1035192655,
+          "s_imag": 1.8361098744566665e-10,
+          "relative_work_frobenius": 5.002488903503502e-16
+        }
+      ],
+      "fresh_frequency_relative_tolerance": 1e-06,
+      "fresh_frequency_check_seconds": 82.89317841734737,
+      "complete_causal_action": {
+        "complete_lags": 22501,
+        "directions": 6,
+        "estimated_action_array_mib": 3660.8525390625,
+        "causal_action_seconds": 763.6779531668872,
+        "future_input_wrap_excluded": true,
+        "reconstructed_from_same_sampled_frequency_operator": true,
+        "scope": "Independent time-domain algebra; fresh BEM samples and physical convergence remain separate"
+      },
+      "runs": [
+        {
+          "run": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv4-n64-coarse-p1-fem-static",
+          "subdivisions": 4,
+          "maximum_original_residual_mpa": 7.488109592712261e-07,
+          "largest_residual_time_s": 0.037676,
+          "largest_residual_retained_row": 251,
+          "original_residual_divided_by_normal_load": 4.680068495445163e-08,
+          "requested_absolute_tolerance_mpa": 0.0001,
+          "original_equilibrium_passed": true,
+          "replay_root_residual_mpa": 9.768362474460446e-08,
+          "selected_bulk_port_work": {
+            "total_discrete_bulk_port_work_mpa_mm2": 26.480746424759264,
+            "minimum_prefix_discrete_bulk_port_work_mpa_mm2": 0.0,
+            "total_radius_weighted_port_work_mpa_mm2": 3.679093558544767,
+            "minimum_prefix_radius_weighted_port_work_mpa_mm2": 0.0,
+            "absolute_increment_sum_mpa_mm2": 572.5195400101642,
+            "derivative": "BDF2 of retained displacement; zero initial and negative-time perturbations",
+            "scope": "Selected perturbation trace work; not a total-energy reconstruction or an operator passivity/stability proof"
+          }
+        },
+        {
+          "run": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv8-n64-coarse-p1-fem-static",
+          "subdivisions": 8,
+          "maximum_original_residual_mpa": 7.487634245244824e-07,
+          "largest_residual_time_s": 0.037672,
+          "largest_residual_retained_row": 251,
+          "original_residual_divided_by_normal_load": 4.679771403278015e-08,
+          "requested_absolute_tolerance_mpa": 0.0001,
+          "original_equilibrium_passed": true,
+          "replay_root_residual_mpa": 9.962952443805187e-08,
+          "selected_bulk_port_work": {
+            "total_discrete_bulk_port_work_mpa_mm2": 26.261216501160046,
+            "minimum_prefix_discrete_bulk_port_work_mpa_mm2": 0.0,
+            "total_radius_weighted_port_work_mpa_mm2": 3.67905930897698,
+            "minimum_prefix_radius_weighted_port_work_mpa_mm2": 0.0,
+            "absolute_increment_sum_mpa_mm2": 572.6301401524013,
+            "derivative": "BDF2 of retained displacement; zero initial and negative-time perturbations",
+            "scope": "Selected perturbation trace work; not a total-energy reconstruction or an operator passivity/stability proof"
+          }
+        },
+        {
+          "run": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv1-n64-coarse-p1-fem-static",
+          "subdivisions": 1,
+          "maximum_original_residual_mpa": 7.491814695901559e-07,
+          "largest_residual_time_s": 0.037764,
+          "largest_residual_retained_row": 251,
+          "original_residual_divided_by_normal_load": 4.682384184938474e-08,
+          "requested_absolute_tolerance_mpa": 0.0001,
+          "original_equilibrium_passed": true,
+          "replay_root_residual_mpa": 9.489399133144616e-08,
+          "selected_bulk_port_work": {
+            "total_discrete_bulk_port_work_mpa_mm2": 30.731878740583294,
+            "minimum_prefix_discrete_bulk_port_work_mpa_mm2": 0.0,
+            "total_radius_weighted_port_work_mpa_mm2": 3.6794362716600353,
+            "minimum_prefix_radius_weighted_port_work_mpa_mm2": 0.0,
+            "absolute_increment_sum_mpa_mm2": 573.8957015007738,
+            "derivative": "BDF2 of retained displacement; zero initial and negative-time perturbations",
+            "scope": "Selected perturbation trace work; not a total-energy reconstruction or an operator passivity/stability proof"
+          }
+        },
+        {
+          "run": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv2-n64-coarse-p1-fem-static",
+          "subdivisions": 2,
+          "maximum_original_residual_mpa": 7.492989236600465e-07,
+          "largest_residual_time_s": 0.0377,
+          "largest_residual_retained_row": 251,
+          "original_residual_divided_by_normal_load": 4.6831182728752905e-08,
+          "requested_absolute_tolerance_mpa": 0.0001,
+          "original_equilibrium_passed": true,
+          "replay_root_residual_mpa": 4.092392025256686e-08,
+          "selected_bulk_port_work": {
+            "total_discrete_bulk_port_work_mpa_mm2": 27.741353746355692,
+            "minimum_prefix_discrete_bulk_port_work_mpa_mm2": 0.0,
+            "total_radius_weighted_port_work_mpa_mm2": 3.679208212267102,
+            "minimum_prefix_radius_weighted_port_work_mpa_mm2": 0.0,
+            "absolute_increment_sum_mpa_mm2": 572.505840942847,
+            "derivative": "BDF2 of retained displacement; zero initial and negative-time perturbations",
+            "scope": "Selected perturbation trace work; not a total-energy reconstruction or an operator passivity/stability proof"
+          }
+        },
+        {
+          "run": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv4-n64-original-p1-fem-static",
+          "subdivisions": 4,
+          "maximum_original_residual_mpa": 7.455044186833065e-07,
+          "largest_residual_time_s": 0.037612,
+          "largest_residual_retained_row": 251,
+          "original_residual_divided_by_normal_load": 4.6594026167706656e-08,
+          "requested_absolute_tolerance_mpa": 0.0001,
+          "original_equilibrium_passed": true,
+          "replay_root_residual_mpa": 9.549329860192302e-08,
+          "selected_bulk_port_work": {
+            "total_discrete_bulk_port_work_mpa_mm2": 25.596755383666792,
+            "minimum_prefix_discrete_bulk_port_work_mpa_mm2": 0.0,
+            "total_radius_weighted_port_work_mpa_mm2": 3.6789587194804025,
+            "minimum_prefix_radius_weighted_port_work_mpa_mm2": 0.0,
+            "absolute_increment_sum_mpa_mm2": 572.5577738605249,
+            "derivative": "BDF2 of retained displacement; zero initial and negative-time perturbations",
+            "scope": "Selected perturbation trace work; not a total-energy reconstruction or an operator passivity/stability proof"
+          }
+        },
+        {
+          "run": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv8-n64-original-p1-fem-static",
+          "subdivisions": 8,
+          "maximum_original_residual_mpa": 7.455262175527137e-07,
+          "largest_residual_time_s": 0.037607999999999996,
+          "largest_residual_retained_row": 251,
+          "original_residual_divided_by_normal_load": 4.6595388597044606e-08,
+          "requested_absolute_tolerance_mpa": 0.0001,
+          "original_equilibrium_passed": true,
+          "replay_root_residual_mpa": 9.781876997294603e-08,
+          "selected_bulk_port_work": {
+            "total_discrete_bulk_port_work_mpa_mm2": 25.52570235641946,
+            "minimum_prefix_discrete_bulk_port_work_mpa_mm2": 0.0,
+            "total_radius_weighted_port_work_mpa_mm2": 3.678922890802343,
+            "minimum_prefix_radius_weighted_port_work_mpa_mm2": 0.0,
+            "absolute_increment_sum_mpa_mm2": 572.495775576647,
+            "derivative": "BDF2 of retained displacement; zero initial and negative-time perturbations",
+            "scope": "Selected perturbation trace work; not a total-energy reconstruction or an operator passivity/stability proof"
+          }
+        }
+      ],
+      "total_including_hashes_and_output_seconds": 1731.2457767911255,
+      "peak_process_rss_mib": 2487.703125,
+      "scope": "Complete original-equation causal algebra plus fresh frequency spot checks; not an all-frequency interpolation certificate or physical convergence proof",
+      "same_accuracy_fem_advantage_verified": false,
+      "original_tatva_readonly": true
+    }
+  },
+  "fem_comparison": {
+    "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/fem-comparison/summary.json",
+    "sha256": "0e9f639a9e3db9326f63cd4d9d3728558b06ab301ddd422c47b898120dbc6164",
+    "result": {
+      "status": "completed_same_dt_spatial_comparison",
+      "fem_mesh_convergence_verified": false,
+      "same_accuracy_fem_advantage_verified": false,
+      "compared_shear_rows": 9000,
+      "exact_same_steps_and_saved_times": true,
+      "actual_dt_s": 1.2492928633545953e-08,
+      "baseline": {
+        "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h2-4c-interface/simulation.h5",
+        "bytes": 77038494,
+        "mtime_ns": 1792913256721515841,
+        "history_group": "interface_high_rate",
+        "saved_frames": 9041,
+        "columns": [
+          "time",
+          "applied_shear",
+          "avg_tau",
+          "avg_sigma_n",
+          "max_penetration",
+          "max_slip",
+          "mu_eff_mean",
+          "elastic_energy",
+          "interface_energy",
+          "kinetic_energy",
+          "applied_shear_displacement",
+          "shear_loading_stopped",
+          "loading_face_displacement",
+          "shear_boundary_reaction",
+          "extension_elastic_energy",
+          "normal_loading_coordinate",
+          "normal_external_force"
+        ]
+      },
+      "refined": {
+        "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h1-original-dt-4c-interface/simulation.h5",
+        "bytes": 235058766,
+        "mtime_ns": 1793022725942679627,
+        "history_group": "interface_high_rate",
+        "saved_frames": 9041,
+        "columns": [
+          "time",
+          "applied_shear",
+          "avg_tau",
+          "avg_sigma_n",
+          "max_penetration",
+          "max_slip",
+          "mu_eff_mean",
+          "elastic_energy",
+          "interface_energy",
+          "kinetic_energy",
+          "applied_shear_displacement",
+          "shear_loading_stopped",
+          "loading_face_displacement",
+          "shear_boundary_reaction",
+          "extension_elastic_energy",
+          "normal_loading_coordinate",
+          "normal_external_force"
+        ]
+      },
+      "initialization": [
+        {
+          "input_projection_verified": true,
+          "first_frame_minus_input_maximum_mm": 4.7658888746582306e-07,
+          "first_shear_minus_input_maximum_mm": 4.7658888746582306e-07,
+          "caveat": "Saved initial fields are float32; static initialization may also change plastic slip"
+        },
+        {
+          "input_projection_verified": true,
+          "first_frame_minus_input_maximum_mm": 4.7658888746582306e-07,
+          "first_shear_minus_input_maximum_mm": 4.7658888746582306e-07,
+          "caveat": "Saved initial fields are float32; static initialization may also change plastic slip"
+        }
+      ],
+      "events": [
+        {
+          "mesh_mm": 2.0,
+          "first_saved_slip_above_1e_7_mm_at_s": 0.025732864022254942,
+          "first_saved_actuator_hold_s": 0.02978831934928894,
+          "actual_final_shear_time_s": 0.045000009566545485,
+          "timing_seconds": {
+            "source_and_config_preparation": 0.34768362529575825,
+            "simulation_including_outputs": 8032.346628875472,
+            "total_before_reporting": 8032.865999209695
+          }
+        },
+        {
+          "mesh_mm": 1.0,
+          "first_saved_slip_above_1e_7_mm_at_s": 0.028143138021230696,
+          "first_saved_actuator_hold_s": 0.029448274850845335,
+          "actual_final_shear_time_s": 0.045000009566545485,
+          "timing_seconds": {
+            "source_and_config_preparation": 7.48306408431381,
+            "simulation_including_outputs": 30716.085400083102,
+            "total_before_reporting": 30723.747692166828
+          }
+        }
+      ],
+      "sampled_stability": [
+        {
+          "minimum_saved_shear_c_increment_mm": 0.0,
+          "minimum_saved_shear_cumulative_slip_mm": 0.0,
+          "minimum_saved_shear_friction_strength_mpa": 5.001140594482422,
+          "final_u_and_v_half_finite": true,
+          "final_maximum_cumulative_slip_mm": 0.6441228205817715,
+          "final_maximum_pressure_mpa": 345.20316759861123
+        },
+        {
+          "minimum_saved_shear_c_increment_mm": 0.0,
+          "minimum_saved_shear_cumulative_slip_mm": 0.0,
+          "minimum_saved_shear_friction_strength_mpa": 5.034289836883545,
+          "final_u_and_v_half_finite": true,
+          "final_maximum_cumulative_slip_mm": 0.6198840786124796,
+          "final_maximum_pressure_mpa": 491.6474895984227
+        }
+      ],
+      "endpoint_storage_checks": [
+        {
+          "saved_final_slip_matches_float64_after_storage_rounding": true,
+          "pressure": {
+            "final_relative_p1_l2": 4.081589600734324e-08,
+            "final_absolute_p1_l2": 2.118194383400568e-05,
+            "final_maximum_absolute_difference": 1.0539385073116136e-05,
+            "final_reference_maximum": 345.20316759861123,
+            "final_actual_maximum": 345.20315705922616,
+            "final_reference_p1_mean": 17.584099075355294,
+            "final_actual_p1_mean": 17.584098415211898,
+            "maximum_saved_absolute_difference": 1.0539385073116136e-05
+          }
+        },
+        {
+          "saved_final_slip_matches_float64_after_storage_rounding": true,
+          "pressure": {
+            "final_relative_p1_l2": 4.3498915810051595e-08,
+            "final_absolute_p1_l2": 2.2954478877978864e-05,
+            "final_maximum_absolute_difference": 1.7679659833902406e-05,
+            "final_reference_maximum": 491.6474895984227,
+            "final_actual_maximum": 491.64747191876285,
+            "final_reference_p1_mean": 16.691754045295177,
+            "final_actual_p1_mean": 16.691753398044106,
+            "maximum_saved_absolute_difference": 1.7679659833902406e-05
+          }
+        }
+      ],
+      "scalar_history": {
+        "time": {
+          "final_relative_p1_l2": 0.0,
+          "final_absolute_p1_l2": 0.0,
+          "final_maximum_absolute_difference": 0.0,
+          "final_reference_maximum": 0.047000009566545486,
+          "final_actual_maximum": 0.047000009566545486,
+          "final_reference_p1_mean": 0.047000009566545486,
+          "final_actual_p1_mean": 0.047000009566545486,
+          "maximum_saved_absolute_difference": 0.0,
+          "relative_space_time_l2": 0.0,
+          "absolute_space_time_l2": 0.0,
+          "time_interpretation": "P1 interpolants of saved rows; unsaved steps are not bounded"
+        },
+        "applied_shear": {
+          "final_relative_p1_l2": 0.05442484405554668,
+          "final_absolute_p1_l2": 1.1178054809570312,
+          "final_maximum_absolute_difference": 1.1178054809570312,
+          "final_reference_maximum": 20.538515090942383,
+          "final_actual_maximum": 21.656320571899414,
+          "final_reference_p1_mean": 20.538515090942383,
+          "final_actual_p1_mean": 21.656320571899414,
+          "maximum_saved_absolute_difference": 3.4309463500976562,
+          "relative_space_time_l2": 0.02947864432157543,
+          "absolute_space_time_l2": 0.14339123165519826,
+          "time_interpretation": "P1 interpolants of saved rows; unsaved steps are not bounded"
+        },
+        "avg_tau": {
+          "final_relative_p1_l2": 0.028164705474496367,
+          "final_absolute_p1_l2": 0.25102901458740234,
+          "final_maximum_absolute_difference": 0.25102901458740234,
+          "final_reference_maximum": 8.912893295288086,
+          "final_actual_maximum": 8.661864280700684,
+          "final_reference_p1_mean": 8.912893295288086,
+          "final_actual_p1_mean": 8.661864280700684,
+          "maximum_saved_absolute_difference": 1.1409378051757812,
+          "relative_space_time_l2": 0.023301064550727054,
+          "absolute_space_time_l2": 0.04723012558808532,
+          "time_interpretation": "P1 interpolants of saved rows; unsaved steps are not bounded"
+        },
+        "avg_sigma_n": {
+          "final_relative_p1_l2": 0.05074729377993503,
+          "final_absolute_p1_l2": 0.8923454284667969,
+          "final_maximum_absolute_difference": 0.8923454284667969,
+          "final_reference_maximum": 17.58409881591797,
+          "final_actual_maximum": 16.691753387451172,
+          "final_reference_p1_mean": 17.58409881591797,
+          "final_actual_p1_mean": 16.691753387451172,
+          "maximum_saved_absolute_difference": 1.7758150100708008,
+          "relative_space_time_l2": 0.033262938408746445,
+          "absolute_space_time_l2": 0.11762920052711469,
+          "time_interpretation": "P1 interpolants of saved rows; unsaved steps are not bounded"
+        },
+        "max_penetration": {
+          "final_relative_p1_l2": 0.4242264572403606,
+          "final_absolute_p1_l2": 0.0019113067537546158,
+          "final_maximum_absolute_difference": 0.0019113067537546158,
+          "final_reference_maximum": 0.004505392629653215,
+          "final_actual_maximum": 0.006416699383407831,
+          "final_reference_p1_mean": 0.004505392629653215,
+          "final_actual_p1_mean": 0.006416699383407831,
+          "maximum_saved_absolute_difference": 0.0025837752036750317,
+          "relative_space_time_l2": 0.3930627065437373,
+          "absolute_space_time_l2": 0.00038756992451744474,
+          "time_interpretation": "P1 interpolants of saved rows; unsaved steps are not bounded"
+        },
+        "max_slip": {
+          "final_relative_p1_l2": 0.03763065641070058,
+          "final_absolute_p1_l2": 0.024238765239715576,
+          "final_maximum_absolute_difference": 0.024238765239715576,
+          "final_reference_maximum": 0.644122838973999,
+          "final_actual_maximum": 0.6198840737342834,
+          "final_reference_p1_mean": 0.644122838973999,
+          "final_actual_p1_mean": 0.6198840737342834,
+          "maximum_saved_absolute_difference": 0.35760998353362083,
+          "relative_space_time_l2": 0.09216712902764733,
+          "absolute_space_time_l2": 0.007148892202719793,
+          "time_interpretation": "P1 interpolants of saved rows; unsaved steps are not bounded"
+        },
+        "mu_eff_mean": {
+          "final_relative_p1_l2": 0.0,
+          "final_absolute_p1_l2": 0.0,
+          "final_maximum_absolute_difference": 0.0,
+          "final_reference_maximum": 0.6000000238418579,
+          "final_actual_maximum": 0.6000000238418579,
+          "final_reference_p1_mean": 0.6000000238418579,
+          "final_actual_p1_mean": 0.6000000238418579,
+          "maximum_saved_absolute_difference": 0.1996840238571167,
+          "relative_space_time_l2": 0.02070160605770141,
+          "absolute_space_time_l2": 0.0032397271537074885,
+          "time_interpretation": "P1 interpolants of saved rows; unsaved steps are not bounded"
+        },
+        "elastic_energy": {
+          "final_relative_p1_l2": 0.05946401329844698,
+          "final_absolute_p1_l2": 319.69482421875,
+          "final_maximum_absolute_difference": 319.69482421875,
+          "final_reference_maximum": 5376.27392578125,
+          "final_actual_maximum": 5056.5791015625,
+          "final_reference_p1_mean": 5376.27392578125,
+          "final_actual_p1_mean": 5056.5791015625,
+          "maximum_saved_absolute_difference": 1144.384765625,
+          "relative_space_time_l2": 0.03203821630483327,
+          "absolute_space_time_l2": 38.87342838896529,
+          "time_interpretation": "P1 interpolants of saved rows; unsaved steps are not bounded"
+        },
+        "interface_energy": {
+          "final_relative_p1_l2": 0.002619440923133389,
+          "final_absolute_p1_l2": 0.019486427307128906,
+          "final_maximum_absolute_difference": 0.019486427307128906,
+          "final_reference_maximum": 7.439155101776123,
+          "final_actual_maximum": 7.419668674468994,
+          "final_reference_p1_mean": 7.439155101776123,
+          "final_actual_p1_mean": 7.419668674468994,
+          "maximum_saved_absolute_difference": 2.9071006774902344,
+          "relative_space_time_l2": 0.05346311769531779,
+          "absolute_space_time_l2": 0.09220751782516738,
+          "time_interpretation": "P1 interpolants of saved rows; unsaved steps are not bounded"
+        },
+        "kinetic_energy": {
+          "final_relative_p1_l2": 0.19067979066136065,
+          "final_absolute_p1_l2": 2.6956253051757812,
+          "final_maximum_absolute_difference": 2.6956253051757812,
+          "final_reference_maximum": 14.136921882629395,
+          "final_actual_maximum": 11.441296577453613,
+          "final_reference_p1_mean": 14.136921882629395,
+          "final_actual_p1_mean": 11.441296577453613,
+          "maximum_saved_absolute_difference": 56.432546166703105,
+          "relative_space_time_l2": 0.5131467372891946,
+          "absolute_space_time_l2": 1.1124120058534224,
+          "time_interpretation": "P1 interpolants of saved rows; unsaved steps are not bounded"
+        },
+        "applied_shear_displacement": {
+          "final_relative_p1_l2": 0.0005940213118319143,
+          "final_absolute_p1_l2": 0.0067729949951171875,
+          "final_maximum_absolute_difference": 0.0067729949951171875,
+          "final_reference_maximum": 11.401939392089844,
+          "final_actual_maximum": 11.395166397094727,
+          "final_reference_p1_mean": 11.401939392089844,
+          "final_actual_p1_mean": 11.395166397094727,
+          "maximum_saved_absolute_difference": 0.0067729949951171875,
+          "relative_space_time_l2": 0.00035272367187909895,
+          "absolute_space_time_l2": 0.0008385184674855574,
+          "time_interpretation": "P1 interpolants of saved rows; unsaved steps are not bounded"
+        },
+        "shear_loading_stopped": {
+          "final_relative_p1_l2": 0.0,
+          "final_absolute_p1_l2": 0.0,
+          "final_maximum_absolute_difference": 0.0,
+          "final_reference_maximum": 1.0,
+          "final_actual_maximum": 1.0,
+          "final_reference_p1_mean": 1.0,
+          "final_actual_p1_mean": 1.0,
+          "maximum_saved_absolute_difference": 1.0,
+          "relative_space_time_l2": 0.1491364272805815,
+          "absolute_space_time_l2": 0.01839485257717934,
+          "time_interpretation": "P1 interpolants of saved rows; unsaved steps are not bounded"
+        },
+        "loading_face_displacement": {
+          "final_relative_p1_l2": 0.0048660796051901,
+          "final_absolute_p1_l2": 0.05148506164550781,
+          "final_maximum_absolute_difference": 0.05148506164550781,
+          "final_reference_maximum": 10.580398559570312,
+          "final_actual_maximum": 10.528913497924805,
+          "final_reference_p1_mean": 10.580398559570312,
+          "final_actual_p1_mean": 10.528913497924805,
+          "maximum_saved_absolute_difference": 0.1310110092163086,
+          "relative_space_time_l2": 0.0026674888790126586,
+          "absolute_space_time_l2": 0.0058242078760317555,
+          "time_interpretation": "P1 interpolants of saved rows; unsaved steps are not bounded"
+        },
+        "shear_boundary_reaction": {
+          "final_relative_p1_l2": 0.054424827781645,
+          "final_absolute_p1_l2": 223.56103515625,
+          "final_maximum_absolute_difference": 223.56103515625,
+          "final_reference_maximum": 4107.703125,
+          "final_actual_maximum": 4331.26416015625,
+          "final_reference_p1_mean": 4107.703125,
+          "final_actual_p1_mean": 4331.26416015625,
+          "maximum_saved_absolute_difference": 686.18896484375,
+          "relative_space_time_l2": 0.029478644203875942,
+          "absolute_space_time_l2": 28.678246212456497,
+          "time_interpretation": "P1 interpolants of saved rows; unsaved steps are not bounded"
+        },
+        "extension_elastic_energy": {
+          "final_relative_p1_l2": null,
+          "final_absolute_p1_l2": 0.0,
+          "final_maximum_absolute_difference": 0.0,
+          "final_reference_maximum": 0.0,
+          "final_actual_maximum": 0.0,
+          "final_reference_p1_mean": 0.0,
+          "final_actual_p1_mean": 0.0,
+          "maximum_saved_absolute_difference": 0.0,
+          "relative_space_time_l2": null,
+          "absolute_space_time_l2": 0.0,
+          "time_interpretation": "P1 interpolants of saved rows; unsaved steps are not bounded"
+        },
+        "normal_loading_coordinate": {
+          "final_relative_p1_l2": 0.04223031938589737,
+          "final_absolute_p1_l2": 0.024437427520751953,
+          "final_maximum_absolute_difference": 0.024437427520751953,
+          "final_reference_maximum": 0.5786702036857605,
+          "final_actual_maximum": 0.5542327761650085,
+          "final_reference_p1_mean": 0.5786702036857605,
+          "final_actual_p1_mean": 0.5542327761650085,
+          "maximum_saved_absolute_difference": 0.05527055263519287,
+          "relative_space_time_l2": 0.03379748883642811,
+          "absolute_space_time_l2": 0.003876531632816265,
+          "time_interpretation": "P1 interpolants of saved rows; unsaved steps are not bounded"
+        },
+        "normal_external_force": {
+          "final_relative_p1_l2": 0.0,
+          "final_absolute_p1_l2": 0.0,
+          "final_maximum_absolute_difference": 0.0,
+          "final_reference_maximum": 8000.0,
+          "final_actual_maximum": 8000.0,
+          "final_reference_p1_mean": 8000.0,
+          "final_actual_p1_mean": 8000.0,
+          "maximum_saved_absolute_difference": 0.0,
+          "relative_space_time_l2": 0.0,
+          "absolute_space_time_l2": 0.0,
+          "time_interpretation": "P1 interpolants of saved rows; unsaved steps are not bounded"
+        }
+      },
+      "stored_interface_fields": {
+        "plastic_slip": {
+          "final_relative_p1_l2": 0.0024006280324994837,
+          "final_absolute_p1_l2": 0.48772298062799035,
+          "final_maximum_absolute_difference": 0.039886474609375,
+          "final_reference_maximum": 9.743704795837402,
+          "final_actual_maximum": 9.720500946044922,
+          "final_reference_p1_mean": 9.270435031255086,
+          "final_actual_p1_mean": 9.248260445396106,
+          "maximum_saved_absolute_difference": 0.4000205993652344,
+          "relative_space_time_l2": 0.0036873585726896205,
+          "absolute_space_time_l2": 0.15168559571906917,
+          "time_interpretation": "P1 interpolants of saved rows; unsaved steps are not bounded"
+        },
+        "cumulative_slip": {
+          "final_relative_p1_l2": 0.03518933754789344,
+          "final_absolute_p1_l2": 0.48772276610333615,
+          "final_maximum_absolute_difference": 0.039886295795440674,
+          "final_reference_maximum": 0.644122838973999,
+          "final_actual_maximum": 0.6198840737342834,
+          "final_reference_p1_mean": 0.6325896590948105,
+          "final_actual_p1_mean": 0.610415084225436,
+          "maximum_saved_absolute_difference": 0.40002045035362244,
+          "relative_space_time_l2": 0.09215797343674406,
+          "absolute_space_time_l2": 0.15168560112133678,
+          "time_interpretation": "P1 interpolants of saved rows; unsaved steps are not bounded"
+        },
+        "friction_coefficient": {
+          "final_relative_p1_l2": 0.0,
+          "final_absolute_p1_l2": 0.0,
+          "final_maximum_absolute_difference": 0.0,
+          "final_reference_maximum": 0.6000000238418579,
+          "final_actual_maximum": 0.6000000238418579,
+          "final_reference_p1_mean": 0.6000000238418579,
+          "final_actual_p1_mean": 0.6000000238418579,
+          "maximum_saved_absolute_difference": 0.19999998807907104,
+          "relative_space_time_l2": 0.023562294940621287,
+          "absolute_space_time_l2": 0.080789729967347,
+          "time_interpretation": "P1 interpolants of saved rows; unsaved steps are not bounded"
+        },
+        "friction_strength": {
+          "final_relative_p1_l2": 0.1761883223019565,
+          "final_absolute_p1_l2": 54.861142697806926,
+          "final_maximum_absolute_difference": 87.86659240722656,
+          "final_reference_maximum": 207.1219024658203,
+          "final_actual_maximum": 294.9884948730469,
+          "final_reference_p1_mean": 10.550459468364716,
+          "final_actual_p1_mean": 10.015052436788876,
+          "maximum_saved_absolute_difference": 125.33956909179688,
+          "relative_space_time_l2": 0.1730509121257817,
+          "absolute_space_time_l2": 14.057178790884805,
+          "time_interpretation": "P1 interpolants of saved rows; unsaved steps are not bounded"
+        },
+        "pressure_reconstructed": {
+          "final_relative_p1_l2": 0.17618832230195658,
+          "final_absolute_p1_l2": 91.43523419636846,
+          "final_maximum_absolute_difference": 146.4443148595367,
+          "final_reference_maximum": 345.20315705922616,
+          "final_actual_maximum": 491.64747191876285,
+          "final_reference_p1_mean": 17.584098415211898,
+          "final_actual_p1_mean": 16.691753398044106,
+          "maximum_saved_absolute_difference": 197.96884385868537,
+          "relative_space_time_l2": 0.17245993077812227,
+          "absolute_space_time_l2": 18.906381945295188,
+          "time_interpretation": "P1 interpolants of saved rows; unsaved steps are not bounded"
+        }
+      },
+      "true_float64_final_state": {
+        "plastic_slip": {
+          "final_relative_p1_l2": 0.0024006269582174306,
+          "final_absolute_p1_l2": 0.48772276212525134,
+          "final_maximum_absolute_difference": 0.0398862799554216,
+          "final_reference_maximum": 9.743704934783786,
+          "final_actual_maximum": 9.720501230990726,
+          "final_reference_p1_mean": 9.270435027095573,
+          "final_actual_p1_mean": 9.24826045233433,
+          "maximum_saved_absolute_difference": 0.0398862799554216
+        },
+        "cumulative_slip": {
+          "final_relative_p1_l2": 0.0351893372758357,
+          "final_absolute_p1_l2": 0.4877227621254697,
+          "final_maximum_absolute_difference": 0.03988627995545346,
+          "final_reference_maximum": 0.6441228205817715,
+          "final_actual_maximum": 0.6198840786124796,
+          "final_reference_p1_mean": 0.6325896588300047,
+          "final_actual_p1_mean": 0.6104150840687479,
+          "maximum_saved_absolute_difference": 0.03988627995545346
+        },
+        "pressure": {
+          "final_relative_p1_l2": 0.17618831961428738,
+          "final_absolute_p1_l2": 91.43523615422399,
+          "final_maximum_absolute_difference": 146.44432199981145,
+          "final_reference_maximum": 345.20316759861123,
+          "final_actual_maximum": 491.6474895984227,
+          "final_reference_p1_mean": 17.58409907535529,
+          "final_actual_p1_mean": 16.691754045295177,
+          "maximum_saved_absolute_difference": 146.44432199981145
+        },
+        "elastic_trial_shear": {
+          "final_relative_p1_l2": 0.17764256178431828,
+          "final_absolute_p1_l2": 49.666592713141,
+          "final_maximum_absolute_difference": 71.12170706612596,
+          "final_reference_maximum": 193.51521871138698,
+          "final_actual_maximum": 264.63692577751294,
+          "final_reference_p1_mean": 8.912893567819909,
+          "final_actual_p1_mean": 8.661864315858214,
+          "maximum_saved_absolute_difference": 71.12170706612596
+        }
+      },
+      "bem_endpoints": [
+        {
+          "run": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv4-n64-coarse-p1-fem-static",
+          "versus_h2": {
+            "plastic_slip": {
+              "final_relative_p1_l2": 0.007587111410646414,
+              "final_absolute_p1_l2": 1.5414335497174427,
+              "final_maximum_absolute_difference": 0.12013596455865816,
+              "final_reference_maximum": 9.743704934783786,
+              "final_actual_maximum": 9.674381572828517,
+              "final_reference_p1_mean": 9.270435027095573,
+              "final_actual_p1_mean": 9.200208319331223,
+              "maximum_saved_absolute_difference": 0.12013596455865816
+            },
+            "cumulative_slip": {
+              "final_relative_p1_l2": 0.11122191901075323,
+              "final_absolute_p1_l2": 1.5415312065586946,
+              "final_maximum_absolute_difference": 0.12013596455815556,
+              "final_reference_maximum": 0.6441228205817715,
+              "final_actual_maximum": 0.5707136966650297,
+              "final_reference_p1_mean": 0.6325896588300047,
+              "final_actual_p1_mean": 0.5623579034734002,
+              "maximum_saved_absolute_difference": 0.12013596455815556
+            },
+            "pressure": {
+              "final_relative_p1_l2": 0.3149560691870138,
+              "final_absolute_p1_l2": 163.45057735589774,
+              "final_maximum_absolute_difference": 364.6903562836145,
+              "final_reference_maximum": 345.20316759861123,
+              "final_actual_maximum": 709.8935238822257,
+              "final_reference_p1_mean": 17.58409907535529,
+              "final_actual_p1_mean": 15.943972636741478,
+              "maximum_saved_absolute_difference": 364.6903562836145
+            },
+            "elastic_trial_shear": {
+              "final_relative_p1_l2": 0.3328422796558992,
+              "final_absolute_p1_l2": 93.05845274542892,
+              "final_maximum_absolute_difference": 220.14480254294483,
+              "final_reference_maximum": 193.51521871138698,
+              "final_actual_maximum": 413.6600212543318,
+              "final_reference_p1_mean": 8.912893567819909,
+              "final_actual_p1_mean": 8.972106731760835,
+              "maximum_saved_absolute_difference": 220.14480254294483
+            }
+          },
+          "versus_refined": {
+            "plastic_slip": {
+              "final_relative_p1_l2": 0.005204642490771707,
+              "final_absolute_p1_l2": 1.054876469292299,
+              "final_maximum_absolute_difference": 0.08024968460323656,
+              "final_reference_maximum": 9.720501230990726,
+              "final_actual_maximum": 9.674381572828517,
+              "final_reference_p1_mean": 9.248260452334328,
+              "final_actual_p1_mean": 9.200208319331223,
+              "maximum_saved_absolute_difference": 0.08024968460323656
+            },
+            "cumulative_slip": {
+              "final_relative_p1_l2": 0.07888340052536211,
+              "final_absolute_p1_l2": 1.054974528552467,
+              "final_maximum_absolute_difference": 0.0802496846027021,
+              "final_reference_maximum": 0.6198840786124796,
+              "final_actual_maximum": 0.5707136966650297,
+              "final_reference_p1_mean": 0.6104150840687479,
+              "final_actual_p1_mean": 0.5623579034734002,
+              "maximum_saved_absolute_difference": 0.0802496846027021
+            },
+            "pressure": {
+              "final_relative_p1_l2": 0.21640789883964792,
+              "final_absolute_p1_l2": 114.19895071947066,
+              "final_maximum_absolute_difference": 218.24603428380306,
+              "final_reference_maximum": 491.6474895984227,
+              "final_actual_maximum": 709.8935238822257,
+              "final_reference_p1_mean": 16.691754045295173,
+              "final_actual_p1_mean": 15.943972636741478,
+              "maximum_saved_absolute_difference": 218.24603428380306
+            },
+            "elastic_trial_shear": {
+              "final_relative_p1_l2": 0.24440564924679736,
+              "final_absolute_p1_l2": 68.02603009662175,
+              "final_maximum_absolute_difference": 149.02309547681887,
+              "final_reference_maximum": 264.63692577751294,
+              "final_actual_maximum": 413.6600212543318,
+              "final_reference_p1_mean": 8.661864315858214,
+              "final_actual_p1_mean": 8.972106731760835,
+              "maximum_saved_absolute_difference": 149.02309547681887
+            }
+          },
+          "schedule": "event16_original_actuator_rate",
+          "dt_s": 2e-06
+        },
+        {
+          "run": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv8-n64-coarse-p1-fem-static",
+          "versus_h2": {
+            "plastic_slip": {
+              "final_relative_p1_l2": 0.0075844309951194145,
+              "final_absolute_p1_l2": 1.5408889837822828,
+              "final_maximum_absolute_difference": 0.12138173819784015,
+              "final_reference_maximum": 9.743704934783786,
+              "final_actual_maximum": 9.674213519610163,
+              "final_reference_p1_mean": 9.270435027095573,
+              "final_actual_p1_mean": 9.200225882491193,
+              "maximum_saved_absolute_difference": 0.12138173819784015
+            },
+            "cumulative_slip": {
+              "final_relative_p1_l2": 0.11118316049599586,
+              "final_absolute_p1_l2": 1.5409940151440007,
+              "final_maximum_absolute_difference": 0.1213817381970983,
+              "final_reference_maximum": 0.6441228205817715,
+              "final_actual_maximum": 0.5705851319163915,
+              "final_reference_p1_mean": 0.6325896588300046,
+              "final_actual_p1_mean": 0.5623751672960533,
+              "maximum_saved_absolute_difference": 0.1213817381970983
+            },
+            "pressure": {
+              "final_relative_p1_l2": 0.3262881083400722,
+              "final_absolute_p1_l2": 169.33148749986842,
+              "final_maximum_absolute_difference": 379.6888810318817,
+              "final_reference_maximum": 345.20316759861123,
+              "final_actual_maximum": 724.8920486304929,
+              "final_reference_p1_mean": 17.584099075355294,
+              "final_actual_p1_mean": 15.92154479661729,
+              "maximum_saved_absolute_difference": 379.6888810318817
+            },
+            "elastic_trial_shear": {
+              "final_relative_p1_l2": 0.3459824100335626,
+              "final_absolute_p1_l2": 96.73226546862843,
+              "final_maximum_absolute_difference": 229.7505398512401,
+              "final_reference_maximum": 193.51521871138698,
+              "final_actual_maximum": 423.26575856262707,
+              "final_reference_p1_mean": 8.912893567819907,
+              "final_actual_p1_mean": 8.968107711033914,
+              "maximum_saved_absolute_difference": 229.7505398512401
+            }
+          },
+          "versus_refined": {
+            "plastic_slip": {
+              "final_relative_p1_l2": 0.005202007247834625,
+              "final_absolute_p1_l2": 1.0543423584921574,
+              "final_maximum_absolute_difference": 0.08149545824241855,
+              "final_reference_maximum": 9.720501230990726,
+              "final_actual_maximum": 9.674213519610163,
+              "final_reference_p1_mean": 9.248260452334328,
+              "final_actual_p1_mean": 9.200225882491193,
+              "maximum_saved_absolute_difference": 0.08149545824241855
+            },
+            "cumulative_slip": {
+              "final_relative_p1_l2": 0.07884394667128738,
+              "final_absolute_p1_l2": 1.0544468787449683,
+              "final_maximum_absolute_difference": 0.08149545824164484,
+              "final_reference_maximum": 0.6198840786124796,
+              "final_actual_maximum": 0.5705851319163915,
+              "final_reference_p1_mean": 0.6104150840687479,
+              "final_actual_p1_mean": 0.5623751672960533,
+              "maximum_saved_absolute_difference": 0.08149545824164484
+            },
+            "pressure": {
+              "final_relative_p1_l2": 0.22962284233532654,
+              "final_absolute_p1_l2": 121.1725070874007,
+              "final_maximum_absolute_difference": 233.24455903207024,
+              "final_reference_maximum": 491.6474895984227,
+              "final_actual_maximum": 724.8920486304929,
+              "final_reference_p1_mean": 16.691754045295173,
+              "final_actual_p1_mean": 15.921544796617288,
+              "maximum_saved_absolute_difference": 233.24455903207024
+            },
+            "elastic_trial_shear": {
+              "final_relative_p1_l2": 0.25858075625465227,
+              "final_absolute_p1_l2": 71.97142276209757,
+              "final_maximum_absolute_difference": 158.62883278511413,
+              "final_reference_maximum": 264.63692577751294,
+              "final_actual_maximum": 423.26575856262707,
+              "final_reference_p1_mean": 8.661864315858214,
+              "final_actual_p1_mean": 8.968107711033916,
+              "maximum_saved_absolute_difference": 158.62883278511413
+            }
+          },
+          "schedule": "event16_original_actuator_rate",
+          "dt_s": 2e-06
+        },
+        {
+          "run": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv1-n64-coarse-p1-fem-static",
+          "versus_h2": {
+            "plastic_slip": {
+              "final_relative_p1_l2": 0.007850571221939167,
+              "final_absolute_p1_l2": 1.5949592949119864,
+              "final_maximum_absolute_difference": 0.11107934918929452,
+              "final_reference_maximum": 9.743704934783786,
+              "final_actual_maximum": 9.673878296518534,
+              "final_reference_p1_mean": 9.270435027095571,
+              "final_actual_p1_mean": 9.197895285503504,
+              "maximum_saved_absolute_difference": 0.11107934918929452
+            },
+            "cumulative_slip": {
+              "final_relative_p1_l2": 0.11508298259196373,
+              "final_absolute_p1_l2": 1.5950453884203455,
+              "final_maximum_absolute_difference": 0.11107934918868834,
+              "final_reference_maximum": 0.6441228205817715,
+              "final_actual_maximum": 0.5630862814341431,
+              "final_reference_p1_mean": 0.6325896588300047,
+              "final_actual_p1_mean": 0.5600451122478759,
+              "maximum_saved_absolute_difference": 0.11107934918868834
+            },
+            "pressure": {
+              "final_relative_p1_l2": 0.19941753468815288,
+              "final_absolute_p1_l2": 103.49034156987219,
+              "final_maximum_absolute_difference": 194.57175337534864,
+              "final_reference_maximum": 345.20316759861123,
+              "final_actual_maximum": 539.7749209739599,
+              "final_reference_p1_mean": 17.58409907535529,
+              "final_actual_p1_mean": 16.153416095199166,
+              "maximum_saved_absolute_difference": 194.57175337534864
+            },
+            "elastic_trial_shear": {
+              "final_relative_p1_l2": 0.20378878513394494,
+              "final_absolute_p1_l2": 56.97674301185934,
+              "final_maximum_absolute_difference": 118.720806375054,
+              "final_reference_maximum": 193.51521871138698,
+              "final_actual_maximum": 312.236025086441,
+              "final_reference_p1_mean": 8.912893567819909,
+              "final_actual_p1_mean": 8.779028700701708,
+              "maximum_saved_absolute_difference": 118.720806375054
+            }
+          },
+          "versus_refined": {
+            "plastic_slip": {
+              "final_relative_p1_l2": 0.0054644558939553846,
+              "final_absolute_p1_l2": 1.1075354263505728,
+              "final_maximum_absolute_difference": 0.07119306923387292,
+              "final_reference_maximum": 9.720501230990726,
+              "final_actual_maximum": 9.673878296518534,
+              "final_reference_p1_mean": 9.248260452334327,
+              "final_actual_p1_mean": 9.197895285503504,
+              "maximum_saved_absolute_difference": 0.07119306923387292
+            },
+            "cumulative_slip": {
+              "final_relative_p1_l2": 0.08281987407096379,
+              "final_absolute_p1_l2": 1.1076203234253084,
+              "final_maximum_absolute_difference": 0.07119306923323487,
+              "final_reference_maximum": 0.6198840786124796,
+              "final_actual_maximum": 0.5630862814341431,
+              "final_reference_p1_mean": 0.6104150840687479,
+              "final_actual_p1_mean": 0.5600451122478759,
+              "maximum_saved_absolute_difference": 0.07119306923323487
+            },
+            "pressure": {
+              "final_relative_p1_l2": 0.1053075339577887,
+              "final_absolute_p1_l2": 55.57103019490719,
+              "final_maximum_absolute_difference": 97.78260883000061,
+              "final_reference_maximum": 491.6474895984227,
+              "final_actual_maximum": 539.7749209739599,
+              "final_reference_p1_mean": 16.691754045295173,
+              "final_actual_p1_mean": 16.153416095199166,
+              "maximum_saved_absolute_difference": 97.78260883000061
+            },
+            "elastic_trial_shear": {
+              "final_relative_p1_l2": 0.10845813793020967,
+              "final_absolute_p1_l2": 30.187422335781694,
+              "final_maximum_absolute_difference": 47.59909930892803,
+              "final_reference_maximum": 264.63692577751294,
+              "final_actual_maximum": 312.236025086441,
+              "final_reference_p1_mean": 8.661864315858214,
+              "final_actual_p1_mean": 8.779028700701708,
+              "maximum_saved_absolute_difference": 47.59909930892803
+            }
+          },
+          "schedule": "event16_original_actuator_rate",
+          "dt_s": 2e-06
+        },
+        {
+          "run": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv2-n64-coarse-p1-fem-static",
+          "versus_h2": {
+            "plastic_slip": {
+              "final_relative_p1_l2": 0.007627357931099602,
+              "final_absolute_p1_l2": 1.5496102237542677,
+              "final_maximum_absolute_difference": 0.11634447302147599,
+              "final_reference_maximum": 9.743704934783786,
+              "final_actual_maximum": 9.674930810110052,
+              "final_reference_p1_mean": 9.270435027095571,
+              "final_actual_p1_mean": 9.199879525639156,
+              "maximum_saved_absolute_difference": 0.11634447302147599
+            },
+            "cumulative_slip": {
+              "final_relative_p1_l2": 0.11181139397024449,
+              "final_absolute_p1_l2": 1.5497013051653625,
+              "final_maximum_absolute_difference": 0.11634447302089324,
+              "final_reference_maximum": 0.6441228205817715,
+              "final_actual_maximum": 0.5695357760610849,
+              "final_reference_p1_mean": 0.6325896588300047,
+              "final_actual_p1_mean": 0.5620293523835187,
+              "maximum_saved_absolute_difference": 0.11634447302089324
+            },
+            "pressure": {
+              "final_relative_p1_l2": 0.2793623087829028,
+              "final_absolute_p1_l2": 144.97872919200367,
+              "final_maximum_absolute_difference": 317.7442403657508,
+              "final_reference_maximum": 345.20316759861123,
+              "final_actual_maximum": 662.947407964362,
+              "final_reference_p1_mean": 17.58409907535529,
+              "final_actual_p1_mean": 16.089631810047123,
+              "maximum_saved_absolute_difference": 317.7442403657508
+            },
+            "elastic_trial_shear": {
+              "final_relative_p1_l2": 0.2934881588124996,
+              "final_absolute_p1_l2": 82.05554290287675,
+              "final_maximum_absolute_difference": 191.07874458551652,
+              "final_reference_maximum": 193.51521871138698,
+              "final_actual_maximum": 384.5939632969035,
+              "final_reference_p1_mean": 8.912893567819909,
+              "final_actual_p1_mean": 8.975443099902941,
+              "maximum_saved_absolute_difference": 191.07874458551652
+            }
+          },
+          "versus_refined": {
+            "plastic_slip": {
+              "final_relative_p1_l2": 0.005243110220017966,
+              "final_absolute_p1_l2": 1.0626731051766918,
+              "final_maximum_absolute_difference": 0.07645819306605439,
+              "final_reference_maximum": 9.720501230990726,
+              "final_actual_maximum": 9.674930810110052,
+              "final_reference_p1_mean": 9.248260452334328,
+              "final_actual_p1_mean": 9.199879525639156,
+              "maximum_saved_absolute_difference": 0.07645819306605439
+            },
+            "cumulative_slip": {
+              "final_relative_p1_l2": 0.07946592977326801,
+              "final_absolute_p1_l2": 1.06276518558024,
+              "final_maximum_absolute_difference": 0.07645819306543977,
+              "final_reference_maximum": 0.6198840786124796,
+              "final_actual_maximum": 0.5695357760610849,
+              "final_reference_p1_mean": 0.6104150840687479,
+              "final_actual_p1_mean": 0.5620293523835187,
+              "maximum_saved_absolute_difference": 0.07645819306543977
+            },
+            "pressure": {
+              "final_relative_p1_l2": 0.17528479681529663,
+              "final_absolute_p1_l2": 92.4981942928745,
+              "final_maximum_absolute_difference": 171.29991836593933,
+              "final_reference_maximum": 491.6474895984227,
+              "final_actual_maximum": 662.947407964362,
+              "final_reference_p1_mean": 16.691754045295177,
+              "final_actual_p1_mean": 16.089631810047123,
+              "maximum_saved_absolute_difference": 171.29991836593933
+            },
+            "elastic_trial_shear": {
+              "final_relative_p1_l2": 0.20442137197452834,
+              "final_absolute_p1_l2": 56.897107105285926,
+              "final_maximum_absolute_difference": 119.95703751939055,
+              "final_reference_maximum": 264.63692577751294,
+              "final_actual_maximum": 384.5939632969035,
+              "final_reference_p1_mean": 8.661864315858216,
+              "final_actual_p1_mean": 8.975443099902941,
+              "maximum_saved_absolute_difference": 119.95703751939055
+            }
+          },
+          "schedule": "event16_original_actuator_rate",
+          "dt_s": 2e-06
+        },
+        {
+          "run": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv4-n64-original-p1-fem-static",
+          "versus_h2": {
+            "plastic_slip": {
+              "final_relative_p1_l2": 0.00798482467703442,
+              "final_absolute_p1_l2": 1.6222348637877668,
+              "final_maximum_absolute_difference": 0.1255552681320804,
+              "final_reference_maximum": 9.743704934783786,
+              "final_actual_maximum": 9.670174291536622,
+              "final_reference_p1_mean": 9.270435027095573,
+              "final_actual_p1_mean": 9.196498984739588,
+              "maximum_saved_absolute_difference": 0.1255552681320804
+            },
+            "cumulative_slip": {
+              "final_relative_p1_l2": 0.11704509886991481,
+              "final_absolute_p1_l2": 1.6222402390420645,
+              "final_maximum_absolute_difference": 0.12555526813142803,
+              "final_reference_maximum": 0.6441228205817715,
+              "final_actual_maximum": 0.5655834515593171,
+              "final_reference_p1_mean": 0.6325896588300047,
+              "final_actual_p1_mean": 0.558653381807261,
+              "maximum_saved_absolute_difference": 0.12555526813142803
+            },
+            "pressure": {
+              "final_relative_p1_l2": 0.311935520316256,
+              "final_absolute_p1_l2": 161.8830239566841,
+              "final_maximum_absolute_difference": 356.08286812141534,
+              "final_reference_maximum": 345.20316759861123,
+              "final_actual_maximum": 701.2860357200266,
+              "final_reference_p1_mean": 17.58409907535529,
+              "final_actual_p1_mean": 16.02002331841113,
+              "maximum_saved_absolute_difference": 356.08286812141534
+            },
+            "elastic_trial_shear": {
+              "final_relative_p1_l2": 0.33184308856934747,
+              "final_absolute_p1_l2": 92.7790916720471,
+              "final_maximum_absolute_difference": 217.63704636040654,
+              "final_reference_maximum": 193.51521871138698,
+              "final_actual_maximum": 411.1522650717935,
+              "final_reference_p1_mean": 8.912893567819909,
+              "final_actual_p1_mean": 8.99469763271584,
+              "maximum_saved_absolute_difference": 217.63704636040654
+            }
+          },
+          "versus_refined": {
+            "plastic_slip": {
+              "final_relative_p1_l2": 0.005602531876827597,
+              "final_absolute_p1_l2": 1.1355206540707397,
+              "final_maximum_absolute_difference": 0.0856689881766588,
+              "final_reference_maximum": 9.720501230990726,
+              "final_actual_maximum": 9.670174291536622,
+              "final_reference_p1_mean": 9.248260452334328,
+              "final_actual_p1_mean": 9.196498984739586,
+              "maximum_saved_absolute_difference": 0.0856689881766588
+            },
+            "cumulative_slip": {
+              "final_relative_p1_l2": 0.08490641955438752,
+              "final_absolute_p1_l2": 1.135525463454997,
+              "final_maximum_absolute_difference": 0.08566898817597457,
+              "final_reference_maximum": 0.6198840786124796,
+              "final_actual_maximum": 0.5655834515593171,
+              "final_reference_p1_mean": 0.6104150840687479,
+              "final_actual_p1_mean": 0.558653381807261,
+              "maximum_saved_absolute_difference": 0.08566898817597457
+            },
+            "pressure": {
+              "final_relative_p1_l2": 0.21361452478629508,
+              "final_absolute_p1_l2": 112.72488074526764,
+              "final_maximum_absolute_difference": 209.6385461216039,
+              "final_reference_maximum": 491.6474895984227,
+              "final_actual_maximum": 701.2860357200266,
+              "final_reference_p1_mean": 16.691754045295173,
+              "final_actual_p1_mean": 16.02002331841113,
+              "maximum_saved_absolute_difference": 209.6385461216039
+            },
+            "elastic_trial_shear": {
+              "final_relative_p1_l2": 0.2382664380297882,
+              "final_absolute_p1_l2": 66.31728822299971,
+              "final_maximum_absolute_difference": 146.51533929428058,
+              "final_reference_maximum": 264.63692577751294,
+              "final_actual_maximum": 411.1522650717935,
+              "final_reference_p1_mean": 8.661864315858214,
+              "final_actual_p1_mean": 8.99469763271584,
+              "maximum_saved_absolute_difference": 146.51533929428058
+            }
+          },
+          "schedule": "event16_original_actuator_rate",
+          "dt_s": 2e-06
+        },
+        {
+          "run": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv8-n64-original-p1-fem-static",
+          "versus_h2": {
+            "plastic_slip": {
+              "final_relative_p1_l2": 0.007976448049243818,
+              "final_absolute_p1_l2": 1.6205330283445956,
+              "final_maximum_absolute_difference": 0.12644894414447805,
+              "final_reference_maximum": 9.743704934783786,
+              "final_actual_maximum": 9.670270268227693,
+              "final_reference_p1_mean": 9.270435027095573,
+              "final_actual_p1_mean": 9.196576435757516,
+              "maximum_saved_absolute_difference": 0.12644894414447805
+            },
+            "cumulative_slip": {
+              "final_relative_p1_l2": 0.11692299657802308,
+              "final_absolute_p1_l2": 1.6205479063164872,
+              "final_maximum_absolute_difference": 0.12644894414384344,
+              "final_reference_maximum": 0.6441228205817715,
+              "final_actual_maximum": 0.5657181767887627,
+              "final_reference_p1_mean": 0.6325896588300046,
+              "final_actual_p1_mean": 0.5587304635918652,
+              "maximum_saved_absolute_difference": 0.12644894414384344
+            },
+            "pressure": {
+              "final_relative_p1_l2": 0.32481648439858435,
+              "final_absolute_p1_l2": 168.5677689803052,
+              "final_maximum_absolute_difference": 376.1445273767541,
+              "final_reference_maximum": 345.20316759861123,
+              "final_actual_maximum": 721.3476949753654,
+              "final_reference_p1_mean": 17.584099075355294,
+              "final_actual_p1_mean": 16.059315202715005,
+              "maximum_saved_absolute_difference": 376.1445273767541
+            },
+            "elastic_trial_shear": {
+              "final_relative_p1_l2": 0.3450363988772862,
+              "final_absolute_p1_l2": 96.46777282492341,
+              "final_maximum_absolute_difference": 227.1737526884798,
+              "final_reference_maximum": 193.51521871138698,
+              "final_actual_maximum": 420.6889713998668,
+              "final_reference_p1_mean": 8.912893567819907,
+              "final_actual_p1_mean": 8.996478968924945,
+              "maximum_saved_absolute_difference": 227.1737526884798
+            }
+          },
+          "versus_refined": {
+            "plastic_slip": {
+              "final_relative_p1_l2": 0.005594201015520466,
+              "final_absolute_p1_l2": 1.1338321558545006,
+              "final_maximum_absolute_difference": 0.08656266418905645,
+              "final_reference_maximum": 9.720501230990726,
+              "final_actual_maximum": 9.670270268227693,
+              "final_reference_p1_mean": 9.248260452334328,
+              "final_actual_p1_mean": 9.196576435757516,
+              "maximum_saved_absolute_difference": 0.08656266418905645
+            },
+            "cumulative_slip": {
+              "final_relative_p1_l2": 0.08478080993226993,
+              "final_absolute_p1_l2": 1.1338455795885227,
+              "final_maximum_absolute_difference": 0.08656266418838998,
+              "final_reference_maximum": 0.6198840786124796,
+              "final_actual_maximum": 0.5657181767887627,
+              "final_reference_p1_mean": 0.6104150840687479,
+              "final_actual_p1_mean": 0.5587304635918652,
+              "maximum_saved_absolute_difference": 0.08656266418838998
+            },
+            "pressure": {
+              "final_relative_p1_l2": 0.22730282478952496,
+              "final_absolute_p1_l2": 119.9482284413721,
+              "final_maximum_absolute_difference": 229.70020537694268,
+              "final_reference_maximum": 491.6474895984227,
+              "final_actual_maximum": 721.3476949753654,
+              "final_reference_p1_mean": 16.691754045295173,
+              "final_actual_p1_mean": 16.059315202715005,
+              "maximum_saved_absolute_difference": 229.70020537694268
+            },
+            "elastic_trial_shear": {
+              "final_relative_p1_l2": 0.25312395139528016,
+              "final_absolute_p1_l2": 70.45261674129156,
+              "final_maximum_absolute_difference": 156.05204562235383,
+              "final_reference_maximum": 264.63692577751294,
+              "final_actual_maximum": 420.6889713998668,
+              "final_reference_p1_mean": 8.661864315858214,
+              "final_actual_p1_mean": 8.996478968924945,
+              "maximum_saved_absolute_difference": 156.05204562235383
+            }
+          },
+          "schedule": "event16_original_actuator_rate",
+          "dt_s": 2e-06
+        }
+      ],
+      "frozen_input_sha256": {
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compare_fem_mesh.py": "a747c5b4ff52ad84556d5de0c91fb21e0612f3f3d71f165626058c22608b3e0b",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/fem_reference_io.py": "767d970d36ebb446d838af2bd3c5b252e38614cab8a374e2bcf376f5a6564264",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compare_fem_reference.py": "3b00acec7e558fe8dd8b0e695b2d2ef66d33812a92706573364c2a5f0e4c9342",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/run_fem_reference.py": "e334ceb519bc3997d93bbb5ac4e783f4afc6875bc3656a25293851b3da4a63a0",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-field-comparison/summary.json": "30dd777c7eab94f0fff24cce9a0aa66d9a28a8ad0df494afb94d3b18a97a336c",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h2-4c-interface/summary.json": "8f2538542a351197923c063e75dce7f607adc5706ff46313ee78ee1dc73af5e1",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h2-4c-interface/resolved_run_config.json": "1f95e7f2bd2c8abc342a80c69ffc59bdb60d95727e76a09d8a1f9fdb8bce6bd2",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h2-4c-interface/reference_manifest.json": "a19d658036d7add09664a6c4832c3cba4edd61bd017496ff2e827039415679ec",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h1-original-dt-4c-interface/summary.json": "eed65bf9c5294b2f09cf3b4bee62e26d614d63ddfd4fc406ff36b213b947a1c7",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h1-original-dt-4c-interface/resolved_run_config.json": "a6f44b3f1cc4dcff33adeea95a53f5e3f2ab2c1fa97ceaa769f780350d3ddd7d",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h1-original-dt-4c-interface/reference_manifest.json": "24b8654cf4ad30c494993c457d7c1a72b41016eadbd03f4ad26df43e7a3f502b",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv4-n64-coarse-p1-fem-static/summary.json": "c73a0c04d7862e385dc2f6f9e34842922c034fa95964abf008374dd2d49c6d35",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv4-n64-coarse-p1-fem-static/trajectory.npz": "4e6a9bc737b7f2bee52775b347c0b1263ccc14ad047b6345a96e03a63d1dddad",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv8-n64-coarse-p1-fem-static/summary.json": "5e1162fd6c87c0fa2100571231a83c700b767fa8d5ae8240a21fd3ec74aef21c",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv8-n64-coarse-p1-fem-static/trajectory.npz": "8902fab94e4a9f9fe993358842e74100119f21d8dd3bbc8968752aef74a16de5",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv1-n64-coarse-p1-fem-static/summary.json": "14fda9b2cd2786ef82c557d406f6230114bb65e34e6e7da3925aa49c25bb6453",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv1-n64-coarse-p1-fem-static/trajectory.npz": "7d491d0c1872f332c01c065a547f87382b45920d6981d9a466b8ce4b55a2258a",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv2-n64-coarse-p1-fem-static/summary.json": "256aa288cad6e9c228637fae63b82e996ea18024a4a93fb2734307e5562d9441",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv2-n64-coarse-p1-fem-static/trajectory.npz": "dbcd7787377e20f9876069123a2a937e659087f5ad7e251b0aa9fc6544669664",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv4-n64-original-p1-fem-static/summary.json": "f6f960cbd1f2293469b64d9df08faa5dfef1b1aea96fedba1880e4a72b583b4d",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv4-n64-original-p1-fem-static/trajectory.npz": "99a4ba9b8d39f3d72ddfe4870ad215cfe1b61d31077b686912ab84f1e357b4d3",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv8-n64-original-p1-fem-static/summary.json": "5a814e5d0b94e6e9b0b486daf1a3a4441c30aa0e9794205048a77fb61854c769",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv8-n64-original-p1-fem-static/trajectory.npz": "f47c5f84a8655243e1d58d7854fd0e037d805282deeab7caf89dfabd20fb2801",
+        "/Volumes/Gauss-T7/tatva/runs/local-mus08-muk06-gap0-v2-ev16/stats/summary.json": "8f7202eb285d3959d376df466c68e8b4900262d26be71cbc29847d882b4e42bc",
+        "/Volumes/Gauss-T7/tatva/runs/local-mus08-muk06-gap0-v2-ev16/input/case.toml": "6f8cf492023c3928dc5c4d89672dec668077d5092f479a57580ab3aeb1a15f02",
+        "/Volumes/Gauss-T7/tatva/runs/local-mus08-muk06-gap0-v2-ev16/input/resolved.json": "6e68fbe8cfaa5364ff5cf88965727f58f584426797c774fa32f6807292e06296"
+      },
+      "scope": "Two FEM meshes at fixed original dt; no Richardson order, continuum error bound or speed advantage follows from two grids",
+      "pressure_scope": "Saved pressure is strength/mu from float32 values; final pressure is kn*positive(normal jump minus geometric gap) from float64 u",
+      "shear_scope": "Endpoint elastic_trial_shear is kt*(tangential jump-z), not an independently re-evaluated return map",
+      "timing_scope": "Raw run times retained; known scheduling pauses and overlap controls must be assessed separately",
+      "stability_scope": "Finite saved interface fields and float64 final u/v_half, with unclipped saved c increments; not a bound on unsaved states or a stability proof"
+    }
+  },
+  "conditional_subdiv4_ad": {
+    "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/ad-subdiv4-n64-coarse-p1-fem-static/summary.json",
+    "sha256": "8afddaeb60d62e50efe9a587cfb199ae702bd4f533f4aec9bdab1e9daf7eebb9",
+    "result": {
+      "status": "passed_discrete_reverse_jvp_check",
+      "primal_run": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv4-n64-coarse-p1-fem-static",
+      "primal_trajectory_sha256": "4e6a9bc737b7f2bee52775b347c0b1263ccc14ad047b6345a96e03a63d1dddad",
+      "frozen_input_sha256": {
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/check_refined_contact_ad.py": "3a69058c75310f8da3d034760f42eb5f4b2bf357ae186c94ace892420d3f4fdd",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-initialized-contact-20261027/subdiv4-n64-coarse-p1-fem-static/summary.json": "c73a0c04d7862e385dc2f6f9e34842922c034fa95964abf008374dd2d49c6d35",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/refined_contact_adjoint.py": "bcb3d37eb7daa37c248814f0f73e06ebb70aa69eb59610d211f582b76e553108",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/refined_contact.py": "c055f15f8c15d6c3da2f6792a97ec3ed44baa652478f6a24990fa1f478fa3741",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/substepped_contact_experiment.py": "d40fcb95f5fa29c0c8630a8901f8d5e63591bfc11ed1c9fbdee7c2ecc8d36225",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/bounded_history.py": "bbf1d66ab1b1ff573a6ec613d249e86cd5dc460434ca3c9217cb064429273c55",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/replay_resolvent.py": "129d75f1dc47ba11f2da171a820e422c3bde36ccce6ed2624690230c9e66bafc",
+        "/Volumes/Gauss-T7/Tatva-BEM-cache/direct-resolvent-fine2-q12-full45-20261026/initial_impedance.npy": "bf99f38eec0ca4ec9ec35ea082a9ea11468e40b88e0de53dc60b5a0ac732aa29"
+      },
+      "environment": {
+        "package_version": "0.1.0",
+        "python": "3.12.13",
+        "numpy": "2.4.4",
+        "scipy": "1.17.1",
+        "platform": "macOS-15.7.9-arm64-arm-64bit",
+        "available_logical_cpus": 10,
+        "hard_cpu_affinity_enforced": false,
+        "thread_environment": {
+          "FDBEM_CORES": "4",
+          "OPENBLAS_NUM_THREADS": "1",
+          "OMP_NUM_THREADS": "1",
+          "VECLIB_MAXIMUM_THREADS": "1",
+          "XLA_FLAGS": "--xla_cpu_multi_thread_eigen=false intra_op_parallelism_threads=4",
+          "JAX_ENABLE_X64": "true"
+        },
+        "blas_threadpools": [],
+        "source_sha256": {
+          "__init__.py": "984855d6ff3848411c946ecca174ac08baf7afe6f1d2c3be00284da9b8dbf288",
+          "adjoint.py": "7863386b78318e6502d6257469322ee82746f2384ee915c16cbb98cda69c5bc0",
+          "benchmarks.py": "c24b97264ca60d0da1dab2095d50e9ef1b88b7208fba2d46178b8cf9038eb571",
+          "case.py": "4f0c91b18309a2eae5ce5a78da3bac9fde0be9fb1c0a4d2d5e5e1fc84bd85fa7",
+          "cli.py": "82e53ce34714809933dbe456ef403bce27c6b60b20ac4481f2feded9eeadfcea",
+          "comparison.py": "631c111752342fac7d0f64553620e04940e7888b1ab2fc52566a23b5c35ee24c",
+          "condensation.py": "12010fb51d8490ae5c3a9a2cf5b04e414cb7e6205b409ce7891b454e384de7d2",
+          "constraints.py": "830071941c6df0f70e455530fe094242042fb0c1e31498e8f9b75c9aa825cb91",
+          "cq.py": "e9af920593db01f56f1f7138832f0aa603daf07cbf1d688fba8a806f712c1e15",
+          "cq_storage.py": "da2534ef95e95813a464ff04f78a092be374110650d1866cbc1fb8ea5b5105b2",
+          "dynamics.py": "b6d84d8d2c1ac6fc465565c289d1249f378f3424e00cb93441791960b3c180f8",
+          "friction.py": "1424c1639cdc1eb4dd8f780bfdc0433f33cf29752b07a17814a3a2f326d81086",
+          "galerkin.py": "85541ddfe5020debde77b2bf2d4a045fe9a52b6183d4af2f762f577be18ab66d",
+          "galerkin_fast.py": "e6167f6c553e15697b6d67a3a33f559574d22fd49db4aad49c8262d68224b614",
+          "io.py": "d292e6338381aa7935dbbfcadc0df884e89f10b7096fa70cf1b05a83c1c12b03",
+          "jax_backend.py": "4de0aadb88b73ef6792ff36894134ee31bc412b1a54b177a4d1aaaa43328d547",
+          "kernels.py": "4008ae38c62c3022034d654a13da75369bd67309af4614006942398e22c1ad08",
+          "linear.py": "3a4d7c2259fd3e67b507d0c9dcd18082c24ffda30fccb12749976c97fa5a577c",
+          "material.py": "7c4d34d911831f12e3bc99bda2e13e76d468acdf80038dcb60310a568a5342d1",
+          "mesh.py": "a37e853ed57dd80633c44805b6c13158643ac65db3e4a4cfc12520bbdfa15c4c",
+          "nodal.py": "632f1a755bb09d784c125d3198f662213ea60045ada9db1555e1b47b3ab39856",
+          "nodal_dynamics.py": "839db57190f62795aebef30545fcc9c1b41fdef503f038cc7f425068962eb39d",
+          "nonlinear.py": "019c5fc176c70964c89f9e7c74147ad48b4235267dd2faf0ee22f789a2b97590",
+          "operators.py": "bb77a3b2c66dce871c9e71cc2cdc02488e90ad32278cc9a67fea8b909b722825",
+          "sampling.py": "c518d2298b167aaa1d5ca327a612426276901876a50322a7fe4595c7ee4f1f11",
+          "statics.py": "9f81cbd95a1ff1f742387ee4ae94251304177999208a95703371272ac79dc250"
+        },
+        "case_sha256": "82d8f491a63ca1c348507678f08406dccbc62ed1d4abea8882879f7894d2315d",
+        "restart_data_sha256": "cae42101ff5a57004fa803ea5ce928eb8079e5be0ab887d108689e37754c25f6"
+      },
+      "parameter_order": [
+        "normal_penalty",
+        "tangential_penalty",
+        "mu_s",
+        "mu_k",
+        "Dc"
+      ],
+      "objective": "final contact-weighted mean cumulative slip",
+      "value_mm": 0.5623579034734003,
+      "reverse_gradient": [
+        2.2872948887247237e-06,
+        3.1613902143181444e-05,
+        129.65743234960007,
+        -7.060223637643315,
+        33.68019454570349
+      ],
+      "forward_gradient": [
+        2.2872948887240063e-06,
+        3.1613902143184073e-05,
+        129.65743234956847,
+        -7.0602236376436185,
+        33.68019454570412
+      ],
+      "maximum_absolute_difference": 3.1604940886609256e-11,
+      "reverse_seconds_including_jit": 15359.558043166995,
+      "forward_seconds_including_jit": 1050.2896092915908,
+      "total_including_input_hashes_seconds": 16417.266776749864,
+      "peak_process_rss_mib": 9529.21875,
+      "estimated_array_peak_mib": 3806.147529602051,
+      "scope": "Fixed bulk, static lift, initial state and recorded loading; selected discrete branches; no event-time derivative",
+      "every_history_source_included": true,
+      "spatial_temporal_gradient_convergence_verified": false,
+      "same_accuracy_fem_advantage_verified": false,
+      "original_tatva_readonly": true
+    }
+  },
+  "same_accuracy_fem_advantage_verified": false,
+  "physical_convergence_verified": false,
+  "original_tatva_readonly": true
+}
