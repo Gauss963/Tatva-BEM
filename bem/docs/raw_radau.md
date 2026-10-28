@@ -86,3 +86,5 @@ macOS 此環境沒有硬性 CPU affinity。
 coarse kernel 約耗時 1037 s，期間與舊兩 worker 建構重疊，不能與 FEM 作速度比。
 後續仍需完整 fine event、時間／接觸／bulk 空間收斂、原始因果 RK audit、
 initialized AD 與同精度四核心總耗時比較。
+後續已加入[完整因果方程與條件式 RK adjoint](radau_history_validation.md)，
+並啟動 fine 建核；短程 audit／AD 控制通過，完整 fine 結果仍待完成。

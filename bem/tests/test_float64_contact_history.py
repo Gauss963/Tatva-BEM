@@ -90,3 +90,34 @@ def test_rejects_rounded_clock_or_incomplete_contact_observations(tmp_path, corr
             summary["summary"]["shear_steps"] = 5
         with pytest.raises(ValueError):
             TOOL["observation_grid"](stream, summary)
+
+
+@pytest.mark.parametrize("hold", [True, False])
+def test_actual_radau_endpoint_loading_uses_original_ramp_and_first_coverage(hold):
+    time = np.arange(5) * 0.1
+    cumulative = np.zeros((5, 2))
+    if hold:
+        cumulative[3:] = 0.2
+    stop = float(time[3]) if hold else None
+    data = dict(
+        time=time,
+        actuator=2 + 3 * (np.minimum(time, stop) if hold else time),
+        cumulative_slip=cumulative,
+        contact_weights=np.array([1.0, 2.0]),
+    )
+    summary = dict(
+        time_method="radau2",
+        actuator_hold_time_s=stop,
+        case=dict(
+            loading=dict(restart_actuator=2, actuator_rate=3, stop_coverage=1),
+            contact=dict(characteristic_slip=0.2),
+        ),
+    )
+    assert TOOL["validate_bem_loading"](data, summary)["actual_endpoint_loading_verified"]
+    data["actuator"][-1] += 0.01
+    with pytest.raises(ValueError, match="Actual BEM actuator"):
+        TOOL["validate_bem_loading"](data, summary)
+    data["actuator"][-1] -= 0.01
+    summary["actuator_hold_time_s"] = float(time[2])
+    with pytest.raises(ValueError, match="first accepted coverage"):
+        TOOL["validate_bem_loading"](data, summary)

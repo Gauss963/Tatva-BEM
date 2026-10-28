@@ -122,6 +122,46 @@ def bem_field(data, name):
     return data["shear" if name == "elastic_shear" else name]
 
 
+def validate_bem_loading(data, bem):
+    """Check the actual saved ramp/coverage stop, independently of case labels."""
+    time, actuator = data["time"], data["actuator"]
+    cumulative, weights = data["cumulative_slip"], data["contact_weights"]
+    loading, contact = bem["case"]["loading"], bem["case"]["contact"]
+    if (
+        actuator.shape != time.shape
+        or cumulative.shape != (len(time), len(weights))
+        or not np.all(np.isfinite(actuator))
+        or not np.all(np.isfinite(cumulative))
+        or not np.all(np.isfinite(weights))
+        or np.any(weights <= 0)
+        or np.any(cumulative[0] != 0)
+        or bem.get("loading_diagnostic") is not None
+        or bem.get("source_changed_during_run", False)
+    ):
+        raise ValueError("Require finite original healed-memory loading, without diagnostics")
+    reached = (
+        np.average(cumulative >= contact["characteristic_slip"], weights=weights, axis=1)
+        >= loading["stop_coverage"]
+    )
+    hits = np.flatnonzero(reached)
+    actual_stop = None if len(hits) == 0 else float(time[hits[0]])
+    recorded = bem["actuator_hold_time_s"]
+    if (actual_stop is None) != (recorded is None) or (
+        actual_stop is not None and abs(actual_stop - recorded) > 1e-12
+    ):
+        raise ValueError("Recorded BEM stop differs from the first accepted coverage endpoint")
+    ramp_time = time if actual_stop is None else np.minimum(time, actual_stop)
+    expected = loading["restart_actuator"] + loading["actuator_rate"] * ramp_time
+    if not np.allclose(actuator, expected, rtol=0, atol=1e-12):
+        raise ValueError("Actual BEM actuator differs from the original ramp/coverage-stop policy")
+    return dict(
+        actual_endpoint_loading_verified=True,
+        first_coverage_endpoint_s=actual_stop,
+        prescribed_diagnostic_excluded=True,
+        no_fitted_time_shift=True,
+    )
+
+
 def compare_fields(stream, fem, data, bem, *, row_chunk=128):
     indices, ft, fy = observation_grid(stream, fem)
     bt, by = data["time"], data["contact_y"]
@@ -202,6 +242,7 @@ def main():
     with h5py.File(hdf, "r") as stream, np.load(trajectory, allow_pickle=False) as data:
         if abs(data["time"][-1] - 0.045) > 1e-12:
             raise ValueError("BEM trajectory does not cover the original horizon")
+        loading_check = validate_bem_loading(data, bem)
         errors = compare_fields(stream, fem, data, bem, row_chunk=args.row_chunk)
     if any(DIGEST(p) != value for p, value in hashes.items()) or any(
         fingerprint(p) != value for p, value in frozen.items()
@@ -214,6 +255,8 @@ def main():
             status="completed_float64_contact_space_time_comparison",
             bem_run=str(args.bem_run.resolve()),
             fem_run=str(args.fem_run.resolve()),
+            bem_time_method=bem.get("time_method", "bdf2"),
+            bem_loading_check=loading_check,
             frozen_input_sha256=frozen,
             dataset_sha256=hashes,
             field_errors=errors,

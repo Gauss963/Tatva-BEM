@@ -13,6 +13,9 @@
 最新[獨立端點加密](docs/chamfer_refinement.md)在同 end 0.0078125 mm、對 FEM h1 的初始 pressure／shear
 全接觸面 P1 L2 差降至 0.58%／0.51%；三個連續時間 linear response 通過原 5% screen。
 這些是靜態／線性控制，完整非線性事件、時間與空間收斂仍未完成。
+目前正建立 [fresh 2 µs Radau fine kernel](docs/raw_radau.md)，
+另已通過實際雙 block 短程的[完整因果 RK 方程與條件式 adjoint](docs/radau_history_validation.md)。
+完整 fine event／FEM 比較與 initialized Radau 梯度仍待驗證。
 另有[共用 kernel FFT 的完整事件 AD 控制](docs/layout_history.md)，
 解、五個參數梯度與全部 actuator cotangents 已核對，並量測到較短的 AD 時間。
 [含初始化的完整歷史 AD](docs/initialized_contact_ad.md)亦完成兩種 seed interpolation 的 reverse／forward 核對；跨網格梯度仍未收斂。
