@@ -129,7 +129,7 @@ their actual full results and the original-equation audit remain pending.
 - [ ] Oblivious CQ or space-time compression to remove dense weight storage; online FFT is implemented but retains it.
 - [ ] Production memory/time benchmarks for a 45 ms run at a physically justified h and dt.
 - [ ] Boundary-history-aware checkpoint/resume; no state-only CQ restart.
-- [ ] Interior displacement, stress and velocity reconstruction with independent tests.
+- [ ] Full-event interior displacement, stress and velocity reconstruction with independent tests. [Layer-potential, analytic P/S and fixed-kernel pullback controls](interior_fields.md) now pass; bounded full-event reconstruction and high-rate float64 FEM interior observations remain open.
 - [ ] Full 45 ms event-16 loading and rupture with temporal/spatial convergence.
 - [ ] Compare nucleation time/location, rupture speed, stress drop, slip, loading reaction and energy budget with FEM.
 - [ ] Integrate a tested backend interface into a separate Tatva checkout if requested.

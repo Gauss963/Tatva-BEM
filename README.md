@@ -133,6 +133,10 @@ The [event timing and propagation diagnostics](bem/docs/event_observables.md)
 retain saved-time uncertainty for nucleation, fixed-gauge propagation and load
 hold. The completed older 6 µs event still fails these diagnostic tolerances;
 the new graded 2 µs comparison remains pending.
+The [interior-field reconstruction controls](bem/docs/interior_fields.md) add
+displacement, velocity, stress and a fixed-kernel observation pullback, with
+independent analytic P/S wave tests. Full-event interior reconstruction and
+matching float64 FEM observations remain open.
 The [Galerkin implementation and validation](bem/docs/galerkin.md) addresses
 the sampled passivity failures of the original collocation backend.
 

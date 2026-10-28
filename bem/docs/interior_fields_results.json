@@ -1,0 +1,527 @@
+{
+  "status": "completed_manufactured_interior_controls",
+  "frozen_input_sha256": {
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/check_interior_fields.py": "15584fb7064144af1b8301e090350e5d2bb836720c671bf5ce47cdbc2b7dcec3",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/interior_fields.py": "0fc70bdc380349d67a5a0ddd5faa947a1b793bb48caad33fc4287b219d8d235f",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/interior_radau.py": "6b736425f11f20279859dacc5e46d4e15d8ef0648f4a1dcab19830e96a5b6131",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/radau_experiment.py": "e616d36a766ba323d9967af04e0bd154f86a9e158902668df6a8291be9e36408",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/kernels.py": "4008ae38c62c3022034d654a13da75369bd67309af4614006942398e22c1ad08",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/galerkin.py": "85541ddfe5020debde77b2bf2d4a045fe9a52b6183d4af2f762f577be18ab66d",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/galerkin_fast.py": "e6167f6c553e15697b6d67a3a33f559574d22fd49db4aad49c8262d68224b614",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/nodal.py": "632f1a755bb09d784c125d3198f662213ea60045ada9db1555e1b47b3ab39856",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/cq.py": "e9af920593db01f56f1f7138832f0aa603daf07cbf1d688fba8a806f712c1e15",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/mesh.py": "a37e853ed57dd80633c44805b6c13158643ac65db3e4a4cfc12520bbdfa15c4c",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/material.py": "7c4d34d911831f12e3bc99bda2e13e76d468acdf80038dcb60310a568a5342d1"
+  },
+  "spatial": [
+    {
+      "kind": "P",
+      "max_panel_length": 0.125,
+      "panels": 32,
+      "frequency_s_inverse": [
+        1.4,
+        0.9
+      ],
+      "relative_errors": {
+        "displacement": 0.0001984229978941576,
+        "velocity": 0.00019842299789416597,
+        "gradient": 0.0004678837149736105,
+        "stress": 0.00031536930271349595
+      }
+    },
+    {
+      "kind": "P",
+      "max_panel_length": 0.0625,
+      "panels": 64,
+      "frequency_s_inverse": [
+        1.4,
+        0.9
+      ],
+      "relative_errors": {
+        "displacement": 4.962450756378713e-05,
+        "velocity": 4.962450756379728e-05,
+        "gradient": 0.00011696985891499143,
+        "stress": 7.893516356365642e-05
+      }
+    },
+    {
+      "kind": "S",
+      "max_panel_length": 0.125,
+      "panels": 32,
+      "frequency_s_inverse": [
+        1.4,
+        0.9
+      ],
+      "relative_errors": {
+        "displacement": 0.0016595646367282774,
+        "velocity": 0.0016595646367282926,
+        "gradient": 0.001095385071948031,
+        "stress": 0.0012422272252133682
+      }
+    },
+    {
+      "kind": "S",
+      "max_panel_length": 0.0625,
+      "panels": 64,
+      "frequency_s_inverse": [
+        1.4,
+        0.9
+      ],
+      "relative_errors": {
+        "displacement": 0.00041456512675126,
+        "velocity": 0.0004145651267512555,
+        "gradient": 0.00027415198668013607,
+        "stress": 0.00031050968733435495
+      }
+    }
+  ],
+  "temporal": [
+    {
+      "kind": "P",
+      "max_panel_length": 0.03125,
+      "panels": 128,
+      "points": [
+        [
+          0.4,
+          0.45
+        ]
+      ],
+      "speed": 1.702416936792721,
+      "cq": {
+        "dt_s": 0.04,
+        "steps": 30,
+        "fft_size": 64,
+        "radius": 0.6978305848598664,
+        "array_peak_estimate_bytes": 59648,
+        "weight_bytes": 7936,
+        "sampled_frequency_evaluations": 66,
+        "every_requested_lag_retained": true,
+        "caller_state_and_operator_assembly_excluded_from_estimate": true
+      },
+      "errors": {
+        "displacement": {
+          "relative_saved_endpoint_l2": 0.040837042423989285,
+          "maximum_absolute_difference": 0.03327948889836807
+        },
+        "velocity": {
+          "relative_saved_endpoint_l2": 0.10627775588382332,
+          "maximum_absolute_difference": 1.1266232031208112
+        },
+        "stress": {
+          "relative_saved_endpoint_l2": 0.1063005536285346,
+          "maximum_absolute_difference": 2.3012946581127487
+        }
+      },
+      "sampling_and_apply_seconds": 0.5213003326207399,
+      "fitted_time_shift_s": 0.0
+    },
+    {
+      "kind": "P",
+      "max_panel_length": 0.03125,
+      "panels": 128,
+      "points": [
+        [
+          0.4,
+          0.45
+        ]
+      ],
+      "speed": 1.702416936792721,
+      "cq": {
+        "dt_s": 0.02,
+        "steps": 60,
+        "fft_size": 128,
+        "radius": 0.8353625469578262,
+        "array_peak_estimate_bytes": 116480,
+        "weight_bytes": 15616,
+        "sampled_frequency_evaluations": 130,
+        "every_requested_lag_retained": true,
+        "caller_state_and_operator_assembly_excluded_from_estimate": true
+      },
+      "errors": {
+        "displacement": {
+          "relative_saved_endpoint_l2": 0.006454669102031255,
+          "maximum_absolute_difference": 0.005509538001716385
+        },
+        "velocity": {
+          "relative_saved_endpoint_l2": 0.01735652351536052,
+          "maximum_absolute_difference": 0.17366003334068658
+        },
+        "stress": {
+          "relative_saved_endpoint_l2": 0.017145844487576965,
+          "maximum_absolute_difference": 0.3536548809264435
+        }
+      },
+      "sampling_and_apply_seconds": 0.9236977910622954,
+      "fitted_time_shift_s": 0.0
+    },
+    {
+      "kind": "P",
+      "max_panel_length": 0.03125,
+      "panels": 128,
+      "points": [
+        [
+          0.4,
+          0.45
+        ]
+      ],
+      "speed": 1.702416936792721,
+      "cq": {
+        "dt_s": 0.01,
+        "steps": 120,
+        "fft_size": 256,
+        "radius": 0.9139816994654905,
+        "array_peak_estimate_bytes": 230144,
+        "weight_bytes": 30976,
+        "sampled_frequency_evaluations": 258,
+        "every_requested_lag_retained": true,
+        "caller_state_and_operator_assembly_excluded_from_estimate": true
+      },
+      "errors": {
+        "displacement": {
+          "relative_saved_endpoint_l2": 0.002391065990915953,
+          "maximum_absolute_difference": 0.0014380562199223514
+        },
+        "velocity": {
+          "relative_saved_endpoint_l2": 0.004898706294374404,
+          "maximum_absolute_difference": 0.03834681567941381
+        },
+        "stress": {
+          "relative_saved_endpoint_l2": 0.003680139552237561,
+          "maximum_absolute_difference": 0.0571305323237663
+        }
+      },
+      "sampling_and_apply_seconds": 1.7147540841251612,
+      "fitted_time_shift_s": 0.0
+    },
+    {
+      "kind": "P",
+      "max_panel_length": 0.015625,
+      "panels": 256,
+      "points": [
+        [
+          0.4,
+          0.45
+        ]
+      ],
+      "speed": 1.702416936792721,
+      "cq": {
+        "dt_s": 0.01,
+        "steps": 120,
+        "fft_size": 256,
+        "radius": 0.9139816994654905,
+        "array_peak_estimate_bytes": 230144,
+        "weight_bytes": 30976,
+        "sampled_frequency_evaluations": 258,
+        "every_requested_lag_retained": true,
+        "caller_state_and_operator_assembly_excluded_from_estimate": true
+      },
+      "errors": {
+        "displacement": {
+          "relative_saved_endpoint_l2": 0.0009710467498941843,
+          "maximum_absolute_difference": 0.0006998388277844603
+        },
+        "velocity": {
+          "relative_saved_endpoint_l2": 0.0025134210677758267,
+          "maximum_absolute_difference": 0.02314575838834898
+        },
+        "stress": {
+          "relative_saved_endpoint_l2": 0.002391312314167613,
+          "maximum_absolute_difference": 0.04705742270872548
+        }
+      },
+      "sampling_and_apply_seconds": 3.4282254995778203,
+      "fitted_time_shift_s": 0.0
+    },
+    {
+      "kind": "P",
+      "max_panel_length": 0.015625,
+      "panels": 256,
+      "points": [
+        [
+          0.4,
+          0.45
+        ]
+      ],
+      "speed": 1.702416936792721,
+      "cq": {
+        "dt_s": 0.005,
+        "steps": 240,
+        "fft_size": 512,
+        "radius": 0.9560239010953075,
+        "array_peak_estimate_bytes": 457472,
+        "weight_bytes": 61696,
+        "sampled_frequency_evaluations": 514,
+        "every_requested_lag_retained": true,
+        "caller_state_and_operator_assembly_excluded_from_estimate": true
+      },
+      "errors": {
+        "displacement": {
+          "relative_saved_endpoint_l2": 0.0005794378032432131,
+          "maximum_absolute_difference": 0.0003659600496357987
+        },
+        "velocity": {
+          "relative_saved_endpoint_l2": 0.0011282795246337967,
+          "maximum_absolute_difference": 0.009830949432429103
+        },
+        "stress": {
+          "relative_saved_endpoint_l2": 0.0007659449072187003,
+          "maximum_absolute_difference": 0.011165418328450964
+        }
+      },
+      "sampling_and_apply_seconds": 6.6055223336443305,
+      "fitted_time_shift_s": 0.0
+    },
+    {
+      "kind": "S",
+      "max_panel_length": 0.03125,
+      "panels": 128,
+      "points": [
+        [
+          0.4,
+          0.45
+        ]
+      ],
+      "speed": 1.0080972981818899,
+      "cq": {
+        "dt_s": 0.04,
+        "steps": 30,
+        "fft_size": 64,
+        "radius": 0.6978305848598664,
+        "array_peak_estimate_bytes": 59648,
+        "weight_bytes": 7936,
+        "sampled_frequency_evaluations": 66,
+        "every_requested_lag_retained": true,
+        "caller_state_and_operator_assembly_excluded_from_estimate": true
+      },
+      "errors": {
+        "displacement": {
+          "relative_saved_endpoint_l2": 0.06494137652444382,
+          "maximum_absolute_difference": 0.05762257060112208
+        },
+        "velocity": {
+          "relative_saved_endpoint_l2": 0.16127173214322343,
+          "maximum_absolute_difference": 1.850958938804025
+        },
+        "stress": {
+          "relative_saved_endpoint_l2": 0.16095380131423673,
+          "maximum_absolute_difference": 2.213183189852808
+        }
+      },
+      "sampling_and_apply_seconds": 0.521161500364542,
+      "fitted_time_shift_s": 0.0
+    },
+    {
+      "kind": "S",
+      "max_panel_length": 0.03125,
+      "panels": 128,
+      "points": [
+        [
+          0.4,
+          0.45
+        ]
+      ],
+      "speed": 1.0080972981818899,
+      "cq": {
+        "dt_s": 0.02,
+        "steps": 60,
+        "fft_size": 128,
+        "radius": 0.8353625469578262,
+        "array_peak_estimate_bytes": 116480,
+        "weight_bytes": 15616,
+        "sampled_frequency_evaluations": 130,
+        "every_requested_lag_retained": true,
+        "caller_state_and_operator_assembly_excluded_from_estimate": true
+      },
+      "errors": {
+        "displacement": {
+          "relative_saved_endpoint_l2": 0.011874623914089763,
+          "maximum_absolute_difference": 0.009982488508557208
+        },
+        "velocity": {
+          "relative_saved_endpoint_l2": 0.029622496470885506,
+          "maximum_absolute_difference": 0.3169451212916563
+        },
+        "stress": {
+          "relative_saved_endpoint_l2": 0.0308451038098645,
+          "maximum_absolute_difference": 0.3684274864983532
+        }
+      },
+      "sampling_and_apply_seconds": 0.9470719583332539,
+      "fitted_time_shift_s": 0.0
+    },
+    {
+      "kind": "S",
+      "max_panel_length": 0.03125,
+      "panels": 128,
+      "points": [
+        [
+          0.4,
+          0.45
+        ]
+      ],
+      "speed": 1.0080972981818899,
+      "cq": {
+        "dt_s": 0.01,
+        "steps": 120,
+        "fft_size": 256,
+        "radius": 0.9139816994654905,
+        "array_peak_estimate_bytes": 230144,
+        "weight_bytes": 30976,
+        "sampled_frequency_evaluations": 258,
+        "every_requested_lag_retained": true,
+        "caller_state_and_operator_assembly_excluded_from_estimate": true
+      },
+      "errors": {
+        "displacement": {
+          "relative_saved_endpoint_l2": 0.004663687858177276,
+          "maximum_absolute_difference": 0.003298436343834491
+        },
+        "velocity": {
+          "relative_saved_endpoint_l2": 0.009796083212204956,
+          "maximum_absolute_difference": 0.0861968871081742
+        },
+        "stress": {
+          "relative_saved_endpoint_l2": 0.01402552994622093,
+          "maximum_absolute_difference": 0.13213339738382854
+        }
+      },
+      "sampling_and_apply_seconds": 1.7736667497083545,
+      "fitted_time_shift_s": 0.0
+    },
+    {
+      "kind": "S",
+      "max_panel_length": 0.015625,
+      "panels": 256,
+      "points": [
+        [
+          0.4,
+          0.45
+        ]
+      ],
+      "speed": 1.0080972981818899,
+      "cq": {
+        "dt_s": 0.01,
+        "steps": 120,
+        "fft_size": 256,
+        "radius": 0.9139816994654905,
+        "array_peak_estimate_bytes": 230144,
+        "weight_bytes": 30976,
+        "sampled_frequency_evaluations": 258,
+        "every_requested_lag_retained": true,
+        "caller_state_and_operator_assembly_excluded_from_estimate": true
+      },
+      "errors": {
+        "displacement": {
+          "relative_saved_endpoint_l2": 0.0019119583634930777,
+          "maximum_absolute_difference": 0.0014948533818001097
+        },
+        "velocity": {
+          "relative_saved_endpoint_l2": 0.0045888089204392584,
+          "maximum_absolute_difference": 0.045548730638111934
+        },
+        "stress": {
+          "relative_saved_endpoint_l2": 0.005199471749350721,
+          "maximum_absolute_difference": 0.051183658068314486
+        }
+      },
+      "sampling_and_apply_seconds": 3.4468254996463656,
+      "fitted_time_shift_s": 0.0
+    },
+    {
+      "kind": "S",
+      "max_panel_length": 0.015625,
+      "panels": 256,
+      "points": [
+        [
+          0.4,
+          0.45
+        ]
+      ],
+      "speed": 1.0080972981818899,
+      "cq": {
+        "dt_s": 0.005,
+        "steps": 240,
+        "fft_size": 512,
+        "radius": 0.9560239010953075,
+        "array_peak_estimate_bytes": 457472,
+        "weight_bytes": 61696,
+        "sampled_frequency_evaluations": 514,
+        "every_requested_lag_retained": true,
+        "caller_state_and_operator_assembly_excluded_from_estimate": true
+      },
+      "errors": {
+        "displacement": {
+          "relative_saved_endpoint_l2": 0.0011016097707360554,
+          "maximum_absolute_difference": 0.0008395324139632425
+        },
+        "velocity": {
+          "relative_saved_endpoint_l2": 0.0022781763069324727,
+          "maximum_absolute_difference": 0.022028209269012326
+        },
+        "stress": {
+          "relative_saved_endpoint_l2": 0.0034448158623584255,
+          "maximum_absolute_difference": 0.03378042511838734
+        }
+      },
+      "sampling_and_apply_seconds": 6.654722208157182,
+      "fitted_time_shift_s": 0.0
+    }
+  ],
+  "dataset_sha256": {
+    "P-h0.03125-dt0.04.npz": "a8dbf861ba327d1a2ee958ca57603b7b7c05b6ffbb0636ccd2041bb970118689",
+    "P-h0.03125-dt0.02.npz": "c810bada8a2c23ba69637e1146df17e6631729a063a6eab06e72941d74e28eb8",
+    "P-h0.03125-dt0.01.npz": "febd717d02bc19854c75ce68a17f0e9d825d4e27e69f2fb90d7b7775296abf9e",
+    "P-h0.015625-dt0.01.npz": "6ae4a7d0e13cfd3d5fd0e9e84db08aafc0b06bb05d7dfb8b567c86b2345deffd",
+    "P-h0.015625-dt0.005.npz": "2e17e3d76844a5239869344b323a564c335df986cf2d1d20e42e6606e45be6e3",
+    "S-h0.03125-dt0.04.npz": "5bbc99e8d069ca1ac3cfb902b75ed0b2b07bada7559095ad9424b79cf03f928e",
+    "S-h0.03125-dt0.02.npz": "626a16d66c69c1027ff5eb69144e90352442dabdea1f171c550507bc1f2c4e4f",
+    "S-h0.03125-dt0.01.npz": "73aa07e121886644863a0551c2814a519291d17c1698806a81d8bcd8c42d2a7d",
+    "S-h0.015625-dt0.01.npz": "181144fce882ffc617796118173abb6f52c0e33942367209b2e826ce176488b0",
+    "S-h0.015625-dt0.005.npz": "fa7508fdcb47552ac1907417cb6b1325d3a9978b94ef510cc4f26fd3c8a26774"
+  },
+  "seconds": 26.62786270864308,
+  "scope": "Unit-square plane P/S waves, analytic causal pulse and no fitted shift; no finite-body reflection, contact, original-event or FEM proof",
+  "same_accuracy_fem_advantage_verified": false,
+  "full_original_event_reproduced": false,
+  "local_verification": {
+    "test_count": 23,
+    "pytest_seconds": 1.23,
+    "control_records": [
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/interior-fields-checks-20261028-v1/control.json",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/interior-fields-checks-20261028-v2/control.json",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/interior-fields-checks-20261028-v3/control.json",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/interior-fields-checks-20261028-v4/control.json"
+    ],
+    "serialized_validation_fem_control_seconds": 36.76750666741282,
+    "same_fem_pid": 29338,
+    "same_fem_start": "Wed Oct 28 20:56:56 2026"
+  },
+  "linear_pullback_control": {
+    "fixed_kernel_only": true,
+    "all_stage_dot_rtol": 1e-14,
+    "weighted_l2_jax_gradient_rtol": 1e-12,
+    "source_sha256": {
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/interior_radau_adjoint.py": "28e472e3036622b1ff7f2e409eaabf5aacb836218a176987bc845d6a78a056f1",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tests/test_interior_radau_adjoint.py": "6d8222eed18b0c591a0f0d490e8ae694e415da964f319943bd9e12557295dd96"
+    },
+    "full_event_initialized_ad_connected": false
+  },
+  "fem_interior_observation_schema": {
+    "inspected_file": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/event-observables-checks-20261028-v2/graded-prefix-proof/simulation.h5",
+    "file_sha256": "3e3d3f140eb7a1b96330bf74cf4b9fb15e4411fd1250586cd1e2161a4e0675d6",
+    "bulk_frames_allocated": 69,
+    "shear_frames_requested": 64,
+    "moving": {
+      "nodes": 41697,
+      "displacement_dtype": "float32",
+      "stress_dtype": "float32"
+    },
+    "stationary": {
+      "nodes": 37056,
+      "displacement_dtype": "float32",
+      "stress_dtype": "float32"
+    },
+    "bulk_velocity_dataset_present": false,
+    "high_rate_float64_interior_probes_present": false
+  }
+}
