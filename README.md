@@ -27,8 +27,13 @@ they do not establish complete nonlinear event agreement or a speed advantage.
 An explicit uncondensed static backend also resolves a fine-panel reconstruction
 roundoff failure at the original equilibrium tolerance.
 
-Fresh 2 us Radau construction is now running on the graded fine mesh, following
+Fresh 2 us Radau construction has started on the graded fine mesh, following
 the [measured time-symbol comparison](bem/docs/bulk_time_symbol.md).
+The complete independent graded FEM reference is replaying its damaged-output
+prefix before continuing from a verified checkpoint after an abrupt process interruption.
+The BEM frequency prefix is
+preserved on disk; its in-memory sampling state was lost and disk continuation
+still needs implementation. See the [execution and measured CPU-budget record](bem/docs/reference_first.md).
 The [complete causal RK audit and conditional adjoint](bem/docs/radau_history_validation.md)
 pass real two-body short-run controls, including selected healed-preload
 sensitivities. Fine event/FEM agreement and fine initialized Radau gradients

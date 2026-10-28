@@ -1,6 +1,6 @@
 # 近期文獻與 FEM 對照的實作決策
 
-檢索／閱讀日期：2026-10-24；補讀2026-10-25、2026-10-26、2026-10-27。範圍是有限彈性體的 fully dynamic 接觸、
+檢索／閱讀日期：2026-10-24；補讀至2026-10-28。範圍是有限彈性體的 fully dynamic 接觸、
 時間域 BEM、卷積歷史加速與角落誤差；以下不是整個 BEM 領域的完整系統性回顧。
 目標是在相同物理模型與可量化誤差下重現 FEM，然後證明穩定性或總時間的優勢。
 目前尚未達成這個目標。
@@ -306,6 +306,39 @@ Matsumoto、Maruyama、Ma、Yokota 的
 尚未實作這篇的 HSS／proxy 演算法，也不把對稱性當成正定性或被動性。
 新近 elastodynamic [3D-ACA／FMM preprint](https://arxiv.org/html/2607.15292v1)
 仍提供頻率與空間壓縮分開控制的路線；其線性、零初態條件也不能取代本事件驗證。
+
+## 2026-10-28 補讀：新穩定性結果的適用條件
+
+Ren、Su，**Stability and Error Estimates for Convolution Quadrature under Radial
+Symbol Bounds**，[2026-10-23 v2 全文](https://arxiv.org/html/2610.23163v2)
+（10 月 16 日首次提交）。已讀 §2.1、§3 的假設與 Theorem 3–4、§4 及結論。
+它對 multistep CQ 保留徑向尺度函數的誤差估計；例子是分數黏彈性與記憶模型。
+其前提包含算子在大於右半平面的指定扇形內解析，並有相應的全域徑向界。
+它沒有證明有限彈性體、Radau 或非單調摩擦的穩定性。
+
+對本案的適用性判斷：無阻尼有限體的共振不能被上述解析域假設略過。
+例如固定一端的均勻彈性桿，其另一端位移至軸力的動態剛度
+`Z(s)=rho*A*c*s*coth(s*L/c)`，在 `s=i*n*pi*c/L`（非零整數 n）有極點；
+包含虛軸的扇形就不符合該假設。這是解析桿的反例診斷，
+不是本兩 block 的模態計算，也不是否定右半平面 CQ 的適用性。
+因此不引用此新定理放寬目前的因果算子 residual、時間加密或能量檢查。
+
+另檢索到 Coppolino、Desiderio 於 2026-10-06 提交的
+[An energetic marriage à la mode between FEM and BEM to solve complex 3D elastodynamic problems](https://doi.org/10.2139/ssrn.7570376)。
+本次只能取得作者提交頁的摘要，PDF 回傳 403；未閱讀其完整證明或數值表。
+摘要描述以非重疊 FEM/BEM 區域及人工界面條件建立能量穩定估計。
+它可列為未來混合後端的候選，不能當作本純 BEM 摩擦模型已穩定或已加速的證據。
+
+重新核對 Keshava、Schanz 的 [3D-ACA 預印本 §3](https://arxiv.org/html/2607.15292v1#S3)：
+其矩陣值 pivot 由最小奇異值選取；無可逆 pivot 時回退 dense。
+這支持在未來壓縮中保留失敗回退與原算子檢查的決策。
+但目前尚未移植該 tensor ACA；既有 raw-layer Chebyshev 取樣也不能
+沿用它的壓縮比或誤差保證。
+
+接續工作的優先順序仍是完整 graded FEM 與 fresh Radau 的場比較，
+再量測相同精度的穩定性／總耗時。最新
+[執行紀錄](reference_first.md) 另外區分執行緒設定與實際平均 CPU 配額；
+不把已做的靜態、線性與 AD 短程控制當成完整事件結果。
 
 ## 一致性與效能驗收
 
