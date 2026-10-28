@@ -1,0 +1,156 @@
+{
+  "utc_snapshot": "2026-10-28T13:55:40.736552+00:00",
+  "source_sha256": {
+    "bem/tools/prepare_raw_radau_resolvent.py": "e8eeb8098c1dc72cf99a1a599476f7b5c0640a4209494b4c49387206f9fbd7e6",
+    "bem/tools/radau_sampling_checkpoint.py": "2ed52f4aca63a77e919f3e090d3f7cbe297f84677d6827a6fa71d0c681130542",
+    "bem/tools/raw_layer_sampling.py": "07a043bf8c533b83ed35ad562cca2015669515627cd0329e91349ecda2eadf95",
+    "bem/tools/radau_raw_sampling.py": "dc743da265d444e43da572bb07c25d3508f7daae0e13b4cf7404844a12f4a9ff",
+    "bem/tools/buffered_spectrum.py": "29cf1b09653253288153b83c2f55da78466ea1bb64002b51e138845bc9c34d5c",
+    "bem/tests/test_radau_sampling_checkpoint.py": "88d455940ba208e71493eeb2468fccf37d0dfb960dc0c7e27019a9f4fa01dc79"
+  },
+  "local_validation": {
+    "test_file": "bem/tests/test_radau_sampling_checkpoint.py",
+    "passed": 7,
+    "seconds": 39.25,
+    "covered": [
+      "bitwise continuation from inside an accepted interpolation interval",
+      "committed matrix corruption rejected without rewrite",
+      "real BEM interruption during raw sampling",
+      "real BEM interruption during compact-family conversion",
+      "real BEM interruption after physical weight processing",
+      "legacy producer receipt migration and read-only verification",
+      "changed CQ dt, source package or SciPy runtime rejected",
+      "exclusive constructor lock"
+    ],
+    "reference_checks": "Both compact families, both final time-weight families, finite-DFT wrap, instantaneous impedance, all saved causal actuator response arrays match uninterrupted original producer bitwise",
+    "full_original_event_reproduced": false
+  },
+  "actual_fine_checkpoint_verification": {
+    "status": "verified_checkpoint_not_running",
+    "plan": {
+      "dt": 2e-06,
+      "steps": 22500,
+      "dofs": 531,
+      "fft_size": 65536,
+      "radius": 0.999648715112665,
+      "estimated_peak_bytes": 90219733416,
+      "weight_bytes": 50755235688
+    },
+    "committed_matrices": {
+      "work-family0.npy": 256,
+      "work-family1.npy": 0,
+      "compact-family0.npy": 0,
+      "compact-family1.npy": 0
+    },
+    "required_disk_bytes": 744364558392,
+    "additional_disk_bytes": 743209629752,
+    "estimated_construction_array_peak_mib": 18051.495361328125,
+    "source_and_runtime_verified": true,
+    "build_modified": false,
+    "full_original_event_reproduced": false,
+    "same_accuracy_fem_advantage_verified": false
+  },
+  "actual_fine_preserved_prefix": {
+    "utc": "2026-10-28T12:29:21.176288+00:00",
+    "path": "/Volumes/Gauss-T7/Tatva-BEM-cache/fresh-radau2us-graded-q12-full45-20261028/work-family0.npy",
+    "shape": [
+      32769,
+      531,
+      531
+    ],
+    "fortran": false,
+    "dtype": "complex128",
+    "offset": 128,
+    "committed_matrices": 256,
+    "committed_bytes": 1154912256,
+    "committed_bytes_sha256": "f3802c5c698bed22e55be770bb4672ee9ec86d50c9ab24f1e9f1fc982c905801",
+    "progress": {
+      "phase": "raw_radau_branch",
+      "branch": 0,
+      "sampling": {
+        "method": "raw_layers_before_condensation",
+        "source_evaluations": 195,
+        "transformed_grid_points": 256,
+        "direct_grid_points": 128,
+        "interpolated_grid_points": 128,
+        "accepted_intervals": 2,
+        "rejected_intervals": 0,
+        "maximum_raw_normalized_check": 0.002054797818835349,
+        "maximum_raw_normalized_tail": 0.0016556725894814257,
+        "maximum_output_normalized_check": 0.0018572433479889252,
+        "estimated_interpolation_array_bytes": 8979822336,
+        "provider_geometry_and_solver_workspace_excluded": true,
+        "certified_error_bound": false,
+        "all_fft_grid_points_emitted": false
+      },
+      "frequency_matrices_committed": 256,
+      "pending_buffer_matrices": 0,
+      "elapsed_seconds": 7230.15364999976
+    },
+    "source_preflight_sha256": "6f54fbdee98a4e4f83cf8067e3a85c51f53e0ee7c56447b0980699064ac446e4",
+    "requires_new_resume_implementation": true,
+    "completed_kernel": false
+  },
+  "serial_test_controls": [
+    {
+      "utc_start": "2026-10-28T13:29:02.362197+00:00",
+      "four_core_serial_validation": true,
+      "fem_wait_included_in_its_wall_cost": true,
+      "both_stopped": {
+        "29340": "Wed Oct 28 20:56:56 2026     T    /opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python -B /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/limit_process_cpu.py --pid 29338 --expected-start Wed Oct 28 20:56:56 2026 --expected-command-fragment /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/run_checkpointed_fem_reference.py --cores 3.85 --output /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-reference-prefix-replay-20261028/cpu-quota",
+        "29338": "Wed Oct 28 20:56:56 2026     T    /opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python -B /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/run_checkpointed_fem_reference.py --output /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-radau-study-graded-h2-end015625-4c-f64-replayed --replay-checkpoint /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-reference-recovery-20261028-1230/input-backup/checkpoint.npz -- --cores 4 --mesh-size 2 --contact-end-size 0.015625 --time-step 0 --shear-duration 0.045 --normal-duration 0.002 --normal-frames 4 --shear-frames 64 --interface-normal-frames 4 --interface-shear-frames 9000 --float64-contact-observations --checkpoint-interval 600"
+      },
+      "exit_code": 1,
+      "seconds": 30.081792624667287,
+      "utc_end": "2026-10-28T13:29:32.443959+00:00",
+      "same_fem_resumed": true
+    },
+    {
+      "utc_start": "2026-10-28T13:31:11.030706+00:00",
+      "four_core_serial_validation": true,
+      "fem_wait_included_in_its_wall_cost": true,
+      "exit_code": 0,
+      "seconds": 30.10045116674155,
+      "utc_end": "2026-10-28T13:31:41.131135+00:00",
+      "same_fem_resumed": true
+    },
+    {
+      "utc_start": "2026-10-28T13:39:23.306424+00:00",
+      "four_core_serial_validation": true,
+      "fem_wait_included_in_its_wall_cost": true,
+      "pytest_exit_code": 0,
+      "fine_verify_exit_code": 0,
+      "seconds": 41.41418912447989,
+      "utc_end": "2026-10-28T13:40:04.722577+00:00",
+      "same_fem_resumed": true
+    },
+    {
+      "utc_start": "2026-10-28T13:52:10.986457+00:00",
+      "four_core_serial_validation": true,
+      "fem_wait_included_in_its_wall_cost": true,
+      "pytest_exit_code": 0,
+      "fine_verify_exit_code": 0,
+      "seconds": 41.09423320740461,
+      "utc_end": "2026-10-28T13:52:52.080882+00:00",
+      "same_fem_resumed": true
+    }
+  ],
+  "fem_pauses_seconds_including_failed_validation": 142.69066612329334,
+  "fem_wall_cost_includes_these_controls": true,
+  "disk_available_bytes": 1054360584192,
+  "actual_fine_build_started": false,
+  "current_fem_processes": [
+    "29337     1 Wed Oct 28 20:56:56 2026     Ss     0:01.03",
+    "29338 29337 Wed Oct 28 20:56:56 2026     R    215:56.94",
+    "29340 29337 Wed Oct 28 20:56:56 2026     S      0:40.47"
+  ],
+  "previous_commit_ci": {
+    "head_sha": "135d591022275b9d1845152873cfca8fb7a052a1",
+    "run_id": 40692625982,
+    "conclusion": "success"
+  },
+  "new_code_ci": "pending_push",
+  "original_tatva_readonly": true,
+  "same_accuracy_fem_advantage_verified": false,
+  "full_original_event_reproduced": false
+}

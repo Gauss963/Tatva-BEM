@@ -12,6 +12,7 @@ import os
 import resource
 import runpy
 import shutil
+import signal
 import sys
 from dataclasses import asdict, replace
 from pathlib import Path
@@ -36,6 +37,9 @@ REPLAY = runpy.run_path(str(TOOLS / "replay_resolvent.py"))
 WORK = runpy.run_path(str(TOOLS / "build_resolvent_history.py"))["compliance_in_work_coordinates"]
 TRANSFER = runpy.run_path(str(TOOLS / "trace_schur_experiment.py"))["TraceSchurTransfer"]
 BUFFER = runpy.run_path(str(TOOLS / "buffered_spectrum.py"))["BufferedSpectrumWriter"]
+CHECKPOINT = runpy.run_path(str(TOOLS / "radau_sampling_checkpoint.py"))
+LEGACY_PRODUCER_SHA256 = "d56a13706c3d78d55958587b84650f268ab08ea056a3224840df5628063aa363"
+ACTIVE_JOURNAL = ACTIVE_LEASE = None
 
 
 def construction_arrays(
@@ -79,7 +83,8 @@ def construction_arrays(
     )
 
 
-def main():
+def _main():
+    global ACTIVE_JOURNAL, ACTIVE_LEASE
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "source",
@@ -107,10 +112,63 @@ def main():
     parser.add_argument("--max-workspace-mb", type=float, default=10240)
     parser.add_argument("--max-memory-mb", type=float, default=18432)
     parser.add_argument("--preflight-only", action="store_true")
+    parser.add_argument(
+        "--durable-build",
+        action="store_true",
+        help="Journal raw/compact matrices and retain original modes",
+    )
+    parser.add_argument("--resume", action="store_true", help="Continue this exact durable build")
+    parser.add_argument(
+        "--resume-receipt", type=Path, help="Explicit SHA256 receipt for a legacy raw prefix"
+    )
+    parser.add_argument(
+        "--verify-resume-only",
+        action="store_true",
+        help="Verify saved source, matrices and resources without modifying the build",
+    )
     args = parser.parse_args()
+    publish = CHECKPOINT["atomic_json"] if args.durable_build else write_json
     output = args.output.resolve()
-    if output.exists() or output.is_relative_to(Path("/Volumes/Gauss-T7/tatva").resolve()):
+    if (output.exists() and not args.resume) or output.is_relative_to(
+        Path("/Volumes/Gauss-T7/tatva").resolve()
+    ):
         raise ValueError("Choose a fresh kernel directory outside protected Tatva")
+    if (args.resume and (not args.durable_build or args.preflight_only or not output.is_dir())) or (
+        (args.resume_receipt is not None or args.verify_resume_only) and not args.resume
+    ):
+        raise ValueError(
+            "Resume requires an existing durable build; a legacy receipt is resume-only"
+        )
+    previous = None
+    if args.resume:
+        previous = json.loads((output / "preflight.json").read_text())
+        if previous["arguments"].get("preflight_only"):
+            raise ValueError("A preflight-only directory has no kernel construction to resume")
+        if (output / "summary.json").exists():
+            raise ValueError("A completed kernel does not require resuming")
+        current = {k: str(v) if isinstance(v, Path) else v for k, v in vars(args).items()}
+        for key, value in current.items():
+            if (
+                key
+                not in {
+                    "resume",
+                    "resume_receipt",
+                    "durable_build",
+                    "preflight_only",
+                    "verify_resume_only",
+                }
+                and previous["arguments"].get(key) != value
+            ):
+                raise ValueError(f"Resume changes the recorded argument: {key}")
+        for path, expected in previous["frozen_input_sha256"].items():
+            actual = fingerprint(path)
+            if Path(path).resolve() == Path(__file__).resolve():
+                if expected not in {actual, LEGACY_PRODUCER_SHA256}:
+                    raise ValueError(
+                        "Unknown producer source migration; preserve the partial build"
+                    )
+            elif actual != expected:
+                raise ValueError(f"Resume changes a numerical source/input: {path}")
     if (
         args.workers < 1
         or args.fft_rows < 1
@@ -152,6 +210,10 @@ def main():
     keys = ["source_sha256", "case_sha256", "restart_data_sha256"]
     if any(source["environment"][key] != environment[key] for key in keys):
         raise ValueError("Source metadata differs from the current numerical package or case")
+    if previous is not None and any(
+        previous["environment"][key] != environment[key] for key in [*keys, "numpy", "scipy"]
+    ):
+        raise ValueError("Resume changes the numerical package, case, restart data or runtime")
     model = load_nodal_model(
         options["case"],
         max_panel_length=options["h"],
@@ -163,6 +225,10 @@ def main():
     )
     d = 2 * len(model.moving_contact) + 1
     plan = plan_cq(d, args.dt, steps, max_memory_mb=1e9, disk_spectrum=True)
+    if previous is not None and (
+        previous["plan"] != asdict(plan) or previous["source_mesh_arguments"] != options
+    ):
+        raise ValueError("Resume changes the CQ plan or mesh configuration")
     sampling = RAW["RAW"]["RawSamplingOptions"](
         degree=args.degree, raw_rtol=args.raw_rtol, output_rtol=args.output_rtol
     )
@@ -210,6 +276,7 @@ def main():
         "fortran_weight_storage.py",
         "bounded_weight_conversion.py",
         "buffered_spectrum.py",
+        "radau_sampling_checkpoint.py",
     ]
     frozen = {
         str(p.resolve()): fingerprint(p)
@@ -225,36 +292,102 @@ def main():
 
     weight_bytes = (steps + 1) * d * d * 8
     required = 2 * spectrum_bytes(plan) + 2 * weight_bytes + (steps + 1) * 8 * d * 8 + 1024**2
+    if args.durable_build:
+        required += 2 * spectrum_bytes(plan)
     if args.weight_layout == "fortran":
         required += weight_bytes + 8192
     output.parent.mkdir(parents=True, exist_ok=True)
-    if required > shutil.disk_usage(output.parent).free:
+    allocated = 0
+    if args.resume:
+        for name in [
+            *CHECKPOINT["CHANNELS"],
+            "weights0.npy",
+            "weights1.npy",
+            "weights0-fortran.npy",
+            "weights1-fortran.npy",
+        ]:
+            path = output / name
+            if path.is_file():
+                allocated += path.stat().st_blocks * 512
+    additional = max(0, required - allocated)
+    if additional > shutil.disk_usage(output.parent).free:
         raise ValueError("Insufficient disk for both complete spectra, time weights and startup")
-    output.mkdir()
-    write_json(
-        output / "preflight.json",
-        dict(
-            status="preflight_only_not_a_complete_kernel",
-            arguments={k: str(v) if isinstance(v, Path) else v for k, v in vars(args).items()},
-            source_metadata=str(args.source.resolve()),
-            source_role="Mesh/case defaults only; no frequency values reused",
-            source_mesh_arguments=options,
-            plan=asdict(plan),
-            history_dofs=d,
-            stage_dofs=2 * d,
-            estimated_array_mib={k: v / 1024**2 for k, v in arrays.items()},
-            required_disk_bytes=required,
-            storage_conversion_array_mib=conversion / 1024**2,
-            branches_sampled_sequentially=True,
-            frozen_input_sha256=frozen,
-            environment=environment,
-            original_tatva_readonly=True,
-        ),
-    )
+    if not args.resume:
+        output.mkdir()
+        publish(
+            output / "preflight.json",
+            dict(
+                status="preflight_only_not_a_complete_kernel",
+                arguments={k: str(v) if isinstance(v, Path) else v for k, v in vars(args).items()},
+                source_metadata=str(args.source.resolve()),
+                source_role="Mesh/case defaults only; no frequency values reused",
+                source_mesh_arguments=options,
+                plan=asdict(plan),
+                history_dofs=d,
+                stage_dofs=2 * d,
+                estimated_array_mib={k: v / 1024**2 for k, v in arrays.items()},
+                required_disk_bytes=required,
+                additional_disk_bytes=additional,
+                storage_conversion_array_mib=conversion / 1024**2,
+                branches_sampled_sequentially=True,
+                frozen_input_sha256=frozen,
+                environment=environment,
+                original_tatva_readonly=True,
+            ),
+        )
     if args.preflight_only:
         print(output / "preflight.json", flush=True)
         return
-    spectra = [DiskSpectrum(output / f"work-family{i}.npy", plan) for i in range(2)]
+    if args.verify_resume_only:
+        verified = CHECKPOINT["SamplingJournal"](
+            output, plan, resume=True, receipt=args.resume_receipt
+        )
+        print(
+            json.dumps(
+                dict(
+                    status="verified_checkpoint_not_running",
+                    plan=asdict(plan),
+                    committed_matrices={
+                        name: verified.prefix(name) for name in CHECKPOINT["CHANNELS"]
+                    },
+                    required_disk_bytes=required,
+                    additional_disk_bytes=additional,
+                    estimated_construction_array_peak_mib=arrays["peak"] / 1024**2,
+                    source_and_runtime_verified=True,
+                    build_modified=False,
+                    full_original_event_reproduced=False,
+                    same_accuracy_fem_advantage_verified=False,
+                ),
+                indent=2,
+            ),
+            flush=True,
+        )
+        return
+    journal = None
+    if args.durable_build:
+        ACTIVE_LEASE = CHECKPOINT["exclusive_lease"](output)
+        journal = CHECKPOINT["SamplingJournal"](
+            output, plan, resume=args.resume, receipt=args.resume_receipt
+        )
+        ACTIVE_JOURNAL = journal
+        journal.begin()
+        spectra = [journal.spectrum(f"work-family{i}.npy") for i in range(2)]
+    else:
+        spectra = [DiskSpectrum(output / f"work-family{i}.npy", plan) for i in range(2)]
+    frozen[str((output / "preflight.json").resolve())] = fingerprint(output / "preflight.json")
+    if args.resume_receipt is not None:
+        frozen[str(args.resume_receipt.resolve())] = fingerprint(args.resume_receipt)
+    if args.resume:
+        journal.data.setdefault("source_migrations", []).append(
+            dict(
+                previous_producer_sha256=previous["frozen_input_sha256"][
+                    str(Path(__file__).resolve())
+                ],
+                current_producer_sha256=fingerprint(Path(__file__)),
+                numerical_sources_otherwise_unchanged=True,
+            )
+        )
+        journal.publish()
     records, branch_digests = [], []
     sampling_start = perf_counter()
     with threadpool_limits(limits=1, user_api="blas"):
@@ -278,10 +411,43 @@ def main():
         def transform(packet, s, operator=transfer):
             return WORK(operator.evaluate_operators(packet.operators()), tangent, line)
 
+        writer = None
+        sampled_branch = False
         for branch in range(2):
             check_source()
-            writer = BUFFER(spectra[branch], matrices=args.spectrum_buffer_matrices)
+            name = f"work-family{branch}.npy"
+            prefix = 0 if journal is None else journal.prefix(name)
+            if prefix == plan.fft_size // 2 + 1:
+                record = dict(
+                    all_fft_grid_points_emitted=True,
+                    transformed_grid_points=prefix,
+                    mode_branch=branch,
+                    time_method="radau2",
+                    source_evaluations=0,
+                    source_frequency_values_reused=True,
+                    same_configuration_prefix_points_reused=prefix,
+                    preserved_sampling_record=journal.data["branch_records"].get(str(branch)),
+                    scope="Durably restored raw branch; original independent operator audits still follow",
+                )
+                records.append(record)
+                branch_digests.append(
+                    dict(
+                        branch=branch,
+                        pre_combination_sha256=spectra[branch].record()["sha256"],
+                        retained_separately_after_combination=True,
+                    )
+                )
+                continue
+            writer = (
+                BUFFER(spectra[branch], matrices=args.spectrum_buffer_matrices)
+                if journal is None
+                else CHECKPOINT["JournaledSpectrumWriter"](
+                    journal, spectra[branch], matrices=args.spectrum_buffer_matrices
+                )
+            )
+            sampled_branch = True
             sampler, proxy = None, None
+            intervals = [(0, plan.fft_size // 2 + 1)]
             if args.primitive_partition:
                 intervals, proxy = RAW["primitive_branch_partition"](
                     plan, branch, ref.material, options=sampling
@@ -289,13 +455,25 @@ def main():
                 sampler = RAW["SEEDED"]["sampler_with_partition"](
                     RAW["RAW"]["sample_raw_layers"], intervals, plan.fft_size // 2 + 1
                 )
+            start = 0
+            if journal is not None:
+                stack, start = journal.sampler_stack(name, intervals)
+                sampler = CHECKPOINT["checkpointed_sampler"](
+                    RAW["RAW"]["sample_raw_layers"],
+                    stack,
+                    plan.fft_size // 2 + 1,
+                    start,
+                    lambda left, right, remaining, target=writer, key=name: (
+                        journal.save_sampler_state(key, left, right, remaining, target)
+                    ),
+                )
             last = [0.0]
 
             def diagnostics(record, target=writer):
                 now = perf_counter()
                 if now - last[0] >= 30 or record["all_fft_grid_points_emitted"]:
                     check_source()
-                    write_json(
+                    publish(
                         output / "progress.json",
                         dict(
                             phase="raw_radau_branch",
@@ -311,13 +489,17 @@ def main():
                         flush=True,
                     )
                     last[0] = now
+                    if journal is not None:
+                        journal.publish()
 
             record = RAW["sample_radau_branch"](
                 provider,
                 transform,
                 plan,
                 branch,
-                lambda i, s, value, target=writer: target.append(i, value),
+                lambda i, s, value, target=writer: (
+                    target.append(i, value) if journal is None else target.accept(i, value)
+                ),
                 options=sampling,
                 workers=args.workers,
                 max_workspace_mb=args.max_workspace_mb,
@@ -326,15 +508,26 @@ def main():
             )
             writer.finish()
             record["primitive_partition_screen"] = proxy
+            if journal is not None:
+                record.update(
+                    same_configuration_prefix_points_reused=prefix,
+                    recomputed_prefix_points_verified_bitwise=prefix - start,
+                    source_frequency_values_reused=bool(prefix),
+                    current_invocation_sampling_only=True,
+                )
+                journal.data["branch_records"][str(branch)] = record
+                journal.publish()
             records.append(record)
             branch_digests.append(
                 dict(
                     branch=branch,
                     pre_combination_sha256=spectra[branch].record()["sha256"],
-                    retained_separately_after_combination=False,
+                    retained_separately_after_combination=args.durable_build,
                 )
             )
         sampling_seconds = perf_counter() - sampling_start
+        if journal is not None and journal.data["phase"] == "raw":
+            journal.mark("raw_complete")
         audit_start = perf_counter()
         indices = sorted(
             set([0, 1, 7, plan.fft_size // 16, plan.fft_size // 4, plan.fft_size // 2])
@@ -386,13 +579,31 @@ def main():
         impedance = RADAU["matrix_function"](transfer.evaluate, RADAU["radau_symbol"](0) / plan.dt)
         if np.linalg.norm(impedance.imag) > 1e-10 * max(np.linalg.norm(impedance.real), 1):
             raise ValueError("Instantaneous Radau impedance must be real")
-        del direct, transfer, provider, transform, writer, diagnostics
+        del direct, transfer, provider, transform, writer
+        if sampled_branch:
+            del diagnostics, sampler
         audit_seconds = perf_counter() - audit_start
     combination_start = perf_counter()
-    for first in range(0, plan.fft_size // 2 + 1, args.combine_matrices):
+    raw_spectra = spectra
+    compact_writers = None
+    first_combination = 0
+    if journal is not None:
+        spectra = [journal.spectrum(f"compact-family{i}.npy") for i in range(2)]
+        compact_writers = [
+            CHECKPOINT["JournaledSpectrumWriter"](
+                journal, s, matrices=args.spectrum_buffer_matrices
+            )
+            for s in spectra
+        ]
+        first_combination = min(w.committed for w in compact_writers)
+        if first_combination < plan.fft_size // 2 + 1:
+            journal.mark("combination")
+    for first in range(first_combination, plan.fft_size // 2 + 1, args.combine_matrices):
         last = min(first + args.combine_matrices, plan.fft_size // 2 + 1)
         zeta = plan.radius * np.exp(-2j * np.pi * np.arange(first, last) / plan.fft_size)
-        families = RAW["compact_coefficients"](zeta, spectra[0][first:last], spectra[1][first:last])
+        families = RAW["compact_coefficients"](
+            zeta, raw_spectra[0][first:last], raw_spectra[1][first:last]
+        )
         for family, values in enumerate(families):
             for index in [0, plan.fft_size // 2]:
                 if first <= index < last:
@@ -402,7 +613,16 @@ def main():
                     ):
                         raise ValueError("Combined Radau family violates real endpoint symmetry")
                     values[index - first] = endpoint.real
-            spectra[family][first:last] = values
+            if compact_writers is None:
+                spectra[family][first:last] = values
+            else:
+                target = compact_writers[family]
+                for index in range(max(first, target.emitted), last):
+                    target.append(index, values[index - first])
+    if compact_writers is not None:
+        for target in compact_writers:
+            target.finish()
+        del compact_writers, target
     stage_errors = []
     for index, fresh in zip(indices, fresh_stages, strict=True):
         zeta = plan.radius * np.exp(-2j * np.pi * index / plan.fft_size)
@@ -415,12 +635,25 @@ def main():
         stage_errors.append(dict(index=index, relative_frobenius=error))
     combination_seconds = perf_counter() - combination_start
     del fresh_stages
+    if journal is not None:
+        derived = [
+            output / f"weights{i}{suffix}.npy" for i in range(2) for suffix in ["", "-fortran"]
+        ]
+        if any(p.exists() for p in derived):
+            if journal.data["phase"] not in {"ifft_started", "postprocess_started"}:
+                raise ValueError(
+                    "Unexpected derived weight files before inversion; preserve for inspection"
+                )
+            CHECKPOINT["discard_derived_weights"](output, journal)
+        journal.mark("ifft_started")
     ifft_start = perf_counter()
     weight_paths, wrap, inversion = STORAGE["invert_families_to_files"](
         *spectra, plan, output, fft_rows=args.fft_rows, max_workspace_mb=args.max_workspace_mb
     )
     ifft_seconds = perf_counter() - ifft_start
     startup_start = perf_counter()
+    if journal is not None:
+        journal.mark("postprocess_started")
     conversion_records = []
     for path in weight_paths:
         weights = NATIVE["physical_weights_file_inplace"](path, line)
@@ -478,7 +711,7 @@ def main():
         ]
 
     spectrum_records = [s.record() for s in spectra]
-    write_json(
+    publish(
         output / "summary.json",
         dict(
             status="completed_compact_radau_resolvent_kernel_only",
@@ -486,7 +719,7 @@ def main():
             time_method="radau2",
             assembly="fresh_raw_radau_before_trace_schur",
             source_metadata=str(args.source.resolve()),
-            source_role="Mesh/case defaults only; no source frequencies or weights read",
+            source_role="Mesh/case defaults only; same-build raw/compact checkpoints may be restored; no foreign spectrum or weights read",
             source_mesh_arguments=options,
             numerical_discretization_overrides=overrides,
             dt_s=plan.dt,
@@ -529,14 +762,53 @@ def main():
             full_original_event_reproduced=False,
             original_tatva_readonly=True,
             same_accuracy_fem_advantage_verified=False,
+            durable_construction=None
+            if journal is None
+            else dict(
+                journal_path=str(journal.path),
+                attempts=journal.data["attempts"],
+                timing_scope="Stage timings cover this invocation only; all previous attempt records are retained. Missing end records are not exact total times.",
+                raw_branch_spectra_retained=True,
+                committed_matrix_chunks_verified_on_resume=True,
+            ),
             scope="Fresh complete compact RK kernel and causal startup; sampled raw/operator guards, not physical convergence or an all-frequency theorem",
         ),
     )
-    write_json(
+    publish(
         output / "progress.json",
         dict(phase="completed_kernel_only", elapsed_seconds=perf_counter() - begun),
     )
     print(output / "summary.json", flush=True)
+    if journal is not None:
+        journal.mark("completed")
+
+
+def main():
+    global ACTIVE_JOURNAL, ACTIVE_LEASE
+    ACTIVE_JOURNAL = ACTIVE_LEASE = None
+    prior = signal.getsignal(signal.SIGTERM)
+
+    def interrupted(signum, frame):
+        raise KeyboardInterrupt(f"Kernel construction received signal {signum}")
+
+    signal.signal(signal.SIGTERM, interrupted)
+    try:
+        _main()
+    except BaseException:
+        if ACTIVE_JOURNAL is not None:
+            ACTIVE_JOURNAL.end("interrupted_or_failed")
+        raise
+    else:
+        if ACTIVE_JOURNAL is not None:
+            ACTIVE_JOURNAL.end("completed")
+            report = ACTIVE_JOURNAL.folder / "summary.json"
+            record = json.loads(report.read_text())
+            record["durable_construction"]["attempts"] = ACTIVE_JOURNAL.data["attempts"]
+            CHECKPOINT["atomic_json"](report, record)
+    finally:
+        signal.signal(signal.SIGTERM, prior)
+        if ACTIVE_LEASE is not None:
+            ACTIVE_LEASE.close()
 
 
 if __name__ == "__main__":
