@@ -8,12 +8,17 @@ invertible coordinate label. No BDF2 operator value is reused here.
 """
 
 import runpy
+from dataclasses import asdict, replace
 from pathlib import Path
+from time import perf_counter
 
 import numpy as np
 
+from finiteblock_bem.galerkin import _scalar_kernels
+
 TOOLS = Path(__file__).resolve().parent
 RAW = runpy.run_path(str(TOOLS / "raw_layer_sampling.py"))
+SEEDED = runpy.run_path(str(TOOLS / "seeded_raw_sampling.py"))
 
 
 def lower_half_radau_modes(zeta, dt):
@@ -136,3 +141,66 @@ def compact_coefficients(zeta, first, second):
         raise ValueError("Require aligned finite branch matrices and contour nodes")
     a, b = values[..., 0, None, None], values[..., 1, None, None]
     return (b * first - a * second) / (b - a), (second - first) / (b - a)
+
+
+def primitive_branch_partition(
+    plan, branch, material, *, options=None, distances=SEEDED["DEFAULT_DISTANCES"]
+):
+    """Suggest intervals using the actual Radau branch's scalar Green kernels.
+
+    This only selects a starting stack. The actual body sampler retains every
+    original acceptance check and may subdivide or directly recompute again.
+    """
+    distance = np.asarray(distances, dtype=float)
+    if (
+        distance.ndim != 1
+        or not 1 <= len(distance) <= 64
+        or not np.all(np.isfinite(distance))
+        or np.any(distance <= 0)
+    ):
+        raise ValueError("Require 1-64 positive finite advisory distances")
+    options = RAW["RawSamplingOptions"]() if options is None else options
+    cheap_plan = replace(plan, dofs=len(distance), steps=1, estimated_peak_bytes=0, weight_bytes=0)
+    mass = np.eye(len(distance))
+    vectors = np.column_stack((distance, np.zeros(len(distance))))
+    intervals, emitted = [], [0]
+
+    def provider(s):
+        gs, gp, _, gradient = _scalar_kernels(vectors, s, material)
+        return RAW["RawLayerPacket"]((np.diag(gs), np.diag(gp), np.diag(gradient[:, 0])), (mass,))
+
+    def consume(index, *args):
+        if index != emitted[0]:
+            raise ValueError("Advisory branch omitted or repeated an FFT index")
+        emitted[0] += 1
+
+    def progress(done, total):
+        first = 0 if not intervals else intervals[-1][1]
+        if done != emitted[0] or done < first or total != plan.fft_size // 2 + 1:
+            raise ValueError("Advisory branch progress differs from its emissions")
+        if done > first:
+            intervals.append((first, done))
+
+    begun = perf_counter()
+    record = sample_radau_branch(
+        provider,
+        lambda p, s: mass,
+        cheap_plan,
+        branch,
+        consume,
+        options=options,
+        progress=progress,
+        max_workspace_mb=32,
+    )
+    intervals = SEEDED["validate_partition"](intervals, plan.fft_size // 2 + 1)
+    return intervals, dict(
+        distances_mm=distance.tolist(),
+        sampling_options=asdict(options),
+        mode_branch=branch,
+        intervals=[list(v) for v in intervals],
+        records=record,
+        diagnostic_seconds=perf_counter() - begun,
+        body_operator_values_reused=False,
+        partition_certified_for_body_matrices=False,
+        scope="Actual RK-branch scalar advisory only; all body acceptance checks remain mandatory",
+    )

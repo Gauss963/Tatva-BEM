@@ -21,7 +21,8 @@ HISTORY = runpy.run_path(str(TOOLS / "compact_radau_history.py"))
 
 
 @pytest.mark.parametrize("actuator_plateau", [None, 18.1])
-def test_nonlinear_compact_stages_match_original_impedance_history(actuator_plateau):
+@pytest.mark.parametrize("initial_bias", [False, True])
+def test_nonlinear_compact_stages_match_original_impedance_history(actuator_plateau, initial_bias):
     plan = plan_cq(3, 0.02, 64, max_memory_mb=64)
     mass = np.array([[0.3, 0.02, 0], [0.02, 0.2, 0.01], [0, 0.01, 0.4]])
     stiffness = np.array([[30.0, 0.2, 0.1], [0.2, 30.0, -20], [0.1, -20, 30]])
@@ -60,6 +61,7 @@ def test_nonlinear_compact_stages_match_original_impedance_history(actuator_plat
     )
     impedance = RADAU["matrix_function"](zfun, RADAU["radau_symbol"](0) / plan.dt).real
     old = ContactState(np.zeros(1), np.zeros(1))
+    initial_force = np.array([0.1, -0.05, 0.02]) if initial_bias else None
     result, stages = SIMULATE["simulate_stages"](
         ref,
         old,
@@ -74,6 +76,7 @@ def test_nonlinear_compact_stages_match_original_impedance_history(actuator_plat
         cache_mb=0,
         fft_rows=1,
         actuator_plateau=actuator_plateau,
+        initial_residual_force=initial_force,
     )
     # Assemble and invert Z_RK separately. No elastic baseline, compliance,
     # compact coefficients or zero-prefix rebasing is used in this reference.
@@ -93,6 +96,8 @@ def test_nonlinear_compact_stages_match_original_impedance_history(actuator_plat
         if held is not None:
             raw_actuator[k] = held
         force = np.tile([-10.0, 0, 0], 2) + raw.past_traction(q, k)
+        if initial_force is not None:
+            force += np.tile(initial_force, 2)
         force[[2, 5]] -= 2 * raw_actuator[k]
         answer = system.solve(old, force, np.tile(q[k - 1, -3:], 2), q[k - 1, -3:])
         assert answer.converged

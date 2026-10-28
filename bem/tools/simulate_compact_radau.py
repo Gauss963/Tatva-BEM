@@ -48,6 +48,7 @@ def simulate_stages(
     kinetic_seed=False,
     failure_callback=None,
     actuator_plateau=None,
+    initial_residual_force=None,
 ):
     """Solve coupled stages, then commit endpoint state and macrostep stop rule.
 
@@ -98,6 +99,16 @@ def simulate_stages(
     ):
         raise ValueError("The initial lift must be admissible without a plastic update")
     fc0 = np.r_[weights * initial.pressure, weights * initial.shear, 0]
+    affine = None
+    residual_force = np.zeros(2 * d)
+    if initial_residual_force is not None:
+        force = np.asarray(initial_residual_force)
+        if force.shape != (d,) or not np.all(np.isfinite(force)):
+            raise ValueError("Original initial residual must align with the retained body trace")
+        affine = runpy.run_path(str(TOOLS / "radau_initialization.py"))["initial_residual_past"](
+            first.weights, second.weights, force, steps
+        )
+        residual_force = np.tile(force, 2)
     q = np.zeros((steps + 1, 2, d))
     values = np.zeros((steps + 1, n, 2, 7))
     start = np.column_stack(
@@ -129,9 +140,11 @@ def simulate_stages(
         if held is not None:
             actuator[k] = held
         prediction = elastic[k].ravel() + memory.past(k)
+        if affine is not None:
+            prediction -= affine[k].ravel()
         hold_force = np.zeros((2, d))
         hold_force[:, -1] = reference.spring * (actuator[k] - ramp[k])
-        forcing = -np.tile(fc0, 2) - a0 @ prediction - hold_force.ravel()
+        forcing = -np.tile(fc0, 2) + residual_force - a0 @ prediction - hold_force.ravel()
         answer = system.solve(
             old,
             forcing,
@@ -243,6 +256,7 @@ def simulate_stages(
         time_stepping_seconds=perf_counter() - begun,
         full_trajectory_substep_ad_validated=False,
         full_original_event_reproduced=False,
+        original_initial_residual_history_retained=initial_residual_force is not None,
         failure=None,
         scope="Complete causal compact Radau history and endpoint-committed stage contact; no FEM equivalence, gradient convergence or speed advantage asserted",
     )
@@ -277,7 +291,16 @@ def simulate_stages(
         diagnostics,
         q[:, 1, : 2 * n] + np.r_[reference.base_dn, reference.base_ds],
     )
-    stages = dict(displacement=q, response=values, stage_time=stage_time, actuator=actuator)
+    stages = dict(
+        displacement=q,
+        response=values,
+        stage_time=stage_time,
+        actuator=actuator,
+        initial_residual_force=(
+            np.zeros(d) if initial_residual_force is None else np.asarray(initial_residual_force)
+        ),
+        initial_contact_force=fc0,
+    )
     return result, stages
 
 
@@ -292,6 +315,11 @@ def main():
     parser.add_argument("--contact-root-recovery", action="store_true")
     parser.add_argument("--kinetic-root-seed", action="store_true")
     parser.add_argument("--restart-seed", type=Path)
+    parser.add_argument(
+        "--static-initialization",
+        choices=["preserve-offset", "fem-body-active-set"],
+        default="preserve-offset",
+    )
     parser.add_argument(
         "--prescribed-actuator-plateau",
         type=float,
@@ -363,6 +391,16 @@ def main():
     seed_path = TOOLS / "restart_seed_experiment.py"
     if args.restart_seed is not None:
         frozen_paths.extend([seed_path, args.restart_seed])
+    if args.static_initialization == "fem-body-active-set":
+        frozen_paths.extend(
+            TOOLS / name
+            for name in [
+                "radau_initialization.py",
+                "refined_contact.py",
+                "uncondensed_static_contact.py",
+                "fem_static_contact.py",
+            ]
+        )
     frozen = {str(p.resolve()): fingerprint(p) for p in frozen_paths}
     for filename, key in [
         ("shift_wrap.npy", "shift_wrap_sha256"),
@@ -416,8 +454,13 @@ def main():
     np.testing.assert_allclose(
         ramp, model.reference.restart_actuator + rate * stage_time, rtol=0, atol=1e-12
     )
-    lift = initialize_nodal_restart(model, quadrature=options["quadrature"])
-    reference = NodalInterfaceEquilibrium(model, lift, np.zeros((plan.dofs, plan.dofs)))
+    if args.static_initialization == "fem-body-active-set":
+        lift, reference = runpy.run_path(str(TOOLS / "radau_initialization.py"))[
+            "initialize_radau_body"
+        ](model, quadrature=options["quadrature"])
+    else:
+        lift = initialize_nodal_restart(model, quadrature=options["quadrature"])
+        reference = NodalInterfaceEquilibrium(model, lift, np.zeros((plan.dofs, plan.dofs)))
     initial = reference.evaluate(
         np.zeros(plan.dofs),
         np.zeros(plan.dofs),
@@ -430,6 +473,20 @@ def main():
         raise ValueError("Initial static lift exceeds the equilibrium tolerance")
     initialization_seconds = perf_counter() - begun
     output.mkdir(parents=True)
+    lift_record = None
+    if args.static_initialization == "fem-body-active-set":
+        lift_path = output / "initial_lift.npz"
+        np.savez(
+            lift_path,
+            retained_displacement=lift.retained_displacement,
+            full_displacement=lift.full_displacement,
+            retained_bulk_force=lift.retained_bulk_force,
+            plastic_slip=lift.state.plastic_slip,
+            cumulative_slip=lift.state.cumulative_slip,
+            pressure=lift.pressure,
+            shear=lift.shear,
+        )
+        lift_record = dict(path=str(lift_path), sha256=REPLAY["digest_file"](lift_path))
 
     def save_failure(index, arrays):
         np.savez(output / "failed_equilibrium.npz", **arrays)
@@ -466,6 +523,11 @@ def main():
             kinetic_seed=args.kinetic_root_seed,
             failure_callback=save_failure,
             actuator_plateau=args.prescribed_actuator_plateau,
+            initial_residual_force=(
+                initial * reference.constraints.reduced_weights
+                if args.static_initialization == "fem-body-active-set"
+                else None
+            ),
         )
     finally:
         for array in maps:
@@ -480,6 +542,8 @@ def main():
         kernel_summary_sha256=frozen[str(metadata_path.resolve())],
         frozen_inputs_sha256=frozen,
         initialization=lift.diagnostics,
+        static_initialization=args.static_initialization,
+        initial_lift_record=lift_record,
         quadrature=options["quadrature"],
         panels=[model.reference.moving.count, model.reference.stationary.count],
         restart_seed_override=seed_record,
@@ -519,6 +583,7 @@ def main():
                 "duration": float(result.time[-1]),
                 "time_method": "radau2",
                 "segment_substeps": args.segment_substeps,
+                "static_initialization": args.static_initialization,
                 "contact_root_recovery": args.contact_root_recovery,
                 "kinetic_root_seed": args.kinetic_root_seed,
                 "fft_cache_mb": args.fft_cache_mb,

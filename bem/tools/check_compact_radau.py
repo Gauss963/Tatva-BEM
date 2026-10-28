@@ -39,6 +39,7 @@ def reference_stages(
     *,
     recover=False,
     kinetic_seed=False,
+    initial_residual_force=None,
 ):
     """Direct original-impedance convolution under the recorded stage loading."""
     n, d = len(reference.constraints.contact_weights), reference.constraints.size
@@ -69,6 +70,8 @@ def reference_stages(
     old = initial_state
     for k in range(1, steps + 1):
         forcing = history.past_traction(q, k) - np.tile(fc0, 2)
+        if initial_residual_force is not None:
+            forcing += np.tile(initial_residual_force, 2)
         forcing[[d - 1, 2 * d - 1]] -= reference.spring * (stage_actuator[k] - stage_actuator[0])
         answer = system.solve(
             old,
@@ -87,7 +90,9 @@ def reference_stages(
     return q.reshape(steps + 1, 2, d), values, residual
 
 
-def original_equation_residuals(reference, history, stage_actuator, q, values, initial_state):
+def original_equation_residuals(
+    reference, history, stage_actuator, q, values, initial_state, *, initial_residual_force=None
+):
     """Evaluate the fresh original equation on every saved compact stage."""
     d = reference.constraints.size
     wc = reference.constraints.contact_weights
@@ -101,6 +106,8 @@ def original_equation_residuals(reference, history, stage_actuator, q, values, i
             [np.r_[wc * values[k, :, a, 0], wc * values[k, :, a, 1], 0] for a in range(2)]
         )
         lhs = history.instantaneous @ flat[k] + history.past_traction(flat, k) + contact - fc0
+        if initial_residual_force is not None:
+            lhs += np.tile(initial_residual_force, 2)
         lhs[[d - 1, 2 * d - 1]] += reference.spring * (
             q[k, :, -1] - stage_actuator[k] + stage_actuator[0]
         )
@@ -114,6 +121,11 @@ def main():
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--workers", type=int, default=4)
     parser.add_argument("--max-memory-mb", type=float, default=4096)
+    parser.add_argument(
+        "--reference-fft-size",
+        type=int,
+        help="Explicit independent reference circle; must cover all saved steps",
+    )
     args = parser.parse_args()
     if args.output.exists() or args.output.resolve().is_relative_to(
         Path("/Volumes/Gauss-T7/tatva").resolve()
@@ -145,6 +157,11 @@ def main():
         steps=summary["completed_steps"],
         dofs=2 * metadata["history_dofs"],
     )
+    if args.reference_fft_size is not None:
+        size = args.reference_fft_size
+        if size < 2 * (plan.steps + 1) or size & (size - 1):
+            raise ValueError("Reference FFT must be a power of two covering every saved step")
+        plan = replace(plan, fft_size=size, radius=1e-10 ** (1 / size))
     model = load_nodal_model(
         options["case"],
         max_panel_length=options["h"],
@@ -178,6 +195,21 @@ def main():
         if current_seed["sha256"] != seed["sha256"]:
             raise ValueError("Recorded restart seed changed")
         paths.extend([seed_tool, Path(seed["path"])])
+    body_initialization = summary.get("static_initialization") == "fem-body-active-set"
+    if body_initialization:
+        paths.extend(
+            TOOLS / name
+            for name in [
+                "radau_initialization.py",
+                "refined_contact.py",
+                "uncondensed_static_contact.py",
+                "fem_static_contact.py",
+            ]
+        )
+        lift_path = args.run / "initial_lift.npz"
+        if fingerprint(lift_path) != summary["initial_lift_record"]["sha256"]:
+            raise ValueError("Saved measured initial lift changed")
+        paths.append(lift_path)
     frozen = {str(p.resolve()): fingerprint(p) for p in paths}
     estimate = (
         (plan.fft_size // 2 + 1) * plan.dofs**2 * 16
@@ -194,10 +226,31 @@ def main():
         )
     with np.load(args.run / "stages.npz", allow_pickle=False) as source:
         actual = {k: source[k] for k in ["displacement", "response", "stage_time", "actuator"]}
-    lift = initialize_nodal_restart(model, quadrature=options["quadrature"])
-    reference = NodalInterfaceEquilibrium(
-        model, lift, np.zeros((metadata["history_dofs"], metadata["history_dofs"]))
-    )
+        saved_initial_force = source["initial_residual_force"] if body_initialization else None
+    initial_force = None
+    if body_initialization:
+        lift, reference = runpy.run_path(str(TOOLS / "radau_initialization.py"))[
+            "initialize_radau_body"
+        ](model, quadrature=options["quadrature"])
+        initial = reference.evaluate(
+            np.zeros(reference.constraints.size),
+            np.zeros(reference.constraints.size),
+            model.reference.normal_pressure,
+            actual["actuator"][0, 1],
+            lift.state,
+            jacobian=False,
+        )[0]
+        initial_force = initial * reference.constraints.reduced_weights
+        if (
+            np.max(abs(initial_force - saved_initial_force) / reference.constraints.reduced_weights)
+            > 1e-7
+        ):
+            raise ValueError("Reconstructed original initial force differs from the saved lift")
+    else:
+        lift = initialize_nodal_restart(model, quadrature=options["quadrature"])
+        reference = NodalInterfaceEquilibrium(
+            model, lift, np.zeros((metadata["history_dofs"], metadata["history_dofs"]))
+        )
     transfer = NodalInterfaceTransfer(model, quadrature=options["quadrature"])
     weights = RADAU["radau_weights"](transfer.evaluate, plan, workers=args.workers)
     del transfer
@@ -210,6 +263,7 @@ def main():
         tuple(summary["segment_substeps"]),
         recover=True,
         kinetic_seed=True,
+        initial_residual_force=initial_force,
     )
     original_residual = original_equation_residuals(
         reference,
@@ -218,6 +272,7 @@ def main():
         actual["displacement"],
         actual["response"],
         lift.state,
+        initial_residual_force=initial_force,
     )
     differences = dict(displacement=float(np.max(abs(q - actual["displacement"]))))
     for field, name in enumerate(
@@ -258,6 +313,10 @@ def main():
         field_absolute_tolerance=1e-5,
         maximum_original_equation_residual_mpa=float(np.max(original_residual)),
         original_equation_tolerance_mpa=1e-7,
+        original_initial_residual_history_retained=body_initialization,
+        reference_fft_size=plan.fft_size,
+        kernel_fft_size=metadata["plan"]["fft_size"],
+        reference_circle_explicitly_overridden=args.reference_fft_size is not None,
         maximum_reference_root_residual_mpa=float(residual.max()),
         reference_loading="Recorded stage actuators, including any recorded endpoint hold",
         requested_workers=args.workers,
