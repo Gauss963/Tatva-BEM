@@ -1,0 +1,378 @@
+{
+  "status": "passed_complete_coarse_raw_radau_and_nonlinear_operator_controls",
+  "date": "2026-10-28",
+  "source_records": {
+    "kernel": {
+      "path": "/Volumes/Gauss-T7/Tatva-BEM-cache/raw-radau-h160-q12-full45-20261028/summary.json",
+      "sha256": "4b1b49af562cdc67e8685288c38913004e1632f67202c92a6db5f26d50f906ad"
+    },
+    "nonlinear": {
+      "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/raw-radau-fem-static-pilot-20261028/summary.json",
+      "sha256": "9fa875bf32067881b223ff1749a5905c79274c850b3416ec7f0bd682792eb466"
+    },
+    "original_z": {
+      "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/raw-radau-original-z-pilot-20261028/summary.json",
+      "sha256": "af5f1d201a041e72bb3d39120240e151cae75365f9db20b64095c33a3053b239"
+    },
+    "fine_initialization": {
+      "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/radau-fine-initialization-20261028/summary.json",
+      "sha256": "d8878603fd2474cc3d32dcd91aa3d0018473bbe1ceb796fa7314abcbbef3489c"
+    },
+    "buffered_copy": {
+      "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/raw-radau-buffer-copy-20261028/summary.json",
+      "sha256": "53902c8088d9d0b76fddc0582232733df08d74b078653f2bd3668955ca4e9ff3"
+    },
+    "fine_2us_preflight": {
+      "path": "/Volumes/Gauss-T7/Tatva-BEM-cache/fresh-radau2us-case-preflight-20261028-v3/preflight.json",
+      "sha256": "860deb590dcbf73cfdfe33ed0d43a22d26e8edb26d4e1dffe6d40f545bc07b0a"
+    },
+    "fine_1us_preflight": {
+      "path": "/Volumes/Gauss-T7/Tatva-BEM-cache/fresh-radau1us-case-preflight-20261028-v3/preflight.json",
+      "sha256": "ebf8f475be02a729dfc4223c7d1d369249bb26bdeecec7e659bfa239e84f02d1"
+    }
+  },
+  "producer_commit": "cd1429c94f6c80d77a37a9802b0700638aa04c73",
+  "historical_source_verified": {
+    "bem/tools/prepare_raw_radau_resolvent.py": "7438510e84745c5b44281d275fb7f8d97ef3ba4edcdee346662e3b81896e70b6",
+    "bem/tools/radau_raw_sampling.py": "dc743da265d444e43da572bb07c25d3508f7daae0e13b4cf7404844a12f4a9ff",
+    "bem/tools/raw_layer_sampling.py": "07a043bf8c533b83ed35ad562cca2015669515627cd0329e91349ecda2eadf95",
+    "bem/tools/seeded_raw_sampling.py": "c6b6ab8097880e8dbe10ee467c50a992daff1603994749bdaffb4eb9b530d5c4",
+    "bem/tools/trace_schur_experiment.py": "25f854e753f033c96c410c00ff1142c09a32c7690cf723ff9e7202d8d227f4ba",
+    "bem/tools/schur_condensation_experiment.py": "3ae73c3dbdaf26ee52964f5f61989eb43837341b704ba004242be0d6b739fc74",
+    "bem/tools/radau_experiment.py": "e616d36a766ba323d9967af04e0bd154f86a9e158902668df6a8291be9e36408",
+    "bem/tools/compact_radau_storage.py": "cae9af8efd9fe0ddd3cdb4e3e99fc1ffc841dce279f1279bf7678472d6b47e2e",
+    "bem/tools/prepare_native_resolvent.py": "6e0a1337a521da60904a8014817b37ae943aababaa9dce6b4a6ef211028174dc",
+    "bem/tools/replay_resolvent.py": "129d75f1dc47ba11f2da171a820e422c3bde36ccce6ed2624690230c9e66bafc",
+    "bem/tools/build_resolvent_history.py": "00f67ff54c940cbd610a091f675ee1f8ef2996d1e3daf7ff5da2074b3fc36a36",
+    "bem/tools/fortran_weight_storage.py": "c9e50864c950faf6d2122811a3131b9e41aa95dd1793f3486bd381725d3283cf",
+    "bem/tools/bounded_weight_conversion.py": "70f1e50888e6da66aa757e249fc1f880317ff26d83fe48237111acb7731706b7"
+  },
+  "coarse_kernel": {
+    "status": "completed_compact_radau_resolvent_kernel_only",
+    "source_mesh_arguments": {
+      "case": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/cases/pmma_event16.toml",
+      "h": 160,
+      "contact_h": 160,
+      "contact_end_h": 160,
+      "corner_h": 160,
+      "quadrature": 12,
+      "restart_knot_window": null,
+      "restart_knot_subdivisions": 1,
+      "diagnostic_actuator_increment": 351.5625
+    },
+    "dt_s": 2e-06,
+    "full_steps": 22500,
+    "plan": {
+      "dt": 2e-06,
+      "steps": 22500,
+      "dofs": 11,
+      "fft_size": 65536,
+      "radius": 0.999648715112665,
+      "estimated_peak_bytes": 114187304,
+      "weight_bytes": 21780968
+    },
+    "history_dofs": 11,
+    "stage_dofs": 22,
+    "family_spectra": [
+      {
+        "backend": "disk_half_spectrum",
+        "path": "/Volumes/Gauss-T7/Tatva-BEM-cache/raw-radau-h160-q12-full45-20261028/work-family0.npy",
+        "shape": [
+          32769,
+          11,
+          11
+        ],
+        "bytes": 63440912,
+        "sha256": "b919c7d99ec66a127ea5ca2fa44bb6754feb25945f740ba843809f0bbcfdc81e",
+        "implementation_sha256": "da2534ef95e95813a464ff04f78a092be374110650d1866cbc1fb8ea5b5105b2",
+        "all_frequency_matrices_written": true
+      },
+      {
+        "backend": "disk_half_spectrum",
+        "path": "/Volumes/Gauss-T7/Tatva-BEM-cache/raw-radau-h160-q12-full45-20261028/work-family1.npy",
+        "shape": [
+          32769,
+          11,
+          11
+        ],
+        "bytes": 63440912,
+        "sha256": "7eb82e629bf95fa84ea1f9fbf3ce595908175d4a3be78f2d838b5fdcf858cffa",
+        "implementation_sha256": "da2534ef95e95813a464ff04f78a092be374110650d1866cbc1fb8ea5b5105b2",
+        "all_frequency_matrices_written": true
+      }
+    ],
+    "initial_composition_inf_error": 7.321913926708806e-12,
+    "sampled_fresh_bem_mode_checks": [
+      {
+        "index": 0,
+        "branch": 0,
+        "relative_frobenius": 4.0744546384335e-14,
+        "solve_composition_inf_error": 5.315498604815531e-14
+      },
+      {
+        "index": 0,
+        "branch": 1,
+        "relative_frobenius": 3.2041538318526664e-16,
+        "solve_composition_inf_error": 9.636390583976426e-16
+      },
+      {
+        "index": 1,
+        "branch": 0,
+        "relative_frobenius": 5.734195399618036e-14,
+        "solve_composition_inf_error": 7.111455372271843e-14
+      },
+      {
+        "index": 1,
+        "branch": 1,
+        "relative_frobenius": 1.800675147532922e-14,
+        "solve_composition_inf_error": 6.289454783559477e-14
+      },
+      {
+        "index": 7,
+        "branch": 0,
+        "relative_frobenius": 9.594786661408594e-15,
+        "solve_composition_inf_error": 1.1107098432366568e-14
+      },
+      {
+        "index": 7,
+        "branch": 1,
+        "relative_frobenius": 2.1373670790344503e-14,
+        "solve_composition_inf_error": 7.392459695346106e-14
+      },
+      {
+        "index": 4096,
+        "branch": 0,
+        "relative_frobenius": 1.0264205339021665e-14,
+        "solve_composition_inf_error": 1.2365084594955695e-14
+      },
+      {
+        "index": 4096,
+        "branch": 1,
+        "relative_frobenius": 2.5103802407923346e-14,
+        "solve_composition_inf_error": 9.214449429762911e-14
+      },
+      {
+        "index": 16384,
+        "branch": 0,
+        "relative_frobenius": 9.055220796841927e-16,
+        "solve_composition_inf_error": 1.861466477922918e-15
+      },
+      {
+        "index": 16384,
+        "branch": 1,
+        "relative_frobenius": 4.363268077066486e-15,
+        "solve_composition_inf_error": 1.1491667953447702e-14
+      },
+      {
+        "index": 32768,
+        "branch": 0,
+        "relative_frobenius": 4.1564729172468285e-16,
+        "solve_composition_inf_error": 1.3056236879399748e-15
+      },
+      {
+        "index": 32768,
+        "branch": 1,
+        "relative_frobenius": 4.261498643144438e-16,
+        "solve_composition_inf_error": 1.2949571723447926e-15
+      }
+    ],
+    "sampled_fresh_stage_checks": [
+      {
+        "index": 0,
+        "relative_frobenius": 4.0380158913820244e-14
+      },
+      {
+        "index": 1,
+        "relative_frobenius": 5.764996806973265e-14
+      },
+      {
+        "index": 7,
+        "relative_frobenius": 9.588455356404918e-15
+      },
+      {
+        "index": 4096,
+        "relative_frobenius": 1.136624704813734e-14
+      },
+      {
+        "index": 16384,
+        "relative_frobenius": 2.5034119780243218e-15
+      },
+      {
+        "index": 32768,
+        "relative_frobenius": 7.293605684386025e-16
+      }
+    ],
+    "timing_seconds": {
+      "raw_sampling_and_branch_hashes": 878.673594083637,
+      "independent_operator_audit": 0.7126650828868151,
+      "compact_combination": 147.13681604061276,
+      "inverse_fft": 2.3069822499528527,
+      "physical_weights_and_startup": 7.705790791660547,
+      "total_before_reporting": 1036.6566011253744
+    },
+    "peak_process_rss_mib": 146.828125
+  },
+  "nonlinear_diagnostic": {
+    "status": "completed_requested_horizon",
+    "completed_steps": 128,
+    "duration_s": 0.000256,
+    "max_cumulative_slip_mm": 1.033821980055519,
+    "max_boundary_contact_residual_mpa": 9.418912251627868e-08,
+    "segment_substeps": [
+      8,
+      16
+    ],
+    "contact_root_recovery_events": [],
+    "original_initial_residual_history_retained": true,
+    "source_changed_during_run": false,
+    "timing_seconds": {
+      "static_lift_and_kernel_load": 0.16835225000977516,
+      "time_stepping": 2.4693319583311677,
+      "kernel_build": 1036.6566011253744,
+      "total_excluding_output": 2.6656777504831553,
+      "save_outputs": 0.0033775418996810913,
+      "total_including_output": 2.669058750383556
+    }
+  },
+  "original_z_check": {
+    "status": "passed_original_z_stage_reference",
+    "steps": 128,
+    "maximum_absolute_field_differences": {
+      "displacement": 2.9954376132290683e-10,
+      "pressure": 2.9014408653438295e-09,
+      "shear": 3.718373875472025e-08,
+      "plastic_slip": 2.9959679181956744e-10,
+      "cumulative_slip": 2.996024262014174e-10,
+      "friction_coefficient": 2.448436786650632e-09,
+      "micro_work": 1.3230341856795835e-09,
+      "integrated_strength_work": 1.3112299683537554e-09
+    },
+    "maximum_original_equation_residual_mpa": 9.417980398514677e-08,
+    "original_equation_tolerance_mpa": 1e-07,
+    "original_initial_residual_history_retained": true,
+    "reference_fft_size": 2048,
+    "kernel_fft_size": 65536,
+    "reference_circle_explicitly_overridden": true,
+    "total_seconds": 113.35961429215968
+  },
+  "fine_initialization": {
+    "status": "checked_actual_fine_radau_static_input",
+    "initial_state_exactly_unchanged": true,
+    "plastic_roundtrip_mm": 0.0,
+    "cumulative_roundtrip_mm": 0.0,
+    "original_equilibrium_mpa": 7.549374458903912e-09,
+    "seconds": 72.3813642077148
+  },
+  "buffered_copy": {
+    "status": "passed_full_coarse_family_byte_identity",
+    "records": [
+      {
+        "family": 0,
+        "source_sha256": "b919c7d99ec66a127ea5ca2fa44bb6754feb25945f740ba843809f0bbcfdc81e",
+        "buffered_sha256": "b919c7d99ec66a127ea5ca2fa44bb6754feb25945f740ba843809f0bbcfdc81e",
+        "full_file_bytes": 63440912,
+        "matrices": 32769,
+        "seconds": 2.5863407906144857,
+        "bitwise_identical": true
+      },
+      {
+        "family": 1,
+        "source_sha256": "7eb82e629bf95fa84ea1f9fbf3ce595908175d4a3be78f2d838b5fdcf858cffa",
+        "buffered_sha256": "7eb82e629bf95fa84ea1f9fbf3ce595908175d4a3be78f2d838b5fdcf858cffa",
+        "full_file_bytes": 63440912,
+        "matrices": 32769,
+        "seconds": 2.650336124934256,
+        "bitwise_identical": true
+      }
+    ],
+    "speed_benchmark": false,
+    "scope": "Entire completed family spectra copied through bounded writer; no algorithm timing or FEM accuracy claim"
+  },
+  "fine_preflights": {
+    "fine_2us_preflight": {
+      "status": "preflight_only_not_a_complete_kernel",
+      "source_mesh_arguments": {
+        "case": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/cases/pmma_event16.toml",
+        "h": 10,
+        "contact_h": 2,
+        "contact_end_h": 0.015625,
+        "corner_h": 0.015625,
+        "quadrature": 12,
+        "restart_knot_window": null,
+        "restart_knot_subdivisions": 1,
+        "dt": 2e-06,
+        "steps": 22500,
+        "duration": 0.045
+      },
+      "plan": {
+        "dt": 2e-06,
+        "steps": 22500,
+        "dofs": 531,
+        "fft_size": 65536,
+        "radius": 0.999648715112665,
+        "estimated_peak_bytes": 90219733416,
+        "weight_bytes": 50755235688
+      },
+      "estimated_array_mib": {
+        "peak": 18051.495361328125,
+        "interpolation": 8563.825927734375,
+        "inversion": 6745.2945556640625,
+        "combination": 3579.5830078125,
+        "startup": 825.2499389648438,
+        "geometry": 4141.39111328125,
+        "solver": 4942.92578125,
+        "spectrum_buffer": 275.3525390625
+      },
+      "required_disk_bytes": 448697998104,
+      "branches_sampled_sequentially": true
+    },
+    "fine_1us_preflight": {
+      "status": "preflight_only_not_a_complete_kernel",
+      "source_mesh_arguments": {
+        "case": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/cases/pmma_event16.toml",
+        "h": 10,
+        "contact_h": 2,
+        "contact_end_h": 0.015625,
+        "corner_h": 0.015625,
+        "quadrature": 12,
+        "restart_knot_window": null,
+        "restart_knot_subdivisions": 1,
+        "dt": 1e-06,
+        "steps": 45000,
+        "duration": 0.045
+      },
+      "plan": {
+        "dt": 1e-06,
+        "steps": 45000,
+        "dofs": 531,
+        "fft_size": 131072,
+        "radius": 0.9998243421284886,
+        "estimated_peak_bytes": 180369438552,
+        "weight_bytes": 101508215688
+      },
+      "estimated_array_mib": {
+        "peak": 18051.495361328125,
+        "interpolation": 8563.825927734375,
+        "inversion": 6745.254043579102,
+        "combination": 3579.5830078125,
+        "startup": 1650.4674682617188,
+        "geometry": 4141.39111328125,
+        "solver": 4942.92578125,
+        "spectrum_buffer": 275.3525390625
+      },
+      "required_disk_bytes": 897379115640,
+      "branches_sampled_sequentially": true
+    }
+  },
+  "full_original_event_reproduced": false,
+  "same_accuracy_fem_advantage_verified": false,
+  "full_trajectory_radau_ad_validated": false,
+  "original_tatva_readonly": true,
+  "limitations": [
+    "The 11-DOF full-circle kernel and 128-step accelerated diagnostic ramp do not reproduce event-16.",
+    "The fine check covers healed initial equilibrium only; no fine Radau event has completed.",
+    "Pilot timings overlap the existing two-worker BDF2 build and are not fair FEM speed comparisons.",
+    "Buffering is bitwise exact but its wall-time advantage has not been isolated.",
+    "Independent temporal/contact/bulk refinement, full original RK causal audit and fine initialized AD remain required."
+  ]
+}

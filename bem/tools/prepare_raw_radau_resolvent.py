@@ -35,10 +35,19 @@ NATIVE = runpy.run_path(str(TOOLS / "prepare_native_resolvent.py"))
 REPLAY = runpy.run_path(str(TOOLS / "replay_resolvent.py"))
 WORK = runpy.run_path(str(TOOLS / "build_resolvent_history.py"))["compliance_in_work_coordinates"]
 TRANSFER = runpy.run_path(str(TOOLS / "trace_schur_experiment.py"))["TraceSchurTransfer"]
+BUFFER = runpy.run_path(str(TOOLS / "buffered_spectrum.py"))["BufferedSpectrumWriter"]
 
 
 def construction_arrays(
-    model, plan, sampling, workers, quadrature, fft_rows, combine_matrices, startup_rows=8
+    model,
+    plan,
+    sampling,
+    workers,
+    quadrature,
+    fft_rows,
+    combine_matrices,
+    startup_rows=8,
+    spectrum_buffer_matrices=64,
 ):
     """Conservative array estimates for sequential phases, excluding OS cache."""
     meshes = [model.reference.moving, model.reference.stationary]
@@ -48,13 +57,16 @@ def construction_arrays(
         4 * (sampling.degree + 1) + 3 * sampling.check_points + 2 * workers + 4
     ) * packet
     geometry = sum(prepared_geometry_bytes(m, quadrature) for m in meshes)
+    buffer = min(plan.fft_size // 2 + 1, spectrum_buffer_matrices) * d * d * 16
     solver = 32 * workers * (model.constraints.size**2 + sum(m.dofs**2 for m in meshes)) * 16
     rows = min(d, fft_rows)
     inversion = 4 * nfft * rows * d * 8 + 2 * (nfft // 2 + 1) * rows * d * 16
     inversion += (steps + 1) * rows * d * 8 + 4 * d * d * 8
     combine = 12 * combine_matrices * d * d * 16 + 64 * d * d * 16
     startup = 12 * nfft * min(d, startup_rows) * 16 + 8 * (steps + 1) * d * 8
-    peak = max(geometry + interpolation + solver, inversion, combine, startup) + 128 * 1024**2
+    peak = (
+        max(geometry + interpolation + solver + buffer, inversion, combine, startup) + 128 * 1024**2
+    )
     return dict(
         peak=peak,
         interpolation=interpolation,
@@ -63,13 +75,16 @@ def construction_arrays(
         startup=startup,
         geometry=geometry,
         solver=solver,
+        spectrum_buffer=buffer,
     )
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
-        "source", type=Path, help="Small mesh/case summary JSON; no source matrix is read"
+        "source",
+        type=Path,
+        help="Case TOML or small mesh/case summary JSON; no source matrix is read",
     )
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--dt", type=float, default=2e-6)
@@ -84,7 +99,8 @@ def main():
     parser.add_argument("--output-rtol", type=float, default=1e-9)
     parser.add_argument("--workers", type=int, default=int(os.environ.get("FDBEM_CORES", "1")))
     parser.add_argument("--fft-rows", type=int, default=4)
-    parser.add_argument("--combine-matrices", type=int, default=4)
+    parser.add_argument("--combine-matrices", type=int, default=64)
+    parser.add_argument("--spectrum-buffer-matrices", type=int, default=64)
     parser.add_argument("--startup-rows", type=int, default=8)
     parser.add_argument("--primitive-partition", action="store_true")
     parser.add_argument("--weight-layout", choices=["c", "fortran"], default="fortran")
@@ -100,6 +116,7 @@ def main():
         or args.fft_rows < 1
         or args.combine_matrices < 1
         or args.startup_rows < 1
+        or args.spectrum_buffer_matrices < 1
         or not all(
             np.isfinite(v) and v > 0
             for v in [args.dt, args.duration, args.max_workspace_mb, args.max_memory_mb]
@@ -110,7 +127,26 @@ def main():
     if steps < 1 or abs(steps * args.dt - args.duration) > 1e-12 * max(args.duration, args.dt):
         raise ValueError("Duration must be covered by an integer number of time steps")
     begun, cpu_begun = perf_counter(), process_time()
-    source = json.loads(args.source.read_text())
+    if args.source.suffix.lower() == ".toml":
+        case = args.source.resolve()
+        source = dict(
+            source_mesh_arguments=dict(
+                case=str(case),
+                h=10,
+                contact_h=2,
+                contact_end_h=0.015625,
+                corner_h=0.015625,
+                quadrature=12,
+                restart_knot_window=None,
+                restart_knot_subdivisions=1,
+                dt=args.dt,
+                steps=steps,
+                duration=args.duration,
+            ),
+            environment=environment_record(case),
+        )
+    else:
+        source = json.loads(args.source.read_text())
     options, overrides = NATIVE["discretization_arguments"](source["source_mesh_arguments"], args)
     environment = environment_record(options["case"])
     keys = ["source_sha256", "case_sha256", "restart_data_sha256"]
@@ -139,6 +175,7 @@ def main():
         args.fft_rows,
         args.combine_matrices,
         args.startup_rows,
+        args.spectrum_buffer_matrices,
     )
     conversion = 0
     if args.weight_layout == "fortran":
@@ -172,6 +209,7 @@ def main():
         "build_resolvent_history.py",
         "fortran_weight_storage.py",
         "bounded_weight_conversion.py",
+        "buffered_spectrum.py",
     ]
     frozen = {
         str(p.resolve()): fingerprint(p)
@@ -242,6 +280,7 @@ def main():
 
         for branch in range(2):
             check_source()
+            writer = BUFFER(spectra[branch], matrices=args.spectrum_buffer_matrices)
             sampler, proxy = None, None
             if args.primitive_partition:
                 intervals, proxy = RAW["primitive_branch_partition"](
@@ -252,7 +291,7 @@ def main():
                 )
             last = [0.0]
 
-            def diagnostics(record):
+            def diagnostics(record, target=writer):
                 now = perf_counter()
                 if now - last[0] >= 30 or record["all_fft_grid_points_emitted"]:
                     check_source()
@@ -262,6 +301,8 @@ def main():
                             phase="raw_radau_branch",
                             branch=branch,
                             sampling=record,
+                            frequency_matrices_committed=target.committed,
+                            pending_buffer_matrices=target.pending,
                             elapsed_seconds=now - begun,
                         ),
                     )
@@ -276,13 +317,14 @@ def main():
                 transform,
                 plan,
                 branch,
-                lambda i, s, value: spectra[branch].__setitem__(i, value),
+                lambda i, s, value, target=writer: target.append(i, value),
                 options=sampling,
                 workers=args.workers,
                 max_workspace_mb=args.max_workspace_mb,
                 diagnostics=diagnostics,
                 sampler=sampler,
             )
+            writer.finish()
             record["primitive_partition_screen"] = proxy
             records.append(record)
             branch_digests.append(
@@ -344,7 +386,7 @@ def main():
         impedance = RADAU["matrix_function"](transfer.evaluate, RADAU["radau_symbol"](0) / plan.dt)
         if np.linalg.norm(impedance.imag) > 1e-10 * max(np.linalg.norm(impedance.real), 1):
             raise ValueError("Instantaneous Radau impedance must be real")
-        del direct, transfer, provider, transform
+        del direct, transfer, provider, transform, writer, diagnostics
         audit_seconds = perf_counter() - audit_start
     combination_start = perf_counter()
     for first in range(0, plan.fft_size // 2 + 1, args.combine_matrices):

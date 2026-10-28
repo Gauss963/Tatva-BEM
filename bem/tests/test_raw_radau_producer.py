@@ -202,3 +202,34 @@ def test_underintegrated_kernel_is_rejected_at_the_unchanged_composition_toleran
     with pytest.raises(ValueError, match="lag-zero inverse composition failed"):
         PRODUCER["main"]()
     assert not (output / "summary.json").exists()
+
+
+def test_case_toml_entry_point_needs_no_previously_generated_kernel(tmp_path, monkeypatch):
+    output = tmp_path / "from-case"
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "prepare",
+            str(CASE),
+            "--output",
+            str(output),
+            "--h",
+            "160",
+            "--contact-h",
+            "160",
+            "--contact-end-h",
+            "160",
+            "--corner-h",
+            "160",
+            "--duration",
+            "32e-6",
+            "--preflight-only",
+        ],
+    )
+    PRODUCER["main"]()
+    metadata = json.loads((output / "preflight.json").read_text())
+    assert metadata["source_mesh_arguments"]["case"] == str(CASE.resolve())
+    assert metadata["source_mesh_arguments"]["h"] == 160
+    assert metadata["plan"]["steps"] == 16
+    assert not list(output.glob("*.npy"))
