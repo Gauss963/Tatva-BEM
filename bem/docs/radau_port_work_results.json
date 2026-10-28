@@ -1,0 +1,48 @@
+{
+  "status": "completed_incremental_radau_bulk_port_work_diagnostic",
+  "source_summary": {
+    "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/raw-radau-port-work-20261028/summary.json",
+    "sha256": "84ffb7819c064590c7c5cca92886dba289d7260a8b30cc31259b6f089c9eabd1"
+  },
+  "report": {
+    "final_work_mpa_mm2": 3610.569114899225,
+    "final_residual_work_error_bound_mpa_mm2": 3.58195940860439e-05,
+    "minimum_prefix_work_mpa_mm2": 0.0,
+    "minimum_prefix_lower_bound_mpa_mm2": 0.0,
+    "minimum_prefix_upper_bound_mpa_mm2": 0.0,
+    "final_radius_weighted_work_mpa_mm2": 3396.8765495876846,
+    "final_radius_weighted_residual_error_bound_mpa_mm2": 3.3728293865214816e-05,
+    "minimum_radius_weighted_prefix_upper_bound_mpa_mm2": 0.0,
+    "sum_absolute_step_work_mpa_mm2": 3610.5691148992237,
+    "audited_force_residual_bound_mpa": 9.416435015433914e-08,
+    "stage_weights": [
+      0.75,
+      0.25
+    ],
+    "cq_diagnostic_radius": 0.999648715112665,
+    "previous_endpoint_in_velocity": true,
+    "signed_work_not_clipped": true,
+    "scope": "Selected incremental trace only; no interior energy reconstruction, global passivity or slip-weakening stability theorem"
+  },
+  "complete_prepared_horizon_checked": false,
+  "reconstruction": "R=0 equilibrium force, with the saved original-RK residual propagated as a cumulative work-error bound",
+  "work_scope": "Incremental elastic-body port work about the static lift; excludes static preload cross terms, contact spring storage and frictional dissipation",
+  "primal_stage_sha256": "1d4a7e9ce9238a6709caa6b3de2cf7a8c992b6b22a83ea3eca738dfc5d7d89fd",
+  "history_sha256": "52161359caa5d110384c8611904c70f247e2adab93ec22506523811abc1dc8d3",
+  "frozen_input_sha256": {
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/audit_radau_port_work.py": "4c158a770087f9ecb9b9c5462a8676fd7a1e8ed0547abbdbaf16a1fe6ade90e4",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/radau_port_work.py": "b08b2bdfe8d050300ee4d66f8dc7f51dfbb918c5f24a00ee0b48f925b1dc0daf",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/radau_experiment.py": "e616d36a766ba323d9967af04e0bd154f86a9e158902668df6a8291be9e36408",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/replay_resolvent.py": "129d75f1dc47ba11f2da171a820e422c3bde36ccce6ed2624690230c9e66bafc",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/raw-radau-fem-static-pilot-20261028/summary.json": "9fa875bf32067881b223ff1749a5905c79274c850b3416ec7f0bd682792eb466",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/raw-radau-complete-causal-audit-20261028-v2/summary.json": "8082c009fd222aa675569ec71abd04e808032b6832758522207711adfa110a0c",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/raw-radau-complete-causal-audit-20261028-v2/run_manifest.json": "b6ea8c2b8d38a36d45c77028a8e552dd7a3a25fa26a44fc3c42e674e8b053da4",
+    "/Volumes/Gauss-T7/Tatva-BEM-cache/raw-radau-h160-q12-full45-20261028/summary.json": "4b1b49af562cdc67e8685288c38913004e1632f67202c92a6db5f26d50f906ad"
+  },
+  "physical_energy_balance_reconstructed": false,
+  "global_passivity_proved": false,
+  "slip_weakening_stability_proved": false,
+  "full_original_event_reproduced": false,
+  "same_accuracy_fem_advantage_verified": false,
+  "original_tatva_readonly": true
+}

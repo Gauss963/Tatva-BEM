@@ -1,0 +1,85 @@
+{
+  "status": "passed_early_fine_original_radau_mode_checks",
+  "records": [
+    {
+      "index": 0,
+      "branch": 0,
+      "s_real_per_s": 175.6733011623723,
+      "s_imag_per_s": 0.0,
+      "relative_work_frobenius": 7.977548665120092e-14,
+      "original_compliance_solve_composition_inf": 5.604696516756289e-11,
+      "seconds": 58.36747737508267
+    },
+    {
+      "index": 63,
+      "branch": 0,
+      "s_real_per_s": 175.67331022170944,
+      "s_imag_per_s": 3020.0246740209545,
+      "relative_work_frobenius": 7.302628102697267e-15,
+      "original_compliance_solve_composition_inf": 1.834122006985781e-12,
+      "seconds": 59.74639745801687
+    }
+  ],
+  "relative_and_solve_tolerance": 1e-06,
+  "indices": [
+    0,
+    63
+  ],
+  "branch": 0,
+  "only_already_committed_immutable_matrices": true,
+  "snapshot_sha256": "d3cd5d0314912779efbb4d6860486f2cc3d3e8f21c3daf14f554a17f2245a832",
+  "frozen_input_sha256": {
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/check_early_fine_radau_modes_20261028.py": "f7a9e5b96bd9eb509c7cd04e791e9c88468e6a05cc98634cb2613620e7187603",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/radau_raw_sampling.py": "dc743da265d444e43da572bb07c25d3508f7daae0e13b4cf7404844a12f4a9ff",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/build_resolvent_history.py": "00f67ff54c940cbd610a091f675ee1f8ef2996d1e3daf7ff5da2074b3fc36a36",
+    "/Volumes/Gauss-T7/Tatva-BEM-cache/fresh-radau2us-graded-q12-full45-20261028/preflight.json": "6f54fbdee98a4e4f83cf8067e3a85c51f53e0ee7c56447b0980699064ac446e4",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/cases/pmma_event16.toml": "82d8f491a63ca1c348507678f08406dccbc62ed1d4abea8882879f7894d2315d",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/friction.py": "1424c1639cdc1eb4dd8f780bfdc0433f33cf29752b07a17814a3a2f326d81086",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/nodal.py": "632f1a755bb09d784c125d3198f662213ea60045ada9db1555e1b47b3ab39856",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/nonlinear.py": "019c5fc176c70964c89f9e7c74147ad48b4235267dd2faf0ee22f789a2b97590",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/material.py": "7c4d34d911831f12e3bc99bda2e13e76d468acdf80038dcb60310a568a5342d1",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/adjoint.py": "7863386b78318e6502d6257469322ee82746f2384ee915c16cbb98cda69c5bc0",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/nodal_dynamics.py": "839db57190f62795aebef30545fcc9c1b41fdef503f038cc7f425068962eb39d",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/cq.py": "e9af920593db01f56f1f7138832f0aa603daf07cbf1d688fba8a806f712c1e15",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/linear.py": "3a4d7c2259fd3e67b507d0c9dcd18082c24ffda30fccb12749976c97fa5a577c",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/statics.py": "9f81cbd95a1ff1f742387ee4ae94251304177999208a95703371272ac79dc250",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/io.py": "d292e6338381aa7935dbbfcadc0df884e89f10b7096fa70cf1b05a83c1c12b03",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/__init__.py": "984855d6ff3848411c946ecca174ac08baf7afe6f1d2c3be00284da9b8dbf288",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/galerkin.py": "85541ddfe5020debde77b2bf2d4a045fe9a52b6183d4af2f762f577be18ab66d",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/condensation.py": "12010fb51d8490ae5c3a9a2cf5b04e414cb7e6205b409ce7891b454e384de7d2",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/mesh.py": "a37e853ed57dd80633c44805b6c13158643ac65db3e4a4cfc12520bbdfa15c4c",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/galerkin_fast.py": "e6167f6c553e15697b6d67a3a33f559574d22fd49db4aad49c8262d68224b614",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/comparison.py": "631c111752342fac7d0f64553620e04940e7888b1ab2fc52566a23b5c35ee24c",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/cli.py": "82e53ce34714809933dbe456ef403bce27c6b60b20ac4481f2feded9eeadfcea",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/cq_storage.py": "da2534ef95e95813a464ff04f78a092be374110650d1866cbc1fb8ea5b5105b2",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/sampling.py": "c518d2298b167aaa1d5ca327a612426276901876a50322a7fe4595c7ee4f1f11",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/kernels.py": "4008ae38c62c3022034d654a13da75369bd67309af4614006942398e22c1ad08",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/case.py": "4f0c91b18309a2eae5ce5a78da3bac9fde0be9fb1c0a4d2d5e5e1fc84bd85fa7",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/jax_backend.py": "4de0aadb88b73ef6792ff36894134ee31bc412b1a54b177a4d1aaaa43328d547",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/constraints.py": "830071941c6df0f70e455530fe094242042fb0c1e31498e8f9b75c9aa825cb91",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/operators.py": "bb77a3b2c66dce871c9e71cc2cdc02488e90ad32278cc9a67fea8b909b722825",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/benchmarks.py": "c24b97264ca60d0da1dab2095d50e9ef1b88b7208fba2d46178b8cf9038eb571",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/dynamics.py": "b6d84d8d2c1ac6fc465565c289d1249f378f3424e00cb93441791960b3c180f8"
+  },
+  "scope": "Two original-compliance slow-mode checks only; no full circle, full event, FEM convergence or speed certificate",
+  "numerical_tolerances_unchanged": true,
+  "fresh_builder_values_not_modified": true,
+  "full_original_event_reproduced": false,
+  "same_accuracy_fem_advantage_verified": false,
+  "original_tatva_readonly": true,
+  "serialization": {
+    "paused_utc": "2026-10-28T08:15:46.507845+00:00",
+    "resumed_utc": "2026-10-28T08:18:09.718737+00:00",
+    "paused_seconds": 143.21210433263332,
+    "identity_before_resume": "Wed Oct 28 15:34:22 2026     T     23136 /opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python -B /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/prepare_raw_radau_resolvent.py /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/cases/pmma_event16.toml --output /Volumes/Gauss-T7/Tatva-BEM-cache/fresh-radau2us-graded-q12-full45-20261028 --dt 2e-06 --duration 0.045 --workers 2 --primitive-partition --weight-layout fortran --max-workspace-mb 10240 --max-memory-mb 18432",
+    "identity_after_resume": "Wed Oct 28 15:34:22 2026     R     62000 /opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python -B /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/prepare_raw_radau_resolvent.py /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/cases/pmma_event16.toml --output /Volumes/Gauss-T7/Tatva-BEM-cache/fresh-radau2us-graded-q12-full45-20261028 --dt 2e-06 --duration 0.045 --workers 2 --primitive-partition --weight-layout fortran --max-workspace-mb 10240 --max-memory-mb 18432",
+    "same_process_resumed": true,
+    "timing_scope": "This serialized check is included in the constructor wall interval and must not be added twice"
+  },
+  "total_seconds": 143.27749220933765,
+  "peak_process_rss_mib": 2985.34375,
+  "source_summary": {
+    "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/early-fine-radau-original-modes-20261028/summary.json",
+    "sha256": "32d11eace232898f1464fab93295b107b295720acdf53e9f3bef2e7c6135b5d8"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "status": "observed_original_h2_normal_handoff_energy",
+  "source_file": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h2-4c-interface/simulation.h5",
+  "source_file_bytes": 77038494,
+  "source_file_mtime_ns": 1792913256721515841,
+  "source_revision": "933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d",
+  "source_summary_sha256": "8f2538542a351197923c063e75dce7f607adc5706ff46313ee78ee1dc73af5e1",
+  "resolved_config_sha256": "1f95e7f2bd2c8abc342a80c69ffc59bdb60d95727e76a09d8a1f9fdb8bce6bd2",
+  "normal_phase_mode": "static",
+  "normal_relaxation_time": null,
+  "reset_slip_weakening_at_shear_start": true,
+  "observed_phase": 1,
+  "last_normal_frame_index": 40,
+  "stored_history_dtype": "float32",
+  "computational_dtype": "float64",
+  "saved_values": {
+    "elastic_energy": 5204.9345703125,
+    "interface_energy": 7.294135093688965,
+    "kinetic_energy": 1.6836891722180644e-19,
+    "time": 0.0020000054500997066,
+    "max_slip": 0.0
+  },
+  "kinetic_over_elastic_plus_interface": 3.2302672568295415e-23,
+  "scope": "Rounded saved phase-1 scalars only; supports negligible normal-handoff kinetic energy in this original h2 run. No claim about fine graded FEM or full internal initial-field equivalence.",
+  "fem_history_not_relabelled_as_shear_zero": true,
+  "original_tatva_readonly": true
+}

@@ -1,0 +1,11 @@
+{
+  "source_summary": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/raw-radau-port-work-20261028/summary.json",
+  "source_summary_sha256": "84ffb7819c064590c7c5cca92886dba289d7260a8b30cc31259b6f089c9eabd1",
+  "work_history_sha256": "52161359caa5d110384c8611904c70f247e2adab93ec22506523811abc1dc8d3",
+  "plotting_source_sha256": "6c37b3b79557b996c5fc6860f7563f72bfd3a7f13394d4f73de506d09b1fe663",
+  "output_files": {
+    "radau_port_work.png": "71e5095a35e1cd5dbe8c8081d1bb2308f468913e9dce8490d7b26a7d32961144",
+    "radau_port_work.svg": "2e71defbd38bd5f95a7fd9c88393cda8c61b4bb1415f308cf4ae506d05eaf2b3"
+  },
+  "scope": "Incremental boundary work with a force-residual bound; no interior energy or FEM stability/speed certificate"
+}

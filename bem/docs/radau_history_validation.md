@@ -83,6 +83,9 @@ initialized_gradient(
 `plastic_jacobian`、`retained_bulk_force_jacobian` 及 `parameters`；尺寸或參數
 不符會拒絕執行。此函式沒有微分 active-set/Newton 迭代的選擇過程。
 
+另已加入[stage 加權增量 bulk 功與殘差界限](radau_port_work.md)，並完成
+兩個實際 fine slow-mode 的獨立原始 compliance 核對；完整事件仍待完成。
+
 ## Fine 執行狀態
 
 fresh fine h10／contact2／end0.015625、Q12、2 µs／45 ms 工作已在本機啟動，
