@@ -30,8 +30,9 @@ roundoff failure at the original equilibrium tolerance.
 Fresh 2 us Radau construction is now running on the graded fine mesh, following
 the [measured time-symbol comparison](bem/docs/bulk_time_symbol.md).
 The [complete causal RK audit and conditional adjoint](bem/docs/radau_history_validation.md)
-pass real two-body short-run controls. Fine event/FEM agreement and initialized
-Radau gradients remain unverified.
+pass real two-body short-run controls, including selected healed-preload
+sensitivities. Fine event/FEM agreement and fine initialized Radau gradients
+remain unverified.
 
 This repository preserves the existing Tatva/PMMA Git history. Its upstream
 is [smec-ethz/tatva](https://github.com/smec-ethz/tatva); the inherited PMMA

@@ -1,0 +1,103 @@
+{
+  "status": "passed_actual_two_body_initialized_radau_ad",
+  "source_summary": {
+    "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/raw-radau-initialized-ad-20261028/summary.json",
+    "sha256": "ec7430e0322bda777f1c7bf5d492e96284c5144be4011b914b57fb25e0c30759"
+  },
+  "cotangents": {
+    "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/raw-radau-initialized-ad-20261028/cotangents.npz",
+    "sha256": "e907728fee7d1b4a13eeb0a12be9cb155b4082372031219f1bfe08b63636b485"
+  },
+  "steps": 128,
+  "bulk_dofs": 11,
+  "stage_dofs": 22,
+  "contact_points": 5,
+  "maximum_absolute_vjp_jvp_difference": 1.8540724511240114e-14,
+  "maximum_normalized_difference": 1.1980424839430516e-14,
+  "maximum_relative_nonzero_direction_difference": 6.247897690049905e-13,
+  "relative_difference_per_direction": [
+    6.247897690049905e-13,
+    2.3432598005071928e-14,
+    3.215191447537727e-14,
+    8.857179578516854e-15,
+    3.385908686915524e-14,
+    4.946835662740567e-14,
+    2.8053135310891763e-15
+  ],
+  "parameter_order": [
+    "normal_penalty",
+    "tangential_penalty",
+    "mu_s",
+    "mu_k",
+    "Dc"
+  ],
+  "initialized_gradient": [
+    -9.437169262942034e-11,
+    1.6238194403028843e-08,
+    -0.37292985072892754,
+    -0.9025001363514858,
+    -0.5475848945037629
+  ],
+  "conditional_gradient": [
+    3.74728213134988e-09,
+    -5.285692991827073e-08,
+    -0.37292985072892754,
+    -0.9025001363514858,
+    -0.5475848945037629
+  ],
+  "gradient_change": [
+    -3.8416538239793e-09,
+    6.909512432129958e-08,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "initial_displacement_jacobian_column_norms": [
+    7.903142503996226e-09,
+    4.5424500008516276e-07,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "initial_measured_force_jacobian_column_norms": [
+    3.4243706916280638e-06,
+    0.0004849556401115838,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "initial_plastic_jacobian_column_norms": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "selected_healed_static_branches_included": true,
+  "measured_initial_force_and_residual_history_sensitivities_included": true,
+  "scope": "Actual coarse two-body nonlinear pilot, fixed bulk/restart and recorded stage loading; selected healed-static and transient branches. No fine/full event, event-time/material/geometry derivative or physical/gradient convergence certificate.",
+  "full_original_event_reproduced": false,
+  "full_fine_radau_ad_validated": false,
+  "same_accuracy_fem_advantage_verified": false,
+  "event_time_derivative_included": false,
+  "original_tatva_readonly": true,
+  "frozen_source_sha256": {
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/check_radau_initialized_ad_20261028.py": "812aad58024a203fe06c7536061545fc2b539e835f8e0262a10dff8aed368b77",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/initialized_radau_adjoint.py": "ee27357a6036fa7a3b3d441ffef59949d46d4ebdbc0652de3a49ffbc11c8f976",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/radau_contact_adjoint.py": "3b041f773564ec8522fbb234e271e92cc673e3bd2257d2535e7453aea0460cb4",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/radau_contact_experiment.py": "d564ec6ea2311b783d52df83d2f567d640aa6e40a5c1236aad60c51112b023c6",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compact_radau_history.py": "85fb2c263a330b0b64d464017e2f67a6b5ff043c3cc52df48c388d14a6c70a3e",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/radau_initialization.py": "43bf2227e934829ae11a8cf6b8b255e16faf6e22c9a16f9d54c9bd9a17589086",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/uncondensed_static_contact_ad.py": "e55c126afe70f5ae7fe9089fa8d3d2ae2dbcf60f85597b06508e4ea1a937548e",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/uncondensed_static_contact.py": "3c672b13b415ee3d96487858a869b9e4cb0af3583ac63959ceb7101c509c4bef",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/fem_static_contact_ad.py": "a6783b93e980ba50f18d37786585ee0dd4e638f87e67467e4a22b07c444391dd",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/fem_static_contact.py": "093ee005753ebbe4efe4e9eefd95a05ccf5748b1f976cb29f0045316c1728589",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/refined_contact.py": "c055f15f8c15d6c3da2f6792a97ec3ed44baa652478f6a24990fa1f478fa3741",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/raw-radau-fem-static-pilot-20261028/summary.json": "9fa875bf32067881b223ff1749a5905c79274c850b3416ec7f0bd682792eb466",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/raw-radau-fem-static-pilot-20261028/stages.npz": "1d4a7e9ce9238a6709caa6b3de2cf7a8c992b6b22a83ea3eca738dfc5d7d89fd",
+    "/Volumes/Gauss-T7/Tatva-BEM-cache/raw-radau-h160-q12-full45-20261028/summary.json": "4b1b49af562cdc67e8685288c38913004e1632f67202c92a6db5f26d50f906ad"
+  },
+  "total_seconds": 6.103066582232714,
+  "timing_scope": "One coarse control overlapping the two-worker fine constructor; no speed advantage claim",
+  "independent_finite_difference_test": "test_initialized_rk_derivative_includes_measured_static_force_and_offset: nonzero initial plastic sensitivity and nonzero residual-force sensitivity, direct original-Z RK convolution"
+}

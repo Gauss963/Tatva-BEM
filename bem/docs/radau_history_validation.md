@@ -38,6 +38,51 @@ reverse／forward dot-product 最大絕對差為 **1.85e-14**。
 diagonal 與 affine startup 的**條件式**導數。尚未包括 Radau healed preload、
 停止載入事件時間、材料或幾何導數；既有 BDF2 initialized AD 的驗證不能直接轉移。
 
+### 後續：接入 selected healed preload
+
+`tools/initialized_radau_adjoint.py` 現已將同一 uncondensed healed active-set 的
+位移、塑性偏移及實測 bulk-force Jacobians 接到上述完整 causal loops。
+將初始殘差記為 r0，原方程的 affine force 可寫為
+
+```text
+fc - fc0 + r0 = fc + F0 + spring*(u0_platen-a0).
+```
+
+因此當前 root 與每個過去 source 都要微分右側的實測 F0 和初始 platen，
+而非假設 r0 及其導數恆為零。塑性狀態採扣除初始偏移敏感度的座標，
+保留既有已驗證的 zero-initial-tangent causal loops。
+
+[實際雙 block 128 步控制](radau_initialized_results.json) 通過 initialized
+reverse／forward 核對。normal-penalty 梯度由條件式的 3.7473e-9 變為
+−9.4372e-11；tangential-penalty 由 −5.2857e-8 變為 1.6238e-8。
+本次 preload 全部 sticking，初始 mu_s／mu_k／Dc 的敏感度為零，故三個摩擦參數
+的結果與條件式相同。這些數字只屬此診斷，尚未作梯度網格收斂結論。
+獨立製造解另外給定非零初始塑性與初始殘差敏感度，重新解 original-Z RK
+方程作有限差分；已通過，並非僅比較共用同一 wrapper 的兩個導數方向。
+
+這完成短程 selected-static-branch 的串接；完整 fine／45 ms initialized AD、
+停止載入事件時間、材料及幾何導數仍未完成。後續呼叫方式為：
+
+```python
+initialized_gradient(
+    "reverse_gradient",
+    static_sensitivity,
+    reference,
+    first_history,
+    second_history,
+    shift_wrap,
+    impedance,
+    stages,
+    segment_substeps=(64, 128),
+    cache_mb=8,
+    fft_rows=2,
+)
+```
+
+`static_sensitivity` 必須包含相同網格／參數下的 `displacement_jacobian`、
+`plastic_jacobian`、`retained_bulk_force_jacobian` 及 `parameters`；尺寸或參數
+不符會拒絕執行。此函式沒有微分 active-set/Newton 迭代的選擇過程。
+
 ## Fine 執行狀態
 
 fresh fine h10／contact2／end0.015625、Q12、2 µs／45 ms 工作已在本機啟動，

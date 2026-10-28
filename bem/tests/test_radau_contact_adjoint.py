@@ -14,6 +14,7 @@ from finiteblock_bem.friction import ContactState, SlipWeakeningContact
 
 TOOLS = Path(__file__).resolve().parents[1] / "tools"
 AD = runpy.run_path(str(TOOLS / "radau_contact_adjoint.py"))
+INITIALIZED = runpy.run_path(str(TOOLS / "initialized_radau_adjoint.py"))
 SIM = runpy.run_path(str(TOOLS / "simulate_compact_radau.py"))
 RADAU = runpy.run_path(str(TOOLS / "radau_experiment.py"))
 STORAGE = runpy.run_path(str(TOOLS / "compact_radau_storage.py"))
@@ -167,3 +168,117 @@ def test_stage_clock_must_match_the_causal_history_plan(problem):
     invalid["stage_time"][3, 0] += 1e-5
     with pytest.raises(ValueError, match="stage clock"):
         AD["context"](ref, first, second, wrap, impedance, invalid, (2, 4))
+
+
+def static_family(problem, parameters):
+    ref, _, _, _, _, stages, _, _ = problem
+    stiffness = np.array([[30.0, 0.2, 0.1], [0.2, 30.0, -20], [0.1, -20, 30]])
+    baseline = np.array([100, 40, 0.8, 0.5, 0.2])
+    offset = np.array([[0, 0, 0.05, 0, 0]])
+    plastic = offset @ (parameters - baseline)
+    bias_jacobian = np.array([[0.02, 0, 0, 0, 0], [0, 0.01, 0, 0, 0], [0, 0, 0.03, 0, 0]])
+    initial_force = stages["initial_residual_force"] + bias_jacobian @ (parameters - baseline)
+    external = (
+        stiffness @ np.array([0.1, 0, 0]) + np.array([10, 0, 0]) - stages["initial_residual_force"]
+    )
+    matrix = stiffness + np.diag([parameters[0], parameters[1], ref.spring])
+    right = external + initial_force + np.array([0, parameters[1] * plastic[0], 0])
+    displacement = np.linalg.solve(matrix, right)
+    direct = np.zeros((3, 5))
+    direct[0, 0] = -displacement[0]
+    direct[1, 1] = -(displacement[1] - plastic[0])
+    direct[1] += parameters[1] * offset[0]
+    direct += bias_jacobian
+    derivative = np.linalg.solve(matrix, direct)
+    return (
+        displacement,
+        plastic,
+        stiffness @ displacement - external,
+        dict(
+            displacement_jacobian=derivative,
+            plastic_jacobian=offset,
+            retained_bulk_force_jacobian=stiffness @ derivative,
+            parameters=parameters,
+        ),
+    )
+
+
+def initialized_original_objective(problem, parameters, actuator):
+    reference, _, _, _, _, _, raw, _ = problem
+    initial, plastic, force, _ = static_family(problem, parameters)
+    changed = SimpleNamespace(
+        **{
+            **reference.__dict__,
+            "base_dn": initial[:1],
+            "base_ds": initial[1:2],
+            "base_platen": initial[-1],
+            "case": SimpleNamespace(contact=SlipWeakeningContact(*parameters), normal_pressure=10),
+        }
+    )
+    system = AD["CONTACT"]["RadauContactEquilibrium"](
+        changed, raw.instantaneous + np.diag([0, 0, 2, 0, 0, 2]), segment_substeps=(2, 4)
+    )
+    affine = force.copy()
+    affine[-1] += reference.spring * initial[-1]
+    q = np.zeros((len(actuator), 6))
+    old = ContactState(plastic, np.zeros(1))
+    for k in range(1, len(actuator)):
+        forcing = raw.past_traction(q, k) + np.tile(affine, 2)
+        forcing[[2, 5]] -= reference.spring * actuator[k]
+        answer = system.solve(old, forcing, np.tile(q[k - 1, -3:], 2), q[k - 1, -3:])
+        assert answer.converged
+        q[k] = answer.displacement
+        old = ContactState(answer.response[:, 1, 2], answer.response[:, 1, 3])
+    return float(old.cumulative_slip[0])
+
+
+def test_initialized_rk_derivative_includes_measured_static_force_and_offset(problem):
+    ref, first, second, wrap, impedance, stages, _, _ = problem
+    baseline = np.array([100, 40, 0.8, 0.5, 0.2])
+    _, _, _, sensitivity = static_family(problem, baseline)
+    arguments = (ref, first, second, wrap, impedance, stages)
+    keywords = dict(segment_substeps=(2, 4), fft_rows=1)
+    reverse = INITIALIZED["initialized_gradient"](
+        "reverse_gradient", sensitivity, *arguments, **keywords
+    )
+    dp = np.array([0.3, -0.2, 0.02, -0.01, 0.01])
+    da = np.zeros_like(stages["actuator"])
+    da[1:] = 0.1 * np.sin(np.arange(2 * (len(da) - 1)).reshape(-1, 2))
+    forward = INITIALIZED["initialized_gradient"](
+        "forward_directions", sensitivity, *arguments, dp[:, None], da[..., None], **keywords
+    )
+    dual = float(reverse["gradient"] @ dp + np.sum(reverse["actuator_gradient"] * da))
+    assert dual == pytest.approx(
+        forward["objective_directional_derivative"][0], rel=2e-10, abs=2e-11
+    )
+    value = initialized_original_objective(problem, baseline, stages["actuator"])
+    assert value == pytest.approx(reverse["value_mm"], abs=1e-8)
+    epsilon = 1e-4
+    plus = initialized_original_objective(
+        problem, baseline + epsilon * dp, stages["actuator"] + epsilon * da
+    )
+    minus = initialized_original_objective(
+        problem, baseline - epsilon * dp, stages["actuator"] - epsilon * da
+    )
+    assert (plus - minus) / (2 * epsilon) == pytest.approx(dual, rel=2e-4, abs=2e-7)
+    assert reverse["measured_static_force_and_residual_sensitivities_included"]
+    assert reverse["initial_plastic_offset_sensitivity_included"]
+    assert reverse["full_initialized_gradient"]
+
+
+def test_initialized_rk_rejects_missing_measured_force_sensitivity(problem):
+    ref, first, second, wrap, impedance, stages, _, _ = problem
+    _, _, _, sensitivity = static_family(problem, np.array([100, 40, 0.8, 0.5, 0.2]))
+    sensitivity["retained_bulk_force_jacobian"] = np.zeros((2, 5))
+    with pytest.raises(ValueError, match="Measured static sensitivities"):
+        INITIALIZED["initialized_gradient"](
+            "reverse_gradient",
+            sensitivity,
+            ref,
+            first,
+            second,
+            wrap,
+            impedance,
+            stages,
+            segment_substeps=(2, 4),
+        )
