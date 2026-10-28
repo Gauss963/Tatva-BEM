@@ -27,6 +27,9 @@ FEM 時鐘由實際 phase step × dt 定義，先核對原存檔時間的四捨�
 並使用原生權重 coverage 首次達標的 accepted endpoint。沒有擬合時間平移。
 
 預設要求完整、source-frozen、true float64 的 FEM endpoint observations。
+另核對兩邊使用同一份已封存的 float64 event-15 plastic-slip／actuator seed、
+shear 起始時的 healed memory，以及全界面 `coverage=1` 的停止載入規則；
+改成局部區間、速度門檻或其他初態的比較會被拒絕。
 量測點另比較真實 endpoint pressure 及有符號 elastic shear 的完整波形，
 在時間節點聯集精確積分存檔 P1 曲線的 L2 差；各自扣除第一個共同時刻值的增量差另列，
 不能取代絕對場的一致性。零 reference norm 的相對誤差為 `null`。
@@ -72,11 +75,11 @@ PYTHONPATH=bem/src OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 \
 來源、metadata、完整 trajectory／HDF5 以串流 SHA256 核對前後未變。
 每個門檻另輸出逐位置 arrival-bracket CSV。
 
-17 項新測試涵蓋 rounding、strict crossing、censoring、最早位置 ties、
+24 項新測試涵蓋 rounding、strict crossing、censoring、最早位置 ties、
 時間區間的三態判定、載入等待時間掩蓋傳播差異、方向不確定、波形增量與絕對差分開，
-以及 float64 reader 拒絕 float32 shear／排除 handoff 前狀態。
-連同既有 float64 與 earliest-location 控制共 28 項通過。
-本機兩次序列驗證合計讓同一 FEM 程序等待 4.444488 秒，已記入控制紀錄，
+以及 float64 reader 拒絕 float32 shear／排除 handoff 前狀態、初態與載入政策核對。
+連同既有 float64 與 earliest-location 控制共 35 項通過。
+本機三次序列驗證合計讓同一 FEM 程序等待 6.658164 秒，已記入控制紀錄，
 仍包含在 FEM wall time，不另加一次成本。
 
 同日另重新核對並獨立保留了[實際 graded checkpoint 重播證據](graded_prefix_replay_results.json)：

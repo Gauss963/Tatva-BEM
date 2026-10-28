@@ -188,3 +188,45 @@ def test_float64_reader_keeps_signed_endpoint_shear_and_excludes_normal_handoff(
             np.testing.assert_array_equal(event["cumulative"], np.full((2, 2), 0.2))
             np.testing.assert_array_equal(event["fields"]["elastic_shear"], np.full((2, 2), -3.0))
             assert event["stop"] == dict(state="bounded", lower_s=0.1, upper_s=0.4)
+
+
+@pytest.mark.parametrize(
+    "change", [None, "reset", "coverage", "range", "velocity", "bem_seed", "fem_seed"]
+)
+def test_event_policy_rejects_different_seed_or_loading_even_if_curves_could_match(change):
+    config = dict(
+        reset_slip_weakening_at_shear_start=True,
+        stop_shear_loading_on_rupture=True,
+        shear_loading_stop_slip=None,
+        shear_loading_stop_velocity=None,
+        shear_loading_stop_min_y=0.0,
+        shear_loading_stop_max_y=480.0,
+        shear_loading_stop_coverage_fraction=1.0,
+    )
+    bem = dict(
+        case=dict(loading=dict(stop_coverage=1.0), source=dict(revision="original")),
+        restart_seed_override=dict(sha256="npz_sha"),
+    )
+    manifest = dict(source_restart=dict(seed_sha256="state_sha"))
+    seed = dict(
+        seed_file_sha256="npz_sha",
+        source_plastic_and_actuator_sha256="state_sha",
+        source_revision="original",
+    )
+    if change == "reset":
+        config["reset_slip_weakening_at_shear_start"] = False
+    elif change == "coverage":
+        bem["case"]["loading"]["stop_coverage"] = 0.9
+    elif change == "range":
+        config["shear_loading_stop_max_y"] = 479
+    elif change == "velocity":
+        config["shear_loading_stop_velocity"] = 1e-3
+    elif change == "bem_seed":
+        bem["restart_seed_override"]["sha256"] = "other"
+    elif change == "fem_seed":
+        manifest["source_restart"]["seed_sha256"] = "other"
+    if change is None:
+        COMPARE["validate_event_policy"](bem, config, manifest, seed)
+    else:
+        with pytest.raises(ValueError, match="Require"):
+            COMPARE["validate_event_policy"](bem, config, manifest, seed)

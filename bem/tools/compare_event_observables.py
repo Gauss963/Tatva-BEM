@@ -24,6 +24,34 @@ DIGEST = CONTACT["DIGEST"]
 DC = 0.0125959
 THRESHOLDS = {"micro": 1e-7, "Dc10": DC / 10, "Dc": DC}
 GAUGE_FRACTIONS = np.array([0.1, 0.5, 0.9])
+SEED = TOOLS.parent / "src/finiteblock_bem/resources/data/ev16_restart_float64.npz"
+SEED_RECORD = SEED.with_suffix(".json")
+
+
+def validate_event_policy(bem, config, manifest, seed_record):
+    """Do not accept matching curves obtained from a different seed/hold policy."""
+    expected = dict(
+        reset_slip_weakening_at_shear_start=True,
+        stop_shear_loading_on_rupture=True,
+        shear_loading_stop_slip=None,
+        shear_loading_stop_velocity=None,
+        shear_loading_stop_min_y=0.0,
+        shear_loading_stop_max_y=480.0,
+        shear_loading_stop_coverage_fraction=1.0,
+    )
+    if (
+        any(key not in config or config[key] != value for key, value in expected.items())
+        or bem["case"]["loading"]["stop_coverage"] != 1.0
+    ):
+        raise ValueError("Require the original healed-memory, whole-interface coverage-stop policy")
+    seed = bem.get("restart_seed_override") or {}
+    if (
+        seed.get("sha256") != seed_record["seed_file_sha256"]
+        or manifest["source_restart"]["seed_sha256"]
+        != seed_record["source_plastic_and_actuator_sha256"]
+        or bem["case"]["source"]["revision"] != seed_record["source_revision"]
+    ):
+        raise ValueError("Require the same original float64 event-15 plastic-slip/actuator seed")
 
 
 def validate_metadata(bem, fem, config, manifest, fem_run, *, legacy):
@@ -46,6 +74,10 @@ def validate_metadata(bem, fem, config, manifest, fem_run, *, legacy):
     ):
         raise ValueError("Require complete original-horizon source-frozen float64 computations")
     CONTACT["validate_case"](bem, fem, config)
+    seed_record = json.loads(SEED_RECORD.read_text())
+    if fingerprint(SEED) != seed_record["seed_file_sha256"]:
+        raise ValueError("Packaged original float64 restart differs from its recorded values")
+    validate_event_policy(bem, config, manifest, seed_record)
     if bem["case"]["contact"]["characteristic_slip"] != DC:
         raise ValueError("Arrival thresholds require the original event-16 Dc")
     if not legacy:
@@ -316,6 +348,8 @@ def main():
         raise ValueError("Choose a fresh output outside protected Tatva")
     paths = [
         Path(__file__),
+        SEED,
+        SEED_RECORD,
         *(
             TOOLS / name
             for name in [

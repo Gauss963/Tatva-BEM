@@ -3,7 +3,9 @@
   "bem_run": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/compact-radau6-q12-event16-original-seed-contact192",
   "fem_run": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h2-4c-interface",
   "frozen_input_sha256": {
-    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compare_event_observables.py": "2be137f839d130ad5edf79adf3ec588fabae904e0e175f5511cb314ad470ad59",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compare_event_observables.py": "d865bdccb57b9d189224c0676f61e77515fab7d161ae2709f1889032bda571ca",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/data/ev16_restart_float64.npz": "f09f9cfbe88d41cfba9daaffd1d901e66d1b33af2b6826ba8449fa05ef510901",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/data/ev16_restart_float64.json": "1d7a78135e62b274692dc9d93ab49029e944f1fedce5d0a3f4cf41ee82223861",
     "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/event_observables.py": "276c288f6ae56044f62d5b9c2d876550beda2b20df2677259ed414b5573b637e",
     "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compare_float64_contact_history.py": "3d7621c3dc3f1ea677189c3ab11f41f612896fadc835718e3dd8044888b24547",
     "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compare_refined_fem_history.py": "0779900b9556045208297bfc4cddca883a03fbb31bcb0aea24dabbd0d30a0540",
@@ -984,16 +986,17 @@
   "waveform_scope": "True endpoint contact pressure and signed shear only; does not reconstruct complete interior waves",
   "stop_scope": "FEM categorical flag bracket; BEM verified first accepted coverage endpoint; no fitted time shift",
   "omitted_initial_interval": "No pre-handoff normal observation is relabelled as shear t=0; crossings before first shear sample remain censored",
-  "comparison_seconds_including_hashes": 1.0074565410614014,
+  "comparison_seconds_including_hashes": 1.0120647503063083,
   "same_accuracy_fem_advantage_verified": false,
   "local_verification": {
-    "test_count": 28,
-    "pytest_seconds": 0.42,
+    "test_count": 35,
+    "pytest_seconds": 0.51,
     "control_records": [
       "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/event-observables-checks-20261028-v1/control.json",
-      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/event-observables-checks-20261028-v2/control.json"
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/event-observables-checks-20261028-v2/control.json",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/event-observables-checks-20261028-v3/control.json"
     ],
-    "serialized_validation_fem_wait_seconds": 4.4444884583354,
+    "serialized_validation_fem_wait_seconds": 6.658163791522384,
     "same_fem_pid": 29338,
     "same_fem_start": "Wed Oct 28 20:56:56 2026",
     "full_event_target_achieved": false
