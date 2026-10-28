@@ -37,7 +37,10 @@ capture 放在兩個輸出 writer 與 normal handoff 之後，保留完整 state
 損毀拒絕、完整狀態核對、capture 順序及 CPU 控制。這些不代表完整 graded event 已通過。
 12:56:56 UTC 已啟動新的 graded FEM 重播／完整接續工作，數值程序與 CPU 控制器均已確認存活。
 新參考輸出為 `bem/outputs/fem-event16-radau-study-graded-h2-end015625-4c-f64-replayed`；
-目前尚在重播前段，graded checkpoint 的 12-array 比較與完整 45 ms 尚待完成。
+14:32:58 UTC 已通過實際 graded checkpoint 的 12-array 逐位元比較，並由原 runner
+接續計算；完整 45 ms 仍待完成。
+[獨立保留的重播證據](graded_prefix_replay_results.json)另核對了複本 SHA256、
+實際 HDF5 時鐘與 float64 接觸場，並再次比較全部 12 個狀態陣列。
 
 BEM 的 256 個已寫入頻點仍在磁碟，1,154,912,256 個已保存資料 bytes 的 SHA256 為
 `f3802c5c698bed22e55be770bb4672ee9ec86d50c9ab24f1e9f1fc982c905801`。

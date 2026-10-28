@@ -129,6 +129,10 @@ checks causal force histories and the initial P1 seed-field projection.
 The [float64 contact output control](bem/docs/float64_contact_comparison.md)
 adds signed FEM endpoint shear without changing the original numerical state;
 all original datasets and checkpoint/resume outputs passed bitwise identity.
+The [event timing and propagation diagnostics](bem/docs/event_observables.md)
+retain saved-time uncertainty for nucleation, fixed-gauge propagation and load
+hold. The completed older 6 µs event still fails these diagnostic tolerances;
+the new graded 2 µs comparison remains pending.
 The [Galerkin implementation and validation](bem/docs/galerkin.md) addresses
 the sampled passivity failures of the original collocation backend.
 

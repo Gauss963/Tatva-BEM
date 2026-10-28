@@ -1,0 +1,1001 @@
+{
+  "status": "completed_legacy_event_diagnostic",
+  "bem_run": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/compact-radau6-q12-event16-original-seed-contact192",
+  "fem_run": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h2-4c-interface",
+  "frozen_input_sha256": {
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compare_event_observables.py": "2be137f839d130ad5edf79adf3ec588fabae904e0e175f5511cb314ad470ad59",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/event_observables.py": "276c288f6ae56044f62d5b9c2d876550beda2b20df2677259ed414b5573b637e",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compare_float64_contact_history.py": "3d7621c3dc3f1ea677189c3ab11f41f612896fadc835718e3dd8044888b24547",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compare_refined_fem_history.py": "0779900b9556045208297bfc4cddca883a03fbb31bcb0aea24dabbd0d30a0540",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compare_fem_mesh.py": "a747c5b4ff52ad84556d5de0c91fb21e0612f3f3d71f165626058c22608b3e0b",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/fem_reference_io.py": "767d970d36ebb446d838af2bd3c5b252e38614cab8a374e2bcf376f5a6564264",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compare_fem_reference.py": "3b00acec7e558fe8dd8b0e695b2d2ef66d33812a92706573364c2a5f0e4c9342",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/run_fem_reference.py": "def3dde0547b5885c24841754be6c531289279e9e30510e33b34b4f52e30a34d",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/replay_resolvent.py": "129d75f1dc47ba11f2da171a820e422c3bde36ccce6ed2624690230c9e66bafc",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/fem_contact_observations.py": "ca8727304aec9c38ea72f8f49e8dbeff0d90515ad907056bfc81d3b3baf80a7f",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/compact-radau6-q12-event16-original-seed-contact192/summary.json": "038564cbf1aaa38fffab8e1582a955df5ea5922a94f20ed562b0e9c8a0a6d5a4",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h2-4c-interface/summary.json": "8f2538542a351197923c063e75dce7f607adc5706ff46313ee78ee1dc73af5e1",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h2-4c-interface/resolved_run_config.json": "1f95e7f2bd2c8abc342a80c69ffc59bdb60d95727e76a09d8a1f9fdb8bce6bd2",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h2-4c-interface/reference_manifest.json": "a19d658036d7add09664a6c4832c3cba4edd61bd017496ff2e827039415679ec"
+  },
+  "dataset_sha256": {
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/compact-radau6-q12-event16-original-seed-contact192/trajectory.npz": "124fe0eb600662fd9a327846007e86d65faccf7339a0d57a5d244941ce8b6c8d",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-authored-f64-h2-4c-interface/simulation.h5": "bbb90b9f5725c9446b4270d4411bd104e387eac89c9fcad390b73843e514cf20"
+  },
+  "metrics": {
+    "thresholds": {
+      "micro": {
+        "threshold_mm": 1e-07,
+        "native_first_event": {
+          "reference": {
+            "state": "bounded",
+            "lower_s": 0.025727862270352734,
+            "upper_s": 0.02573285944180615,
+            "possible_first_native_locations_mm": [
+              0.0
+            ]
+          },
+          "actual": {
+            "state": "bounded",
+            "lower_s": 0.026382,
+            "upper_s": 0.026388,
+            "possible_first_native_locations_mm": [
+              2.0
+            ]
+          },
+          "comparison": {
+            "status": "fail",
+            "relative_tolerance": 0.02,
+            "minimum_possible_relative_error": 0.025226133911073978,
+            "maximum_possible_relative_error": 0.025658475729947172,
+            "signed_difference_interval_s": [
+              0.0006491405581938482,
+              0.0006601377296472678
+            ],
+            "minimum_absolute_difference_s": 0.0006491405581938482,
+            "maximum_absolute_difference_s": 0.0006601377296472678
+          },
+          "possible_location_difference": {
+            "minimum_possible_distance_mm": 2.0,
+            "maximum_possible_distance_mm": 2.0
+          }
+        },
+        "common_physical_knots": {
+          "count": 368,
+          "arrival_gate_counts": {
+            "pass": 9,
+            "fail": 359,
+            "inconclusive": 0
+          },
+          "maximum_proven_absolute_time_difference_s": 0.0031252821109603243,
+          "maximum_possible_absolute_time_difference_s": 0.003136279282413744,
+          "unbounded_comparisons": 0
+        },
+        "fixed_gauge_arrivals": [
+          {
+            "y_mm": 48.0,
+            "reference": {
+              "state": "bounded",
+              "lower_s": 0.029493280932218018,
+              "upper_s": 0.029498278103671435
+            },
+            "actual": {
+              "state": "bounded",
+              "lower_s": 0.0288,
+              "upper_s": 0.028806000000000002
+            },
+            "comparison": {
+              "status": "fail",
+              "relative_tolerance": 0.02,
+              "minimum_possible_relative_error": 0.02330296631960138,
+              "maximum_possible_relative_error": 0.023671825901747323,
+              "signed_difference_interval_s": [
+                -0.0006982781036714361,
+                -0.0006872809322180165
+              ],
+              "minimum_absolute_difference_s": 0.0006872809322180165,
+              "maximum_absolute_difference_s": 0.0006982781036714361
+            }
+          },
+          {
+            "y_mm": 240.0,
+            "reference": {
+              "state": "bounded",
+              "lower_s": 0.02960829083321844,
+              "upper_s": 0.02961328800467186
+            },
+            "actual": {
+              "state": "bounded",
+              "lower_s": 0.028902,
+              "upper_s": 0.028908
+            },
+            "comparison": {
+              "status": "fail",
+              "relative_tolerance": 0.02,
+              "minimum_possible_relative_error": 0.023651849313529594,
+              "maximum_possible_relative_error": 0.024019217472900922,
+              "signed_difference_interval_s": [
+                -0.000711288004671861,
+                -0.0007002908332184414
+              ],
+              "minimum_absolute_difference_s": 0.0007002908332184414,
+              "maximum_absolute_difference_s": 0.000711288004671861
+            }
+          },
+          {
+            "y_mm": 432.0,
+            "reference": {
+              "state": "bounded",
+              "lower_s": 0.029718303562765447,
+              "upper_s": 0.029723300734218867
+            },
+            "actual": {
+              "state": "bounded",
+              "lower_s": 0.029052,
+              "upper_s": 0.029058
+            },
+            "comparison": {
+              "status": "fail",
+              "relative_tolerance": 0.02,
+              "minimum_possible_relative_error": 0.022218750184406555,
+              "maximum_possible_relative_error": 0.02258499956722615,
+              "signed_difference_interval_s": [
+                -0.0006713007342188659,
+                -0.0006603035627654463
+              ],
+              "minimum_absolute_difference_s": 0.0006603035627654463,
+              "maximum_absolute_difference_s": 0.0006713007342188659
+            }
+          }
+        ],
+        "gauge_pair_propagation": [
+          {
+            "reference": {
+              "gauge_y_mm": [
+                48.0,
+                240.0
+              ],
+              "signed_travel_time_interval_s": [
+                0.00011001272954700575,
+                0.00012000707245384337
+              ],
+              "duration_interval_s": [
+                0.00011001272954700575,
+                0.00012000707245384337
+              ],
+              "direction": "increasing_y",
+              "speed_interval_m_per_s": [
+                1599.9057061728279,
+                1745.2525793204968
+              ]
+            },
+            "actual": {
+              "gauge_y_mm": [
+                48.0,
+                240.0
+              ],
+              "signed_travel_time_interval_s": [
+                9.599999999999886e-05,
+                0.00010800000000000046
+              ],
+              "duration_interval_s": [
+                9.599999999999886e-05,
+                0.00010800000000000046
+              ],
+              "direction": "increasing_y",
+              "speed_interval_m_per_s": [
+                1777.7777777777703,
+                2000.0000000000236
+              ]
+            },
+            "duration_comparison": {
+              "status": "inconclusive",
+              "relative_tolerance": 0.05,
+              "minimum_possible_relative_error": 0.01829542413221652,
+              "maximum_possible_relative_error": 0.20004714691359549,
+              "signed_difference_interval_s": [
+                -2.4007072453844508e-05,
+                -2.012729547005293e-06
+              ],
+              "minimum_absolute_difference_s": 2.012729547005293e-06,
+              "maximum_absolute_difference_s": 2.4007072453844508e-05
+            }
+          },
+          {
+            "reference": {
+              "gauge_y_mm": [
+                240.0,
+                432.0
+              ],
+              "signed_travel_time_interval_s": [
+                0.0001050155580935852,
+                0.0001150099010004263
+              ],
+              "duration_interval_s": [
+                0.0001050155580935852,
+                0.0001150099010004263
+              ],
+              "direction": "increasing_y",
+              "speed_interval_m_per_s": [
+                1669.4214874534005,
+                1828.3005250412336
+              ]
+            },
+            "actual": {
+              "gauge_y_mm": [
+                240.0,
+                432.0
+              ],
+              "signed_travel_time_interval_s": [
+                0.00014400000000000177,
+                0.0001559999999999999
+              ],
+              "duration_interval_s": [
+                0.00014400000000000177,
+                0.0001559999999999999
+              ],
+              "direction": "increasing_y",
+              "speed_interval_m_per_s": [
+                1230.7692307692316,
+                1333.3333333333171
+              ]
+            },
+            "duration_comparison": {
+              "status": "fail",
+              "relative_tolerance": 0.05,
+              "minimum_possible_relative_error": 0.25206611559006564,
+              "maximum_possible_relative_error": 0.48549417659600125,
+              "signed_difference_interval_s": [
+                2.899009899957547e-05,
+                5.0984441906414685e-05
+              ],
+              "minimum_absolute_difference_s": 2.899009899957547e-05,
+              "maximum_absolute_difference_s": 5.0984441906414685e-05
+            }
+          },
+          {
+            "reference": {
+              "gauge_y_mm": [
+                48.0,
+                432.0
+              ],
+              "signed_travel_time_interval_s": [
+                0.0002200254590940115,
+                0.00023001980200084912
+              ],
+              "duration_interval_s": [
+                0.0002200254590940115,
+                0.00023001980200084912
+              ],
+              "direction": "increasing_y",
+              "speed_interval_m_per_s": [
+                1669.4214874534257,
+                1745.2525793204968
+              ]
+            },
+            "actual": {
+              "gauge_y_mm": [
+                48.0,
+                432.0
+              ],
+              "signed_travel_time_interval_s": [
+                0.0002459999999999997,
+                0.0002580000000000013
+              ],
+              "duration_interval_s": [
+                0.0002459999999999997,
+                0.0002580000000000013
+              ],
+              "direction": "increasing_y",
+              "speed_interval_m_per_s": [
+                1488.3720930232485,
+                1560.9756097560996
+              ]
+            },
+            "duration_comparison": {
+              "status": "fail",
+              "relative_tolerance": 0.05,
+              "minimum_possible_relative_error": 0.06947314039984942,
+              "maximum_possible_relative_error": 0.17259157673096448,
+              "signed_difference_interval_s": [
+                1.598019799915057e-05,
+                3.7974540905989784e-05
+              ],
+              "minimum_absolute_difference_s": 1.598019799915057e-05,
+              "maximum_absolute_difference_s": 3.7974540905989784e-05
+            }
+          }
+        ]
+      },
+      "Dc10": {
+        "threshold_mm": 0.00125959,
+        "native_first_event": {
+          "reference": {
+            "state": "bounded",
+            "lower_s": 0.02724802681233987,
+            "upper_s": 0.02725302398379329,
+            "possible_first_native_locations_mm": [
+              0.0
+            ]
+          },
+          "actual": {
+            "state": "bounded",
+            "lower_s": 0.028782000000000002,
+            "upper_s": 0.028788,
+            "possible_first_native_locations_mm": [
+              6.0,
+              6.5,
+              7.0,
+              7.5,
+              8.0,
+              8.5,
+              9.2,
+              10.18,
+              11.552,
+              13.4728,
+              16.16192,
+              19.926688,
+              24.81720604444444
+            ]
+          },
+          "comparison": {
+            "status": "fail",
+            "relative_tolerance": 0.02,
+            "minimum_possible_relative_error": 0.056102985749983514,
+            "maximum_possible_relative_error": 0.05651686994680727,
+            "signed_difference_interval_s": [
+              0.001528976016206711,
+              0.0015399731876601305
+            ],
+            "minimum_absolute_difference_s": 0.001528976016206711,
+            "maximum_absolute_difference_s": 0.0015399731876601305
+          },
+          "possible_location_difference": {
+            "minimum_possible_distance_mm": 6.0,
+            "maximum_possible_distance_mm": 24.81720604444444
+          }
+        },
+        "common_physical_knots": {
+          "count": 368,
+          "arrival_gate_counts": {
+            "pass": 1,
+            "fail": 367,
+            "inconclusive": 0
+          },
+          "maximum_proven_absolute_time_difference_s": 0.0015529760162067106,
+          "maximum_possible_absolute_time_difference_s": 0.0015639731876601302,
+          "unbounded_comparisons": 0
+        },
+        "fixed_gauge_arrivals": [
+          {
+            "y_mm": 48.0,
+            "reference": {
+              "state": "bounded",
+              "lower_s": 0.029513282110960326,
+              "upper_s": 0.029518279282413743
+            },
+            "actual": {
+              "state": "bounded",
+              "lower_s": 0.028806000000000002,
+              "upper_s": 0.028812
+            },
+            "comparison": {
+              "status": "fail",
+              "relative_tolerance": 0.02,
+              "minimum_possible_relative_error": 0.023761576510661686,
+              "maximum_possible_relative_error": 0.024130108520183935,
+              "signed_difference_interval_s": [
+                -0.0007122792824137414,
+                -0.0007012821109603253
+              ],
+              "minimum_absolute_difference_s": 0.0007012821109603253,
+              "maximum_absolute_difference_s": 0.0007122792824137414
+            }
+          },
+          {
+            "y_mm": 240.0,
+            "reference": {
+              "state": "bounded",
+              "lower_s": 0.02960829083321844,
+              "upper_s": 0.02961328800467186
+            },
+            "actual": {
+              "state": "bounded",
+              "lower_s": 0.028902,
+              "upper_s": 0.028908
+            },
+            "comparison": {
+              "status": "fail",
+              "relative_tolerance": 0.02,
+              "minimum_possible_relative_error": 0.023651849313529594,
+              "maximum_possible_relative_error": 0.024019217472900922,
+              "signed_difference_interval_s": [
+                -0.000711288004671861,
+                -0.0007002908332184414
+              ],
+              "minimum_absolute_difference_s": 0.0007002908332184414,
+              "maximum_absolute_difference_s": 0.000711288004671861
+            }
+          },
+          {
+            "y_mm": 432.0,
+            "reference": {
+              "state": "bounded",
+              "lower_s": 0.029718303562765447,
+              "upper_s": 0.029723300734218867
+            },
+            "actual": {
+              "state": "bounded",
+              "lower_s": 0.029052,
+              "upper_s": 0.029058
+            },
+            "comparison": {
+              "status": "fail",
+              "relative_tolerance": 0.02,
+              "minimum_possible_relative_error": 0.022218750184406555,
+              "maximum_possible_relative_error": 0.02258499956722615,
+              "signed_difference_interval_s": [
+                -0.0006713007342188659,
+                -0.0006603035627654463
+              ],
+              "minimum_absolute_difference_s": 0.0006603035627654463,
+              "maximum_absolute_difference_s": 0.0006713007342188659
+            }
+          }
+        ],
+        "gauge_pair_propagation": [
+          {
+            "reference": {
+              "gauge_y_mm": [
+                48.0,
+                240.0
+              ],
+              "signed_travel_time_interval_s": [
+                9.001155080469794e-05,
+                0.00010000589371153557
+              ],
+              "duration_interval_s": [
+                9.001155080469794e-05,
+                0.00010000589371153557
+              ],
+              "direction": "increasing_y",
+              "speed_interval_m_per_s": [
+                1919.8868474074045,
+                2133.0595716164353
+              ]
+            },
+            "actual": {
+              "gauge_y_mm": [
+                48.0,
+                240.0
+              ],
+              "signed_travel_time_interval_s": [
+                8.99999999999998e-05,
+                0.00010199999999999793
+              ],
+              "duration_interval_s": [
+                8.99999999999998e-05,
+                0.00010199999999999793
+              ],
+              "direction": "increasing_y",
+              "speed_interval_m_per_s": [
+                1882.352941176509,
+                2133.333333333338
+              ]
+            },
+            "duration_comparison": {
+              "status": "inconclusive",
+              "relative_tolerance": 0.05,
+              "minimum_possible_relative_error": 0.0,
+              "maximum_possible_relative_error": 0.13318789742120818,
+              "signed_difference_interval_s": [
+                -1.0005893711535763e-05,
+                1.1988449195299983e-05
+              ],
+              "minimum_absolute_difference_s": 0.0,
+              "maximum_absolute_difference_s": 1.1988449195299983e-05
+            }
+          },
+          {
+            "reference": {
+              "gauge_y_mm": [
+                240.0,
+                432.0
+              ],
+              "signed_travel_time_interval_s": [
+                0.0001050155580935852,
+                0.0001150099010004263
+              ],
+              "duration_interval_s": [
+                0.0001050155580935852,
+                0.0001150099010004263
+              ],
+              "direction": "increasing_y",
+              "speed_interval_m_per_s": [
+                1669.4214874534005,
+                1828.3005250412336
+              ]
+            },
+            "actual": {
+              "gauge_y_mm": [
+                240.0,
+                432.0
+              ],
+              "signed_travel_time_interval_s": [
+                0.00014400000000000177,
+                0.0001559999999999999
+              ],
+              "duration_interval_s": [
+                0.00014400000000000177,
+                0.0001559999999999999
+              ],
+              "direction": "increasing_y",
+              "speed_interval_m_per_s": [
+                1230.7692307692316,
+                1333.3333333333171
+              ]
+            },
+            "duration_comparison": {
+              "status": "fail",
+              "relative_tolerance": 0.05,
+              "minimum_possible_relative_error": 0.25206611559006564,
+              "maximum_possible_relative_error": 0.48549417659600125,
+              "signed_difference_interval_s": [
+                2.899009899957547e-05,
+                5.0984441906414685e-05
+              ],
+              "minimum_absolute_difference_s": 2.899009899957547e-05,
+              "maximum_absolute_difference_s": 5.0984441906414685e-05
+            }
+          },
+          {
+            "reference": {
+              "gauge_y_mm": [
+                48.0,
+                432.0
+              ],
+              "signed_travel_time_interval_s": [
+                0.0002000242803517037,
+                0.00021001862325854131
+              ],
+              "duration_interval_s": [
+                0.0002000242803517037,
+                0.00021001862325854131
+              ],
+              "direction": "increasing_y",
+              "speed_interval_m_per_s": [
+                1828.4092812439812,
+                1919.7669369179125
+              ]
+            },
+            "actual": {
+              "gauge_y_mm": [
+                48.0,
+                432.0
+              ],
+              "signed_travel_time_interval_s": [
+                0.00024000000000000063,
+                0.00025199999999999875
+              ],
+              "duration_interval_s": [
+                0.00024000000000000063,
+                0.00025199999999999875
+              ],
+              "direction": "increasing_y",
+              "speed_interval_m_per_s": [
+                1523.8095238095314,
+                1599.999999999996
+              ]
+            },
+            "duration_comparison": {
+              "status": "fail",
+              "relative_tolerance": 0.05,
+              "minimum_possible_relative_error": 0.14275580077749117,
+              "maximum_possible_relative_error": 0.25984705235237393,
+              "signed_difference_interval_s": [
+                2.9981376741459315e-05,
+                5.197571964829506e-05
+              ],
+              "minimum_absolute_difference_s": 2.9981376741459315e-05,
+              "maximum_absolute_difference_s": 5.197571964829506e-05
+            }
+          }
+        ]
+      },
+      "Dc": {
+        "threshold_mm": 0.0125959,
+        "native_first_event": {
+          "reference": {
+            "state": "bounded",
+            "lower_s": 0.029518279282413743,
+            "upper_s": 0.02952327645386716,
+            "possible_first_native_locations_mm": [
+              0.0,
+              2.0,
+              4.0,
+              6.0,
+              8.0,
+              10.0,
+              12.0,
+              14.0,
+              16.0,
+              18.0,
+              20.0,
+              22.0,
+              24.0,
+              26.0,
+              28.0,
+              30.0,
+              32.0,
+              34.0,
+              36.0,
+              38.0,
+              40.0,
+              42.0
+            ]
+          },
+          "actual": {
+            "state": "bounded",
+            "lower_s": 0.028806000000000002,
+            "upper_s": 0.028812,
+            "possible_first_native_locations_mm": [
+              0.0,
+              0.5,
+              1.0,
+              1.5,
+              2.0,
+              2.5,
+              3.0,
+              3.5,
+              4.0,
+              4.5,
+              5.0,
+              5.5,
+              6.0,
+              6.5,
+              7.0,
+              7.5,
+              8.0,
+              8.5,
+              9.2,
+              10.18,
+              11.552,
+              13.4728,
+              16.16192,
+              19.926688,
+              24.81720604444444,
+              29.707724088888884,
+              34.59824213333333,
+              39.48876017777777,
+              44.37927822222222
+            ]
+          },
+          "comparison": {
+            "status": "fail",
+            "relative_tolerance": 0.02,
+            "minimum_possible_relative_error": 0.023926844639434175,
+            "maximum_possible_relative_error": 0.024295286296829866,
+            "signed_difference_interval_s": [
+              -0.0007172764538671585,
+              -0.0007062792824137423
+            ],
+            "minimum_absolute_difference_s": 0.0007062792824137423,
+            "maximum_absolute_difference_s": 0.0007172764538671585
+          },
+          "possible_location_difference": {
+            "minimum_possible_distance_mm": 0.0,
+            "maximum_possible_distance_mm": 44.37927822222222
+          }
+        },
+        "common_physical_knots": {
+          "count": 368,
+          "arrival_gate_counts": {
+            "pass": 0,
+            "fail": 368,
+            "inconclusive": 0
+          },
+          "maximum_proven_absolute_time_difference_s": 0.0007112764538671594,
+          "maximum_possible_absolute_time_difference_s": 0.0007222861182492116,
+          "unbounded_comparisons": 0
+        },
+        "fixed_gauge_arrivals": [
+          {
+            "y_mm": 48.0,
+            "reference": {
+              "state": "bounded",
+              "lower_s": 0.029528286118249213,
+              "upper_s": 0.02953328328970263
+            },
+            "actual": {
+              "state": "bounded",
+              "lower_s": 0.028818,
+              "upper_s": 0.028824000000000002
+            },
+            "comparison": {
+              "status": "fail",
+              "relative_tolerance": 0.02,
+              "minimum_possible_relative_error": 0.02385123591084226,
+              "maximum_possible_relative_error": 0.024219565521589992,
+              "signed_difference_interval_s": [
+                -0.0007152832897026305,
+                -0.0007042861182492109
+              ],
+              "minimum_absolute_difference_s": 0.0007042861182492109,
+              "maximum_absolute_difference_s": 0.0007152832897026305
+            }
+          },
+          {
+            "y_mm": 240.0,
+            "reference": {
+              "state": "bounded",
+              "lower_s": 0.02961328800467186,
+              "upper_s": 0.02961828517612528
+            },
+            "actual": {
+              "state": "bounded",
+              "lower_s": 0.028908,
+              "upper_s": 0.028914000000000002
+            },
+            "comparison": {
+              "status": "fail",
+              "relative_tolerance": 0.02,
+              "minimum_possible_relative_error": 0.023613993980051706,
+              "maximum_possible_relative_error": 0.023981306544304082,
+              "signed_difference_interval_s": [
+                -0.000710285176125279,
+                -0.0006992880046718594
+              ],
+              "minimum_absolute_difference_s": 0.0006992880046718594,
+              "maximum_absolute_difference_s": 0.000710285176125279
+            }
+          },
+          {
+            "y_mm": 432.0,
+            "reference": {
+              "state": "bounded",
+              "lower_s": 0.029723300734218867,
+              "upper_s": 0.029728297905672284
+            },
+            "actual": {
+              "state": "bounded",
+              "lower_s": 0.029052,
+              "upper_s": 0.029058
+            },
+            "comparison": {
+              "status": "fail",
+              "relative_tolerance": 0.02,
+              "minimum_possible_relative_error": 0.0223831377331839,
+              "maximum_possible_relative_error": 0.022749297918709388,
+              "signed_difference_interval_s": [
+                -0.000676297905672283,
+                -0.0006653007342188669
+              ],
+              "minimum_absolute_difference_s": 0.0006653007342188669,
+              "maximum_absolute_difference_s": 0.000676297905672283
+            }
+          }
+        ],
+        "gauge_pair_propagation": [
+          {
+            "reference": {
+              "gauge_y_mm": [
+                48.0,
+                240.0
+              ],
+              "signed_travel_time_interval_s": [
+                8.000471496923123e-05,
+                8.999905787606538e-05
+              ],
+              "duration_interval_s": [
+                8.000471496923123e-05,
+                8.999905787606538e-05
+              ],
+              "direction": "increasing_y",
+              "speed_interval_m_per_s": [
+                2133.355665393705,
+                2399.8585592591726
+              ]
+            },
+            "actual": {
+              "gauge_y_mm": [
+                48.0,
+                240.0
+              ],
+              "signed_travel_time_interval_s": [
+                8.399999999999727e-05,
+                9.600000000000233e-05
+              ],
+              "duration_interval_s": [
+                8.399999999999727e-05,
+                9.600000000000233e-05
+              ],
+              "direction": "increasing_y",
+              "speed_interval_m_per_s": [
+                1999.9999999999513,
+                2285.71428571436
+              ]
+            },
+            "duration_comparison": {
+              "status": "inconclusive",
+              "relative_tolerance": 0.05,
+              "minimum_possible_relative_error": 0.0,
+              "maximum_possible_relative_error": 0.1999292796296155,
+              "signed_difference_interval_s": [
+                -5.999057876068109e-06,
+                1.5995285030771106e-05
+              ],
+              "minimum_absolute_difference_s": 0.0,
+              "maximum_absolute_difference_s": 1.5995285030771106e-05
+            }
+          },
+          {
+            "reference": {
+              "gauge_y_mm": [
+                240.0,
+                432.0
+              ],
+              "signed_travel_time_interval_s": [
+                0.00010501555809358867,
+                0.00011500990100042283
+              ],
+              "duration_interval_s": [
+                0.00010501555809358867,
+                0.00011500990100042283
+              ],
+              "direction": "increasing_y",
+              "speed_interval_m_per_s": [
+                1669.421487453451,
+                1828.3005250411732
+              ]
+            },
+            "actual": {
+              "gauge_y_mm": [
+                240.0,
+                432.0
+              ],
+              "signed_travel_time_interval_s": [
+                0.00013799999999999923,
+                0.00015000000000000083
+              ],
+              "duration_interval_s": [
+                0.00013799999999999923,
+                0.00015000000000000083
+              ],
+              "direction": "increasing_y",
+              "speed_interval_m_per_s": [
+                1279.999999999993,
+                1391.3043478260947
+              ]
+            },
+            "duration_comparison": {
+              "status": "fail",
+              "relative_tolerance": 0.05,
+              "minimum_possible_relative_error": 0.19989669410716115,
+              "maximum_possible_relative_error": 0.42835978518842444,
+              "signed_difference_interval_s": [
+                2.2990098999576408e-05,
+                4.4984441906412154e-05
+              ],
+              "minimum_absolute_difference_s": 2.2990098999576408e-05,
+              "maximum_absolute_difference_s": 4.4984441906412154e-05
+            }
+          },
+          {
+            "reference": {
+              "gauge_y_mm": [
+                48.0,
+                432.0
+              ],
+              "signed_travel_time_interval_s": [
+                0.00019001744451623698,
+                0.00020001178742307113
+              ],
+              "duration_interval_s": [
+                0.00019001744451623698,
+                0.00020001178742307113
+              ],
+              "direction": "increasing_y",
+              "speed_interval_m_per_s": [
+                1919.8868474074045,
+                2020.8670892171021
+              ]
+            },
+            "actual": {
+              "gauge_y_mm": [
+                48.0,
+                432.0
+              ],
+              "signed_travel_time_interval_s": [
+                0.00022799999999999904,
+                0.00024000000000000063
+              ],
+              "duration_interval_s": [
+                0.00022799999999999904,
+                0.00024000000000000063
+              ],
+              "direction": "increasing_y",
+              "speed_interval_m_per_s": [
+                1599.999999999996,
+                1684.2105263157966
+              ]
+            },
+            "duration_comparison": {
+              "status": "fail",
+              "relative_tolerance": 0.05,
+              "minimum_possible_relative_error": 0.13993281564814164,
+              "maximum_possible_relative_error": 0.26304193076069216,
+              "signed_difference_interval_s": [
+                2.7988212576927907e-05,
+                4.998255548376365e-05
+              ],
+              "minimum_absolute_difference_s": 2.7988212576927907e-05,
+              "maximum_absolute_difference_s": 4.998255548376365e-05
+            }
+          }
+        ]
+      }
+    },
+    "loading_stop": {
+      "reference": {
+        "state": "bounded",
+        "lower_s": 0.029783304270445787,
+        "upper_s": 0.02978831393482784
+      },
+      "actual": {
+        "state": "bounded",
+        "lower_s": 0.029112000000000002,
+        "upper_s": 0.029112000000000002
+      },
+      "comparison": {
+        "status": "fail",
+        "relative_tolerance": 0.02,
+        "minimum_possible_relative_error": 0.022539616972987342,
+        "maximum_possible_relative_error": 0.02270400185480481,
+        "signed_difference_interval_s": [
+          -0.000676313934827838,
+          -0.0006713042704457849
+        ],
+        "minimum_absolute_difference_s": 0.0006713042704457849,
+        "maximum_absolute_difference_s": 0.000676313934827838
+      }
+    },
+    "contact_gauge_waveforms": {},
+    "gauge_positions_mm": [
+      48.0,
+      240.0,
+      432.0
+    ],
+    "time_relative_tolerance": 0.02,
+    "propagation_duration_relative_tolerance": 0.05
+  },
+  "bem_loading_check": {
+    "actual_endpoint_loading_verified": true,
+    "first_coverage_endpoint_s": 0.029112000000000002,
+    "prescribed_diagnostic_excluded": true,
+    "no_fitted_time_shift": true
+  },
+  "fem_cumulative_storage_dtype": "float32",
+  "fem_maximum_saved_shear_interval_s": 5.009664382056578e-06,
+  "legacy_float32_coordinate_uncertainty_bounded": false,
+  "eligible_for_current_float64_observation_comparison": false,
+  "scope": "Sampling and f32 rounding brackets for monotone cumulative slip; no PDE/spatial/integration/unsaved-state or formal floating-point error bound",
+  "first_event_scope": "Native nodes separately from P1 common physical knots; all compatible earliest native locations retained",
+  "propagation_scope": "Fixed 10/50/90-percent gauges; average first-passage speed may span multiple fronts, not instantaneous local rupture velocity",
+  "waveform_scope": "True endpoint contact pressure and signed shear only; does not reconstruct complete interior waves",
+  "stop_scope": "FEM categorical flag bracket; BEM verified first accepted coverage endpoint; no fitted time shift",
+  "omitted_initial_interval": "No pre-handoff normal observation is relabelled as shear t=0; crossings before first shear sample remain censored",
+  "comparison_seconds_including_hashes": 1.0074565410614014,
+  "same_accuracy_fem_advantage_verified": false,
+  "local_verification": {
+    "test_count": 28,
+    "pytest_seconds": 0.42,
+    "control_records": [
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/event-observables-checks-20261028-v1/control.json",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/event-observables-checks-20261028-v2/control.json"
+    ],
+    "serialized_validation_fem_wait_seconds": 4.4444884583354,
+    "same_fem_pid": 29338,
+    "same_fem_start": "Wed Oct 28 20:56:56 2026",
+    "full_event_target_achieved": false
+  }
+}

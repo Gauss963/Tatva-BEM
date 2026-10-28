@@ -1,0 +1,51 @@
+{
+  "state_bitwise_checks": {
+    "carry_0": true,
+    "carry_1": true,
+    "carry_10": true,
+    "carry_11": true,
+    "carry_2": true,
+    "carry_3": true,
+    "carry_4": true,
+    "carry_5": true,
+    "carry_6": true,
+    "carry_7": true,
+    "carry_8": true,
+    "carry_9": true
+  },
+  "metadata": {
+    "carry_count": 12,
+    "dt": 1.9125812604139645e-09,
+    "frame_count": 6,
+    "interface_frame_count": 109,
+    "phase_id": 2,
+    "pressure_steps": 1045708,
+    "saved_utc": 1793197978.8936992,
+    "shear_steps": 23528413,
+    "step_id": 269300,
+    "total_frames": 69,
+    "total_interface_frames": 9005,
+    "version": 1
+  },
+  "files": {
+    "simulation.h5": {
+      "bytes": 17258741,
+      "sha256": "3e3d3f140eb7a1b96330bf74cf4b9fb15e4411fd1250586cd1e2161a4e0675d6"
+    },
+    "checkpoint.npz": {
+      "bytes": 2540427,
+      "sha256": "7c84ba43366a77a8d7de0af47d3f44dd169e77711bcc3af937800c9783b5658b"
+    }
+  },
+  "source_sha256": {
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/run_checkpointed_fem_reference.py": "461943de4cc488435cd5d6bf19afc2a4d4a0526e058f3e85f73241f711f8fa78",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/run_fem_reference.py": "def3dde0547b5885c24841754be6c531289279e9e30510e33b34b4f52e30a34d",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/fem_contact_observations.py": "ca8727304aec9c38ea72f8f49e8dbeff0d90515ad907056bfc81d3b3baf80a7f",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-reference-recovery-20261028-1230/input-backup/checkpoint.npz": "017473773551477fe275e4af30714fed31b2c5fb013c9c1be0211dc57e0f1198"
+  },
+  "hdf5_actual_clock_and_contact_fields_read": true,
+  "scope": "Recovered graded checkpoint prefix only, not the complete event",
+  "preserved_evidence_directory": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/event-observables-checks-20261028-v2/graded-prefix-proof",
+  "reverified_utc": "2026-10-28T14:40:09+00:00",
+  "full_event_target_achieved": false
+}
