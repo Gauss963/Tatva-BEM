@@ -1,0 +1,413 @@
+{
+  "status": "passed_actual_compact_radau_ad_cli_controls",
+  "records": {
+    "active": {
+      "source_summary": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/raw-radau-ad-cli-active-20261028-v3/summary.json",
+      "sha256": "223f6249c42d9f4d6e6b20db66319e232274cd716bc534e8c5baf5023332e957",
+      "status": "passed_complete_radau_adjoint_jvp_control",
+      "initialization_gradient": "active-set",
+      "gradient": [
+        -9.437169262942034e-11,
+        1.6238194403028843e-08,
+        -0.37292985072892754,
+        -0.9025001363514858,
+        -0.5475848945037629
+      ],
+      "maximum_absolute_difference": 1.9206858326015208e-14,
+      "maximum_relative_nonzero_difference": 6.928565193766434e-13,
+      "gradient_rtol": 1e-07,
+      "gradient_atol": 1e-18,
+      "jvp_batches": [
+        {
+          "directions": [
+            0,
+            1,
+            2
+          ],
+          "seconds_including_jit": 1.3386345831677318,
+          "history": {
+            "directions": 3,
+            "families": [
+              {
+                "channels": 6,
+                "capacity_bytes": 0,
+                "peak_retained_kernel_fft_bytes": 0,
+                "cached_levels": [],
+                "streamed_updates": 4,
+                "kernel_fft_builds": 24,
+                "fft_rows": 2,
+                "all_history_terms_retained": true
+              },
+              {
+                "channels": 6,
+                "capacity_bytes": 0,
+                "peak_retained_kernel_fft_bytes": 0,
+                "cached_levels": [],
+                "streamed_updates": 4,
+                "kernel_fft_builds": 24,
+                "fft_rows": 2,
+                "all_history_terms_retained": true
+              }
+            ],
+            "shared_family_ffts_across_stages_and_directions": true,
+            "every_history_source_included": true
+          }
+        },
+        {
+          "directions": [
+            3,
+            4,
+            5
+          ],
+          "seconds_including_jit": 1.298406582325697,
+          "history": {
+            "directions": 3,
+            "families": [
+              {
+                "channels": 6,
+                "capacity_bytes": 0,
+                "peak_retained_kernel_fft_bytes": 0,
+                "cached_levels": [],
+                "streamed_updates": 4,
+                "kernel_fft_builds": 24,
+                "fft_rows": 2,
+                "all_history_terms_retained": true
+              },
+              {
+                "channels": 6,
+                "capacity_bytes": 0,
+                "peak_retained_kernel_fft_bytes": 0,
+                "cached_levels": [],
+                "streamed_updates": 4,
+                "kernel_fft_builds": 24,
+                "fft_rows": 2,
+                "all_history_terms_retained": true
+              }
+            ],
+            "shared_family_ffts_across_stages_and_directions": true,
+            "every_history_source_included": true
+          }
+        },
+        {
+          "directions": [
+            6
+          ],
+          "seconds_including_jit": 1.2631023339927197,
+          "history": {
+            "directions": 1,
+            "families": [
+              {
+                "channels": 2,
+                "capacity_bytes": 0,
+                "peak_retained_kernel_fft_bytes": 0,
+                "cached_levels": [],
+                "streamed_updates": 4,
+                "kernel_fft_builds": 24,
+                "fft_rows": 2,
+                "all_history_terms_retained": true
+              },
+              {
+                "channels": 2,
+                "capacity_bytes": 0,
+                "peak_retained_kernel_fft_bytes": 0,
+                "cached_levels": [],
+                "streamed_updates": 4,
+                "kernel_fft_builds": 24,
+                "fft_rows": 2,
+                "all_history_terms_retained": true
+              }
+            ],
+            "shared_family_ffts_across_stages_and_directions": true,
+            "every_history_source_included": true
+          }
+        }
+      ],
+      "estimated_total_array_peak_mib": 2052.30859375,
+      "peak_process_rss_mib": 499.4375,
+      "primal_stage_sha256": "1d4a7e9ce9238a6709caa6b3de2cf7a8c992b6b22a83ea3eca738dfc5d7d89fd",
+      "frozen_input_sha256": {
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/check_compact_radau_ad.py": "dc48416a03a11159bbc0d21f3e55980a735407c520e8a2f428e7d9aeef347c86",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/raw-radau-fem-static-pilot-20261028/summary.json": "9fa875bf32067881b223ff1749a5905c79274c850b3416ec7f0bd682792eb466",
+        "/Volumes/Gauss-T7/Tatva-BEM-cache/raw-radau-h160-q12-full45-20261028/summary.json": "4b1b49af562cdc67e8685288c38913004e1632f67202c92a6db5f26d50f906ad",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/raw-radau-complete-causal-audit-20261028-v2/summary.json": "8082c009fd222aa675569ec71abd04e808032b6832758522207711adfa110a0c",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/raw-radau-complete-causal-audit-20261028-v2/run_manifest.json": "b6ea8c2b8d38a36d45c77028a8e552dd7a3a25fa26a44fc3c42e674e8b053da4",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/raw-radau-fem-static-pilot-20261028/initial_lift.npz": "135c77ff1d9eeb187795239decb11b13284aff7abd3ece63325dac47c10a0b3f",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/initialized_radau_adjoint.py": "ee27357a6036fa7a3b3d441ffef59949d46d4ebdbc0652de3a49ffbc11c8f976",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/radau_contact_adjoint.py": "3b041f773564ec8522fbb234e271e92cc673e3bd2257d2535e7453aea0460cb4",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/radau_contact_experiment.py": "d564ec6ea2311b783d52df83d2f567d640aa6e40a5c1236aad60c51112b023c6",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compact_radau_history.py": "85fb2c263a330b0b64d464017e2f67a6b5ff043c3cc52df48c388d14a6c70a3e",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/radau_experiment.py": "e616d36a766ba323d9967af04e0bd154f86a9e158902668df6a8291be9e36408",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/bounded_history.py": "bbf1d66ab1b1ff573a6ec613d249e86cd5dc460434ca3c9217cb064429273c55",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/radau_initialization.py": "43bf2227e934829ae11a8cf6b8b255e16faf6e22c9a16f9d54c9bd9a17589086",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/refined_contact.py": "c055f15f8c15d6c3da2f6792a97ec3ed44baa652478f6a24990fa1f478fa3741",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/uncondensed_static_contact.py": "3c672b13b415ee3d96487858a869b9e4cb0af3583ac63959ceb7101c509c4bef",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/uncondensed_static_contact_ad.py": "e55c126afe70f5ae7fe9089fa8d3d2ae2dbcf60f85597b06508e4ea1a937548e",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/fem_static_contact.py": "093ee005753ebbe4efe4e9eefd95a05ccf5748b1f976cb29f0045316c1728589",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/fem_static_contact_ad.py": "a6783b93e980ba50f18d37786585ee0dd4e638f87e67467e4a22b07c444391dd",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/restart_seed_experiment.py": "d9507983063a21db6849a1e8236f71e0d9585133c87576b18ea11b4b21879885",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/replay_resolvent.py": "129d75f1dc47ba11f2da171a820e422c3bde36ccce6ed2624690230c9e66bafc",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/substepped_contact_experiment.py": "d40fcb95f5fa29c0c8630a8901f8d5e63591bfc11ed1c9fbdee7c2ecc8d36225",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/robust_contact_experiment.py": "912e5e24598a4dac62e137df1567e73189380b0cf0fbdb2e9f8430bab19e1b52",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/data/ev16_restart_float64.npz": "f09f9cfbe88d41cfba9daaffd1d901e66d1b33af2b6826ba8449fa05ef510901",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/data/ev16_restart_float64.json": "1d7a78135e62b274692dc9d93ab49029e944f1fedce5d0a3f4cf41ee82223861"
+      },
+      "timing_seconds": {
+        "input_hashes": 0.06360608339309692,
+        "static_reinitialization_and_jacobian": 1.737985665909946,
+        "reverse_including_jit": 1.606593208387494,
+        "forward_including_jit": 3.9001434994861484,
+        "total_before_reporting": 7.624240707606077
+      }
+    },
+    "fixed": {
+      "source_summary": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/raw-radau-ad-cli-fixed-20261028-v3/summary.json",
+      "sha256": "ce625ac003ba0792173aa4a68db8c3339bf0ea5fbcc77bd7099baf231f20a7ae",
+      "status": "passed_complete_radau_adjoint_jvp_control",
+      "initialization_gradient": "fixed",
+      "gradient": [
+        3.74728213134988e-09,
+        -5.285692991827073e-08,
+        -0.37292985072892754,
+        -0.9025001363514858,
+        -0.5475848945037629
+      ],
+      "maximum_absolute_difference": 1.9206858326015208e-14,
+      "maximum_relative_nonzero_difference": 7.792174327851077e-14,
+      "gradient_rtol": 1e-07,
+      "gradient_atol": 1e-18,
+      "jvp_batches": [
+        {
+          "directions": [
+            0,
+            1,
+            2
+          ],
+          "seconds_including_jit": 1.3005522079765797,
+          "history": {
+            "directions": 3,
+            "families": [
+              {
+                "channels": 6,
+                "capacity_bytes": 0,
+                "peak_retained_kernel_fft_bytes": 0,
+                "cached_levels": [],
+                "streamed_updates": 4,
+                "kernel_fft_builds": 24,
+                "fft_rows": 2,
+                "all_history_terms_retained": true
+              },
+              {
+                "channels": 6,
+                "capacity_bytes": 0,
+                "peak_retained_kernel_fft_bytes": 0,
+                "cached_levels": [],
+                "streamed_updates": 4,
+                "kernel_fft_builds": 24,
+                "fft_rows": 2,
+                "all_history_terms_retained": true
+              }
+            ],
+            "shared_family_ffts_across_stages_and_directions": true,
+            "every_history_source_included": true
+          }
+        },
+        {
+          "directions": [
+            3,
+            4,
+            5
+          ],
+          "seconds_including_jit": 1.2297908328473568,
+          "history": {
+            "directions": 3,
+            "families": [
+              {
+                "channels": 6,
+                "capacity_bytes": 0,
+                "peak_retained_kernel_fft_bytes": 0,
+                "cached_levels": [],
+                "streamed_updates": 4,
+                "kernel_fft_builds": 24,
+                "fft_rows": 2,
+                "all_history_terms_retained": true
+              },
+              {
+                "channels": 6,
+                "capacity_bytes": 0,
+                "peak_retained_kernel_fft_bytes": 0,
+                "cached_levels": [],
+                "streamed_updates": 4,
+                "kernel_fft_builds": 24,
+                "fft_rows": 2,
+                "all_history_terms_retained": true
+              }
+            ],
+            "shared_family_ffts_across_stages_and_directions": true,
+            "every_history_source_included": true
+          }
+        },
+        {
+          "directions": [
+            6
+          ],
+          "seconds_including_jit": 1.300030916929245,
+          "history": {
+            "directions": 1,
+            "families": [
+              {
+                "channels": 2,
+                "capacity_bytes": 0,
+                "peak_retained_kernel_fft_bytes": 0,
+                "cached_levels": [],
+                "streamed_updates": 4,
+                "kernel_fft_builds": 24,
+                "fft_rows": 2,
+                "all_history_terms_retained": true
+              },
+              {
+                "channels": 2,
+                "capacity_bytes": 0,
+                "peak_retained_kernel_fft_bytes": 0,
+                "cached_levels": [],
+                "streamed_updates": 4,
+                "kernel_fft_builds": 24,
+                "fft_rows": 2,
+                "all_history_terms_retained": true
+              }
+            ],
+            "shared_family_ffts_across_stages_and_directions": true,
+            "every_history_source_included": true
+          }
+        }
+      ],
+      "estimated_total_array_peak_mib": 2052.30859375,
+      "peak_process_rss_mib": 392.859375,
+      "primal_stage_sha256": "1d4a7e9ce9238a6709caa6b3de2cf7a8c992b6b22a83ea3eca738dfc5d7d89fd",
+      "frozen_input_sha256": {
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/check_compact_radau_ad.py": "dc48416a03a11159bbc0d21f3e55980a735407c520e8a2f428e7d9aeef347c86",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/raw-radau-fem-static-pilot-20261028/summary.json": "9fa875bf32067881b223ff1749a5905c79274c850b3416ec7f0bd682792eb466",
+        "/Volumes/Gauss-T7/Tatva-BEM-cache/raw-radau-h160-q12-full45-20261028/summary.json": "4b1b49af562cdc67e8685288c38913004e1632f67202c92a6db5f26d50f906ad",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/raw-radau-complete-causal-audit-20261028-v2/summary.json": "8082c009fd222aa675569ec71abd04e808032b6832758522207711adfa110a0c",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/raw-radau-complete-causal-audit-20261028-v2/run_manifest.json": "b6ea8c2b8d38a36d45c77028a8e552dd7a3a25fa26a44fc3c42e674e8b053da4",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/raw-radau-fem-static-pilot-20261028/initial_lift.npz": "135c77ff1d9eeb187795239decb11b13284aff7abd3ece63325dac47c10a0b3f",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/initialized_radau_adjoint.py": "ee27357a6036fa7a3b3d441ffef59949d46d4ebdbc0652de3a49ffbc11c8f976",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/radau_contact_adjoint.py": "3b041f773564ec8522fbb234e271e92cc673e3bd2257d2535e7453aea0460cb4",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/radau_contact_experiment.py": "d564ec6ea2311b783d52df83d2f567d640aa6e40a5c1236aad60c51112b023c6",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compact_radau_history.py": "85fb2c263a330b0b64d464017e2f67a6b5ff043c3cc52df48c388d14a6c70a3e",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/radau_experiment.py": "e616d36a766ba323d9967af04e0bd154f86a9e158902668df6a8291be9e36408",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/bounded_history.py": "bbf1d66ab1b1ff573a6ec613d249e86cd5dc460434ca3c9217cb064429273c55",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/radau_initialization.py": "43bf2227e934829ae11a8cf6b8b255e16faf6e22c9a16f9d54c9bd9a17589086",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/refined_contact.py": "c055f15f8c15d6c3da2f6792a97ec3ed44baa652478f6a24990fa1f478fa3741",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/uncondensed_static_contact.py": "3c672b13b415ee3d96487858a869b9e4cb0af3583ac63959ceb7101c509c4bef",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/uncondensed_static_contact_ad.py": "e55c126afe70f5ae7fe9089fa8d3d2ae2dbcf60f85597b06508e4ea1a937548e",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/fem_static_contact.py": "093ee005753ebbe4efe4e9eefd95a05ccf5748b1f976cb29f0045316c1728589",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/fem_static_contact_ad.py": "a6783b93e980ba50f18d37786585ee0dd4e638f87e67467e4a22b07c444391dd",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/restart_seed_experiment.py": "d9507983063a21db6849a1e8236f71e0d9585133c87576b18ea11b4b21879885",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/replay_resolvent.py": "129d75f1dc47ba11f2da171a820e422c3bde36ccce6ed2624690230c9e66bafc",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/substepped_contact_experiment.py": "d40fcb95f5fa29c0c8630a8901f8d5e63591bfc11ed1c9fbdee7c2ecc8d36225",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/robust_contact_experiment.py": "912e5e24598a4dac62e137df1567e73189380b0cf0fbdb2e9f8430bab19e1b52",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/data/ev16_restart_float64.npz": "f09f9cfbe88d41cfba9daaffd1d901e66d1b33af2b6826ba8449fa05ef510901",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/data/ev16_restart_float64.json": "1d7a78135e62b274692dc9d93ab49029e944f1fedce5d0a3f4cf41ee82223861"
+      },
+      "timing_seconds": {
+        "input_hashes": 0.05314808338880539,
+        "static_reinitialization_and_jacobian": 0.07698104158043861,
+        "reverse_including_jit": 1.6728520840406418,
+        "forward_including_jit": 3.8303739577531815,
+        "total_before_reporting": 6.157918957993388
+      }
+    }
+  },
+  "equivalence": {
+    "active": {
+      "prior_source": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/raw-radau-initialized-ad-20261028/summary.json",
+      "bitwise_reverse_result_identity": {
+        "gradient": true,
+        "actuator_gradient": true
+      }
+    },
+    "fixed": {
+      "prior_source": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/raw-radau-conditional-ad-20261028-v2/summary.json",
+      "bitwise_reverse_result_identity": {
+        "gradient": true,
+        "actuator_gradient": true
+      }
+    }
+  },
+  "fine_resource_planning": [
+    {
+      "steps": 22500,
+      "dt_s": 2e-06,
+      "batch_size": 1,
+      "estimated_ad_peak_mib": 6288.782806396484,
+      "fits_12288mib_array_budget": true,
+      "actual_fine_ad_executed": false
+    },
+    {
+      "steps": 22500,
+      "dt_s": 2e-06,
+      "batch_size": 3,
+      "estimated_ad_peak_mib": 9879.412811279297,
+      "fits_12288mib_array_budget": true,
+      "actual_fine_ad_executed": false
+    },
+    {
+      "steps": 22500,
+      "dt_s": 2e-06,
+      "batch_size": 5,
+      "estimated_ad_peak_mib": 13470.04281616211,
+      "fits_12288mib_array_budget": false,
+      "actual_fine_ad_executed": false
+    },
+    {
+      "steps": 22500,
+      "dt_s": 2e-06,
+      "batch_size": 7,
+      "estimated_ad_peak_mib": 17060.672821044922,
+      "fits_12288mib_array_budget": false,
+      "actual_fine_ad_executed": false
+    },
+    {
+      "steps": 45000,
+      "dt_s": 1e-06,
+      "batch_size": 1,
+      "estimated_ad_peak_mib": 9970.661590576172,
+      "fits_12288mib_array_budget": true,
+      "actual_fine_ad_executed": false
+    },
+    {
+      "steps": 45000,
+      "dt_s": 1e-06,
+      "batch_size": 3,
+      "estimated_ad_peak_mib": 17151.726654052734,
+      "fits_12288mib_array_budget": false,
+      "actual_fine_ad_executed": false
+    },
+    {
+      "steps": 45000,
+      "dt_s": 1e-06,
+      "batch_size": 5,
+      "estimated_ad_peak_mib": 24332.791717529297,
+      "fits_12288mib_array_budget": false,
+      "actual_fine_ad_executed": false
+    },
+    {
+      "steps": 45000,
+      "dt_s": 1e-06,
+      "batch_size": 7,
+      "estimated_ad_peak_mib": 31513.85678100586,
+      "fits_12288mib_array_budget": false,
+      "actual_fine_ad_executed": false
+    }
+  ],
+  "resource_scope": "Explicit-array estimates with a 2 GiB runtime reserve; excludes mapped weight pages/OS caches, not an RSS cap or executed fine AD proof.",
+  "legacy_independent_scan_checker_unchanged": true,
+  "legacy_checker_sha256": "855170f8143c33192c55e42e1cfba0529ce574d811ef4ff866b63995de37e92e",
+  "new_cli_sha256": "dc48416a03a11159bbc0d21f3e55980a735407c520e8a2f428e7d9aeef347c86",
+  "legacy_and_new_cli_paths_are_distinct": true,
+  "full_original_event_reproduced": false,
+  "full_fine_initialized_radau_ad_validated": false,
+  "same_accuracy_fem_advantage_verified": false,
+  "original_tatva_readonly": true,
+  "timing_scope": "Both short controls ran within the four-core total budget alongside the two-worker fine constructor. No isolated timing or FEM speed ratio."
+}

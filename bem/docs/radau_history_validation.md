@@ -85,6 +85,8 @@ initialized_gradient(
 
 另已加入[stage 加權增量 bulk 功與殘差界限](radau_port_work.md)，並完成
 兩個實際 fine slow-mode 的獨立原始 compliance 核對；完整事件仍待完成。
+含初始化的 AD 現有[可重跑 CLI、來源核對與 bounded JVP batches](radau_ad_cli.md)，
+已跑完真實小型 kernel → 原方程 → AD 的端到端控制。
 
 ## Fine 執行狀態
 
