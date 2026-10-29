@@ -1,9 +1,26 @@
 # 近期文獻與 FEM 對照的實作決策
 
-檢索／閱讀日期：2026-10-24；補讀至2026-10-28。範圍是有限彈性體的 fully dynamic 接觸、
+檢索／閱讀日期：2026-10-24；補讀至2026-10-29。範圍是有限彈性體的 fully dynamic 接觸、
 時間域 BEM、卷積歷史加速與角落誤差；以下不是整個 BEM 領域的完整系統性回顧。
 目標是在相同物理模型與可量化誤差下重現 FEM，然後證明穩定性或總時間的優勢。
 目前尚未達成這個目標。
+
+2026-10-29 再核對上列近期工作的 primary-source 版本，另補讀 Yuan、Zegeling，
+[Convolution Quadrature with Adaptive History Compression for Variable-Order
+Fractional Reaction–Diffusion Equations](https://arxiv.org/html/2610.27262v1)，
+2026-10-19 預印本的 introduction、§4.4 與 §5.1–5.2。
+它保留近期 CQ weights，對較舊的 lag blocks 擬合衰減指數，並檢查加速後歷史項的 defect；
+當前係數與非線性方程保持原狀。其分析使用 Scarpi memory、擴散 resolvent 和
+非線性 Lipschitz 假設，不能直接用來證明本案有限體反射波與 slip weakening 的穩定性。
+對本案的實作判斷是分開稽核插值／權重／非線性誤差，並保留完整因果歷史；
+目前沒有加入 SOE 歷史壓縮。本輪的 [body／probe raw sampler](interior_raw_sampling.md)
+只共用頻率組裝，實際省下多少取樣及總成本另行記錄。
+
+同日檢索到 Coppolino、Desiderio，
+[An energetic marriage à la mode between FEM and BEM to solve complex 3D
+elastodynamic problems](https://doi.org/10.2139/ssrn.7570376)，2026-10-06。
+目前只取得作者預印本頁的摘要，全文請求未成功；其 FEM／BEM 非反射人工介面與
+能量穩定性分析列為後續閱讀，尚未作為本案程式或穩定性結論的依據。
 
 2026-10-28 新增[相同實際細網格的 bulk 時間符號比較](bulk_time_symbol.md)。
 在 closed-stick 線性 transfer、Re(s)=200 /s 的 10 kHz 取樣，

@@ -290,3 +290,141 @@ def test_real_two_block_interior_driver_reconstructs_static_lift_and_complete_st
         assert d["value"].shape == (9, 2, 12, 8)
         np.testing.assert_array_equal(d["value"][0], np.repeat(d["static_lift"][None], 2, axis=0))
         np.testing.assert_array_equal(d["value"][0, :, :, 2:4], 0)
+    prepare = [
+        str(kernel / "summary.json"),
+        "--dt",
+        "2e-6",
+        "--duration",
+        "1.6e-5",
+        "--workers",
+        "1",
+        "--buffer-matrices",
+        "8",
+        "--combine-matrices",
+        "3",
+        "--max-workspace-mb",
+        "512",
+        "--max-memory-mb",
+        "1024",
+    ]
+    for label, channel in [
+        ("fresh", None),
+        ("raw-resumed", "work-family0.npy"),
+        ("compact-resumed", "compact-family0.npy"),
+    ]:
+        destination = tmp_path / label
+        args = [*prepare, "--output", str(destination)]
+        if channel:
+            stopped = subprocess.run(
+                [
+                    sys.executable,
+                    "-B",
+                    str(TOOLS.parent / "tests/fixtures/interior_sampler_interrupt.py"),
+                    "--stop-channel",
+                    channel,
+                    "--after-count",
+                    "8",
+                    *args,
+                ],
+                env=env,
+                capture_output=True,
+                text=True,
+                timeout=120,
+            )
+            assert stopped.returncode == 83, stopped.stdout + stopped.stderr
+        result = subprocess.run(
+            [
+                sys.executable,
+                "-B",
+                str(TOOLS / "prepare_interior_spectra.py"),
+                *args,
+                *(["--resume"] if channel else []),
+            ],
+            env=env,
+            capture_output=True,
+            text=True,
+            timeout=120,
+        )
+        assert result.returncode == 0, result.stdout + result.stderr
+        applied = tmp_path / (label + "-observations")
+        result = subprocess.run(
+            [
+                sys.executable,
+                "-B",
+                str(TOOLS / "reconstruct_interior_reference.py"),
+                str(trajectory),
+                "--prepared-kernel",
+                str(destination),
+                "--output",
+                str(applied),
+                "--max-workspace-mb",
+                "512",
+                "--max-direct-frequency-evaluations",
+                "1",
+                "--check-ad",
+            ],
+            env=env,
+            capture_output=True,
+            text=True,
+            timeout=120,
+        )
+        assert result.returncode == 0, result.stdout + result.stderr
+        summary = json.loads((applied / "summary.json").read_text())
+        assert summary["direct_frequency_evaluations"] == 0
+        with (
+            np.load(observations / "observations.npz", allow_pickle=False) as a,
+            np.load(applied / "observations.npz", allow_pickle=False) as b,
+        ):
+            np.testing.assert_allclose(a["perturbation"], b["perturbation"], rtol=3e-8, atol=1e-14)
+            np.testing.assert_array_equal(a["static_lift"], b["static_lift"])
+        current = json.loads((destination / "summary.json").read_text())
+        if channel:
+            assert current["all_attempt_timings_accounted"] is False
+        if label == "fresh":
+            expected = [r["sha256"] for r in current["family_spectra"]]
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    "-B",
+                    str(TOOLS / "check_interior_spectra.py"),
+                    str(destination),
+                    "--output",
+                    str(tmp_path / "all-frequency-audit.json"),
+                    "--source-run",
+                    str(trajectory),
+                    "--observations",
+                    str(applied),
+                ],
+                env=env,
+                capture_output=True,
+                text=True,
+                timeout=120,
+            )
+            assert result.returncode == 0, result.stdout + result.stderr
+            audit = json.loads((tmp_path / "all-frequency-audit.json").read_text())
+            assert audit["full_frequency_grid_checked"]
+            assert audit["inputs_verified_before_and_after"]
+            assert audit["complete_observation_relative_l2"] < 1e-7
+        else:
+            assert [r["sha256"] for r in current["family_spectra"]] == expected
+    single = tmp_path / "single-step"
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-B",
+            str(TOOLS / "prepare_interior_spectra.py"),
+            *prepare,
+            "--duration",
+            "2e-6",
+            "--output",
+            str(single),
+        ],
+        env=env,
+        capture_output=True,
+        text=True,
+        timeout=120,
+    )
+    assert result.returncode == 0, result.stdout + result.stderr
+    current = json.loads((single / "summary.json").read_text())
+    assert current["plan"]["steps"] == 1
+    assert all(r["all_fft_grid_points_emitted"] for r in current["frequency_sampling"].values())

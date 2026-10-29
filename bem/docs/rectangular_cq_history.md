@@ -6,8 +6,9 @@
 [`reconstruct_interior_reference.py`](../tools/reconstruct_interior_reference.py)
 已用實際雙 block 的完整短程軌跡重建 12 個固定實體 probes。
 
-**目前 driver 使用有預算上限的直接頻率取樣，是小型正確性 reference。**
-完整 45 ms 的高效頻率核心 producer 尚未接入；完整 FEM 波場、initialized AD 與
+driver 保留有預算上限的直接頻率取樣，另已接入
+[可續跑的 body／probe raw producer](interior_raw_sampling.md)及 `--prepared-kernel`。
+完整 45 ms 的建核與場量尚未執行；完整 FEM 波場、initialized AD 與
 同精度效能目標仍未完成。既有 FEM／2 µs 排程保持原狀，原 Tatva 維持只讀。
 
 ## 因果歷史與檔案生命週期
@@ -91,5 +92,5 @@ python -B bem/tools/reconstruct_interior_reference.py PATH_TO_COMPLETE_RUN \
 ```
 
 直接 sampler 預設最多 256 次 physical-frequency evaluations；超過即拒絕，不縮短 source horizon。
-完整 event 尚需高效且可接續的 body／probe sampling、true-float64 FEM probes、
+完整 event 尚需執行 body／probe sampling、true-float64 FEM probes、
 空間／時間／初始化梯度收斂、能量與同精度總耗時／穩定性驗證。

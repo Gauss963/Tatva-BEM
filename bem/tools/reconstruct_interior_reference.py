@@ -1,8 +1,7 @@
 """Reconstruct physical interior probes from a complete compact Radau run.
 
-Uses the bounded history backend and a guarded DIRECT frequency sampler.
-The latter is a small correctness reference, not the efficient full-event
-sampler. No fitted phase, nodal-force density substitution or history cutoff.
+Use verified prepared spectra, or a guarded direct frequency reference.
+No fitted phase, nodal-force density substitution or history cutoff.
 """
 
 import argparse
@@ -56,6 +55,7 @@ def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("run", type=Path)
     p.add_argument("--output", type=Path, required=True)
+    p.add_argument("--prepared-kernel", type=Path)
     p.add_argument(
         "--probe-plan", type=Path, default=TOOLS.parent / "examples/event16_interior_probes.json"
     )
@@ -64,6 +64,7 @@ def main():
     p.add_argument("--max-direct-frequency-evaluations", type=int, default=256)
     p.add_argument("--dense-check", action="store_true")
     p.add_argument("--check-ad", action="store_true")
+    p.add_argument("--check-transpose", action="store_true")
     args = p.parse_args()
     begun = perf_counter()
     output = args.output.resolve()
@@ -93,7 +94,7 @@ def main():
         ):
             raise ValueError("Numerical source/runtime changed")
     count = plan.fft_size // 2 + 1
-    evaluations = 2 * count * (2 if args.dense_check else 1)
+    evaluations = 2 * count * ((0 if args.prepared_kernel else 1) + (1 if args.dense_check else 0))
     if (
         args.max_direct_frequency_evaluations < 1
         or evaluations > args.max_direct_frequency_evaluations
@@ -105,11 +106,43 @@ def main():
     points = [np.asarray(probes[k], dtype=float) for k in ["moving", "stationary"]]
     total = sum(len(a) for a in points)
     channels = 8 * total
+    prepared = None
+    probe_quadrature = 16
+    if args.prepared_kernel:
+        prepared = json.loads((args.prepared_kernel / "summary.json").read_text())
+        if (
+            prepared["status"] != "completed_empirical_raw_interior_radau_spectra"
+            or prepared["plan"] != metadata["plan"]
+            or prepared["probe_plan"] != probes
+            or prepared["family_spectra_coordinates"] != "physical Tq"
+        ):
+            raise ValueError("Prepared interior channels, plan or coordinates differ")
+        for key in [
+            "case",
+            "h",
+            "contact_h",
+            "contact_end_h",
+            "corner_h",
+            "quadrature",
+            "restart_knot_window",
+            "restart_knot_subdivisions",
+        ]:
+            if prepared["source_mesh_arguments"].get(key) != options.get(key):
+                raise ValueError("Prepared interior mesh differs")
+        for key in ["source_sha256", "case_sha256", "restart_data_sha256", "numpy", "scipy"]:
+            if prepared["environment"][key] != environment[key]:
+                raise ValueError("Prepared interior runtime differs")
+        for path, expected in prepared["frozen_inputs_sha256"].items():
+            if DIGEST(path) != expected:
+                raise ValueError("Prepared interior numerical source changed")
+        probe_quadrature = prepared["probe_quadrature"]
     preflight = HISTORY["resources"](plan, plan.dofs, channels, args.output_rows)
     if preflight["array_peak_bytes"] > args.max_workspace_mb * 1024**2:
         raise ValueError("Interior reconstruction exceeds its array workspace budget")
     needed = (
-        2 * count * channels * plan.dofs * 16 + 8 * (plan.steps + 1) * channels * 8 + 64 * 1024**2
+        (0 if prepared else 2 * count * channels * plan.dofs * 16)
+        + 8 * (plan.steps + 1) * channels * 8
+        + 64 * 1024**2
     )
     output.parent.mkdir(parents=True, exist_ok=True)
     if needed > shutil.disk_usage(output.parent).free:
@@ -126,6 +159,8 @@ def main():
         TOOLS / "interior_radau.py",
         TOOLS / "radau_raw_sampling.py",
     ]
+    if args.prepared_kernel:
+        paths.append(args.prepared_kernel / "summary.json")
     frozen = {str(a.resolve()): DIGEST(a) for a in paths}
     lift_path = Path(summary["initial_lift_record"]["path"])
     if DIGEST(lift_path) != summary["initial_lift_record"]["sha256"]:
@@ -158,15 +193,25 @@ def main():
         restart_knot_window=options.get("restart_knot_window"),
         restart_knot_subdivisions=options.get("restart_knot_subdivisions", 1),
     )
-    transfer = FIELD["InteriorRetainedTransfer"](model, points, quadrature=options["quadrature"])
+    transfer = (
+        FIELD["InteriorRetainedTransfer"](
+            model, points, quadrature=options["quadrature"], probe_quadrature=probe_quadrature
+        )
+        if not prepared or args.dense_check
+        else None
+    )
 
     def evaluate(s):
         return pack(transfer.evaluate(s), total, plan.dofs)
 
     output.mkdir()
     shape = (count, channels, plan.dofs)
-    disks = [RectangularSpectrum(output / f"family{i}.npy", shape) for i in range(2)]
-    for k in range(count):
+    disks = (
+        [RectangularSpectrum(output / f"family{i}.npy", shape) for i in range(2)]
+        if not prepared
+        else []
+    )
+    for k in range(count if not prepared else 0):
         z = plan.radius * np.exp(-2j * np.pi * k / plan.fft_size)
         modes = RAW["lower_half_radau_modes"](z, 1.0)
         first, second = [evaluate(s / plan.dt) for s in modes]
@@ -178,7 +223,7 @@ def main():
                     raise ValueError("Interior compact family violates endpoint symmetry")
                 values = values.real.astype(np.complex128)
             disks[i][k] = values
-    receipts = [d.record() for d in disks]
+    receipts = [d.record() for d in disks] if not prepared else prepared["family_spectra"]
     fixed = HISTORY["FixedRectangularCQ"](
         receipts, plan, output_rows=args.output_rows, max_workspace_mb=args.max_workspace_mb
     )
@@ -204,17 +249,18 @@ def main():
                 raise ValueError("Original dense stage-map CQ differs")
             checks["dense_relative_l2"] = float(difference)
             checks["dense_cq"] = dense_meta
-        rng = np.random.default_rng(563)
-        cotangent = rng.normal(size=perturbation.shape)
-        direction = rng.normal(size=q.shape)
-        direction[0] = 0
-        reverse = fixed.apply(cotangent, transpose=True)
-        tangent = fixed.apply(direction)
-        left, right = np.vdot(reverse, direction), np.vdot(cotangent, tangent)
-        relative = float(abs(left - right) / max(abs(left), abs(right), 1e-30))
-        if relative > 1e-9:
-            raise ValueError("Complete interior transpose dot product failed")
-        checks["transpose_directional_relative_error"] = relative
+        if args.check_transpose or args.dense_check or args.check_ad:
+            rng = np.random.default_rng(563)
+            cotangent = rng.normal(size=perturbation.shape)
+            direction = rng.normal(size=q.shape)
+            direction[0] = 0
+            reverse = fixed.apply(cotangent, transpose=True)
+            tangent = fixed.apply(direction)
+            left, right = np.vdot(reverse, direction), np.vdot(cotangent, tangent)
+            relative = float(abs(left - right) / max(abs(left), abs(right), 1e-30))
+            if relative > 1e-9:
+                raise ValueError("Complete interior transpose dot product failed")
+            checks["transpose_directional_relative_error"] = relative
         if args.check_ad:
             import jax
             import jax.numpy as jnp
@@ -246,7 +292,7 @@ def main():
         [model.reference.moving, model.reference.stationary], points, strict=True
     ):
         field = FIELD["InteriorPotentials"](
-            mesh, model.reference.material, point
+            mesh, model.reference.material, point, quadrature=probe_quadrature
         ).from_galerkin_trace(full[offset : offset + mesh.dofs], quadrature=options["quadrature"])
         static.append(
             np.concatenate(
@@ -290,7 +336,10 @@ def main():
             fitted_time_shift_s=0.0,
             seconds_including_hashes=perf_counter() - begun,
             observations_sha256=DIGEST(output / "observations.npz"),
-            efficient_full_event_sampler_implemented=False,
+            prepared_kernel=None
+            if args.prepared_kernel is None
+            else str(args.prepared_kernel.resolve()),
+            efficient_full_event_sampler_implemented=bool(args.prepared_kernel),
             full_original_event_reproduced=False,
             initialized_or_material_gradient_proven=False,
             same_accuracy_fem_advantage_verified=False,

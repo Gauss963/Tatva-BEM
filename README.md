@@ -144,7 +144,10 @@ including checkpoint continuation. The full probe reference remains pending.
 The [bounded interior CQ backend](bem/docs/rectangular_cq_history.md) now retains
 all causal lags with a complete transpose and a fixed-kernel JAX VJP.
 Small two-block probe reconstructions match the dense stage-map reference;
-efficient full-event frequency sampling and initialized observation gradients remain open.
+the [resumable body/probe frequency producer](bem/docs/interior_raw_sampling.md)
+now feeds this backend directly. Small raw/compact interruptions recover the
+same spectra. Full-event sampling, initialized observation gradients and a
+same-accuracy performance advantage remain unverified.
 The [storage-stage Radau producer](bem/docs/storage_radau_pipeline.md) preserves
 the original sampling/audits while adding resumable ownership transfer,
 in-place compact spectra and direct physical Fortran weights. Its full 1 µs

@@ -1,0 +1,385 @@
+{
+  "utc": "2026-10-29T13:07:39.756191+00:00",
+  "status": "passed_resumable_interior_spectra_and_complete_short_causal_reference",
+  "local_tests": {
+    "passed": 39,
+    "pytest_output": {
+      "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/interior-raw-checks-20261029-v4/pytest.log",
+      "sha256": "419bfc8e3c122572560a3ba31004700b534ca38a26a0583f2ccc1ef01c7ed67d"
+    }
+  },
+  "final_control": {
+    "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/interior-raw-checks-20261029-v4/control.json",
+    "sha256": "5ab6fb709159f4d2d9397b052146b1040f0adbaf7d38d746b95a94fcdbd02385"
+  },
+  "all_attempt_controls": [
+    {
+      "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/interior-raw-checks-20261029-v1/control.json",
+      "sha256": "2d6d040d5b1e00c09111e802efaddec5bfe3c08c8749e3eb0171c4e087b4e0c0",
+      "label": "v1",
+      "utc_start": "2026-10-29T12:20:38.946702+00:00",
+      "utc_end": "2026-10-29T12:20:40.742543+00:00",
+      "seconds": 1.7958544995635748,
+      "same_fem_resumed": true,
+      "early_schema_exit_codes": {
+        "pytest_exit_code": 0,
+        "producer_exit_code": 1
+      }
+    },
+    {
+      "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/interior-raw-checks-20261029-v2/control.json",
+      "sha256": "45631b98ad23de1dfcef68249e6973056495ee3d830d9a405b2a8fc7c2d032ab",
+      "label": "v2",
+      "utc_start": "2026-10-29T12:27:00.160363+00:00",
+      "utc_end": "2026-10-29T12:27:23.621197+00:00",
+      "seconds": 23.461059417575598,
+      "same_fem_resumed": true,
+      "stages": [
+        {
+          "name": "pytest",
+          "exit_code": 0,
+          "seconds": 12.56649858225137
+        },
+        {
+          "name": "producer",
+          "exit_code": 0,
+          "seconds": 5.803879291750491
+        },
+        {
+          "name": "prepared-apply",
+          "exit_code": 0,
+          "seconds": 5.069109833799303
+        }
+      ]
+    },
+    {
+      "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/interior-raw-checks-20261029-v3/control.json",
+      "sha256": "639def615b128cdfb333239b99b52420cf74386086b4fe1679e5b3d3eaa20e65",
+      "label": "v3",
+      "utc_start": "2026-10-29T12:55:33.320143+00:00",
+      "utc_end": "2026-10-29T12:58:44.760243+00:00",
+      "seconds": 191.44215429201722,
+      "same_fem_resumed": true,
+      "stages": [
+        {
+          "name": "pytest",
+          "exit_code": 0,
+          "seconds": 30.095910125412047
+        },
+        {
+          "name": "physical-interpolated-producer",
+          "exit_code": 0,
+          "seconds": 89.83970183413476
+        },
+        {
+          "name": "all-frequency-original-audit",
+          "exit_code": 0,
+          "seconds": 71.08603083435446
+        },
+        {
+          "name": "full1us-preflight",
+          "exit_code": 0,
+          "seconds": 0.3880525827407837
+        }
+      ]
+    },
+    {
+      "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/interior-raw-checks-20261029-v4/control.json",
+      "sha256": "5ab6fb709159f4d2d9397b052146b1040f0adbaf7d38d746b95a94fcdbd02385",
+      "label": "v4",
+      "utc_start": "2026-10-29T13:00:09.393314+00:00",
+      "utc_end": "2026-10-29T13:04:24.590406+00:00",
+      "seconds": 255.20009258389473,
+      "same_fem_resumed": true,
+      "stages": [
+        {
+          "name": "pytest",
+          "exit_code": 0,
+          "seconds": 31.36921220831573
+        },
+        {
+          "name": "source-kernel",
+          "exit_code": 0,
+          "seconds": 59.60357191693038
+        },
+        {
+          "name": "complete-primal",
+          "exit_code": 0,
+          "seconds": 2.6179476669058204
+        },
+        {
+          "name": "physical-interpolated-producer",
+          "exit_code": 0,
+          "seconds": 89.49305925052613
+        },
+        {
+          "name": "prepared-apply-ad",
+          "exit_code": 0,
+          "seconds": 1.0307511668652296
+        },
+        {
+          "name": "all-frequency-original-audit",
+          "exit_code": 0,
+          "seconds": 70.66620874963701
+        },
+        {
+          "name": "full1us-preflight",
+          "exit_code": 0,
+          "seconds": 0.3894740426912904
+        }
+      ]
+    },
+    {
+      "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/interior-raw-checks-20261029-v5/control.json",
+      "sha256": "77c4cbf598e7716270b14b8244c6ebeafdf43d14f4617ffb1eb40c4558bf4e85",
+      "label": "v5",
+      "utc_start": "2026-10-29T13:05:38.223023+00:00",
+      "utc_end": "2026-10-29T13:05:39.497282+00:00",
+      "seconds": 1.273988458327949,
+      "same_fem_resumed": true,
+      "stages": [
+        {
+          "name": "protected-source-and-prefix",
+          "exit_code": 0,
+          "seconds": 1.240012832917273
+        }
+      ]
+    }
+  ],
+  "total_known_serial_control_seconds": 473.1731492513791,
+  "costs_already_inside_fem_wall_interval": true,
+  "costs_not_a_fem_speed_benchmark": true,
+  "earlier_attempt_notes": {
+    "v1": "Initial callback arity error; failed before spectral commit.",
+    "v2": "Earlier producer/prepared-reader controls; source subsequently revised.",
+    "v3": "39 tests and physical interpolated all-grid audit passed; producer source subsequently revised only for final progress publication and tiny-grid audit index bounds. Old source archived locally.",
+    "v4": "Final sources: 39 tests including tiny-grid and both abrupt interruption routes; independent source kernel/primal, interpolated probes, AD, original every-frequency and complete dense causal reference.",
+    "v5": "Final stream verification of 44 FEM and 76 queued BEM frozen inputs, plus preserved 256-matrix legacy prefix."
+  },
+  "discretization": {
+    "steps": 257,
+    "dt": 2e-06,
+    "fft_size": 1024,
+    "inputs": 11,
+    "points": 12,
+    "outputs": 96,
+    "quadrature": 12,
+    "h_mm": 160,
+    "contact_h_mm": 160,
+    "contact_end_h_mm": 160,
+    "corner_h_mm": 160
+  },
+  "source_seed_sha256": "f09f9cfbe88d41cfba9daaffd1d901e66d1b33af2b6826ba8449fa05ef510901",
+  "complete_primal_steps": 257,
+  "max_cumulative_slip_mm": 0.0,
+  "original_initial_residual_history_retained": true,
+  "frequency_sampling": {
+    "0": {
+      "method": "raw_layers_before_condensation",
+      "source_evaluations": 869,
+      "transformed_grid_points": 513,
+      "direct_grid_points": 513,
+      "interpolated_grid_points": 0,
+      "accepted_intervals": 0,
+      "rejected_intervals": 15,
+      "maximum_raw_normalized_check": 0.0,
+      "maximum_raw_normalized_tail": 0.0,
+      "maximum_output_normalized_check": 0.0,
+      "estimated_interpolation_array_bytes": 10542720,
+      "provider_geometry_and_solver_workspace_excluded": true,
+      "certified_error_bound": false,
+      "all_fft_grid_points_emitted": true,
+      "raw_evaluation_ratio": 1.6939571150097466,
+      "mode_branch": 0,
+      "time_method": "radau2",
+      "source_frequency_values_reused": false,
+      "branch_spectrum_is_not_a_real_kernel": true,
+      "restored_prefix": 0,
+      "recomputed_active_interval_start": 0,
+      "output_check": "original Frobenius AND every observation row"
+    },
+    "1": {
+      "method": "raw_layers_before_condensation",
+      "source_evaluations": 391,
+      "transformed_grid_points": 513,
+      "direct_grid_points": 129,
+      "interpolated_grid_points": 384,
+      "accepted_intervals": 4,
+      "rejected_intervals": 7,
+      "maximum_raw_normalized_check": 0.012428772019384393,
+      "maximum_raw_normalized_tail": 0.007390347750773396,
+      "maximum_output_normalized_check": 0.768871959130873,
+      "estimated_interpolation_array_bytes": 10542720,
+      "provider_geometry_and_solver_workspace_excluded": true,
+      "certified_error_bound": false,
+      "all_fft_grid_points_emitted": true,
+      "raw_evaluation_ratio": 0.7621832358674464,
+      "mode_branch": 1,
+      "time_method": "radau2",
+      "source_frequency_values_reused": false,
+      "branch_spectrum_is_not_a_real_kernel": true,
+      "restored_prefix": 0,
+      "recomputed_active_interval_start": 0,
+      "output_check": "original Frobenius AND every observation row"
+    }
+  },
+  "combined_raw_evaluations": 1260,
+  "direct_all_grid_evaluations": 1026,
+  "combined_raw_evaluation_ratio": 1.2280701754385965,
+  "sampling_speed_advantage_demonstrated": false,
+  "all_frequency_original_audit": {
+    "status": "passed_fresh_original_algebra_at_every_interior_frequency",
+    "plan": {
+      "dt": 2e-06,
+      "steps": 257,
+      "dofs": 11,
+      "fft_size": 1024,
+      "radius": 0.9777647473167089,
+      "estimated_peak_bytes": 1823184,
+      "weight_bytes": 249744
+    },
+    "physical_frequency_evaluations": 1026,
+    "maximum_normalized_global_and_row_error": 0.009461475601145497,
+    "relative_tolerance": 1e-07,
+    "absolute_tolerance": 1e-12,
+    "full_frequency_grid_checked": true,
+    "original_free_body_algebra_reference": true,
+    "array_estimate_bytes": 112594944,
+    "dense_causal_reference_source_steps": 257,
+    "complete_observation_relative_l2": 2.7641153358311904e-14,
+    "source_sha256": {
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/interior-raw-checks-20261029-v4/spectra/summary.json": "7fc59f9144402ed34259e984d03d63781f7868b1c9c52365415765f52fd2e3bc",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/check_interior_spectra.py": "7fe63cbbd7b654acb6a370d56a6fb9035304dd08bced23e5125a4dba44a54f70",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/interior-raw-checks-20261029-v4/trajectory/summary.json": "6a252dbb88cb7a26a525195dddb85e2cd604e7bd2fdd3fe84bd53c1ce6eac39d",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/interior-raw-checks-20261029-v4/trajectory/stages.npz": "504b86dffd019bcd2e7fa19999e0d2e30b5cb0acfe68fccb1d27c888b65aca62",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/interior-raw-checks-20261029-v4/source-kernel/summary.json": "931e6330938470f2f46956b22b069d18a77d1f38d45b353f1344690cc065cb24",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/interior-raw-checks-20261029-v4/observations/summary.json": "85ead9945b1dd6c2613420bc4039283eb43d2dc96c4a09b37710e30fd85e2254",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/interior-raw-checks-20261029-v4/observations/observations.npz": "500ba56f0c9ac33e119d3aecd7bde5799ec277e9fc16d8c92d24ad6473d175f2",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/interior-raw-checks-20261029-v4/spectra/work-family0.npy": "b08730cabb911229c1ae137a970e0b3406f8bfa7790809bac7da812001e86d0a",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/interior-raw-checks-20261029-v4/spectra/work-family1.npy": "8f6fde4d2c74291c20ded1d7eb3042d7d9739921ee3522d991ba0e5c5890e3df",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/interior-raw-checks-20261029-v4/spectra/compact-family0.npy": "bd76236612c6108f0f1fa29e0f5231abb3197e02d3064d621cb44cfb128f04ac",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/interior-raw-checks-20261029-v4/spectra/compact-family1.npy": "10dac880912e98f4a0b43988e2a6b7fb17636fac18006d519aac8d234b8207df"
+    },
+    "inputs_verified_before_and_after": true,
+    "seconds_including_hashes": 70.3433897914365,
+    "complete_fine_event_or_fem_verified": false,
+    "initialized_observation_gradient_verified": false,
+    "same_accuracy_fem_advantage_verified": false
+  },
+  "prepared_observations": {
+    "summary": {
+      "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/interior-raw-checks-20261029-v4/observations/summary.json",
+      "sha256": "85ead9945b1dd6c2613420bc4039283eb43d2dc96c4a09b37710e30fd85e2254"
+    },
+    "direct_frequency_evaluations": 0,
+    "checks": {
+      "transpose_directional_relative_error": 4.100430843970896e-16,
+      "jax_fixed_map_vjp_relative_error": 0.0
+    },
+    "source_perturbation_and_initial_residual_unmodified": true
+  },
+  "interrupted_actual_two_block_controls": [
+    {
+      "label": "fresh",
+      "summary": {
+        "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/interior-raw-checks-20261029-v4/pytest-data/test_real_two_block_interior_d0/fresh/summary.json",
+        "sha256": "cc425a78e999ba4634cca738da3faa9057258f905138552034f79d161450cf97"
+      },
+      "compact_sha256": [
+        "ce5762901f566debb0262e59c7c0c109a65d9c6787762f2475ed48efc458c30f",
+        "951927e05d41b262106c159f06fee901e0b49de28923fa0b8a896098272cb5fc"
+      ],
+      "all_attempt_timings_accounted": true
+    },
+    {
+      "label": "raw-resumed",
+      "summary": {
+        "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/interior-raw-checks-20261029-v4/pytest-data/test_real_two_block_interior_d0/raw-resumed/summary.json",
+        "sha256": "cb95a1d691749f20b6f3dd7beb3880235cebc7c8bcb49a572df009e75a454ffb"
+      },
+      "compact_sha256": [
+        "ce5762901f566debb0262e59c7c0c109a65d9c6787762f2475ed48efc458c30f",
+        "951927e05d41b262106c159f06fee901e0b49de28923fa0b8a896098272cb5fc"
+      ],
+      "all_attempt_timings_accounted": false
+    },
+    {
+      "label": "compact-resumed",
+      "summary": {
+        "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/interior-raw-checks-20261029-v4/pytest-data/test_real_two_block_interior_d0/compact-resumed/summary.json",
+        "sha256": "819819d79ca89d206b4732c5be852d7aafb8cbbf21d2c5ab953b2ff8cf7e460a"
+      },
+      "compact_sha256": [
+        "ce5762901f566debb0262e59c7c0c109a65d9c6787762f2475ed48efc458c30f",
+        "951927e05d41b262106c159f06fee901e0b49de28923fa0b8a896098272cb5fc"
+      ],
+      "all_attempt_timings_accounted": false
+    }
+  ],
+  "full1us_preflight": {
+    "path": "/Volumes/Gauss-T7/Tatva-BEM-cache/interior-radau1us-graded-preflight-20261029-v4/preflight.json",
+    "sha256": "3b76c7287d44e419791e52d7788bccfbbd53be3ba47b4b45021e4c4e34bfe917",
+    "plan": {
+      "dt": 1e-06,
+      "steps": 45000,
+      "dofs": 531,
+      "fft_size": 131072,
+      "radius": 0.9998243421284886,
+      "estimated_peak_bytes": 180369438552,
+      "weight_bytes": 101508215688
+    },
+    "shape": [
+      65537,
+      96,
+      531
+    ],
+    "resources": {
+      "array_peak_bytes": 19045519104,
+      "interpolation_bytes": 9199287552,
+      "geometry_bytes": 4342563328,
+      "solver_bytes": 5183033344,
+      "required_disk_bytes": 214080538624,
+      "raw_and_compact_spectra_retained": true,
+      "provider_target_geometry_in_256MiB_reserve": true
+    },
+    "no_large_npy_created": true,
+    "numerical_frequency_build_started": false
+  },
+  "protected_proof": {
+    "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/interior-raw-checks-20261029-v5/protected-source-proof.json",
+    "sha256": "b8b1e17cda9215c21790e0e7ba4a2bf0807f94b7b18f59015a6ea7accadf9832",
+    "proof": {
+      "utc": "2026-10-29T13:05:39.476760+00:00",
+      "frozen_inputs": [
+        {
+          "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-reference-prefix-replay-20261028/frozen_inputs.json",
+          "sha256": "0b0674702feb87b401d116d0c7d0fe5dcab6c695a3fdb774f6a4d189220c505e",
+          "count": 44,
+          "changed": []
+        },
+        {
+          "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/resumed-radau-fine-study-20261028/frozen_inputs.json",
+          "sha256": "f40dee148e9578513fa0d907ca67017ec062a280508903a70f89d5efd5ba0121",
+          "count": 76,
+          "changed": []
+        }
+      ],
+      "preserved_prefix_sha256": "f3802c5c698bed22e55be770bb4672ee9ec86d50c9ab24f1e9f1fc982c905801",
+      "committed_matrices": 256,
+      "committed_bytes": 1154912256,
+      "committed_prefix_unmodified": true
+    }
+  },
+  "final_sources_sha256": {
+    "bem/tools/interior_raw_sampling.py": "89fa2761cbbff1f1c6b52ac5ada6448bcdc37988d1ec0c093f7b93c528b8b4c3",
+    "bem/tools/rectangular_sampling_checkpoint.py": "890a02e0641e432b0eb44a9e19c7f33774a35d4256522d23fea37eedfe675a89",
+    "bem/tools/prepare_interior_spectra.py": "7c96b3bd976a6e092767a55af152a2c5dd72b9f9777dcdf9c242beaa9c63c30d",
+    "bem/tools/check_interior_spectra.py": "7fe63cbbd7b654acb6a370d56a6fb9035304dd08bced23e5125a4dba44a54f70",
+    "bem/tools/reconstruct_interior_reference.py": "6e31eec8a4bc2b9343287ed363d3dd2178db9592fb36135ef2135f742b93c966"
+  },
+  "original_tatva_readonly": true,
+  "full_fine_event_reproduced": false,
+  "full_float64_fem_probe_comparison_completed": false,
+  "initialized_observation_gradient_verified": false,
+  "same_accuracy_fem_stability_or_total_runtime_advantage_verified": false
+}

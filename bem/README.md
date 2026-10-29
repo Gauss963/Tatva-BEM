@@ -21,7 +21,9 @@
 資源預檢通過，尚未啟動大型時間加密計算，也尚未證明同精度速度優勢。
 新增[有界記憶體內部觀測 CQ 與固定核心 JAX VJP](docs/rectangular_cq_history.md)：
 32 項控制通過，實際短程 12 probes 與 dense CQ 核對；
-完整波場的高效頻率 producer 與 initialized observation gradients 仍待完成。
+[可續跑 body／probe 頻率 producer](docs/interior_raw_sampling.md) 已接入，
+小型 raw／compact 中斷續跑與 fresh 頻譜一致；完整波場建核、
+initialized observation gradients 與同精度效能優勢仍待驗證。
 另已通過實際雙 block 短程的[完整因果 RK 方程與條件式 adjoint](docs/radau_history_validation.md)。
 selected healed preload 的 Radau 梯度亦通過短程控制；完整 fine event／FEM
 比較與 fine initialized Radau 梯度仍待驗證。
