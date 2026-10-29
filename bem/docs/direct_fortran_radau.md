@@ -71,6 +71,8 @@ exclusive lease 防止兩個 writer；中斷於分配階段時只重建本 journ
 同日後續完成了[可接續原地轉換元件](inplace_radau_compaction.md)與小型完整 BEM 核對，
 producer 交接與正式整合仍未實作；不能刪除現有 prefix、忽略重建成本，
 或將未執行的完整方案列為實測結果。
+同日更後續已完成[整合 producer 與短程接續驗證](storage_radau_pipeline.md)，
+完整 1 µs 事件尚未執行。
 
 ## 使用與後續
 
@@ -89,6 +91,7 @@ checker 要求全新 output，額外產生兩份完整 weights，不能在現有
 程式 API 為 `invert_physical_fortran(family_records, plan, line_weights, folder, ...)`；
 其 `resume=True` 使用同一個既有 journal。checker 本身只接受 fresh output。
 
-後續仍需接入 durable 原地轉換與獨立 producer、完成 macro time／contact／space 收斂、
+durable 原地轉換與獨立 producer 的整合見[後續紀錄](storage_radau_pipeline.md)。
+仍需完成 macro time／contact／space 收斂、
 完整 FEM 場量／前緣／波與能量核對、初始化 AD 的收斂，以及同精度穩定性或總耗時優勢。
 權重位元相同並不代表上述目標已完成。

@@ -8,7 +8,8 @@
 全部頻點、時間權重與有限 DFT wrap 仍保留。
 
 **目前完成的是兩個儲存元件與小型完整 BEM 核對。**
-raw producer 的所有權交接與整合版執行器尚未實作。
+當時 raw producer 的所有權交接與整合版執行器尚未實作；
+同日後續已完成[整合 producer 與接續控制](storage_radau_pipeline.md)。
 現有 2 µs 排程、256 個已保存頻點與完整 FEM 均未改動或重啟；
 原 `/Volumes/Gauss-T7/tatva` 維持只讀。
 
@@ -28,7 +29,8 @@ raw producer 的所有權交接與整合版執行器尚未實作。
 **原檔名保留，但內容角色在完成後變成 compact `F0/F1`。**
 之後必須使用回傳的 compact receipts；舊 raw sampler 不可再接續這兩個路徑。
 原 raw SHA256 留在 journal 作 provenance，不能拿來當目前內容的 SHA256。
-正式 producer 之後需要可驗證、可接續的交接程序，不能直接在現有 producer 目錄呼叫本元件。
+正式 producer 使用[可驗證的交接程序](storage_radau_pipeline.md)，
+不能直接在原 producer 目錄呼叫本元件。
 
 ## 每批交易與資源
 
@@ -101,6 +103,6 @@ checker 預設 validation disk limit 2 GiB，避免意外複製大型核心；
 它複製小型 raw branches 供驗證，正式 `compact_inplace` 元件本身不複製完整頻譜。
 接續 API 使用原 raw receipts、同一 folder 與 `resume=True`；checker 僅接受 fresh output。
 
-下一步是完成 producer／staging 的交接及整合，保留原始 sampling、算子稽核與計時，
-再做完整 macro time、contact、space 與 initialized AD 收斂。
+後續整合見[storage producer](storage_radau_pipeline.md)，保留原始 sampling、算子稽核與計時。
+仍需做完整 macro time、contact、space 與 initialized AD 收斂。
 完整 FEM 場量／前緣／反射波與能量，以及同精度穩定性或總耗時優勢仍未達成。

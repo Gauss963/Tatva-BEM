@@ -13,13 +13,12 @@
 最新[獨立端點加密](docs/chamfer_refinement.md)在同 end 0.0078125 mm、對 FEM h1 的初始 pressure／shear
 全接觸面 P1 L2 差降至 0.58%／0.51%；三個連續時間 linear response 通過原 5% screen。
 這些是靜態／線性控制，完整非線性事件、時間與空間收斂仍未完成。
-目前正建立 [fresh 2 µs Radau fine kernel](docs/raw_radau.md)，
-另有[直接輸出 physical Fortran Radau 權重](docs/direct_fortran_radau.md)：
-完整小型 BEM 權重、wrap 與 causal startup 逐位元一致，可省下一組時間權重轉換暫存；
-尚未接入正式排程，也尚未解決 1 µs durable 頻譜的全部儲存需求。
-後續新增[可接續 raw → compact 原地轉換](docs/inplace_radau_compaction.md)，
-小型完整 BEM 的 compact 頻譜、權重與 startup 全部逐位元相同；
-producer 交接與正式整合仍待完成，現有大型核心保持原狀。
+原 [fresh 2 µs Radau fine kernel](docs/raw_radau.md) 的接續排程保持原狀。
+新增[獨立 storage Radau producer](docs/storage_radau_pipeline.md)，整合可接續的所有權交接、
+[raw → compact 原地轉換](docs/inplace_radau_compaction.md)與
+[直接 physical Fortran 權重](docs/direct_fortran_radau.md)，減少完整時間加密的儲存需求。
+47 項測試、整合中斷接續與完整短程軌跡位元核對通過；1 µs／45 ms 的實際 geometry
+資源預檢通過，尚未啟動大型時間加密計算，也尚未證明同精度速度優勢。
 另已通過實際雙 block 短程的[完整因果 RK 方程與條件式 adjoint](docs/radau_history_validation.md)。
 selected healed preload 的 Radau 梯度亦通過短程控制；完整 fine event／FEM
 比較與 fine initialized Radau 梯度仍待驗證。
