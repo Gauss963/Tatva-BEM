@@ -17,6 +17,9 @@
 另有[直接輸出 physical Fortran Radau 權重](docs/direct_fortran_radau.md)：
 完整小型 BEM 權重、wrap 與 causal startup 逐位元一致，可省下一組時間權重轉換暫存；
 尚未接入正式排程，也尚未解決 1 µs durable 頻譜的全部儲存需求。
+後續新增[可接續 raw → compact 原地轉換](docs/inplace_radau_compaction.md)，
+小型完整 BEM 的 compact 頻譜、權重與 startup 全部逐位元相同；
+producer 交接與正式整合仍待完成，現有大型核心保持原狀。
 另已通過實際雙 block 短程的[完整因果 RK 方程與條件式 adjoint](docs/radau_history_validation.md)。
 selected healed preload 的 Radau 梯度亦通過短程控制；完整 fine event／FEM
 比較與 fine initialized Radau 梯度仍待驗證。

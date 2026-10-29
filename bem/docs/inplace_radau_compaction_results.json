@@ -1,0 +1,208 @@
+{
+  "recorded_utc": "2026-10-29T10:26:16.200722+00:00",
+  "status": "passed_owned_inplace_compaction_and_direct_inversion_component_controls",
+  "new_test_count": 20,
+  "combined_test_count": 36,
+  "actual_abrupt_exit_cases": 3,
+  "abrupt_exit_mechanism": "os._exit(73), without Python exception handling or finally cleanup",
+  "pending_range_torn_data_recovery_tested": true,
+  "final_receipt_checks_all_committed_chunks": true,
+  "real_complete_bem_identity": {
+    "status": "passed_complete_bem_inplace_compaction_and_direct_weights_identity",
+    "source_kernel": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/direct-fortran-real-bem-20261029-v1/original",
+    "source_plan": {
+      "dt": 2e-06,
+      "steps": 16,
+      "dofs": 11,
+      "fft_size": 64,
+      "radius": 0.6978305848598664,
+      "estimated_peak_bytes": 178200,
+      "weight_bytes": 16456
+    },
+    "frozen_input_sha256": {
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/direct-fortran-real-bem-20261029-v1/original/summary.json": "04e7a670a6327a6317fd8701832bbbd23664bc1be9c9049e277b7c75b7fc9b65",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/direct-fortran-real-bem-20261029-v1/original/work-family0.npy": "5b31abf3901ceab121fee740ae9427fe2b5adf7da4a7b629e3cf8dcfcbf1dae1",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/direct-fortran-real-bem-20261029-v1/original/work-family1.npy": "76a96b1c085d713eb038258d927b8d9297ed77e95d1377483f64be810700bbc2",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/direct-fortran-real-bem-20261029-v1/original/compact-family0.npy": "7b5acffbbbc477724bd2cb2c46c65bbcc95ebd15c21694bbb6406d8441ac306b",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/direct-fortran-real-bem-20261029-v1/original/compact-family1.npy": "74b8607bdd8852d239240f0073690977622470dcdf272d3ed85d114c5478de23",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/direct-fortran-real-bem-20261029-v1/original/elastic.npz": "601066d52a8a7292dedbce7641724403f0bcc405e7d88453340e4fe351527687",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/direct-fortran-real-bem-20261029-v1/original/initial_impedance.npy": "3a100f8ad8a9a90699cd3a743e1757529966d6d71844db27e008820f266b8ee0",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/direct-fortran-real-bem-20261029-v1/original/shift_wrap.npy": "01b1936db487cbeafa58ab9680b5ff9350ea43c716d68c828e1a5b236c01ab20",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/check_inplace_radau_compaction.py": "ec11d6fbd72369f063582f38975aa5d8d731b9f8c342e400d4aed59b3bc097d7",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/inplace_radau_compaction.py": "eb0a1b77fc136140b30493ccef2580f90533910cbe8c804cd3abe481afa9101c",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/direct_fortran_radau.py": "b66301ef3a7b9280655e95d5679508e3961020be2436624eaa5de1adb3994b84",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/check_direct_fortran_radau.py": "67bf80b7fe04dad1624781689a03c5f326d37d94bf2db7f4d752c6864e873c07",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/radau_raw_sampling.py": "dc743da265d444e43da572bb07c25d3508f7daae0e13b4cf7404844a12f4a9ff",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/radau_sampling_checkpoint.py": "2ed52f4aca63a77e919f3e090d3f7cbe297f84677d6827a6fa71d0c681130542"
+    },
+    "complete_compact_files_byte_equal": [
+      true,
+      true
+    ],
+    "owned_source_inodes_preserved": true,
+    "raw_paths_consumed": true,
+    "original_kernel_unmodified": true,
+    "compaction_resources": {
+      "batch_matrices": 3,
+      "array_peak_bytes": 67178560,
+      "journal_metadata_reserve_bytes": 90112,
+      "estimated_workspace_bytes": 67268672,
+      "raw_backup_payload_bytes": 11616,
+      "maximum_extra_disk_bytes": 67132096,
+      "extra_complete_spectrum_files": 0,
+      "all_frequency_matrices_retained": true
+    },
+    "compaction_attempts": [
+      {
+        "started_utc": "2026-10-29T10:25:00.799040+00:00",
+        "initial_completed_chunks": 0,
+        "preparation_including_verification_seconds": 0.000806707888841629,
+        "status": "completed",
+        "seconds": 0.11475662514567375
+      }
+    ],
+    "all_compaction_attempt_timings_accounted": true,
+    "complete_weight_files_byte_equal": [
+      true,
+      true
+    ],
+    "wrap_coefficients_bitwise_equal": true,
+    "complete_causal_startup_bitwise_equal": true,
+    "initial_composition_inf_error": 6.676754731629854e-11,
+    "total_validation_seconds_including_hashes_and_copies": 1.1163357915356755,
+    "producer_ownership_transfer_implemented": false,
+    "integrated_into_production_pipeline": false,
+    "full_original_event_reproduced": false,
+    "same_accuracy_fem_advantage_verified": false,
+    "scope": "Complete small BEM arithmetic/storage identity, not a nonlinear or FEM accuracy/speed proof"
+  },
+  "source_and_control_sha256": {
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/inplace_radau_compaction.py": "eb0a1b77fc136140b30493ccef2580f90533910cbe8c804cd3abe481afa9101c",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/check_inplace_radau_compaction.py": "ec11d6fbd72369f063582f38975aa5d8d731b9f8c342e400d4aed59b3bc097d7",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tests/test_inplace_radau_compaction.py": "4eb66e492b5fd369312fd19fe0f4e78a808d0704e27e3dbbc0676840a6a096c0",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/radau_sampling_checkpoint.py": "2ed52f4aca63a77e919f3e090d3f7cbe297f84677d6827a6fa71d0c681130542",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/radau_raw_sampling.py": "dc743da265d444e43da572bb07c25d3508f7daae0e13b4cf7404844a12f4a9ff",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/inplace-radau-complete-checks-20261029-v3/pytest.log": "4d3169205c5663514bb4c960d61cad860ec0d6563b498d3c778bfdc662ebe8f9",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/inplace-radau-complete-checks-20261029-v3/comparison/summary.json": "c92b59fefc1037f2a5ba11d703d6fccf838992cc1ad07c72a17e455e685042e0"
+  },
+  "all_local_controls_including_pre_refinement": [
+    {
+      "utc_start": "2026-10-29T10:15:42.718634+00:00",
+      "four_core_serial_validation": true,
+      "fem_wait_included_in_its_wall_cost": true,
+      "pytest_exit_code": 0,
+      "seconds": 3.5777137093245983,
+      "utc_end": "2026-10-29T10:15:46.296344+00:00",
+      "same_fem_resumed": true
+    },
+    {
+      "utc_start": "2026-10-29T10:17:41.791627+00:00",
+      "four_core_serial_validation": true,
+      "fem_wait_included_in_its_wall_cost": true,
+      "checker_exit_code": 0,
+      "command": [
+        "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python",
+        "-B",
+        "bem/tools/check_inplace_radau_compaction.py",
+        "bem/outputs/direct-fortran-real-bem-20261029-v1/original",
+        "--output",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/inplace-radau-real-bem-20261029-v1/comparison",
+        "--max-workspace-mb",
+        "512"
+      ],
+      "seconds": 1.6438415423035622,
+      "utc_end": "2026-10-29T10:17:43.435474+00:00",
+      "same_fem_resumed": true
+    },
+    {
+      "utc_start": "2026-10-29T10:20:19.480992+00:00",
+      "four_core_serial_validation": true,
+      "fem_wait_included_in_its_wall_cost": true,
+      "pytest_exit_code": 0,
+      "real-bem_exit_code": 0,
+      "seconds": 9.566941707395017,
+      "utc_end": "2026-10-29T10:20:29.047912+00:00",
+      "same_fem_resumed": true
+    },
+    {
+      "utc_start": "2026-10-29T10:24:52.265811+00:00",
+      "four_core_serial_validation": true,
+      "fem_wait_included_in_its_wall_cost": true,
+      "pytest_exit_code": 0,
+      "real-bem_exit_code": 0,
+      "seconds": 9.702661290764809,
+      "utc_end": "2026-10-29T10:25:01.959333+00:00",
+      "same_fem_resumed": true
+    }
+  ],
+  "serialized_fem_wait_seconds": 24.491158249787986,
+  "wait_already_included_in_fem_wall_interval": true,
+  "do_not_add_nested_timing_costs_twice": true,
+  "logical_full_horizon_storage_estimates": [
+    {
+      "dt": 2e-06,
+      "steps": 22500,
+      "fft_size": 65536,
+      "dofs": 531,
+      "logical_inplace_and_direct_data_bytes": 397177031664,
+      "old_durable_data_peak_bytes": 743598827640,
+      "logical_data_difference_bytes": 346421795976,
+      "compaction_component_resources": {
+        "batch_matrices": 8,
+        "array_peak_bytes": 500200960,
+        "journal_metadata_reserve_bytes": 33562624,
+        "estimated_workspace_bytes": 533763584,
+        "raw_backup_payload_bytes": 72182016,
+        "maximum_extra_disk_bytes": 211472896,
+        "extra_complete_spectrum_files": 0,
+        "all_frequency_matrices_retained": true
+      },
+      "full_pipeline_integrated_or_run": false
+    },
+    {
+      "dt": 1e-06,
+      "steps": 45000,
+      "fft_size": 131072,
+      "dofs": 531,
+      "logical_inplace_and_direct_data_bytes": 794340529200,
+      "old_durable_data_peak_bytes": 1487172842712,
+      "logical_data_difference_bytes": 692832313512,
+      "compaction_component_resources": {
+        "batch_matrices": 8,
+        "array_peak_bytes": 500200960,
+        "journal_metadata_reserve_bytes": 67117056,
+        "estimated_workspace_bytes": 567318016,
+        "raw_backup_payload_bytes": 72182016,
+        "maximum_extra_disk_bytes": 211472896,
+        "extra_complete_spectrum_files": 0,
+        "all_frequency_matrices_retained": true
+      },
+      "full_pipeline_integrated_or_run": false
+    }
+  ],
+  "storage_estimates_exclude": [
+    "startup and headers",
+    "write-ahead backup and journal",
+    "filesystem allocation and reserve",
+    "FEM",
+    "original causal audit",
+    "other runs"
+  ],
+  "source_kernel_unmodified": true,
+  "current_256_point_prefix_and_queue_unmodified": true,
+  "original_tatva_readonly": true,
+  "durable_inplace_compaction_component_implemented": true,
+  "producer_ownership_transfer_implemented": false,
+  "integrated_into_production_pipeline": false,
+  "complete_nonlinear_or_ad_rerun": false,
+  "full_original_event_reproduced": false,
+  "same_accuracy_fem_advantage_verified": false,
+  "goal_achieved": false,
+  "remaining_requirements": [
+    "Audited raw producer and crash-safe staging ownership transfer",
+    "Full-horizon macro time/contact/space convergence and initialized AD convergence",
+    "FEM fields/front/waves and energy validation",
+    "Same-accuracy solution stability or total-runtime advantage including construction, failures and verification"
+  ],
+  "journal_metadata_preflight_before_manifest_allocation_tested": true
+}
