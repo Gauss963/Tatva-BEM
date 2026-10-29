@@ -90,6 +90,8 @@ P/S 空間控制、已知延遲的位移／速度時間收斂、retained mapping
 不能據此宣稱已驗證高頻率內部波。後續完整波場比較需要額外的 true float64 interior
 probe observations，並保持原積分／接觸方程不變。
 這不更動或重啟正在進行的參考工作。
+2026-10-29 已新增[相應的 FEM probe adapter 與實際 identity／resume 控制](fem_interior_observations.md)，
+完整 probe reference 仍待執行。
 
 重現這組解析控制：
 

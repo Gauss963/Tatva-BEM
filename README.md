@@ -137,6 +137,10 @@ The [interior-field reconstruction controls](bem/docs/interior_fields.md) add
 displacement, velocity, stress and a fixed-kernel observation pullback, with
 independent analytic P/S wave tests. Full-event interior reconstruction and
 matching float64 FEM observations remain open.
+The [FEM interior observation adapter](bem/docs/fem_interior_observations.md)
+records fixed physical probes with separate endpoint and half-step clocks;
+small pinned-source runs preserve all original datasets and 12 state arrays,
+including checkpoint continuation. The full probe reference remains pending.
 The [Galerkin implementation and validation](bem/docs/galerkin.md) addresses
 the sampled passivity failures of the original collocation backend.
 

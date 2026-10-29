@@ -1,0 +1,75 @@
+{
+  "metadata": {
+    "version": 1,
+    "carry_count": 12,
+    "dt": 1.9125812604139645e-09,
+    "pressure_steps": 1045708,
+    "shear_steps": 23528413,
+    "total_frames": 69,
+    "total_interface_frames": 9005,
+    "phase_id": 2,
+    "step_id": 14965733,
+    "frame_count": 46,
+    "interface_frame_count": 5730,
+    "saved_utc": 1793263147.866365
+  },
+  "files": {
+    "simulation.h5": {
+      "bytes": 196136166,
+      "sha256": "9614c0780c7c8df50b643731944cbbb1f1ea641800379f53775333a4fe1281b1"
+    },
+    "checkpoint.npz": {
+      "bytes": 2540439,
+      "sha256": "0bf1be5b62471e19e57a061c79e573a94dc2834913d0fcb2c775ad32386c8e28"
+    }
+  },
+  "status": "preserved_and_validated_graded_fem_prefix",
+  "source_snapshot": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-radau-study-graded-h2-end015625-4c-f64-replayed/paired-snapshots/snapshot-07d0c923d7394096b7f8a6ae8682d7f6",
+  "actual_clock_and_contact_fields_read": true,
+  "stats": {
+    "last_observed_shear_time_s": 0.02862318048415886,
+    "contact_nodes": 285,
+    "maximum_cumulative_slip_mm": 0.0006431901532823165,
+    "minimum_cumulative_slip_mm": 0.0,
+    "last_saved_stop_flag": 0,
+    "stop_bracket": {
+      "state": "unreached",
+      "lower_s": 0.02862318048415886,
+      "upper_s": null
+    },
+    "first_passages": {
+      "micro": {
+        "state": "bounded",
+        "lower_s": 0.02171741376427586,
+        "upper_s": 0.02172241516427184,
+        "possible_first_native_locations_mm": [
+          2.001822912569159
+        ],
+        "native_nodes_reached": 20
+      },
+      "Dc10": {
+        "state": "unreached",
+        "lower_s": 0.02862318048415886,
+        "upper_s": null,
+        "possible_first_native_locations_mm": [],
+        "native_nodes_reached": 0
+      },
+      "Dc": {
+        "state": "unreached",
+        "lower_s": 0.02862318048415886,
+        "upper_s": null,
+        "possible_first_native_locations_mm": [],
+        "native_nodes_reached": 0
+      }
+    },
+    "maximum_endpoint_pressure_mpa": 1672.5599662100597
+  },
+  "full_original_event_reproduced": false,
+  "same_accuracy_fem_advantage_verified": false,
+  "retained_directory": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/graded-fem-prefix-20261029-0840",
+  "diagnostic_source_sha256": {
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/run_checkpointed_fem_reference.py": "461943de4cc488435cd5d6bf19afc2a4d4a0526e058f3e85f73241f711f8fa78",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/event_observables.py": "276c288f6ae56044f62d5b9c2d876550beda2b20df2677259ed414b5573b637e"
+  },
+  "scope": "Actual true float64 saved graded FEM prefix only; not the full event or FEM/BEM agreement"
+}

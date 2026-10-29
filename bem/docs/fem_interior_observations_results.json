@@ -1,0 +1,194 @@
+{
+  "utc_start": "2026-10-29T09:04:19.700022+00:00",
+  "four_core_serial_validation": true,
+  "fem_wait_included_in_its_wall_cost": true,
+  "pytest_exit_code": 0,
+  "fresh_exit_code": 0,
+  "intentional_checkpoint_exit_code": 1,
+  "resumed_exit_code": 0,
+  "status": "passed_real_pinned_fem_interior_observation_and_resume_identity",
+  "original_datasets": {
+    "datasets": 65,
+    "additional_interior_datasets": 25,
+    "differences": []
+  },
+  "resume_datasets": {
+    "datasets": 90,
+    "additional_interior_datasets": 0,
+    "differences": []
+  },
+  "original_carry_bitwise": {
+    "carry_0": true,
+    "carry_1": true,
+    "carry_10": true,
+    "carry_11": true,
+    "carry_2": true,
+    "carry_3": true,
+    "carry_4": true,
+    "carry_5": true,
+    "carry_6": true,
+    "carry_7": true,
+    "carry_8": true,
+    "carry_9": true
+  },
+  "resume_carry_bitwise": {
+    "carry_0": true,
+    "carry_1": true,
+    "carry_10": true,
+    "carry_11": true,
+    "carry_2": true,
+    "carry_3": true,
+    "carry_4": true,
+    "carry_5": true,
+    "carry_6": true,
+    "carry_7": true,
+    "carry_8": true,
+    "carry_9": true
+  },
+  "archived_quad4_pointwise_maximum_difference": {
+    "displacement": 1.7763568394002505e-15,
+    "velocity_half_step": 3.552713678800501e-15,
+    "gradient": 1.3357370765021415e-16
+  },
+  "wrapper_timing": {
+    "all_invocations_accounted": true,
+    "invocations": 2,
+    "seconds": 19.800739833153784,
+    "cpu_seconds": 26.697781,
+    "scope": "Original runner intervals are nested inside these wrapper intervals; do not add both"
+  },
+  "checkpoint_copy_control": "Test-only copied function globals wrap original checkpoint writer; original module bindings/equations unchanged",
+  "full_original_event_reproduced": false,
+  "same_accuracy_fem_advantage_verified": false,
+  "seconds": 34.098808833397925,
+  "utc_end": "2026-10-29T09:04:53.797086+00:00",
+  "same_fem_resumed": true,
+  "study_directory": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-interior-source-identity-20261029-v3",
+  "source_sha256": {
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/fem_interior_observations.py": "ef2a6acbb74dbfdb8330053091e3ce39bf1b5aceedd9f2094dcb1217a4ff58e1",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/run_fem_interior_reference.py": "19ef4a66b35c21f1e65b952edba12ae4678dee1459c0888f83aac730c9060b21",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/fem_contact_observations.py": "ca8727304aec9c38ea72f8f49e8dbeff0d90515ad907056bfc81d3b3baf80a7f",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/run_fem_reference.py": "def3dde0547b5885c24841754be6c531289279e9e30510e33b34b4f52e30a34d",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/run_checkpointed_fem_reference.py": "461943de4cc488435cd5d6bf19afc2a4d4a0526e058f3e85f73241f711f8fa78",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tests/test_fem_interior_observations.py": "170ea510abed3777c5662ccc9aa44c1cf6fe38e407ea3d3aee3f3450f5d33424",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tests/fixtures/fem_interior_checkpoint_capture.py": "494da46ede0ae03326d0fbcb800a2d56621256eef1f4f143dca4ee7c4d273d73",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/examples/event16_interior_probes.json": "a0fa2286cce32b6fc0fd2d3882891004e979f9110b463bb011bc1d9572db4479"
+  },
+  "dataset_sha256": {
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-interior-source-identity-20261029-v3/fresh/simulation.h5": "edf75f981d81ef292c029208368406c0107fb3f025d69007ef551ca14d0cf4e0",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-interior-source-identity-20261029-v3/fresh/retained_checkpoint.npz": "56a52195f743a35caf475b0087da762877b8286deb40102677eed62a47934828",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-interior-source-identity-20261029-v3/fresh/interior_manifest.json": "c05b5ecba30653fa27991978a12f71eeccb404936caca527e045d570120526c4",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-interior-source-identity-20261029-v3/fresh/interior_wrapper_status.json": "1604357fd0060087725c62156b64c570077fe8259ea3ec762df12bc994b977a7",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-interior-source-identity-20261029-v3/resumed/simulation.h5": "e2facbce7ee4b668dcabb24518e826c63823de769f549be674e9c855fdf429ff",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-interior-source-identity-20261029-v3/resumed/retained_checkpoint.npz": "9af2672f815e3b9cf7a78733690b2bd6bdad9ca7b7a387a1e588e086667bb418",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-interior-source-identity-20261029-v3/resumed/interior_manifest.json": "574762734537c0d8ec3d791a4aa4b8c0664207184a597362ecf6e104f7fbfcc2",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-interior-source-identity-20261029-v3/resumed/interior_wrapper_status.json": "c813b7fe1c521e1079ef3fc70507b068315907fa511b3631d1363edbe680df12"
+  },
+  "probe_mapping_control": {
+    "utc_start": "2026-10-29T09:09:00.952718+00:00",
+    "four_core_serial_validation": true,
+    "fem_wait_included_in_its_wall_cost": true,
+    "status": "passed_all_twelve_probes_on_actual_graded_fem_mesh",
+    "probe_plan_sha256": "74a88514dc3a749a7f810cfd3cfe41e7feaccc254e636ecd537f4a91d355420d",
+    "mapping": {
+      "moving": {
+        "probes": 6,
+        "mesh_sha256": "096560458b78f73ad2d57a82bd9197e958c4ec04647b1012ad229a565008fb1f",
+        "element_ids": [
+          5540,
+          17374,
+          29086,
+          5594,
+          17428,
+          29140
+        ],
+        "reference_coordinates": [
+          [
+            -0.4037639714606641,
+            0.7032507020475428
+          ],
+          [
+            -0.4037639714606693,
+            -0.7492871586722414
+          ],
+          [
+            -0.40376397146066734,
+            -0.20182501939146064
+          ],
+          [
+            0.4528608781805385,
+            0.7032507020475428
+          ],
+          [
+            0.4528608781805385,
+            -0.7492871586722414
+          ],
+          [
+            0.4528608781805385,
+            -0.20182501939146064
+          ]
+        ],
+        "maximum_mapping_error_mm": 2.842170943040401e-14
+      },
+      "stationary": {
+        "probes": 6,
+        "mesh_sha256": "a1b9adb5730f3739fca8be3084b7a7edc96a294ded2020d3c804aa83131dec86",
+        "element_ids": [
+          4292,
+          13507,
+          22627,
+          4332,
+          13547,
+          22667
+        ],
+        "reference_coordinates": [
+          [
+            -0.45286087818299814,
+            0.7032507020475428
+          ],
+          [
+            -0.45286087818299814,
+            -0.7492871586722414
+          ],
+          [
+            -0.45286087818299814,
+            -0.20182501939146064
+          ],
+          [
+            -0.6702556756505778,
+            0.7032507020475428
+          ],
+          [
+            -0.6702556756505568,
+            -0.7492871586722414
+          ],
+          [
+            -0.6702556756505647,
+            -0.20182501939146064
+          ]
+        ],
+        "maximum_mapping_error_mm": 5.684341886080802e-14
+      }
+    },
+    "source_snapshot": "bem/outputs/graded-fem-prefix-20261029-0840/simulation.h5",
+    "snapshot_sha256": "9614c0780c7c8df50b643731944cbbb1f1ea641800379f53775333a4fe1281b1",
+    "future_observations_fabricated": false,
+    "seconds": 0.12274554185569286,
+    "utc_end": "2026-10-29T09:09:01.075472+00:00",
+    "same_fem_resumed": true
+  },
+  "local_cost_record": {
+    "control_records": [
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-interior-source-identity-20261029-v1/summary.json",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-interior-source-identity-20261029-v2/summary.json",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-interior-source-identity-20261029-v3/summary.json"
+    ],
+    "all_three_control_intervals_seconds": 102.2894587079063,
+    "mapping_control_seconds": 0.12274554185569286,
+    "includes_first_postprocessing_failure": true,
+    "same_fem_pid": 29338,
+    "same_fem_start": "Wed Oct 28 20:56:56 2026",
+    "scope": "Intervals were serialized while the same FEM was stopped; already included in its wall interval, do not add twice"
+  },
+  "unit_test_count": 17
+}
