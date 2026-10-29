@@ -1,0 +1,161 @@
+{
+  "recorded_utc": "2026-10-29T10:04:32.572599+00:00",
+  "status": "passed_direct_fortran_inversion_component_controls",
+  "test_count": 16,
+  "test_control": {
+    "utc_start": "2026-10-29T09:48:02.137814+00:00",
+    "four_core_serial_validation": true,
+    "fem_wait_included_in_its_wall_cost": true,
+    "pytest_exit_code": 0,
+    "seconds": 5.397160958498716,
+    "utc_end": "2026-10-29T09:48:07.534941+00:00",
+    "same_fem_resumed": true
+  },
+  "real_complete_bem_control": {
+    "utc_start": "2026-10-29T09:52:38.356565+00:00",
+    "four_core_serial_validation": true,
+    "fem_wait_included_in_its_wall_cost": true,
+    "original-producer_exit_code": 0,
+    "direct-inversion_exit_code": 0,
+    "seconds": 5.975505832582712,
+    "utc_end": "2026-10-29T09:52:44.332035+00:00",
+    "same_fem_resumed": true
+  },
+  "real_complete_bem_identity": {
+    "status": "passed_complete_direct_fortran_weights_wrap_and_causal_startup",
+    "source_kernel": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/direct-fortran-real-bem-20261029-v1/original",
+    "source_plan": {
+      "dt": 2e-06,
+      "steps": 16,
+      "dofs": 11,
+      "fft_size": 64,
+      "radius": 0.6978305848598664,
+      "estimated_peak_bytes": 178200,
+      "weight_bytes": 16456
+    },
+    "frozen_input_sha256": {
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/check_direct_fortran_radau.py": "67bf80b7fe04dad1624781689a03c5f326d37d94bf2db7f4d752c6864e873c07",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/direct_fortran_radau.py": "b66301ef3a7b9280655e95d5679508e3961020be2436624eaa5de1adb3994b84",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compact_radau_storage.py": "cae9af8efd9fe0ddd3cdb4e3e99fc1ffc841dce279f1279bf7678472d6b47e2e",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/radau_experiment.py": "e616d36a766ba323d9967af04e0bd154f86a9e158902668df6a8291be9e36408",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/radau_sampling_checkpoint.py": "2ed52f4aca63a77e919f3e090d3f7cbe297f84677d6827a6fa71d0c681130542",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/direct-fortran-real-bem-20261029-v1/original/summary.json": "04e7a670a6327a6317fd8701832bbbd23664bc1be9c9049e277b7c75b7fc9b65"
+    },
+    "complete_weight_files_byte_equal": [
+      true,
+      true
+    ],
+    "wrap_coefficients_bitwise_equal": true,
+    "complete_causal_startup_bitwise_equal": true,
+    "initial_composition_inf_error": 6.676754731629854e-11,
+    "resources": {
+      "array_peak_bytes": 67187008,
+      "weight_data_bytes": 32912,
+      "wrap_data_bytes": 968,
+      "fft_rows": 2,
+      "extra_full_time_weight_files": 0,
+      "all_requested_lags_retained": true
+    },
+    "inversion_attempts": [
+      {
+        "started_utc": "2026-10-29T09:52:43.632578+00:00",
+        "initial_completed_rows": [
+          0,
+          0
+        ],
+        "preparation_including_source_hashes_seconds": 0.0018945829942822456,
+        "status": "completed",
+        "seconds": 0.5701602911576629
+      }
+    ],
+    "all_attempt_timings_accounted": true,
+    "no_extra_c_order_time_file": true,
+    "source_frequency_or_weights_modified": false,
+    "expanded_full_stage_time_weights_stored": false,
+    "total_validation_seconds_including_hashes": 0.6128192916512489,
+    "full_original_event_reproduced": false,
+    "same_accuracy_fem_advantage_verified": false,
+    "scope": "Storage/inversion identity against a complete BEM kernel; no nonlinear/FEM convergence or same-accuracy speed proof"
+  },
+  "source_and_control_sha256": {
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/direct_fortran_radau.py": "b66301ef3a7b9280655e95d5679508e3961020be2436624eaa5de1adb3994b84",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/check_direct_fortran_radau.py": "67bf80b7fe04dad1624781689a03c5f326d37d94bf2db7f4d752c6864e873c07",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tests/test_direct_fortran_radau.py": "ec377bc0326995b346649174748f223346f0d72c4682b5453fd7211370e92488",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/direct-fortran-checks-20261029-v1/pytest.log": "24877aaa86100160300ed6d213ddc08cd99e5b6e97fa1729f74cb33cf6b78435",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/direct-fortran-real-bem-20261029-v1/original/summary.json": "04e7a670a6327a6317fd8701832bbbd23664bc1be9c9049e277b7c75b7fc9b65",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/direct-fortran-real-bem-20261029-v1/direct/summary.json": "907968540e19765a29e0bb1c85fac47efe69786394382a9765ce65d64a52a7f8"
+  },
+  "serialized_fem_wait_seconds": 11.372666791081429,
+  "wait_cost_included_in_fem_wall_interval": true,
+  "cost_double_counting_forbidden": true,
+  "logical_data_estimates": [
+    {
+      "dt": 2e-06,
+      "steps": 22500,
+      "fft_size": 65536,
+      "dofs": 531,
+      "two_raw_branches_data_bytes": 295666560288,
+      "two_compact_families_data_bytes": 295666560288,
+      "two_time_weight_families_data_bytes": 101510471376,
+      "old_durable_data_peak_bytes": 743598827640,
+      "direct_with_raw_and_compact_data_bytes": 692843591952,
+      "saved_conversion_temporary_data_bytes": 50755235688,
+      "future_inplace_plus_direct_data_bytes": 397177031664,
+      "future_inplace_is_implemented": false,
+      "direct_component_array_workspace": {
+        "array_peak_bytes": 3799265728,
+        "weight_data_bytes": 101510471376,
+        "wrap_data_bytes": 2255688,
+        "fft_rows": 2,
+        "extra_full_time_weight_files": 0,
+        "all_requested_lags_retained": true
+      }
+    },
+    {
+      "dt": 1e-06,
+      "steps": 45000,
+      "fft_size": 131072,
+      "dofs": 531,
+      "two_raw_branches_data_bytes": 591324097824,
+      "two_compact_families_data_bytes": 591324097824,
+      "two_time_weight_families_data_bytes": 203016431376,
+      "old_durable_data_peak_bytes": 1487172842712,
+      "direct_with_raw_and_compact_data_bytes": 1385664627024,
+      "saved_conversion_temporary_data_bytes": 101508215688,
+      "future_inplace_plus_direct_data_bytes": 794340529200,
+      "future_inplace_is_implemented": false,
+      "direct_component_array_workspace": {
+        "array_peak_bytes": 7522348864,
+        "weight_data_bytes": 203016431376,
+        "wrap_data_bytes": 2255688,
+        "fft_rows": 2,
+        "extra_full_time_weight_files": 0,
+        "all_requested_lags_retained": true
+      }
+    }
+  ],
+  "storage_estimate_excludes": [
+    "NPY headers",
+    "startup and journals",
+    "filesystem allocation and reserve",
+    "FEM",
+    "original causal audit",
+    "other runs"
+  ],
+  "old_fem_process_preserved": true,
+  "current_raw_256_frequency_prefix_unchanged": true,
+  "current_producer_and_queue_modified": false,
+  "integrated_into_production_pipeline": false,
+  "durable_inplace_compaction_implemented": false,
+  "complete_event_or_ad_rerun": false,
+  "full_original_event_reproduced": false,
+  "same_accuracy_fem_advantage_verified": false,
+  "goal_achieved": false,
+  "limitations": [
+    "Identity control uses a small complete BEM kernel, not a full nonlinear event",
+    "Direct component removes one conversion temporary but retaining raw and compact still prevents the 1us plan fitting current free space",
+    "Array workspace estimate is not a process RSS cap",
+    "Input/output verification adds I/O; no large total-runtime advantage measured",
+    "Complete FEM fields and independent time/contact/space/gradient convergence remain required"
+  ]
+}

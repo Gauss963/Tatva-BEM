@@ -14,6 +14,9 @@
 全接觸面 P1 L2 差降至 0.58%／0.51%；三個連續時間 linear response 通過原 5% screen。
 這些是靜態／線性控制，完整非線性事件、時間與空間收斂仍未完成。
 目前正建立 [fresh 2 µs Radau fine kernel](docs/raw_radau.md)，
+另有[直接輸出 physical Fortran Radau 權重](docs/direct_fortran_radau.md)：
+完整小型 BEM 權重、wrap 與 causal startup 逐位元一致，可省下一組時間權重轉換暫存；
+尚未接入正式排程，也尚未解決 1 µs durable 頻譜的全部儲存需求。
 另已通過實際雙 block 短程的[完整因果 RK 方程與條件式 adjoint](docs/radau_history_validation.md)。
 selected healed preload 的 Radau 梯度亦通過短程控制；完整 fine event／FEM
 比較與 fine initialized Radau 梯度仍待驗證。
