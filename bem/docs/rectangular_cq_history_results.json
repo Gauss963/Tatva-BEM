@@ -1,0 +1,410 @@
+{
+  "recorded_utc": "2026-10-29T11:47:10.160620+00:00",
+  "status": "passed_bounded_rectangular_cq_transpose_jax_and_actual_two_block_probes",
+  "new_test_count": 9,
+  "total_related_tests": 32,
+  "source_and_control_sha256": {
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/rectangular_cq_history.py": "c310172680c2511a0b253aa0d21489394becd6abb35adb5954742b22e50d8b9b",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/reconstruct_interior_reference.py": "fc4d333080f830f2ad6a95e83e7b4f2eee9f891e71f3336bcfcaa69e0d62be46",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tests/test_rectangular_cq_history.py": "9728d506e3b329106cdc005a55c005bcc93176b291592661d37d9a28827a319f",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/interior_fields.py": "0fc70bdc380349d67a5a0ddd5faa947a1b793bb48caad33fc4287b219d8d235f",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/interior_radau.py": "6b736425f11f20279859dacc5e46d4e15d8ef0648f4a1dcab19830e96a5b6131",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/interior_radau_adjoint.py": "28e472e3036622b1ff7f2e409eaabf5aacb836218a176987bc845d6a78a056f1",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/rectangular-interior-checks-20261029-v4/pytest.log": "a78b13531a518fa5f3422562af9f20a393f9a2f1b73ee6f8089f886b7ad7cdc8",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/rectangular-interior-checks-20261029-v4/interior/summary.json": "9bccaabe33c93e482ebb34e6dacb6328198d48c60decbb6a3b5dc2930285d319"
+  },
+  "actual_bem_reference": {
+    "status": "completed_bounded_interior_reference_reconstruction",
+    "source_run": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/storage-radau-final-checks-20261029-v4/primal-candidate",
+    "plan": {
+      "dt": 2e-06,
+      "steps": 16,
+      "dofs": 11,
+      "fft_size": 64,
+      "radius": 0.6978305848598664,
+      "estimated_peak_bytes": 178200,
+      "weight_bytes": 16456
+    },
+    "probe_plan": {
+      "moving": [
+        [
+          100.25,
+          48.25
+        ],
+        [
+          100.25,
+          240.25
+        ],
+        [
+          100.25,
+          432.25
+        ],
+        [
+          198.25,
+          48.25
+        ],
+        [
+          198.25,
+          240.25
+        ],
+        [
+          198.25,
+          432.25
+        ]
+      ],
+      "stationary": [
+        [
+          201.75,
+          48.25
+        ],
+        [
+          201.75,
+          240.25
+        ],
+        [
+          201.75,
+          432.25
+        ],
+        [
+          270.25,
+          48.25
+        ],
+        [
+          270.25,
+          240.25
+        ],
+        [
+          270.25,
+          432.25
+        ]
+      ]
+    },
+    "channels_per_point": [
+      "ux",
+      "uy",
+      "vx",
+      "vy",
+      "sxx",
+      "syy",
+      "sxy",
+      "szz"
+    ],
+    "family_spectra": [
+      {
+        "backend": "disk_half_spectrum",
+        "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/rectangular-interior-checks-20261029-v4/interior/family0.npy",
+        "shape": [
+          33,
+          96,
+          11
+        ],
+        "bytes": 557696,
+        "sha256": "156fef54cd11330c6c4b06d95f821e7c104feb477ed38d815d0b53c6389c6672",
+        "implementation_sha256": "da2534ef95e95813a464ff04f78a092be374110650d1866cbc1fb8ea5b5105b2",
+        "all_frequency_matrices_written": true
+      },
+      {
+        "backend": "disk_half_spectrum",
+        "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/rectangular-interior-checks-20261029-v4/interior/family1.npy",
+        "shape": [
+          33,
+          96,
+          11
+        ],
+        "bytes": 557696,
+        "sha256": "df13040a135ed9dd1dd92f293752203ed2f20493aba90db8be429428bcae801c",
+        "implementation_sha256": "da2534ef95e95813a464ff04f78a092be374110650d1866cbc1fb8ea5b5105b2",
+        "all_frequency_matrices_written": true
+      }
+    ],
+    "frozen_input_sha256": {
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/storage-radau-final-checks-20261029-v4/primal-candidate/summary.json": "c0fc8a5f480a13a69405d5b312f9a3c03e8dff95779d67de5d2c9d7a09f789c7",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/storage-radau-final-checks-20261029-v4/primal-candidate/stages.npz": "bdede0c590411cbb8027c631d8401767b321896eefaaf3aff80f63367f318580",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/storage-radau-final-checks-20261029-v4/primal-candidate/initial_lift.npz": "135c77ff1d9eeb187795239decb11b13284aff7abd3ece63325dac47c10a0b3f",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/storage-radau-final-checks-20261029-v4/pytest-data/test_complete_new_producer_mat0/recovered/summary.json": "8101dc04533dda6432606ba78a03c3ad8a533f821aeaaee5b77f1aa3c764a96f",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/examples/event16_interior_probes.json": "a0fa2286cce32b6fc0fd2d3882891004e979f9110b463bb011bc1d9572db4479",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/reconstruct_interior_reference.py": "fc4d333080f830f2ad6a95e83e7b4f2eee9f891e71f3336bcfcaa69e0d62be46",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/interior_fields.py": "0fc70bdc380349d67a5a0ddd5faa947a1b793bb48caad33fc4287b219d8d235f",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/rectangular_cq_history.py": "c310172680c2511a0b253aa0d21489394becd6abb35adb5954742b22e50d8b9b",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/interior_radau.py": "6b736425f11f20279859dacc5e46d4e15d8ef0648f4a1dcab19830e96a5b6131",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/radau_raw_sampling.py": "dc743da265d444e43da572bb07c25d3508f7daae0e13b4cf7404844a12f4a9ff"
+    },
+    "resources": {
+      "array_peak_bytes": 67184784,
+      "output_rows": 1,
+      "complete_time_weight_files": 0,
+      "expanded_stage_weight_files": 0,
+      "every_requested_lag_retained": true,
+      "caller_state_and_operator_assembly_excluded": true
+    },
+    "checks": {
+      "dense_relative_l2": 8.292519721151466e-15,
+      "dense_cq": {
+        "dt_s": 2e-06,
+        "steps": 16,
+        "fft_size": 64,
+        "radius": 0.6978305848598664,
+        "array_peak_estimate_bytes": 7400448,
+        "weight_bytes": 574464,
+        "sampled_frequency_evaluations": 66,
+        "every_requested_lag_retained": true,
+        "caller_state_and_operator_assembly_excluded_from_estimate": true
+      },
+      "transpose_directional_relative_error": 9.140548611499035e-15,
+      "jax_fixed_map_vjp_relative_error": 0.0
+    },
+    "direct_frequency_evaluations": 132,
+    "all_requested_lags_retained": true,
+    "finite_dft_wrap_retained": true,
+    "full_time_weight_files_stored": false,
+    "source_perturbation_and_initial_residual_unmodified": true,
+    "static_velocity_zero": true,
+    "fitted_time_shift_s": 0.0,
+    "seconds_including_hashes": 9.469232333824039,
+    "observations_sha256": "c62cef812fe286d5d22d02fad1f82eac90cc250c69a986d061a0711ebc28dd84",
+    "efficient_full_event_sampler_implemented": false,
+    "full_original_event_reproduced": false,
+    "initialized_or_material_gradient_proven": false,
+    "same_accuracy_fem_advantage_verified": false
+  },
+  "original_static_lift_restored": true,
+  "source_initial_residual_and_stages_unmodified": true,
+  "jax_custom_vjp_and_jit_and_sequential_vmap_tested": true,
+  "full_future_dependence_retained": true,
+  "no_full_time_weight_files": true,
+  "all_serialized_local_controls": [
+    {
+      "directory": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/rectangular-cq-checks-20261029-v1",
+      "record": {
+        "utc_start": "2026-10-29T11:15:50.381173+00:00",
+        "four_core_serial_validation": true,
+        "fem_wait_included_in_its_wall_cost": true,
+        "pytest_exit_code": 1,
+        "seconds": 1.6668625408783555,
+        "utc_end": "2026-10-29T11:15:52.048020+00:00",
+        "same_fem_resumed": true
+      }
+    },
+    {
+      "directory": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/rectangular-interior-checks-20261029-v2",
+      "record": {
+        "utc_start": "2026-10-29T11:26:19.466031+00:00",
+        "four_core_serial_validation": true,
+        "fem_wait_included_in_its_wall_cost": true,
+        "stages": [
+          {
+            "name": "pytest",
+            "exit_code": 0,
+            "seconds": 1.8102811248973012,
+            "command": [
+              "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python",
+              "-B",
+              "-m",
+              "pytest",
+              "-q",
+              "bem/tests/test_rectangular_cq_history.py",
+              "bem/tests/test_interior_radau.py",
+              "bem/tests/test_interior_radau_adjoint.py",
+              "bem/tests/test_interior_fields.py"
+            ]
+          },
+          {
+            "name": "reconstruct",
+            "exit_code": 0,
+            "seconds": 10.075670666992664,
+            "command": [
+              "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python",
+              "-B",
+              "bem/tools/reconstruct_interior_reference.py",
+              "bem/outputs/storage-radau-final-checks-20261029-v4/primal-candidate",
+              "--output",
+              "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/rectangular-interior-checks-20261029-v2/interior",
+              "--output-rows",
+              "1",
+              "--max-workspace-mb",
+              "512",
+              "--dense-check",
+              "--check-ad"
+            ]
+          }
+        ],
+        "seconds": 11.918546582572162,
+        "utc_end": "2026-10-29T11:26:31.384468+00:00",
+        "same_fem_resumed": true
+      }
+    },
+    {
+      "directory": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/rectangular-interior-checks-20261029-v3",
+      "record": {
+        "utc_start": "2026-10-29T11:31:24.630162+00:00",
+        "four_core_serial_validation": true,
+        "fem_wait_included_in_its_wall_cost": true,
+        "stages": [
+          {
+            "name": "pytest",
+            "exit_code": 0,
+            "seconds": 1.8473885003477335,
+            "command": [
+              "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python",
+              "-B",
+              "-m",
+              "pytest",
+              "-q",
+              "bem/tests/test_rectangular_cq_history.py",
+              "bem/tests/test_interior_radau.py",
+              "bem/tests/test_interior_radau_adjoint.py",
+              "bem/tests/test_interior_fields.py"
+            ]
+          },
+          {
+            "name": "reconstruct",
+            "exit_code": 0,
+            "seconds": 9.979375500231981,
+            "command": [
+              "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python",
+              "-B",
+              "bem/tools/reconstruct_interior_reference.py",
+              "bem/outputs/storage-radau-final-checks-20261029-v4/primal-candidate",
+              "--output",
+              "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/rectangular-interior-checks-20261029-v3/interior",
+              "--output-rows",
+              "1",
+              "--max-workspace-mb",
+              "512",
+              "--dense-check",
+              "--check-ad"
+            ]
+          }
+        ],
+        "seconds": 11.860769375227392,
+        "utc_end": "2026-10-29T11:31:36.490819+00:00",
+        "same_fem_resumed": true
+      }
+    },
+    {
+      "directory": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/rectangular-interior-checks-20261029-v4",
+      "record": {
+        "utc_start": "2026-10-29T11:35:32.070827+00:00",
+        "four_core_serial_validation": true,
+        "fem_wait_included_in_its_wall_cost": true,
+        "stages": [
+          {
+            "name": "pytest",
+            "exit_code": 0,
+            "seconds": 14.021455333568156,
+            "command": [
+              "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python",
+              "-B",
+              "-m",
+              "pytest",
+              "-q",
+              "bem/tests/test_rectangular_cq_history.py",
+              "bem/tests/test_interior_radau.py",
+              "bem/tests/test_interior_radau_adjoint.py",
+              "bem/tests/test_interior_fields.py"
+            ]
+          },
+          {
+            "name": "reconstruct",
+            "exit_code": 0,
+            "seconds": 9.884250666946173,
+            "command": [
+              "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python",
+              "-B",
+              "bem/tools/reconstruct_interior_reference.py",
+              "bem/outputs/storage-radau-final-checks-20261029-v4/primal-candidate",
+              "--output",
+              "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/rectangular-interior-checks-20261029-v4/interior",
+              "--output-rows",
+              "1",
+              "--max-workspace-mb",
+              "512",
+              "--dense-check",
+              "--check-ad"
+            ]
+          }
+        ],
+        "seconds": 23.92794695869088,
+        "utc_end": "2026-10-29T11:35:55.998572+00:00",
+        "same_fem_resumed": true
+      }
+    }
+  ],
+  "serialized_fem_wait_seconds": 49.37412545736879,
+  "wait_already_included_in_fem_wall_interval": true,
+  "do_not_add_nested_intervals_twice": true,
+  "full_horizon_logical_estimates": [
+    {
+      "dt": 2e-06,
+      "steps": 22500,
+      "inputs": 531,
+      "outputs": 96,
+      "fft_size": 65536,
+      "forward": {
+        "array_peak_bytes": 2521096912,
+        "output_rows": 1,
+        "complete_time_weight_files": 0,
+        "expanded_stage_weight_files": 0,
+        "every_requested_lag_retained": true,
+        "caller_state_and_operator_assembly_excluded": true
+      },
+      "transpose": {
+        "array_peak_bytes": 2620714672,
+        "output_rows": 1,
+        "complete_time_weight_files": 0,
+        "expanded_stage_weight_files": 0,
+        "every_requested_lag_retained": true,
+        "caller_state_and_operator_assembly_excluded": true
+      },
+      "original_dense_array_estimate_bytes": 357433924608,
+      "compact_spectrum_data_bytes": 53453841408,
+      "complete_refined_event_executed": false
+    },
+    {
+      "dt": 1e-06,
+      "steps": 45000,
+      "inputs": 531,
+      "outputs": 96,
+      "fft_size": 131072,
+      "forward": {
+        "array_peak_bytes": 4975040912,
+        "output_rows": 1,
+        "complete_time_weight_files": 0,
+        "expanded_stage_weight_files": 0,
+        "every_requested_lag_retained": true,
+        "caller_state_and_operator_assembly_excluded": true
+      },
+      "transpose": {
+        "array_peak_bytes": 5174273392,
+        "output_rows": 1,
+        "complete_time_weight_files": 0,
+        "expanded_stage_weight_files": 0,
+        "every_requested_lag_retained": true,
+        "caller_state_and_operator_assembly_excluded": true
+      },
+      "original_dense_array_estimate_bytes": 714849905664,
+      "compact_spectrum_data_bytes": 106906051584,
+      "complete_refined_event_executed": false
+    }
+  ],
+  "first_failure": "Test used jax.experimental.enable_x64 removed by installed JAX; math tests passed. Modern documented context is used now.",
+  "jax_callback_contract": "Fixed immutable kernel with valid finite float64 zero-initial-stage inputs; verify files outside compiled regions. Callbacks do not perform provenance checks or writes.",
+  "independent_linear_jvp_available": true,
+  "jax_forward_mode_or_higher_derivative_claimed": false,
+  "kernel_material_geometry_static_lift_or_initialized_derivatives_implemented": false,
+  "direct_reference_sampler_only": true,
+  "efficient_full_event_sampler_implemented": false,
+  "full_true_float64_fem_probe_reference_available": false,
+  "original_fem_and_2us_queue_unchanged": true,
+  "original_tatva_readonly": true,
+  "full_original_event_reproduced": false,
+  "same_accuracy_fem_advantage_verified": false,
+  "goal_achieved": false,
+  "remaining_requirements": [
+    "Efficient resumable body/probe sampling for the complete event",
+    "Full original reference probes with true float64 clocks",
+    "Full FEM fields/front/waves/energy validation and independent space/time convergence",
+    "Initialized observation AD and gradient convergence",
+    "Same-accuracy solution stability or isolated total-runtime advantage"
+  ]
+}

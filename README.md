@@ -141,6 +141,14 @@ The [FEM interior observation adapter](bem/docs/fem_interior_observations.md)
 records fixed physical probes with separate endpoint and half-step clocks;
 small pinned-source runs preserve all original datasets and 12 state arrays,
 including checkpoint continuation. The full probe reference remains pending.
+The [bounded interior CQ backend](bem/docs/rectangular_cq_history.md) now retains
+all causal lags with a complete transpose and a fixed-kernel JAX VJP.
+Small two-block probe reconstructions match the dense stage-map reference;
+efficient full-event frequency sampling and initialized observation gradients remain open.
+The [storage-stage Radau producer](bem/docs/storage_radau_pipeline.md) preserves
+the original sampling/audits while adding resumable ownership transfer,
+in-place compact spectra and direct physical Fortran weights. Its full 1 µs
+resource preflight has passed; the full refined event has not been run.
 The [Galerkin implementation and validation](bem/docs/galerkin.md) addresses
 the sampled passivity failures of the original collocation backend.
 

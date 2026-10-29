@@ -92,6 +92,8 @@ probe observations，並保持原積分／接觸方程不變。
 這不更動或重啟正在進行的參考工作。
 2026-10-29 已新增[相應的 FEM probe adapter 與實際 identity／resume 控制](fem_interior_observations.md)，
 完整 probe reference 仍待執行。
+同日後續新增[有界記憶體 CQ 與固定核心 JAX VJP](rectangular_cq_history.md)，
+實際短程 12 probes 已與 dense CQ 核對；完整高效頻率 producer 與 FEM 波場比較仍待完成。
 
 重現這組解析控制：
 
