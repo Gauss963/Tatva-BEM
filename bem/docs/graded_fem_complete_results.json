@@ -1,0 +1,719 @@
+{
+  "complete_event": {
+    "status": "complete_true_float64_graded_fem_event_diagnostics",
+    "source_revision": "933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d",
+    "source_manifest_sha256": "94f8129fa5a3627fc00780570558af0ab4290c2b99295ad20b4e275f30cf2f35",
+    "simulation_h5_sha256": "a38f08a4ee8a3066d45cf79cea5da56dd3508fe591b9ab7affa988601ec5a48c",
+    "simulation_h5_bytes": 311077677,
+    "thresholds": {
+      "micro": {
+        "threshold_mm": 1e-07,
+        "first_native": {
+          "state": "bounded",
+          "lower_s": 0.02171741376427586,
+          "upper_s": 0.02172241516427184,
+          "possible_first_native_locations_mm": [
+            2.001822912569159
+          ]
+        },
+        "gauges": [
+          {
+            "state": "bounded",
+            "lower_s": 0.028648183658976253,
+            "upper_s": 0.028653185058972235
+          },
+          {
+            "state": "bounded",
+            "lower_s": 0.028738193558253855,
+            "upper_s": 0.028743194958249837
+          },
+          {
+            "state": "bounded",
+            "lower_s": 0.028848207144934128,
+            "upper_s": 0.02885320663234885
+          }
+        ],
+        "travel_48_to_432": {
+          "gauge_y_mm": [
+            48.0,
+            432.0
+          ],
+          "signed_travel_time_interval_s": [
+            0.0001950220859618934,
+            0.00020502297337259695
+          ],
+          "duration_interval_s": [
+            0.0001950220859618934,
+            0.00020502297337259695
+          ],
+          "direction": "increasing_y",
+          "speed_interval_m_per_s": [
+            1872.9608379161516,
+            1969.0077567677754
+          ]
+        }
+      },
+      "Dc10": {
+        "threshold_mm": 0.00125959,
+        "first_native": {
+          "state": "bounded",
+          "lower_s": 0.028633183284150827,
+          "upper_s": 0.02863818277156555,
+          "possible_first_native_locations_mm": [
+            2.001822912569159,
+            2.4178124950829907,
+            2.9169999940995885,
+            3.5160249929195064,
+            4.234854991503408,
+            5.097450989804089,
+            6.1325661877649065,
+            7.374704425317887,
+            8.865270310381465,
+            10.653949372457758,
+            12.648262856175517,
+            14.642576339893276,
+            16.636889823611035,
+            18.631203307328793,
+            20.62551679104655,
+            22.619830274764308,
+            24.614143758482065,
+            26.608457242199822,
+            28.60277072591758,
+            30.597084209635337
+          ]
+        },
+        "gauges": [
+          {
+            "state": "bounded",
+            "lower_s": 0.028653185058972235,
+            "upper_s": 0.028658184546386956
+          },
+          {
+            "state": "bounded",
+            "lower_s": 0.028738193558253855,
+            "upper_s": 0.028743194958249837
+          },
+          {
+            "state": "bounded",
+            "lower_s": 0.02885320663234885,
+            "upper_s": 0.02885820803234483
+          }
+        ],
+        "travel_48_to_432": {
+          "gauge_y_mm": [
+            48.0,
+            432.0
+          ],
+          "signed_travel_time_interval_s": [
+            0.0001950220859618934,
+            0.00020502297337259695
+          ],
+          "duration_interval_s": [
+            0.0001950220859618934,
+            0.00020502297337259695
+          ],
+          "direction": "increasing_y",
+          "speed_interval_m_per_s": [
+            1872.9608379161516,
+            1969.0077567677754
+          ]
+        }
+      },
+      "Dc": {
+        "threshold_mm": 0.0125959,
+        "first_native": {
+          "state": "bounded",
+          "lower_s": 0.028648183658976253,
+          "upper_s": 0.028653185058972235,
+          "possible_first_native_locations_mm": [
+            0.0,
+            0.015625,
+            0.034375,
+            0.056875,
+            0.083875,
+            0.116275,
+            0.155155,
+            0.201811,
+            0.2577982,
+            0.32498284,
+            0.40560440799999997,
+            0.5023502895999999,
+            0.6184453475199999,
+            0.7577594170239998,
+            0.9249363004287998,
+            1.1255485605145596,
+            1.3662832726174716,
+            1.6551649271409659,
+            2.001822912569159,
+            2.4178124950829907,
+            2.9169999940995885,
+            3.5160249929195064,
+            4.234854991503408,
+            5.097450989804089,
+            6.1325661877649065,
+            7.374704425317887,
+            8.865270310381465,
+            10.653949372457758,
+            12.648262856175517,
+            14.642576339893276,
+            16.636889823611035,
+            18.631203307328793,
+            20.62551679104655,
+            22.619830274764308,
+            24.614143758482065,
+            26.608457242199822,
+            28.60277072591758,
+            30.597084209635337,
+            32.591397693353095,
+            34.585711177070856
+          ]
+        },
+        "gauges": [
+          {
+            "state": "bounded",
+            "lower_s": 0.02866318594638294,
+            "upper_s": 0.028668185433797663
+          },
+          {
+            "state": "bounded",
+            "lower_s": 0.028743194958249837,
+            "upper_s": 0.02874819444566456
+          },
+          {
+            "state": "bounded",
+            "lower_s": 0.02885820803234483,
+            "upper_s": 0.028863207519759553
+          }
+        ],
+        "travel_48_to_432": {
+          "gauge_y_mm": [
+            48.0,
+            432.0
+          ],
+          "signed_travel_time_interval_s": [
+            0.0001900225985471682,
+            0.0002000215733766117
+          ],
+          "duration_interval_s": [
+            0.0001900225985471682,
+            0.0002000215733766117
+          ],
+          "direction": "increasing_y",
+          "speed_interval_m_per_s": [
+            1919.792917921826,
+            2020.8122767286648
+          ]
+        }
+      }
+    },
+    "observation_frames": 9000,
+    "contact_nodes": 285,
+    "shear_interval_s": [
+      1.9125812604139645e-09,
+      0.0450000017910803
+    ],
+    "maximum_cumulative_slip_mm": 69.87235161593009,
+    "minimum_final_cumulative_slip_mm": 3.5297299512035303,
+    "loading_stop": {
+      "state": "bounded",
+      "lower_s": 0.028908212469398356,
+      "upper_s": 0.028913213869394338
+    },
+    "all_finite": true,
+    "history_dtype": "float64",
+    "fem_timing_includes_development_pauses": true,
+    "isolated_performance_baseline": false,
+    "bem_comparison_available": false
+  },
+  "saved_stability_indicators": {
+    "status": "saved_fem_stability_indicators_not_a_discrete_energy_proof",
+    "simulation_h5_sha256": "a38f08a4ee8a3066d45cf79cea5da56dd3508fe591b9ab7affa988601ec5a48c",
+    "actual_shear_final_s": 0.0450000017910803,
+    "first_recorded_hold_s": 0.028913213869394338,
+    "spring_definition": "reaction^2/(2*stiffness*face_length), compression-only original platen spring",
+    "post_hold_residual_definition": "E_bulk+E_contact+E_kinetic_half_step+E_spring - value_at_first_saved_hold - F_normal*(normal_coordinate-normal_coordinate_at_hold)",
+    "energy_storage_dtype": "float32",
+    "kinetic_clock": "half step; elastic/contact clock endpoint",
+    "maximum_post_hold_energy_minus_normal_work_source_units": 0.0,
+    "maximum_post_hold_growth_over_stored_energy_at_hold": 0.0,
+    "stored_energy_at_hold_source_units": 8291.696874571442,
+    "total_post_hold_normal_work_source_units": 389.13965225219727,
+    "sampled_interpolants_do_not_bound_unsaved_motion": true,
+    "minimum_final_cumulative_mm": 3.5297299512035303,
+    "final_peak_location_mm": 0.015625,
+    "samples": [
+      {
+        "shear_time_s": 0.02799811258921163,
+        "max_cumulative_mm": 0.00043239861124845866,
+        "weighted_mean_cumulative_mm": 3.851859255747214e-07,
+        "max_net_plastic_increment_mm": 0.00043239861090782483,
+        "max_recorded_relative_velocity_mm_s": 2.9719204902648926,
+        "weighted_mean_pressure_mpa": 16.66521949841069,
+        "max_pressure_mpa": 1671.0947657125519,
+        "elastic_energy_source_units": 6677.35205078125,
+        "interface_energy_source_units": 8.749748229980469,
+        "kinetic_energy_source_units": 0.013594110496342182,
+        "platen_spring_energy_source_units": 2707.325162251377,
+        "normal_loading_coordinate_mm": 0.5206933617591858,
+        "post_hold_energy_minus_normal_work_source_units": null
+      },
+      {
+        "shear_time_s": 0.02861818099674414,
+        "max_cumulative_mm": 0.0005426482636158867,
+        "weighted_mean_cumulative_mm": 1.707627202639933e-05,
+        "max_net_plastic_increment_mm": 0.0005426482636234908,
+        "max_recorded_relative_velocity_mm_s": 43.68443298339844,
+        "weighted_mean_pressure_mpa": 16.66598594804251,
+        "max_pressure_mpa": 1672.4931480518073,
+        "elastic_energy_source_units": 6706.83447265625,
+        "interface_energy_source_units": 8.786922454833984,
+        "kinetic_energy_source_units": 0.020281322300434113,
+        "platen_spring_energy_source_units": 2737.351743835831,
+        "normal_loading_coordinate_mm": 0.5200576782226562,
+        "post_hold_energy_minus_normal_work_source_units": null
+      },
+      {
+        "shear_time_s": 0.028648183658976253,
+        "max_cumulative_mm": 0.008671541523238327,
+        "weighted_mean_cumulative_mm": 0.00046012710830343047,
+        "max_net_plastic_increment_mm": 0.008671541523233017,
+        "max_recorded_relative_velocity_mm_s": 1391.8145751953125,
+        "weighted_mean_pressure_mpa": 16.663619797493553,
+        "max_pressure_mpa": 1672.8895485323378,
+        "elastic_energy_source_units": 6708.1318359375,
+        "interface_energy_source_units": 8.761041641235352,
+        "kinetic_energy_source_units": 0.06991344690322876,
+        "platen_spring_energy_source_units": 2736.744787133789,
+        "normal_loading_coordinate_mm": 0.5200134515762329,
+        "post_hold_energy_minus_normal_work_source_units": null
+      },
+      {
+        "shear_time_s": 0.02889821158198765,
+        "max_cumulative_mm": 0.5252569757143365,
+        "weighted_mean_cumulative_mm": 0.2882388873040985,
+        "max_net_plastic_increment_mm": 0.3837528172244742,
+        "max_recorded_relative_velocity_mm_s": 207921.921875,
+        "weighted_mean_pressure_mpa": 16.544719859467847,
+        "max_pressure_mpa": 1697.836821923399,
+        "elastic_energy_source_units": 5911.4345703125,
+        "interface_energy_source_units": 7.6249918937683105,
+        "kinetic_energy_source_units": 167.76296997070312,
+        "platen_spring_energy_source_units": 2430.5747351135255,
+        "normal_loading_coordinate_mm": 0.5228391289710999,
+        "post_hold_energy_minus_normal_work_source_units": null
+      },
+      {
+        "shear_time_s": 0.028998222368675955,
+        "max_cumulative_mm": 4.1811461159214645,
+        "weighted_mean_cumulative_mm": 0.9420809321697207,
+        "max_net_plastic_increment_mm": 1.0095182028076088,
+        "max_recorded_relative_velocity_mm_s": 242593.34375,
+        "weighted_mean_pressure_mpa": 15.780799304027717,
+        "max_pressure_mpa": 1253.446031587089,
+        "elastic_energy_source_units": 3907.621826171875,
+        "interface_energy_source_units": 3.9612836837768555,
+        "kinetic_energy_source_units": 1185.554443359375,
+        "platen_spring_energy_source_units": 1874.6062773361446,
+        "normal_loading_coordinate_mm": 0.5333807468414307,
+        "post_hold_energy_minus_normal_work_source_units": -1392.9677801958078
+      },
+      {
+        "shear_time_s": 0.029998334060721544,
+        "max_cumulative_mm": 31.743765854885776,
+        "weighted_mean_cumulative_mm": 3.7643226969746273,
+        "max_net_plastic_increment_mm": 4.346335043389143,
+        "max_recorded_relative_velocity_mm_s": 147617.609375,
+        "weighted_mean_pressure_mpa": 15.911492845200668,
+        "max_pressure_mpa": 580.7170914320743,
+        "elastic_energy_source_units": 2842.68359375,
+        "interface_energy_source_units": 1.2989349365234375,
+        "kinetic_energy_source_units": 288.6563415527344,
+        "platen_spring_energy_source_units": 0.0,
+        "normal_loading_coordinate_mm": 0.6754802465438843,
+        "post_hold_energy_minus_normal_work_source_units": -6368.86873812735
+      },
+      {
+        "shear_time_s": 0.034998888695786955,
+        "max_cumulative_mm": 58.72814820836685,
+        "weighted_mean_cumulative_mm": 3.969782836554265,
+        "max_net_plastic_increment_mm": 4.037779229334072,
+        "max_recorded_relative_velocity_mm_s": 48151.23046875,
+        "weighted_mean_pressure_mpa": 19.73066974177961,
+        "max_pressure_mpa": 735.380631840384,
+        "elastic_energy_source_units": 3525.134765625,
+        "interface_energy_source_units": 1.6623172760009766,
+        "kinetic_energy_source_units": 77.10962677001953,
+        "platen_spring_energy_source_units": 0.0,
+        "normal_loading_coordinate_mm": 0.7578403353691101,
+        "post_hold_energy_minus_normal_work_source_units": -6556.481609297394
+      },
+      {
+        "shear_time_s": 0.03999944524343363,
+        "max_cumulative_mm": 66.05430868953023,
+        "weighted_mean_cumulative_mm": 3.977959486487625,
+        "max_net_plastic_increment_mm": 4.037779229334072,
+        "max_recorded_relative_velocity_mm_s": 39085.72265625,
+        "weighted_mean_pressure_mpa": 17.00652673229281,
+        "max_pressure_mpa": 1066.6261532312117,
+        "elastic_energy_source_units": 2944.20166015625,
+        "interface_energy_source_units": 1.6408863067626953,
+        "kinetic_energy_source_units": 123.81206512451172,
+        "platen_spring_energy_source_units": 0.0,
+        "normal_loading_coordinate_mm": 0.6922079920768738,
+        "post_hold_energy_minus_normal_work_source_units": -6565.674961043
+      },
+      {
+        "shear_time_s": 0.0450000017910803,
+        "max_cumulative_mm": 69.87235161593009,
+        "weighted_mean_cumulative_mm": 3.9822767009228373,
+        "max_net_plastic_increment_mm": 4.037779229334072,
+        "max_recorded_relative_velocity_mm_s": 29181.31640625,
+        "weighted_mean_pressure_mpa": 13.790063594598134,
+        "max_pressure_mpa": 600.2360470522053,
+        "elastic_energy_source_units": 2001.0421142578125,
+        "interface_energy_source_units": 0.979189932346344,
+        "kinetic_energy_source_units": 107.48625946044922,
+        "platen_spring_energy_source_units": 0.0,
+        "normal_loading_coordinate_mm": 0.5728963613510132,
+        "post_hold_energy_minus_normal_work_source_units": -6571.328963173031
+      }
+    ]
+  },
+  "control": {
+    "seconds": 1.7563297916203737,
+    "same_bem_resumed": true,
+    "serialized_with_four_core_baseline": true
+  },
+  "source_summary": {
+    "status": "completed",
+    "source_revision": "933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d",
+    "reference_run": "/Volumes/Gauss-T7/tatva/runs/local-mus08-muk06-gap0-v2-ev16",
+    "cores_requested": 4,
+    "hard_cpu_affinity": false,
+    "cpu_limit_note": "macOS thread limits are best effort; affinity is not enforced",
+    "jax_version": "0.9.2",
+    "devices": [
+      "TFRT_CPU_0"
+    ],
+    "blas_threadpools": [],
+    "wall_seconds": 109028.20808262471,
+    "process_cpu_seconds": 413540.77255399997,
+    "current_invocation_simulation_seconds": 103276.8882515002,
+    "invocation_timing": {
+      "all_invocations_accounted": true,
+      "invocation_count": 2,
+      "segments": [
+        {
+          "event": "ended",
+          "id": "0b04b79668274b5c97c31eb3945d2279",
+          "status": "checkpointed",
+          "preparation_seconds": 10.565283167175949,
+          "simulation_seconds": 5751.319831124507,
+          "simulation_cpu_seconds": 21561.750006,
+          "total_seconds": 5761.885138791986,
+          "total_cpu_seconds": 21573.050698
+        },
+        {
+          "event": "ended",
+          "id": "bc8a2db9a756454ea07871c9dab0af0a",
+          "status": "completed",
+          "preparation_seconds": 5.545054874382913,
+          "simulation_seconds": 103276.8882515002,
+          "simulation_cpu_seconds": 391979.022548,
+          "total_seconds": 103282.43333329074,
+          "total_cpu_seconds": 391984.686736
+        }
+      ],
+      "preparation_seconds": 16.11033804155886,
+      "simulation_seconds": 109028.20808262471,
+      "simulation_cpu_seconds": 413540.77255399997,
+      "total_seconds": 109044.31847208273,
+      "total_cpu_seconds": 413557.737434
+    },
+    "timing_seconds": {
+      "source_and_config_preparation": 16.11033804155886,
+      "simulation_including_outputs": 109028.20808262471,
+      "total_before_reporting": 109044.31847208273
+    },
+    "total_process_cpu_seconds": 413557.737434,
+    "timing_control": "Not established by this runner; concurrent jobs must be recorded separately",
+    "runner_sha256": "def3dde0547b5885c24841754be6c531289279e9e30510e33b34b4f52e30a34d",
+    "reference_manifest_sha256": "94f8129fa5a3627fc00780570558af0ab4290c2b99295ad20b4e275f30cf2f35",
+    "source_archive_sha256": "ab7c09b46dc617795235e8356365d13210f1c0f0c9be40747bbddd9aefae628e",
+    "source_and_protected_input_unchanged": true,
+    "configuration_authority": "input/resolved.json verified against authored input/case.toml and source revision",
+    "authored_input_dtype": "float64",
+    "computational_dtype": "float64",
+    "stored_history_dtype": "float32",
+    "historical_statistics_dtype": "float32",
+    "actual_restart": {
+      "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-radau-study-graded-h2-end015625-4c-f64-replayed/projected_restart.h5",
+      "bytes": 1266480,
+      "mtime_ns": 1793192227567155472,
+      "plastic_shape": [
+        285
+      ],
+      "checked_u_shape": [
+        157506
+      ],
+      "actuator_mm": 10.806226665707777,
+      "seed_sha256": "f1da5d302c83a837d51600a5be801bab2a15de25bebdf6cb84262d166e605e3f",
+      "scope": "Static initializer uses plastic slip and actuator; u is checked for size only"
+    },
+    "restart_projection": {
+      "authority": "Original final_state/plastic_slip and recorded actuator; P1 interpolation on original interface knots",
+      "source_plastic_dtype": "float64",
+      "source_coordinate_dtype": "float32",
+      "source_coordinate_sha256": "9a177bdf58633cc1687bceea96cc73b3b0a29a07397fc24ce0eabaeb2bce281a",
+      "target_coordinate_sha256": "041681f535c2ff4a9f858e253eb906a09e41861a53a5f9c68c1543940e5f570e",
+      "source_nodes": 241,
+      "target_nodes": 285,
+      "source_restart": {
+        "path": "/Volumes/Gauss-T7/tatva/runs/local-mus08-muk06-gap0-v2-ev15/data/simulation.h5",
+        "bytes": 12734514616,
+        "mtime_ns": 1792158143453734215,
+        "plastic_shape": [
+          241
+        ],
+        "checked_u_shape": [
+          91550
+        ],
+        "actuator_mm": 10.806226665707777,
+        "seed_sha256": "097948bec467b2d81f31ea58a056c29785c9f0c22f3952515ff15940357dddc4",
+        "scope": "Static initializer uses plastic slip and actuator; u is checked for size only"
+      }
+    },
+    "mesh_adapter": {
+      "source": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/chamfer_mesh_refinement.py",
+      "sha256": "ba8e3220254d0ce5f3222d844b83951b65aa7c1a6a6711bd41d943cceaad57fb",
+      "scope": "Explicit mesh-only adapter; original material, contact, static and transient kernels",
+      "end_size_mm": 0.015625,
+      "grading_growth": 1.2
+    },
+    "contact_observations": {
+      "source": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/fem_contact_observations.py",
+      "sha256": "ca8727304aec9c38ea72f8f49e8dbeff0d90515ad907056bfc81d3b3baf80a7f",
+      "schema_version": 1,
+      "only_high_rate_writer_augmented": true,
+      "scope": "Float64 endpoint kinematics and elastic contact traction; integration equations unchanged"
+    },
+    "checkpoint_interval_seconds": 600.0,
+    "jax_enable_x64": true,
+    "output_options": {
+      "frames_per_phase": 4,
+      "shear_frames_per_phase": 64,
+      "interface_frames_per_phase": 4,
+      "shear_interface_frames_per_phase": 9000,
+      "compression": "lzf",
+      "include_initial_frame": true,
+      "store_bulk_strain": false,
+      "store_bulk_velocity": false
+    },
+    "comparison_history_group": "interface_high_rate",
+    "summary": {
+      "mpi_ranks": 1,
+      "element_type": "quad4",
+      "steady_chunk_timings": {
+        "normal": {
+          "seconds": 0.0,
+          "steps": 0
+        },
+        "shear": {
+          "seconds": 102751.25760541297,
+          "steps": 23162373
+        }
+      },
+      "backend": "cpu",
+      "devices": [
+        "TFRT_CPU_0"
+      ],
+      "dtype": "float32",
+      "dimension": 2,
+      "thickness": 0.0,
+      "mesh_size": 2.0,
+      "cfl": 0.35,
+      "contact_safety_factor": 0.25,
+      "time_step_override": null,
+      "dt": 1.9125812604139645e-09,
+      "dt_stable_limit": 1.9125812604139645e-09,
+      "dt_bulk": 1.958005065321445e-09,
+      "dt_contact": 1.9125812604139645e-09,
+      "dt_stability_limiter": "contact",
+      "dt_limiter": "contact",
+      "pressure_time": 0.002,
+      "shear_time": 0.045,
+      "normal_ramp_time": 0.0,
+      "normal_ramp_steps": 0,
+      "shear_ramp_time": 0.0,
+      "shear_ramp_shape": "half-cosine",
+      "shear_post_ramp_rate": 20.0,
+      "shear_spring_rigid_face": true,
+      "reset_slip_weakening_at_shear_start": true,
+      "healing_fraction": 1.0,
+      "normal_phase_mode": "static",
+      "stop_shear_loading_on_rupture": true,
+      "shear_loading_stop_slip": 0.0125959,
+      "shear_loading_stop_velocity": null,
+      "shear_loading_stop_uses_critical_profile": true,
+      "shear_loading_stop_min_y": 0.0,
+      "shear_loading_stop_max_y": 480.0,
+      "shear_loading_stop_coverage_fraction": 1.0,
+      "shear_loading_stop_time": 0.03091321513056755,
+      "shear_loading_stop_time_in_shear": 0.02891321513056755,
+      "shear_loading_stop_displacement": 11.384400367736816,
+      "relax_tangential_contact_during_normal": false,
+      "pressure_steps": 1045708,
+      "shear_steps": 23528413,
+      "pressure_frames_target": 4,
+      "shear_frames_target": 64,
+      "pressure_frames_saved": 4,
+      "shear_frames_saved": 64,
+      "interface_pressure_frames_target": 4,
+      "interface_shear_frames_target": 9000,
+      "interface_pressure_frames_saved": 4,
+      "interface_shear_frames_saved": 9000,
+      "tau_k": 19.0,
+      "tau_s": 19.0,
+      "shear_scale": 1.0,
+      "normal_stress": 16.0,
+      "normal_loading_mode": "stress",
+      "shear_loading_mode": "spring-displacement",
+      "shear_loading_stiffness": 25.0,
+      "shear_force_boundary": "moving-block-right",
+      "shear_displacement_boundary": "moving-block-right",
+      "normal_displacement": 0.691620986687549,
+      "normal_displacement_estimate": 0.6916209866875489,
+      "normal_displacement_loading_fraction": 1.0,
+      "normal_displacement_leading_fraction": 1.0,
+      "moving_leading_chamfer_along_fault": 20.0,
+      "moving_leading_chamfer_perpendicular": 5.0,
+      "shear_displacement_k": 0.0,
+      "shear_displacement_s": 0.0,
+      "quasistatic_shear_fraction": 0.0,
+      "quasistatic_shear_target": 0.0,
+      "prestress_shear_displacement": null,
+      "quasistatic_shear_start_time": 0.0,
+      "quasistatic_shear_ramp_time": 0.0,
+      "normal_relaxation_time": null,
+      "normal_relaxation_start_time": 0.0,
+      "normal_relaxation_handoff": null,
+      "quasistatic_damping_time": null,
+      "quasistatic_handoff": null,
+      "critical_slip": 0.0125959,
+      "mu_k": 0.6,
+      "loading_edge_nucleation_length": 0.0,
+      "loading_edge_critical_slip": 0.0125959,
+      "mu_s_start_fraction": 1.0,
+      "mu_s_end_fraction": 1.0,
+      "pw_length": 0.0,
+      "pw_mu_s_ratio": 1.0,
+      "pw_transition_length": 0.0,
+      "leading_edge_guard_length": 0.0,
+      "leading_edge_guard_mu_s_ratio": 1.0,
+      "leading_edge_guard_transition_length": 0.0,
+      "leading_edge_tangential_taper_length": 0.0,
+      "leading_edge_tangential_plateau_length": 0.0,
+      "leading_edge_tangential_taper_ratio": 1.0,
+      "friction_law": "slip-weakening",
+      "rsf_reference_friction": 0.285,
+      "rsf_direct_effect": 0.005,
+      "rsf_state_effect": 0.0214,
+      "rsf_reference_velocity": 0.0001,
+      "rsf_reference_state": 0.00033,
+      "rsf_characteristic_slip": 0.0005,
+      "rsf_initial_state": 0.00033,
+      "rsf_initial_state_mode": "steady-state",
+      "rsf_initialization_velocity": 0.0001,
+      "rsf_target_normalized_prestress": null,
+      "rsf_state_handoff": null,
+      "rsf_profile": null,
+      "leading_edge_creep_length": 0.0,
+      "leading_edge_creep_transition_length": 0.0,
+      "leading_edge_creep_mu": 0.7,
+      "leading_edge_creep_mu_k": 0.7,
+      "leading_edge_creep_relaxation_time": 0.0,
+      "normal_penalty": 76620.0,
+      "tangential_penalty": 7662.0,
+      "lock_shear_edge_during_normal": false,
+      "moving_nodes": 41697,
+      "stationary_nodes": 37056,
+      "moving_elements": 41236,
+      "stationary_elements": 36575,
+      "final_time": 0.047000003315745276,
+      "final_max_slip": 69.87235161593009,
+      "final_max_penetration": 0.007833934389054775,
+      "final_avg_tau": 0.6501163840293884,
+      "final_avg_sigma_n": 13.790063858032227,
+      "saved_frames": 69,
+      "data_path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-radau-study-graded-h2-end015625-4c-f64-replayed/simulation.h5",
+      "legacy": {
+        "materials": {
+          "moving-block": {
+            "name": "moving-block",
+            "rho": 1.148e-09,
+            "E": 7662.0,
+            "nu": 0.2
+          },
+          "stationary-block": {
+            "name": "stationary-block",
+            "rho": 1.148e-09,
+            "E": 7662.0,
+            "nu": 0.2
+          }
+        },
+        "friction": {
+          "mu_s": 0.8,
+          "mu_k": 0.6,
+          "d_c": 0.0125959
+        },
+        "effective_friction": {
+          "mu_s": 0.8,
+          "mu_k": 0.6,
+          "d_c": 0.0125959
+        },
+        "simulation": {
+          "simulation_time": 0.02,
+          "time_factor": 0.02,
+          "normal_stress": 16.0,
+          "rise_fraction": 0.3,
+          "tau_k_start_fraction": 0.99,
+          "normal_dir": 0,
+          "slave_surface": "stationary-block-back",
+          "master_surface": "moving-block-front"
+        },
+        "geometry": {
+          "moving": {
+            "name": "moving-block",
+            "origin": [
+              0.0,
+              0.0
+            ],
+            "dimensions": [
+              200.0,
+              500.0
+            ],
+            "tag_prefix": 1
+          },
+          "stationary": {
+            "name": "stationary-block",
+            "origin": [
+              200.0,
+              0.0
+            ],
+            "dimensions": [
+              145.0,
+              550.0
+            ],
+            "tag_prefix": 2
+          }
+        }
+      }
+    },
+    "full_original_horizon": true,
+    "output_frames_reduced": true,
+    "restart_projected_to_coarse_mesh": true,
+    "restart_projected_to_target_mesh": true
+  },
+  "full_dynamic_convergence_verified": false,
+  "same_accuracy_fem_advantage_verified": false
+}

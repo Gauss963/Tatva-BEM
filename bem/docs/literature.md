@@ -1,9 +1,47 @@
 # 近期文獻與 FEM 對照的實作決策
 
-檢索／閱讀日期：2026-10-24；補讀至2026-10-29。範圍是有限彈性體的 fully dynamic 接觸、
+檢索／閱讀日期：2026-10-24；補讀至2026-10-30。範圍是有限彈性體的 fully dynamic 接觸、
 時間域 BEM、卷積歷史加速與角落誤差；以下不是整個 BEM 領域的完整系統性回顧。
 目標是在相同物理模型與可量化誤差下重現 FEM，然後證明穩定性或總時間的優勢。
 目前尚未達成這個目標。
+
+2026-10-30 補讀並重新核對版本後，決策更新如下：
+
+- Schneider、Özdemir、Gimperlein、Urban、Graf，
+  [A stable boundary element method for reliable long-time industrial sound emission](https://doi.org/10.1007/s00466-026-02769-8)，
+  2026-03-18 正式出版。已讀 §2.1–2.2、§4 與 §8。
+  弱 coercivity 的 hypersingular space-time Galerkin 離散可繼承其穩定性；
+  連續等價的 second-kind 形式卻不保證離散穩定（Remark 1）。
+  這支持保留本案對稱 Galerkin、原始因果方程及帶符號功的檢查；
+  它是三維外部聲學，不是本案 Radau／兩有限體／slip weakening 的定理。
+- Keshava、Schanz 的 [3D-ACA elastodynamics v1](https://arxiv.org/html/2607.15292v1)
+  在 §3／Algorithm 1 組合少數完整頻率切片與跨頻率的矩陣 entry fibers，
+  再於空間近似遠場 block；結論中 H-matrix ACA 的總時間優於其 FMM-ACA 版本。
+  因此下一個較大幅度的加速方向是原始 V/H/D 層的空間／頻率聯合壓縮，
+  先做可選取 entry/block 的獨立組裝器，再驗證完整層、凝縮、因果歷史與梯度。
+  不直接低秩擬合已凝縮、包含有限體共振的阻抗。
+- JAX-BEM 的最新 arXiv 版是 **v2，2026-08-08**，不是先前讀過的 v1。
+  已補讀 v2 §3.2、§4.2–4.3、§5。implicit custom VJP 仍適合線性平衡根；
+  §4.3 記錄 948 elements、20 frequencies、complex64 約 100 GB 的個案記憶體，
+  §5 將嚴格梯度驗證列為待完成工作。不能只因使用 JAX 就假定低記憶體、
+  更快或梯度準確。本案持續採固定 active set 的 implicit contact derivative、
+  分批 directions、完整未截斷的轉置歷史與 JVP／VJP 對照。
+- Ren、Su 的最新版本仍為 [v2，2026-10-23](https://arxiv.org/html/2610.23163v2)；
+  Melenk、Nick 的 arXiv 頁仍列 [v1](https://arxiv.org/abs/2410.15079)。
+  前者的 multistep／sectorial 假設，與後者 implicit Euler／BDF2 的複雜度結果，
+  都沒有直接證明目前 empirical raw-Radau sampler 的誤差或成本。
+  小型 probe 控制曾多做 23% raw evaluations；實際細網格主核目前則已有接受的區間，
+  兩者不能互相代替成本證據。
+
+同日檢索到 Darbas、Chaillat、Escapil-Inchauspé、Jerez-Hanckes 的
+[Local Multiple Trace Formulation for transmission problems in linear elasticity](https://doi.org/10.1016/j.camwa.2026.08.005)，
+卷期日期 2026-10-15。出版全文請求回傳 403，目前只讀到摘要與索引預覽；
+其 time-harmonic transmission／preconditioning 方向保留為後續閱讀，沒有移植為接觸律。
+
+上述研究已促成一個不改物理近似的[積分收縮控制](factored_galerkin.md)。
+兩個實際細網格頻率的組裝時間減少 5.2–11.1%；完整事件加速尚未驗證。
+另外，[完整 graded FEM 的新診斷](graded_fem_complete.md)已顯示端點累積滑移
+對網格十分敏感，不能僅把某個已完成的 FEM 當成收斂真值來擬合。
 
 2026-10-29 再核對上列近期工作的 primary-source 版本，另補讀 Yuan、Zegeling，
 [Convolution Quadrature with Adaptive History Compression for Variable-Order
@@ -67,7 +105,7 @@ limitations 指出 A-1/A-search 目前是一階精度。
 |Schanz, Keshava, De Gersem, **Comparison of H-matrix- and FMM-based 3D-ACA for a time-domain boundary element method**, Computational Mechanics 78 (2026), 563–578，2026-03-25 出版。[全文](https://link.springer.com/article/10.1007/s00466-026-02768-9)。|這篇是 acoustic wave／gCQ 的壓縮比較，與上面的 elastodynamics 預印本分開看待。借鑑其誤差與成本比較方式，不把聲學結果當成本問題的證明。|
 |Aimi, Desiderio, Gimperlein, Guardasoni, **Space-Time Boundary Elements on Graded Meshes for 3D Elastodynamics**, IJNME 126 (2025), e70163。[出版全文](https://onlinelibrary.wiley.com/doi/10.1002/nme.70163)。已讀奇異性、§5.1 grading、積分精度的數值比較與結論。|角落加密須配合鄰接面與積分精度；單看最小面板長度或成核時間不足以判斷收斂。其 3D 線性 Dirichlet 問題的 large-CFL 結果不能替本案 slip-weakening／BDF2 的時間精度背書。|
 |Matsumoto, Maruyama, **A fast direct solver for two-dimensional transmission problems of elastic waves**, Engineering with Computers 42 (2026), 68，2026-03-22 出版。[出版全文](https://doi.org/10.1007/s00366-026-02302-8)。已讀 mixed P1/P0 基底、§4 proxy 與 recursive skeletonization、§5 精度／成本、Remark 4–5 及結論。|與現有 P1/P0 基底相容的分塊低秩求解值得研究；節點與面板須用各自的 tree。其固定低實頻 O(N) 結果不能直接套到完整複數 CQ contour；還要驗證所有所需頻率的 rank、消去誤差與轉置求解。論文也記錄 DOF 增加時的精度退化。尚未實作此 solver，亦未借用其速度比。|
-|Hipperson, Hargreaves, Cox, **JAX-BEM: Gradient-Based Acoustic Shape Optimisation via a Differentiable Boundary Element Method**, arXiv:2604.21431v1，2026-04-23。[全文](https://arxiv.org/html/2604.21431v1)，[作者程式](https://github.com/jrhip/jax-bem)。已讀 §3.1–3.2、§4 與 §5。|將拓撲／積分類型選擇放在可微分序列外，對線性平衡根做 custom VJP，避免反傳 GMRES 迭代。它是 3D 聲學形狀最佳化，不能直接證明本案 transient friction 的精度或速度。其記憶體討論也支持先使用局部 VJP／完整轉置歷史，再研究分批 bulk 材料導數；本專案尚未具備完整材料／幾何 AD。|
+|Hipperson, Hargreaves, Cox, **JAX-BEM: Gradient-Based Acoustic Shape Optimisation via a Differentiable Boundary Element Method**, arXiv:2604.21431v2，2026-08-08 修訂（2026-10-30 核對最新版本）。[全文](https://arxiv.org/html/2604.21431v2)，[作者程式](https://github.com/jrhip/jax-bem)。已讀 §3.1–3.2、§4 與 §5。|將拓撲／積分類型選擇放在可微分序列外，對線性平衡根做 custom VJP，避免反傳 GMRES 迭代。它是 3D 聲學形狀最佳化，不能直接證明本案 transient friction 的精度或速度。其記憶體討論也支持先使用局部 VJP／完整轉置歷史，再研究分批 bulk 材料導數；本專案尚未具備完整材料／幾何 AD。|
 
 另檢索到 2026 年 mCCSR 平行 TDBEM 工作，但本次沒有取得可讀全文，
 因此未作為程式推導或速度結論的依據。高階 p-version CQ 的 SIAM 2025

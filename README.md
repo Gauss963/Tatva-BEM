@@ -152,6 +152,12 @@ The [storage-stage Radau producer](bem/docs/storage_radau_pipeline.md) preserves
 the original sampling/audits while adding resumable ownership transfer,
 in-place compact spectra and direct physical Fortran weights. Its full 1 µs
 resource preflight has passed; the full refined event has not been run.
+The [factored Galerkin contractions](bem/docs/factored_galerkin.md) reduce
+assembly time by 5–11% at two measured fine-grid frequencies, with complete
+small causal/transpose controls; full-event speed remains unverified.
+The [completed graded FEM diagnostics](bem/docs/graded_fem_complete.md) reveal
+strong endpoint sensitivity after rupture, requiring independent dynamic
+refinement before treating that result as a converged reference.
 The [Galerkin implementation and validation](bem/docs/galerkin.md) addresses
 the sampled passivity failures of the original collocation backend.
 
