@@ -5,6 +5,19 @@
 目標是在相同物理模型與可量化誤差下重現 FEM，然後證明穩定性或總時間的優勢。
 目前尚未達成這個目標。
 
+2026-10-30 補讀 Zhang、Dunham 的
+[SCEC 25156 完整研究報告](https://files.scec.org/s3fs-public/reports/2025/25156_report.pdf?lil8uNa625oE5hg4W.e.zulGgTjy3ZzF=)
+pp.1–4，並核對其[提交記錄](https://central.scec.org/proposal/report/25156)
+（2026-03-25）及[2026 年會摘要](https://central.scec.org/node/60644)。
+這是研究報告與會議摘要，並非新的同行審查 BEM 論文。
+報告針對 slip-weakening 的 locked／slipping／residual-strength 區域定義分段伴隨律，
+並以 finite differences 驗證其 DG 實作；變動 normal stress 也需要伴隨中的法向耦合。
+這支持本案目前在已收斂根上做局部 AD、保留完整轉置歷史與 normal／shear coupling，
+而不對所有 Newton iterations 反傳。它沒有驗證我們的 CQ、初始化或 stopping rule。
+本案目前的 VJP／JVP 對照是所選離散分支的導數，
+完整事件與參數擾動下切換分支的檢查仍須完成；已記錄 actuator 的梯度亦不能
+宣稱包含 endogenous stop-time sensitivity。尚未移植該報告的 DG 方法或 3D rake-rotation 項。
+
 2026-10-30 因破裂後 FEM 時間收斂仍未通過，另補讀**經典背景文獻** Aldam 等人，
 [Frictional sliding without geometrical reflection symmetry，2016 v2](https://arxiv.org/html/1605.05378v2)，
 閱讀 §I、§III 的近似範圍及 §IV.1。幾何非對稱可在相同材料間產生 slip／normal-stress
