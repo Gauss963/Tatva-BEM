@@ -374,5 +374,18 @@
     "same_bem_resumed": true,
     "four_core_serial_validation": true
   },
-  "final_test_source_sha256": "3d94c9f12f95212d01511e9e40b5ec4231bc579e8f1e78a018efeca0fb19542b"
+  "final_test_source_sha256": "f390b5287d702341f9bb412a622909ab31336f94ec81c9b11c6ac2957c31b234",
+  "benchmark_nonfinite_guard": {
+    "historical_benchmark_source_commit": "03defb7ab51dc9d575ab1fd5eab1df5cd7c1efb2",
+    "historical_benchmark_sha256": "abb80d05c17a6d04d13027d949ef557fb3eb0f741db6c9cf957795ec02f470fe",
+    "current_benchmark_sha256": "33073386763620c1853e7354c06449c24f02a3a0341eb2efa2e58b3783602b0f",
+    "historical_reported_metrics_all_finite": true,
+    "reason": "Explicitly reject nonfinite matrices and audit norms; previously a NaN comparison could fail open. Finite-input contractions and previously recorded timings unchanged.",
+    "local_validation": {
+      "exit_code": 0,
+      "seconds": 6.795484999194741,
+      "same_bem_resumed": true,
+      "four_core_serial_validation": true
+    }
+  }
 }

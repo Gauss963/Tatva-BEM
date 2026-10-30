@@ -30,9 +30,10 @@ original→factored、factored→original，BLAS 單執行緒；當時的 FEM �
 確認修正只涉及統計方法，數值收縮及已量測的時間沒有改變。
 完整細節與輸入／環境指紋見 [結果](factored_galerkin_results.json)。
 
-2026-10-30 本機 10 項測試通過，另涵蓋：
+2026-10-30 本機 12 項測試通過，另涵蓋：
 
-- 隨機複數 tensor 的四種收縮與原運算比較。
+- 隨機複數 tensor 的四種收縮與原運算比較；benchmark 明確拒絕非有限矩陣／範數，
+  避免 NaN 比較意外放行。既有實測誤差均為有限值，原 benchmark source 可從記錄的 commit 取得。
 - 靜態、低頻、振盪及大實部頻率的完整 body operators／凝縮／重建。
 - 幾何共享與不可變條件，四個並行唯讀呼叫的確定性，原 NumPy globals 不變。
 - 小型真實兩 block、Q8 的完整 Radau 計畫：兩個 physical branches、全部 17 個

@@ -131,3 +131,12 @@ def test_complete_radau_causal_history_and_transpose_match_reference():
     left, right = np.vdot(histories[1], cotangent), np.vdot(x, pullbacks[1])
     assert abs(left - right) / max(abs(left), abs(right), 1) < 1e-12
     assert transfer.prepared is original
+
+
+@pytest.mark.parametrize("invalid", [np.nan, np.inf])
+def test_benchmark_rejects_nonfinite_operators_instead_of_passing_nan_norms(invalid):
+    benchmark = runpy.run_path(str(TOOLS / "benchmark_factored_galerkin.py"))
+    matrix = np.eye(2, dtype=complex)
+    matrix[0, 1] = invalid
+    with pytest.raises(ValueError, match="finite"):
+        benchmark["errors"](matrix, np.eye(2))

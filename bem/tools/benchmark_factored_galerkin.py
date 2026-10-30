@@ -28,8 +28,13 @@ MODES = runpy.run_path(str(TOOLS / "radau_raw_sampling.py"))["lower_half_radau_m
 
 
 def errors(actual, expected):
+    actual, expected = np.asarray(actual), np.asarray(expected)
+    if actual.shape != expected.shape or any(
+        a.ndim != 2 or not np.all(np.isfinite(a)) for a in [actual, expected]
+    ):
+        raise ValueError("Require aligned finite body/transfer matrices")
     difference = actual - expected
-    return dict(
+    result = dict(
         relative_frobenius=float(np.linalg.norm(difference) / max(np.linalg.norm(expected), 1e-30)),
         relative_inf=float(
             np.linalg.norm(difference, ord=np.inf)
@@ -37,6 +42,9 @@ def errors(actual, expected):
         ),
         maximum_absolute=float(np.max(abs(difference))),
     )
+    if not all(np.isfinite(v) for v in result.values()):
+        raise ValueError("Nonfinite operator audit norm")
+    return result
 
 
 def main():
