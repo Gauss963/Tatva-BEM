@@ -55,8 +55,8 @@ PYTHONPATH=bem/src OPENBLAS_NUM_THREADS=1 \
   --output FRESH_COMPARISON_JSON
 ```
 
-下一個已準備的控制把同一起點延伸到 29.063076 ms，涵蓋破裂、載入停止及初期大滑移，
-仍使用原 dt、dt/2、dt/4 和全部原接受條件。先等對應 commit 的 CI，再序列執行；
-不與 BEM 疊加使用四核心預算。尚未完成的長窗不能作為穩定性證據。
+延伸至 29.063076 ms 的控制已完成，但 [破裂後場誤差未通過](fem_postrupture_timestep.md)：
+dt/2 對 dt/4 的 pressure／signed shear 時空差仍為 17.68%／10.05%。
+上面的短窗結果沒有延伸成整段事件的收斂證書。原 BEM 已恢復。
 背景／端點空間收斂、完整原事件時間收斂、BEM 全接觸場與 initialized AD、
 以及相同精度下的總成本優勢仍各自保留。

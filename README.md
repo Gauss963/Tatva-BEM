@@ -161,7 +161,12 @@ refinement before treating that result as a converged reference.
 The [checkpointed FEM time-step controls](bem/docs/fem_timestep_window.md)
 preserve the original step/scan, rephase half-step velocities and verify
 bitwise baseline contact output before comparing smaller time steps.
-The first local window has passed; full-event convergence remains open.
+The short onset window passed, but the [extended postrupture window](bem/docs/fem_postrupture_timestep.md)
+failed its time-refinement diagnostic; the completed FEM is not a converged dynamic reference.
+The [selected Galerkin block/fiber provider](bem/docs/galerkin_blocks.md) avoids
+constructing unrequested matrices or pair geometry. Actual fine-grid requested
+entries match independent complete assembly; a complete compression solver
+and end-to-end advantage remain open.
 The [Galerkin implementation and validation](bem/docs/galerkin.md) addresses
 the sampled passivity failures of the original collocation backend.
 

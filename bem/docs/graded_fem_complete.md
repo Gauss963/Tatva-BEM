@@ -52,3 +52,7 @@ FEM 兩次 invocation 的 simulation wall cost 合計 109028.21 s（約 30.29 �
 後續 [checkpoint 局部 dt 控制](fem_timestep_window.md)已通過原步長的 bitwise
 接觸場／scalar identity，並完成 dt/2、dt/4 的 11.5 µs 起始窗。這是 conditional
 局部證據；破裂後大滑移及完整事件的時間收斂仍未證明。
+
+延伸的 [破裂後時間控制](fem_postrupture_timestep.md)已完成且未通過：
+dt/2 對 dt/4 的全場 pressure 時空差 17.68%，大部分 pressure 誤差平方積分
+落在 y=100–460 mm。因此這份已完成 FEM 尚不能視為已收斂動態真值。
