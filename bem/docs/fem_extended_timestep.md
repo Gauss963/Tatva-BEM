@@ -40,7 +40,11 @@ SIGTERM 導致第一個內層 attempt 沒有 end record，保留其原始紀錄�
 
 [逐陣列結果、來源／runtime、chunk hashes 與所有成本](fem_extended_timestep_pilot_results.json)
 保留此短段的原始證據。這是恢復完整性控制，不是 230000-step 破裂後窗口的收斂結果；
-dt/8、dt/16 的較長控制仍由獨立流程等待 exact-source CI 後啟動。
+數值來源 `4e88329` 的 Python 3.11／3.12 CI 已通過，dt/8、dt/16 的較長控制
+於 2026-10-30 11:48 UTC 實際啟動。原 230000-step context manifest 與已完成的
+parent **SHA 完全一致**，不是以短 pilot 或另一個較容易的窗口代替。
+[啟動時的來源、程序及資源檢查](fem_extended_timestep_execution.json)保存這項證據；
+該記錄只證明開始執行，不表示已完成或已收斂。
 
 ## 可恢復的接受狀態
 

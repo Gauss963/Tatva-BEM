@@ -1,0 +1,31 @@
+{
+  "status": "started_full_original_conditional_finer_window_not_completed",
+  "verified_parent_context_sha256": "a633cd360b29a3c7ad3e8ef369be099d7d0da83729387376d5d1f33cd2a38e73",
+  "requested_original_intervals": 230000,
+  "factors": [
+    8,
+    16
+  ],
+  "fine_steps": {
+    "8": 1840000,
+    "16": 3680000
+  },
+  "resource_preflight": {
+    "logical_array_bytes": 2033378150
+  },
+  "ci": {
+    "id": 41048848688,
+    "head_sha": "4e8832956f803075dd824eb753943264816d5b1a",
+    "status": "completed",
+    "conclusion": "success",
+    "html_url": "https://github.com/Gauss963/Tatva-BEM/actions/runs/41048848688"
+  },
+  "source_commit": "4e8832956f803075dd824eb753943264816d5b1a",
+  "owner_pid": 99146,
+  "child_pid": 5250,
+  "child_start": "Fri Oct 30 19:48:19 2026",
+  "controller_pid": 5252,
+  "goal_achieved": false,
+  "full_event_convergence_verified": false,
+  "same_accuracy_fem_advantage_verified": false
+}

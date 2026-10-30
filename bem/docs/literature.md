@@ -5,6 +5,14 @@
 目標是在相同物理模型與可量化誤差下重現 FEM，然後證明穩定性或總時間的優勢。
 目前尚未達成這個目標。
 
+2026-10-30 因破裂後 FEM 時間收斂仍未通過，另補讀**經典背景文獻** Aldam 等人，
+[Frictional sliding without geometrical reflection symmetry，2016 v2](https://arxiv.org/html/1605.05378v2)，
+閱讀 §I、§III 的近似範圍及 §IV.1。幾何非對稱可在相同材料間產生 slip／normal-stress
+coupling，並在其 velocity-strengthening 穩態例子中產生有限波數範圍的物理不穩定。
+這不是本案 finite-block LSW transient 的 ill-posedness 證明，亦不能由它推定目前不收斂的原因。
+本案保留完整 normal／shear coupling，先完成 dt/8、dt/16 控制；
+不以額外阻尼或移除耦合來取得較平滑的曲線，也不把局部殘差或平滑程度當作穩定性優勢。
+
 2026-10-30 再補讀兩篇與穩定性／積分有關的研究：
 
 - Hoonhout、Löscher、Steinbach、Urzúa–Torres，
