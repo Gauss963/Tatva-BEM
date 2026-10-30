@@ -48,3 +48,7 @@ substeps、macro time、空間加密及 initialized gradients 分別稽核。
 FEM 兩次 invocation 的 simulation wall cost 合計 109028.21 s（約 30.29 小時），
 包含開發驗證時暫停與共用機器的等待；不能當作已隔離的同精度速度 baseline。
 目前仍未證明 BEM 在相同精度下更快或更穩定。
+
+後續 [checkpoint 局部 dt 控制](fem_timestep_window.md)已通過原步長的 bitwise
+接觸場／scalar identity，並完成 dt/2、dt/4 的 11.5 µs 起始窗。這是 conditional
+局部證據；破裂後大滑移及完整事件的時間收斂仍未證明。

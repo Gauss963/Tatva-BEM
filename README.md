@@ -158,6 +158,10 @@ small causal/transpose controls; full-event speed remains unverified.
 The [completed graded FEM diagnostics](bem/docs/graded_fem_complete.md) reveal
 strong endpoint sensitivity after rupture, requiring independent dynamic
 refinement before treating that result as a converged reference.
+The [checkpointed FEM time-step controls](bem/docs/fem_timestep_window.md)
+preserve the original step/scan, rephase half-step velocities and verify
+bitwise baseline contact output before comparing smaller time steps.
+The first local window has passed; full-event convergence remains open.
 The [Galerkin implementation and validation](bem/docs/galerkin.md) addresses
 the sampled passivity failures of the original collocation backend.
 

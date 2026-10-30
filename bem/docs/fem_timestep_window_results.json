@@ -1,0 +1,787 @@
+{
+  "status": "passed_conditional_local_window_not_full_event",
+  "control": {
+    "utc_start": "2026-10-30T04:52:23.639239+00:00",
+    "four_core_serial_control": true,
+    "baseline_pause_included_in_baseline_wall_cost": true,
+    "stages": [
+      {
+        "name": "pytest",
+        "exit_code": 0,
+        "seconds": 0.3082349579781294,
+        "command": [
+          "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python",
+          "-B",
+          "-m",
+          "pytest",
+          "-q",
+          "--basetemp",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-window-checks-20261030-v1/pytest-data",
+          "bem/tests/test_fem_timestep_window.py"
+        ]
+      },
+      {
+        "name": "actual-window",
+        "exit_code": 0,
+        "seconds": 234.67793141677976,
+        "command": [
+          "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python",
+          "-B",
+          "bem/tools/fem_timestep_window.py",
+          "bem/outputs/fem-event16-radau-study-graded-h2-end015625-4c-f64-replayed",
+          "bem/outputs/graded-fem-prefix-20261029-0840/checkpoint.npz",
+          "--output",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-window-checks-20261030-v1/window",
+          "--original-steps",
+          "6000"
+        ]
+      }
+    ],
+    "status": "passed_original_identity_and_local_step_refinement",
+    "seconds": 235.01191487535834,
+    "utc_end": "2026-10-30T04:56:18.652063+00:00",
+    "same_bem_resumed": true
+  },
+  "comparison_control": {
+    "seconds": 1.1141225835308433,
+    "stages": [
+      {
+        "name": "pytest-final",
+        "exit_code": 0,
+        "seconds": 0.6776828747242689
+      },
+      {
+        "name": "compare",
+        "exit_code": 0,
+        "seconds": 0.4206407917663455
+      }
+    ],
+    "same_bem_resumed": true,
+    "serial_four_core_budget": true
+  },
+  "window": {
+    "status": "completed_local_fem_timestep_window",
+    "records": [
+      {
+        "factor": 1,
+        "dt_s": 1.9125812604139645e-09,
+        "seconds": 29.029314833693206,
+        "original_contact_bitwise_checks": {
+          "normal_jump": true,
+          "tangential_jump": true,
+          "pressure": true,
+          "elastic_shear": true,
+          "plastic_slip": true,
+          "cumulative_slip": true,
+          "friction_coefficient": true,
+          "friction_strength": true
+        },
+        "maximum_cumulative_slip_mm": 0.0013753777351988871
+      },
+      {
+        "factor": 2,
+        "dt_s": 9.562906302069822e-10,
+        "seconds": 63.932306916452944,
+        "original_contact_bitwise_checks": null,
+        "maximum_cumulative_slip_mm": 0.0013755841710642073
+      },
+      {
+        "factor": 4,
+        "dt_s": 4.781453151034911e-10,
+        "seconds": 119.28945225011557,
+        "original_contact_bitwise_checks": null,
+        "maximum_cumulative_slip_mm": 0.0013761213808406068
+      }
+    ],
+    "shared_original_step_after_checkpoint": 1,
+    "first_shear_step": 14965734,
+    "last_shear_step": 14971734,
+    "physical_shear_interval_s": [
+      0.02862318239674012,
+      0.028634657884302604
+    ],
+    "observed_shared_samples": 2,
+    "all_source_inputs_unchanged": true,
+    "all_scalar_steps_within_window_retained": true,
+    "contact_observation_scope": "Original shared saved endpoints; complete 12-array carry evolved at every substep",
+    "source_dt_before_window_unchanged": true,
+    "full_event_time_convergence_verified": false,
+    "rephasing": "One actual source kick; preserve integer-time velocity, change future half-step clock only",
+    "loading": "Piecewise-linear original physical endpoint schedule; coincident samples preserved bitwise",
+    "total_seconds": 233.78555625025183
+  },
+  "identity": {
+    "contact_bitwise_checks": {
+      "normal_jump": true,
+      "tangential_jump": true,
+      "pressure": true,
+      "elastic_shear": true,
+      "plastic_slip": true,
+      "cumulative_slip": true,
+      "friction_coefficient": true,
+      "friction_strength": true
+    },
+    "original_scalar_columns_1_to_16_bitwise": true,
+    "contact_maximum_absolute_errors": {
+      "normal_jump": 0.0,
+      "tangential_jump": 0.0,
+      "pressure": 0.0,
+      "elastic_shear": 0.0,
+      "plastic_slip": 0.0,
+      "cumulative_slip": 0.0,
+      "friction_coefficient": 0.0,
+      "friction_strength": 0.0
+    }
+  },
+  "comparison": {
+    "status": "completed_conditional_local_fem_timestep_comparison",
+    "contact_field_errors_against_dt_over_4": {
+      "1": {
+        "pressure": {
+          "relative_space_time_p1_l2": 1.4689024889021948e-05,
+          "absolute_space_time_p1_l2": 1.8647244785820038e-05,
+          "reference_squared_space_time_integral": 1.611548612047404,
+          "error_squared_space_time_integral": 3.477197381022926e-10,
+          "maximum_saved_interpolant_absolute_difference": 0.028751078588328483,
+          "final_shared_time_relative_p1_l2": 2.3031381733524355e-05,
+          "common_time_interval_s": [
+            0.028628181884154846,
+            0.028633183284150827
+          ],
+          "reference_saved_interval_s": [
+            0.028628181884154846,
+            0.028633183284150827
+          ],
+          "actual_saved_interval_s": [
+            0.028628181884154846,
+            0.028633183284150827
+          ],
+          "temporal_union_knots": 2,
+          "spatial_union_knots": 285,
+          "all_saved_knots_in_overlap_retained": true,
+          "fitted_time_shift_s": 0.0,
+          "extrapolation_used": false,
+          "scope": "Exact norms of saved P1 interpolants on the common interval; no unsaved-step error bound"
+        },
+        "elastic_shear": {
+          "relative_space_time_p1_l2": 5.1412337683769736e-05,
+          "absolute_space_time_p1_l2": 3.6757244765856665e-05,
+          "reference_squared_space_time_integral": 0.5111533339248193,
+          "error_squared_space_time_integral": 1.3510950427770974e-09,
+          "maximum_saved_interpolant_absolute_difference": 0.014031044669948756,
+          "final_shared_time_relative_p1_l2": 9.053455979693043e-05,
+          "common_time_interval_s": [
+            0.028628181884154846,
+            0.028633183284150827
+          ],
+          "reference_saved_interval_s": [
+            0.028628181884154846,
+            0.028633183284150827
+          ],
+          "actual_saved_interval_s": [
+            0.028628181884154846,
+            0.028633183284150827
+          ],
+          "temporal_union_knots": 2,
+          "spatial_union_knots": 285,
+          "all_saved_knots_in_overlap_retained": true,
+          "fitted_time_shift_s": 0.0,
+          "extrapolation_used": false,
+          "scope": "Exact norms of saved P1 interpolants on the common interval; no unsaved-step error bound"
+        },
+        "plastic_slip": {
+          "relative_space_time_p1_l2": 6.5627314240688715e-09,
+          "absolute_space_time_p1_l2": 2.778513612965615e-09,
+          "reference_squared_space_time_integral": 0.17924860936770481,
+          "error_squared_space_time_integral": 7.720137897435235e-18,
+          "maximum_saved_interpolant_absolute_difference": 6.096467828342611e-07,
+          "final_shared_time_relative_p1_l2": 1.1251901937446237e-08,
+          "common_time_interval_s": [
+            0.028628181884154846,
+            0.028633183284150827
+          ],
+          "reference_saved_interval_s": [
+            0.028628181884154846,
+            0.028633183284150827
+          ],
+          "actual_saved_interval_s": [
+            0.028628181884154846,
+            0.028633183284150827
+          ],
+          "temporal_union_knots": 2,
+          "spatial_union_knots": 285,
+          "all_saved_knots_in_overlap_retained": true,
+          "fitted_time_shift_s": 0.0,
+          "extrapolation_used": false,
+          "scope": "Exact norms of saved P1 interpolants on the common interval; no unsaved-step error bound"
+        },
+        "cumulative_slip": {
+          "relative_space_time_p1_l2": 0.00030905406423817984,
+          "absolute_space_time_p1_l2": 2.7785137255006297e-09,
+          "reference_squared_space_time_integral": 8.082694694132714e-11,
+          "error_squared_space_time_integral": 7.720138522795388e-18,
+          "maximum_saved_interpolant_absolute_difference": 6.096467892951303e-07,
+          "final_shared_time_relative_p1_l2": 0.0004345790683706175,
+          "common_time_interval_s": [
+            0.028628181884154846,
+            0.028633183284150827
+          ],
+          "reference_saved_interval_s": [
+            0.028628181884154846,
+            0.028633183284150827
+          ],
+          "actual_saved_interval_s": [
+            0.028628181884154846,
+            0.028633183284150827
+          ],
+          "temporal_union_knots": 2,
+          "spatial_union_knots": 285,
+          "all_saved_knots_in_overlap_retained": true,
+          "fitted_time_shift_s": 0.0,
+          "extrapolation_used": false,
+          "scope": "Exact norms of saved P1 interpolants on the common interval; no unsaved-step error bound"
+        },
+        "friction_coefficient": {
+          "relative_space_time_p1_l2": 1.2406947454837805e-06,
+          "absolute_space_time_p1_l2": 4.8589916874580934e-08,
+          "reference_squared_space_time_integral": 0.0015337777252873018,
+          "error_squared_space_time_integral": 2.3609800218786852e-15,
+          "maximum_saved_interpolant_absolute_difference": 1.1267366602063511e-05,
+          "final_shared_time_relative_p1_l2": 1.6568079554345746e-06,
+          "common_time_interval_s": [
+            0.028628181884154846,
+            0.028633183284150827
+          ],
+          "reference_saved_interval_s": [
+            0.028628181884154846,
+            0.028633183284150827
+          ],
+          "actual_saved_interval_s": [
+            0.028628181884154846,
+            0.028633183284150827
+          ],
+          "temporal_union_knots": 2,
+          "spatial_union_knots": 285,
+          "all_saved_knots_in_overlap_retained": true,
+          "fitted_time_shift_s": 0.0,
+          "extrapolation_used": false,
+          "scope": "Exact norms of saved P1 interpolants on the common interval; no unsaved-step error bound"
+        },
+        "friction_strength": {
+          "relative_space_time_p1_l2": 1.4561530228540162e-05,
+          "absolute_space_time_p1_l2": 1.4785301303247602e-05,
+          "reference_squared_space_time_integral": 1.030970708058894,
+          "error_squared_space_time_integral": 2.1860513462781523e-10,
+          "maximum_saved_interpolant_absolute_difference": 0.023000862870645733,
+          "final_shared_time_relative_p1_l2": 2.283877350568747e-05,
+          "common_time_interval_s": [
+            0.028628181884154846,
+            0.028633183284150827
+          ],
+          "reference_saved_interval_s": [
+            0.028628181884154846,
+            0.028633183284150827
+          ],
+          "actual_saved_interval_s": [
+            0.028628181884154846,
+            0.028633183284150827
+          ],
+          "temporal_union_knots": 2,
+          "spatial_union_knots": 285,
+          "all_saved_knots_in_overlap_retained": true,
+          "fitted_time_shift_s": 0.0,
+          "extrapolation_used": false,
+          "scope": "Exact norms of saved P1 interpolants on the common interval; no unsaved-step error bound"
+        }
+      },
+      "2": {
+        "pressure": {
+          "relative_space_time_p1_l2": 6.619651714043171e-06,
+          "absolute_space_time_p1_l2": 8.403435002747498e-06,
+          "reference_squared_space_time_integral": 1.611548612047404,
+          "error_squared_space_time_integral": 7.061771984540183e-11,
+          "maximum_saved_interpolant_absolute_difference": 0.005665259176765858,
+          "final_shared_time_relative_p1_l2": 1.0582381795613592e-05,
+          "common_time_interval_s": [
+            0.028628181884154846,
+            0.028633183284150827
+          ],
+          "reference_saved_interval_s": [
+            0.028628181884154846,
+            0.028633183284150827
+          ],
+          "actual_saved_interval_s": [
+            0.028628181884154846,
+            0.028633183284150827
+          ],
+          "temporal_union_knots": 2,
+          "spatial_union_knots": 285,
+          "all_saved_knots_in_overlap_retained": true,
+          "fitted_time_shift_s": 0.0,
+          "extrapolation_used": false,
+          "scope": "Exact norms of saved P1 interpolants on the common interval; no unsaved-step error bound"
+        },
+        "elastic_shear": {
+          "relative_space_time_p1_l2": 1.7730675521938295e-05,
+          "absolute_space_time_p1_l2": 1.267654437408733e-05,
+          "reference_squared_space_time_integral": 0.5111533339248193,
+          "error_squared_space_time_integral": 1.6069477726820517e-10,
+          "maximum_saved_interpolant_absolute_difference": 0.0017010648444326648,
+          "final_shared_time_relative_p1_l2": 2.816862986419141e-05,
+          "common_time_interval_s": [
+            0.028628181884154846,
+            0.028633183284150827
+          ],
+          "reference_saved_interval_s": [
+            0.028628181884154846,
+            0.028633183284150827
+          ],
+          "actual_saved_interval_s": [
+            0.028628181884154846,
+            0.028633183284150827
+          ],
+          "temporal_union_knots": 2,
+          "spatial_union_knots": 285,
+          "all_saved_knots_in_overlap_retained": true,
+          "fitted_time_shift_s": 0.0,
+          "extrapolation_used": false,
+          "scope": "Exact norms of saved P1 interpolants on the common interval; no unsaved-step error bound"
+        },
+        "plastic_slip": {
+          "relative_space_time_p1_l2": 2.6620024689223083e-09,
+          "absolute_space_time_p1_l2": 1.127032270515035e-09,
+          "reference_squared_space_time_integral": 0.17924860936770481,
+          "error_squared_space_time_integral": 1.2702017387822753e-18,
+          "maximum_saved_interpolant_absolute_difference": 1.6631254062815515e-07,
+          "final_shared_time_relative_p1_l2": 3.002458650222089e-09,
+          "common_time_interval_s": [
+            0.028628181884154846,
+            0.028633183284150827
+          ],
+          "reference_saved_interval_s": [
+            0.028628181884154846,
+            0.028633183284150827
+          ],
+          "actual_saved_interval_s": [
+            0.028628181884154846,
+            0.028633183284150827
+          ],
+          "temporal_union_knots": 2,
+          "spatial_union_knots": 285,
+          "all_saved_knots_in_overlap_retained": true,
+          "fitted_time_shift_s": 0.0,
+          "extrapolation_used": false,
+          "scope": "Exact norms of saved P1 interpolants on the common interval; no unsaved-step error bound"
+        },
+        "cumulative_slip": {
+          "relative_space_time_p1_l2": 0.00012535980756272447,
+          "absolute_space_time_p1_l2": 1.1270324070894961e-09,
+          "reference_squared_space_time_integral": 8.082694694132714e-11,
+          "error_squared_space_time_integral": 1.2702020466299438e-18,
+          "maximum_saved_interpolant_absolute_difference": 1.663125350800995e-07,
+          "final_shared_time_relative_p1_l2": 0.00011596314663480203,
+          "common_time_interval_s": [
+            0.028628181884154846,
+            0.028633183284150827
+          ],
+          "reference_saved_interval_s": [
+            0.028628181884154846,
+            0.028633183284150827
+          ],
+          "actual_saved_interval_s": [
+            0.028628181884154846,
+            0.028633183284150827
+          ],
+          "temporal_union_knots": 2,
+          "spatial_union_knots": 285,
+          "all_saved_knots_in_overlap_retained": true,
+          "fitted_time_shift_s": 0.0,
+          "extrapolation_used": false,
+          "scope": "Exact norms of saved P1 interpolants on the common interval; no unsaved-step error bound"
+        },
+        "friction_coefficient": {
+          "relative_space_time_p1_l2": 5.872795270371875e-07,
+          "absolute_space_time_p1_l2": 2.2999906709327797e-08,
+          "reference_squared_space_time_integral": 0.0015337777252873018,
+          "error_squared_space_time_integral": 5.289957086377819e-16,
+          "maximum_saved_interpolant_absolute_difference": 3.046581411814131e-06,
+          "final_shared_time_relative_p1_l2": 6.124528424235895e-07,
+          "common_time_interval_s": [
+            0.028628181884154846,
+            0.028633183284150827
+          ],
+          "reference_saved_interval_s": [
+            0.028628181884154846,
+            0.028633183284150827
+          ],
+          "actual_saved_interval_s": [
+            0.028628181884154846,
+            0.028633183284150827
+          ],
+          "temporal_union_knots": 2,
+          "spatial_union_knots": 285,
+          "all_saved_knots_in_overlap_retained": true,
+          "fitted_time_shift_s": 0.0,
+          "extrapolation_used": false,
+          "scope": "Exact norms of saved P1 interpolants on the common interval; no unsaved-step error bound"
+        },
+        "friction_strength": {
+          "relative_space_time_p1_l2": 6.595853423315187e-06,
+          "absolute_space_time_p1_l2": 6.697213732704591e-06,
+          "reference_squared_space_time_integral": 1.030970708058894,
+          "error_squared_space_time_integral": 4.485267178152696e-11,
+          "maximum_saved_interpolant_absolute_difference": 0.004532207341412686,
+          "final_shared_time_relative_p1_l2": 1.0535239688445881e-05,
+          "common_time_interval_s": [
+            0.028628181884154846,
+            0.028633183284150827
+          ],
+          "reference_saved_interval_s": [
+            0.028628181884154846,
+            0.028633183284150827
+          ],
+          "actual_saved_interval_s": [
+            0.028628181884154846,
+            0.028633183284150827
+          ],
+          "temporal_union_knots": 2,
+          "spatial_union_knots": 285,
+          "all_saved_knots_in_overlap_retained": true,
+          "fitted_time_shift_s": 0.0,
+          "extrapolation_used": false,
+          "scope": "Exact norms of saved P1 interpolants on the common interval; no unsaved-step error bound"
+        }
+      }
+    },
+    "scalar_errors_against_dt_over_4": {
+      "1": {
+        "max_cumulative_slip": {
+          "absolute_signal": {
+            "absolute_time_p1_l2": 1.682358138008466e-09,
+            "relative_time_p1_l2": 0.00052680727858457,
+            "maximum_saved_interpolant_absolute_difference": 1.4130925239509793e-06,
+            "reference_squared_time_integral": 1.0198431263843577e-11
+          },
+          "increment_from_first_shared_time": {
+            "absolute_time_p1_l2": 1.6819328297051312e-09,
+            "relative_time_p1_l2": 0.0014375288509531998,
+            "maximum_saved_interpolant_absolute_difference": 1.4126874568068729e-06,
+            "reference_squared_time_integral": 1.3689391879254909e-12
+          },
+          "common_time_interval_s": [
+            0.02862318430932138,
+            0.028634657884302604
+          ],
+          "temporal_union_knots": 23997,
+          "fitted_time_shift_s": 0.0,
+          "initial_absolute_difference": -4.0506714410644407e-10,
+          "scope": "Saved P1 signals only; incremental diagnostic does not replace absolute agreement"
+        },
+        "mean_pressure": {
+          "absolute_signal": {
+            "absolute_time_p1_l2": 1.8946746009361546e-08,
+            "relative_time_p1_l2": 3.3562573882516313e-07,
+            "maximum_saved_interpolant_absolute_difference": 1.085569165582001e-05,
+            "reference_squared_time_integral": 0.0031868289099221897
+          },
+          "increment_from_first_shared_time": {
+            "absolute_time_p1_l2": 1.894638488623184e-08,
+            "relative_time_p1_l2": 0.08672264158233091,
+            "maximum_saved_interpolant_absolute_difference": 1.0843642275659704e-05,
+            "reference_squared_time_integral": 4.772959122848405e-14
+          },
+          "common_time_interval_s": [
+            0.02862318430932138,
+            0.028634657884302604
+          ],
+          "temporal_union_knots": 23997,
+          "fitted_time_shift_s": 0.0,
+          "initial_absolute_difference": 1.20493801603061e-08,
+          "scope": "Saved P1 signals only; incremental diagnostic does not replace absolute agreement"
+        },
+        "mean_signed_shear": {
+          "absolute_signal": {
+            "absolute_time_p1_l2": 1.556348928038849e-07,
+            "relative_time_p1_l2": 4.220779683918371e-06,
+            "maximum_saved_interpolant_absolute_difference": 0.00010262696794072212,
+            "reference_squared_time_integral": 0.0013596545327487586
+          },
+          "increment_from_first_shared_time": {
+            "absolute_time_p1_l2": 1.5561248897450662e-07,
+            "relative_time_p1_l2": 0.022309710095859702,
+            "maximum_saved_interpolant_absolute_difference": 0.00010251262038352138,
+            "reference_squared_time_integral": 4.86520388219913e-11
+          },
+          "common_time_interval_s": [
+            0.02862318430932138,
+            0.028634657884302604
+          ],
+          "temporal_union_knots": 23997,
+          "fitted_time_shift_s": 0.0,
+          "initial_absolute_difference": 1.1434755720074463e-07,
+          "scope": "Saved P1 signals only; incremental diagnostic does not replace absolute agreement"
+        },
+        "kinetic_energy": {
+          "absolute_signal": {
+            "absolute_time_p1_l2": 1.3108255148996277e-09,
+            "relative_time_p1_l2": 1.7798835312915084e-05,
+            "maximum_saved_interpolant_absolute_difference": 1.7553123620138444e-06,
+            "reference_squared_time_integral": 5.423836671304873e-09
+          },
+          "increment_from_first_shared_time": {
+            "absolute_time_p1_l2": 1.4717980570304595e-09,
+            "relative_time_p1_l2": 0.00044186003723423775,
+            "maximum_saved_interpolant_absolute_difference": 1.8735712373277313e-06,
+            "reference_squared_time_integral": 1.1094992190851864e-11
+          },
+          "common_time_interval_s": [
+            0.02862318430932138,
+            0.028634657884302604
+          ],
+          "temporal_union_knots": 23997,
+          "fitted_time_shift_s": 0.0,
+          "initial_absolute_difference": 1.182588753138869e-07,
+          "scope": "Saved P1 signals only; incremental diagnostic does not replace absolute agreement"
+        }
+      },
+      "2": {
+        "max_cumulative_slip": {
+          "absolute_signal": {
+            "absolute_time_p1_l2": 5.318871805670931e-10,
+            "relative_time_p1_l2": 0.00016654991412784852,
+            "maximum_saved_interpolant_absolute_difference": 5.550041614242e-07,
+            "reference_squared_time_integral": 1.0198826885055017e-11
+          },
+          "increment_from_first_shared_time": {
+            "absolute_time_p1_l2": 5.314420529497114e-10,
+            "relative_time_p1_l2": 0.00045421747541424864,
+            "maximum_saved_interpolant_absolute_difference": 5.546123548402782e-07,
+            "reference_squared_time_integral": 1.368939187925491e-12
+          },
+          "common_time_interval_s": [
+            0.02862318335303075,
+            0.028634657884302604
+          ],
+          "temporal_union_knots": 23999,
+          "fitted_time_shift_s": 0.0,
+          "initial_absolute_difference": -3.9180658392180823e-10,
+          "scope": "Saved P1 signals only; incremental diagnostic does not replace absolute agreement"
+        },
+        "mean_pressure": {
+          "absolute_signal": {
+            "absolute_time_p1_l2": 5.66253196286603e-09,
+            "relative_time_p1_l2": 1.0030283178470725e-07,
+            "maximum_saved_interpolant_absolute_difference": 4.333051144556066e-06,
+            "reference_squared_time_integral": 0.0031870945246728066
+          },
+          "increment_from_first_shared_time": {
+            "absolute_time_p1_l2": 5.662493098915937e-09,
+            "relative_time_p1_l2": 0.026098192501115162,
+            "maximum_saved_interpolant_absolute_difference": 4.331847296867863e-06,
+            "reference_squared_time_integral": 4.7075453352665586e-14
+          },
+          "common_time_interval_s": [
+            0.02862318335303075,
+            0.028634657884302604
+          ],
+          "temporal_union_knots": 23999,
+          "fitted_time_shift_s": 0.0,
+          "initial_absolute_difference": 1.2038476882025861e-09,
+          "scope": "Saved P1 signals only; incremental diagnostic does not replace absolute agreement"
+        },
+        "mean_signed_shear": {
+          "absolute_signal": {
+            "absolute_time_p1_l2": 4.827032797117731e-08,
+            "relative_time_p1_l2": 1.3090247541530113e-06,
+            "maximum_saved_interpolant_absolute_difference": 4.248094298375804e-05,
+            "reference_squared_time_integral": 0.0013597678877019601
+          },
+          "increment_from_first_shared_time": {
+            "absolute_time_p1_l2": 4.8255147629917526e-08,
+            "relative_time_p1_l2": 0.006924204268890466,
+            "maximum_saved_interpolant_absolute_difference": 4.2407615250539266e-05,
+            "reference_squared_time_integral": 4.8567701925409516e-11
+          },
+          "common_time_interval_s": [
+            0.02862318335303075,
+            0.028634657884302604
+          ],
+          "temporal_union_knots": 23999,
+          "fitted_time_shift_s": 0.0,
+          "initial_absolute_difference": 7.332773321877539e-08,
+          "scope": "Saved P1 signals only; incremental diagnostic does not replace absolute agreement"
+        },
+        "kinetic_energy": {
+          "absolute_signal": {
+            "absolute_time_p1_l2": 1.0034205995344003e-09,
+            "relative_time_p1_l2": 1.3624261634252902e-05,
+            "maximum_saved_interpolant_absolute_difference": 1.1293640562841378e-06,
+            "reference_squared_time_integral": 5.424254713366724e-09
+          },
+          "increment_from_first_shared_time": {
+            "absolute_time_p1_l2": 1.0284119394245258e-09,
+            "relative_time_p1_l2": 0.0003087077828125026,
+            "maximum_saved_interpolant_absolute_difference": 1.1678387596657236e-06,
+            "reference_squared_time_integral": 1.1097855423261465e-11
+          },
+          "common_time_interval_s": [
+            0.02862318335303075,
+            0.028634657884302604
+          ],
+          "temporal_union_knots": 23999,
+          "fitted_time_shift_s": 0.0,
+          "initial_absolute_difference": 3.847470338158576e-08,
+          "scope": "Saved P1 signals only; incremental diagnostic does not replace absolute agreement"
+        }
+      }
+    },
+    "global_max_cumulative_first_passage_brackets": {
+      "1": {
+        "Dc10": {
+          "state": "bounded",
+          "lower_s": 0.028633678642697273,
+          "upper_s": 0.028633680555278533
+        },
+        "Dc": {
+          "state": "unreached",
+          "lower_s": 0.028634657884302604,
+          "upper_s": null
+        }
+      },
+      "2": {
+        "Dc10": {
+          "state": "bounded",
+          "lower_s": 0.028633675773825383,
+          "upper_s": 0.028633676730116013
+        },
+        "Dc": {
+          "state": "unreached",
+          "lower_s": 0.028634657884302604,
+          "upper_s": null
+        }
+      },
+      "4": {
+        "Dc10": {
+          "state": "bounded",
+          "lower_s": 0.028633671470517544,
+          "upper_s": 0.02863367194866286
+        },
+        "Dc": {
+          "state": "unreached",
+          "lower_s": 0.028634657884302604,
+          "upper_s": null
+        }
+      }
+    },
+    "physical_shear_interval_s": [
+      0.02862318239674012,
+      0.028634657884302604
+    ],
+    "contact_observation_interval_s": [
+      0.028628181884154846,
+      0.028633183284150827
+    ],
+    "contact_observation_rows": 2,
+    "frozen_inputs_sha256": {
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compare_fem_timestep_window.py": "9f10f6639ba6f722658824b33847deff633b64dad692f947849fbaaaf7046863",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/event_observables.py": "276c288f6ae56044f62d5b9c2d876550beda2b20df2677259ed414b5573b637e",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compare_float64_contact_history.py": "3d7621c3dc3f1ea677189c3ab11f41f612896fadc835718e3dd8044888b24547",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compare_refined_fem_history.py": "0779900b9556045208297bfc4cddca883a03fbb31bcb0aea24dabbd0d30a0540",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-window-checks-20261030-v1/window/manifest.json": "80a6912cee19ae1035591d9c67ecd15aa2ddfc942f1aba7b50c6573531708990",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-window-checks-20261030-v1/window/summary.json": "888df1b3a9445d656beed442bb56d099b75c5f146dff1cfd67a01dcf8e09364f",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-window-checks-20261030-v1/window/factor1.npz": "1a5f1868b6e429495f2b6a10961479dc89962412d4594c7c64051ecf23f504a4",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-window-checks-20261030-v1/window/factor2.npz": "93e2beb90212ad4a01f7e69a4711aa719c838b4d24226c1d3b8707d3197dcc75",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-window-checks-20261030-v1/window/factor4.npz": "8d624a23b2cbebbbd129aa8483d74c434897854a68c8b6b7dc557448868cffc7"
+    },
+    "local_finer_field_one_percent_diagnostic": true,
+    "full_event_or_spatial_convergence_verified": false,
+    "scope": "Same original accepted starting state; no fitted time shift, endpoint clipping, or extrapolation; saved contact P1 interpolants and every fine scalar step"
+  },
+  "manifest": {
+    "status": "prepared_local_window_not_full_event",
+    "frozen_inputs_sha256": {
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/fem_timestep_window.py": "1f625c120c31c084677188088906adefa2d3994d9b249e1df4ebc641b7b67caa",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/run_checkpointed_fem_reference.py": "461943de4cc488435cd5d6bf19afc2a4d4a0526e058f3e85f73241f711f8fa78",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/fem_contact_observations.py": "ca8727304aec9c38ea72f8f49e8dbeff0d90515ad907056bfc81d3b3baf80a7f",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/chamfer_mesh_refinement.py": "ba8e3220254d0ce5f3222d844b83951b65aa7c1a6a6711bd41d943cceaad57fb",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/fem_static_onset.py": "47308fb6a7dbe317cf3bf5267086259c65323dc97a247a01f265a45924a3d9dc",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/run_fem_reference.py": "def3dde0547b5885c24841754be6c531289279e9e30510e33b34b4f52e30a34d",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-radau-study-graded-h2-end015625-4c-f64-replayed/summary.json": "e47c95b2d26e9ea5c5f67ce48bc06534577c461cbdf44a691d919f8e739c93e4",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-radau-study-graded-h2-end015625-4c-f64-replayed/reference_manifest.json": "94f8129fa5a3627fc00780570558af0ab4290c2b99295ad20b4e275f30cf2f35",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-radau-study-graded-h2-end015625-4c-f64-replayed/resolved_run_config.json": "c0b63b3aba0fdd32499459428eb51c653ed0563e8fdd66fe794c0880e8ec6488",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/graded-fem-prefix-20261029-0840/checkpoint.npz": "0bf1be5b62471e19e57a061c79e573a94dc2834913d0fcb2c775ad32386c8e28",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/__init__.py": "2fffd71dc81f5b2e8ca217dde5da7ab0ac25337abe18aa96b7ddd765a680e0a4",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/compound/__init__.py": "9243964f6fdbda4ae4d44c0d217904d5ae979e188dc54b84a8c0076d66ae1ef6",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/compound/field.py": "d8c231066b74172e806df24f52f6e5328b334a45132557409611e332237deada",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/compound/field_types.py": "3733beed1625f9386963da0af3426e11b116ffb372b81b23f1db0e27b2ed257e",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/compound/mpi.py": "8aa7281ab7ab4c1d5c797d23a2c45d11a225f4599e32705ff278d299ac6f14f0",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/element/__init__.py": "71dd895712cb676f5381fa8138826019cbc062e99401ca9e65076958781dae2a",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/element/base.py": "0e71562ffff69c4ae390aa7878341aa0f903c8654d4f0c163909b93527d4ba00",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/friction.py": "8c2f8ce916d6c2ef3fe95bdcbb429adb2ff328aa59f27f786b349cb6aa2f85c0",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/lifter/__init__.py": "408865557392f003ba39ddb0b00efc93f0f16c6e36544faf27f70f74acd58b99",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/lifter/base.py": "fdbb893c4c32a25aed516187ccb6f58acde8f6a3d78e6cbde0a9f6607a9a00bb",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/lifter/common.py": "36ff7a073320cf7558416a5a09a8f7d4a1ce5cb0c73e84629c3ae1e13a364805",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/lifter/constraints.py": "d376418c4715d0430f37ff94bfc4b11296b1de792400c36361ba18065f21b817",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/linalg.py": "13d8e7171b8de978d1ed8ec4f34f47d6e1ce10d9e1f9f55c67d08618dfcc1973",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/mesh.py": "265dd27ce32b9ba353bb01e70187b2b5ec18b4ac0de65c8b4c4d9a4e6e516534",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/mpi.py": "08a6aef3c249974536b5eba675b7149889e457083178cd642fca80e1f1c8a931",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/operator.py": "d56b0cf61f1a2cbccfd0a09c6a4821169b844ded40718f1b238da192ad572a6c",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/pmma/__init__.py": "19fe57da13f4bacae5c99d759b92c64cb0ad95fdd911b0cfbcf493f4988f465a",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/pmma/config.py": "86c6f2fca433947b22cc0fa2813f7d6566a930d1623bb3bf4a0e8fdd164d38f3",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/pmma/dynamics.py": "5f549e3cbd017030cac3db1cbc957ab1998583f868134fe8b69a718c32c13309",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/pmma/estimate.py": "99b18e8b50e8459cbfc30f965cb3921a5016f44d58752853e448a471fa48c1f8",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/pmma/integration_probes.py": "8b42aafc00e09e0de07b5e7fd8608fbeed1f1e8433a714e2ac7d361e24a822e6",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/pmma/lsw.py": "e735304f34f106271e511cf4d19cff94387e14644634fbafeddbc604408d7300",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/pmma/model.py": "41a1e6479f7c0cd94c577218004b3b6912dae31d279e2b556cfed46fd83f2235",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/pmma/mpi.py": "8f59a0abd69f727da7d205ed3572d3fc8c0fa1a8791bdba8350f36713ff025d1",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/pmma/plotting.py": "456b26d923394570547f9697946e6c5c0e98f9ecb5001e3be860e50564261cff",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/pmma/profiles.py": "10c6aae379838788d1ea388d8a9abbce3971a2ec93463279d02b44ebd6aef3dd",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/pmma/runner.py": "df9a30693f548f5de05b12a22c00d4c2eefbb709b08233f2af9ff8938b1de2dc",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/pmma/static_normal.py": "11c9c37658b467cc44957d42928752dcd9eba6f5a8cc2156a6ae12601a9af698",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/py.typed": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/sparse/__init__.py": "9a43abf718dd3feef73ba3ebb0032efbfd589d3f31fa3fe90475b6460b6c65b0",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/sparse/_coloring.py": "1254944587f061fd39ad1fd8c1f572c0599e17c183da71eb9af5a5455158788e",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/sparse/_extraction.py": "9602afa5ae1d8daf4ec71259566120ee8b6698a7980463bbe23954d7bb0a0787",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/sparse/base.py": "3c151fe3a8fc76bc3d26114c8655eea716bd8da2ede784fc6f65a73a42ee47bd",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/sparse/tracer.py": "86b9526a1121a1ac9b6b60d976a775ce5994ab968d4cdf5faf8ba3c4436f784c",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/utils.py": "f1139c4edf1066d54fe1924c79f2c896c3060ba9f644ab75a8cfe99b41e532aa",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-radau-study-graded-h2-end015625-4c-f64-replayed/projected_restart.h5": "46ea1bfbf3a3b00d455d3ab54b0b729a82014f7d0baf8b6c3b146c4097616937"
+    },
+    "fem_hdf_sha256": "a38f08a4ee8a3066d45cf79cea5da56dd3508fe591b9ab7affa988601ec5a48c",
+    "checkpoint_metadata": {
+      "carry_count": 12,
+      "dt": 1.9125812604139645e-09,
+      "frame_count": 46,
+      "interface_frame_count": 5730,
+      "phase_id": 2,
+      "pressure_steps": 1045708,
+      "saved_utc": 1793263147.866365,
+      "shear_steps": 23528413,
+      "step_id": 14965733,
+      "total_frames": 69,
+      "total_interface_frames": 9005,
+      "version": 1
+    },
+    "original_steps": 6000,
+    "factors": [
+      1,
+      2,
+      4
+    ],
+    "scope": "Conditional on a shared original checkpoint; no spatial refinement or full-event time bound"
+  },
+  "source_sha256": {
+    "bem/tools/fem_timestep_window.py": "1f625c120c31c084677188088906adefa2d3994d9b249e1df4ebc641b7b67caa",
+    "bem/tools/compare_fem_timestep_window.py": "9f10f6639ba6f722658824b33847deff633b64dad692f947849fbaaaf7046863",
+    "bem/tests/test_fem_timestep_window.py": "cab26532932ee19f76058ca9ad01e18d69b5e00926dc80a194d9a3dd8891ff36"
+  },
+  "runtime_versions": {
+    "jax": "0.9.2",
+    "numpy": "2.4.4",
+    "scipy": "1.17.1"
+  },
+  "platform": "macOS-15.7.9-arm64-arm-64bit",
+  "local_tests": 8,
+  "full_original_event_reproduced": false,
+  "same_accuracy_fem_advantage_verified": false
+}
