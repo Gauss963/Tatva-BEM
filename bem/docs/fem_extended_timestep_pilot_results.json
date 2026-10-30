@@ -1,0 +1,679 @@
+{
+  "status": "real_fine_fem_interrupted_resume_bitwise_control_passed",
+  "source_commit": "4e8832956f803075dd824eb753943264816d5b1a",
+  "pilot": {
+    "status": "real_fine_fem_interrupted_resume_bitwise_control_passed",
+    "bitwise_arrays": {
+      "time": true,
+      "step_id": true,
+      "contact_y": true,
+      "scalar_history": true,
+      "all_scalar_history": true,
+      "normal_jump": true,
+      "tangential_jump": true,
+      "pressure": true,
+      "elastic_shear": true,
+      "plastic_slip": true,
+      "cumulative_slip": true,
+      "friction_coefficient": true,
+      "friction_strength": true,
+      "final_carry_0": true,
+      "final_carry_1": true,
+      "final_carry_2": true,
+      "final_carry_3": true,
+      "final_carry_4": true,
+      "final_carry_5": true,
+      "final_carry_6": true,
+      "final_carry_7": true,
+      "final_carry_8": true,
+      "final_carry_9": true,
+      "final_carry_10": true,
+      "final_carry_11": true
+    },
+    "retained_prefix_sha256": "b81e2b832a10ef55f3b7729796596ec0a091092179b50325f1ac7b4382e507f3",
+    "all_fine_scalar_steps": 48000,
+    "full_event_convergence_verified": false,
+    "stages": [
+      {
+        "name": "interrupted-prefix",
+        "seconds": 239.5129138333723,
+        "exit_code": -15,
+        "deliberate_postcommit_interruption": true,
+        "command": [
+          "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python",
+          "-B",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/extend_fem_timestep_window.py",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-window-postrupture-study-20261030/window",
+          "--original-steps",
+          "6000",
+          "--factors",
+          "8",
+          "--output",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-extension-pilot-checks-20261030-v1/resumed"
+        ]
+      },
+      {
+        "name": "resume-pilot",
+        "seconds": 263.54913783445954,
+        "exit_code": 0,
+        "deliberate_postcommit_interruption": false,
+        "command": [
+          "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python",
+          "-B",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/extend_fem_timestep_window.py",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-window-postrupture-study-20261030/window",
+          "--original-steps",
+          "6000",
+          "--factors",
+          "8",
+          "--output",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-extension-pilot-checks-20261030-v1/resumed",
+          "--resume"
+        ]
+      },
+      {
+        "name": "independent-uninterrupted",
+        "seconds": 354.02501466684043,
+        "exit_code": 0,
+        "deliberate_postcommit_interruption": false,
+        "command": [
+          "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python",
+          "-B",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/extend_fem_timestep_window.py",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-window-postrupture-study-20261030/window",
+          "--original-steps",
+          "6000",
+          "--factors",
+          "8",
+          "--output",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-extension-pilot-checks-20261030-v1/uninterrupted"
+        ]
+      }
+    ]
+  },
+  "release": {
+    "same_bem_resumed": true,
+    "resumed_pids": [
+      97341,
+      97343
+    ],
+    "stages": [
+      {
+        "name": "interrupted-prefix",
+        "seconds": 239.5129138333723,
+        "exit_code": -15,
+        "deliberate_postcommit_interruption": true,
+        "command": [
+          "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python",
+          "-B",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/extend_fem_timestep_window.py",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-window-postrupture-study-20261030/window",
+          "--original-steps",
+          "6000",
+          "--factors",
+          "8",
+          "--output",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-extension-pilot-checks-20261030-v1/resumed"
+        ]
+      },
+      {
+        "name": "resume-pilot",
+        "seconds": 263.54913783445954,
+        "exit_code": 0,
+        "deliberate_postcommit_interruption": false,
+        "command": [
+          "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python",
+          "-B",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/extend_fem_timestep_window.py",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-window-postrupture-study-20261030/window",
+          "--original-steps",
+          "6000",
+          "--factors",
+          "8",
+          "--output",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-extension-pilot-checks-20261030-v1/resumed",
+          "--resume"
+        ]
+      },
+      {
+        "name": "independent-uninterrupted",
+        "seconds": 354.02501466684043,
+        "exit_code": 0,
+        "deliberate_postcommit_interruption": false,
+        "command": [
+          "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python",
+          "-B",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/extend_fem_timestep_window.py",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-window-postrupture-study-20261030/window",
+          "--original-steps",
+          "6000",
+          "--factors",
+          "8",
+          "--output",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-extension-pilot-checks-20261030-v1/uninterrupted"
+        ]
+      }
+    ],
+    "seconds": 857.2658240422606,
+    "baseline_pause_included_in_baseline_wall_cost": true
+  },
+  "unit_controls": {
+    "v1": {
+      "control": {
+        "utc_start": "2026-10-30T11:25:13.842035+00:00",
+        "four_core_serial_validation": true,
+        "baseline_pause_included_in_baseline_wall_cost": true,
+        "exit_code": 0,
+        "unchanged_original_frozen_files": 76,
+        "old_prefix_bytes": 1154912256,
+        "old_prefix_sha256": "f3802c5c698bed22e55be770bb4672ee9ec86d50c9ab24f1e9f1fc982c905801",
+        "seconds": 1.4142015408724546,
+        "same_bem_resumed": true
+      },
+      "log": "...................                                                      [100%]\n19 passed in 0.63s\n"
+    },
+    "v2": {
+      "control": {
+        "seconds": 0.7646006671711802,
+        "same_pilot_processes_resumed": [
+          95667,
+          97501,
+          97499
+        ],
+        "all_pause_costs_included_in_pilot_wall": true
+      },
+      "log": "..........................                                               [100%]\n26 passed in 0.48s\n"
+    }
+  },
+  "frozen_inputs_sha256": {
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/reference-first-fine-study-20261028.py": "65a60df835c823ae1a4fc59a51e49f4b0424b787e73e1dfa667b871bd3cea138",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/run_fem_reference.py": "def3dde0547b5885c24841754be6c531289279e9e30510e33b34b4f52e30a34d",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/chamfer_mesh_refinement.py": "ba8e3220254d0ce5f3222d844b83951b65aa7c1a6a6711bd41d943cceaad57fb",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/fem_contact_observations.py": "ca8727304aec9c38ea72f8f49e8dbeff0d90515ad907056bfc81d3b3baf80a7f",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compare_float64_contact_history.py": "3d7621c3dc3f1ea677189c3ab11f41f612896fadc835718e3dd8044888b24547",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compare_refined_fem_history.py": "0779900b9556045208297bfc4cddca883a03fbb31bcb0aea24dabbd0d30a0540",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compare_fem_mesh.py": "a747c5b4ff52ad84556d5de0c91fb21e0612f3f3d71f165626058c22608b3e0b",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/fem_reference_io.py": "767d970d36ebb446d838af2bd3c5b252e38614cab8a374e2bcf376f5a6564264",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/audit_compact_radau_history.py": "5946df83b66bf7cbeb7bd5e54f00bc748bc18c2f68e0956cfb91aee1a6fd2fb5",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/radau_original_history_audit.py": "40fb3285fd2515f8ef817dbd536caaa590652a2e27152e70299c8517da4c4b9a",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/original_history_audit.py": "fe363a39a51ba5d1ea5c8eb589d028a41d2a778232cd500b18be1dac6d65c978",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/radau_raw_sampling.py": "dc743da265d444e43da572bb07c25d3508f7daae0e13b4cf7404844a12f4a9ff",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/radau_experiment.py": "e616d36a766ba323d9967af04e0bd154f86a9e158902668df6a8291be9e36408",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/replay_resolvent.py": "129d75f1dc47ba11f2da171a820e422c3bde36ccce6ed2624690230c9e66bafc",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/audit_radau_port_work.py": "4c158a770087f9ecb9b9c5462a8676fd7a1e8ed0547abbdbaf16a1fe6ade90e4",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/radau_port_work.py": "b08b2bdfe8d050300ee4d66f8dc7f51dfbb918c5f24a00ee0b48f925b1dc0daf",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/check_compact_radau_ad.py": "dc48416a03a11159bbc0d21f3e55980a735407c520e8a2f428e7d9aeef347c86",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/initialized_radau_adjoint.py": "ee27357a6036fa7a3b3d441ffef59949d46d4ebdbc0652de3a49ffbc11c8f976",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/radau_contact_adjoint.py": "3b041f773564ec8522fbb234e271e92cc673e3bd2257d2535e7453aea0460cb4",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/radau_contact_experiment.py": "d564ec6ea2311b783d52df83d2f567d640aa6e40a5c1236aad60c51112b023c6",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compact_radau_history.py": "85fb2c263a330b0b64d464017e2f67a6b5ff043c3cc52df48c388d14a6c70a3e",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/bounded_history.py": "bbf1d66ab1b1ff573a6ec613d249e86cd5dc460434ca3c9217cb064429273c55",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/radau_initialization.py": "43bf2227e934829ae11a8cf6b8b255e16faf6e22c9a16f9d54c9bd9a17589086",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/refined_contact.py": "c055f15f8c15d6c3da2f6792a97ec3ed44baa652478f6a24990fa1f478fa3741",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/uncondensed_static_contact.py": "3c672b13b415ee3d96487858a869b9e4cb0af3583ac63959ceb7101c509c4bef",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/uncondensed_static_contact_ad.py": "e55c126afe70f5ae7fe9089fa8d3d2ae2dbcf60f85597b06508e4ea1a937548e",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/fem_static_contact.py": "093ee005753ebbe4efe4e9eefd95a05ccf5748b1f976cb29f0045316c1728589",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/fem_static_contact_ad.py": "a6783b93e980ba50f18d37786585ee0dd4e638f87e67467e4a22b07c444391dd",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/restart_seed_experiment.py": "d9507983063a21db6849a1e8236f71e0d9585133c87576b18ea11b4b21879885",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/substepped_contact_experiment.py": "d40fcb95f5fa29c0c8630a8901f8d5e63591bfc11ed1c9fbdee7c2ecc8d36225",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/robust_contact_experiment.py": "912e5e24598a4dac62e137df1567e73189380b0cf0fbdb2e9f8430bab19e1b52",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fresh-radau-fine-event-study-20261028-v2/transition_record.json": "a32543c001ee0e23b2a701e0f86d81d4018f1aafee703049af2d91e8bc4d0bfd",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fresh-radau-fine-event-study-20261028-v2/frozen_inputs.json": "6384ad396516edd6cbdd0676a9cd6ba905e73a625495c56d971c35d47aca552a",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/docs/radau_ad_cli_results.json": "515aea22393ebd29c13d5a9ceb0a317faf50b9ed9025be89fe60a2ee94d42db0",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/graded-fem-resume-smoke-20261027/summary.json": "5a1b21e98e421e838c2bf6d606caa7d192102c8cf0224a882efb91119a4d537d",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/float64-contact-observation-smoke-20261027/summary.json": "b8dd12919d614df56c032e7e75f934ffd0154130cb5904b672b578a17d8d1492",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/float64-contact-observation-smoke-20261027/reader_control.json": "9bf4f7dfa6434c25697c9a48d02c61afe2b39ff788786f1f691f199fb8523fa5",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/friction.py": "1424c1639cdc1eb4dd8f780bfdc0433f33cf29752b07a17814a3a2f326d81086",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/nodal.py": "632f1a755bb09d784c125d3198f662213ea60045ada9db1555e1b47b3ab39856",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/nonlinear.py": "019c5fc176c70964c89f9e7c74147ad48b4235267dd2faf0ee22f789a2b97590",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/material.py": "7c4d34d911831f12e3bc99bda2e13e76d468acdf80038dcb60310a568a5342d1",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/adjoint.py": "7863386b78318e6502d6257469322ee82746f2384ee915c16cbb98cda69c5bc0",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/nodal_dynamics.py": "839db57190f62795aebef30545fcc9c1b41fdef503f038cc7f425068962eb39d",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/cq.py": "e9af920593db01f56f1f7138832f0aa603daf07cbf1d688fba8a806f712c1e15",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/linear.py": "3a4d7c2259fd3e67b507d0c9dcd18082c24ffda30fccb12749976c97fa5a577c",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/statics.py": "9f81cbd95a1ff1f742387ee4ae94251304177999208a95703371272ac79dc250",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/io.py": "d292e6338381aa7935dbbfcadc0df884e89f10b7096fa70cf1b05a83c1c12b03",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/__init__.py": "984855d6ff3848411c946ecca174ac08baf7afe6f1d2c3be00284da9b8dbf288",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/galerkin.py": "85541ddfe5020debde77b2bf2d4a045fe9a52b6183d4af2f762f577be18ab66d",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/condensation.py": "12010fb51d8490ae5c3a9a2cf5b04e414cb7e6205b409ce7891b454e384de7d2",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/mesh.py": "a37e853ed57dd80633c44805b6c13158643ac65db3e4a4cfc12520bbdfa15c4c",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/galerkin_fast.py": "e6167f6c553e15697b6d67a3a33f559574d22fd49db4aad49c8262d68224b614",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/comparison.py": "631c111752342fac7d0f64553620e04940e7888b1ab2fc52566a23b5c35ee24c",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/cli.py": "82e53ce34714809933dbe456ef403bce27c6b60b20ac4481f2feded9eeadfcea",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/cq_storage.py": "da2534ef95e95813a464ff04f78a092be374110650d1866cbc1fb8ea5b5105b2",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/sampling.py": "c518d2298b167aaa1d5ca327a612426276901876a50322a7fe4595c7ee4f1f11",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/kernels.py": "4008ae38c62c3022034d654a13da75369bd67309af4614006942398e22c1ad08",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/case.py": "4f0c91b18309a2eae5ce5a78da3bac9fde0be9fb1c0a4d2d5e5e1fc84bd85fa7",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/jax_backend.py": "4de0aadb88b73ef6792ff36894134ee31bc412b1a54b177a4d1aaaa43328d547",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/constraints.py": "830071941c6df0f70e455530fe094242042fb0c1e31498e8f9b75c9aa825cb91",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/operators.py": "bb77a3b2c66dce871c9e71cc2cdc02488e90ad32278cc9a67fea8b909b722825",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/benchmarks.py": "c24b97264ca60d0da1dab2095d50e9ef1b88b7208fba2d46178b8cf9038eb571",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/dynamics.py": "b6d84d8d2c1ac6fc465565c289d1249f378f3424e00cb93441791960b3c180f8",
+    "/Volumes/Gauss-T7/tatva/runs/local-mus08-muk06-gap0-v2-ev16/input/case.toml": "6f8cf492023c3928dc5c4d89672dec668077d5092f479a57580ab3aeb1a15f02",
+    "/Volumes/Gauss-T7/tatva/runs/local-mus08-muk06-gap0-v2-ev16/input/resolved.json": "6e68fbe8cfaa5364ff5cf88965727f58f584426797c774fa32f6807292e06296",
+    "/Volumes/Gauss-T7/tatva/runs/local-mus08-muk06-gap0-v2-ev16/stats/summary.json": "8f7202eb285d3959d376df466c68e8b4900262d26be71cbc29847d882b4e42bc",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/resumed-radau-fine-study-20261028.py": "828c8fa64a6699715e4c96738c9d297d74289775db87917c9997860368301517",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/radau_sampling_checkpoint.py": "2ed52f4aca63a77e919f3e090d3f7cbe297f84677d6827a6fa71d0c681130542",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/limit_process_cpu.py": "e31c1e68102daab437b3d8498486dc33715100317428516dcb49bcaae35e29aa",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/docs/radau_sampling_checkpoint_results.json": "22572ed90c672cbb58d7deab34eae30ec91acba68f14b5440544eab5e9a2a164",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/radau-resume-checks-20261028-v4/fine-verify.json": "d12e5997444da3d08c0e7bcce8ee321689d5eaa592c2d79375cb0f6b670df16d",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-reference-recovery-20261028-1230/bem_prefix_recovery.json": "102b2dc494e409d71ef5236ed03ac801ad82719128274b8f1b568e291b865e5d",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/cases/pmma_event16.toml": "82d8f491a63ca1c348507678f08406dccbc62ed1d4abea8882879f7894d2315d",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/data/ev16_restart_float64.npz": "f09f9cfbe88d41cfba9daaffd1d901e66d1b33af2b6826ba8449fa05ef510901",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/radau-fine-initialization-20261028/summary.json": "d8878603fd2474cc3d32dcd91aa3d0018473bbe1ceb796fa7314abcbbef3489c",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-reference-prefix-replay-20261028/frozen_inputs.json": "0b0674702feb87b401d116d0c7d0fe5dcab6c695a3fdb774f6a4d189220c505e",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-extension-pilot-control-20261030-v1.py": "6eab3387b15c75a86ddf96ead62e6433d7ab72e858817432b0dd8d166ad5d35a",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/extend_fem_timestep_window.py": "43392fbeefde2b4cebcc39ac509de795cb074aa54eceb59fb83c04cdacaf2086",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/fem_refinement_chunks.py": "5a844d39ff28333b74423b628b185f740a4fb55b5d877299e39f2170803f3cfc"
+  },
+  "branches": {
+    "resumed": {
+      "summary": {
+        "status": "completed_conditional_fem_window_extension",
+        "records": [
+          {
+            "factor": 8,
+            "dt_s": 2.3907265755174556e-10,
+            "seconds_this_invocation": 126.34071100037545,
+            "resumed_chunks": 1,
+            "chunks": 3,
+            "output_sha256": "b7f53a46b76f324464f301c9ec21719073200b4518049876e5fa364bbaa0fab7",
+            "maximum_cumulative_slip_mm": 0.0013762754403104107
+          }
+        ],
+        "first_shear_step": 14965734,
+        "last_shear_step": 14971734,
+        "physical_shear_interval_s": [
+          0.02862318239674012,
+          0.028634657884302604
+        ],
+        "replay_control": {
+          "original_steps": 6000,
+          "every_float64_scalar_row_bitwise": true,
+          "contact_fields_bitwise": {
+            "normal_jump": true,
+            "tangential_jump": true,
+            "pressure": true,
+            "elastic_shear": true,
+            "plastic_slip": true,
+            "cumulative_slip": true,
+            "friction_coefficient": true,
+            "friction_strength": true
+          },
+          "shared_observations": 2
+        },
+        "every_fine_scalar_and_accepted_state_retained": true,
+        "all_source_inputs_unchanged": true,
+        "full_event_or_spatial_convergence_verified": false,
+        "seconds_this_invocation": 260.70136683341116
+      },
+      "extension_manifest": {
+        "schema": 1,
+        "context_sha256": "80a6912cee19ae1035591d9c67ecd15aa2ddfc942f1aba7b50c6573531708990",
+        "frozen_inputs_sha256": {
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/fem_timestep_window.py": "1f625c120c31c084677188088906adefa2d3994d9b249e1df4ebc641b7b67caa",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/run_checkpointed_fem_reference.py": "461943de4cc488435cd5d6bf19afc2a4d4a0526e058f3e85f73241f711f8fa78",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/fem_contact_observations.py": "ca8727304aec9c38ea72f8f49e8dbeff0d90515ad907056bfc81d3b3baf80a7f",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/chamfer_mesh_refinement.py": "ba8e3220254d0ce5f3222d844b83951b65aa7c1a6a6711bd41d943cceaad57fb",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/fem_static_onset.py": "47308fb6a7dbe317cf3bf5267086259c65323dc97a247a01f265a45924a3d9dc",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/run_fem_reference.py": "def3dde0547b5885c24841754be6c531289279e9e30510e33b34b4f52e30a34d",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-radau-study-graded-h2-end015625-4c-f64-replayed/summary.json": "e47c95b2d26e9ea5c5f67ce48bc06534577c461cbdf44a691d919f8e739c93e4",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-radau-study-graded-h2-end015625-4c-f64-replayed/reference_manifest.json": "94f8129fa5a3627fc00780570558af0ab4290c2b99295ad20b4e275f30cf2f35",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-radau-study-graded-h2-end015625-4c-f64-replayed/resolved_run_config.json": "c0b63b3aba0fdd32499459428eb51c653ed0563e8fdd66fe794c0880e8ec6488",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/graded-fem-prefix-20261029-0840/checkpoint.npz": "0bf1be5b62471e19e57a061c79e573a94dc2834913d0fcb2c775ad32386c8e28",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/__init__.py": "2fffd71dc81f5b2e8ca217dde5da7ab0ac25337abe18aa96b7ddd765a680e0a4",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/compound/__init__.py": "9243964f6fdbda4ae4d44c0d217904d5ae979e188dc54b84a8c0076d66ae1ef6",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/compound/field.py": "d8c231066b74172e806df24f52f6e5328b334a45132557409611e332237deada",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/compound/field_types.py": "3733beed1625f9386963da0af3426e11b116ffb372b81b23f1db0e27b2ed257e",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/compound/mpi.py": "8aa7281ab7ab4c1d5c797d23a2c45d11a225f4599e32705ff278d299ac6f14f0",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/element/__init__.py": "71dd895712cb676f5381fa8138826019cbc062e99401ca9e65076958781dae2a",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/element/base.py": "0e71562ffff69c4ae390aa7878341aa0f903c8654d4f0c163909b93527d4ba00",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/friction.py": "8c2f8ce916d6c2ef3fe95bdcbb429adb2ff328aa59f27f786b349cb6aa2f85c0",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/lifter/__init__.py": "408865557392f003ba39ddb0b00efc93f0f16c6e36544faf27f70f74acd58b99",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/lifter/base.py": "fdbb893c4c32a25aed516187ccb6f58acde8f6a3d78e6cbde0a9f6607a9a00bb",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/lifter/common.py": "36ff7a073320cf7558416a5a09a8f7d4a1ce5cb0c73e84629c3ae1e13a364805",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/lifter/constraints.py": "d376418c4715d0430f37ff94bfc4b11296b1de792400c36361ba18065f21b817",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/linalg.py": "13d8e7171b8de978d1ed8ec4f34f47d6e1ce10d9e1f9f55c67d08618dfcc1973",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/mesh.py": "265dd27ce32b9ba353bb01e70187b2b5ec18b4ac0de65c8b4c4d9a4e6e516534",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/mpi.py": "08a6aef3c249974536b5eba675b7149889e457083178cd642fca80e1f1c8a931",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/operator.py": "d56b0cf61f1a2cbccfd0a09c6a4821169b844ded40718f1b238da192ad572a6c",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/pmma/__init__.py": "19fe57da13f4bacae5c99d759b92c64cb0ad95fdd911b0cfbcf493f4988f465a",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/pmma/config.py": "86c6f2fca433947b22cc0fa2813f7d6566a930d1623bb3bf4a0e8fdd164d38f3",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/pmma/dynamics.py": "5f549e3cbd017030cac3db1cbc957ab1998583f868134fe8b69a718c32c13309",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/pmma/estimate.py": "99b18e8b50e8459cbfc30f965cb3921a5016f44d58752853e448a471fa48c1f8",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/pmma/integration_probes.py": "8b42aafc00e09e0de07b5e7fd8608fbeed1f1e8433a714e2ac7d361e24a822e6",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/pmma/lsw.py": "e735304f34f106271e511cf4d19cff94387e14644634fbafeddbc604408d7300",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/pmma/model.py": "41a1e6479f7c0cd94c577218004b3b6912dae31d279e2b556cfed46fd83f2235",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/pmma/mpi.py": "8f59a0abd69f727da7d205ed3572d3fc8c0fa1a8791bdba8350f36713ff025d1",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/pmma/plotting.py": "456b26d923394570547f9697946e6c5c0e98f9ecb5001e3be860e50564261cff",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/pmma/profiles.py": "10c6aae379838788d1ea388d8a9abbce3971a2ec93463279d02b44ebd6aef3dd",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/pmma/runner.py": "df9a30693f548f5de05b12a22c00d4c2eefbb709b08233f2af9ff8938b1de2dc",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/pmma/static_normal.py": "11c9c37658b467cc44957d42928752dcd9eba6f5a8cc2156a6ae12601a9af698",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/py.typed": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/sparse/__init__.py": "9a43abf718dd3feef73ba3ebb0032efbfd589d3f31fa3fe90475b6460b6c65b0",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/sparse/_coloring.py": "1254944587f061fd39ad1fd8c1f572c0599e17c183da71eb9af5a5455158788e",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/sparse/_extraction.py": "9602afa5ae1d8daf4ec71259566120ee8b6698a7980463bbe23954d7bb0a0787",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/sparse/base.py": "3c151fe3a8fc76bc3d26114c8655eea716bd8da2ede784fc6f65a73a42ee47bd",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/sparse/tracer.py": "86b9526a1121a1ac9b6b60d976a775ce5994ab968d4cdf5faf8ba3c4436f784c",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/utils.py": "f1139c4edf1066d54fe1924c79f2c896c3060ba9f644ab75a8cfe99b41e532aa",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-radau-study-graded-h2-end015625-4c-f64-replayed/projected_restart.h5": "46ea1bfbf3a3b00d455d3ab54b0b729a82014f7d0baf8b6c3b146c4097616937",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/extend_fem_timestep_window.py": "43392fbeefde2b4cebcc39ac509de795cb074aa54eceb59fb83c04cdacaf2086",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/fem_refinement_chunks.py": "5a844d39ff28333b74423b628b185f740a4fb55b5d877299e39f2170803f3cfc",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-window-postrupture-study-20261030/window/summary.json": "ff960f590c1c714f580a90a8e563b572ec2e9ca7df6450485763694ed0ce085b",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-window-postrupture-study-20261030/window/manifest.json": "a633cd360b29a3c7ad3e8ef369be099d7d0da83729387376d5d1f33cd2a38e73",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-window-postrupture-study-20261030/window/factor4.npz": "465ce21ed23f454827fd31db0186b2be9bfc4874bfa5383b035cfeafe01489f0"
+        },
+        "runtime": {
+          "package_version": "0.1.0",
+          "python": "3.12.13",
+          "numpy": "2.4.4",
+          "scipy": "1.17.1",
+          "platform": "macOS-15.7.9-arm64-arm-64bit",
+          "available_logical_cpus": 10,
+          "hard_cpu_affinity_enforced": false,
+          "thread_environment": {
+            "FDBEM_CORES": "4",
+            "OPENBLAS_NUM_THREADS": "1",
+            "OMP_NUM_THREADS": "1",
+            "VECLIB_MAXIMUM_THREADS": "1",
+            "XLA_FLAGS": "--xla_cpu_multi_thread_eigen=false intra_op_parallelism_threads=4",
+            "JAX_ENABLE_X64": "true"
+          },
+          "blas_threadpools": [],
+          "source_sha256": {
+            "__init__.py": "984855d6ff3848411c946ecca174ac08baf7afe6f1d2c3be00284da9b8dbf288",
+            "adjoint.py": "7863386b78318e6502d6257469322ee82746f2384ee915c16cbb98cda69c5bc0",
+            "benchmarks.py": "c24b97264ca60d0da1dab2095d50e9ef1b88b7208fba2d46178b8cf9038eb571",
+            "case.py": "4f0c91b18309a2eae5ce5a78da3bac9fde0be9fb1c0a4d2d5e5e1fc84bd85fa7",
+            "cli.py": "82e53ce34714809933dbe456ef403bce27c6b60b20ac4481f2feded9eeadfcea",
+            "comparison.py": "631c111752342fac7d0f64553620e04940e7888b1ab2fc52566a23b5c35ee24c",
+            "condensation.py": "12010fb51d8490ae5c3a9a2cf5b04e414cb7e6205b409ce7891b454e384de7d2",
+            "constraints.py": "830071941c6df0f70e455530fe094242042fb0c1e31498e8f9b75c9aa825cb91",
+            "cq.py": "e9af920593db01f56f1f7138832f0aa603daf07cbf1d688fba8a806f712c1e15",
+            "cq_storage.py": "da2534ef95e95813a464ff04f78a092be374110650d1866cbc1fb8ea5b5105b2",
+            "dynamics.py": "b6d84d8d2c1ac6fc465565c289d1249f378f3424e00cb93441791960b3c180f8",
+            "friction.py": "1424c1639cdc1eb4dd8f780bfdc0433f33cf29752b07a17814a3a2f326d81086",
+            "galerkin.py": "85541ddfe5020debde77b2bf2d4a045fe9a52b6183d4af2f762f577be18ab66d",
+            "galerkin_fast.py": "e6167f6c553e15697b6d67a3a33f559574d22fd49db4aad49c8262d68224b614",
+            "io.py": "d292e6338381aa7935dbbfcadc0df884e89f10b7096fa70cf1b05a83c1c12b03",
+            "jax_backend.py": "4de0aadb88b73ef6792ff36894134ee31bc412b1a54b177a4d1aaaa43328d547",
+            "kernels.py": "4008ae38c62c3022034d654a13da75369bd67309af4614006942398e22c1ad08",
+            "linear.py": "3a4d7c2259fd3e67b507d0c9dcd18082c24ffda30fccb12749976c97fa5a577c",
+            "material.py": "7c4d34d911831f12e3bc99bda2e13e76d468acdf80038dcb60310a568a5342d1",
+            "mesh.py": "a37e853ed57dd80633c44805b6c13158643ac65db3e4a4cfc12520bbdfa15c4c",
+            "nodal.py": "632f1a755bb09d784c125d3198f662213ea60045ada9db1555e1b47b3ab39856",
+            "nodal_dynamics.py": "839db57190f62795aebef30545fcc9c1b41fdef503f038cc7f425068962eb39d",
+            "nonlinear.py": "019c5fc176c70964c89f9e7c74147ad48b4235267dd2faf0ee22f789a2b97590",
+            "operators.py": "bb77a3b2c66dce871c9e71cc2cdc02488e90ad32278cc9a67fea8b909b722825",
+            "sampling.py": "c518d2298b167aaa1d5ca327a612426276901876a50322a7fe4595c7ee4f1f11",
+            "statics.py": "9f81cbd95a1ff1f742387ee4ae94251304177999208a95703371272ac79dc250"
+          },
+          "jax": "0.9.2",
+          "jax_x64": true,
+          "jax_devices": [
+            "TFRT_CPU_0"
+          ]
+        },
+        "factors": [
+          8
+        ],
+        "original_steps": 6000,
+        "control_steps": 6000,
+        "max_output_mb": 4096,
+        "first_step": 14965734,
+        "last_step": 14971734
+      },
+      "resource_preflight": {
+        "logical_array_bytes": 98645302
+      },
+      "replay_controls": [
+        {
+          "original_steps": 6000,
+          "every_float64_scalar_row_bitwise": true,
+          "contact_fields_bitwise": {
+            "normal_jump": true,
+            "tangential_jump": true,
+            "pressure": true,
+            "elastic_shear": true,
+            "plastic_slip": true,
+            "cumulative_slip": true,
+            "friction_coefficient": true,
+            "friction_strength": true
+          },
+          "shared_observations": 2
+        },
+        {
+          "original_steps": 6000,
+          "every_float64_scalar_row_bitwise": true,
+          "contact_fields_bitwise": {
+            "normal_jump": true,
+            "tangential_jump": true,
+            "pressure": true,
+            "elastic_shear": true,
+            "plastic_slip": true,
+            "cumulative_slip": true,
+            "friction_coefficient": true,
+            "friction_strength": true
+          },
+          "shared_observations": 2
+        }
+      ],
+      "final_npz_sha256": "b7f53a46b76f324464f301c9ec21719073200b4518049876e5fa364bbaa0fab7",
+      "chunk_npz_sha256": [
+        "b81e2b832a10ef55f3b7729796596ec0a091092179b50325f1ac7b4382e507f3",
+        "2ea2be7a7995d97d5eb8edc2180a879af0f683f8d736c2d7eeb5a5c8898f33d4",
+        "7983f4ca9c90ec191bee13123cb08f96f779b265b08055175d547a8292f6daad"
+      ],
+      "invocation_attempts": [
+        {
+          "status": "running",
+          "pid": 95682,
+          "utc_start": "2026-10-30T11:26:20.736493+00:00"
+        },
+        {
+          "status": "completed",
+          "pid": 97499,
+          "utc_start": "2026-10-30T11:30:20.312422+00:00",
+          "utc_end": "2026-10-30T11:34:40.981448+00:00",
+          "seconds_this_invocation": 260.7143313335255
+        }
+      ]
+    },
+    "uninterrupted": {
+      "summary": {
+        "status": "completed_conditional_fem_window_extension",
+        "records": [
+          {
+            "factor": 8,
+            "dt_s": 2.3907265755174556e-10,
+            "seconds_this_invocation": 220.21075662504882,
+            "resumed_chunks": 0,
+            "chunks": 3,
+            "output_sha256": "b7f53a46b76f324464f301c9ec21719073200b4518049876e5fa364bbaa0fab7",
+            "maximum_cumulative_slip_mm": 0.0013762754403104107
+          }
+        ],
+        "first_shear_step": 14965734,
+        "last_shear_step": 14971734,
+        "physical_shear_interval_s": [
+          0.02862318239674012,
+          0.028634657884302604
+        ],
+        "replay_control": {
+          "original_steps": 6000,
+          "every_float64_scalar_row_bitwise": true,
+          "contact_fields_bitwise": {
+            "normal_jump": true,
+            "tangential_jump": true,
+            "pressure": true,
+            "elastic_shear": true,
+            "plastic_slip": true,
+            "cumulative_slip": true,
+            "friction_coefficient": true,
+            "friction_strength": true
+          },
+          "shared_observations": 2
+        },
+        "every_fine_scalar_and_accepted_state_retained": true,
+        "all_source_inputs_unchanged": true,
+        "full_event_or_spatial_convergence_verified": false,
+        "seconds_this_invocation": 353.13005462568253
+      },
+      "extension_manifest": {
+        "schema": 1,
+        "context_sha256": "80a6912cee19ae1035591d9c67ecd15aa2ddfc942f1aba7b50c6573531708990",
+        "frozen_inputs_sha256": {
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/fem_timestep_window.py": "1f625c120c31c084677188088906adefa2d3994d9b249e1df4ebc641b7b67caa",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/run_checkpointed_fem_reference.py": "461943de4cc488435cd5d6bf19afc2a4d4a0526e058f3e85f73241f711f8fa78",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/fem_contact_observations.py": "ca8727304aec9c38ea72f8f49e8dbeff0d90515ad907056bfc81d3b3baf80a7f",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/chamfer_mesh_refinement.py": "ba8e3220254d0ce5f3222d844b83951b65aa7c1a6a6711bd41d943cceaad57fb",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/fem_static_onset.py": "47308fb6a7dbe317cf3bf5267086259c65323dc97a247a01f265a45924a3d9dc",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/run_fem_reference.py": "def3dde0547b5885c24841754be6c531289279e9e30510e33b34b4f52e30a34d",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-radau-study-graded-h2-end015625-4c-f64-replayed/summary.json": "e47c95b2d26e9ea5c5f67ce48bc06534577c461cbdf44a691d919f8e739c93e4",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-radau-study-graded-h2-end015625-4c-f64-replayed/reference_manifest.json": "94f8129fa5a3627fc00780570558af0ab4290c2b99295ad20b4e275f30cf2f35",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-radau-study-graded-h2-end015625-4c-f64-replayed/resolved_run_config.json": "c0b63b3aba0fdd32499459428eb51c653ed0563e8fdd66fe794c0880e8ec6488",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/graded-fem-prefix-20261029-0840/checkpoint.npz": "0bf1be5b62471e19e57a061c79e573a94dc2834913d0fcb2c775ad32386c8e28",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/__init__.py": "2fffd71dc81f5b2e8ca217dde5da7ab0ac25337abe18aa96b7ddd765a680e0a4",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/compound/__init__.py": "9243964f6fdbda4ae4d44c0d217904d5ae979e188dc54b84a8c0076d66ae1ef6",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/compound/field.py": "d8c231066b74172e806df24f52f6e5328b334a45132557409611e332237deada",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/compound/field_types.py": "3733beed1625f9386963da0af3426e11b116ffb372b81b23f1db0e27b2ed257e",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/compound/mpi.py": "8aa7281ab7ab4c1d5c797d23a2c45d11a225f4599e32705ff278d299ac6f14f0",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/element/__init__.py": "71dd895712cb676f5381fa8138826019cbc062e99401ca9e65076958781dae2a",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/element/base.py": "0e71562ffff69c4ae390aa7878341aa0f903c8654d4f0c163909b93527d4ba00",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/friction.py": "8c2f8ce916d6c2ef3fe95bdcbb429adb2ff328aa59f27f786b349cb6aa2f85c0",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/lifter/__init__.py": "408865557392f003ba39ddb0b00efc93f0f16c6e36544faf27f70f74acd58b99",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/lifter/base.py": "fdbb893c4c32a25aed516187ccb6f58acde8f6a3d78e6cbde0a9f6607a9a00bb",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/lifter/common.py": "36ff7a073320cf7558416a5a09a8f7d4a1ce5cb0c73e84629c3ae1e13a364805",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/lifter/constraints.py": "d376418c4715d0430f37ff94bfc4b11296b1de792400c36361ba18065f21b817",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/linalg.py": "13d8e7171b8de978d1ed8ec4f34f47d6e1ce10d9e1f9f55c67d08618dfcc1973",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/mesh.py": "265dd27ce32b9ba353bb01e70187b2b5ec18b4ac0de65c8b4c4d9a4e6e516534",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/mpi.py": "08a6aef3c249974536b5eba675b7149889e457083178cd642fca80e1f1c8a931",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/operator.py": "d56b0cf61f1a2cbccfd0a09c6a4821169b844ded40718f1b238da192ad572a6c",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/pmma/__init__.py": "19fe57da13f4bacae5c99d759b92c64cb0ad95fdd911b0cfbcf493f4988f465a",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/pmma/config.py": "86c6f2fca433947b22cc0fa2813f7d6566a930d1623bb3bf4a0e8fdd164d38f3",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/pmma/dynamics.py": "5f549e3cbd017030cac3db1cbc957ab1998583f868134fe8b69a718c32c13309",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/pmma/estimate.py": "99b18e8b50e8459cbfc30f965cb3921a5016f44d58752853e448a471fa48c1f8",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/pmma/integration_probes.py": "8b42aafc00e09e0de07b5e7fd8608fbeed1f1e8433a714e2ac7d361e24a822e6",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/pmma/lsw.py": "e735304f34f106271e511cf4d19cff94387e14644634fbafeddbc604408d7300",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/pmma/model.py": "41a1e6479f7c0cd94c577218004b3b6912dae31d279e2b556cfed46fd83f2235",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/pmma/mpi.py": "8f59a0abd69f727da7d205ed3572d3fc8c0fa1a8791bdba8350f36713ff025d1",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/pmma/plotting.py": "456b26d923394570547f9697946e6c5c0e98f9ecb5001e3be860e50564261cff",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/pmma/profiles.py": "10c6aae379838788d1ea388d8a9abbce3971a2ec93463279d02b44ebd6aef3dd",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/pmma/runner.py": "df9a30693f548f5de05b12a22c00d4c2eefbb709b08233f2af9ff8938b1de2dc",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/pmma/static_normal.py": "11c9c37658b467cc44957d42928752dcd9eba6f5a8cc2156a6ae12601a9af698",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/py.typed": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/sparse/__init__.py": "9a43abf718dd3feef73ba3ebb0032efbfd589d3f31fa3fe90475b6460b6c65b0",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/sparse/_coloring.py": "1254944587f061fd39ad1fd8c1f572c0599e17c183da71eb9af5a5455158788e",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/sparse/_extraction.py": "9602afa5ae1d8daf4ec71259566120ee8b6698a7980463bbe23954d7bb0a0787",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/sparse/base.py": "3c151fe3a8fc76bc3d26114c8655eea716bd8da2ede784fc6f65a73a42ee47bd",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/sparse/tracer.py": "86b9526a1121a1ac9b6b60d976a775ce5994ab968d4cdf5faf8ba3c4436f784c",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/utils.py": "f1139c4edf1066d54fe1924c79f2c896c3060ba9f644ab75a8cfe99b41e532aa",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-radau-study-graded-h2-end015625-4c-f64-replayed/projected_restart.h5": "46ea1bfbf3a3b00d455d3ab54b0b729a82014f7d0baf8b6c3b146c4097616937",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/extend_fem_timestep_window.py": "43392fbeefde2b4cebcc39ac509de795cb074aa54eceb59fb83c04cdacaf2086",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/fem_refinement_chunks.py": "5a844d39ff28333b74423b628b185f740a4fb55b5d877299e39f2170803f3cfc",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-window-postrupture-study-20261030/window/summary.json": "ff960f590c1c714f580a90a8e563b572ec2e9ca7df6450485763694ed0ce085b",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-window-postrupture-study-20261030/window/manifest.json": "a633cd360b29a3c7ad3e8ef369be099d7d0da83729387376d5d1f33cd2a38e73",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-window-postrupture-study-20261030/window/factor4.npz": "465ce21ed23f454827fd31db0186b2be9bfc4874bfa5383b035cfeafe01489f0"
+        },
+        "runtime": {
+          "package_version": "0.1.0",
+          "python": "3.12.13",
+          "numpy": "2.4.4",
+          "scipy": "1.17.1",
+          "platform": "macOS-15.7.9-arm64-arm-64bit",
+          "available_logical_cpus": 10,
+          "hard_cpu_affinity_enforced": false,
+          "thread_environment": {
+            "FDBEM_CORES": "4",
+            "OPENBLAS_NUM_THREADS": "1",
+            "OMP_NUM_THREADS": "1",
+            "VECLIB_MAXIMUM_THREADS": "1",
+            "XLA_FLAGS": "--xla_cpu_multi_thread_eigen=false intra_op_parallelism_threads=4",
+            "JAX_ENABLE_X64": "true"
+          },
+          "blas_threadpools": [],
+          "source_sha256": {
+            "__init__.py": "984855d6ff3848411c946ecca174ac08baf7afe6f1d2c3be00284da9b8dbf288",
+            "adjoint.py": "7863386b78318e6502d6257469322ee82746f2384ee915c16cbb98cda69c5bc0",
+            "benchmarks.py": "c24b97264ca60d0da1dab2095d50e9ef1b88b7208fba2d46178b8cf9038eb571",
+            "case.py": "4f0c91b18309a2eae5ce5a78da3bac9fde0be9fb1c0a4d2d5e5e1fc84bd85fa7",
+            "cli.py": "82e53ce34714809933dbe456ef403bce27c6b60b20ac4481f2feded9eeadfcea",
+            "comparison.py": "631c111752342fac7d0f64553620e04940e7888b1ab2fc52566a23b5c35ee24c",
+            "condensation.py": "12010fb51d8490ae5c3a9a2cf5b04e414cb7e6205b409ce7891b454e384de7d2",
+            "constraints.py": "830071941c6df0f70e455530fe094242042fb0c1e31498e8f9b75c9aa825cb91",
+            "cq.py": "e9af920593db01f56f1f7138832f0aa603daf07cbf1d688fba8a806f712c1e15",
+            "cq_storage.py": "da2534ef95e95813a464ff04f78a092be374110650d1866cbc1fb8ea5b5105b2",
+            "dynamics.py": "b6d84d8d2c1ac6fc465565c289d1249f378f3424e00cb93441791960b3c180f8",
+            "friction.py": "1424c1639cdc1eb4dd8f780bfdc0433f33cf29752b07a17814a3a2f326d81086",
+            "galerkin.py": "85541ddfe5020debde77b2bf2d4a045fe9a52b6183d4af2f762f577be18ab66d",
+            "galerkin_fast.py": "e6167f6c553e15697b6d67a3a33f559574d22fd49db4aad49c8262d68224b614",
+            "io.py": "d292e6338381aa7935dbbfcadc0df884e89f10b7096fa70cf1b05a83c1c12b03",
+            "jax_backend.py": "4de0aadb88b73ef6792ff36894134ee31bc412b1a54b177a4d1aaaa43328d547",
+            "kernels.py": "4008ae38c62c3022034d654a13da75369bd67309af4614006942398e22c1ad08",
+            "linear.py": "3a4d7c2259fd3e67b507d0c9dcd18082c24ffda30fccb12749976c97fa5a577c",
+            "material.py": "7c4d34d911831f12e3bc99bda2e13e76d468acdf80038dcb60310a568a5342d1",
+            "mesh.py": "a37e853ed57dd80633c44805b6c13158643ac65db3e4a4cfc12520bbdfa15c4c",
+            "nodal.py": "632f1a755bb09d784c125d3198f662213ea60045ada9db1555e1b47b3ab39856",
+            "nodal_dynamics.py": "839db57190f62795aebef30545fcc9c1b41fdef503f038cc7f425068962eb39d",
+            "nonlinear.py": "019c5fc176c70964c89f9e7c74147ad48b4235267dd2faf0ee22f789a2b97590",
+            "operators.py": "bb77a3b2c66dce871c9e71cc2cdc02488e90ad32278cc9a67fea8b909b722825",
+            "sampling.py": "c518d2298b167aaa1d5ca327a612426276901876a50322a7fe4595c7ee4f1f11",
+            "statics.py": "9f81cbd95a1ff1f742387ee4ae94251304177999208a95703371272ac79dc250"
+          },
+          "jax": "0.9.2",
+          "jax_x64": true,
+          "jax_devices": [
+            "TFRT_CPU_0"
+          ]
+        },
+        "factors": [
+          8
+        ],
+        "original_steps": 6000,
+        "control_steps": 6000,
+        "max_output_mb": 4096,
+        "first_step": 14965734,
+        "last_step": 14971734
+      },
+      "resource_preflight": {
+        "logical_array_bytes": 98645302
+      },
+      "replay_controls": [
+        {
+          "original_steps": 6000,
+          "every_float64_scalar_row_bitwise": true,
+          "contact_fields_bitwise": {
+            "normal_jump": true,
+            "tangential_jump": true,
+            "pressure": true,
+            "elastic_shear": true,
+            "plastic_slip": true,
+            "cumulative_slip": true,
+            "friction_coefficient": true,
+            "friction_strength": true
+          },
+          "shared_observations": 2
+        }
+      ],
+      "final_npz_sha256": "b7f53a46b76f324464f301c9ec21719073200b4518049876e5fa364bbaa0fab7",
+      "chunk_npz_sha256": [
+        "b81e2b832a10ef55f3b7729796596ec0a091092179b50325f1ac7b4382e507f3",
+        "2ea2be7a7995d97d5eb8edc2180a879af0f683f8d736c2d7eeb5a5c8898f33d4",
+        "7983f4ca9c90ec191bee13123cb08f96f779b265b08055175d547a8292f6daad"
+      ],
+      "invocation_attempts": [
+        {
+          "status": "completed",
+          "pid": 99608,
+          "utc_start": "2026-10-30T11:34:43.894047+00:00",
+          "utc_end": "2026-10-30T11:40:37.002529+00:00",
+          "seconds_this_invocation": 353.15442529227585
+        }
+      ]
+    }
+  },
+  "full_event_or_spatial_convergence_verified": false,
+  "longer_dt8_dt16_comparison_completed": false,
+  "same_accuracy_fem_advantage_verified": false,
+  "scope": "Storage/driver integrity control: 6000 original-step physical intervals; not the 230000-step postrupture convergence result"
+}

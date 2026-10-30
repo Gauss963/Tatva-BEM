@@ -18,7 +18,29 @@ factor 8／16 的所有巢狀共用端點也保持 bit patterns。
 完整 dt/4 既有結果只在檢查其來源、checkpoint、輸出 SHA 並通過新驅動器重播後重用。
 每次 invocation 都重新重播 6000 個原步長區間：
 全部 24000 個 float64 scalar rows 與兩個共用時刻的八個完整接觸場須 bitwise 相同。
-實際細網格的第一次重播已通過；真正中斷／恢復與不中斷 dt/8 的完整 pilot 對照仍在執行。
+實際細網格的重播，以及真正中斷／恢復與不中斷 dt/8 的完整 pilot 對照均已通過。
+
+## 實際細網格恢復控制
+
+在相同的 6000 個原步長區間（28.623182397–28.634657884 ms）中，
+先執行 dt/8，第一個完整 chunk durable commit 後明確送出 SIGTERM（exit −15），
+再以相同來源與 runtime 用 `--resume` 接續；另從同一共同原狀態獨立執行不中斷版本。
+不是將 observation timeout 當成程序終止，也沒有因錯誤擅自重建已付費資料。
+
+兩個完整 export 的 **25 個陣列全部 bitwise 相同**：48000 fine steps 的全部
+17 個 float64 scalars、原保存時刻的八個 contact fields、全部 12 個 final carry，及座標／時鐘。
+原第一個 chunk 的 hash 亦未變。兩次 invocation 都另通過原 dt/4 的完整 scalar／contact prefix replay。
+
+第一次刻意中斷含準備共 239.513 s；resume invocation 共 263.549 s；
+獨立不中斷控制共 354.025 s，外層合計 **857.266 s**。
+SIGTERM 導致第一個內層 attempt 沒有 end record，保留其原始紀錄；
+其實際終止、exit code 與計時由外層控制記錄，不補造內層耗時。
+原 BEM 在四核心控制期間暫停，結束後已恢復相同 PID／start-time 程序，
+暫停仍計入其 wall cost。
+
+[逐陣列結果、來源／runtime、chunk hashes 與所有成本](fem_extended_timestep_pilot_results.json)
+保留此短段的原始證據。這是恢復完整性控制，不是 230000-step 破裂後窗口的收斂結果；
+dt/8、dt/16 的較長控制仍由獨立流程等待 exact-source CI 後啟動。
 
 ## 可恢復的接受狀態
 
