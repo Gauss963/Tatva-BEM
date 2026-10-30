@@ -1,0 +1,4752 @@
+{
+  "status": "sampled_raw_schur_accuracy_passed_but_no_general_speed_advantage",
+  "tests_passed": 19,
+  "final_control": {
+    "utc_start": "2026-10-30T10:10:21.428530+00:00",
+    "four_core_serial_validation": true,
+    "baseline_pause_included_in_baseline_wall_cost": true,
+    "exit_code": 0,
+    "fine_benchmark_exit_code": 0,
+    "seconds": 952.9388660416007,
+    "same_bem_resumed": true
+  },
+  "sampled_complete_operator_control": {
+    "status": "passed_sampled_original_raw_and_schur_audits",
+    "samples": [
+      {
+        "index": 0,
+        "branch": 0,
+        "s_real": 175.6733011623723,
+        "s_imag": 0.0,
+        "times": {
+          "original_assembly": [
+            53.72533900011331,
+            53.41016120836139
+          ],
+          "hierarchical_assembly": [
+            87.85096066724509,
+            87.68393891584128
+          ],
+          "original_condensation": [
+            0.6298021655529737,
+            0.5897082919254899
+          ],
+          "hierarchical_condensation": [
+            0.6044324161484838,
+            0.6143202921375632
+          ]
+        },
+        "medians": {
+          "original_assembly": 53.56775010423735,
+          "hierarchical_assembly": 87.76744979154319,
+          "original_condensation": 0.6097552287392318,
+          "hierarchical_condensation": 0.6093763541430235
+        },
+        "attempts": [
+          {
+            "repeat": 0,
+            "checks": [
+              {
+                "body": 0,
+                "field": "single_layer",
+                "mixed_tolerance_normalized": 0.0036530687661775777,
+                "relative_frobenius": 3.655038484927807e-14,
+                "relative_inf": 7.336381391752546e-14,
+                "maximum_absolute": 7.406700036280411e-15
+              },
+              {
+                "body": 0,
+                "field": "trace_double_layer",
+                "mixed_tolerance_normalized": 0.004535351805646368,
+                "relative_frobenius": 4.535440055611371e-14,
+                "relative_inf": 2.2338519212580363e-13,
+                "maximum_absolute": 2.751436231629434e-13
+              },
+              {
+                "body": 0,
+                "field": "hypersingular",
+                "mixed_tolerance_normalized": 0.018207333392710842,
+                "relative_frobenius": 1.8207333701998696e-13,
+                "relative_inf": 7.146250549201139e-12,
+                "maximum_absolute": 1.108616601297463e-09
+              },
+              {
+                "body": 1,
+                "field": "single_layer",
+                "mixed_tolerance_normalized": 0.0019050375705898708,
+                "relative_frobenius": 1.906080525174476e-14,
+                "relative_inf": 2.1742631889251073e-14,
+                "maximum_absolute": 9.763035581258732e-15
+              },
+              {
+                "body": 1,
+                "field": "trace_double_layer",
+                "mixed_tolerance_normalized": 0.00539118558555047,
+                "relative_frobenius": 5.3912913996542094e-14,
+                "relative_inf": 2.9953259994250284e-13,
+                "maximum_absolute": 5.892780511835628e-13
+              },
+              {
+                "body": 1,
+                "field": "hypersingular",
+                "mixed_tolerance_normalized": 0.0075868117812932815,
+                "relative_frobenius": 7.586811909802355e-14,
+                "relative_inf": 1.4639716724588735e-12,
+                "maximum_absolute": 3.704960782613398e-10
+              },
+              {
+                "field": "impedance",
+                "relative_frobenius": 6.874930956334675e-13,
+                "relative_inf": 1.8660882705134225e-11,
+                "maximum_absolute": 1.9248545868322253e-08
+              },
+              {
+                "field": "full_boundary_reconstruction",
+                "relative_frobenius": 1.4053377042525548e-11,
+                "relative_inf": 7.609650019690242e-11,
+                "maximum_absolute": 5.630651500609929e-11
+              }
+            ],
+            "compression": [
+              {
+                "near_norm_lower_bounds": [
+                  1.646772524097923,
+                  51.314031017546895,
+                  58868.502333555974
+                ],
+                "raw_rtol": 1e-11,
+                "raw_atol": 1e-14,
+                "internal_aca_safety_factor": 0.05,
+                "source_pair_evaluations": 108601,
+                "source_batch_requests": 2945,
+                "source_quadrature_points": 15709104,
+                "original_complete_panel_pairs": 120295,
+                "pinned_near_geometry_bytes": 466868272,
+                "geometry_preparation_seconds": 5.257412957958877,
+                "certified_error_bound": false,
+                "frequency_compression": false,
+                "dense_global_output_and_solve": true,
+                "v_d_bilinear_reciprocity_preserved": true,
+                "selected_pair_batching": "packed_by_quadrature_kind",
+                "packing_preparation_seconds": 0.26920283306390047,
+                "floating_summation_order_changed": true,
+                "requested_panel_pair_visits": 190614,
+                "requested_quadrature_point_visits": 27529344,
+                "exact_kernel_batch_calls": 5809,
+                "frequency_local_pair_cache_bytes": 69410215,
+                "pair_cache_enabled": true,
+                "block_counts": {
+                  "exact_near": 181,
+                  "exact_fallback": 108,
+                  "empirical_aca": 32
+                },
+                "rank_histogram": {
+                  "6": 3,
+                  "7": 19,
+                  "8": 14,
+                  "9": 8,
+                  "10": 31,
+                  "11": 13,
+                  "12": 14,
+                  "13": 4,
+                  "14": 6,
+                  "16": 2,
+                  "17": 4,
+                  "18": 1,
+                  "20": 1,
+                  "22": 1,
+                  "23": 2,
+                  "24": 2,
+                  "25": 1,
+                  "27": 2
+                }
+              },
+              {
+                "near_norm_lower_bounds": [
+                  1.5343533081980443,
+                  50.83434731112403,
+                  59037.006219219555
+                ],
+                "raw_rtol": 1e-11,
+                "raw_atol": 1e-14,
+                "internal_aca_safety_factor": 0.05,
+                "source_pair_evaluations": 107656,
+                "source_batch_requests": 2603,
+                "source_quadrature_points": 15573312,
+                "original_complete_panel_pairs": 121278,
+                "pinned_near_geometry_bytes": 428510328,
+                "geometry_preparation_seconds": 4.771959957666695,
+                "certified_error_bound": false,
+                "frequency_compression": false,
+                "dense_global_output_and_solve": true,
+                "v_d_bilinear_reciprocity_preserved": true,
+                "selected_pair_batching": "packed_by_quadrature_kind",
+                "packing_preparation_seconds": 0.22002504114061594,
+                "floating_summation_order_changed": true,
+                "requested_panel_pair_visits": 190375,
+                "requested_quadrature_point_visits": 27495216,
+                "exact_kernel_batch_calls": 5687,
+                "frequency_local_pair_cache_bytes": 69977406,
+                "pair_cache_enabled": true,
+                "block_counts": {
+                  "exact_near": 164,
+                  "exact_fallback": 92,
+                  "empirical_aca": 23
+                },
+                "rank_histogram": {
+                  "5": 1,
+                  "6": 8,
+                  "7": 7,
+                  "8": 7,
+                  "9": 2,
+                  "10": 7,
+                  "11": 5,
+                  "12": 7,
+                  "13": 2,
+                  "14": 7,
+                  "15": 2,
+                  "16": 3,
+                  "17": 5,
+                  "18": 6,
+                  "19": 5,
+                  "20": 2,
+                  "21": 1,
+                  "22": 4,
+                  "23": 3,
+                  "24": 1,
+                  "25": 3,
+                  "26": 4
+                }
+              }
+            ],
+            "sampled_velocity_impedance_hermitian": {
+              "original_minimum_eigenvalue": 7.563712338187773e-05,
+              "hierarchical_minimum_eigenvalue": 7.563712424608415e-05,
+              "hermitian_difference_frobenius_bound": 1.3839930041083137e-10
+            },
+            "all_gates_passed": true
+          },
+          {
+            "repeat": 1,
+            "checks": [
+              {
+                "body": 0,
+                "field": "single_layer",
+                "mixed_tolerance_normalized": 0.0036530687661775777,
+                "relative_frobenius": 3.655038484927807e-14,
+                "relative_inf": 7.336381391752546e-14,
+                "maximum_absolute": 7.406700036280411e-15
+              },
+              {
+                "body": 0,
+                "field": "trace_double_layer",
+                "mixed_tolerance_normalized": 0.004535351805646368,
+                "relative_frobenius": 4.535440055611371e-14,
+                "relative_inf": 2.2338519212580363e-13,
+                "maximum_absolute": 2.751436231629434e-13
+              },
+              {
+                "body": 0,
+                "field": "hypersingular",
+                "mixed_tolerance_normalized": 0.018207333392710842,
+                "relative_frobenius": 1.8207333701998696e-13,
+                "relative_inf": 7.146250549201139e-12,
+                "maximum_absolute": 1.108616601297463e-09
+              },
+              {
+                "body": 1,
+                "field": "single_layer",
+                "mixed_tolerance_normalized": 0.0019050375705898708,
+                "relative_frobenius": 1.906080525174476e-14,
+                "relative_inf": 2.1742631889251073e-14,
+                "maximum_absolute": 9.763035581258732e-15
+              },
+              {
+                "body": 1,
+                "field": "trace_double_layer",
+                "mixed_tolerance_normalized": 0.00539118558555047,
+                "relative_frobenius": 5.3912913996542094e-14,
+                "relative_inf": 2.9953259994250284e-13,
+                "maximum_absolute": 5.892780511835628e-13
+              },
+              {
+                "body": 1,
+                "field": "hypersingular",
+                "mixed_tolerance_normalized": 0.0075868117812932815,
+                "relative_frobenius": 7.586811909802355e-14,
+                "relative_inf": 1.4639716724588735e-12,
+                "maximum_absolute": 3.704960782613398e-10
+              },
+              {
+                "field": "impedance",
+                "relative_frobenius": 6.874930956334675e-13,
+                "relative_inf": 1.8660882705134225e-11,
+                "maximum_absolute": 1.9248545868322253e-08
+              },
+              {
+                "field": "full_boundary_reconstruction",
+                "relative_frobenius": 1.4053377042525548e-11,
+                "relative_inf": 7.609650019690242e-11,
+                "maximum_absolute": 5.630651500609929e-11
+              }
+            ],
+            "compression": [
+              {
+                "near_norm_lower_bounds": [
+                  1.646772524097923,
+                  51.314031017546895,
+                  58868.502333555974
+                ],
+                "raw_rtol": 1e-11,
+                "raw_atol": 1e-14,
+                "internal_aca_safety_factor": 0.05,
+                "source_pair_evaluations": 108601,
+                "source_batch_requests": 2945,
+                "source_quadrature_points": 15709104,
+                "original_complete_panel_pairs": 120295,
+                "pinned_near_geometry_bytes": 466868272,
+                "geometry_preparation_seconds": 5.257412957958877,
+                "certified_error_bound": false,
+                "frequency_compression": false,
+                "dense_global_output_and_solve": true,
+                "v_d_bilinear_reciprocity_preserved": true,
+                "selected_pair_batching": "packed_by_quadrature_kind",
+                "packing_preparation_seconds": 0.26920283306390047,
+                "floating_summation_order_changed": true,
+                "requested_panel_pair_visits": 190614,
+                "requested_quadrature_point_visits": 27529344,
+                "exact_kernel_batch_calls": 5809,
+                "frequency_local_pair_cache_bytes": 69410215,
+                "pair_cache_enabled": true,
+                "block_counts": {
+                  "exact_near": 181,
+                  "exact_fallback": 108,
+                  "empirical_aca": 32
+                },
+                "rank_histogram": {
+                  "6": 3,
+                  "7": 19,
+                  "8": 14,
+                  "9": 8,
+                  "10": 31,
+                  "11": 13,
+                  "12": 14,
+                  "13": 4,
+                  "14": 6,
+                  "16": 2,
+                  "17": 4,
+                  "18": 1,
+                  "20": 1,
+                  "22": 1,
+                  "23": 2,
+                  "24": 2,
+                  "25": 1,
+                  "27": 2
+                }
+              },
+              {
+                "near_norm_lower_bounds": [
+                  1.5343533081980443,
+                  50.83434731112403,
+                  59037.006219219555
+                ],
+                "raw_rtol": 1e-11,
+                "raw_atol": 1e-14,
+                "internal_aca_safety_factor": 0.05,
+                "source_pair_evaluations": 107656,
+                "source_batch_requests": 2603,
+                "source_quadrature_points": 15573312,
+                "original_complete_panel_pairs": 121278,
+                "pinned_near_geometry_bytes": 428510328,
+                "geometry_preparation_seconds": 4.771959957666695,
+                "certified_error_bound": false,
+                "frequency_compression": false,
+                "dense_global_output_and_solve": true,
+                "v_d_bilinear_reciprocity_preserved": true,
+                "selected_pair_batching": "packed_by_quadrature_kind",
+                "packing_preparation_seconds": 0.22002504114061594,
+                "floating_summation_order_changed": true,
+                "requested_panel_pair_visits": 190375,
+                "requested_quadrature_point_visits": 27495216,
+                "exact_kernel_batch_calls": 5687,
+                "frequency_local_pair_cache_bytes": 69977406,
+                "pair_cache_enabled": true,
+                "block_counts": {
+                  "exact_near": 164,
+                  "exact_fallback": 92,
+                  "empirical_aca": 23
+                },
+                "rank_histogram": {
+                  "5": 1,
+                  "6": 8,
+                  "7": 7,
+                  "8": 7,
+                  "9": 2,
+                  "10": 7,
+                  "11": 5,
+                  "12": 7,
+                  "13": 2,
+                  "14": 7,
+                  "15": 2,
+                  "16": 3,
+                  "17": 5,
+                  "18": 6,
+                  "19": 5,
+                  "20": 2,
+                  "21": 1,
+                  "22": 4,
+                  "23": 3,
+                  "24": 1,
+                  "25": 3,
+                  "26": 4
+                }
+              }
+            ],
+            "sampled_velocity_impedance_hermitian": {
+              "original_minimum_eigenvalue": 7.563712338187773e-05,
+              "hierarchical_minimum_eigenvalue": 7.563712424608415e-05,
+              "hermitian_difference_frobenius_bound": 1.3839930041083137e-10
+            },
+            "all_gates_passed": true
+          }
+        ]
+      },
+      {
+        "index": 655,
+        "branch": 0,
+        "s_real": 175.78127885781115,
+        "s_imag": 31398.668642948003,
+        "times": {
+          "original_assembly": [
+            97.66908312495798,
+            97.97556616738439
+          ],
+          "hierarchical_assembly": [
+            127.29836366698146,
+            126.6144666671753
+          ],
+          "original_condensation": [
+            0.7297143749892712,
+            0.7836042493581772
+          ],
+          "hierarchical_condensation": [
+            0.7562429159879684,
+            0.729003082960844
+          ]
+        },
+        "medians": {
+          "original_assembly": 97.82232464617118,
+          "hierarchical_assembly": 126.95641516707838,
+          "original_condensation": 0.7566593121737242,
+          "hierarchical_condensation": 0.7426229994744062
+        },
+        "attempts": [
+          {
+            "repeat": 0,
+            "checks": [
+              {
+                "body": 0,
+                "field": "single_layer",
+                "mixed_tolerance_normalized": 0.004421437450392096,
+                "relative_frobenius": 4.432308964958293e-14,
+                "relative_inf": 1.2535308837913495e-13,
+                "maximum_absolute": 2.0511014141691045e-15
+              },
+              {
+                "body": 0,
+                "field": "trace_double_layer",
+                "mixed_tolerance_normalized": 0.006288606261603054,
+                "relative_frobenius": 6.288723327406646e-14,
+                "relative_inf": 2.8056279176369703e-13,
+                "maximum_absolute": 1.1369820206137535e-12
+              },
+              {
+                "body": 0,
+                "field": "hypersingular",
+                "mixed_tolerance_normalized": 0.0030107671053022354,
+                "relative_frobenius": 3.010767156540948e-14,
+                "relative_inf": 5.209286208843999e-13,
+                "maximum_absolute": 9.192774637336021e-11
+              },
+              {
+                "body": 1,
+                "field": "single_layer",
+                "mixed_tolerance_normalized": 0.019962997335138156,
+                "relative_frobenius": 2.001270295700776e-13,
+                "relative_inf": 2.246902033110385e-13,
+                "maximum_absolute": 5.742937790237873e-15
+              },
+              {
+                "body": 1,
+                "field": "trace_double_layer",
+                "mixed_tolerance_normalized": 0.004668852440117227,
+                "relative_frobenius": 4.6689401261208237e-14,
+                "relative_inf": 1.5313978393177328e-13,
+                "maximum_absolute": 3.0321578763729334e-13
+              },
+              {
+                "body": 1,
+                "field": "hypersingular",
+                "mixed_tolerance_normalized": 0.005583029766429786,
+                "relative_frobenius": 5.5830298611706396e-14,
+                "relative_inf": 1.0851006076157748e-12,
+                "maximum_absolute": 1.2469249162541467e-10
+              },
+              {
+                "field": "impedance",
+                "relative_frobenius": 4.775344638951538e-13,
+                "relative_inf": 6.545596278668868e-12,
+                "maximum_absolute": 5.9123110277167115e-09
+              },
+              {
+                "field": "full_boundary_reconstruction",
+                "relative_frobenius": 9.676810251563547e-12,
+                "relative_inf": 1.5449965611098824e-10,
+                "maximum_absolute": 2.0676343740550165e-10
+              }
+            ],
+            "compression": [
+              {
+                "near_norm_lower_bounds": [
+                  0.38554703127808326,
+                  53.109481609960234,
+                  58757.3058416755
+                ],
+                "raw_rtol": 1e-11,
+                "raw_atol": 1e-14,
+                "internal_aca_safety_factor": 0.05,
+                "source_pair_evaluations": 109258,
+                "source_batch_requests": 2940,
+                "source_quadrature_points": 15803712,
+                "original_complete_panel_pairs": 120295,
+                "pinned_near_geometry_bytes": 466868272,
+                "geometry_preparation_seconds": 5.257412957958877,
+                "certified_error_bound": false,
+                "frequency_compression": false,
+                "dense_global_output_and_solve": true,
+                "v_d_bilinear_reciprocity_preserved": true,
+                "selected_pair_batching": "packed_by_quadrature_kind",
+                "packing_preparation_seconds": 0.26920283306390047,
+                "floating_summation_order_changed": true,
+                "requested_panel_pair_visits": 190736,
+                "requested_quadrature_point_visits": 27546912,
+                "exact_kernel_batch_calls": 5792,
+                "frequency_local_pair_cache_bytes": 69410215,
+                "pair_cache_enabled": true,
+                "block_counts": {
+                  "exact_near": 181,
+                  "exact_fallback": 103,
+                  "empirical_aca": 37
+                },
+                "rank_histogram": {
+                  "7": 4,
+                  "8": 30,
+                  "9": 4,
+                  "10": 40,
+                  "11": 12,
+                  "12": 26,
+                  "13": 8,
+                  "14": 5,
+                  "15": 3,
+                  "17": 1,
+                  "18": 6,
+                  "20": 1,
+                  "25": 3,
+                  "26": 2,
+                  "27": 2,
+                  "28": 1
+                }
+              },
+              {
+                "near_norm_lower_bounds": [
+                  0.3707845347612655,
+                  52.42400845609802,
+                  58926.68628509263
+                ],
+                "raw_rtol": 1e-11,
+                "raw_atol": 1e-14,
+                "internal_aca_safety_factor": 0.05,
+                "source_pair_evaluations": 106655,
+                "source_batch_requests": 2594,
+                "source_quadrature_points": 15429168,
+                "original_complete_panel_pairs": 121278,
+                "pinned_near_geometry_bytes": 428510328,
+                "geometry_preparation_seconds": 4.771959957666695,
+                "certified_error_bound": false,
+                "frequency_compression": false,
+                "dense_global_output_and_solve": true,
+                "v_d_bilinear_reciprocity_preserved": true,
+                "selected_pair_batching": "packed_by_quadrature_kind",
+                "packing_preparation_seconds": 0.22002504114061594,
+                "floating_summation_order_changed": true,
+                "requested_panel_pair_visits": 186961,
+                "requested_quadrature_point_visits": 27003600,
+                "exact_kernel_batch_calls": 5589,
+                "frequency_local_pair_cache_bytes": 69977406,
+                "pair_cache_enabled": true,
+                "block_counts": {
+                  "exact_near": 164,
+                  "exact_fallback": 87,
+                  "empirical_aca": 28
+                },
+                "rank_histogram": {
+                  "6": 7,
+                  "7": 2,
+                  "8": 9,
+                  "9": 2,
+                  "10": 24,
+                  "11": 2,
+                  "12": 15,
+                  "13": 2,
+                  "14": 5,
+                  "17": 5,
+                  "18": 6,
+                  "19": 7,
+                  "21": 2,
+                  "22": 1,
+                  "23": 4,
+                  "24": 4,
+                  "25": 2,
+                  "26": 3,
+                  "27": 9,
+                  "28": 1
+                }
+              }
+            ],
+            "sampled_velocity_impedance_hermitian": {
+              "original_minimum_eigenvalue": 7.0855286626827655e-06,
+              "hierarchical_minimum_eigenvalue": 7.085528662631753e-06,
+              "hermitian_difference_frobenius_bound": 3.71359127383377e-13
+            },
+            "all_gates_passed": true
+          },
+          {
+            "repeat": 1,
+            "checks": [
+              {
+                "body": 0,
+                "field": "single_layer",
+                "mixed_tolerance_normalized": 0.004421437450392096,
+                "relative_frobenius": 4.432308964958293e-14,
+                "relative_inf": 1.2535308837913495e-13,
+                "maximum_absolute": 2.0511014141691045e-15
+              },
+              {
+                "body": 0,
+                "field": "trace_double_layer",
+                "mixed_tolerance_normalized": 0.006288606261603054,
+                "relative_frobenius": 6.288723327406646e-14,
+                "relative_inf": 2.8056279176369703e-13,
+                "maximum_absolute": 1.1369820206137535e-12
+              },
+              {
+                "body": 0,
+                "field": "hypersingular",
+                "mixed_tolerance_normalized": 0.0030107671053022354,
+                "relative_frobenius": 3.010767156540948e-14,
+                "relative_inf": 5.209286208843999e-13,
+                "maximum_absolute": 9.192774637336021e-11
+              },
+              {
+                "body": 1,
+                "field": "single_layer",
+                "mixed_tolerance_normalized": 0.019962997335138156,
+                "relative_frobenius": 2.001270295700776e-13,
+                "relative_inf": 2.246902033110385e-13,
+                "maximum_absolute": 5.742937790237873e-15
+              },
+              {
+                "body": 1,
+                "field": "trace_double_layer",
+                "mixed_tolerance_normalized": 0.004668852440117227,
+                "relative_frobenius": 4.6689401261208237e-14,
+                "relative_inf": 1.5313978393177328e-13,
+                "maximum_absolute": 3.0321578763729334e-13
+              },
+              {
+                "body": 1,
+                "field": "hypersingular",
+                "mixed_tolerance_normalized": 0.005583029766429786,
+                "relative_frobenius": 5.5830298611706396e-14,
+                "relative_inf": 1.0851006076157748e-12,
+                "maximum_absolute": 1.2469249162541467e-10
+              },
+              {
+                "field": "impedance",
+                "relative_frobenius": 4.775344638951538e-13,
+                "relative_inf": 6.545596278668868e-12,
+                "maximum_absolute": 5.9123110277167115e-09
+              },
+              {
+                "field": "full_boundary_reconstruction",
+                "relative_frobenius": 9.676810251563547e-12,
+                "relative_inf": 1.5449965611098824e-10,
+                "maximum_absolute": 2.0676343740550165e-10
+              }
+            ],
+            "compression": [
+              {
+                "near_norm_lower_bounds": [
+                  0.38554703127808326,
+                  53.109481609960234,
+                  58757.3058416755
+                ],
+                "raw_rtol": 1e-11,
+                "raw_atol": 1e-14,
+                "internal_aca_safety_factor": 0.05,
+                "source_pair_evaluations": 109258,
+                "source_batch_requests": 2940,
+                "source_quadrature_points": 15803712,
+                "original_complete_panel_pairs": 120295,
+                "pinned_near_geometry_bytes": 466868272,
+                "geometry_preparation_seconds": 5.257412957958877,
+                "certified_error_bound": false,
+                "frequency_compression": false,
+                "dense_global_output_and_solve": true,
+                "v_d_bilinear_reciprocity_preserved": true,
+                "selected_pair_batching": "packed_by_quadrature_kind",
+                "packing_preparation_seconds": 0.26920283306390047,
+                "floating_summation_order_changed": true,
+                "requested_panel_pair_visits": 190736,
+                "requested_quadrature_point_visits": 27546912,
+                "exact_kernel_batch_calls": 5792,
+                "frequency_local_pair_cache_bytes": 69410215,
+                "pair_cache_enabled": true,
+                "block_counts": {
+                  "exact_near": 181,
+                  "exact_fallback": 103,
+                  "empirical_aca": 37
+                },
+                "rank_histogram": {
+                  "7": 4,
+                  "8": 30,
+                  "9": 4,
+                  "10": 40,
+                  "11": 12,
+                  "12": 26,
+                  "13": 8,
+                  "14": 5,
+                  "15": 3,
+                  "17": 1,
+                  "18": 6,
+                  "20": 1,
+                  "25": 3,
+                  "26": 2,
+                  "27": 2,
+                  "28": 1
+                }
+              },
+              {
+                "near_norm_lower_bounds": [
+                  0.3707845347612655,
+                  52.42400845609802,
+                  58926.68628509263
+                ],
+                "raw_rtol": 1e-11,
+                "raw_atol": 1e-14,
+                "internal_aca_safety_factor": 0.05,
+                "source_pair_evaluations": 106655,
+                "source_batch_requests": 2594,
+                "source_quadrature_points": 15429168,
+                "original_complete_panel_pairs": 121278,
+                "pinned_near_geometry_bytes": 428510328,
+                "geometry_preparation_seconds": 4.771959957666695,
+                "certified_error_bound": false,
+                "frequency_compression": false,
+                "dense_global_output_and_solve": true,
+                "v_d_bilinear_reciprocity_preserved": true,
+                "selected_pair_batching": "packed_by_quadrature_kind",
+                "packing_preparation_seconds": 0.22002504114061594,
+                "floating_summation_order_changed": true,
+                "requested_panel_pair_visits": 186961,
+                "requested_quadrature_point_visits": 27003600,
+                "exact_kernel_batch_calls": 5589,
+                "frequency_local_pair_cache_bytes": 69977406,
+                "pair_cache_enabled": true,
+                "block_counts": {
+                  "exact_near": 164,
+                  "exact_fallback": 87,
+                  "empirical_aca": 28
+                },
+                "rank_histogram": {
+                  "6": 7,
+                  "7": 2,
+                  "8": 9,
+                  "9": 2,
+                  "10": 24,
+                  "11": 2,
+                  "12": 15,
+                  "13": 2,
+                  "14": 5,
+                  "17": 5,
+                  "18": 6,
+                  "19": 7,
+                  "21": 2,
+                  "22": 1,
+                  "23": 4,
+                  "24": 4,
+                  "25": 2,
+                  "26": 3,
+                  "27": 9,
+                  "28": 1
+                }
+              }
+            ],
+            "sampled_velocity_impedance_hermitian": {
+              "original_minimum_eigenvalue": 7.0855286626827655e-06,
+              "hierarchical_minimum_eigenvalue": 7.085528662631753e-06,
+              "hermitian_difference_frobenius_bound": 3.71359127383377e-13
+            },
+            "all_gates_passed": true
+          }
+        ]
+      },
+      {
+        "index": 0,
+        "branch": 1,
+        "s_real": 2999473.0418115025,
+        "s_imag": 0.0,
+        "times": {
+          "original_assembly": [
+            51.58721441682428,
+            52.6317026251927
+          ],
+          "hierarchical_assembly": [
+            31.962362624704838,
+            31.239603624679148
+          ],
+          "original_condensation": [
+            0.5829755002632737,
+            0.6282795835286379
+          ],
+          "hierarchical_condensation": [
+            0.6107899993658066,
+            0.5871141664683819
+          ]
+        },
+        "medians": {
+          "original_assembly": 52.10945852100849,
+          "hierarchical_assembly": 31.600983124691993,
+          "original_condensation": 0.6056275418959558,
+          "hierarchical_condensation": 0.5989520829170942
+        },
+        "attempts": [
+          {
+            "repeat": 0,
+            "checks": [
+              {
+                "body": 0,
+                "field": "single_layer",
+                "mixed_tolerance_normalized": 0.0001766953071244138,
+                "relative_frobenius": 1.9642178605061673e-15,
+                "relative_inf": 2.6308909641914778e-14,
+                "maximum_absolute": 1.7696413625739603e-18
+              },
+              {
+                "body": 0,
+                "field": "trace_double_layer",
+                "mixed_tolerance_normalized": 0.0001982463938803077,
+                "relative_frobenius": 1.9825060347375155e-15,
+                "relative_inf": 2.8291191489740288e-14,
+                "maximum_absolute": 1.3787130637141808e-14
+              },
+              {
+                "body": 0,
+                "field": "hypersingular",
+                "mixed_tolerance_normalized": 0.00010184391527091168,
+                "relative_frobenius": 1.0184391554605993e-15,
+                "relative_inf": 2.1170329701533117e-14,
+                "maximum_absolute": 9.601497892323068e-11
+              },
+              {
+                "body": 1,
+                "field": "single_layer",
+                "mixed_tolerance_normalized": 3.117715960338032e-11,
+                "relative_frobenius": 3.4695343493651925e-22,
+                "relative_inf": 6.6175018074047724e-21,
+                "maximum_absolute": 1.7354815029817258e-24
+              },
+              {
+                "body": 1,
+                "field": "trace_double_layer",
+                "mixed_tolerance_normalized": 3.798227636298569e-11,
+                "relative_frobenius": 3.7983090680008563e-22,
+                "relative_inf": 2.986492456631605e-21,
+                "maximum_absolute": 1.3798204899117008e-20
+              },
+              {
+                "body": 1,
+                "field": "hypersingular",
+                "mixed_tolerance_normalized": 1.1531070632063642e-11,
+                "relative_frobenius": 1.153107066355756e-22,
+                "relative_inf": 1.7902710528599184e-21,
+                "maximum_absolute": 2.229954311827932e-17
+              },
+              {
+                "field": "impedance",
+                "relative_frobenius": 2.7255592542055815e-20,
+                "relative_inf": 1.599331987180154e-20,
+                "maximum_absolute": 2.8421709399795094e-14
+              },
+              {
+                "field": "full_boundary_reconstruction",
+                "relative_frobenius": 6.038439947252395e-14,
+                "relative_inf": 6.897453070231955e-13,
+                "maximum_absolute": 1.3358475182791718e-13
+              }
+            ],
+            "compression": [
+              {
+                "near_norm_lower_bounds": [
+                  0.008957265398728006,
+                  47.09395254529747,
+                  370141.95301338064
+                ],
+                "raw_rtol": 1e-11,
+                "raw_atol": 1e-14,
+                "internal_aca_safety_factor": 0.05,
+                "source_pair_evaluations": 59957,
+                "source_batch_requests": 472,
+                "source_quadrature_points": 8704368,
+                "original_complete_panel_pairs": 120295,
+                "pinned_near_geometry_bytes": 466868272,
+                "geometry_preparation_seconds": 5.257412957958877,
+                "certified_error_bound": false,
+                "frequency_compression": false,
+                "dense_global_output_and_solve": true,
+                "v_d_bilinear_reciprocity_preserved": true,
+                "selected_pair_batching": "packed_by_quadrature_kind",
+                "packing_preparation_seconds": 0.26920283306390047,
+                "floating_summation_order_changed": true,
+                "requested_panel_pair_visits": 70214,
+                "requested_quadrature_point_visits": 10191744,
+                "exact_kernel_batch_calls": 2352,
+                "frequency_local_pair_cache_bytes": 69410215,
+                "pair_cache_enabled": true,
+                "block_counts": {
+                  "exact_near": 181,
+                  "exact_fallback": 0,
+                  "empirical_aca": 140
+                },
+                "rank_histogram": {
+                  "0": 552,
+                  "1": 4,
+                  "4": 2,
+                  "5": 2
+                }
+              },
+              {
+                "near_norm_lower_bounds": [
+                  0.008861719732612879,
+                  46.64310740867151,
+                  366136.4075132887
+                ],
+                "raw_rtol": 1e-11,
+                "raw_atol": 1e-14,
+                "internal_aca_safety_factor": 0.05,
+                "source_pair_evaluations": 54775,
+                "source_batch_requests": 394,
+                "source_quadrature_points": 7958448,
+                "original_complete_panel_pairs": 121278,
+                "pinned_near_geometry_bytes": 428510328,
+                "geometry_preparation_seconds": 4.771959957666695,
+                "certified_error_bound": false,
+                "frequency_compression": false,
+                "dense_global_output_and_solve": true,
+                "v_d_bilinear_reciprocity_preserved": true,
+                "selected_pair_batching": "packed_by_quadrature_kind",
+                "packing_preparation_seconds": 0.22002504114061594,
+                "floating_summation_order_changed": true,
+                "requested_panel_pair_visits": 63209,
+                "requested_quadrature_point_visits": 9183312,
+                "exact_kernel_batch_calls": 2063,
+                "frequency_local_pair_cache_bytes": 69977406,
+                "pair_cache_enabled": true,
+                "block_counts": {
+                  "exact_near": 164,
+                  "exact_fallback": 0,
+                  "empirical_aca": 115
+                },
+                "rank_histogram": {
+                  "0": 460
+                }
+              }
+            ],
+            "sampled_velocity_impedance_hermitian": {
+              "original_minimum_eigenvalue": 5.3734774423004223e-05,
+              "hierarchical_minimum_eigenvalue": 5.3734774423009136e-05,
+              "hermitian_difference_frobenius_bound": 1.2097178265498957e-20
+            },
+            "all_gates_passed": true
+          },
+          {
+            "repeat": 1,
+            "checks": [
+              {
+                "body": 0,
+                "field": "single_layer",
+                "mixed_tolerance_normalized": 0.0001766953071244138,
+                "relative_frobenius": 1.9642178605061673e-15,
+                "relative_inf": 2.6308909641914778e-14,
+                "maximum_absolute": 1.7696413625739603e-18
+              },
+              {
+                "body": 0,
+                "field": "trace_double_layer",
+                "mixed_tolerance_normalized": 0.0001982463938803077,
+                "relative_frobenius": 1.9825060347375155e-15,
+                "relative_inf": 2.8291191489740288e-14,
+                "maximum_absolute": 1.3787130637141808e-14
+              },
+              {
+                "body": 0,
+                "field": "hypersingular",
+                "mixed_tolerance_normalized": 0.00010184391527091168,
+                "relative_frobenius": 1.0184391554605993e-15,
+                "relative_inf": 2.1170329701533117e-14,
+                "maximum_absolute": 9.601497892323068e-11
+              },
+              {
+                "body": 1,
+                "field": "single_layer",
+                "mixed_tolerance_normalized": 3.117715960338032e-11,
+                "relative_frobenius": 3.4695343493651925e-22,
+                "relative_inf": 6.6175018074047724e-21,
+                "maximum_absolute": 1.7354815029817258e-24
+              },
+              {
+                "body": 1,
+                "field": "trace_double_layer",
+                "mixed_tolerance_normalized": 3.798227636298569e-11,
+                "relative_frobenius": 3.7983090680008563e-22,
+                "relative_inf": 2.986492456631605e-21,
+                "maximum_absolute": 1.3798204899117008e-20
+              },
+              {
+                "body": 1,
+                "field": "hypersingular",
+                "mixed_tolerance_normalized": 1.1531070632063642e-11,
+                "relative_frobenius": 1.153107066355756e-22,
+                "relative_inf": 1.7902710528599184e-21,
+                "maximum_absolute": 2.229954311827932e-17
+              },
+              {
+                "field": "impedance",
+                "relative_frobenius": 2.7255592542055815e-20,
+                "relative_inf": 1.599331987180154e-20,
+                "maximum_absolute": 2.8421709399795094e-14
+              },
+              {
+                "field": "full_boundary_reconstruction",
+                "relative_frobenius": 6.038439947252395e-14,
+                "relative_inf": 6.897453070231955e-13,
+                "maximum_absolute": 1.3358475182791718e-13
+              }
+            ],
+            "compression": [
+              {
+                "near_norm_lower_bounds": [
+                  0.008957265398728006,
+                  47.09395254529747,
+                  370141.95301338064
+                ],
+                "raw_rtol": 1e-11,
+                "raw_atol": 1e-14,
+                "internal_aca_safety_factor": 0.05,
+                "source_pair_evaluations": 59957,
+                "source_batch_requests": 472,
+                "source_quadrature_points": 8704368,
+                "original_complete_panel_pairs": 120295,
+                "pinned_near_geometry_bytes": 466868272,
+                "geometry_preparation_seconds": 5.257412957958877,
+                "certified_error_bound": false,
+                "frequency_compression": false,
+                "dense_global_output_and_solve": true,
+                "v_d_bilinear_reciprocity_preserved": true,
+                "selected_pair_batching": "packed_by_quadrature_kind",
+                "packing_preparation_seconds": 0.26920283306390047,
+                "floating_summation_order_changed": true,
+                "requested_panel_pair_visits": 70214,
+                "requested_quadrature_point_visits": 10191744,
+                "exact_kernel_batch_calls": 2352,
+                "frequency_local_pair_cache_bytes": 69410215,
+                "pair_cache_enabled": true,
+                "block_counts": {
+                  "exact_near": 181,
+                  "exact_fallback": 0,
+                  "empirical_aca": 140
+                },
+                "rank_histogram": {
+                  "0": 552,
+                  "1": 4,
+                  "4": 2,
+                  "5": 2
+                }
+              },
+              {
+                "near_norm_lower_bounds": [
+                  0.008861719732612879,
+                  46.64310740867151,
+                  366136.4075132887
+                ],
+                "raw_rtol": 1e-11,
+                "raw_atol": 1e-14,
+                "internal_aca_safety_factor": 0.05,
+                "source_pair_evaluations": 54775,
+                "source_batch_requests": 394,
+                "source_quadrature_points": 7958448,
+                "original_complete_panel_pairs": 121278,
+                "pinned_near_geometry_bytes": 428510328,
+                "geometry_preparation_seconds": 4.771959957666695,
+                "certified_error_bound": false,
+                "frequency_compression": false,
+                "dense_global_output_and_solve": true,
+                "v_d_bilinear_reciprocity_preserved": true,
+                "selected_pair_batching": "packed_by_quadrature_kind",
+                "packing_preparation_seconds": 0.22002504114061594,
+                "floating_summation_order_changed": true,
+                "requested_panel_pair_visits": 63209,
+                "requested_quadrature_point_visits": 9183312,
+                "exact_kernel_batch_calls": 2063,
+                "frequency_local_pair_cache_bytes": 69977406,
+                "pair_cache_enabled": true,
+                "block_counts": {
+                  "exact_near": 164,
+                  "exact_fallback": 0,
+                  "empirical_aca": 115
+                },
+                "rank_histogram": {
+                  "0": 460
+                }
+              }
+            ],
+            "sampled_velocity_impedance_hermitian": {
+              "original_minimum_eigenvalue": 5.3734774423004223e-05,
+              "hierarchical_minimum_eigenvalue": 5.3734774423009136e-05,
+              "hermitian_difference_frobenius_bound": 1.2097178265498957e-20
+            },
+            "all_gates_passed": true
+          }
+        ]
+      }
+    ],
+    "original_preparation_seconds": 22.96945720911026,
+    "hierarchical_preparation_seconds": 10.033134416677058,
+    "total_seconds_including_checks": 941.3587070405483,
+    "frozen_inputs_sha256": {
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/benchmark_hierarchical_galerkin.py": "9b5a5f8e2239f2ad62c490b706ae65520327c18060bd1333352606040ef6a013",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/hierarchical_galerkin.py": "aa065e3470f175764d12728cc51f2ddc63478701feeaea17cfdc5fecdcd254bc",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/packed_galerkin_blocks.py": "9093439cdce0d4c319be44749d8fe95f3661479b60492857ca9e5fa273ec024d",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/galerkin_blocks.py": "ee3f339ee8fded99ca07d5c2f72780c900acfad649009c6888118af6bc135b30",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/trace_schur_experiment.py": "25f854e753f033c96c410c00ff1142c09a32c7690cf723ff9e7202d8d227f4ba",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/schur_condensation_experiment.py": "3ae73c3dbdaf26ee52964f5f61989eb43837341b704ba004242be0d6b739fc74",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/radau_raw_sampling.py": "dc743da265d444e43da572bb07c25d3508f7daae0e13b4cf7404844a12f4a9ff",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/benchmark_factored_galerkin.py": "33073386763620c1853e7354c06449c24f02a3a0341eb2efa2e58b3783602b0f",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/cases/pmma_event16.toml": "82d8f491a63ca1c348507678f08406dccbc62ed1d4abea8882879f7894d2315d"
+    },
+    "environment": {
+      "package_version": "0.1.0",
+      "python": "3.12.13",
+      "numpy": "2.4.4",
+      "scipy": "1.17.1",
+      "platform": "macOS-15.7.9-arm64-arm-64bit",
+      "available_logical_cpus": 10,
+      "hard_cpu_affinity_enforced": false,
+      "thread_environment": {
+        "FDBEM_CORES": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "VECLIB_MAXIMUM_THREADS": null,
+        "XLA_FLAGS": null,
+        "JAX_ENABLE_X64": null
+      },
+      "blas_threadpools": [],
+      "source_sha256": {
+        "__init__.py": "984855d6ff3848411c946ecca174ac08baf7afe6f1d2c3be00284da9b8dbf288",
+        "adjoint.py": "7863386b78318e6502d6257469322ee82746f2384ee915c16cbb98cda69c5bc0",
+        "benchmarks.py": "c24b97264ca60d0da1dab2095d50e9ef1b88b7208fba2d46178b8cf9038eb571",
+        "case.py": "4f0c91b18309a2eae5ce5a78da3bac9fde0be9fb1c0a4d2d5e5e1fc84bd85fa7",
+        "cli.py": "82e53ce34714809933dbe456ef403bce27c6b60b20ac4481f2feded9eeadfcea",
+        "comparison.py": "631c111752342fac7d0f64553620e04940e7888b1ab2fc52566a23b5c35ee24c",
+        "condensation.py": "12010fb51d8490ae5c3a9a2cf5b04e414cb7e6205b409ce7891b454e384de7d2",
+        "constraints.py": "830071941c6df0f70e455530fe094242042fb0c1e31498e8f9b75c9aa825cb91",
+        "cq.py": "e9af920593db01f56f1f7138832f0aa603daf07cbf1d688fba8a806f712c1e15",
+        "cq_storage.py": "da2534ef95e95813a464ff04f78a092be374110650d1866cbc1fb8ea5b5105b2",
+        "dynamics.py": "b6d84d8d2c1ac6fc465565c289d1249f378f3424e00cb93441791960b3c180f8",
+        "friction.py": "1424c1639cdc1eb4dd8f780bfdc0433f33cf29752b07a17814a3a2f326d81086",
+        "galerkin.py": "85541ddfe5020debde77b2bf2d4a045fe9a52b6183d4af2f762f577be18ab66d",
+        "galerkin_fast.py": "e6167f6c553e15697b6d67a3a33f559574d22fd49db4aad49c8262d68224b614",
+        "io.py": "d292e6338381aa7935dbbfcadc0df884e89f10b7096fa70cf1b05a83c1c12b03",
+        "jax_backend.py": "4de0aadb88b73ef6792ff36894134ee31bc412b1a54b177a4d1aaaa43328d547",
+        "kernels.py": "4008ae38c62c3022034d654a13da75369bd67309af4614006942398e22c1ad08",
+        "linear.py": "3a4d7c2259fd3e67b507d0c9dcd18082c24ffda30fccb12749976c97fa5a577c",
+        "material.py": "7c4d34d911831f12e3bc99bda2e13e76d468acdf80038dcb60310a568a5342d1",
+        "mesh.py": "a37e853ed57dd80633c44805b6c13158643ac65db3e4a4cfc12520bbdfa15c4c",
+        "nodal.py": "632f1a755bb09d784c125d3198f662213ea60045ada9db1555e1b47b3ab39856",
+        "nodal_dynamics.py": "839db57190f62795aebef30545fcc9c1b41fdef503f038cc7f425068962eb39d",
+        "nonlinear.py": "019c5fc176c70964c89f9e7c74147ad48b4235267dd2faf0ee22f789a2b97590",
+        "operators.py": "bb77a3b2c66dce871c9e71cc2cdc02488e90ad32278cc9a67fea8b909b722825",
+        "sampling.py": "c518d2298b167aaa1d5ca327a612426276901876a50322a7fe4595c7ee4f1f11",
+        "statics.py": "9f81cbd95a1ff1f742387ee4ae94251304177999208a95703371272ac79dc250"
+      },
+      "case_sha256": "82d8f491a63ca1c348507678f08406dccbc62ed1d4abea8882879f7894d2315d",
+      "restart_data_sha256": "cae42101ff5a57004fa803ea5ce928eb8079e5be0ab887d108689e37754c25f6"
+    },
+    "empirical_spatial_compression": true,
+    "frequency_compression": false,
+    "full_cq_or_event_control": false,
+    "same_accuracy_fem_advantage_verified": false
+  },
+  "complete_local_report_sha256": "4237702ca893091a005d92ce1bbc830be0337fdc2dce03c402347da4fed4c4f8",
+  "prior_controls": {
+    "v1": {
+      "utc_start": "2026-10-30T09:51:09.609501+00:00",
+      "four_core_serial_validation": true,
+      "baseline_pause_included_in_baseline_wall_cost": true,
+      "exit_code": 0,
+      "seconds": 7.297372833825648,
+      "same_bem_resumed": true
+    },
+    "v2": {
+      "utc_start": "2026-10-30T09:54:41.279646+00:00",
+      "four_core_serial_validation": true,
+      "baseline_pause_included_in_baseline_wall_cost": true,
+      "exit_code": 0,
+      "fine_benchmark_exit_code": 1,
+      "seconds": 40.54936650022864,
+      "same_bem_resumed": true
+    },
+    "v3": {
+      "utc_start": "2026-10-30T09:57:02.453569+00:00",
+      "four_core_serial_validation": true,
+      "baseline_pause_included_in_baseline_wall_cost": true,
+      "exit_code": 0,
+      "fine_benchmark_exit_code": 1,
+      "seconds": 688.4320350838825,
+      "same_bem_resumed": true
+    },
+    "v4": {
+      "utc_start": "2026-10-30T10:10:21.428530+00:00",
+      "four_core_serial_validation": true,
+      "baseline_pause_included_in_baseline_wall_cost": true,
+      "exit_code": 0,
+      "fine_benchmark_exit_code": 0,
+      "seconds": 952.9388660416007,
+      "same_bem_resumed": true
+    }
+  },
+  "combined_serial_control_seconds": 1816.412893918343,
+  "rejected_unpacked_attempt": {
+    "index": 655,
+    "branch": 0,
+    "times": {
+      "original_assembly": [
+        98.3559342911467
+      ],
+      "hierarchical_assembly": [
+        190.32174133323133
+      ],
+      "original_condensation": [
+        0.7553772078827024
+      ],
+      "hierarchical_condensation": [
+        0.7449175827205181
+      ]
+    },
+    "attempts": [
+      {
+        "repeat": 0,
+        "checks": [
+          {
+            "body": 0,
+            "field": "single_layer",
+            "mixed_tolerance_normalized": 0.08758479119312555,
+            "relative_frobenius": 8.78001463449097e-13,
+            "relative_inf": 1.1769048344830297e-12,
+            "maximum_absolute": 1.9962108903163073e-14
+          },
+          {
+            "body": 0,
+            "field": "trace_double_layer",
+            "mixed_tolerance_normalized": 0.04670002937463567,
+            "relative_frobenius": 4.670089872091672e-13,
+            "relative_inf": 1.1184044964435969e-12,
+            "maximum_absolute": 2.3459466124968413e-12
+          },
+          {
+            "body": 0,
+            "field": "hypersingular",
+            "mixed_tolerance_normalized": 0.22924395723438354,
+            "relative_frobenius": 2.292439611357697e-12,
+            "relative_inf": 4.079678463886209e-11,
+            "maximum_absolute": 1.204935226683617e-08
+          },
+          {
+            "body": 1,
+            "field": "single_layer",
+            "mixed_tolerance_normalized": 0.0673368379089366,
+            "relative_frobenius": 6.750449907458256e-13,
+            "relative_inf": 9.500914422873044e-13,
+            "maximum_absolute": 3.191965393053131e-14
+          },
+          {
+            "body": 1,
+            "field": "trace_double_layer",
+            "mixed_tolerance_normalized": 1.4895650490880825,
+            "relative_frobenius": 1.48959302470049e-11,
+            "relative_inf": 3.5213706473256564e-11,
+            "maximum_absolute": 3.79083862596628e-10
+          },
+          {
+            "body": 1,
+            "field": "hypersingular",
+            "mixed_tolerance_normalized": 2.319596719848661,
+            "relative_frobenius": 2.319596759210904e-11,
+            "relative_inf": 3.5822315721227353e-10,
+            "maximum_absolute": 2.7145918462818026e-07
+          },
+          {
+            "field": "impedance",
+            "relative_frobenius": 1.4147797775590197e-11,
+            "relative_inf": 2.5871984251478304e-10,
+            "maximum_absolute": 4.0821209969269853e-07
+          },
+          {
+            "field": "full_boundary_reconstruction",
+            "relative_frobenius": 1.2636161451041196e-10,
+            "relative_inf": 4.798164440214799e-10,
+            "maximum_absolute": 3.312173346888972e-10
+          }
+        ],
+        "compression": [
+          {
+            "near_norm_lower_bounds": [
+              0.38554703127808326,
+              53.109481609960234,
+              58757.3058416755
+            ],
+            "raw_rtol": 1e-11,
+            "raw_atol": 1e-14,
+            "source_pair_evaluations": 182314,
+            "source_batch_requests": 2788,
+            "source_quadrature_points": 26334144,
+            "original_complete_panel_pairs": 120295,
+            "pinned_near_geometry_bytes": 466868272,
+            "geometry_preparation_seconds": 5.045670250430703,
+            "certified_error_bound": false,
+            "frequency_compression": false,
+            "dense_global_output_and_solve": true,
+            "v_d_bilinear_reciprocity_preserved": true,
+            "block_counts": {
+              "exact_near": 181,
+              "exact_fallback": 89,
+              "empirical_aca": 51
+            },
+            "far_blocks": [
+              {
+                "shape": [
+                  60,
+                  60
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  11,
+                  13,
+                  13,
+                  12
+                ],
+                "calls": 19,
+                "pair_evaluations": 1158,
+                "exact_entry_fraction": 0.5844444444444444
+              },
+              {
+                "shape": [
+                  60,
+                  62
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 30,
+                "pair_evaluations": 2087,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  8,
+                  8,
+                  8,
+                  8
+                ],
+                "calls": 12,
+                "pair_evaluations": 360,
+                "exact_entry_fraction": 0.7066666666666667
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  8,
+                  9,
+                  8,
+                  8
+                ],
+                "calls": 13,
+                "pair_evaluations": 380,
+                "exact_entry_fraction": 0.7333333333333333
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 15,
+                "pair_evaluations": 531,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 17,
+                "pair_evaluations": 545,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  6,
+                  6,
+                  8,
+                  8
+                ],
+                "calls": 12,
+                "pair_evaluations": 334,
+                "exact_entry_fraction": 0.64
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 17,
+                "pair_evaluations": 513,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  60,
+                  62
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 32,
+                "pair_evaluations": 2066,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 490,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 528,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 542,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  32
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  7,
+                  6,
+                  7,
+                  7
+                ],
+                "calls": 13,
+                "pair_evaluations": 382,
+                "exact_entry_fraction": 0.6791666666666667
+              },
+              {
+                "shape": [
+                  30,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 17,
+                "pair_evaluations": 557,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  60,
+                  62
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  11,
+                  13,
+                  11,
+                  12
+                ],
+                "calls": 28,
+                "pair_evaluations": 1488,
+                "exact_entry_fraction": 0.7096774193548387
+              },
+              {
+                "shape": [
+                  30,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 544,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  32,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 18,
+                "pair_evaluations": 656,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  62,
+                  62
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 31,
+                "pair_evaluations": 2282,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 15,
+                "pair_evaluations": 510,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 15,
+                "pair_evaluations": 518,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  60,
+                  62
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  11,
+                  12,
+                  11,
+                  12
+                ],
+                "calls": 27,
+                "pair_evaluations": 1484,
+                "exact_entry_fraction": 0.7075268817204301
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 15,
+                "pair_evaluations": 560,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 538,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 18,
+                "pair_evaluations": 578,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  32,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 586,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  32,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 630,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 15,
+                "pair_evaluations": 540,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  32
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  9,
+                  8,
+                  7,
+                  8
+                ],
+                "calls": 13,
+                "pair_evaluations": 400,
+                "exact_entry_fraction": 0.7083333333333334
+              },
+              {
+                "shape": [
+                  60,
+                  62
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  10,
+                  10,
+                  10,
+                  10
+                ],
+                "calls": 20,
+                "pair_evaluations": 1178,
+                "exact_entry_fraction": 0.5709677419354838
+              },
+              {
+                "shape": [
+                  30,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 556,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  32,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 17,
+                "pair_evaluations": 609,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  62,
+                  62
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 31,
+                "pair_evaluations": 2269,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 603,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 529,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 17,
+                "pair_evaluations": 580,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 15,
+                "pair_evaluations": 588,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 570,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 17,
+                "pair_evaluations": 580,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  32,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 586,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  32,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 630,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 533,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  6,
+                  7,
+                  7,
+                  8
+                ],
+                "calls": 13,
+                "pair_evaluations": 370,
+                "exact_entry_fraction": 0.7066666666666667
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 15,
+                "pair_evaluations": 502,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  60,
+                  62
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  11,
+                  10,
+                  11,
+                  12
+                ],
+                "calls": 21,
+                "pair_evaluations": 1188,
+                "exact_entry_fraction": 0.5741935483870968
+              },
+              {
+                "shape": [
+                  62,
+                  60
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 32,
+                "pair_evaluations": 2159,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  62,
+                  62
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 31,
+                "pair_evaluations": 2118,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  122,
+                  122
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  22,
+                  23,
+                  21,
+                  23
+                ],
+                "calls": 53,
+                "pair_evaluations": 5630,
+                "exact_entry_fraction": 0.6818059661381349
+              },
+              {
+                "shape": [
+                  60,
+                  60
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  14,
+                  12,
+                  12,
+                  13
+                ],
+                "calls": 23,
+                "pair_evaluations": 1282,
+                "exact_entry_fraction": 0.6411111111111111
+              },
+              {
+                "shape": [
+                  60,
+                  62
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  9,
+                  8,
+                  9,
+                  10
+                ],
+                "calls": 19,
+                "pair_evaluations": 1122,
+                "exact_entry_fraction": 0.5483870967741935
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 518,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  8,
+                  8,
+                  8,
+                  8
+                ],
+                "calls": 13,
+                "pair_evaluations": 368,
+                "exact_entry_fraction": 0.7066666666666667
+              },
+              {
+                "shape": [
+                  32,
+                  30
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  8,
+                  8,
+                  8,
+                  8
+                ],
+                "calls": 13,
+                "pair_evaluations": 372,
+                "exact_entry_fraction": 0.6625
+              },
+              {
+                "shape": [
+                  62,
+                  62
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  10,
+                  10,
+                  10,
+                  10
+                ],
+                "calls": 26,
+                "pair_evaluations": 1518,
+                "exact_entry_fraction": 0.6878251821019771
+              },
+              {
+                "shape": [
+                  122,
+                  122
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  18,
+                  18,
+                  16,
+                  17
+                ],
+                "calls": 45,
+                "pair_evaluations": 5050,
+                "exact_entry_fraction": 0.612201021230852
+              },
+              {
+                "shape": [
+                  244,
+                  246
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  23,
+                  24,
+                  22,
+                  25
+                ],
+                "calls": 63,
+                "pair_evaluations": 14738,
+                "exact_entry_fraction": 0.45901639344262296
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 542,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  8,
+                  8,
+                  8,
+                  8
+                ],
+                "calls": 14,
+                "pair_evaluations": 384,
+                "exact_entry_fraction": 0.72
+              },
+              {
+                "shape": [
+                  30,
+                  32
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  8,
+                  8,
+                  8,
+                  8
+                ],
+                "calls": 12,
+                "pair_evaluations": 350,
+                "exact_entry_fraction": 0.6333333333333333
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  10,
+                  10,
+                  10,
+                  10
+                ],
+                "calls": 14,
+                "pair_evaluations": 394,
+                "exact_entry_fraction": 0.7333333333333333
+              },
+              {
+                "shape": [
+                  32,
+                  30
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  10,
+                  10,
+                  10,
+                  10
+                ],
+                "calls": 15,
+                "pair_evaluations": 426,
+                "exact_entry_fraction": 0.7375
+              },
+              {
+                "shape": [
+                  62,
+                  62
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  12,
+                  12,
+                  10,
+                  12
+                ],
+                "calls": 25,
+                "pair_evaluations": 1504,
+                "exact_entry_fraction": 0.6628511966701353
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 542,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  8,
+                  8,
+                  8,
+                  8
+                ],
+                "calls": 11,
+                "pair_evaluations": 312,
+                "exact_entry_fraction": 0.6088888888888889
+              },
+              {
+                "shape": [
+                  60,
+                  62
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 32,
+                "pair_evaluations": 2107,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 518,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  8,
+                  8,
+                  8,
+                  8
+                ],
+                "calls": 11,
+                "pair_evaluations": 312,
+                "exact_entry_fraction": 0.6088888888888889
+              },
+              {
+                "shape": [
+                  32,
+                  30
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  8,
+                  8,
+                  8,
+                  8
+                ],
+                "calls": 13,
+                "pair_evaluations": 372,
+                "exact_entry_fraction": 0.6625
+              },
+              {
+                "shape": [
+                  62,
+                  62
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  10,
+                  10,
+                  10,
+                  10
+                ],
+                "calls": 24,
+                "pair_evaluations": 1416,
+                "exact_entry_fraction": 0.644120707596254
+              },
+              {
+                "shape": [
+                  32,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 592,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  32,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 17,
+                "pair_evaluations": 569,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  32,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 18,
+                "pair_evaluations": 620,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 15,
+                "pair_evaluations": 560,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 570,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 17,
+                "pair_evaluations": 580,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  32,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 586,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  32,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 630,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  32,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 17,
+                "pair_evaluations": 593,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  32,
+                  30
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  10,
+                  8,
+                  8,
+                  8
+                ],
+                "calls": 14,
+                "pair_evaluations": 400,
+                "exact_entry_fraction": 0.7
+              },
+              {
+                "shape": [
+                  32,
+                  32
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  8,
+                  8,
+                  8,
+                  8
+                ],
+                "calls": 12,
+                "pair_evaluations": 360,
+                "exact_entry_fraction": 0.61328125
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  10,
+                  10,
+                  10,
+                  10
+                ],
+                "calls": 14,
+                "pair_evaluations": 394,
+                "exact_entry_fraction": 0.7333333333333333
+              },
+              {
+                "shape": [
+                  32,
+                  30
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  10,
+                  10,
+                  10,
+                  10
+                ],
+                "calls": 15,
+                "pair_evaluations": 426,
+                "exact_entry_fraction": 0.7375
+              },
+              {
+                "shape": [
+                  62,
+                  62
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  12,
+                  12,
+                  10,
+                  12
+                ],
+                "calls": 25,
+                "pair_evaluations": 1504,
+                "exact_entry_fraction": 0.6628511966701353
+              },
+              {
+                "shape": [
+                  122,
+                  122
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 61,
+                "pair_evaluations": 7686,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  122,
+                  124
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  15,
+                  17,
+                  15,
+                  15
+                ],
+                "calls": 38,
+                "pair_evaluations": 4406,
+                "exact_entry_fraction": 0.5378106821787414
+              },
+              {
+                "shape": [
+                  32,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 17,
+                "pair_evaluations": 528,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  32,
+                  30
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  7,
+                  7,
+                  6,
+                  7
+                ],
+                "calls": 12,
+                "pair_evaluations": 344,
+                "exact_entry_fraction": 0.625
+              },
+              {
+                "shape": [
+                  32,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 17,
+                "pair_evaluations": 556,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  32,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 17,
+                "pair_evaluations": 628,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  62,
+                  60
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  10,
+                  11,
+                  10,
+                  10
+                ],
+                "calls": 21,
+                "pair_evaluations": 1190,
+                "exact_entry_fraction": 0.5870967741935483
+              },
+              {
+                "shape": [
+                  62,
+                  62
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 31,
+                "pair_evaluations": 2297,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  32,
+                  30
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  6,
+                  6,
+                  6,
+                  6
+                ],
+                "calls": 9,
+                "pair_evaluations": 272,
+                "exact_entry_fraction": 0.5
+              },
+              {
+                "shape": [
+                  32,
+                  32
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  7,
+                  7,
+                  7,
+                  7
+                ],
+                "calls": 14,
+                "pair_evaluations": 410,
+                "exact_entry_fraction": 0.69921875
+              },
+              {
+                "shape": [
+                  32,
+                  30
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  7,
+                  8,
+                  7,
+                  7
+                ],
+                "calls": 14,
+                "pair_evaluations": 396,
+                "exact_entry_fraction": 0.7
+              },
+              {
+                "shape": [
+                  32,
+                  32
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  6,
+                  8,
+                  6,
+                  6
+                ],
+                "calls": 11,
+                "pair_evaluations": 370,
+                "exact_entry_fraction": 0.625
+              },
+              {
+                "shape": [
+                  62,
+                  62
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  10,
+                  10,
+                  10,
+                  9
+                ],
+                "calls": 22,
+                "pair_evaluations": 1294,
+                "exact_entry_fraction": 0.6108220603537982
+              },
+              {
+                "shape": [
+                  62,
+                  62
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  10,
+                  10,
+                  9,
+                  9
+                ],
+                "calls": 21,
+                "pair_evaluations": 1260,
+                "exact_entry_fraction": 0.5931321540062435
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 570,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 529,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 17,
+                "pair_evaluations": 580,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 15,
+                "pair_evaluations": 560,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 570,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 17,
+                "pair_evaluations": 580,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  32,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 586,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  32,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 630,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 504,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  7,
+                  8,
+                  7,
+                  7
+                ],
+                "calls": 13,
+                "pair_evaluations": 390,
+                "exact_entry_fraction": 0.7333333333333333
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 532,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 17,
+                "pair_evaluations": 620,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  62,
+                  60
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 29,
+                "pair_evaluations": 1954,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 532,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 17,
+                "pair_evaluations": 597,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  32,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 17,
+                "pair_evaluations": 548,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  32,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 18,
+                "pair_evaluations": 639,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  8,
+                  8,
+                  6,
+                  7
+                ],
+                "calls": 11,
+                "pair_evaluations": 310,
+                "exact_entry_fraction": 0.6088888888888889
+              },
+              {
+                "shape": [
+                  30,
+                  32
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  7,
+                  8,
+                  7,
+                  7
+                ],
+                "calls": 13,
+                "pair_evaluations": 374,
+                "exact_entry_fraction": 0.6791666666666667
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 533,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  32
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  7,
+                  8,
+                  7,
+                  7
+                ],
+                "calls": 12,
+                "pair_evaluations": 360,
+                "exact_entry_fraction": 0.65
+              },
+              {
+                "shape": [
+                  62,
+                  62
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  10,
+                  11,
+                  11,
+                  10
+                ],
+                "calls": 23,
+                "pair_evaluations": 1348,
+                "exact_entry_fraction": 0.6337148803329865
+              },
+              {
+                "shape": [
+                  62,
+                  62
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  11,
+                  12,
+                  11,
+                  10
+                ],
+                "calls": 25,
+                "pair_evaluations": 1446,
+                "exact_entry_fraction": 0.6795005202913632
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 514,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 548,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 17,
+                "pair_evaluations": 544,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  62,
+                  60
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 28,
+                "pair_evaluations": 2010,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 502,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  32,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 19,
+                "pair_evaluations": 588,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  8,
+                  10,
+                  8,
+                  8
+                ],
+                "calls": 13,
+                "pair_evaluations": 378,
+                "exact_entry_fraction": 0.7333333333333333
+              },
+              {
+                "shape": [
+                  30,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 15,
+                "pair_evaluations": 535,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 536,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 541,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 537,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 512,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 532,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  60,
+                  62
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  11,
+                  11,
+                  11,
+                  11
+                ],
+                "calls": 20,
+                "pair_evaluations": 1156,
+                "exact_entry_fraction": 0.5709677419354838
+              },
+              {
+                "shape": [
+                  60,
+                  62
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  11,
+                  12,
+                  11,
+                  11
+                ],
+                "calls": 17,
+                "pair_evaluations": 1024,
+                "exact_entry_fraction": 0.5096774193548387
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 505,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 519,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 514,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 15,
+                "pair_evaluations": 522,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 15,
+                "pair_evaluations": 500,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  32,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 562,
+                "exact_entry_fraction": 1.0
+              }
+            ]
+          },
+          {
+            "near_norm_lower_bounds": [
+              0.3707845347612655,
+              52.42400845609802,
+              58926.68628509263
+            ],
+            "raw_rtol": 1e-11,
+            "raw_atol": 1e-14,
+            "source_pair_evaluations": 176860,
+            "source_batch_requests": 2453,
+            "source_quadrature_points": 25549056,
+            "original_complete_panel_pairs": 121278,
+            "pinned_near_geometry_bytes": 428510328,
+            "geometry_preparation_seconds": 4.618402500636876,
+            "certified_error_bound": false,
+            "frequency_compression": false,
+            "dense_global_output_and_solve": true,
+            "v_d_bilinear_reciprocity_preserved": true,
+            "block_counts": {
+              "exact_near": 164,
+              "exact_fallback": 75,
+              "empirical_aca": 40
+            },
+            "far_blocks": [
+              {
+                "shape": [
+                  30,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 17,
+                "pair_evaluations": 557,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  32
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  8,
+                  8,
+                  8,
+                  8
+                ],
+                "calls": 13,
+                "pair_evaluations": 396,
+                "exact_entry_fraction": 0.7
+              },
+              {
+                "shape": [
+                  30,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 528,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  60,
+                  62
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  12,
+                  14,
+                  14,
+                  14
+                ],
+                "calls": 27,
+                "pair_evaluations": 1516,
+                "exact_entry_fraction": 0.7139784946236559
+              },
+              {
+                "shape": [
+                  30,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 508,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  32,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 17,
+                "pair_evaluations": 588,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  62,
+                  62
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 30,
+                "pair_evaluations": 2117,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  8,
+                  10,
+                  9,
+                  9
+                ],
+                "calls": 14,
+                "pair_evaluations": 380,
+                "exact_entry_fraction": 0.7155555555555555
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  8,
+                  9,
+                  8,
+                  9
+                ],
+                "calls": 12,
+                "pair_evaluations": 336,
+                "exact_entry_fraction": 0.6444444444444445
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 15,
+                "pair_evaluations": 527,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 15,
+                "pair_evaluations": 527,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  8,
+                  9,
+                  8,
+                  8
+                ],
+                "calls": 14,
+                "pair_evaluations": 380,
+                "exact_entry_fraction": 0.7155555555555555
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  8,
+                  8,
+                  8,
+                  8
+                ],
+                "calls": 12,
+                "pair_evaluations": 362,
+                "exact_entry_fraction": 0.6888888888888889
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 15,
+                "pair_evaluations": 546,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 531,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  32,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 586,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  60,
+                  62
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  10,
+                  10,
+                  9,
+                  9
+                ],
+                "calls": 20,
+                "pair_evaluations": 1206,
+                "exact_entry_fraction": 0.5795698924731183
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  7,
+                  8,
+                  7,
+                  7
+                ],
+                "calls": 11,
+                "pair_evaluations": 314,
+                "exact_entry_fraction": 0.6088888888888889
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 15,
+                "pair_evaluations": 521,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  62,
+                  62
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 31,
+                "pair_evaluations": 2215,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 538,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  32,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 17,
+                "pair_evaluations": 591,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 516,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  32,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 17,
+                "pair_evaluations": 532,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  32,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 18,
+                "pair_evaluations": 568,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 527,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  32,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 17,
+                "pair_evaluations": 546,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  62,
+                  60
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 31,
+                "pair_evaluations": 2027,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 15,
+                "pair_evaluations": 528,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  32,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 18,
+                "pair_evaluations": 534,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  62,
+                  62
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 30,
+                "pair_evaluations": 2180,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 17,
+                "pair_evaluations": 560,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  32,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 17,
+                "pair_evaluations": 523,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  62,
+                  62
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 31,
+                "pair_evaluations": 2076,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  7,
+                  6,
+                  6,
+                  7
+                ],
+                "calls": 12,
+                "pair_evaluations": 356,
+                "exact_entry_fraction": 0.6888888888888889
+              },
+              {
+                "shape": [
+                  32,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 17,
+                "pair_evaluations": 565,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 570,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 17,
+                "pair_evaluations": 580,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 15,
+                "pair_evaluations": 560,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 599,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  10,
+                  10,
+                  10,
+                  10
+                ],
+                "calls": 14,
+                "pair_evaluations": 394,
+                "exact_entry_fraction": 0.7333333333333333
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 529,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 15,
+                "pair_evaluations": 588,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 542,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  122,
+                  122
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  18,
+                  18,
+                  17,
+                  19
+                ],
+                "calls": 51,
+                "pair_evaluations": 5658,
+                "exact_entry_fraction": 0.6732061273851115
+              },
+              {
+                "shape": [
+                  122,
+                  124
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  17,
+                  16,
+                  16,
+                  17
+                ],
+                "calls": 41,
+                "pair_evaluations": 4834,
+                "exact_entry_fraction": 0.56795346377578
+              },
+              {
+                "shape": [
+                  124,
+                  122
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  24,
+                  24,
+                  21,
+                  25
+                ],
+                "calls": 53,
+                "pair_evaluations": 5790,
+                "exact_entry_fraction": 0.6869381279746166
+              },
+              {
+                "shape": [
+                  124,
+                  124
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  20,
+                  20,
+                  21,
+                  22
+                ],
+                "calls": 53,
+                "pair_evaluations": 5842,
+                "exact_entry_fraction": 0.6823621227887617
+              },
+              {
+                "shape": [
+                  246,
+                  246
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  23,
+                  24,
+                  21,
+                  21
+                ],
+                "calls": 62,
+                "pair_evaluations": 14564,
+                "exact_entry_fraction": 0.4486086324277877
+              },
+              {
+                "shape": [
+                  60,
+                  60
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  12,
+                  12,
+                  10,
+                  12
+                ],
+                "calls": 25,
+                "pair_evaluations": 1428,
+                "exact_entry_fraction": 0.68
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  8,
+                  8,
+                  8,
+                  8
+                ],
+                "calls": 11,
+                "pair_evaluations": 312,
+                "exact_entry_fraction": 0.6088888888888889
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 538,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  10,
+                  10,
+                  10,
+                  10
+                ],
+                "calls": 14,
+                "pair_evaluations": 388,
+                "exact_entry_fraction": 0.72
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  10,
+                  10,
+                  10,
+                  10
+                ],
+                "calls": 14,
+                "pair_evaluations": 394,
+                "exact_entry_fraction": 0.7333333333333333
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 542,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  122,
+                  124
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  24,
+                  24,
+                  22,
+                  23
+                ],
+                "calls": 54,
+                "pair_evaluations": 5906,
+                "exact_entry_fraction": 0.6946060285563194
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 570,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 529,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  32,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 586,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  32,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 600,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  10,
+                  10,
+                  10,
+                  10
+                ],
+                "calls": 14,
+                "pair_evaluations": 394,
+                "exact_entry_fraction": 0.7333333333333333
+              },
+              {
+                "shape": [
+                  32,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 17,
+                "pair_evaluations": 569,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 15,
+                "pair_evaluations": 560,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 570,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  62,
+                  62
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  12,
+                  12,
+                  12,
+                  12
+                ],
+                "calls": 26,
+                "pair_evaluations": 1556,
+                "exact_entry_fraction": 0.6815816857440167
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  8,
+                  8,
+                  8,
+                  8
+                ],
+                "calls": 11,
+                "pair_evaluations": 312,
+                "exact_entry_fraction": 0.6088888888888889
+              },
+              {
+                "shape": [
+                  32,
+                  30
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  10,
+                  8,
+                  8,
+                  8
+                ],
+                "calls": 14,
+                "pair_evaluations": 400,
+                "exact_entry_fraction": 0.7
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  10,
+                  10,
+                  10,
+                  10
+                ],
+                "calls": 14,
+                "pair_evaluations": 388,
+                "exact_entry_fraction": 0.72
+              },
+              {
+                "shape": [
+                  30,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 17,
+                "pair_evaluations": 580,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 542,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  122,
+                  122
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  15,
+                  15,
+                  15,
+                  15
+                ],
+                "calls": 30,
+                "pair_evaluations": 3572,
+                "exact_entry_fraction": 0.444235420585864
+              },
+              {
+                "shape": [
+                  122,
+                  124
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  21,
+                  22,
+                  20,
+                  21
+                ],
+                "calls": 49,
+                "pair_evaluations": 5314,
+                "exact_entry_fraction": 0.6478053939714437
+              },
+              {
+                "shape": [
+                  124,
+                  122
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  17,
+                  19,
+                  16,
+                  19
+                ],
+                "calls": 40,
+                "pair_evaluations": 4560,
+                "exact_entry_fraction": 0.55579058699101
+              },
+              {
+                "shape": [
+                  124,
+                  124
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  23,
+                  24,
+                  22,
+                  24
+                ],
+                "calls": 54,
+                "pair_evaluations": 5900,
+                "exact_entry_fraction": 0.690426638917794
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 570,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 17,
+                "pair_evaluations": 580,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 15,
+                "pair_evaluations": 560,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 603,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  10,
+                  10,
+                  10,
+                  10
+                ],
+                "calls": 14,
+                "pair_evaluations": 394,
+                "exact_entry_fraction": 0.7333333333333333
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 529,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 15,
+                "pair_evaluations": 588,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 570,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  60,
+                  60
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  10,
+                  10,
+                  10,
+                  10
+                ],
+                "calls": 18,
+                "pair_evaluations": 1054,
+                "exact_entry_fraction": 0.54
+              },
+              {
+                "shape": [
+                  60,
+                  62
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  11,
+                  11,
+                  11,
+                  10
+                ],
+                "calls": 20,
+                "pair_evaluations": 1190,
+                "exact_entry_fraction": 0.5795698924731183
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  6,
+                  6,
+                  6,
+                  6
+                ],
+                "calls": 10,
+                "pair_evaluations": 310,
+                "exact_entry_fraction": 0.6088888888888889
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 527,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 535,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  32
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  7,
+                  7,
+                  7,
+                  6
+                ],
+                "calls": 12,
+                "pair_evaluations": 354,
+                "exact_entry_fraction": 0.65
+              },
+              {
+                "shape": [
+                  60,
+                  62
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 33,
+                "pair_evaluations": 2060,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  60,
+                  62
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 30,
+                "pair_evaluations": 1940,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 504,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 17,
+                "pair_evaluations": 573,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 521,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  32
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  7,
+                  7,
+                  7,
+                  7
+                ],
+                "calls": 14,
+                "pair_evaluations": 394,
+                "exact_entry_fraction": 0.725
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  6,
+                  6,
+                  6,
+                  6
+                ],
+                "calls": 11,
+                "pair_evaluations": 334,
+                "exact_entry_fraction": 0.6577777777777778
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 527,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  32,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 15,
+                "pair_evaluations": 512,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  32,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 550,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  62,
+                  62
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  14,
+                  14,
+                  14,
+                  14
+                ],
+                "calls": 25,
+                "pair_evaluations": 1458,
+                "exact_entry_fraction": 0.6795005202913632
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 15,
+                "pair_evaluations": 520,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 518,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 504,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 560,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  32,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 18,
+                "pair_evaluations": 560,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  32,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 18,
+                "pair_evaluations": 584,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  62,
+                  62
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 30,
+                "pair_evaluations": 1988,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 17,
+                "pair_evaluations": 534,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  30
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 554,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 554,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  32
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  6,
+                  6,
+                  6,
+                  6
+                ],
+                "calls": 10,
+                "pair_evaluations": 324,
+                "exact_entry_fraction": 0.6
+              },
+              {
+                "shape": [
+                  30,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 16,
+                "pair_evaluations": 506,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  30,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 17,
+                "pair_evaluations": 526,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  60,
+                  62
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  13,
+                  12,
+                  12,
+                  13
+                ],
+                "calls": 21,
+                "pair_evaluations": 1182,
+                "exact_entry_fraction": 0.5913978494623656
+              },
+              {
+                "shape": [
+                  30,
+                  32
+                ],
+                "kind": "exact_fallback",
+                "ranks": [],
+                "calls": 17,
+                "pair_evaluations": 542,
+                "exact_entry_fraction": 1.0
+              },
+              {
+                "shape": [
+                  62,
+                  62
+                ],
+                "kind": "empirical_aca",
+                "ranks": [
+                  15,
+                  17,
+                  15,
+                  16
+                ],
+                "calls": 25,
+                "pair_evaluations": 1410,
+                "exact_entry_fraction": 0.663891779396462
+              }
+            ]
+          }
+        ],
+        "sampled_velocity_impedance_hermitian": {
+          "original_minimum_eigenvalue": 7.0855286626827655e-06,
+          "hierarchical_minimum_eigenvalue": 7.085528669507763e-06,
+          "hermitian_difference_frobenius_bound": 1.2787719748385052e-11
+        },
+        "all_gates_passed": false
+      }
+    ]
+  },
+  "rejected_unpacked_source_snapshots": {
+    "hierarchical_galerkin.py": "\"\"\"Empirical far-field ACA assembly of the original V/H/D operators.\n\nA shared tree encloses the UNION of P0-panel and P1-node supports, keeping\nboth vector components together. Near blocks are exact. Paired directions\nshare quadrature, preserving V/D bilinear reciprocity and BOTH distinct H\norientations. Dense output keeps the original global solves unchanged.\n\nRow checks/ACA stopping are empirical, not certified matrix-error bounds.\nIndependent complete original-operator audits are required before use.\n\"\"\"\n\nimport runpy\nfrom dataclasses import dataclass\nfrom pathlib import Path\nfrom time import perf_counter\n\nimport numpy as np\n\nfrom finiteblock_bem.galerkin import GalerkinOperators\n\nBLOCK = runpy.run_path(str(Path(__file__).with_name(\"galerkin_blocks.py\")))\n\n\n@dataclass(frozen=True)\nclass Cluster:\n    labels: np.ndarray\n    lower: np.ndarray\n    upper: np.ndarray\n    children: tuple\n\n    @property\n    def dofs(self):\n        return (2 * self.labels[:, None] + np.arange(2)).ravel()\n\n    @property\n    def diameter(self):\n        return np.linalg.norm(self.upper - self.lower)\n\n\ndef cluster_tree(mesh, leaf_panels):\n    if not isinstance(leaf_panels, int) or leaf_panels < 2:\n        raise ValueError(\"Require at least two basis labels per leaf\")\n    support = np.stack(\n        [mesh.starts, mesh.ends, np.roll(mesh.starts, 1, axis=0), np.roll(mesh.ends, 1, axis=0)],\n        axis=1,\n    )\n    lower, upper = support.min(axis=1), support.max(axis=1)\n    centers = (lower + upper) / 2\n\n    def build(labels):\n        lo, hi = lower[labels].min(axis=0), upper[labels].max(axis=0)\n        children = ()\n        if len(labels) > leaf_panels:\n            axis = np.argmax(np.ptp(centers[labels], axis=0))\n            ordered = labels[np.argsort(centers[labels, axis], kind=\"stable\")]\n            children = (build(ordered[: len(labels) // 2]), build(ordered[len(labels) // 2 :]))\n        labels = labels.copy()\n        labels.flags.writeable = False\n        lo.flags.writeable = hi.flags.writeable = False\n        return Cluster(labels, lo, hi, children)\n\n    return build(np.arange(mesh.count))\n\n\ndef partition(root, eta):\n    if not np.isfinite(eta) or eta <= 0:\n        raise ValueError(\"Require a positive geometric admissibility parameter\")\n    blocks, seen = [], set()\n\n    def walk(a, b):\n        key = tuple(sorted([id(a), id(b)]))\n        if key in seen:\n            return\n        seen.add(key)\n        gap = np.maximum(np.maximum(a.lower - b.upper, b.lower - a.upper), 0)\n        distance = np.linalg.norm(gap)\n        far = bool(distance > 0 and max(a.diameter, b.diameter) <= eta * distance)\n        if far or not (a.children or b.children):\n            blocks.append((a, b, far))\n            return\n        for x in a.children or (a,):\n            for y in b.children or (b,):\n                walk(x, y)\n\n    walk(root, root)\n    return tuple(blocks)\n\n\nclass PairedOracle:\n    \"\"\"Cache V_rc, H_rc, D_rc, H_cr.T, using a single pair evaluation.\"\"\"\n\n    def __init__(self, provider, rows, columns, s, prepared=None):\n        self.provider, self.rows, self.columns, self.s = provider, rows, columns, s\n        self.prepared = prepared\n        self.values = np.empty((4, len(rows), len(columns)), dtype=float if s is None else complex)\n        self.known = np.zeros(self.values.shape[1:], bool)\n        self.calls = self.pairs = self.points = self.entries = 0\n\n    def get(self, rows, columns):\n        rows, columns = np.asarray(rows, int), np.asarray(columns, int)\n        missing = ~self.known[np.ix_(rows, columns)]\n        if np.any(missing):\n            # Pair components are obtained by the same kernel evaluation.\n            rr = rows[np.any(missing, axis=1)]\n            cc = columns[np.any(missing, axis=0)]\n            rr = np.unique(np.r_[rr // 2 * 2, rr // 2 * 2 + 1])\n            cc = np.unique(np.r_[cc // 2 * 2, cc // 2 * 2 + 1])\n            request = self.prepared\n            if request is None or len(rr) != len(self.rows) or len(cc) != len(self.columns):\n                request = self.provider.request(self.rows[rr], self.columns[cc])\n            out = [np.zeros((len(rr), len(cc)), dtype=self.values.dtype) for _ in range(3)]\n            reverse_h = np.zeros((len(cc), len(rr)), dtype=self.values.dtype)\n            n = self.provider.mesh.dofs\n            rlookup, clookup = np.full(n, -1), np.full(n, -1)\n            rlookup[self.columns[cc]], clookup[self.rows[rr]] = (\n                np.arange(len(cc)),\n                np.arange(len(rr)),\n            )\n            for batch, maps in zip(request.batches, request.maps, strict=True):\n                values = BLOCK[\"_PAIR\"](self.provider.geometry, batch, self.s)\n                for family, source, destination, positions in maps:\n                    np.add.at(out[family].ravel(), destination, values[source].ravel()[positions])\n                for source, indices in [(1, batch.hindices)] + (\n                    [] if batch.self_pair else [(3, batch.reverse_hindices)]\n                ):\n                    r, c = rlookup[indices // n], clookup[indices % n]\n                    valid = (r >= 0) & (c >= 0)\n                    np.add.at(\n                        reverse_h.ravel(),\n                        (r[valid] * len(rr) + c[valid]).ravel(),\n                        values[source].ravel()[np.flatnonzero(valid.ravel())],\n                    )\n            out[1] += 0.5 * request.mass\n            i, j = self.columns[cc, None] // 2, self.rows[None, rr] // 2\n            mass = (\n                self.provider.mesh.lengths[i]\n                / 2\n                * (self.columns[cc, None] % 2 == self.rows[None, rr] % 2)\n                * ((j == i) | (j == (i + 1) % self.provider.mesh.count))\n            )\n            reverse_h += 0.5 * mass\n            fetched = np.stack([*out, reverse_h.T])\n            if not np.all(np.isfinite(fetched)):\n                raise ValueError(\"Nonfinite exact paired raw block\")\n            ix = np.ix_(np.arange(4), rr, cc)\n            needed = ~self.known[np.ix_(rr, cc)]\n            # Already-used values retain their bit patterns across later queries.\n            self.values[ix] = np.where(needed[None], fetched, self.values[ix])\n            self.known[np.ix_(rr, cc)] = True\n            self.calls += 1\n            self.pairs += sum(len(b.i) for b in request.batches)\n            self.points += sum(b.measure.size for b in request.batches)\n            self.entries += len(rr) * len(cc)\n        return self.values[np.ix_(np.arange(4), rows, columns)]\n\n    def full(self):\n        return self.get(np.arange(len(self.rows)), np.arange(len(self.columns)))\n\n\n@dataclass(frozen=True)\nclass CrossFactors:\n    left: np.ndarray\n    right: np.ndarray\n    checked_rows: tuple\n\n    def dense(self):\n        return self.left @ self.right\n\n    def transpose_apply(self, cotangent):\n        return self.right.T @ (self.left.T @ cotangent)\n\n\ndef adaptive_cross(oracle, family, tolerance, *, max_rank=32, entry_fraction=0.75):\n    \"\"\"Scalar complex ACA with checked-row continuation and dense fallback.\n\n    A converged update plus deterministic full-row checks is an empirical\n    stop only. It is explicitly NOT a guarantee for every unqueried entry.\n    \"\"\"\n    m, n = oracle.known.shape\n    if not np.isfinite(tolerance) or tolerance <= 0 or max_rank < 1:\n        raise ValueError(\"Require positive ACA tolerance/rank\")\n    left = np.empty((m, 0), dtype=oracle.values.dtype)\n    right = np.empty((0, n), dtype=oracle.values.dtype)\n    used_rows, used_columns, checked = set(), set(), set()\n    row, small_update = 0, False\n    iterations = 0\n    while True:\n        iterations += 1\n        if iterations > 2 * (m + n + max_rank):\n            return None\n        if len(used_columns) >= min(max_rank, m, n) or np.mean(oracle.known) >= entry_fraction:\n            return None\n        row_value = oracle.get([row], np.arange(n))[family, 0] - left[row] @ right\n        candidates = abs(row_value).copy()\n        if used_columns:\n            candidates[list(used_columns)] = 0\n        col = int(np.argmax(candidates))\n        if np.linalg.norm(candidates) * np.sqrt(m) <= 0.1 * tolerance:\n            small_update = True\n        else:\n            column = oracle.get(np.arange(m), [col])[family, :, 0] - left @ right[:, col]\n            pivot = row_value[col]\n            u = column / pivot\n            v = row_value\n            if not np.all(np.isfinite(u)):\n                return None\n            left = np.column_stack([left, u])\n            right = np.vstack([right, v])\n            used_columns.add(col)\n            used_rows.add(row)\n            small_update = np.linalg.norm(u) * np.linalg.norm(v) <= 0.1 * tolerance\n            scores = abs(u).copy()\n            scores[list(used_rows)] = -1\n            row = int(np.argmax(scores))\n        if small_update:\n            # Include both polarizations and separated parts of the row cluster.\n            probes = np.unique(np.r_[0, 1, m // 3, m // 2, max(0, m - 2), m - 1])\n            exact = oracle.get(probes, np.arange(n))[family]\n            residual = exact - left[probes] @ right\n            row_errors = np.linalg.norm(residual, axis=1)\n            checked.update(probes.tolist())\n            if np.max(row_errors) <= 0.25 * tolerance / np.sqrt(m):\n                return CrossFactors(left, right, tuple(sorted(checked)))\n            row = int(probes[np.argmax(row_errors)])\n            if row in used_rows:\n                return None\n            small_update = False\n\n\nclass HierarchicalGalerkin:\n    def __init__(\n        self,\n        mesh,\n        material,\n        *,\n        quadrature=12,\n        leaf_panels=24,\n        eta=1.0,\n        rtol=1e-11,\n        atol=1e-14,\n        max_rank=32,\n    ):\n        if not 0 < rtol < 1 or not 0 < atol < 1 or max_rank < 1:\n            raise ValueError(\"Require explicit positive compression tolerances/rank\")\n        self.provider = BLOCK[\"GalerkinBlockProvider\"](mesh, material, quadrature=quadrature)\n        self.blocks = partition(cluster_tree(mesh, leaf_panels), eta)\n        self.rtol, self.atol, self.max_rank = rtol, atol, max_rank\n        started = perf_counter()\n        self.near_requests, self.pinned_geometry_bytes = {}, 0\n        for a, b, far in self.blocks:\n            if far:\n                continue\n            request = self.provider.request(a.dofs, b.dofs)\n            info = request.statistics()\n            size = info[\"prepared_geometry_bytes\"] + info[\"map_bytes\"] + request.mass.nbytes\n            if self.pinned_geometry_bytes + size <= 512 * 1024**2:\n                self.near_requests[id(a), id(b)] = request\n                self.pinned_geometry_bytes += size\n        self.geometry_preparation_seconds = perf_counter() - started\n\n    def evaluate(self, s=None):\n        n = self.provider.mesh.dofs\n        matrices = [np.zeros((n, n), dtype=float if s is None else complex) for _ in range(3)]\n        near_squared = np.zeros(3)\n        records = []\n        far_entries = sum(2 * len(a.dofs) * len(b.dofs) for a, b, far in self.blocks if far)\n        total_pairs = total_calls = total_points = 0\n\n        def publish(a, b, values):\n            r, c = a.dofs, b.dofs\n            for k in range(3):\n                matrices[k][np.ix_(r, c)] = values[k]\n            if a is not b:\n                matrices[0][np.ix_(c, r)] = values[0].T\n                matrices[2][np.ix_(c, r)] = values[2].T\n                matrices[1][np.ix_(c, r)] = values[3].T\n\n        for a, b, far in self.blocks:\n            if far:\n                continue\n            oracle = PairedOracle(\n                self.provider, a.dofs, b.dofs, s, self.near_requests.get((id(a), id(b)))\n            )\n            values = oracle.full()\n            publish(a, b, values)\n            for k in range(3):\n                near_squared[k] += np.linalg.norm(values[k]) ** 2\n            if a is not b:\n                near_squared[0] += np.linalg.norm(values[0]) ** 2\n                near_squared[2] += np.linalg.norm(values[2]) ** 2\n                near_squared[1] += np.linalg.norm(values[3]) ** 2\n            total_pairs += oracle.pairs\n            total_calls += oracle.calls\n            total_points += oracle.points\n            records.append(\n                dict(\n                    shape=list(oracle.known.shape),\n                    kind=\"exact_near\",\n                    calls=oracle.calls,\n                    pair_evaluations=oracle.pairs,\n                )\n            )\n        near_norm = np.sqrt(near_squared)\n        for a, b, far in self.blocks:\n            if not far:\n                continue\n            oracle = PairedOracle(self.provider, a.dofs, b.dofs, s)\n            weight = np.sqrt(len(a.dofs) * len(b.dofs) / far_entries)\n            tolerances = (self.atol + self.rtol * near_norm) * weight\n            values, factors = [], []\n            for family in range(4):\n                tolerance = tolerances[family if family < 3 else 1]\n                factor = adaptive_cross(oracle, family, tolerance, max_rank=self.max_rank)\n                if factor is None:\n                    values = oracle.full()\n                    factors = []\n                    break\n                factors.append(factor)\n                values.append(factor.dense())\n            values = np.asarray(values)\n            publish(a, b, values)\n            total_pairs += oracle.pairs\n            total_calls += oracle.calls\n            total_points += oracle.points\n            records.append(\n                dict(\n                    shape=list(oracle.known.shape),\n                    kind=\"empirical_aca\" if factors else \"exact_fallback\",\n                    ranks=[f.left.shape[1] for f in factors],\n                    calls=oracle.calls,\n                    pair_evaluations=oracle.pairs,\n                    exact_entry_fraction=float(np.mean(oracle.known)),\n                )\n            )\n        mass = np.zeros((n, n))\n        for i in range(self.provider.mesh.count):\n            for j in [i, (i + 1) % self.provider.mesh.count]:\n                mass[2 * i : 2 * i + 2, 2 * j : 2 * j + 2] += (\n                    self.provider.mesh.lengths[i] / 2 * np.eye(2)\n                )\n        return GalerkinOperators(*matrices, mass), dict(\n            blocks=records,\n            near_norm_lower_bounds=near_norm.tolist(),\n            raw_rtol=self.rtol,\n            raw_atol=self.atol,\n            source_pair_evaluations=total_pairs,\n            source_batch_requests=total_calls,\n            source_quadrature_points=total_points,\n            original_complete_panel_pairs=self.provider.mesh.count\n            * (self.provider.mesh.count + 1)\n            // 2,\n            pinned_near_geometry_bytes=self.pinned_geometry_bytes,\n            geometry_preparation_seconds=self.geometry_preparation_seconds,\n            certified_error_bound=False,\n            frequency_compression=False,\n            dense_global_output_and_solve=True,\n            v_d_bilinear_reciprocity_preserved=True,\n        )\n",
+    "benchmark_hierarchical_galerkin.py": "\"\"\"Audit and time complete hierarchical operators and unchanged Schur solves.\n\nNear-field geometry, failed ACA attempts, full fallbacks, preparation and all\nindependent reference checks are retained in the cost record. This samples\nphysical frequencies; it is not a complete CQ/event or FEM advantage proof.\n\"\"\"\n\nimport argparse\nimport json\nimport runpy\nfrom dataclasses import asdict\nfrom pathlib import Path\nfrom statistics import median\nfrom time import perf_counter\n\nimport numpy as np\nfrom threadpoolctl import threadpool_limits\n\nfrom finiteblock_bem.cq import plan_cq\nfrom finiteblock_bem.galerkin_fast import prepared_geometry_bytes\nfrom finiteblock_bem.io import environment_record, fingerprint, write_json\nfrom finiteblock_bem.nodal import load_nodal_model\n\nTOOLS = Path(__file__).resolve().parent\nMETHOD = runpy.run_path(str(TOOLS / \"hierarchical_galerkin.py\"))\nSCHUR = runpy.run_path(str(TOOLS / \"trace_schur_experiment.py\"))[\"TraceSchurTransfer\"]\nMODES = runpy.run_path(str(TOOLS / \"radau_raw_sampling.py\"))[\"lower_half_radau_modes\"]\nERROR = runpy.run_path(str(TOOLS / \"benchmark_factored_galerkin.py\"))[\"errors\"]\nFIELDS = [\"single_layer\", \"trace_double_layer\", \"hypersingular\"]\n\n\ndef summary_record(record):\n    blocks = record[\"blocks\"]\n    return {k: v for k, v in record.items() if k != \"blocks\"} | dict(\n        block_counts={\n            kind: sum(b[\"kind\"] == kind for b in blocks)\n            for kind in [\"exact_near\", \"exact_fallback\", \"empirical_aca\"]\n        },\n        far_blocks=[b for b in blocks if b[\"kind\"] != \"exact_near\"],\n    )\n\n\ndef main():\n    p = argparse.ArgumentParser(description=__doc__)\n    p.add_argument(\"case\", type=Path)\n    p.add_argument(\"--output\", type=Path, required=True)\n    for flag, value in [(\"h\", 10), (\"contact-h\", 2), (\"end-h\", 0.015625)]:\n        p.add_argument(\"--\" + flag, type=float, default=value)\n    p.add_argument(\"--quadrature\", type=int, default=12)\n    p.add_argument(\"--leaf-panels\", type=int, default=24)\n    p.add_argument(\"--eta\", type=float, default=1)\n    p.add_argument(\"--raw-rtol\", type=float, default=1e-11)\n    p.add_argument(\"--raw-atol\", type=float, default=1e-14)\n    p.add_argument(\"--indices\", type=int, nargs=\"+\", default=[0, 655])\n    p.add_argument(\"--branches\", type=int, nargs=\"+\", default=[0])\n    p.add_argument(\"--include-fast-zero\", action=\"store_true\")\n    p.add_argument(\"--repeats\", type=int, default=2)\n    p.add_argument(\"--max-memory-mb\", type=float, default=12288)\n    args = p.parse_args()\n    begun = perf_counter()\n    output = args.output.resolve()\n    if (\n        output.exists()\n        or output.is_relative_to(Path(\"/Volumes/Gauss-T7/tatva\"))\n        or args.repeats < 2\n        or not np.isfinite(args.max_memory_mb)\n        or args.max_memory_mb <= 0\n        or args.indices != sorted(set(args.indices))\n        or any(b not in [0, 1] for b in args.branches)\n    ):\n        raise ValueError(\"Require fresh output, valid modes, budget and alternating repeats\")\n    model = load_nodal_model(\n        args.case,\n        max_panel_length=args.h,\n        contact_panel_length=args.contact_h,\n        contact_end_length=args.end_h,\n        corner_panel_length=args.end_h,\n    )\n    meshes = [model.reference.moving, model.reference.stationary]\n    plan = plan_cq(\n        2 * len(model.moving_contact) + 1, 2e-6, 22500, max_memory_mb=1e9, disk_spectrum=True\n    )\n    if any(i < 0 or i > plan.fft_size // 2 for i in args.indices):\n        raise ValueError(\"Invalid physical frequency index\")\n    peak = sum(prepared_geometry_bytes(m, args.quadrature) for m in meshes)\n    peak += (\n        32 * (model.constraints.size**2 + sum(m.dofs**2 for m in meshes)) * 16\n        + 2 * 512 * 1024**2\n        + 256 * 1024**2\n    )\n    if peak > args.max_memory_mb * 1024**2:\n        raise ValueError(\"Explicit original/hierarchical/solver array budget exceeded\")\n    files = [\n        Path(__file__),\n        *[\n            TOOLS / n\n            for n in [\n                \"hierarchical_galerkin.py\",\n                \"galerkin_blocks.py\",\n                \"trace_schur_experiment.py\",\n                \"schur_condensation_experiment.py\",\n                \"radau_raw_sampling.py\",\n                \"benchmark_factored_galerkin.py\",\n            ]\n        ],\n        args.case,\n    ]\n    frozen = {str(f.resolve()): fingerprint(f) for f in files}\n    env = environment_record(args.case)\n    output.mkdir(parents=True)\n    write_json(\n        output / \"preflight.json\",\n        dict(\n            frozen_inputs_sha256=frozen,\n            environment=env,\n            plan=asdict(plan),\n            estimated_array_bytes=peak,\n            arguments=vars(args) | dict(case=str(args.case.resolve()), output=str(output)),\n        ),\n    )\n    samples = []\n    with threadpool_limits(limits=1, user_api=\"blas\"):\n        start = perf_counter()\n        reference = SCHUR(model, quadrature=args.quadrature)\n        original_preparation = perf_counter() - start\n        start = perf_counter()\n        variants = [\n            METHOD[\"HierarchicalGalerkin\"](\n                m,\n                model.reference.material,\n                quadrature=args.quadrature,\n                leaf_panels=args.leaf_panels,\n                eta=args.eta,\n                rtol=args.raw_rtol,\n                atol=args.raw_atol,\n            )\n            for m in meshes\n        ]\n        variant_preparation = perf_counter() - start\n        modes = [(i, b) for i in args.indices for b in args.branches]\n        if args.include_fast_zero and (0, 1) not in modes:\n            modes.append((0, 1))\n        write_json(\n            output / \"preparation.json\",\n            dict(\n                original_seconds=original_preparation,\n                hierarchical_seconds=variant_preparation,\n                partitions=[\n                    dict(\n                        near=sum(not far for _, _, far in v.blocks),\n                        far=sum(far for _, _, far in v.blocks),\n                        pinned_bytes=v.pinned_geometry_bytes,\n                    )\n                    for v in variants\n                ],\n            ),\n        )\n        for index, branch in modes:\n            s = MODES(plan.radius * np.exp(-2j * np.pi * index / plan.fft_size), plan.dt)[branch]\n            times = {\n                key: []\n                for key in [\n                    \"original_assembly\",\n                    \"hierarchical_assembly\",\n                    \"original_condensation\",\n                    \"hierarchical_condensation\",\n                ]\n            }\n            attempts = []\n            for repeat in range(args.repeats):\n                operators, maps, details = {}, {}, None\n                order = (\n                    [\"original\", \"hierarchical\"]\n                    if repeat % 2 == 0\n                    else [\"hierarchical\", \"original\"]\n                )\n                for name in order:\n                    start = perf_counter()\n                    operators[name] = []\n                    records = []\n                    for body in range(2):\n                        write_json(\n                            output / \"live.json\",\n                            dict(\n                                index=index,\n                                branch=branch,\n                                repeat=repeat,\n                                method=name,\n                                body=body,\n                                elapsed_seconds=perf_counter() - begun,\n                            ),\n                        )\n                        if name == \"original\":\n                            operator = reference.prepared[body].assemble(s)\n                        else:\n                            operator, record = variants[body].evaluate(s)\n                            records.append(summary_record(record))\n                        operators[name].append(operator)\n                    times[name + \"_assembly\"].append(perf_counter() - start)\n                    if name == \"hierarchical\":\n                        details = records\n                    start = perf_counter()\n                    maps[name] = reference.evaluate_operators(operators[name], reconstruction=True)\n                    times[name + \"_condensation\"].append(perf_counter() - start)\n                checks = []\n                passed = True\n                for body in range(2):\n                    for field in FIELDS:\n                        a, b = (\n                            getattr(operators[name][body], field)\n                            for name in [\"hierarchical\", \"original\"]\n                        )\n                        report = ERROR(a, b)\n                        mixed = float(\n                            np.linalg.norm(a - b)\n                            / (args.raw_atol + args.raw_rtol * np.linalg.norm(b))\n                        )\n                        checks.append(\n                            dict(body=body, field=field, mixed_tolerance_normalized=mixed, **report)\n                        )\n                        passed &= mixed <= 1\n                for field, a, b in zip(\n                    [\"impedance\", \"full_boundary_reconstruction\"],\n                    maps[\"hierarchical\"],\n                    maps[\"original\"],\n                    strict=True,\n                ):\n                    report = ERROR(a, b)\n                    checks.append(dict(field=field, **report))\n                    passed &= max(report[\"relative_frobenius\"], report[\"relative_inf\"]) <= 1e-8\n                hermitian = {name: (z / s + (z / s).conj().T) / 2 for name, (z, _) in maps.items()}\n                passivity = dict(\n                    original_minimum_eigenvalue=float(np.linalg.eigvalsh(hermitian[\"original\"])[0]),\n                    hierarchical_minimum_eigenvalue=float(\n                        np.linalg.eigvalsh(hermitian[\"hierarchical\"])[0]\n                    ),\n                    hermitian_difference_frobenius_bound=float(\n                        np.linalg.norm(hermitian[\"hierarchical\"] - hermitian[\"original\"])\n                    ),\n                )\n                attempts.append(\n                    dict(\n                        repeat=repeat,\n                        checks=checks,\n                        compression=details,\n                        sampled_velocity_impedance_hermitian=passivity,\n                        all_gates_passed=bool(passed),\n                    )\n                )\n                write_json(\n                    output / \"attempt-progress.json\",\n                    dict(index=index, branch=branch, times=times, attempts=attempts),\n                )\n                if not passed:\n                    np.savez_compressed(\n                        output / \"failed-operators.npz\",\n                        **{\n                            f\"{name}_{body}_{field}\": getattr(operators[name][body], field)\n                            for name in operators\n                            for body in range(2)\n                            for field in FIELDS\n                        },\n                    )\n                    raise ValueError(\n                        \"Complete original raw/Schur gate failed; retained failed operators and costs\"\n                    )\n                del operators, maps\n            samples.append(\n                dict(\n                    index=index,\n                    branch=branch,\n                    s_real=float(s.real),\n                    s_imag=float(s.imag),\n                    times=times,\n                    medians={k: median(v) for k, v in times.items()},\n                    attempts=attempts,\n                )\n            )\n            write_json(output / \"progress.json\", dict(samples=samples))\n            print(\n                json.dumps(dict(index=index, branch=branch, medians=samples[-1][\"medians\"])),\n                flush=True,\n            )\n    if any(fingerprint(f) != v for f, v in frozen.items()) or environment_record(args.case) != env:\n        raise ValueError(\"Source/runtime changed\")\n    write_json(\n        output / \"summary.json\",\n        dict(\n            status=\"passed_sampled_original_raw_and_schur_audits\",\n            samples=samples,\n            original_preparation_seconds=original_preparation,\n            hierarchical_preparation_seconds=variant_preparation,\n            total_seconds_including_checks=perf_counter() - begun,\n            frozen_inputs_sha256=frozen,\n            environment=env,\n            empirical_spatial_compression=True,\n            frequency_compression=False,\n            full_cq_or_event_control=False,\n            same_accuracy_fem_advantage_verified=False,\n        ),\n    )\n\n\nif __name__ == \"__main__\":\n    main()\n"
+  },
+  "source_sha256": {
+    "bem/tools/hierarchical_galerkin.py": "aa065e3470f175764d12728cc51f2ddc63478701feeaea17cfdc5fecdcd254bc",
+    "bem/tools/packed_galerkin_blocks.py": "9093439cdce0d4c319be44749d8fe95f3661479b60492857ca9e5fa273ec024d",
+    "bem/tools/benchmark_hierarchical_galerkin.py": "9b5a5f8e2239f2ad62c490b706ae65520327c18060bd1333352606040ef6a013"
+  },
+  "full_event_or_initialized_contact_ad_verified": false,
+  "same_accuracy_fem_advantage_verified": false,
+  "final_control_and_baseline_preservation": {
+    "exit_code": 0,
+    "frozen_files": 76,
+    "changed": [],
+    "retained_first_256_sha256": "f3802c5c698bed22e55be770bb4672ee9ec86d50c9ab24f1e9f1fc982c905801",
+    "seconds": 12.228731834329665,
+    "same_bem_resumed": true,
+    "four_core_serial_budget": true
+  },
+  "test_source_sha256": {
+    "bem/tests/test_hierarchical_galerkin.py": "e1ad7cc902fbae4d191320919d95a9c4f1a787787302f0960a5197f57df500f5",
+    "bem/tests/test_packed_galerkin_blocks.py": "9e48ee296b41a02e72ecc3ba6d34e5e349282d20e20e629685829716df73f7f6"
+  },
+  "timer_only_original_profile": {
+    "status": "timer_only_original_operator_profile",
+    "samples": [
+      {
+        "index": 0,
+        "s_real": 175.6733011623723,
+        "s_imag": 0.0,
+        "profiled_assembly_seconds": 26.433901666663587,
+        "timer_seconds": {
+          "kv": 5.542442415840924,
+          "small_series": 3.0990488352254033,
+          "radial_total": 9.44199401512742,
+          "tensor_total": 4.292362933047116,
+          "traction_total": 2.5926907220855355,
+          "assembly_einsum": 7.988418607972562,
+          "scatter": 0.16701454110443592
+        },
+        "call_counts": {
+          "kv": 15044,
+          "small_series": 3761,
+          "radial_total": 3761,
+          "tensor_total": 3761,
+          "traction_total": 7522,
+          "assembly_einsum": 33833,
+          "scatter": 22518
+        },
+        "unattributed_seconds": 1.951420847326517,
+        "complete_original_operator_bitwise_checks": {
+          "single_layer": true,
+          "trace_double_layer": true,
+          "hypersingular": true
+        }
+      },
+      {
+        "index": 655,
+        "s_real": 175.78127885781115,
+        "s_imag": 31398.668642948003,
+        "profiled_assembly_seconds": 49.848876499570906,
+        "timer_seconds": {
+          "kv": 31.808511684648693,
+          "small_series": 0.16637794766575098,
+          "radial_total": 32.78397822659463,
+          "tensor_total": 4.343904337845743,
+          "traction_total": 2.618044584058225,
+          "assembly_einsum": 7.977918217889965,
+          "scatter": 0.17364397179335356
+        },
+        "call_counts": {
+          "kv": 15044,
+          "small_series": 613,
+          "radial_total": 3761,
+          "tensor_total": 3761,
+          "traction_total": 7522,
+          "assembly_einsum": 33833,
+          "scatter": 22518
+        },
+        "unattributed_seconds": 1.9513871613889933,
+        "complete_original_operator_bitwise_checks": {
+          "single_layer": true,
+          "trace_double_layer": true,
+          "hypersingular": true
+        }
+      }
+    ],
+    "original_geometry_preparation_seconds": 11.693803291767836,
+    "total_seconds": 114.41128391679376,
+    "source_sha256": {
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/profile-original-galerkin-20261030.py": "20cd0abf103c019bb316bdbde8ab94a5fda0e90b70b7c78ff6794896c4dc9bfb",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/cases/pmma_event16.toml": "82d8f491a63ca1c348507678f08406dccbc62ed1d4abea8882879f7894d2315d",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/hierarchical-galerkin-checks-20261030-v3/fine/preflight.json": "3c81dd45365720bd4d4e068a599ae39ab6c175cad95c65cf1d0a7b9d45b54b97",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/hierarchical-galerkin-checks-20261030-v3/fine/failed-operators.npz": "a9b7534f77b5b7d6179371f315e36148d3e562bef5f1d7a8b5745e19c21b816a",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/kernels.py": "4008ae38c62c3022034d654a13da75369bd67309af4614006942398e22c1ad08",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/galerkin_fast.py": "e6167f6c553e15697b6d67a3a33f559574d22fd49db4aad49c8262d68224b614"
+    },
+    "scope": "One moving body and two physical slow-branch frequencies; timer overhead included, not an end-to-end speed benchmark"
+  },
+  "timer_profile_serial_control": {
+    "utc_start": "2026-10-30T10:40:44.650339+00:00",
+    "four_core_serial_validation": true,
+    "baseline_pause_included_in_baseline_wall_cost": true,
+    "exit_code": 0,
+    "seconds": 114.96652162447572,
+    "same_bem_resumed": true
+  }
+}

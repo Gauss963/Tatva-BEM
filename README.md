@@ -167,6 +167,10 @@ The [selected Galerkin block/fiber provider](bem/docs/galerkin_blocks.md) avoids
 constructing unrequested matrices or pair geometry. Actual fine-grid requested
 entries match independent complete assembly; a complete compression solver
 and end-to-end advantage remain open.
+The [far-field ACA assembly controls](bem/docs/hierarchical_galerkin.md) now
+pass sampled complete raw-operator, Schur and linear port checks. They are
+slower at the tested low/complex frequencies and faster at one strongly
+damped frequency; full production adoption remains deferred.
 The [Galerkin implementation and validation](bem/docs/galerkin.md) addresses
 the sampled passivity failures of the original collocation backend.
 
