@@ -3,21 +3,23 @@
 Fully elastodynamic boundary elements for finite-block frictional contact,
 developed alongside the Tatva-based PMMA finite-element model.
 
-**Research implementation: the full 45 ms event-16 FEM rupture has not yet
-been reproduced or shown to converge.** The completed Radau 6 us / Q12 event
-with the original float64 seed reaches 0.5654 mm, 12.22% below the archived FEM.
-Final pressure/shear profile differences
-remain about 20%; temporal and spatial convergence are still open.
-The cached Radau forward solve is slower than its matched BDF2 control;
-no same-accuracy speed advantage is established.
-The completed same-dt FEM h1 control reaches 0.619884 mm; h2/h1 endpoint
-pressure fields still differ by 17.62% in P1 L2. Radau differs from h1 by
-8.79% in maximum slip and 10.04% in the pressure profile, so the remaining
-accuracy gates are still open. See [the completed mesh control](bem/docs/fem_mesh_control.md).
-See the [full Radau and error-isolation results](bem/docs/radau_event.md),
-the [contact substep comparison](bem/docs/substepped_contact.md),
-the [original one-step comparison](bem/docs/fine2_event.md) and the
-[earlier collocation comparison](bem/docs/event16_comparison.md).
+**Research implementation: full event-16 agreement and a same-accuracy speed
+or stability advantage over FEM remain unverified.** The independent 2 us
+Radau kernel is still being constructed on the graded fine mesh. The
+[graded FEM reference completed all 45 ms](bem/docs/graded_fem_complete.md),
+but its [postrupture time-step control failed](bem/docs/fem_postrupture_timestep.md):
+dt/2 versus dt/4 pressure and signed shear differ by 17.68% and 10.05% in
+space-time P1 L2 over the conditional window. Completion alone does not make
+this FEM trajectory a converged reference.
+
+Earlier, coarser completed BEM events also failed their FEM agreement gates.
+The Radau 6 us / Q12 event with the original float64 seed reaches 0.5654 mm,
+12.22% below its archived FEM comparison; pressure/shear profile differences
+remain about 20%. Its cached forward solve is slower than the matched BDF2
+control. These are separate meshes and references from the latest graded study.
+See [Radau error isolation](bem/docs/radau_event.md),
+[contact substeps](bem/docs/substepped_contact.md), and the
+[earlier FEM mesh control](bem/docs/fem_mesh_control.md).
 
 The latest [independent endpoint controls](bem/docs/chamfer_refinement.md)
 reduce the initial whole-interface pressure/shear differences to 0.58%/0.51%
@@ -27,13 +29,12 @@ they do not establish complete nonlinear event agreement or a speed advantage.
 An explicit uncondensed static backend also resolves a fine-panel reconstruction
 roundoff failure at the original equilibrium tolerance.
 
-Fresh 2 us Radau construction has started on the graded fine mesh, following
-the [measured time-symbol comparison](bem/docs/bulk_time_symbol.md).
-The complete independent graded FEM reference is replaying its damaged-output
-prefix before continuing from a verified checkpoint after an abrupt process interruption.
-The BEM frequency prefix is preserved on disk; its
-[verified disk continuation](bem/docs/radau_sampling_checkpoint.md) now passes
-interrupted-kernel controls. Full fine construction still needs to resume.
+The current 2 us Radau construction follows the
+[measured time-symbol comparison](bem/docs/bulk_time_symbol.md).
+The graded FEM reference successfully replayed its damaged-output prefix
+and completed from the verified checkpoint. The BEM frequency prefix is
+preserved on disk and its [verified continuation](bem/docs/radau_sampling_checkpoint.md)
+is running; the complete fine kernel and event are still pending.
 See the [execution and measured CPU-budget record](bem/docs/reference_first.md).
 The [complete causal RK audit and conditional adjoint](bem/docs/radau_history_validation.md)
 pass real two-body short-run controls, including selected healed-preload
@@ -171,6 +172,10 @@ The [far-field ACA assembly controls](bem/docs/hierarchical_galerkin.md) now
 pass sampled complete raw-operator, Schur and linear port checks. They are
 slower at the tested low/complex frequencies and faster at one strongly
 damped frequency; full production adoption remains deferred.
+The [frequency-local scaled-Bessel control](bem/docs/ray_bessel_galerkin.md)
+reduces complete assembly time by 49.7% at the tested physical complex mode,
+while the low real mode is 3.2% slower. All sampled raw/Schur checks and a small
+complete causal/transpose control pass; production and full-event timing remain open.
 The [Galerkin implementation and validation](bem/docs/galerkin.md) addresses
 the sampled passivity failures of the original collocation backend.
 

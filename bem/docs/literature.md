@@ -5,6 +5,27 @@
 目標是在相同物理模型與可量化誤差下重現 FEM，然後證明穩定性或總時間的優勢。
 目前尚未達成這個目標。
 
+2026-10-30 再補讀兩篇與穩定性／積分有關的研究：
+
+- Hoonhout、Löscher、Steinbach、Urzúa–Torres，
+  [Stable least-squares space-time boundary element methods for the wave equation](https://doi.org/10.1007/s10444-026-10282-y)，
+  2026-01-27 出版。已讀出版 PDF §1、Lemma 7／Remark 5、§4 的適應性失效案例及 §5。
+  分析與實驗聚焦一維 scalar wave Dirichlet 問題；其 mixed residual 的可靠誤差估計
+  需要 nested spaces、discrete inf-sup 與 saturation，並非殘差小就無條件控制解誤差。
+  文中額外加密 dual space 才能得到 estimator；無約束的 adaptive mesh 也可能破壞穩定性。
+  本案的實作判斷是保留完整原始因果 residual、獨立時間／空間收斂兩組門檻，
+  不將目前的 sampled port passivity 或 algebraic residual 宣稱為 nonlinear solution 的誤差界。
+  尚未移植其 mixed least-squares solver；elastodynamics 與高維實作在該文亦屬後續方向。
+- Tausch，
+  [Space-Time Galerkin Boundary Element Method for the Wave Equation](https://arxiv.org/html/2608.15292v1)，
+  2026-08-15 預印本。已讀 §1–2、§5.2–5.3、§6。
+  pyramidal decomposition 將奇異性與波前截斷集中到少數積分變數，
+  其 triangle／P0 三維 scalar wave 實作展示積分階數的指數收斂。
+  §6 的有限延遲稀疏性來自該 retarded single-layer kernel，
+  不能直接替本案二維彈性 CQ 的完整反射歷史設定截斷時間。
+  本案目前繼續保持原 singularity subtraction 與 Q12，先獨立控制徑向核計算成本；
+  尚未實作這篇直接 space-time 積分法，也不沿用其速度或穩定性結論。
+
 2026-10-30 補讀並重新核對版本後，決策更新如下：
 
 - Schneider、Özdemir、Gimperlein、Urban、Graf，
