@@ -37,10 +37,21 @@ limiter 為 contact，contact safety factor 為 0.25。
 ## 每步 scalar 診斷
 
 完整物理窗口為 28.623182397–29.063076087 ms。
-每個原生 fine scalar step 都用於比較，沒有從誤差計算降採樣。
+所有原生 fine scalar rows 均保留；比較使用兩支時鐘的共同涵蓋區間，
+區間內的原生 knots 沒有降採樣。這不表示物理窗口中每一列都在積分區間內：
+dt/4 對 dt/8 的原記錄時鐘下，dt/8 最初一列早於共同區間；
+dt/2 對 dt/8 則有最初三列早於共同區間。積分邊界使用原 P1 插值，不外插。
 dt/4 對 dt/8 的 max-cumulative-slip 波形相對 L2 差為 **20.65%**，
 kinetic-energy 波形為 **34.42%**，mean signed shear 為 **7.92%**。
 mean pressure 只有 **1.20%** 差，顯示平均量接近不能代替全界面 pressure 場的相符。
+
+另核對原 leapfrog 的時鐘：位移與接觸場在整步 `t_n`，
+儲存的動能則由更新後 `v_(n+1/2)` 計算，因此其物理標籤為 `t_n + h/2`。
+依這個已知半步重新標記動能，dt/4 對 dt/8 的波形相對 L2 差由
+34.42025% 變為 **34.42011%**；dt/2 對 dt/8 由 43.75328% 變為 **43.75285%**。
+這個時鐘差無法解釋目前的大幅差異。此處沒有擬合時間平移；
+接觸場的時鐘與 1% 門檻均未改。兩種動能比較各自在其共同時間區間積分，
+屬已保存 scalar 的診斷，仍不是完整離散能量平衡或穩定性證明。
 
 完整窗口末端的最大累積滑移：
 
@@ -56,7 +67,7 @@ mean pressure 只有 **1.20%** 差，顯示平均量接近不能代替全界面 
 
 ![Conditional dt/4 versus dt/8 FEM window comparison](figures/fem_dt8_window_comparison.png)
 
-圖中的 scalar 曲線約以每支 5000 點顯示；所有定量指標使用全部原生 fine rows。
+圖中的 scalar 曲線約以每支 5000 點顯示；定量指標在共同涵蓋區間使用原生 fine knots，沒有降採樣。
 pressure／shear 誤差曲線使用全部 87 個共用保存時刻。
 右下角是最後共用保存時刻的 pressure，不是完整窗口末端。
 
@@ -68,6 +79,8 @@ replay 的成本仍在整個 invocation 中另行保留。完整 dt/8＋dt/16 �
 
 本次唯讀分析先核對並暫停 owner／quota／numerical process，分析後恢復相同三個程序；
 84 個 frozen inputs 未改。額外 12.184 s 暫停仍計入目前 dt/16 的 wall cost。
+半步時鐘的另一次唯讀稽核使用 2.927 s，亦已核對 84 個 frozen inputs 並恢復相同程序；
+此成本同樣保留在完整工作的 wall cost 中。
 原 BEM 依四核心串行流程持續暫停，待此控制與比較結束後恢復。
 [完整場／scalar 指標、時鐘、hash、來源與分析成本](fem_dt8_window_results.json)保留所有結果。
 

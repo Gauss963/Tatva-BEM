@@ -639,7 +639,7 @@
   },
   "fitted_time_shift_s": 0,
   "all_contact_endpoints_retained": true,
-  "all_native_scalar_rows_used_in_metrics": true,
+  "all_native_scalar_rows_used_in_metrics": false,
   "plot_display_scalar_points_per_branch": 5000,
   "full_event_or_spatial_convergence_verified": false,
   "dt16_gate_evaluated": false,
@@ -676,5 +676,215 @@
       "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-radau-study-graded-h2-end015625-4c-f64-replayed/resolved_run_config.json": "c0b63b3aba0fdd32499459428eb51c653ed0563e8fdd66fe794c0880e8ec6488",
       "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/pmma/dynamics.py": "5f549e3cbd017030cac3db1cbc957ab1998583f868134fe8b69a718c32c13309"
     }
-  }
+  },
+  "all_native_scalar_rows_retained": true,
+  "scalar_metric_scope": "Exact P1 integral within each common temporal overlap using native knots without downsampling; bracketing samples support interpolation at boundaries. Some retained rows lie outside the overlap. No extrapolation.",
+  "known_leapfrog_scalar_clock_audit": {
+    "status": "completed_read_only_known_leapfrog_clock_audit",
+    "physical_integer_window_s": [
+      0.02862318239674012,
+      0.029063076086635335
+    ],
+    "kinetic_energy_comparisons_against_dt8": {
+      "2": {
+        "recorded_integer_row_clock": {
+          "absolute_signal": {
+            "absolute_time_p1_l2": 4.253813483521096,
+            "relative_time_p1_l2": 0.4375327711716056,
+            "maximum_saved_interpolant_absolute_difference": 391.71810971586854,
+            "reference_squared_time_integral": 94.52261165159022
+          },
+          "increment_from_first_shared_time": {
+            "absolute_time_p1_l2": 4.25381348279151,
+            "relative_time_p1_l2": 0.4375434218775421,
+            "maximum_saved_interpolant_absolute_difference": 391.71810965845407,
+            "reference_squared_time_integral": 94.51800992599772
+          },
+          "common_time_interval_s": [
+            0.02862318335303075,
+            0.02906307608663533
+          ],
+          "temporal_union_knots": 1839997,
+          "fitted_time_shift_s": 0.0,
+          "initial_absolute_difference": 5.741448395879534e-08,
+          "scope": "Saved P1 signals only; incremental diagnostic does not replace absolute agreement"
+        },
+        "known_velocity_half_step_clock": {
+          "absolute_signal": {
+            "absolute_time_p1_l2": 4.253771652884735,
+            "relative_time_p1_l2": 0.4375284686147783,
+            "maximum_saved_interpolant_absolute_difference": 391.7166589952524,
+            "reference_squared_time_integral": 94.52261165159007
+          },
+          "increment_from_first_shared_time": {
+            "absolute_time_p1_l2": 4.253771652869889,
+            "relative_time_p1_l2": 0.4375391193181477,
+            "maximum_saved_interpolant_absolute_difference": 391.7166589940841,
+            "reference_squared_time_integral": 94.51800991361878
+          },
+          "common_time_interval_s": [
+            0.028623183831176065,
+            0.02906307620617166
+          ],
+          "temporal_union_knots": 2299994,
+          "fitted_time_shift_s": 0.0,
+          "initial_absolute_difference": 1.168247911603748e-09,
+          "scope": "Saved P1 signals only; incremental diagnostic does not replace absolute agreement"
+        }
+      },
+      "4": {
+        "recorded_integer_row_clock": {
+          "absolute_signal": {
+            "absolute_time_p1_l2": 3.3464312868558332,
+            "relative_time_p1_l2": 0.344202527954146,
+            "maximum_saved_interpolant_absolute_difference": 316.8853580273541,
+            "reference_squared_time_integral": 94.52261165159042
+          },
+          "increment_from_first_shared_time": {
+            "absolute_time_p1_l2": 3.346431286621906,
+            "relative_time_p1_l2": 0.34421090676007077,
+            "maximum_saved_interpolant_absolute_difference": 316.8853580086135,
+            "reference_squared_time_integral": 94.5180099423597
+          },
+          "common_time_interval_s": [
+            0.028623182874885435,
+            0.02906307608663533
+          ],
+          "temporal_union_knots": 1839999,
+          "fitted_time_shift_s": 0.0,
+          "initial_absolute_difference": 1.874062181134173e-08,
+          "scope": "Saved P1 signals only; incremental diagnostic does not replace absolute agreement"
+        },
+        "known_velocity_half_step_clock": {
+          "absolute_signal": {
+            "absolute_time_p1_l2": 3.346417473623356,
+            "relative_time_p1_l2": 0.34420110717208596,
+            "maximum_saved_interpolant_absolute_difference": 316.89112966369,
+            "reference_squared_time_integral": 94.52261165159038
+          },
+          "increment_from_first_shared_time": {
+            "absolute_time_p1_l2": 3.3464174736207912,
+            "relative_time_p1_l2": 0.34420948597465045,
+            "maximum_saved_interpolant_absolute_difference": 316.89112966348443,
+            "reference_squared_time_integral": 94.51800993828041
+          },
+          "common_time_interval_s": [
+            0.028623183113958093,
+            0.02906307620617166
+          ],
+          "temporal_union_knots": 2759997,
+          "fitted_time_shift_s": 0.0,
+          "initial_absolute_difference": 2.055073056173029e-10,
+          "scope": "Saved P1 signals only; incremental diagnostic does not replace absolute agreement"
+        }
+      }
+    },
+    "exact_common_overlap_counts": {
+      "2": {
+        "recorded_integer_row_clock": {
+          "first_s": 0.02862318335303075,
+          "last_s": 0.02906307608663533,
+          "counts": {
+            "2": {
+              "total": 460000,
+              "inside": 460000,
+              "before": 0,
+              "after": 0
+            },
+            "8": {
+              "total": 1840000,
+              "inside": 1839997,
+              "before": 3,
+              "after": 0
+            }
+          }
+        },
+        "known_velocity_half_step_clock": {
+          "first_s": 0.028623183831176065,
+          "last_s": 0.02906307620617166,
+          "counts": {
+            "2": {
+              "total": 460000,
+              "inside": 459999,
+              "before": 0,
+              "after": 1
+            },
+            "8": {
+              "total": 1840000,
+              "inside": 1839995,
+              "before": 5,
+              "after": 0
+            }
+          }
+        }
+      },
+      "4": {
+        "recorded_integer_row_clock": {
+          "first_s": 0.028623182874885435,
+          "last_s": 0.02906307608663533,
+          "counts": {
+            "4": {
+              "total": 920000,
+              "inside": 920000,
+              "before": 0,
+              "after": 0
+            },
+            "8": {
+              "total": 1840000,
+              "inside": 1839999,
+              "before": 1,
+              "after": 0
+            }
+          }
+        },
+        "known_velocity_half_step_clock": {
+          "first_s": 0.028623183113958093,
+          "last_s": 0.02906307620617166,
+          "counts": {
+            "4": {
+              "total": 920000,
+              "inside": 919999,
+              "before": 0,
+              "after": 1
+            },
+            "8": {
+              "total": 1840000,
+              "inside": 1839998,
+              "before": 2,
+              "after": 0
+            }
+          }
+        }
+      }
+    },
+    "kinetic_clock_formula": "t_n + dt_factor/2 for v_half_new after the kick; contact displacement/slip observables remain at t_n",
+    "clock_correction_fitted": false,
+    "field_clock_or_acceptance_gate_changed": false,
+    "source_and_input_sha256": {
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/audit-fem-scalar-clocks-20261030.py": "6e63e4d21e584cb63801926b05ceb7601dc3639fd9084ef129f8931a99ec45b4",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/pmma/dynamics.py": "5f549e3cbd017030cac3db1cbc957ab1998583f868134fe8b69a718c32c13309",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/event_observables.py": "276c288f6ae56044f62d5b9c2d876550beda2b20df2677259ed414b5573b637e",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-window-postrupture-study-20261030/window/summary.json": "ff960f590c1c714f580a90a8e563b572ec2e9ca7df6450485763694ed0ce085b",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-window-postrupture-study-20261030/window/factor2.npz": "9182f1941077844e961be294943e261032945973e3c2e744aacbb2efa847e92d",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-window-postrupture-study-20261030/window/factor4.npz": "465ce21ed23f454827fd31db0186b2be9bfc4874bfa5383b035cfeafe01489f0",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-window-finer-study-20261030/window/factor8.npz": "b6030cded3adb310f851f3352e05a380d8cf44edd3dd1e0a2b42078671d9edd8"
+    },
+    "all_retained_native_rows_preserved": true,
+    "scope": "P1 interpolation of saved scalar diagnostics within each common time overlap; no unsaved-field or nonlinear energy-stability bound",
+    "seconds": 2.779943167231977,
+    "read_only_analysis_source": "\"\"\"Known leapfrog half-step clock audit; no fitted shift and no new simulation.\"\"\"\nimport hashlib,json,os,runpy,time\nfrom pathlib import Path\nos.environ.update(OPENBLAS_NUM_THREADS='1',OMP_NUM_THREADS='1')\nimport numpy as np\nROOT=Path('/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM');OUT=ROOT/'bem/outputs/fem-scalar-clock-audit-20261030';OUT.mkdir(exist_ok=False);begun=time.perf_counter()\nTOOLS=ROOT/'bem/tools';EVENT=runpy.run_path(str(TOOLS/'event_observables.py'));DIGEST=runpy.run_path(str(TOOLS/'run_checkpointed_fem_reference.py'))['digest']\nparent=ROOT/'bem/outputs/fem-window-postrupture-study-20261030/window';fine=ROOT/'bem/outputs/fem-window-finer-study-20261030/window'\ns=json.loads((parent/'summary.json').read_text());records={r['factor']:r for r in s['records']if r['factor']in(2,4)};records[8]=next(r for r in json.loads((fine/'branches.json').read_text())['records']if r['factor']==8)\nsource=ROOT/'bem/outputs/fem-source/933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d/tatva/pmma/dynamics.py';src=source.read_text()\nassert 'kinetic = 0.5 * jnp.sum(mass_flat * v_half_new**2)'in src and 'u_flat + dt * v_half'in src and 'velocity_trial = v_half + dt * accel'in src\npaths=[Path(__file__),source,TOOLS/'event_observables.py',parent/'summary.json',parent/'factor2.npz',parent/'factor4.npz',fine/'factor8.npz']\nfrozen={str(p):DIGEST(p)for p in paths};data={};clocks={};kclocks={}\nfor f,r in records.items():\n with np.load((fine if f==8 else parent)/f'factor{f}.npz',allow_pickle=False)as a:data[f]=a['all_scalar_history']\n assert data[f].shape==(230000*f,17)\n clocks[f]=s['physical_shear_interval_s'][0]+np.arange(1,len(data[f])+1)*r['dt_s']\n kclocks[f]=clocks[f]+r['dt_s']/2\nresults={};overlaps={}\nfor f in [2,4]:\n results[str(f)]={}\n for label,c in [('recorded_integer_row_clock',clocks),('known_velocity_half_step_clock',kclocks)]:\n  metric=EVENT['waveform_error'](c[8],data[8][:,9],c[f],data[f][:,9]);results[str(f)][label]=metric\n  lo=max(c[8][0],c[f][0]);hi=min(c[8][-1],c[f][-1])\n  overlaps.setdefault(str(f),{})[label]=dict(first_s=lo,last_s=hi,counts={str(k):dict(total=len(c[k]),inside=int(np.count_nonzero((c[k]>=lo)&(c[k]<=hi))),before=int(np.count_nonzero(c[k]<lo)),after=int(np.count_nonzero(c[k]>hi)))for k in [f,8]})\nassert all(DIGEST(p)==v for p,v in frozen.items())\nrecord=dict(status='completed_read_only_known_leapfrog_clock_audit',physical_integer_window_s=s['physical_shear_interval_s'],kinetic_energy_comparisons_against_dt8=results,exact_common_overlap_counts=overlaps,kinetic_clock_formula='t_n + dt_factor/2 for v_half_new after the kick; contact displacement/slip observables remain at t_n',clock_correction_fitted=False,field_clock_or_acceptance_gate_changed=False,source_and_input_sha256=frozen,all_retained_native_rows_preserved=True,scope='P1 interpolation of saved scalar diagnostics within each common time overlap; no unsaved-field or nonlinear energy-stability bound',seconds=time.perf_counter()-begun)\n(OUT/'summary.json').write_text(json.dumps(record,indent=2,allow_nan=False)+'\\n')\nprint(json.dumps(dict(metrics={f:{label:v['absolute_signal']['relative_time_p1_l2']for label,v in a.items()}for f,a in results.items()},overlaps=overlaps)),flush=True)\n",
+    "execution_control": {
+      "utc_start": "2026-10-30T15:25:37.593188+00:00",
+      "all_pause_costs_included_in_full_window_wall": true,
+      "exit_code": 0,
+      "unchanged_frozen_inputs": 84,
+      "seconds": 2.9268754590302706,
+      "same_fem_processes_resumed": [
+        99146,
+        5252,
+        5250
+      ]
+    }
+  },
+  "metadata_correction": "The original embedded dt8 analysis source states all_native_scalar_rows_used_in_metrics=True. This audit corrects that overly broad metadata; previously recorded numerical metrics and original analysis source are preserved."
 }
