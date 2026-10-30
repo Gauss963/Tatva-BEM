@@ -23,6 +23,13 @@ dt/4 對 dt/8，在相同 **87 個原共用保存時刻、285 個原界面節點
 這不等於模型 ill-posed 或能量發散的證明，也不支持直接做 Richardson 外插。
 仍須完成 dt/16、觀察其全場差異，再決定後續穩定性與解析度診斷。
 
+原 source 並未漏算 penalty 時間尺度：它明確使用 `min(dt_bulk, dt_contact)`。
+原記錄的 `dt_bulk=1.958005065e-9 s`、`dt_contact=1.912581260e-9 s`，
+limiter 為 contact，contact safety factor 為 0.25。
+這排除了「沒有納入接觸時間步估計」這個解釋；
+估計值本身仍不是完整非線性系統的譜穩定性或時間精度證明。
+數值與 archived source／設定 SHA 亦保存在結果 JSON。
+
 所有原端點、共用保存時刻均保留；沒有 fitted time shift、濾波或端點裁切。
 場比較時間為 28.628181884–29.058229606 ms。
 這是已保存 P1 interpolants 的確切積分，**不是未保存時刻的全場誤差上界**。
