@@ -6,6 +6,7 @@ from types import FunctionType
 
 import numpy as np
 import pytest
+from scipy.special import kv
 
 jax = pytest.importorskip("jax")
 jax.config.update("jax_enable_x64", True)
@@ -54,3 +55,30 @@ def test_changed_radial_source_requires_reaudit():
 
     with pytest.raises(ValueError, match="re-audit"):
         JIT["_radial_code"](incompatible)
+
+
+@jax.jit
+def value_and_ray_scale_jvp(z, coefficients, first):
+    one = jax.numpy.array(1.0, dtype=jax.numpy.float64)
+    return jax.jvp(lambda scale: JIT["_pair"](scale * z, coefficients, first), (one,), (one,))
+
+
+@pytest.mark.parametrize("angle", [0, 0.7, -0.7, np.pi / 2 - 1e-5, -np.pi / 2 + 1e-5])
+def test_ray_scale_derivative_matches_independent_bessel_identities_at_seams(angle):
+    # d/dt K0(t*z)=-z*K1(t*z), d/dt K1(t*z)=-z*K0(t*z)-K1(t*z) at t=1.
+    # These independent SciPy identities test the derivative, not just an
+    # optimization result or JVP/VJP duality of the same approximation.
+    seam = np.ldexp(np.ones(42), np.arange(-32, 10))
+    radius = np.r_[
+        np.geomspace(1e-10, 512, 1237), seam, np.nextafter(seam, 0), np.nextafter(seam, np.inf)
+    ]
+    table = JIT["RAY"]["RayBesselTable"].prepare(
+        np.exp(1j * angle), radius.min() / 2, radius.max() * 2
+    )
+    z = table.direction * radius
+    assert np.all(table._coordinates(z)[0])
+    values, tangent = value_and_ray_scale_jvp(z, table.coefficients, np.int32(table.first_exponent))
+    exact_values = np.stack([kv(0, z), kv(1, z)])
+    exact_tangent = np.stack([-z * kv(1, z), -z * kv(0, z) - kv(1, z)])
+    np.testing.assert_allclose(values, exact_values, rtol=2e-13, atol=1e-280)
+    np.testing.assert_allclose(tangent, exact_tangent, rtol=2e-11, atol=1e-280)

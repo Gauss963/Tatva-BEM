@@ -194,6 +194,9 @@ The optional [JAX batch assembly control](bem/docs/jax_ray_galerkin.md) passes
 the same raw/Schur gates and a complete coarse sliding/initialized-AD control.
 Three fine sampled modes have original-to-JAX assembly time ratios of 3.49–6.50,
 including cold compilation and per-call tables; this is not full-event or FEM speedup.
+The same report includes an audited two-frequency worker comparison: JAX with
+two workers has a 4.10 warm batch time ratio against the existing two-worker
+reference, with compilation charged separately. Full-kernel adoption remains open.
 The [Galerkin implementation and validation](bem/docs/galerkin.md) addresses
 the sampled passivity failures of the original collocation backend.
 

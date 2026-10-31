@@ -18,8 +18,9 @@ JIT 路徑以同一組係數同時計算 K0／K1。原 radial algebra 與九項�
 
 矩陣仍輸出 NumPy complex128；每個 batch 讀回 host 會等待 JAX 完成。
 因此組裝計時包含首次編譯、資料傳輸及同步。wrapper 另記錄 JAX 啟動成本與 process peak RSS。
-本介面沒有提供材料／幾何導數：將 table coefficients 視為固定值直接微分，
-不會自動得到物理核函數對材料的完整導數。既有接觸根與初始化的 implicit AD 另行保留。
+本公開介面尚未串接材料／幾何導數：完整材料測試需要一致連結 mu、lambda、rho、
+cs、cp，並驗證分箱、小參數級數及所有積分修正。幾何準備與 host scatter 目前仍使用
+NumPy。既有接觸根與初始化的 implicit AD 另行保留。
 
 測試對照原始 SciPy 核，而非只對照先前的 table backend：
 
@@ -69,6 +70,79 @@ JAX_ENABLE_X64=true OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 \
 
 CPU quota 及完整環境設定保留於結果 JSON 的 controller source／release receipt；
 上列只列數值命令，不代表單靠環境變數就已強制四核心上限。
+
+## 擴大複頻率檢查
+
+同日再檢查相同細網格的六個物理模式，涵蓋兩個 branches 的中段與 Nyquist 端點，
+每個模式仍交替順序重複兩次。全部通過原 raw／Schur／完整邊界還原門檻：
+
+| index | branch | 原始（s） | JAX，含 table 與新 shape 編譯（s） | 時間比 |
+|---:|---:|---:|---:|---:|
+| 4096 | 0 | 71.4234 | 17.5051 | 4.08× |
+| 4096 | 1 | 54.6291 | 15.6400 | 3.49× |
+| 16384 | 0 | 59.5029 | 15.9912 | 3.72× |
+| 16384 | 1 | 54.9884 | 15.4611 | 3.56× |
+| 32768 | 0 | 56.3847 | 15.3921 | 3.66× |
+| 32768 | 1 | 56.3372 | 15.2376 | 3.70× |
+
+此批最大 raw normalized error 為 0.000838179，最大 map 相對誤差為 5.72986e-13。
+共 trace 18 個 signatures，process peak RSS 4,114,202,624 bytes；編譯未被排除於計時。
+完整數值控制 942.0138 s，外層 946.3466 s，原首 256 個已保存矩陣的 SHA-256
+在暫停前後一致，完成後恢復原三個程序。這些樣本仍不是整個 contour 的誤差證明。
+既有 JAX 實作提交 `7c6ac40` 的 Python 3.11／3.12 CI 均已通過。
+
+## 相同 CPU 預算的整批 worker 比較
+
+新增 `tools/benchmark_galerkin_throughput.py`，在相同 531 DOF／Q12 網格、
+同一平均 3.85 CPU quota 下，處理 slow branch 的兩個相鄰實際模式 655／656。
+raw provider 與 Schur／work-coordinate transform 各使用同一 thread pool，
+符合現有 raw sampler 的兩段執行方式。原版使用目前 producer 的兩個 workers。
+
+先以原版取得獨立參考，再單獨執行、計費並稽核一次 JAX 編譯 warmup；
+之後各配置交替順序測兩次，避免只有其中一個 JAX worker 配置承擔編譯成本。
+下表是 warm 批次時間，包含每次 table、raw 組裝與 transform：
+
+| 配置 | 兩模式中位時間（s） | 相對原版批次時間比 |
+|---|---:|---:|
+| 原版，2 workers | 106.5386 | 1.00× |
+| JAX，1 worker | 31.5091 | 3.38× |
+| JAX，2 workers | 25.9606 | 4.10× |
+
+JAX 雙 worker 比單 worker 少 17.61% 時間；這次測量支持再評估雙 worker 的長程成本，
+但尚未證明整個 contour 的最佳 worker 數。兩次 warm 重複不是統計速度保證。
+原版與 JAX 均用同一 CPU 上限；此處未量測較高記憶體配置的原版四 worker。
+
+單獨計費的 JAX warmup 為 36.8474 s，含兩模式及九個新 signatures；它也通過所有門檻。
+module／JAX 啟動 0.2576 s，共用 geometry／variant 準備 23.7545 s。
+完整細網格控制 402.6571 s，process peak RSS 4,361,338,880 bytes。
+全部七批的 raw、impedance、完整邊界還原與 work-compliance 檢查通過；
+最大 raw normalized error 0.00185597，map 最大相對誤差 1.66559e-13。
+額外的完整還原與稽核成本列在 `validation_seconds`，未混入表中批次時間，
+已計入完整控制成本。
+
+另以 Q8 粗網格做了完整 concurrent pilot；原版約 0.098 s、JAX 單 worker 約 0.062 s、
+雙 worker 約 0.039 s，但冷編譯需額外 7.5525 s。這個短案例不能據此宣稱總時間較快。
+八個獨立稽核測試也通過：包含 raw 誤差很小但求逆還原誤差很大的案例，以及三種 raw
+family 各自含 NaN／Inf 時必須拒絕且保留有效 JSON 的案例。
+
+整個 worker 控制（單元測試、pilot、細網格與保護檢查）外層 415.9618 s。
+[擴大測試與 worker 結果 JSON](jax_galerkin_throughput_results.json)保留原始各次耗時、
+來源、compile warmup 與 controller；以上仍不是完整 kernel／事件或與 FEM 的速度比較。
+新 backend 尚未接手原 producer；完整建構的 interpolation workspace 與額外 JAX 記憶體
+仍須做獨立資源預檢。
+
+## 核函數引數的獨立 AD 檢查
+
+對固定複頻率與正實波速，材料變動會透過 `z=s*r/c` 沿同一條 ray 改變引數。
+新增五組 rays 的實測導數檢查，包括兩階 Bessel、dyadic seams 與兩側鄰接浮點值。
+JAX 對 `K_nu(t*z)` 的 `t` 導數，在 `t=1` 與獨立 SciPy Bessel 值及
+[DLMF 10.29 導數關係](https://dlmf.nist.gov/10.29)一致：
+`dK0/dt=-z*K1`、`dK1/dt=-z*K0-K1`；門檻為 `rtol=2e-11, atol=1e-280`。
+value 檢查仍用 `rtol=2e-13`。共十二個 JIT backend／引數 AD 測試通過（12.08 s）。
+
+這驗證固定 ray 上的局部引數微分，提供後續材料導數的基礎。
+完整材料參數映射、Galerkin matrix／解、初始化、CQ 權重、整段事件及停止時間的導數
+仍須逐層串接與驗證；這五個點核測試不能替代它們。外層控制成本為 14.3305 s。
 
 ## 完整短程滑動與初始化 AD
 
