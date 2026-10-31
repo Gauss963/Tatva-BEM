@@ -35,7 +35,7 @@ def mixed_error(actual, exact, *, rtol=1e-7, atol=1e-18):
     return float(np.max(abs(actual - exact) / (atol + rtol * np.maximum(abs(actual), abs(exact)))))
 
 
-def main():
+def main(*, assembler=None, backend_name="paired_ray_bessel_and_factored_contractions"):
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--output", type=Path, required=True)
     args = p.parse_args()
@@ -58,12 +58,14 @@ def main():
 
     try:
         with threadpool_limits(limits=1, user_api="blas"):
-            result = experiment(output, frozen, environment, begun)
+            result = experiment(output, frozen, environment, begun, assembler=assembler)
         verify()
         result.update(
             total_seconds_including_all_controls=perf_counter() - begun,
             frozen_inputs_sha256=frozen,
             environment=environment,
+            backend=backend_name,
+            legacy_variant_key="paired",
             original_tatva_readonly=True,
             full_original_event_reproduced=False,
             same_accuracy_fem_advantage_verified=False,
@@ -80,7 +82,7 @@ def main():
         raise
 
 
-def experiment(output, frozen, environment, begun):
+def experiment(output, frozen, environment, begun, *, assembler=None):
     ray = runpy.run_path(str(TOOLS / "paired_ray_galerkin.py"))
     rk = runpy.run_path(str(TOOLS / "radau_experiment.py"))
     modes = runpy.run_path(str(TOOLS / "radau_raw_sampling.py"))["lower_half_radau_modes"]
@@ -112,9 +114,10 @@ def experiment(output, frozen, environment, begun):
             spring,
         ]
     )
+    factory = ray["PairedRayGalerkin"] if assembler is None else assembler
     providers = {
         "original": transfer.prepared,
-        "paired": [ray["PairedRayGalerkin"](a) for a in transfer.prepared],
+        "paired": [factory(a) for a in transfer.prepared],
     }
     write_json(
         output / "preflight.json",

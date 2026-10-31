@@ -5,6 +5,18 @@
 目標是在相同物理模型與可量化誤差下重現 FEM，然後證明穩定性或總時間的優勢。
 目前尚未達成這個目標。
 
+2026-10-31 重新核對 Kramer、Marussig、Schanz 的
+[高階 IGA／CQ 全文 §4.1、§5.2.2、§6](https://arxiv.org/html/2510.06804v1)
+與 [arXiv 版本頁](https://arxiv.org/abs/2510.06804)（仍只有 2025-10-08 的 v1；
+正式出版為 2026 年）。其時間誤差估計依賴右側資料的高階導數與初始 compatibility；
+作者亦明列混合算子逆的 growth exponents 未知，並以平滑資料研究預期階數。
+因此，本案已量測到的原生接觸瞬態不能靠改稱高階 CQ 就視為解析完成。
+本文結論另指出複頻率積分的振盪與奇異性使高精度組裝昂貴。
+本輪先以可選的 JAX batch 編譯減少現有 Q12 方程的計算成本，
+保留原積分與誤差門檻；沒有移植 IGA 或宣稱獲得該文的收斂保證。
+計時依 [JAX 官方 JIT 文件](https://docs.jax.dev/en/latest/jit-compilation.html)
+計入首次編譯並等待數值結果就緒，同時記錄啟動、額外 signature 與記憶體成本。
+
 2026-10-31 補讀 Guo、Lopez-Fernandez，
 [Runge–Kutta generalized Convolution Quadrature for sectorial problems v2](https://arxiv.org/html/2506.21242v2)，
 並由 [arXiv 版本頁](https://arxiv.org/abs/2506.21242)核對最新修訂為 **2026-09-11**。
@@ -81,6 +93,8 @@ coupling，並在其 velocity-strengthening 穩態例子中產生有限波數範
   不直接低秩擬合已凝縮、包含有限體共振的阻抗。
 - JAX-BEM 的最新 arXiv 版是 **v2，2026-08-08**，不是先前讀過的 v1。
   已補讀 v2 §3.2、§4.2–4.3、§5。implicit custom VJP 仍適合線性平衡根；
+  2026-10-31 再核對其版本注記：v2 修正了使 v1 Figure 3 比較失準的計時錯誤。
+  本案的 JAX 實驗因此保留原始每次耗時，並將編譯、同步、初始化成本分別列明。
   §4.3 記錄 948 elements、20 frequencies、complex64 約 100 GB 的個案記憶體，
   §5 將嚴格梯度驗證列為待完成工作。不能只因使用 JAX 就假定低記憶體、
   更快或梯度準確。本案持續採固定 active set 的 implicit contact derivative、

@@ -190,6 +190,10 @@ The [paired K0/K1 and factored-contraction control](bem/docs/paired_ray_galerkin
 also passes a complete coarse sliding trajectory and selected initialized
 VJP/JVP comparison. Fine sampled assembly is faster at three modes, including
 53.1% less time at one complex mode; complete-contour cost and full-event adoption remain open.
+The optional [JAX batch assembly control](bem/docs/jax_ray_galerkin.md) passes
+the same raw/Schur gates and a complete coarse sliding/initialized-AD control.
+Three fine sampled modes have original-to-JAX assembly time ratios of 3.49–6.50,
+including cold compilation and per-call tables; this is not full-event or FEM speedup.
 The [Galerkin implementation and validation](bem/docs/galerkin.md) addresses
 the sampled passivity failures of the original collocation backend.
 

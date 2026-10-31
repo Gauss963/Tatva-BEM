@@ -11,6 +11,9 @@ dt/8 對 dt/16 的壓力／剪力時空差為 12.86%／9.94%，完整 BEM 對照
 分段線性表示仍差 19.94%，顯示時間路徑需要獨立控制，並非完整 BEM 誤差的證明。
 新增 [K0/K1 共用評估與積分收縮](docs/paired_ray_galerkin.md)，通過完整粗網格滑動與
 selected initialized AD 對照；細網格三個模式的組裝計時不代表完整事件速度優勢。
+新增 [JAX batch 組裝控制](docs/jax_ray_galerkin.md)：相同 raw／Schur 門檻下，
+三個細網格模式的組裝時間比為 3.49–6.50×，含首次編譯與每次 table。
+完整粗網格滑動與初始化 AD 亦通過；尚未替換原長程 producer，或證明完整事件較 FEM 快。
 最新[原float64 seed的完整Radau事件](docs/radau_event.md)最大滑移0.5654 mm，
 與原FEM的0.6441 mm差12.22%；壓力／剪力末分布差仍約20%，尚未證明速度優勢。
 新增[固定bulk的接觸積分加密與完整歷史AD](docs/refined_contact.md)：
