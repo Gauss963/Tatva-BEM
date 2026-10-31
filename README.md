@@ -7,9 +7,9 @@ developed alongside the Tatva-based PMMA finite-element model.
 or stability advantage over FEM remain unverified.** The independent 2 us
 Radau kernel is still being constructed on the graded fine mesh. The
 [graded FEM reference completed all 45 ms](bem/docs/graded_fem_complete.md),
-but its [postrupture time-step controls still fail](bem/docs/fem_dt8_window.md):
-dt/4 versus dt/8 pressure and signed shear differ by 17.21% and 11.74% in
-space-time P1 L2 over the conditional window; dt/16 remains in progress. Completion alone does not make
+but its [completed dt/16 time-step control still fails](bem/docs/fem_dt16_window.md):
+dt/8 versus dt/16 pressure and signed shear differ by 12.86% and 9.94% in
+space-time P1 L2 over the conditional window. Completion alone does not make
 this FEM trajectory a converged reference.
 
 Earlier, coarser completed BEM events also failed their FEM agreement gates.
@@ -166,8 +166,9 @@ The short onset window passed, but the [extended postrupture window](bem/docs/fe
 failed its time-refinement diagnostic; the completed FEM is not a converged dynamic reference.
 The [dt/8 and dt/16 window extension](bem/docs/fem_extended_timestep.md) adds
 resumable accepted-state chunks and an independent dt/4 bitwise replay gate.
-The [completed dt/8 window](bem/docs/fem_dt8_window.md) still differs from dt/4
-by 17.21% in pressure and 11.74% in signed shear; dt/16 remains in progress.
+The [completed dt/16 window](bem/docs/fem_dt16_window.md) still differs from dt/8
+by 12.86% in pressure and 9.94% in signed shear. Differences already occur
+before the loading hold; the original full-window gate remains unchanged.
 The [selected Galerkin block/fiber provider](bem/docs/galerkin_blocks.md) avoids
 constructing unrequested matrices or pair geometry. Actual fine-grid requested
 entries match independent complete assembly; a complete compression solver
@@ -180,6 +181,10 @@ The [frequency-local scaled-Bessel control](bem/docs/ray_bessel_galerkin.md)
 reduces complete assembly time by 49.7% at the tested physical complex mode,
 while the low real mode is 3.2% slower. All sampled raw/Schur checks and a small
 complete causal/transpose control pass; production and full-event timing remain open.
+The [paired K0/K1 and factored-contraction control](bem/docs/paired_ray_galerkin.md)
+also passes a complete coarse sliding trajectory and selected initialized
+VJP/JVP comparison. Fine sampled assembly is faster at three modes, including
+53.1% less time at one complex mode; complete-contour cost and full-event adoption remain open.
 The [Galerkin implementation and validation](bem/docs/galerkin.md) addresses
 the sampled passivity failures of the original collocation backend.
 

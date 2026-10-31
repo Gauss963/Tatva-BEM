@@ -1,7 +1,8 @@
 # dt/8 完成，破裂後時間步長差異仍大
 
 同一個原 checkpoint、共同接受步與 230000 個原步長區間的 dt/8 分支已完成，
-共 1840000 fine steps、88 個 durable chunks。dt/16 仍在執行，尚未評估其驗收門檻。
+共 1840000 fine steps、88 個 durable chunks。本頁保留當時 dt/8 的分析；
+後續 [dt/16 完整結果](fem_dt16_window.md)亦未通過原收斂診斷。
 dt/8 的完整 export、全部 88 個 chunk hashes 與 receipt 已逐一核對；
 其 context SHA 與原 dt/4 窗口完全一致。原數值方程、材料、penalty、LSW、停止政策均未改。
 
@@ -21,7 +22,7 @@ dt/4 對 dt/8，在相同 **87 個原共用保存時刻、285 個原界面節點
 這一組沒有通過 1% 局部診斷。原 dt/2 對 dt/4 的 pressure／shear 差為
 17.68%／10.05%；進一步加密後並未顯示全面下降的趨勢。
 這不等於模型 ill-posed 或能量發散的證明，也不支持直接做 Richardson 外插。
-仍須完成 dt/16、觀察其全場差異，再決定後續穩定性與解析度診斷。
+後續 dt/16 的全場差異已另行公布，仍需分離接觸分支、載入回饋與解析度的影響。
 
 原 source 並未漏算 penalty 時間尺度：它明確使用 `min(dt_bulk, dt_contact)`。
 原記錄的 `dt_bulk=1.958005065e-9 s`、`dt_contact=1.912581260e-9 s`，
@@ -74,14 +75,14 @@ pressure／shear 誤差曲線使用全部 87 個共用保存時刻。
 ## 成本與目前狀態
 
 dt/8 分支包含其準備／持久輸出共 **8254.74 s**；共同 context setup 與前置 dt/4
-replay 的成本仍在整個 invocation 中另行保留。完整 dt/8＋dt/16 工作尚未完成，
-不能用單一分支成本代表整體，也不是隔離後的 FEM／BEM 速度比較。
+replay 的成本仍在整個 invocation 中另行保留。完整 dt/8＋dt/16 工作的後續成本
+已另行公布，不能用單一分支成本代表整體，也不是隔離後的 FEM／BEM 速度比較。
 
 本次唯讀分析先核對並暫停 owner／quota／numerical process，分析後恢復相同三個程序；
 84 個 frozen inputs 未改。額外 12.184 s 暫停仍計入目前 dt/16 的 wall cost。
 半步時鐘的另一次唯讀稽核使用 2.927 s，亦已核對 84 個 frozen inputs 並恢復相同程序；
 此成本同樣保留在完整工作的 wall cost 中。
-原 BEM 依四核心串行流程持續暫停，待此控制與比較結束後恢復。
+原 BEM 在此控制期間依四核心串行流程暫停，完整 dt/16 控制與比較結束後已恢復相同程序。
 [完整場／scalar 指標、時鐘、hash、來源與分析成本](fem_dt8_window_results.json)保留所有結果。
 
 完整 45 ms FEM／BEM 重現、完整初始化 AD 與同精度的效能／穩定性優勢仍未完成。

@@ -64,6 +64,8 @@ fine benchmark 後只將 statistics 的非有限檢查值改成 JSON null，
 
 主要複頻的改善成立，但三個取樣頻率不能代表完整 contour 的加權成本。
 低實頻已出現退步；尚未選定或驗證自動 hybrid policy，亦沒有完整事件的速度結論。
+後續 [K0/K1 共用評估與 factored contractions](paired_ray_galerkin.md)另做同期原版控制，
+並通過完整粗網格非零滑動／initialized AD 對照；兩輪之間沒有直接的速度比較。
 
 ## 重現
 

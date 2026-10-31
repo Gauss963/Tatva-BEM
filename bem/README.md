@@ -4,6 +4,10 @@
 
 此版本已實作彈性波核、完整時間歷史、有限區域邊界、單向接觸、線性滑移弱化與剛性 platen／彈簧耦合。
 **已完成原載入歷程的 45 ms 粗網格推進，尚未完成原解析度的收斂重現。**
+新的 [FEM dt/16 完整窗口](docs/fem_dt16_window.md)仍未通過參考解的時間收斂診斷：
+dt/8 對 dt/16 的壓力／剪力時空差為 12.86%／9.94%，完整 BEM 對照門檻維持原設定。
+新增 [K0/K1 共用評估與積分收縮](docs/paired_ray_galerkin.md)，通過完整粗網格滑動與
+selected initialized AD 對照；細網格三個模式的組裝計時不代表完整事件速度優勢。
 最新[原float64 seed的完整Radau事件](docs/radau_event.md)最大滑移0.5654 mm，
 與原FEM的0.6441 mm差12.22%；壓力／剪力末分布差仍約20%，尚未證明速度優勢。
 新增[固定bulk的接觸積分加密與完整歷史AD](docs/refined_contact.md)：

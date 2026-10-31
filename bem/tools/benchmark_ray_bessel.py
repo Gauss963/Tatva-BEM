@@ -29,7 +29,7 @@ ERRORS = runpy.run_path(str(TOOLS / "benchmark_factored_galerkin.py"))["errors"]
 FIELDS = ["single_layer", "trace_double_layer", "hypersingular"]
 
 
-def main():
+def main(*, assembler=None, extra_sources=(), backend_name="ray_bessel"):
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("case", type=Path)
     p.add_argument("--output", type=Path, required=True)
@@ -90,6 +90,7 @@ def main():
         TOOLS / "benchmark_factored_galerkin.py",
         TOOLS / "factored_galerkin.py",
         args.case,
+        *extra_sources,
     ]
     frozen = {str(v.resolve()): fingerprint(v) for v in paths}
     environment = environment_record(args.case)
@@ -105,6 +106,8 @@ def main():
             raw_rtol=1e-11,
             raw_atol=1e-14,
             output_relative_tolerance=1e-8,
+            backend=backend_name,
+            timing_variant_key="ray",
         ),
     )
     samples = []
@@ -113,7 +116,8 @@ def main():
         reference = SCHUR(model, quadrature=args.quadrature)
         original_preparation = perf_counter() - start
         start = perf_counter()
-        variants = [RAY["RayBesselGalerkin"](a, degree=args.degree) for a in reference.prepared]
+        factory = RAY["RayBesselGalerkin"] if assembler is None else assembler
+        variants = [factory(a, degree=args.degree) for a in reference.prepared]
         variant_preparation = perf_counter() - start
         modes = [(i, b) for i in args.indices for b in args.branches]
         if args.include_fast_zero and (0, 1) not in modes:
@@ -233,6 +237,8 @@ def main():
         output / "summary.json",
         dict(
             status="passed_sampled_original_raw_and_schur_audits",
+            backend=backend_name,
+            timing_variant_key="ray",
             plan=asdict(plan),
             environment=environment,
             frozen_inputs_sha256=frozen,

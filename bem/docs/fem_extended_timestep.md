@@ -5,7 +5,8 @@
 新工具從同一個原 checkpoint 與共同接受步，延伸到 dt/8、dt/16。
 它保留原 h2／end 0.015625 mm 網格、材料、penalty、摩擦律、載入停止判據與全界面端點。
 [dt/8 長窗口已完成](fem_dt8_window.md)，dt/4 對 dt/8 的 pressure／signed shear
-時空 P1 L2 差仍為 17.21%／11.74%；dt/16 尚在執行。
+時空 P1 L2 差仍為 17.21%／11.74%；[dt/16 亦已完成](fem_dt16_window.md)，
+dt/8 對 dt/16 為 12.86%／9.94%，原 1% 局部診斷仍未通過。
 目前尚未證明完整 FEM／BEM 優勢。
 
 ## 數值來源與重播
@@ -97,7 +98,8 @@ python -B bem/tools/compare_extended_fem_windows.py \
 本機執行仍需四核心預算與其他 numerical jobs 串行；外層控制會先核對原 BEM PID／start time，
 暫停 producer 與 quota controller，結束後恢復相同程序。這段暫停仍計入其 wall cost。
 
-比較工具保留全部原 contact endpoints、相同 saved clocks，並使用每個 fine scalar step。
+比較工具保留全部原 contact endpoints、相同 saved clocks 與所有 fine scalar rows；
+scalar 指標在共同時間涵蓋區間使用原生 knots，沒有降採樣或外插。
 dt/8 對 dt/16 的六個接觸場須在時空 P1 L2 與 final shared-time P1 L2 均小於 1%，
 才通過**局部診斷**。同時報告 dt/4 差異、原 first-passage brackets、載入停止時間及 scalar 波形。
 不做 fitted time shift、濾波、端點移除或 Richardson 外插。
