@@ -6,6 +6,9 @@
 **已完成原載入歷程的 45 ms 粗網格推進，尚未完成原解析度的收斂重現。**
 新的 [FEM dt/16 完整窗口](docs/fem_dt16_window.md)仍未通過參考解的時間收斂診斷：
 dt/8 對 dt/16 的壓力／剪力時空差為 12.86%／9.94%，完整 BEM 對照門檻維持原設定。
+新增[原生接觸路徑觀測與最佳時間投影](docs/fem_native_contact_paths.md)：
+兩段 dt/16 重播的原 scalar／最終狀態逐位元一致；2 µs 的局部最佳 normal-jump
+分段線性表示仍差 19.94%，顯示時間路徑需要獨立控制，並非完整 BEM 誤差的證明。
 新增 [K0/K1 共用評估與積分收縮](docs/paired_ray_galerkin.md)，通過完整粗網格滑動與
 selected initialized AD 對照；細網格三個模式的組裝計時不代表完整事件速度優勢。
 最新[原float64 seed的完整Radau事件](docs/radau_event.md)最大滑移0.5654 mm，

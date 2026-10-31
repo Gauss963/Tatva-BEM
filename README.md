@@ -169,6 +169,11 @@ resumable accepted-state chunks and an independent dt/4 bitwise replay gate.
 The [completed dt/16 window](bem/docs/fem_dt16_window.md) still differs from dt/8
 by 12.86% in pressure and 9.94% in signed shear. Differences already occur
 before the loading hold; the original full-window gate remains unchanged.
+The [native contact-path control](bem/docs/fem_native_contact_paths.md) replays
+two short dt/16 windows with bitwise original state/scalar checks. A best
+time-P1 projection still differs by 19.94% in normal jump in the post-hold
+window at 2 us, revealing a local temporal representation limit. This is
+not the error of a computed BEM solution or a continuous-FEM certificate.
 The [selected Galerkin block/fiber provider](bem/docs/galerkin_blocks.md) avoids
 constructing unrequested matrices or pair geometry. Actual fine-grid requested
 entries match independent complete assembly; a complete compression solver

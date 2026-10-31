@@ -1,9 +1,26 @@
 # 近期文獻與 FEM 對照的實作決策
 
-檢索／閱讀日期：2026-10-24；補讀至2026-10-30。範圍是有限彈性體的 fully dynamic 接觸、
+檢索／閱讀日期：2026-10-24；補讀至2026-10-31。範圍是有限彈性體的 fully dynamic 接觸、
 時間域 BEM、卷積歷史加速與角落誤差；以下不是整個 BEM 領域的完整系統性回顧。
 目標是在相同物理模型與可量化誤差下重現 FEM，然後證明穩定性或總時間的優勢。
 目前尚未達成這個目標。
+
+2026-10-31 補讀 Guo、Lopez-Fernandez，
+[Runge–Kutta generalized Convolution Quadrature for sectorial problems v2](https://arxiv.org/html/2506.21242v2)，
+並由 [arXiv 版本頁](https://arxiv.org/abs/2506.21242)核對最新修訂為 **2026-09-11**。
+已讀 introduction／Assumptions 1–2、Theorems 4–6、§5.1 的 local／history 分割。
+v2 明確區分一般 hyperbolic gCQ 與本文較窄的 sectorial 類別；
+其快速實軸歷史表示要求負實軸 branch cut、sector 內 holomorphy 與特定衰減界。
+這些假設尚未替本案有限體 transfer 驗證，不能直接沿用該文的精度／記憶體界，
+或將有限體反射歷史換成其擴散型衰減表示。本案尚未實作該變步長算法。
+
+同日再讀 Banjai、Lubich 的**經典背景研究**
+[Runge–Kutta convolution coercivity](https://academic.oup.com/imajna/article/39/3/1134/5032994)
+出版方可讀段落 §4／Theorem 4.2 與 §5.5／Proposition 5.3。
+stage error 依賴輸入 regularity／初始 compatibility；其非線性誤差分析另要求 strictly monotone boundary law。
+這不能替目前非單調 LSW 的兩段線性接觸路徑保證三階或非線性穩定性。
+本案因此先從原 dt/16 接受狀態保存原生接觸路徑，分離 stage-path 插值與局部律重播差異；
+尚未以高階時間插值或文獻定理取代完整事件的誤差門檻。
 
 2026-10-30 補讀 Zhang、Dunham 的
 [SCEC 25156 完整研究報告](https://files.scec.org/s3fs-public/reports/2025/25156_report.pdf?lil8uNa625oE5hg4W.e.zulGgTjy3ZzF=)
