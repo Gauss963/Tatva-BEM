@@ -117,6 +117,9 @@ def test_actual_original_to_jax_resume_keeps_prefix_and_all_causal_arrays(
         np.testing.assert_allclose(
             np.load(target / name), np.load(baseline / name), rtol=1e-8, atol=1e-12
         )
+    np.testing.assert_array_equal(
+        np.load(target / "initial_impedance.npy"), np.load(baseline / "initial_impedance.npy")
+    )
     with np.load(target / "elastic.npz") as actual, np.load(baseline / "elastic.npz") as expected:
         assert actual.files == expected.files
         for name in actual.files:

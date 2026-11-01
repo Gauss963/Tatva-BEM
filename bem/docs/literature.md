@@ -1,9 +1,18 @@
 # 近期文獻與 FEM 對照的實作決策
 
-檢索／閱讀日期：2026-10-24；補讀至2026-10-31。範圍是有限彈性體的 fully dynamic 接觸、
+檢索／閱讀日期：2026-10-24；補讀／核對至2026-11-01。範圍是有限彈性體的 fully dynamic 接觸、
 時間域 BEM、卷積歷史加速與角落誤差；以下不是整個 BEM 領域的完整系統性回顧。
 目標是在相同物理模型與可量化誤差下重現 FEM，然後證明穩定性或總時間的優勢。
 目前尚未達成這個目標。
+
+2026-11-01 再核對 [JAX-BEM v2](https://arxiv.org/abs/2604.21431)、
+[Kramer 等人的版本頁](https://arxiv.org/abs/2510.06804)與
+[Aimi 等人的 dynamic frictional contact](https://arxiv.org/abs/2405.08566)，
+沒有找到能直接替本案有限體 LSW 瞬態保證同精度優勢的結論。
+本輪以原 FEM 的稀疏 colored AD 剛度及獨立 forward-over-reverse HVP，
+完成[高頻波形與保守模態診斷](fem_modal_resolution.md)。
+這不是移植文獻算法或非線性穩定性證明；其作用是避免把時間積分的穩定範圍、
+相位解析度與原生非線性場收斂混為同一件事。
 
 2026-10-31 重新核對 Kramer、Marussig、Schanz 的
 [高階 IGA／CQ 全文 §4.1、§5.2.2、§6](https://arxiv.org/html/2510.06804v1)

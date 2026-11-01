@@ -75,6 +75,7 @@ def backend_record():
         runtime=backend_runtime(),
         sources_sha256=backend_sources(),
         original_audit_uses_scipy=True,
+        original_startup_impedance_uses_scipy=True,
         memory_policy="Add max(512 MiB, min(2 GiB, geometry/2)) to base array peak; estimate, not a hard RSS cap.",
     )
 
@@ -139,6 +140,15 @@ def private_producer():
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
             self.prepared = [JIT["JaxRayGalerkin"](a) for a in self.prepared]
+
+        def evaluate(self, s, *, reconstruction=False):
+            # The only producer call to this direct method is the two-mode
+            # lag-zero impedance. Retain original quadrature there: cancellation
+            # in small stage entries amplified JIT roundoff on Linux. The full
+            # sampled raw provider still uses the JAX wrappers below; no test
+            # tolerance, interpolation gate, or inverse-composition gate changes.
+            operators = [p.prepared.assemble(s) for p in self.prepared]
+            return self.evaluate_operators(operators, reconstruction=reconstruction)
 
     def construction_arrays(*args, **kwargs):
         values = original["construction_arrays"](*args, **kwargs)

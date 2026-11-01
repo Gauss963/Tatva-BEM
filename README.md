@@ -169,6 +169,11 @@ resumable accepted-state chunks and an independent dt/4 bitwise replay gate.
 The [completed dt/16 window](bem/docs/fem_dt16_window.md) still differs from dt/8
 by 12.86% in pressure and 9.94% in signed shear. Differences already occur
 before the loading hold; the original full-window gate remains unchanged.
+The [frozen modal and native spectral control](bem/docs/fem_modal_resolution.md)
+finds a 19.4 MHz normal-jump fluctuation peak in both saved windows. Independent
+energy HVPs verify the constrained elastic operator. Conservative oscillator
+phase controls distinguish time resolution from a stability interval; they
+do not certify the nonlinear FEM or BEM.
 The [native contact-path control](bem/docs/fem_native_contact_paths.md) replays
 two short dt/16 windows with bitwise original state/scalar checks. A best
 time-P1 projection still differs by 19.94% in normal jump in the post-hold

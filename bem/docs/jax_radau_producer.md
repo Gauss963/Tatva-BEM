@@ -22,6 +22,11 @@ thread environment 與所有 backend 來源。續跑不能默默改用不同 bac
 測試另外故意讓 JAX wrapper 的 `assemble` 無法使用，確認 audit 仍得到原始解。
 composition tolerance 維持 `1e-6`，沒有放寬。
 
+2026-11-01 後續 Linux CI 發現 lag-zero impedance 的四個小元素未通過原精度門檻。
+現將直接 lag-zero 的兩個頻率保留在原 SciPy layers／Trace-Schur 路徑，raw 頻譜仍使用 JAX；
+另要求其結果與原版逐位元相同。修正後 14 項測試通過，
+[CI 失敗與修正證據](fem_modal_resolution.md)獨立保存；以下十三項為修正前本機紀錄。
+
 ## 續跑與複製的條件
 
 同一 JAX 建構中斷後，仍由原 checkpoint writer 逐位元檢查已提交 prefix。

@@ -9,6 +9,9 @@ dt/8 對 dt/16 的壓力／剪力時空差為 12.86%／9.94%，完整 BEM 對照
 新增[原生接觸路徑觀測與最佳時間投影](docs/fem_native_contact_paths.md)：
 兩段 dt/16 重播的原 scalar／最終狀態逐位元一致；2 µs 的局部最佳 normal-jump
 分段線性表示仍差 19.94%，顯示時間路徑需要獨立控制，並非完整 BEM 誤差的證明。
+新增[原質量／剛度的模態與原生頻譜診斷](docs/fem_modal_resolution.md)：
+兩段法向位移擾動皆有約 19.4 MHz peak；獨立 AD HVP 核對組裝矩陣。
+保守振子顯示時間穩定範圍與相位解析度不同，尚未證明非線性穩定性或唯一誤差原因。
 新增 [K0/K1 共用評估與積分收縮](docs/paired_ray_galerkin.md)，通過完整粗網格滑動與
 selected initialized AD 對照；細網格三個模式的組裝計時不代表完整事件速度優勢。
 新增 [JAX batch 組裝控制](docs/jax_ray_galerkin.md)：相同 raw／Schur 門檻下，
@@ -17,7 +20,8 @@ selected initialized AD 對照；細網格三個模式的組裝計時不代表�
 相同 CPU 預算的兩頻率批次對照已通過：JAX 雙 worker 約 25.96 s、原版雙 worker
 約 106.54 s，另計首次編譯；這仍是批次控制，完整事件比較尚未完成。
 新增[可選的 durable JAX 建構器與獨立 prefix 複製](docs/jax_radau_producer.md)，
-十三項完整 kernel／啟動、逐位元續跑及混合 backend 檢查通過；未遷移目前執行中的細網格快取。
+Linux CI 的起始阻抗精度問題已修正為原 layers 路徑，十四項完整 kernel／啟動、
+逐位元續跑及混合 backend 檢查通過；未遷移目前執行中的細網格快取。
 最新[原float64 seed的完整Radau事件](docs/radau_event.md)最大滑移0.5654 mm，
 與原FEM的0.6441 mm差12.22%；壓力／剪力末分布差仍約20%，尚未證明速度優勢。
 新增[固定bulk的接觸積分加密與完整歷史AD](docs/refined_contact.md)：

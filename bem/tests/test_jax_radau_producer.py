@@ -36,6 +36,7 @@ def test_full_jax_kernel_and_startup_against_independent_dense_original(
     run(tmp_path, monkeypatch, layout, advisory)
     metadata = json.loads((tmp_path / "fresh/summary.json").read_text())
     assert metadata["jax_backend"]["original_audit_uses_scipy"]
+    assert metadata["jax_backend"]["original_startup_impedance_uses_scipy"]
     assert metadata["jax_backend"]["runtime"]["x64"]
     assert metadata["estimated_construction_array_peak_mib"] >= 512
     assert str(TOOLS / "prepare_jax_radau_resolvent.py") in metadata["frozen_inputs_sha256"]
@@ -62,6 +63,33 @@ def test_independent_audit_unwraps_jax_even_if_wrapper_assembly_is_unusable(monk
     assert all(type(a) is JAX["PreparedGalerkinOperators"] for a in audit.prepared)
     expected = FIXTURE["NodalInterfaceTransfer"](model, quadrature=12).evaluate(175 + 31400j)
     np.testing.assert_array_equal(audit.evaluate(175 + 31400j), expected)
+
+
+def test_lag_zero_direct_impedance_uses_original_layers_with_unusable_jax(monkeypatch):
+    private = JAX["private_producer"]()
+    model = FIXTURE["load_nodal_model"](
+        FIXTURE["CASE"],
+        max_panel_length=160,
+        contact_panel_length=160,
+        contact_end_length=160,
+        corner_panel_length=160,
+    )
+    candidate = private["TRANSFER"](model, quadrature=12)
+    original = runpy.run_path(str(TOOLS / "prepare_raw_radau_resolvent.py"))["TRANSFER"](
+        model, quadrature=12, prepared=False
+    )
+    original.prepared = [p.prepared for p in candidate.prepared]
+
+    def forbidden(s):
+        raise AssertionError("Lag-zero direct impedance called JAX assembly")
+
+    for prepared in candidate.prepared:
+        monkeypatch.setattr(prepared, "assemble", forbidden)
+    for s in np.linalg.eigvals(private["RADAU"]["radau_symbol"](0) / 2e-6):
+        actual = candidate.evaluate(s, reconstruction=True)
+        expected = original.evaluate(s, reconstruction=True)
+        for a, b in zip(actual, expected, strict=True):
+            np.testing.assert_array_equal(a, b)
 
 
 @pytest.mark.parametrize("field", ["runtime", "sources_sha256", "original_audit_uses_scipy"])
