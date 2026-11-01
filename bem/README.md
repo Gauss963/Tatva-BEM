@@ -22,6 +22,8 @@ selected initialized AD 對照；細網格三個模式的組裝計時不代表�
 新增[可選的 durable JAX 建構器與獨立 prefix 複製](docs/jax_radau_producer.md)，
 Linux CI 的起始阻抗精度問題已修正為原 layers 路徑，十四項完整 kernel／啟動、
 逐位元續跑及混合 backend 檢查通過；未遷移目前執行中的細網格快取。
+後續[混合快取的完整短程滑動與初始化 AD](docs/mixed_radau_ad.md)也已通過，
+直接使用保存的時間權重；五參數與所有 stage 載入梯度維持原門檻，仍是加速載入的粗網格控制。
 最新[原float64 seed的完整Radau事件](docs/radau_event.md)最大滑移0.5654 mm，
 與原FEM的0.6441 mm差12.22%；壓力／剪力末分布差仍約20%，尚未證明速度優勢。
 新增[固定bulk的接觸積分加密與完整歷史AD](docs/refined_contact.md)：

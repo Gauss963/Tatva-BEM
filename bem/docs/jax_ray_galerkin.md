@@ -155,7 +155,7 @@ modes，執行 128 步粗網格診斷。微步為 8/16；診斷載入速率 7812
 含接觸狀態及微步摩擦功的整個 response 陣列相對差為 2.13851e-13，
 這個混合陣列範數不是每個物理欄位的獨立相對誤差。五個參數梯度的相對差為
 2.70060e-12，所有階段 actuator gradient 為 5.14417e-13。
-七個 initialized JVP directions（3+3+1）與 VJP 的原混合門檻
+七個 initialized JVP directions 與 VJP 的原混合門檻
 `rtol=1e-7, atol=1e-18` 全部通過；沒有放寬門檻。
 
 數值控制 55.7075 s，外層含啟動與保護檢查 58.5823 s。

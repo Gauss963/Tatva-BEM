@@ -71,8 +71,8 @@ backend 可節省的剩餘成本有限，因此讓原程序繼續完成完整事
 - 原版來源所有檔案保持不變；活躍 lease、改變 CQ plan、非邊界 prefix、損壞的
   committed bytes 及改動 backend context 均被拒絕。
 
-這些是建構與儲存流程驗證。混合快取的完整滑動／初始化 AD 與細網格完整事件仍須
-另行執行；不能用線性 kernel 對照取代它們。
+這些是建構與儲存流程驗證。後續[混合快取的完整短程滑動／初始化 AD](mixed_radau_ad.md)
+已另外通過，直接使用保存權重；細網格完整事件仍須完成，不能用此粗網格控制取代。
 
 資源估計在原 array peak 上另加 `max(512 MiB, min(2 GiB, geometry/2))`，
 作為 JAX runtime／compiler allowance，這不是 hard RSS cap。
