@@ -16,6 +16,8 @@ selected initialized AD 對照；細網格三個模式的組裝計時不代表�
 完整粗網格滑動與初始化 AD 亦通過；尚未替換原長程 producer，或證明完整事件較 FEM 快。
 相同 CPU 預算的兩頻率批次對照已通過：JAX 雙 worker 約 25.96 s、原版雙 worker
 約 106.54 s，另計首次編譯；這仍是批次控制，完整事件比較尚未完成。
+新增[可選的 durable JAX 建構器與獨立 prefix 複製](docs/jax_radau_producer.md)，
+十三項完整 kernel／啟動、逐位元續跑及混合 backend 檢查通過；未遷移目前執行中的細網格快取。
 最新[原float64 seed的完整Radau事件](docs/radau_event.md)最大滑移0.5654 mm，
 與原FEM的0.6441 mm差12.22%；壓力／剪力末分布差仍約20%，尚未證明速度優勢。
 新增[固定bulk的接觸積分加密與完整歷史AD](docs/refined_contact.md)：

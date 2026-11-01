@@ -197,6 +197,9 @@ including cold compilation and per-call tables; this is not full-event or FEM sp
 The same report includes an audited two-frequency worker comparison: JAX with
 two workers has a 4.10 warm batch time ratio against the existing two-worker
 reference, with compilation charged separately. Full-kernel adoption remains open.
+An [optional durable JAX producer](bem/docs/jax_radau_producer.md) now passes
+independent dense-kernel, bitwise-resume and original-to-JAX prefix-copy controls.
+The current fine original build remains running; no live cache was migrated.
 The [Galerkin implementation and validation](bem/docs/galerkin.md) addresses
 the sampled passivity failures of the original collocation backend.
 
