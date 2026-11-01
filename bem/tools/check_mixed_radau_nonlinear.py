@@ -153,6 +153,11 @@ class CachedInputs:
             )
         np.testing.assert_array_equal(impedances["original"], impedances["mixed"])
         backend = runpy.run_path(str(TOOLS / "prepare_jax_radau_resolvent.py"))
+        if (
+            self.metadata["mixed"]["jax_backend"]["backend"]
+            == "jax_x64_raw_general_lu_lazy_trace_original_startup"
+        ):
+            backend = runpy.run_path(str(TOOLS / "prepare_trace_policy_radau.py"))
         backend["verify_context"](self.folders["mixed"])
         if not self.metadata["mixed"]["jax_backend"]["original_startup_impedance_uses_scipy"]:
             raise ValueError("Require the verified original lag-zero startup policy")

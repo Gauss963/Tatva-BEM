@@ -24,6 +24,9 @@ Linux CI 的起始阻抗精度問題已修正為原 layers 路徑，十四項完
 逐位元續跑及混合 backend 檢查通過；未遷移目前執行中的細網格快取。
 後續[混合快取的完整短程滑動與初始化 AD](docs/mixed_radau_ad.md)也已通過，
 直接使用保存的時間權重；五參數與所有 stage 載入梯度維持原門檻，仍是加速載入的粗網格控制。
+新增[general LU／lazy recovery 可選建核器](docs/trace_solve_policy.md)，
+細網格兩頻率求解批次時間比改善 1.29–1.58，完整粗網格 kernel／滑動／初始化 AD 通過；
+未切換目前細網格快取，完整事件與 FEM 的同精度優勢仍未證明。
 最新[原float64 seed的完整Radau事件](docs/radau_event.md)最大滑移0.5654 mm，
 與原FEM的0.6441 mm差12.22%；壓力／剪力末分布差仍約20%，尚未證明速度優勢。
 新增[固定bulk的接觸積分加密與完整歷史AD](docs/refined_contact.md)：

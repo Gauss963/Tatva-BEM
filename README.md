@@ -209,6 +209,10 @@ A [mixed-cache sliding and initialized-AD control](bem/docs/mixed_radau_ad.md)
 now reuses its actual saved time weights for all 128 coarse steps. Parameter and
 all-stage actuator gradients agree within the original gates. This accelerated
 loading control does not establish original-event fidelity or total speed.
+An [optional linear-solve/reconstruction policy](bem/docs/trace_solve_policy.md)
+now passes independent kernel, sliding and initialized-AD controls. Actual fine
+two-mode solve batches improve by 1.29–1.58 in time ratio; full-event speed and
+FEM agreement remain unverified, and the live original cache is unchanged.
 The [Galerkin implementation and validation](bem/docs/galerkin.md) addresses
 the sampled passivity failures of the original collocation backend.
 

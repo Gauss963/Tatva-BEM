@@ -13,6 +13,10 @@ JAX batch 組裝。原 producer、原 Tatva 與目前執行中的細網格快取
 thread environment 與所有 backend 來源。續跑不能默默改用不同 backend。
 材料與幾何 AD 的公開介面仍未完成；此工具是固定 bulk 的建構流程。
 
+另有[可選 general-LU／lazy Trace-Schur 建核器](trace_solve_policy.md)，
+保留原 startup，已通過完整粗網格 kernel／滑動／初始化 AD。
+細網格兩對頻率的求解時間改善尚未構成完整事件或 FEM 的速度證明。
+
 ## 獨立參考稽核
 
 原 producer 的 final audit 會把 `transfer.prepared` 指給另一個直接 compliance solver。
