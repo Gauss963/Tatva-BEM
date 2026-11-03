@@ -34,7 +34,8 @@ The current 2 us Radau construction follows the
 The graded FEM reference successfully replayed its damaged-output prefix
 and completed from the verified checkpoint. The BEM frequency prefix is
 preserved on disk and its [verified continuation](bem/docs/radau_sampling_checkpoint.md)
-is running; the complete fine kernel and event are still pending.
+has completed the fine kernel. The [full original nonlinear event](bem/docs/full_original_radau_progress.md)
+is now running after correcting a resource-budget rejection; FEM agreement remains pending.
 See the [execution and measured CPU-budget record](bem/docs/reference_first.md).
 The [complete causal RK audit and conditional adjoint](bem/docs/radau_history_validation.md)
 pass real two-body short-run controls, including selected healed-preload
@@ -204,7 +205,8 @@ two workers has a 4.10 warm batch time ratio against the existing two-worker
 reference, with compilation charged separately. Full-kernel adoption remains open.
 An [optional durable JAX producer](bem/docs/jax_radau_producer.md) now passes
 independent dense-kernel, bitwise-resume and original-to-JAX prefix-copy controls.
-The current fine original build remains running; no live cache was migrated.
+The original fine kernel is complete and the full nonlinear event is running;
+its cache retains the original numerical backend.
 A [mixed-cache sliding and initialized-AD control](bem/docs/mixed_radau_ad.md)
 now reuses its actual saved time weights for all 128 coarse steps. Parameter and
 all-stage actuator gradients agree within the original gates. This accelerated
