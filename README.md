@@ -5,7 +5,7 @@ developed alongside the Tatva-based PMMA finite-element model.
 
 **Research implementation: full event-16 agreement and a same-accuracy speed
 or stability advantage over FEM remain unverified.** The independent 2 us
-Radau kernel is still being constructed on the graded fine mesh. The
+Radau kernel is complete on the graded fine mesh; full nonlinear cases are running. The
 [graded FEM reference completed all 45 ms](bem/docs/graded_fem_complete.md),
 but its [completed dt/16 time-step control still fails](bem/docs/fem_dt16_window.md):
 dt/8 versus dt/16 pressure and signed shear differ by 12.86% and 9.94% in
@@ -35,7 +35,9 @@ The graded FEM reference successfully replayed its damaged-output prefix
 and completed from the verified checkpoint. The BEM frequency prefix is
 preserved on disk and its [verified continuation](bem/docs/radau_sampling_checkpoint.md)
 has completed the fine kernel. The [full original nonlinear event](bem/docs/full_original_radau_progress.md)
-is now running after correcting a resource-budget rejection; FEM agreement remains pending.
+is now running with an optional [exact short-lag RAM cache](bem/docs/history_prefix_cache.md).
+The coarse complete sliding/initialized-AD and actual CLI outputs are bitwise unchanged;
+fine full-event FEM agreement and total-runtime benefits remain pending.
 See the [execution and measured CPU-budget record](bem/docs/reference_first.md).
 The [complete causal RK audit and conditional adjoint](bem/docs/radau_history_validation.md)
 pass real two-body short-run controls, including selected healed-preload

@@ -1,0 +1,796 @@
+{
+  "utc": "2026-11-03T02:17:33.696595+00:00",
+  "status": "passed_complete_coarse_prefix_sliding_and_initialized_ad_only",
+  "goal_achieved": false,
+  "full_original_event_reproduced": false,
+  "same_accuracy_fem_advantage_verified": false,
+  "local_validation": {
+    "status": "passed_tests_and_complete_coarse_sliding_initialized_ad",
+    "stages": [
+      {
+        "name": "tests",
+        "exit_code": 0,
+        "seconds": 5.112356542609632,
+        "utc_start": "2026-11-03T02:04:13.482327+00:00",
+        "utc_end": "2026-11-03T02:04:18.594702+00:00",
+        "command": [
+          "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python",
+          "-B",
+          "-m",
+          "pytest",
+          "-q",
+          "bem/tests/test_prefix_cached_cli.py",
+          "bem/tests/test_history_cache.py",
+          "bem/tests/test_compact_radau_history.py",
+          "--junitxml=/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/prefix-pde-control-20261103-v2/pytest.xml"
+        ]
+      },
+      {
+        "name": "coarse_sliding_initialized_ad",
+        "exit_code": 0,
+        "seconds": 286.0118938749656,
+        "utc_start": "2026-11-03T02:04:18.617175+00:00",
+        "utc_end": "2026-11-03T02:09:04.629746+00:00",
+        "command": [
+          "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python",
+          "-B",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/check_prefix_cached_radau.py",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/trace-policy-coarse-kernel-20261101-v1",
+          "--output",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/prefix-pde-control-20261103-v2/coarse",
+          "--history-prefix-cache-mb",
+          "144"
+        ]
+      }
+    ],
+    "seconds": 291.17291070893407,
+    "all_frozen_sources_unchanged": true,
+    "complete_original_package_fingerprint_unchanged": true,
+    "original_full_event_not_paused_or_modified": true,
+    "full_original_goal_achieved": false
+  },
+  "coarse_result": {
+    "status": "passed_complete_coarse_prefix_cache_sliding_and_initialized_ad",
+    "plan": {
+      "dt": 2e-06,
+      "steps": 128,
+      "dofs": 11,
+      "fft_size": 512,
+      "radius": 0.9560239010953075,
+      "estimated_peak_bytes": 990616,
+      "weight_bytes": 124872
+    },
+    "all_physical_contour_modes_checked": false,
+    "physical_contour_mode_evaluations": 0,
+    "additional_unique_lag_zero_modes": 0,
+    "maximum_raw_mixed_normalized_error": null,
+    "maximum_schur_relative_error": null,
+    "complete_causal_weight_relative_error": 0.0,
+    "saved_stage_relative_errors": {
+      "displacement": 0.0,
+      "response": 0.0,
+      "gradient": 0.0,
+      "actuator_gradient": 0.0,
+      "jvp": 0.0
+    },
+    "initialized_gradient_mixed_normalized_errors": {
+      "gradient": 0.0,
+      "actuator_gradient": 0.0,
+      "jvp": 0.0
+    },
+    "initialized_jvp_vjp_mixed_normalized_errors": {
+      "original": 4.454285848033672e-06,
+      "mixed": 4.454285848033672e-06
+    },
+    "final_max_cumulative_slip_mm": {
+      "original": 1.0338219799612165,
+      "mixed": 1.0338219799612165
+    },
+    "cached_input_validation_seconds": 2.4573560003191233,
+    "all_history_retained": true,
+    "fitted_time_shift_s": 0,
+    "cached_kernel_validation": {
+      "original": {
+        "folder": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/trace-policy-coarse-kernel-20261101-v1",
+        "summary_sha256": "ec8e7eb8a5dc07c8ab39548c006097a7468f8b7c7b97b98223c516e5b34a45f8",
+        "actual_saved_time_weights_used": true,
+        "unchanged_cached_numerical_repo_sources": 21,
+        "independent_spectral_inversion_tolerance": {
+          "rtol": 1e-08,
+          "atol": 1e-12
+        }
+      },
+      "mixed": {
+        "folder": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/trace-policy-coarse-kernel-20261101-v1",
+        "summary_sha256": "ec8e7eb8a5dc07c8ab39548c006097a7468f8b7c7b97b98223c516e5b34a45f8",
+        "actual_saved_time_weights_used": true,
+        "unchanged_cached_numerical_repo_sources": 21,
+        "independent_spectral_inversion_tolerance": {
+          "rtol": 1e-08,
+          "atol": 1e-12
+        }
+      }
+    },
+    "cache_records": [
+      {
+        "policy": "exact_readonly_short_lag_prefix",
+        "capacity_bytes": 75497472,
+        "cached_lags": 32,
+        "cached_bytes": 30976,
+        "families": 1,
+        "layouts": [
+          {
+            "source_strides": [
+              8,
+              1032,
+              11352
+            ],
+            "prefix_strides": [
+              8,
+              256,
+              2816
+            ]
+          }
+        ],
+        "additional_to_fft_cache_and_workspace": true,
+        "all_history_terms_retained": true,
+        "time_grid_unchanged": true,
+        "coefficient_approximation": false
+      },
+      {
+        "policy": "exact_readonly_short_lag_prefix",
+        "capacity_bytes": 75497472,
+        "cached_lags": 32,
+        "cached_bytes": 30976,
+        "families": 1,
+        "layouts": [
+          {
+            "source_strides": [
+              8,
+              1032,
+              11352
+            ],
+            "prefix_strides": [
+              8,
+              256,
+              2816
+            ]
+          }
+        ],
+        "additional_to_fft_cache_and_workspace": true,
+        "all_history_terms_retained": true,
+        "time_grid_unchanged": true,
+        "coefficient_approximation": false
+      }
+    ],
+    "same_saved_kernel_for_both_variants": true,
+    "array_bitwise_equality": {
+      "displacement": true,
+      "response": true,
+      "gradient": true,
+      "actuator_gradient": true,
+      "jvp": true
+    },
+    "maximum_absolute_array_differences": {
+      "displacement": 0.0,
+      "response": 0.0,
+      "gradient": 0.0,
+      "actuator_gradient": 0.0,
+      "jvp": 0.0
+    },
+    "policy_sources_and_saved_kernel_unchanged": true,
+    "total_seconds_including_controls": 280.8154693758115,
+    "full_original_goal_achieved": false,
+    "scope": "Complete 128-step coarse accelerated sliding; same saved fixed-bulk kernel, selected healed initialization and recorded loading derivatives. No full event, material/geometry/stopping-time AD, isolated runtime or FEM advantage claim."
+  },
+  "diagnostics": {
+    "original": {
+      "status": "completed_requested_horizon",
+      "boundary_formulation": "P1/P0 symmetric Galerkin; nodal-force interface condensation",
+      "time_method": "radau2",
+      "history_representation": "compact_radau_elastic_resolvent",
+      "dt_s": 2e-06,
+      "requested_steps": 128,
+      "completed_steps": 128,
+      "duration_s": 0.000256,
+      "history_dofs": [
+        11
+      ],
+      "stage_dofs": 22,
+      "cq_fft_size": 512,
+      "all_history_retained": true,
+      "nonlinear_backend": "jax",
+      "contact_nodes": 5,
+      "max_cumulative_slip_mm": 1.0338219799612165,
+      "max_boundary_contact_residual_mpa": 7.28337757512539e-08,
+      "actuator_hold_time_s": null,
+      "first_correction_step": 10,
+      "correction_history_steps": 128,
+      "inverse_cq_composition_inf_error": 5.028849036478197e-11,
+      "segment_substeps": [
+        8,
+        16
+      ],
+      "constitutive_substeps": 24,
+      "constitutive_path": "Two linear segments through the dt/3 stage and endpoint; one committed endpoint state",
+      "loading_stop_rule": "Coverage checked at accepted macrostep endpoints; hold starts next interval",
+      "micro_friction_work_mpa_mm2": 1196.6032602537616,
+      "micro_fixed_pressure_integrated_strength_work_mpa_mm2": 1196.507568835714,
+      "micro_fixed_pressure_work_gap_mpa_mm2": 0.09569141804763603,
+      "contact_root_recovery_events": [],
+      "maximum_inactive_source_force": 7.851213013054803e-10,
+      "state_checks": {
+        "all_saved_stage_fields_finite": true,
+        "minimum_cumulative_increment_mm": 0.0,
+        "minimum_contact_pressure_mpa": 10.485955778628341,
+        "minimum_saved_stage_spring_gap_mm": 0.8657496516501162,
+        "maximum_strength_violation_mpa": 0.0,
+        "maximum_strength_ratio": 1.0
+      },
+      "time_stepping_seconds": 51.86959929205477,
+      "full_trajectory_substep_ad_validated": false,
+      "full_original_event_reproduced": false,
+      "original_initial_residual_history_retained": true,
+      "failure": null,
+      "scope": "Complete causal compact Radau history and endpoint-committed stage contact; no FEM equivalence, gradient convergence or speed advantage asserted",
+      "online_fft_cache": {
+        "families": [
+          {
+            "channels": 2,
+            "capacity_bytes": 0,
+            "peak_retained_kernel_fft_bytes": 0,
+            "cached_levels": [],
+            "streamed_updates": 3,
+            "kernel_fft_builds": 9,
+            "fft_rows": 4,
+            "all_history_terms_retained": true
+          },
+          {
+            "channels": 2,
+            "capacity_bytes": 0,
+            "peak_retained_kernel_fft_bytes": 0,
+            "cached_levels": [],
+            "streamed_updates": 3,
+            "kernel_fft_builds": 9,
+            "fft_rows": 4,
+            "all_history_terms_retained": true
+          }
+        ],
+        "peak_retained_kernel_fft_bytes": 0,
+        "kernel_fft_builds": 18,
+        "expanded_stage_time_weights_stored": false,
+        "finite_dft_shift_wrap_retained": true,
+        "all_history_terms_retained": true
+      }
+    },
+    "mixed": {
+      "status": "completed_requested_horizon",
+      "boundary_formulation": "P1/P0 symmetric Galerkin; nodal-force interface condensation",
+      "time_method": "radau2",
+      "history_representation": "compact_radau_elastic_resolvent",
+      "dt_s": 2e-06,
+      "requested_steps": 128,
+      "completed_steps": 128,
+      "duration_s": 0.000256,
+      "history_dofs": [
+        11
+      ],
+      "stage_dofs": 22,
+      "cq_fft_size": 512,
+      "all_history_retained": true,
+      "nonlinear_backend": "jax",
+      "contact_nodes": 5,
+      "max_cumulative_slip_mm": 1.0338219799612165,
+      "max_boundary_contact_residual_mpa": 7.28337757512539e-08,
+      "actuator_hold_time_s": null,
+      "first_correction_step": 10,
+      "correction_history_steps": 128,
+      "inverse_cq_composition_inf_error": 5.028849036478197e-11,
+      "segment_substeps": [
+        8,
+        16
+      ],
+      "constitutive_substeps": 24,
+      "constitutive_path": "Two linear segments through the dt/3 stage and endpoint; one committed endpoint state",
+      "loading_stop_rule": "Coverage checked at accepted macrostep endpoints; hold starts next interval",
+      "micro_friction_work_mpa_mm2": 1196.6032602537616,
+      "micro_fixed_pressure_integrated_strength_work_mpa_mm2": 1196.507568835714,
+      "micro_fixed_pressure_work_gap_mpa_mm2": 0.09569141804763603,
+      "contact_root_recovery_events": [],
+      "maximum_inactive_source_force": 7.851213013054803e-10,
+      "state_checks": {
+        "all_saved_stage_fields_finite": true,
+        "minimum_cumulative_increment_mm": 0.0,
+        "minimum_contact_pressure_mpa": 10.485955778628341,
+        "minimum_saved_stage_spring_gap_mm": 0.8657496516501162,
+        "maximum_strength_violation_mpa": 0.0,
+        "maximum_strength_ratio": 1.0
+      },
+      "time_stepping_seconds": 49.99078341573477,
+      "full_trajectory_substep_ad_validated": false,
+      "full_original_event_reproduced": false,
+      "original_initial_residual_history_retained": true,
+      "failure": null,
+      "scope": "Complete causal compact Radau history and endpoint-committed stage contact; no FEM equivalence, gradient convergence or speed advantage asserted",
+      "online_fft_cache": {
+        "families": [
+          {
+            "channels": 2,
+            "capacity_bytes": 0,
+            "peak_retained_kernel_fft_bytes": 0,
+            "cached_levels": [],
+            "streamed_updates": 3,
+            "kernel_fft_builds": 9,
+            "fft_rows": 4,
+            "all_history_terms_retained": true
+          },
+          {
+            "channels": 2,
+            "capacity_bytes": 0,
+            "peak_retained_kernel_fft_bytes": 0,
+            "cached_levels": [],
+            "streamed_updates": 3,
+            "kernel_fft_builds": 9,
+            "fft_rows": 4,
+            "all_history_terms_retained": true
+          }
+        ],
+        "peak_retained_kernel_fft_bytes": 0,
+        "kernel_fft_builds": 18,
+        "expanded_stage_time_weights_stored": false,
+        "finite_dft_shift_wrap_retained": true,
+        "all_history_terms_retained": true
+      }
+    }
+  },
+  "quotas": {
+    "tests": {
+      "pid": 5542,
+      "controller_pid": 5544,
+      "utc_start": "2026-11-03T02:04:13.525707+00:00",
+      "target_identity": {
+        "start": "Tue Nov 3 10:04:13 2026",
+        "state": "R",
+        "cpu_seconds": 0.03,
+        "command": "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python -B -m pytest -q bem/tests/test_prefix_cached_cli.py bem/tests/test_history_cache.py bem/tests/test_compact_radau_history.py --junitxml=/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/prefix-pde-control-20261103-v2/pytest.xml"
+      },
+      "requested_average_cores": 0.1,
+      "interval_seconds": 0.1,
+      "method": "ps cumulative process CPU counter with bounded-credit SIGSTOP/SIGCONT",
+      "hard_affinity": false,
+      "counts_live_thread_cpu": true,
+      "pre_attachment_cpu_time_excluded": true,
+      "status": "target_exited",
+      "stop_cycles": 6,
+      "stopped_wall_seconds": 4.151423957198858,
+      "utc_sample": "2026-11-03T02:04:17.445382+00:00",
+      "last_target": {
+        "start": "Tue Nov 3 10:04:13 2026",
+        "state": "R",
+        "cpu_seconds": 0.51,
+        "command": "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python -B -m pytest -q bem/tests/test_prefix_cached_cli.py bem/tests/test_history_cache.py bem/tests/test_compact_radau_history.py --junitxml=/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/prefix-pde-control-20261103-v2/pytest.xml"
+      },
+      "wall_seconds": 3.9196627913042903,
+      "cpu_seconds": 0.48,
+      "measured_average_cores": 0.12245951388085535,
+      "utc_end": "2026-11-03T02:04:18.446640+00:00"
+    },
+    "coarse_sliding_initialized_ad": {
+      "pid": 5601,
+      "controller_pid": 5603,
+      "utc_start": "2026-11-03T02:04:18.651172+00:00",
+      "target_identity": {
+        "start": "Tue Nov 3 10:04:18 2026",
+        "state": "U",
+        "cpu_seconds": 0.03,
+        "command": "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python -B /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/check_prefix_cached_radau.py /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/trace-policy-coarse-kernel-20261101-v1 --output /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/prefix-pde-control-20261103-v2/coarse --history-prefix-cache-mb 144"
+      },
+      "requested_average_cores": 0.1,
+      "interval_seconds": 0.1,
+      "method": "ps cumulative process CPU counter with bounded-credit SIGSTOP/SIGCONT",
+      "hard_affinity": false,
+      "counts_live_thread_cpu": true,
+      "pre_attachment_cpu_time_excluded": true,
+      "status": "target_exited",
+      "stop_cycles": 103,
+      "stopped_wall_seconds": 274.06683355383575,
+      "utc_sample": "2026-11-03T02:09:03.480284+00:00",
+      "last_target": {
+        "start": "Tue Nov 3 10:04:18 2026",
+        "state": "R",
+        "cpu_seconds": 28.61,
+        "command": "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python -B /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/check_prefix_cached_radau.py /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/trace-policy-coarse-kernel-20261101-v1 --output /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/prefix-pde-control-20261103-v2/coarse --history-prefix-cache-mb 144"
+      },
+      "wall_seconds": 284.82844308391213,
+      "cpu_seconds": 28.58,
+      "measured_average_cores": 0.10034110249158004,
+      "utc_end": "2026-11-03T02:09:04.578410+00:00"
+    }
+  },
+  "source_sha256": {
+    "bem/tools/simulate_prefix_cached_radau.py": "80f97a314191270f6e8b0dcde289644c758b3de0fd1aa8c1deb45e73b8326eea",
+    "bem/tools/check_prefix_cached_radau.py": "fadfa3e6212a76f0451f332866e052fddf17bf3c723e301bf4561d0a3de2159c",
+    "bem/tools/history_prefix_cache.py": "e8e0f7772e7d595d84cf32e6ca88780c220158c89a2863669ece9b87deffe0c0",
+    "bem/tests/test_prefix_cached_cli.py": "f154e5099e0d282f964cb5b0801b74438e279f60962fc5e3b0a18440604821c0"
+  },
+  "public_array_archive": {
+    "path": "bem/docs/diagnostics/trace_policy_candidate_arrays.npz",
+    "sha256": "6c3d0f17f643c838c746595a808363e3faa2be76c05d7898824d5f24e43d725c",
+    "existing_archive_reused_only_after_all_npy_members_compared_byte_for_byte": true,
+    "actual_run_array_member_sha256": {
+      "original": {
+        "displacement.npy": "41317ac4b23d63fd75f3e9d2dd25b2e10ade4bb076085602ab290c4300706ac0",
+        "response.npy": "c1860851442714785c74ff462adae418dc026d684a2aba7eab2512ced24ec70f",
+        "gradient.npy": "d7ddb7666b42c5bf6aa0d6d2e858ef53bffb7bc33d44b7db2485c5b05f7b5a63",
+        "actuator_gradient.npy": "1d8bfad366438f479b3685b1b623d1890cbc4c698f0dc8515d38537f64f4da28",
+        "jvp.npy": "13c085c2f691ab83fe3b5f7ff667c104343961f628523e10d0700b110dab5a8b"
+      },
+      "mixed": {
+        "displacement.npy": "41317ac4b23d63fd75f3e9d2dd25b2e10ade4bb076085602ab290c4300706ac0",
+        "response.npy": "c1860851442714785c74ff462adae418dc026d684a2aba7eab2512ced24ec70f",
+        "gradient.npy": "d7ddb7666b42c5bf6aa0d6d2e858ef53bffb7bc33d44b7db2485c5b05f7b5a63",
+        "actuator_gradient.npy": "1d8bfad366438f479b3685b1b623d1890cbc4c698f0dc8515d38537f64f4da28",
+        "jvp.npy": "13c085c2f691ab83fe3b5f7ff667c104343961f628523e10d0700b110dab5a8b"
+      }
+    }
+  },
+  "source_archive_sha256": {
+    "history_prefix_cache.py": "e8e0f7772e7d595d84cf32e6ca88780c220158c89a2863669ece9b87deffe0c0",
+    "test_prefix_cached_cli.py": "f154e5099e0d282f964cb5b0801b74438e279f60962fc5e3b0a18440604821c0",
+    "check_prefix_cached_radau.py": "fadfa3e6212a76f0451f332866e052fddf17bf3c723e301bf4561d0a3de2159c",
+    "run-prefix-pde-control-20261103-v2.py": "a169f79539b9038034a5997c6e7b2746bc7f574c3a76710f75b7cad3c1933c96",
+    "simulate_prefix_cached_radau.py": "80f97a314191270f6e8b0dcde289644c758b3de0fd1aa8c1deb45e73b8326eea",
+    "test_history_cache.py": "6f442452d16a985aa17142f21044de3414b8b1b368ebafccf1b5a4409eb26bfe"
+  },
+  "junit_sha256": "af7bf140523c3bbf45825d86094656a403a54abed2984ac5950f29ba5a64fcdc",
+  "failed_first_attempt_retained": {
+    "status": {
+      "phase": "attention_required",
+      "owner_pid": 4978,
+      "stages": [
+        {
+          "name": "tests",
+          "exit_code": 0,
+          "seconds": 1.0250129168853164,
+          "utc_start": "2026-11-03T02:02:28.226426+00:00",
+          "utc_end": "2026-11-03T02:02:29.251473+00:00",
+          "command": [
+            "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python",
+            "-B",
+            "-m",
+            "pytest",
+            "-q",
+            "bem/tests/test_prefix_cached_cli.py",
+            "bem/tests/test_history_cache.py",
+            "bem/tests/test_compact_radau_history.py",
+            "--junitxml=/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/prefix-pde-control-20261103-v1/pytest.xml"
+          ]
+        },
+        {
+          "name": "coarse_sliding_initialized_ad",
+          "exit_code": 1,
+          "seconds": 7.1265096655115485,
+          "utc_start": "2026-11-03T02:02:29.287137+00:00",
+          "utc_end": "2026-11-03T02:02:36.413667+00:00",
+          "command": [
+            "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python",
+            "-B",
+            "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/check_prefix_cached_radau.py",
+            "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/trace-policy-coarse-kernel-20261101-v1",
+            "--output",
+            "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/prefix-pde-control-20261103-v1/coarse",
+            "--history-prefix-cache-mb",
+            "144"
+          ]
+        }
+      ],
+      "error": "RuntimeError('coarse_sliding_initialized_ad failed; inspect saved log')",
+      "seconds": 8.214588832110167,
+      "full_original_goal_achieved": false
+    },
+    "audit": {
+      "runtime_guard_failure": "Used one-thread FDBEM/XLA/TF flags; cached kernel requires original four-thread context. No contour or nonlinear solve completed.",
+      "test_quota_failure": "Wrong command-fragment token -q was rejected by argparse. Tests passed but this invocation is not a valid CPU-quota control. All logs and wall costs retained.",
+      "recovery": "Re-run in new v2 output with exact cached runtime environment and test-file command fragment; verify quota initialization and terminal code.",
+      "numerical_sources_unchanged": true,
+      "original_full_event_not_paused_or_modified": true
+    }
+  },
+  "baseline_process_snapshot": "  PID  PPID STARTED                       ELAPSED      TIME  %CPU    RSS STAT COMMAND\n84733     1 Tue Nov  3 09:00:44 2026     01:16:49   0:03.17   0.0  12032 Ss   /opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python -B /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/resume-complete-radau-events-20261103-v2.py\n84742 84733 Tue Nov  3 09:00:45 2026     01:16:48  35:14.33   7.8 5615296 S    /opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python -B /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/simulate_compact_radau.py /Volumes/Gauss-T7/Tatva-BEM-cache/fresh-radau2us-graded-q12-full45-20261028 --output /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/resumed-radau-event-study-20261103/complete_event_segments64-128 --restart-seed /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/data/ev16_restart_float64.npz --static-initialization fem-body-active-set --segment-substeps 64 128 --contact-root-recovery --kinetic-root-seed --fft-cache-mb 8 --fft-rows 4 --max-memory-mb 14336\n84744 84733 Tue Nov  3 09:00:45 2026     01:16:48   0:27.33   0.4   8864 S    /opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python -B /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/limit_process_cpu.py --pid 84742 --expected-start Tue Nov  3 09:00:45 2026 --expected-command-fragment /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/simulate_compact_radau.py --cores 3.85 --output /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/resumed-radau-event-study-20261103/complete_event_segments64-128-cpu-quota\n",
+  "no_baseline_pause_or_restart": true,
+  "complete_original_package_fingerprint_unchanged": true,
+  "actual_cli_file_output_control_pending": false,
+  "source_commit": "983c377",
+  "actual_cli_file_output_control": {
+    "result": {
+      "status": "passed_actual_original_and_cached_complete_coarse_cli",
+      "stages": [
+        {
+          "name": "original",
+          "exit_code": 0,
+          "seconds": 55.9691796656698,
+          "utc_start": "2026-11-03T02:13:35.686925+00:00",
+          "utc_end": "2026-11-03T02:14:31.656243+00:00",
+          "command": [
+            "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python",
+            "-B",
+            "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/simulate_compact_radau.py",
+            "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/trace-policy-coarse-kernel-20261101-v1",
+            "--restart-seed",
+            "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/data/ev16_restart_float64.npz",
+            "--static-initialization",
+            "fem-body-active-set",
+            "--segment-substeps",
+            "8",
+            "16",
+            "--contact-root-recovery",
+            "--kinetic-root-seed",
+            "--fft-cache-mb",
+            "8",
+            "--fft-rows",
+            "4",
+            "--max-memory-mb",
+            "8192",
+            "--output",
+            "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/prefix-cli-control-20261103-v1/original"
+          ]
+        },
+        {
+          "name": "cached",
+          "exit_code": 0,
+          "seconds": 55.973315708339214,
+          "utc_start": "2026-11-03T02:14:31.672506+00:00",
+          "utc_end": "2026-11-03T02:15:27.645967+00:00",
+          "command": [
+            "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python",
+            "-B",
+            "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/simulate_prefix_cached_radau.py",
+            "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/trace-policy-coarse-kernel-20261101-v1",
+            "--restart-seed",
+            "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/data/ev16_restart_float64.npz",
+            "--static-initialization",
+            "fem-body-active-set",
+            "--segment-substeps",
+            "8",
+            "16",
+            "--contact-root-recovery",
+            "--kinetic-root-seed",
+            "--fft-cache-mb",
+            "8",
+            "--fft-rows",
+            "4",
+            "--max-memory-mb",
+            "8192",
+            "--output",
+            "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/prefix-cli-control-20261103-v1/cached",
+            "--history-prefix-cache-mb",
+            "144",
+            "--history-prefix-lags",
+            "32"
+          ]
+        }
+      ],
+      "seconds": 112.00332158338279,
+      "array_member_bitwise_equality": {
+        "initial_lift.npz": {
+          "retained_displacement.npy": true,
+          "full_displacement.npy": true,
+          "retained_bulk_force.npy": true,
+          "plastic_slip.npy": true,
+          "cumulative_slip.npy": true,
+          "pressure.npy": true,
+          "shear.npy": true
+        },
+        "trajectory.npz": {
+          "time.npy": true,
+          "pressure.npy": true,
+          "shear.npy": true,
+          "friction_coefficient.npy": true,
+          "plastic_slip.npy": true,
+          "cumulative_slip.npy": true,
+          "actuator.npy": true,
+          "platen.npy": true,
+          "normal_load.npy": true,
+          "moving_starts.npy": true,
+          "moving_ends.npy": true,
+          "stationary_starts.npy": true,
+          "stationary_ends.npy": true,
+          "contact_y.npy": true,
+          "moving_contact.npy": true,
+          "stationary_contact.npy": true,
+          "contact_weights.npy": true,
+          "contact_jumps.npy": true
+        },
+        "stages.npz": {
+          "displacement.npy": true,
+          "response.npy": true,
+          "stage_time.npy": true,
+          "actuator.npy": true,
+          "initial_residual_force.npy": true,
+          "initial_contact_force.npy": true
+        }
+      },
+      "policy": {
+        "requested_total_memory_mb": 8192.0,
+        "reserved_prefix_capacity_bytes": 150994944,
+        "original_planner_memory_mb": 8048.0,
+        "source_sha256": {
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/simulate_prefix_cached_radau.py": "80f97a314191270f6e8b0dcde289644c758b3de0fd1aa8c1deb45e73b8326eea",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/history_prefix_cache.py": "e8e0f7772e7d595d84cf32e6ca88780c220158c89a2863669ece9b87deffe0c0"
+        },
+        "original_command": [
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/simulate_prefix_cached_radau.py",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/trace-policy-coarse-kernel-20261101-v1",
+          "--restart-seed",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/data/ev16_restart_float64.npz",
+          "--static-initialization",
+          "fem-body-active-set",
+          "--segment-substeps",
+          "8",
+          "16",
+          "--contact-root-recovery",
+          "--kinetic-root-seed",
+          "--fft-cache-mb",
+          "8",
+          "--fft-rows",
+          "4",
+          "--max-memory-mb",
+          "8192",
+          "--output",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/prefix-cli-control-20261103-v1/cached",
+          "--history-prefix-cache-mb",
+          "144",
+          "--history-prefix-lags",
+          "32"
+        ],
+        "original_kernel_not_modified": true,
+        "original_numerical_functions_unchanged": true,
+        "full_original_goal_achieved": false,
+        "cache": {
+          "policy": "exact_readonly_short_lag_prefix",
+          "capacity_bytes": 150994944,
+          "cached_lags": 32,
+          "cached_bytes": 61952,
+          "families": 2,
+          "layouts": [
+            {
+              "source_strides": [
+                8,
+                1032,
+                11352
+              ],
+              "prefix_strides": [
+                8,
+                256,
+                2816
+              ]
+            },
+            {
+              "source_strides": [
+                8,
+                1032,
+                11352
+              ],
+              "prefix_strides": [
+                8,
+                256,
+                2816
+              ]
+            }
+          ],
+          "additional_to_fft_cache_and_workspace": true,
+          "all_history_terms_retained": true,
+          "time_grid_unchanged": true,
+          "coefficient_approximation": false,
+          "cache_setup_seconds": 7.158424705266953e-05
+        },
+        "status": "completed_original_simulation_with_prefix_cache",
+        "seconds": 51.20927658304572
+      },
+      "all_frozen_sources_unchanged": true,
+      "complete_original_package_fingerprint_unchanged": true,
+      "original_full_event_not_paused_or_modified": true,
+      "full_original_goal_achieved": false,
+      "isolated_speed_comparison": false
+    },
+    "quotas": {
+      "original": {
+        "pid": 8529,
+        "controller_pid": 8531,
+        "utc_start": "2026-11-03T02:13:35.722553+00:00",
+        "target_identity": {
+          "start": "Tue Nov 3 10:13:35 2026",
+          "state": "R",
+          "cpu_seconds": 0.03,
+          "command": "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python -B /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/simulate_compact_radau.py /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/trace-policy-coarse-kernel-20261101-v1 --restart-seed /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/data/ev16_restart_float64.npz --static-initialization fem-body-active-set --segment-substeps 8 16 --contact-root-recovery --kinetic-root-seed --fft-cache-mb 8 --fft-rows 4 --max-memory-mb 8192 --output /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/prefix-cli-control-20261103-v1/original"
+        },
+        "requested_average_cores": 0.1,
+        "interval_seconds": 0.1,
+        "method": "ps cumulative process CPU counter with bounded-credit SIGSTOP/SIGCONT",
+        "hard_affinity": false,
+        "counts_live_thread_cpu": true,
+        "pre_attachment_cpu_time_excluded": true,
+        "status": "controller_stopped",
+        "stop_cycles": 23,
+        "stopped_wall_seconds": 53.18517108540982,
+        "utc_sample": "2026-11-03T02:14:30.541405+00:00",
+        "last_target": {
+          "start": "Tue Nov 3 10:13:35 2026",
+          "state": "R",
+          "cpu_seconds": 5.61,
+          "command": "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python -B /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/simulate_compact_radau.py /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/trace-policy-coarse-kernel-20261101-v1 --restart-seed /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/data/ev16_restart_float64.npz --static-initialization fem-body-active-set --segment-substeps 8 16 --contact-root-recovery --kinetic-root-seed --fft-cache-mb 8 --fft-rows 4 --max-memory-mb 8192 --output /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/prefix-cli-control-20261103-v1/original"
+        },
+        "wall_seconds": 54.81873012520373,
+        "cpu_seconds": 5.58,
+        "measured_average_cores": 0.10179002664336641,
+        "error": "InterruptedError: Controller received signal 15",
+        "utc_end": "2026-11-03T02:14:31.645744+00:00"
+      },
+      "cached": {
+        "pid": 8879,
+        "controller_pid": 8881,
+        "utc_start": "2026-11-03T02:14:31.701694+00:00",
+        "target_identity": {
+          "start": "Tue Nov 3 10:14:31 2026",
+          "state": "U",
+          "cpu_seconds": 0.02,
+          "command": "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python -B /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/simulate_prefix_cached_radau.py /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/trace-policy-coarse-kernel-20261101-v1 --restart-seed /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/data/ev16_restart_float64.npz --static-initialization fem-body-active-set --segment-substeps 8 16 --contact-root-recovery --kinetic-root-seed --fft-cache-mb 8 --fft-rows 4 --max-memory-mb 8192 --output /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/prefix-cli-control-20261103-v1/cached --history-prefix-cache-mb 144 --history-prefix-lags 32"
+        },
+        "requested_average_cores": 0.1,
+        "interval_seconds": 0.1,
+        "method": "ps cumulative process CPU counter with bounded-credit SIGSTOP/SIGCONT",
+        "hard_affinity": false,
+        "counts_live_thread_cpu": true,
+        "pre_attachment_cpu_time_excluded": true,
+        "status": "target_exited",
+        "stop_cycles": 22,
+        "stopped_wall_seconds": 52.80445091612637,
+        "utc_sample": "2026-11-03T02:15:23.830583+00:00",
+        "last_target": {
+          "start": "Tue Nov 3 10:14:31 2026",
+          "state": "U",
+          "cpu_seconds": 5.55,
+          "command": "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python -B /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/simulate_prefix_cached_radau.py /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/trace-policy-coarse-kernel-20261101-v1 --restart-seed /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/data/ev16_restart_float64.npz --static-initialization fem-body-active-set --segment-substeps 8 16 --contact-root-recovery --kinetic-root-seed --fft-cache-mb 8 --fft-rows 4 --max-memory-mb 8192 --output /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/prefix-cli-control-20261103-v1/cached --history-prefix-cache-mb 144 --history-prefix-lags 32"
+        },
+        "wall_seconds": 52.128761041909456,
+        "cpu_seconds": 5.53,
+        "measured_average_cores": 0.10608347272159604,
+        "utc_end": "2026-11-03T02:15:27.130302+00:00"
+      }
+    },
+    "saved_output_sha256": {
+      "original": {
+        "summary.json": "2bd3a7cd50a5272c970e82d093ffdcc58b03b41cff39d35e372ca2fe6e18ca41",
+        "trajectory.npz": "6b7b86d6c5e33d58f9f22a6c9db3a4bf4e88b552cdd8215cc124738c0e32a0ce",
+        "history.csv": "96d626f35297921739525684005f2f13dee6febf65309d88384931e145494ee7",
+        "initial_lift.npz": "135c77ff1d9eeb187795239decb11b13284aff7abd3ece63325dac47c10a0b3f",
+        "run_manifest.json": "5b3cb27db750fa72d667b9234b4d40cc0e3306494161fe320ba647a143a6e250",
+        "stages.npz": "96f9b44ce43df7872d5214665a608923565324f15ab72eeb81f13fd53221fb77"
+      },
+      "cached": {
+        "summary.json": "9e671348093de6da300c1db67f61e1cacced90645743978958a0c6d782c78221",
+        "trajectory.npz": "6b7b86d6c5e33d58f9f22a6c9db3a4bf4e88b552cdd8215cc124738c0e32a0ce",
+        "history.csv": "96d626f35297921739525684005f2f13dee6febf65309d88384931e145494ee7",
+        "history-prefix-policy.json": "d826c5221912c23bb56c945e8666ed57741b6d70dcc7bbc43fc14ec21058e58f",
+        "initial_lift.npz": "135c77ff1d9eeb187795239decb11b13284aff7abd3ece63325dac47c10a0b3f",
+        "run_manifest.json": "2a962fd3772d2810ecd62317778e9ec60e2e20a9db81edc45bee65dad524723e",
+        "stages.npz": "96f9b44ce43df7872d5214665a608923565324f15ab72eeb81f13fd53221fb77"
+      }
+    },
+    "driver_source": "\"\"\"Check optional prefix CLI and actual saved-kernel sliding/initialized AD.\"\"\"\nimport hashlib,json,os,subprocess,time\nfrom pathlib import Path\nfrom datetime import datetime,timezone\nROOT=Path('/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM')\nOUT=ROOT/'bem/outputs/prefix-cli-control-20261103-v1'\nPYTHON='/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python'\nKERNEL=ROOT/'bem/outputs/trace-policy-coarse-kernel-20261101-v1'\nOUT.mkdir()\ndef sha(p):\n h=hashlib.sha256()\n with Path(p).open('rb')as f:\n  for b in iter(lambda:f.read(4*1024**2),b''):h.update(b)\n return h.hexdigest()\ndef write(name,data):(OUT/name).write_text(json.dumps(data,indent=2,allow_nan=False)+'\\n')\ndef now():return datetime.now(timezone.utc).isoformat()\noriginal=json.loads((ROOT/'bem/outputs/resumed-radau-event-study-20261103/frozen_inputs.json').read_text())\npaths=[*list((ROOT/'bem/tools').glob('*.py')),ROOT/'bem/tests/test_prefix_cached_cli.py',ROOT/'bem/tests/test_history_cache.py',Path(__file__)]\nfrozen={**original,**{str(p.resolve()):sha(p)for p in paths}}\nwrite('frozen_inputs.json',frozen)\narchive=OUT/'source-archive';archive.mkdir()\nfor p in paths:\n if p.name in ['simulate_prefix_cached_radau.py','check_prefix_cached_radau.py','history_prefix_cache.py','test_prefix_cached_cli.py','test_history_cache.py',Path(__file__).name]:\n  (archive/p.name).write_bytes(p.read_bytes())\ndef verify():\n changed=[p for p,h in frozen.items()if sha(p)!=h]\n if changed:raise RuntimeError('Frozen source changed: '+repr(changed))\n metadata=json.loads(Path('/Volumes/Gauss-T7/Tatva-BEM-cache/fresh-radau2us-graded-q12-full45-20261028/summary.json').read_text())\n current={p.name:sha(p)for p in sorted((ROOT/'bem/src/finiteblock_bem').glob('*.py'))}\n if current!=metadata['environment']['source_sha256']:raise RuntimeError('Complete package fingerprint changed')\nenv={**os.environ,'PYTHONPATH':str(ROOT/'bem/src'),'PYTHONDONTWRITEBYTECODE':'1','OPENBLAS_NUM_THREADS':'1','OMP_NUM_THREADS':'1','MKL_NUM_THREADS':'1','VECLIB_MAXIMUM_THREADS':'1','TF_NUM_INTRAOP_THREADS':'1','TF_NUM_INTEROP_THREADS':'1','FDBEM_CORES':'1','JAX_ENABLE_X64':'true','XLA_FLAGS':'--xla_cpu_multi_thread_eigen=false intra_op_parallelism_threads=1'}\nenv.update(json.loads((KERNEL/'jax-backend-context.json').read_text())['runtime']['thread_environment'])\nchild=quota=None;begun=time.perf_counter();stages=[]\ndef execute(name,command):\n global child,quota\n verify();started=time.perf_counter();utc=now()\n with(OUT/(name+'.log')).open('x')as log,(OUT/(name+'-quota.log')).open('x')as qlog:\n  child=subprocess.Popen(command,cwd=ROOT,env=env,stdout=log,stderr=subprocess.STDOUT,stdin=subprocess.DEVNULL)\n  anchor=subprocess.check_output(['ps','-p',str(child.pid),'-o','lstart='],text=True).strip()\n  quota=subprocess.Popen([PYTHON,'-B',str(ROOT/'bem/tools/limit_process_cpu.py'),'--pid',str(child.pid),'--expected-start',anchor,'--expected-command-fragment',command[5] if '-m' in command else command[2],'--cores','.1','--interval','.1','--output',str(OUT/(name+'-cpu-quota'))],cwd=ROOT,env=env,stdout=qlog,stderr=subprocess.STDOUT)\n  write('status.json',dict(phase=name,owner_pid=os.getpid(),child_pid=child.pid,controller_pid=quota.pid,child_start=anchor,utc=utc,command=command,additional_average_cpu_budget=.1,existing_event_budget=3.85,stages=stages,full_original_goal_achieved=False))\n  while child.poll()is None:\n   if quota.poll()is not None:raise RuntimeError('CPU quota ended while numerical control remains live')\n   verify();time.sleep(1)\n  code=child.wait()\n  if quota.poll()is not None and quota.returncode != 0:raise RuntimeError('Quota process failed; preserve numerical outputs but reject control')\n  if not (OUT/(name+'-cpu-quota/status.json')).is_file():raise RuntimeError('Quota never initialized; reject control')\n  if quota.poll()is None:quota.terminate();quota.wait(timeout=10)\n stages.append(dict(name=name,exit_code=code,seconds=time.perf_counter()-started,utc_start=utc,utc_end=now(),command=command))\n child=quota=None\n verify()\n if code:raise RuntimeError(name+' failed; inspect saved log')\ntry:\n common=[str(KERNEL),'--restart-seed',str(ROOT/'bem/src/finiteblock_bem/resources/data/ev16_restart_float64.npz'),'--static-initialization','fem-body-active-set','--segment-substeps','8','16','--contact-root-recovery','--kinetic-root-seed','--fft-cache-mb','8','--fft-rows','4','--max-memory-mb','8192']\n for name,tool in [('original','simulate_compact_radau.py'),('cached','simulate_prefix_cached_radau.py')]:\n  command=[PYTHON,'-B',str(ROOT/'bem/tools'/tool),*common,'--output',str(OUT/name)]\n  if name=='cached':command+=['--history-prefix-cache-mb','144','--history-prefix-lags','32']\n  execute(name,command)\n import zipfile\n comparisons={}\n for name in ['initial_lift.npz','trajectory.npz','stages.npz']:\n  with zipfile.ZipFile(OUT/'original'/name)as first,zipfile.ZipFile(OUT/'cached'/name)as second:\n   if first.namelist()!=second.namelist():raise RuntimeError('Saved CLI array fields differ')\n   comparisons[name]={key:hashlib.sha256(first.read(key)).hexdigest()==hashlib.sha256(second.read(key)).hexdigest() for key in first.namelist()}\n if not all(all(values.values())for values in comparisons.values()):raise RuntimeError('Actual CLI arrays differ; preserve all outputs and inspect')\n policy=json.loads((OUT/'cached/history-prefix-policy.json').read_text())\n if policy['status']!='completed_original_simulation_with_prefix_cache' or policy['cache']['cached_lags']!=32:raise RuntimeError('CLI policy was not adopted')\n write('summary.json',dict(status='passed_actual_original_and_cached_complete_coarse_cli',stages=stages,seconds=time.perf_counter()-begun,array_member_bitwise_equality=comparisons,policy=policy,all_frozen_sources_unchanged=True,complete_original_package_fingerprint_unchanged=True,original_full_event_not_paused_or_modified=True,full_original_goal_achieved=False,isolated_speed_comparison=False))\n write('status.json',dict(phase='completed',owner_pid=os.getpid(),stages=stages,seconds=time.perf_counter()-begun,full_original_goal_achieved=False))\nexcept BaseException as error:\n if quota is not None and quota.poll()is None:quota.terminate();quota.wait(timeout=10)\n if child is not None and child.poll()is None:child.terminate();child.wait(timeout=10)\n write('failure.json',dict(error=repr(error),stages=stages,seconds=time.perf_counter()-begun))\n write('status.json',dict(phase='attention_required',owner_pid=os.getpid(),stages=stages,error=repr(error),seconds=time.perf_counter()-begun,full_original_goal_achieved=False))\n raise\n",
+    "driver_source_sha256": "96e855f979d929adcef4a6f6ccffca0cd750e1d4bcc2604e9bff0a4c32971b4c",
+    "same_prefix_cli_and_cache_source_sha256": {
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/simulate_prefix_cached_radau.py": "80f97a314191270f6e8b0dcde289644c758b3de0fd1aa8c1deb45e73b8326eea",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/history_prefix_cache.py": "e8e0f7772e7d595d84cf32e6ca88780c220158c89a2863669ece9b87deffe0c0"
+    },
+    "scope": "Both full 128-step coarse actual CLI entry points; identical initialization, trajectory and stage array members. Diagnostic actuator increment .5 mm; no fine/full-event equivalence or speed claim."
+  },
+  "numerical_source_ci": {
+    "id": 41564188777,
+    "head_sha": "983c377dcd1e62db03874804b7ffdb41ba2383c0",
+    "status": "completed",
+    "conclusion": "success",
+    "html_url": "https://github.com/Gauss963/Tatva-BEM/actions/runs/41564188777"
+  },
+  "updated_utc": "2026-11-03T02:34:31.155990+00:00"
+}

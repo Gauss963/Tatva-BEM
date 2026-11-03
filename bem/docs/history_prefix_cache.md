@@ -2,6 +2,12 @@
 
 2026-11-03：新增可選的 `tools/history_prefix_cache.py::cache_history_prefixes`。
 原排程仍使用原本 policy；本頁沒有宣稱全程加速或 FEM 一致性。
+2026-11-03 10:30（台北）另啟動相同原始 45 ms／22500 步的 cached 排程；
+原排程的 owner／quota／numerical process 原地保留並暫停 CPU 工作，
+新排程結束或失敗後由 `finally` 恢復同一組程序。
+這是四核心預算內的序列執行，不是可跨主機重啟的 durable checkpoint。
+[全程排程、來源、暫停／恢復設計與執行快照](history_prefix_full_event_progress_results.json)
+保留本次啟動的證據；完整事件仍待完成。
 實驗工具放在 package 之外，保留現有核及執行中事件的完整 package source 指紋。
 
 ## 為何準備這個改進
@@ -80,7 +86,25 @@ adapter 僅替換傳入原 `simulate_stages` 的兩個 `BoundaryHistory`，
 加入 CLI 記憶體保留與原求解器參數轉接檢查後，本機共 **13 passed**。
 另以 `check_prefix_cached_radau.py` 對同一已保存的完整 128 步 coarse kernel，
 執行原 layout／cached layout 的 sliding 與初始化 JVP／VJP 對照；
-控制保留原 `rtol=1e-7, atol=1e-18` 混合梯度門檻，結果尚待完成。
+已通過原 `rtol=1e-7, atol=1e-18` 混合梯度門檻：
+
+- 全 128 步位移、接觸 response、五參數梯度、所有 stage 載入梯度與七組 JVP **逐位相同**。
+- 兩者的 JVP／VJP mixed normalized error 同為 `4.4543e-6 < 1`。
+- 最終最大累積滑移同為 `1.03382198 mm > Dc`，確實進入 weakening，未重新組裝 contour。
+- 使用相同已保存核、dt=2 µs、h=160／5 個接觸節點，診斷載入 7812.5 mm/s；
+  這不是原始 20 mm/s／45 ms 細網格案例。
+
+[完整軌跡、初始化 AD、配額與失敗重試紀錄](history_prefix_pde_results.json)
+保留兩個 variant 的證據。所有 array members 與既有公開 candidate archive 逐 byte 核對一致，
+因此共用該 archive，沒有用先前結果取代本輪執行。
+首次控制的 runtime guard 拒絕了不一致的 thread flags，另有 test-quota 參數錯誤；
+均保留原記錄，修正 driver 後在原 context 下完成 13 tests 與全程粗網格對照。
+這些受 0.1 CPU quota 控制的 wall times 不是隔離效能 benchmark。
+
+另以原／cached 的實際 CLI 各完成相同 128 步，`initial_lift.npz`、
+`trajectory.npz`、`stages.npz` 的所有 array members 也逐 byte 相同。
+新的 CLI 先保留 prefix 容量，再交由原 planner 判斷其餘陣列，
+數值來源 commit `983c377` 的 Python 3.11／3.12 完整 CI 已通過。
 
 本機檢查使用額外平均 0.1 CPU quota，既有事件維持原 3.85 配額；
 未暫停或改寫全程事件，81 個既有 frozen inputs 再次核對未變動。

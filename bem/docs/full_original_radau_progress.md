@@ -4,6 +4,16 @@
 完整時間 45 ms、dt=2 µs、22500 步、531 個 history DOF、265 個接觸節點。
 原 `/Volumes/Gauss-T7/tatva` 保持只讀；此頁不代表已通過 FEM 一致性或速度／穩定性門檻。
 
+10:30（台北）更新：在[完整 coarse primal／初始化 AD 及實際 CLI 核對](history_prefix_cache.md)
+與數值來源 `983c377` 完整 CI 通過後，啟動相同原始全程的可選短 lag cache。
+prefix RAM 配額為 144 MiB／32 lags，總 array budget 14336 MiB 中，
+原 planner 可用 14192 MiB；其餘物理條件、兩組摩擦子步、h／dt／Q12、
+原始因果 audit 與全部 FEM／梯度門檻不變。
+原程序 group 在同一記憶體狀態暫停，待新排程結束或失敗即恢復，
+兩者的既有成本與暫停時間均保留。下面原排程敘述及 JSON 為較早快照。
+[新的 cached 全程執行快照](history_prefix_full_event_progress_results.json)
+另記錄目前程序、原排程暫停現場及完整 CI；兩次細網格初始 lift 的 array members 已逐 byte 核對一致。
+
 ## 已完成的核
 
 原版 SciPy／Trace-Schur 建核於 **2026-11-02 04:25（台北）**完成，沒有改用後續可選 backend。
