@@ -1,0 +1,63 @@
+# 保留完整 CQ 歷史的短 lag 快取
+
+2026-11-03：新增可選的 `finiteblock_bem.history_cache.cache_history_prefixes`。
+既有全程模擬及 CLI 尚未啟用此 policy；本頁沒有宣稱全程加速或 FEM 一致性。
+
+## 為何準備這個改進
+
+目前細網格權重採 Fortran-order `(22501, 531, 531)`，方便沿時間軸進行 FFT。
+相對地，`weights[0]` 與少量 lag 的切片跨距很大。
+`CompactRadauConvolution.append` 每步使用第二個 family 的 lag-zero 乘法，
+小型直接卷積亦會反覆使用 lag 1–31。
+執行中程序的一次 3 秒 OS 取樣看到 NumPy `DOUBLE_matmul`，
+但這不足以定位 Python 行號、量化耗時比例或證明磁碟讀取就是主要瓶頸。
+
+此 adapter 只將指定數目的完整 lag 矩陣複製到容量受限的 RAM prefix。
+其餘所有 lag 仍由原檔案供應；跨越快取範圍的切片直接使用原來源。
+不插值、不截斷歷史，也不更改既有直接／FFT 卷積演算法或時間網格。
+transpose 共享同一份 prefix，不另複製一套歷史。
+
+## 使用與記憶體
+
+呼叫者須提供保持不變的 read-only float64 權重及相同 CQ plan：
+
+```python
+from finiteblock_bem.history_cache import cache_history_prefixes
+
+cached, record = cache_history_prefixes(
+    (first_history, second_history),
+    capacity_bytes=144 * 1024**2,
+    max_lags=32,
+)
+# 將 cached 的兩個 BoundaryHistory 傳給原 CompactRadauConvolution。
+```
+
+對目前兩個 531-DOF family，32 個 lag 的新增 array payload 為
+**144364032 bytes／137.6763 MiB**，其中包含 lag zero。
+這是 RAM 配額，不能解讀成磁碟實際只會讀取同樣大小的資料。
+建 cache 時的來源 I/O 與複製成本也必須計入總時間。
+`record` 列出實際 cached bytes／lags 與來源／prefix strides。
+預算不足以容納一組完整 family lag 時不建立快取。
+
+這筆 RAM **額外加在既有 kernel-FFT cache、工作陣列與求解器配額上**。
+尚未接入全程 CLI 的 memory planner；不可只把 helper 插入原排程，
+卻繼續沿用未計入此 prefix 的原峰值估算。
+adapter 禁止隱式轉成完整 NumPy array，須明確索引所需時間片。
+
+## 已驗證範圍與後續門檻
+
+新增測試加上原 compact-history 測試共 **11 passed**：
+
+- C／Fortran 磁碟來源、完整與跨 cache 邊界切片、只讀性、容量上限及檔案 SHA 未變動。
+- 全部 130 個時間點的兩 family 原始／cached histories，包含直接與 streamed／cached FFT 路徑。
+- 原展開 stage kernel 的獨立直接卷積對照，以及完整轉置的 dot-product identity。
+- 比較門檻保留 `rtol=atol=2e-12`，沒有以 bitwise 相同推論不同記憶體 layout 的浮點加總。
+
+本機檢查使用額外平均 0.1 CPU quota，既有事件維持原 3.85 配額；
+未暫停或改寫全程事件，81 個既有 frozen inputs 再次核對未變動。
+這是固定 bulk 權重的線性歷史檢查，尚未完成 cached policy 的
+原始 45 ms 非線性軌跡、初始化 AD、梯度 refinement 或隔離總時間比較。
+在這些控制完成前，保留[原版全程事件](full_original_radau_progress.md)作為基準。
+[本機測試、CPU 配額、來源 hash 與基準程序快照](history_prefix_cache_results.json)
+保存已完成的控制範圍；測試後僅修正 module docstring，執行 AST 相同，
+公開來源仍須通過對應 commit 的完整 CI。

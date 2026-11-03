@@ -101,6 +101,8 @@ resolvent 現可直接建立新時間網格，並核對參數、載入及初始�
 另有 [直接保存 CQ 插值與磁碟時間權重](docs/native_spectrum.md)，可避免首次配置完整稠密頻譜；
 實際 BEM 的 512 步診斷已核對解與各種 cotangent；與近遠場積分組合的完整粗 45 ms
 亦通過解與原方程核對，但有一筆載入 cotangent guard 尚未通過。
+新增[短 lag RAM 快取](docs/history_prefix_cache.md) helper：保留全部原權重與完整轉置，
+尚未接入全程 CLI；其額外 RAM 與全程效能需另外計入。
 新增 [指定容量的 FFT 歷史快取](docs/bounded_history.md)：完整粗網格 45 ms 的解與各種 cotangent
 在 0／8 MiB 設定下逐位元相同。較細網格 adjoint 亦與原快取規則逐位元相同，
 但既有 L／原 Z 的單一載入梯度 guard 仍未通過，保留原容差與失敗紀錄。
@@ -305,6 +307,7 @@ src/finiteblock_bem/
   kernels.py        Laplace Green tensor、空間導數與 traction
   operators.py      奇異積分、直接 interior BEM 與 impedance
   cq.py             BDF2 symbol、反變換、完整歷史與記憶體檢查
+  history_cache.py  可選的只讀短 lag RAM prefix；完整權重保留
   friction.py       接觸狀態、LSW、局部返回映射及切線
   constraints.py    支承、界面配對與 work-conjugate platen
   nonlinear.py      單步 Newton 與 line search

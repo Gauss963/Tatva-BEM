@@ -1,0 +1,73 @@
+{
+  "utc": "2026-11-03T01:46:10.158462+00:00",
+  "status": "passed_optional_prefix_storage_control_only",
+  "full_original_goal_achieved": false,
+  "full_original_event_reproduced": false,
+  "same_accuracy_fem_advantage_verified": false,
+  "local_validation": {
+    "status": "passed",
+    "exit_code": 0,
+    "seconds": 6.044964458793402,
+    "all_frozen_inputs_unchanged": true,
+    "old_full_event_not_paused_or_modified": true,
+    "command": [
+      "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python",
+      "-B",
+      "-m",
+      "pytest",
+      "-q",
+      "bem/tests/test_history_cache.py",
+      "bem/tests/test_compact_radau_history.py",
+      "--junitxml=/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/prefix-cache-control-20261103-v1/pytest.xml"
+    ],
+    "full_original_goal_achieved": false
+  },
+  "quota": {
+    "pid": 98362,
+    "controller_pid": 98364,
+    "utc_start": "2026-11-03T01:41:55.567388+00:00",
+    "target_identity": {
+      "start": "Tue Nov 3 09:41:55 2026",
+      "state": "U",
+      "cpu_seconds": 0.04,
+      "command": "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python -B -m pytest -q bem/tests/test_history_cache.py bem/tests/test_compact_radau_history.py --junitxml=/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/prefix-cache-control-20261103-v1/pytest.xml"
+    },
+    "requested_average_cores": 0.1,
+    "interval_seconds": 0.1,
+    "method": "ps cumulative process CPU counter with bounded-credit SIGSTOP/SIGCONT",
+    "hard_affinity": false,
+    "counts_live_thread_cpu": true,
+    "pre_attachment_cpu_time_excluded": true,
+    "status": "target_exited",
+    "stop_cycles": 7,
+    "stopped_wall_seconds": 4.357698877342045,
+    "utc_sample": "2026-11-03T01:41:59.885157+00:00",
+    "last_target": {
+      "start": "Tue Nov 3 09:41:55 2026",
+      "state": "R",
+      "cpu_seconds": 0.55,
+      "command": "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python -B -m pytest -q bem/tests/test_history_cache.py bem/tests/test_compact_radau_history.py --junitxml=/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/prefix-cache-control-20261103-v1/pytest.xml"
+    },
+    "wall_seconds": 4.317729250527918,
+    "cpu_seconds": 0.51,
+    "measured_average_cores": 0.11811764249405947,
+    "utc_end": "2026-11-03T01:42:00.786154+00:00"
+  },
+  "junit_sha256": "b42d4b9578df8607d2c015482608bacdea80337e433eaa0061a5b2143d969aa9",
+  "passed": 11,
+  "published_source_sha256": {
+    "bem/src/finiteblock_bem/history_cache.py": "7dd5b1eb4f83b0a73fa2f496fb12eb26c4ccee2938749a133c555c40d0b5eeed",
+    "bem/tests/test_history_cache.py": "453a8027b340cf4e640df7b76e2ea19dad04e8697e5d328542f324144d1e3277"
+  },
+  "tested_sources_sha256": {
+    "test_history_cache.py": "453a8027b340cf4e640df7b76e2ea19dad04e8697e5d328542f324144d1e3277",
+    "history_cache.py": "c9a0851b1d00d1a674f86edc4761f615a08141e757a342785f1fa49c89fc31cf"
+  },
+  "post_test_change": "Only module-level docstring corrected; executable AST is unchanged. Exact published-source full CI still required.",
+  "executable_ast_unchanged": true,
+  "original_frozen_inputs_checked": 81,
+  "original_inputs_unchanged": true,
+  "baseline_process_snapshot": "  PID  PPID STARTED                      ELAPSED      TIME  %CPU    RSS STAT COMMAND\n84733     1 Tue Nov  3 09:00:44 2026       45:26   0:02.00   0.0   5232 Ss   /opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python -B /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/resume-complete-radau-events-20261103-v2.py\n84742 84733 Tue Nov  3 09:00:45 2026       45:25  32:38.44   8.5 5673808 S    /opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python -B /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/simulate_compact_radau.py /Volumes/Gauss-T7/Tatva-BEM-cache/fresh-radau2us-graded-q12-full45-20261028 --output /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/resumed-radau-event-study-20261103/complete_event_segments64-128 --restart-seed /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/data/ev16_restart_float64.npz --static-initialization fem-body-active-set --segment-substeps 64 128 --contact-root-recovery --kinetic-root-seed --fft-cache-mb 8 --fft-rows 4 --max-memory-mb 14336\n84744 84733 Tue Nov  3 09:00:45 2026       45:25   0:16.71   0.3   8208 S    /opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python -B /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/limit_process_cpu.py --pid 84742 --expected-start Tue Nov  3 09:00:45 2026 --expected-command-fragment /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/simulate_compact_radau.py --cores 3.85 --output /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/resumed-radau-event-study-20261103/complete_event_segments64-128-cpu-quota\n",
+  "no_baseline_signal_or_restart": true,
+  "no_claim_of_performance_gain": true
+}
