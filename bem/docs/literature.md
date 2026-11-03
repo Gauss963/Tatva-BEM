@@ -1,9 +1,46 @@
 # 近期文獻與 FEM 對照的實作決策
 
-檢索／閱讀日期：2026-10-24；補讀／核對至2026-11-01。範圍是有限彈性體的 fully dynamic 接觸、
+檢索／閱讀日期：2026-10-24；補讀／核對至2026-11-03。範圍是有限彈性體的 fully dynamic 接觸、
 時間域 BEM、卷積歷史加速與角落誤差；以下不是整個 BEM 領域的完整系統性回顧。
 目標是在相同物理模型與可量化誤差下重現 FEM，然後證明穩定性或總時間的優勢。
 目前尚未達成這個目標。
+
+2026-11-03 補讀 Banjai、Ferrari，
+[Generalized convolution quadrature based on the trapezoidal rule，出版全文](https://doi.org/10.1093/imanum/draf141)
+§3–5，特別是 Theorem 6、Remarks 5–8 與 Table 1。
+出版日期為 **2026-03-11**；[arXiv 頁](https://arxiv.org/abs/2305.11134)
+仍僅列 2023 年的 v1，閱讀範圍以出版全文為準。
+這篇直接研究 hyperbolic symbols 的變步長，而非只限 sectorial 問題。
+但其二階估計仍有 regularity／初始 compatibility 及相鄰步長變化條件；
+作者明列 trapezoidal 的 regularity 要求較 stiffly accurate RK 嚴格。
+§5.2 的實驗對 Radau 採 `2*N*log(N)^2` 個 contour 點，不能因步數減少就推定總成本更低。
+該文沒有驗證有限體 LSW 接觸，這些結果不構成本案更換時間積分器或放大 dt 的依據。
+
+同日補讀**基礎背景研究** Menon、Schanz，
+[Adaptive time stepping for generalized convolution quadrature](https://doi.org/10.1002/pamm.202300084)，
+2023-09-17 出版，全文 §2–4／Algorithm 1。
+它在三維 scalar acoustic single-layer BIE 上使用兩階段 Radau IIA，
+以時間插值差控制接受／拒絕步長，並在預設步長範圍內重用 contour 上的算子。
+這是與 sectorial fast-history 不同的可行研究路線，尚非本案的摩擦誤差估計器。
+
+對目前程式的實作推論如下；**變步長 gCQ 尚未實作**：
+
+- 先保留正在執行的[原細網格完整 45 ms 對照](full_original_radau_progress.md)，
+  由完整場誤差判斷需要加密的時段。
+- 變步長權重依賴整個接受時間網格，不能跳過現有固定步長 CQ 的若干步，
+  或在破裂附近換 dt 後清空先前反射歷史。
+- 被拒絕的試步必須同時回復塑性滑移、累積滑移、載入狀態及歷史；
+  接觸子步的增加本身不能修正 bulk 時間插值誤差。
+- 可微分版本須先驗證固定接受網格上的完整歷史轉置與 JVP／VJP；
+  自適應選步及原 endogenous loading stop 的 sensitivity 另行驗證。
+- 效能比較計入新 contour／組裝／初始化／拒步／歷史及編譯成本，
+  並在相同場誤差與時間／空間 refinement 下比較四核心總時間。
+
+本輪另核對 [3D-ACA elastodynamics](https://arxiv.org/abs/2607.15292)、
+[sectorial RK-gCQ v2](https://arxiv.org/abs/2506.21242) 與
+[dynamic frictional contact](https://arxiv.org/abs/2405.08566) 的版本頁。
+原全程建核已完成；其線性算子檢查通過，完整非線性事件仍在執行。
+目前仍沒有可支持本案同精度 FEM 總時間或穩定性優勢的完整證據。
 
 2026-11-01 再核對 [JAX-BEM v2](https://arxiv.org/abs/2604.21431)、
 [Kramer 等人的版本頁](https://arxiv.org/abs/2510.06804)與
