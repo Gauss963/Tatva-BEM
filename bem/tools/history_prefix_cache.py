@@ -10,7 +10,7 @@ from numbers import Integral
 
 import numpy as np
 
-from .cq import BoundaryHistory, cq_plan_signature
+from finiteblock_bem.cq import BoundaryHistory, cq_plan_signature
 
 
 class _PrefixWeights:

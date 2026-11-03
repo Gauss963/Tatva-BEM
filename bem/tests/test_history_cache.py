@@ -8,9 +8,11 @@ import numpy as np
 import pytest
 
 from finiteblock_bem.cq import BoundaryHistory, plan_cq
-from finiteblock_bem.history_cache import cache_history_prefixes
 
 TOOLS = Path(__file__).resolve().parents[1] / "tools"
+cache_history_prefixes = runpy.run_path(str(TOOLS / "history_prefix_cache.py"))[
+    "cache_history_prefixes"
+]
 COMPACT = runpy.run_path(str(TOOLS / "compact_radau_history.py"))
 RADAU = runpy.run_path(str(TOOLS / "radau_experiment.py"))
 

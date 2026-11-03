@@ -307,7 +307,6 @@ src/finiteblock_bem/
   kernels.py        Laplace Green tensor、空間導數與 traction
   operators.py      奇異積分、直接 interior BEM 與 impedance
   cq.py             BDF2 symbol、反變換、完整歷史與記憶體檢查
-  history_cache.py  可選的只讀短 lag RAM prefix；完整權重保留
   friction.py       接觸狀態、LSW、局部返回映射及切線
   constraints.py    支承、界面配對與 work-conjugate platen
   nonlinear.py      單步 Newton 與 line search

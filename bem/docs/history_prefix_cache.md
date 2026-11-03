@@ -1,7 +1,8 @@
 # 保留完整 CQ 歷史的短 lag 快取
 
-2026-11-03：新增可選的 `finiteblock_bem.history_cache.cache_history_prefixes`。
+2026-11-03：新增可選的 `tools/history_prefix_cache.py::cache_history_prefixes`。
 既有全程模擬及 CLI 尚未啟用此 policy；本頁沒有宣稱全程加速或 FEM 一致性。
+實驗工具放在 package 之外，保留現有核及執行中事件的完整 package source 指紋。
 
 ## 為何準備這個改進
 
@@ -22,7 +23,11 @@ transpose 共享同一份 prefix，不另複製一套歷史。
 呼叫者須提供保持不變的 read-only float64 權重及相同 CQ plan：
 
 ```python
-from finiteblock_bem.history_cache import cache_history_prefixes
+import runpy
+
+cache_history_prefixes = runpy.run_path("bem/tools/history_prefix_cache.py")[
+    "cache_history_prefixes"
+]
 
 cached, record = cache_history_prefixes(
     (first_history, second_history),
@@ -59,5 +64,6 @@ adapter 禁止隱式轉成完整 NumPy array，須明確索引所需時間片。
 原始 45 ms 非線性軌跡、初始化 AD、梯度 refinement 或隔離總時間比較。
 在這些控制完成前，保留[原版全程事件](full_original_radau_progress.md)作為基準。
 [本機測試、CPU 配額、來源 hash 與基準程序快照](history_prefix_cache_results.json)
-保存已完成的控制範圍；測試後僅修正 module docstring，執行 AST 相同，
-公開來源仍須通過對應 commit 的完整 CI。
+保存已完成的控制範圍。最初的 package 內版本移到 tools 後，已重跑相同 11 項檢查；
+測試來源與目前公開來源逐檔相同，全部 26 個原 package 檔案集合及 hash 亦與完成核一致。
+兩次本機控制皆保留，公開來源仍須通過對應 commit 的完整 CI。
