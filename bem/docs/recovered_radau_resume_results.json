@@ -1,0 +1,518 @@
+{
+  "utc": "2026-11-04T03:10:05.017720+00:00",
+  "status": "passed_original_loop_restart_and_actual_root_recovery_controls",
+  "source_sha256": {
+    "bem/tools/radau_prefix_resume.py": "040f5e019c72ae2e49fa57dc0ff50ef3606ecfec384f7e3b4abc8243db5cf8fc",
+    "bem/tools/recovered_radau_equilibrium.py": "3b91fcaa02cb2f429b7bd3d0cbb73f136561981d99ccc538c0cd3c21acc3b379",
+    "bem/tools/simulate_recovered_radau.py": "fded8559070b7ef9c349dbb39a11bfdb6497744baf303c2a620aeda7a656319b",
+    "bem/tests/test_radau_prefix_resume.py": "48e25d524da819f3926757c796bbd67f4e8fc5659734c76a92d15f951d5f3b0c",
+    "bem/tests/test_recovered_radau_equilibrium.py": "925f446e90df632e7b472bc30976004efdb701c5c03f90f0525dfd28c464b487"
+  },
+  "restart_tests": {
+    "status": "completed",
+    "stages": [
+      {
+        "name": "tests",
+        "exit_code": 0,
+        "seconds": 5.213552459143102,
+        "average_cpu_budget": 3.8,
+        "observed_child_cpu_seconds": 8.7,
+        "owned_stop_cycles": 3,
+        "ownership": "Parent retains Popen child until reaped; PID cannot be reused between live poll and signal. No wall-clock lstart equality used as process ownership."
+      }
+    ],
+    "seconds": 5.219438875094056,
+    "all_frozen_sources_unchanged": true,
+    "complete_package_fingerprint_unchanged": true,
+    "full_original_event_reproduced": false
+  },
+  "root_recovery_tests": {
+    "status": "completed",
+    "stages": [
+      {
+        "name": "tests",
+        "exit_code": 0,
+        "seconds": 4.75748954154551,
+        "average_cpu_budget": 3.8,
+        "observed_child_cpu_seconds": 8.81,
+        "owned_stop_cycles": 2,
+        "ownership": "Parent retains Popen child until reaped; PID cannot be reused between live poll and signal. No wall-clock lstart equality used as process ownership."
+      }
+    ],
+    "seconds": 4.763844291679561,
+    "all_frozen_sources_unchanged": true,
+    "complete_package_fingerprint_unchanged": true,
+    "full_original_event_reproduced": false
+  },
+  "first_cli_resource_rejection": {
+    "error": "RuntimeError('fresh_cli failed; preserve data')",
+    "stages": [
+      {
+        "name": "affine",
+        "exit_code": 0,
+        "seconds": 0.33172033354640007,
+        "average_cpu_budget": 3.8,
+        "observed_child_cpu_seconds": 0.19,
+        "owned_stop_cycles": 0,
+        "ownership": "Parent retains Popen child until reaped; PID cannot be reused between live poll and signal. No wall-clock lstart equality used as process ownership."
+      },
+      {
+        "name": "fresh_cli",
+        "exit_code": 1,
+        "seconds": 0.6732825003564358,
+        "average_cpu_budget": 3.8,
+        "observed_child_cpu_seconds": 0.52,
+        "owned_stop_cycles": 0,
+        "ownership": "Parent retains Popen child until reaped; PID cannot be reused between live poll and signal. No wall-clock lstart equality used as process ownership."
+      }
+    ],
+    "seconds": 1.017977417446673
+  },
+  "actual_complete_coarse_cli": {
+    "status": "passed_fresh_and_resumed_original_cli_full_coarse",
+    "comparisons": {
+      "stages.npz": {
+        "displacement": {
+          "original_fresh_array_equal": true,
+          "original_resumed_array_equal": true,
+          "maximum_absolute_fresh_difference": 0.0,
+          "maximum_absolute_resumed_difference": 0.0
+        },
+        "response": {
+          "original_fresh_array_equal": true,
+          "original_resumed_array_equal": true,
+          "maximum_absolute_fresh_difference": 0.0,
+          "maximum_absolute_resumed_difference": 0.0
+        },
+        "stage_time": {
+          "original_fresh_array_equal": true,
+          "original_resumed_array_equal": true,
+          "maximum_absolute_fresh_difference": 0.0,
+          "maximum_absolute_resumed_difference": 0.0
+        },
+        "actuator": {
+          "original_fresh_array_equal": true,
+          "original_resumed_array_equal": true,
+          "maximum_absolute_fresh_difference": 0.0,
+          "maximum_absolute_resumed_difference": 0.0
+        },
+        "initial_residual_force": {
+          "original_fresh_array_equal": true,
+          "original_resumed_array_equal": true,
+          "maximum_absolute_fresh_difference": 0.0,
+          "maximum_absolute_resumed_difference": 0.0
+        },
+        "initial_contact_force": {
+          "original_fresh_array_equal": true,
+          "original_resumed_array_equal": true,
+          "maximum_absolute_fresh_difference": 0.0,
+          "maximum_absolute_resumed_difference": 0.0
+        }
+      },
+      "trajectory.npz": {
+        "time": {
+          "original_fresh_array_equal": true,
+          "original_resumed_array_equal": true,
+          "maximum_absolute_fresh_difference": 0.0,
+          "maximum_absolute_resumed_difference": 0.0
+        },
+        "pressure": {
+          "original_fresh_array_equal": true,
+          "original_resumed_array_equal": true,
+          "maximum_absolute_fresh_difference": 0.0,
+          "maximum_absolute_resumed_difference": 0.0
+        },
+        "shear": {
+          "original_fresh_array_equal": true,
+          "original_resumed_array_equal": true,
+          "maximum_absolute_fresh_difference": 0.0,
+          "maximum_absolute_resumed_difference": 0.0
+        },
+        "friction_coefficient": {
+          "original_fresh_array_equal": true,
+          "original_resumed_array_equal": true,
+          "maximum_absolute_fresh_difference": 0.0,
+          "maximum_absolute_resumed_difference": 0.0
+        },
+        "plastic_slip": {
+          "original_fresh_array_equal": true,
+          "original_resumed_array_equal": true,
+          "maximum_absolute_fresh_difference": 0.0,
+          "maximum_absolute_resumed_difference": 0.0
+        },
+        "cumulative_slip": {
+          "original_fresh_array_equal": true,
+          "original_resumed_array_equal": true,
+          "maximum_absolute_fresh_difference": 0.0,
+          "maximum_absolute_resumed_difference": 0.0
+        },
+        "actuator": {
+          "original_fresh_array_equal": true,
+          "original_resumed_array_equal": true,
+          "maximum_absolute_fresh_difference": 0.0,
+          "maximum_absolute_resumed_difference": 0.0
+        },
+        "platen": {
+          "original_fresh_array_equal": true,
+          "original_resumed_array_equal": true,
+          "maximum_absolute_fresh_difference": 0.0,
+          "maximum_absolute_resumed_difference": 0.0
+        },
+        "normal_load": {
+          "original_fresh_array_equal": true,
+          "original_resumed_array_equal": true,
+          "maximum_absolute_fresh_difference": 0.0,
+          "maximum_absolute_resumed_difference": 0.0
+        },
+        "moving_starts": {
+          "original_fresh_array_equal": true,
+          "original_resumed_array_equal": true,
+          "maximum_absolute_fresh_difference": 0.0,
+          "maximum_absolute_resumed_difference": 0.0
+        },
+        "moving_ends": {
+          "original_fresh_array_equal": true,
+          "original_resumed_array_equal": true,
+          "maximum_absolute_fresh_difference": 0.0,
+          "maximum_absolute_resumed_difference": 0.0
+        },
+        "stationary_starts": {
+          "original_fresh_array_equal": true,
+          "original_resumed_array_equal": true,
+          "maximum_absolute_fresh_difference": 0.0,
+          "maximum_absolute_resumed_difference": 0.0
+        },
+        "stationary_ends": {
+          "original_fresh_array_equal": true,
+          "original_resumed_array_equal": true,
+          "maximum_absolute_fresh_difference": 0.0,
+          "maximum_absolute_resumed_difference": 0.0
+        },
+        "contact_y": {
+          "original_fresh_array_equal": true,
+          "original_resumed_array_equal": true,
+          "maximum_absolute_fresh_difference": 0.0,
+          "maximum_absolute_resumed_difference": 0.0
+        },
+        "moving_contact": {
+          "original_fresh_array_equal": true,
+          "original_resumed_array_equal": true,
+          "maximum_absolute_fresh_difference": 0.0,
+          "maximum_absolute_resumed_difference": 0.0
+        },
+        "stationary_contact": {
+          "original_fresh_array_equal": true,
+          "original_resumed_array_equal": true,
+          "maximum_absolute_fresh_difference": 0.0,
+          "maximum_absolute_resumed_difference": 0.0
+        },
+        "contact_weights": {
+          "original_fresh_array_equal": true,
+          "original_resumed_array_equal": true,
+          "maximum_absolute_fresh_difference": 0.0,
+          "maximum_absolute_resumed_difference": 0.0
+        },
+        "contact_jumps": {
+          "original_fresh_array_equal": true,
+          "original_resumed_array_equal": true,
+          "maximum_absolute_fresh_difference": 0.0,
+          "maximum_absolute_resumed_difference": 0.0
+        }
+      },
+      "initial_lift.npz": {
+        "retained_displacement": {
+          "original_fresh_array_equal": true,
+          "original_resumed_array_equal": true,
+          "maximum_absolute_fresh_difference": 0.0,
+          "maximum_absolute_resumed_difference": 0.0
+        },
+        "full_displacement": {
+          "original_fresh_array_equal": true,
+          "original_resumed_array_equal": true,
+          "maximum_absolute_fresh_difference": 0.0,
+          "maximum_absolute_resumed_difference": 0.0
+        },
+        "retained_bulk_force": {
+          "original_fresh_array_equal": true,
+          "original_resumed_array_equal": true,
+          "maximum_absolute_fresh_difference": 0.0,
+          "maximum_absolute_resumed_difference": 0.0
+        },
+        "plastic_slip": {
+          "original_fresh_array_equal": true,
+          "original_resumed_array_equal": true,
+          "maximum_absolute_fresh_difference": 0.0,
+          "maximum_absolute_resumed_difference": 0.0
+        },
+        "cumulative_slip": {
+          "original_fresh_array_equal": true,
+          "original_resumed_array_equal": true,
+          "maximum_absolute_fresh_difference": 0.0,
+          "maximum_absolute_resumed_difference": 0.0
+        },
+        "pressure": {
+          "original_fresh_array_equal": true,
+          "original_resumed_array_equal": true,
+          "maximum_absolute_fresh_difference": 0.0,
+          "maximum_absolute_resumed_difference": 0.0
+        },
+        "shear": {
+          "original_fresh_array_equal": true,
+          "original_resumed_array_equal": true,
+          "maximum_absolute_fresh_difference": 0.0,
+          "maximum_absolute_resumed_difference": 0.0
+        }
+      }
+    },
+    "stages": [
+      {
+        "name": "fresh_cli",
+        "exit_code": 0,
+        "seconds": 3.0803324580192566,
+        "average_cpu_budget": 3.8,
+        "observed_child_cpu_seconds": 6.14,
+        "owned_stop_cycles": 2,
+        "ownership": "Parent retains Popen child until reaped; PID cannot be reused between live poll and signal. No wall-clock lstart equality used as process ownership."
+      },
+      {
+        "name": "cut_completed_coarse",
+        "exit_code": 0,
+        "seconds": 0.5640122918412089,
+        "average_cpu_budget": 3.8,
+        "observed_child_cpu_seconds": 0.43,
+        "owned_stop_cycles": 0,
+        "ownership": "Parent retains Popen child until reaped; PID cannot be reused between live poll and signal. No wall-clock lstart equality used as process ownership."
+      },
+      {
+        "name": "checkpoint",
+        "exit_code": 0,
+        "seconds": 0.23275712504982948,
+        "average_cpu_budget": 3.8,
+        "observed_child_cpu_seconds": 0.12,
+        "owned_stop_cycles": 0,
+        "ownership": "Parent retains Popen child until reaped; PID cannot be reused between live poll and signal. No wall-clock lstart equality used as process ownership."
+      },
+      {
+        "name": "resume_cli",
+        "exit_code": 0,
+        "seconds": 3.0443129166960716,
+        "average_cpu_budget": 3.8,
+        "observed_child_cpu_seconds": 6.03,
+        "owned_stop_cycles": 2,
+        "ownership": "Parent retains Popen child until reaped; PID cannot be reused between live poll and signal. No wall-clock lstart equality used as process ownership."
+      }
+    ],
+    "seconds": 6.997831375338137,
+    "all_frozen_sources_unchanged": true,
+    "complete_package_fingerprint_unchanged": true,
+    "full_original_event_reproduced": false
+  },
+  "coarse_restart_policy": {
+    "source_sha256": {
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/simulate_recovered_radau.py": "fded8559070b7ef9c349dbb39a11bfdb6497744baf303c2a620aeda7a656319b",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/radau_prefix_resume.py": "040f5e019c72ae2e49fa57dc0ff50ef3606ecfec384f7e3b4abc8243db5cf8fc",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/recovered_radau_equilibrium.py": "3b91fcaa02cb2f429b7bd3d0cbb73f136561981d99ccc538c0cd3c21acc3b379",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/identity_stage_tangent.py": "2642bdb99c7548a8a9f1fcbc757d423810572daf67ee27253a1bde5b566ca60b",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/diagnose_condensed_radau_root.py": "f8b3aaa48cccae083996c5cb8a35a8e92c4588d9cb60f31391e6edf2cb2dab0c",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/diagnose_radau_root.py": "193a0e7d8a2d73a00d63252efdd89a0d5bfde0dff1f532507d8d2a253a15da6a",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/stream_initial_residual.py": "4b591ddc2af8694dc99a3937dcc7cfa895097244d71f3d99ae827bfb49bfc8db",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/simulate_prefix_cached_radau.py": "80f97a314191270f6e8b0dcde289644c758b3de0fd1aa8c1deb45e73b8326eea",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/history_prefix_cache.py": "e8e0f7772e7d595d84cf32e6ca88780c220158c89a2863669ece9b87deffe0c0",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/recovered-cli-control-20261104-v1/affine/summary.json": "44eb6a317ea62816970c15270a2e09729c3baa70143f8b0b5d8936df45e8e61b",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/prefix-cli-control-20261103-v1/original/initial_lift.npz": "135c77ff1d9eeb187795239decb11b13284aff7abd3ece63325dac47c10a0b3f"
+    },
+    "kernel": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/trace-policy-coarse-kernel-20261101-v1",
+    "affine_cache": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/recovered-cli-control-20261104-v1/affine",
+    "checkpoint": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/recovered-cli-control-20261104-v2/checkpoint",
+    "root_seed": {
+      "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/recovered-cli-control-20261104-v2/cut/root.npz",
+      "sha256": "18185e2a1de8361f053bb178c92b6defa8a21b6ccefcb4c2dd541aa2ed16768b"
+    },
+    "total_array_budget_mb": 2048.0,
+    "prefix_capacity_bytes": 1048576,
+    "checkpoint_reserved_bytes": 61976,
+    "original_planner_memory_mb": 2046.9408950805664,
+    "primal_only": true,
+    "full_original_goal_achieved": false,
+    "recoveries": [],
+    "history_prefix_cache": {
+      "policy": "exact_readonly_short_lag_prefix",
+      "capacity_bytes": 1048576,
+      "cached_lags": 32,
+      "cached_bytes": 61952,
+      "families": 2,
+      "layouts": [
+        {
+          "source_strides": [
+            8,
+            1032,
+            11352
+          ],
+          "prefix_strides": [
+            8,
+            256,
+            2816
+          ]
+        },
+        {
+          "source_strides": [
+            8,
+            1032,
+            11352
+          ],
+          "prefix_strides": [
+            8,
+            256,
+            2816
+          ]
+        }
+      ],
+      "additional_to_fft_cache_and_workspace": true,
+      "all_history_terms_retained": true,
+      "time_grid_unchanged": true,
+      "coefficient_approximation": false,
+      "cache_setup_seconds": 5.820766091346741e-05
+    },
+    "status": "completed_original_physical_loop_with_recovered_roots",
+    "seconds": 2.5062902495265007,
+    "checkpoint_applied": true,
+    "boundary_forcing_error_mpa": 0.0
+  },
+  "coarse_checkpoint": {
+    "status": "validated_original_fine_prefix_and_full_future_history",
+    "source_sha256": {
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/validate_captured_radau_prefix.py": "22410f28778ecf0192d80f60c40a9381be3d6929d3808a26ee47864b0c59e0d1",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/restore_compact_history.py": "e41a7339ddd8e51c17bc5ec7acb3304c1e60df5105866f1357a81a61772f3d1d",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/stream_initial_residual.py": "4b591ddc2af8694dc99a3937dcc7cfa895097244d71f3d99ae827bfb49bfc8db",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compact_radau_history.py": "85fb2c263a330b0b64d464017e2f67a6b5ff043c3cc52df48c388d14a6c70a3e",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/history_prefix_cache.py": "e8e0f7772e7d595d84cf32e6ca88780c220158c89a2863669ece9b87deffe0c0",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/trace-policy-coarse-kernel-20261101-v1/summary.json": "ec8e7eb8a5dc07c8ab39548c006097a7468f8b7c7b97b98223c516e5b34a45f8",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/recovered-cli-control-20261104-v1/affine/summary.json": "44eb6a317ea62816970c15270a2e09729c3baa70143f8b0b5d8936df45e8e61b",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/recovered-cli-control-20261104-v2/cut/initial_lift.npz": "135c77ff1d9eeb187795239decb11b13284aff7abd3ece63325dac47c10a0b3f",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/data/ev16_restart_float64.npz": "f09f9cfbe88d41cfba9daaffd1d901e66d1b33af2b6826ba8449fa05ef510901"
+    },
+    "capture": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/recovered-cli-control-20261104-v2/cut/failed_equilibrium.npz",
+    "capture_sha256": "fe71ec833957d516cdec092d8dce8b548dd6ae289f8ae95f867ffe866103f0a1",
+    "affine_cache": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/recovered-cli-control-20261104-v1/affine",
+    "affine_sha256": "2f0a2a571fcfc01172a01a0e780d34e55646a99fa563c0e46481f5552e40fc8e",
+    "history_state_sha256": "47590f2ae618d22750fb0f61b89f3690981e7082cf4945a2c8af66d6bf568479",
+    "kernel": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/trace-policy-coarse-kernel-20261101-v1",
+    "next_step": 65,
+    "first_correction_step": 41,
+    "local_history_next_step": 24,
+    "pending_stop": 32,
+    "maximum_inactive_source_force": 8.119513950077817e-10,
+    "held_actuator": null,
+    "hold_time_s": null,
+    "maximum_prefix_residual_mpa": 1.6055931458443715e-08,
+    "failed_forcing_normalized_difference_mpa": 0.0,
+    "failed_forcing_bitwise_equal": true,
+    "replay_and_restored_complete_future_bitwise_equal": true,
+    "history_prefix_cache": {
+      "policy": "exact_readonly_short_lag_prefix",
+      "capacity_bytes": 150994944,
+      "cached_lags": 32,
+      "cached_bytes": 61952,
+      "families": 2,
+      "layouts": [
+        {
+          "source_strides": [
+            8,
+            1032,
+            11352
+          ],
+          "prefix_strides": [
+            8,
+            256,
+            2816
+          ]
+        },
+        {
+          "source_strides": [
+            8,
+            1032,
+            11352
+          ],
+          "prefix_strides": [
+            8,
+            256,
+            2816
+          ]
+        }
+      ],
+      "additional_to_fft_cache_and_workspace": true,
+      "all_history_terms_retained": true,
+      "time_grid_unchanged": true,
+      "coefficient_approximation": false
+    },
+    "restore_record": {
+      "accepted_inputs": 65,
+      "first_active_index": 41,
+      "active_history": {
+        "accepted_inputs": 24,
+        "family_frontiers": [
+          {
+            "accepted_inputs": 23,
+            "replayed_frontier_blocks": [
+              {
+                "size": 16,
+                "end": 16
+              },
+              {
+                "size": 4,
+                "end": 20
+              },
+              {
+                "size": 2,
+                "end": 22
+              },
+              {
+                "size": 1,
+                "end": 23
+              }
+            ],
+            "consumed_pending_rows_restored": false,
+            "complete_future_history_retained": true,
+            "inherited_compute_cost_excluded_from_local_statistics": true
+          },
+          {
+            "accepted_inputs": 23,
+            "replayed_frontier_blocks": [
+              {
+                "size": 16,
+                "end": 16
+              },
+              {
+                "size": 4,
+                "end": 20
+              },
+              {
+                "size": 2,
+                "end": 22
+              },
+              {
+                "size": 1,
+                "end": 23
+              }
+            ],
+            "consumed_pending_rows_restored": false,
+            "complete_future_history_retained": true,
+            "inherited_compute_cost_excluded_from_local_statistics": true
+          }
+        ],
+        "delayed_family_restored_by_original_append": true,
+        "complete_future_history_retained": true
+      },
+      "complete_future_history_retained": true
+    },
+    "seconds": 0.04314362537115812,
+    "unavailable_original_newton_count_sentinel": -1,
+    "complete_event_resumed": false,
+    "scope": "Independent full-prefix force balance and exact future-history restoration only; no new root committed or time step advanced."
+  },
+  "all_original_npz_arrays_byte_equal": true,
+  "original_fine_checkpoint": "streamed_initialization_results.json",
+  "fine_full_event_started": false,
+  "full_original_event_reproduced": false,
+  "same_accuracy_fem_advantage_verified": false
+}
