@@ -1,0 +1,102 @@
+{
+  "utc": "2026-11-04T03:49:08.778330+00:00",
+  "status": "passed_numerical_initialized_ad_equality_resource_closeout_failed",
+  "numerical_source_commit": "26e08ede356c3fc23b7ca9be1001dd02ed73376c",
+  "source_sha256": {
+    "bem/outputs/resumed-coarse-ad-control-20261104-v2/status.json": "a85831a49fd09742f622f1d9777348eb2bf2116cde319fc941befbac26ace9b8",
+    "bem/outputs/resumed-coarse-ad-control-20261104-v2/fresh/summary.json": "ba2bd710ffe0999e18610afbf8ee524873fd8529b9b82b9e3f5b0e6667d5f411",
+    "bem/outputs/resumed-coarse-ad-control-20261104-v2/resumed/summary.json": "e4d4de5be51962f58435df441e3ae30146d59390a1b3a78947aedbb0c1467b50",
+    "bem/outputs/resumed-coarse-ad-control-20261104-v1/operator-audit/summary.json": "77f60ff0c125f8571d0c59f93790318f90d058e0e4b54ea35fc3b559fedb73b9",
+    "bem/outputs/owned-cpu-runner-control-20261104-v1/summary.json": "d130ad3d2bb1721f54c01afcf82316d9bfaa73340bef3f961fc1993cde56506e",
+    "bem/outputs/recovered-owner-controller-fix-20261104.json": "642c50e7abeb9847a7ce5d891ebd6a7624f360d4ae9f194c6fdc01c9fac0ddc3"
+  },
+  "completed_steps": 128,
+  "dt_s": 2e-06,
+  "parameter_order": [
+    "normal_penalty",
+    "tangential_penalty",
+    "mu_s",
+    "mu_k",
+    "Dc"
+  ],
+  "objective": "final contact-weighted mean cumulative slip",
+  "value_mm": 0.031080390866763563,
+  "gradient": [
+    -5.6064744888914e-12,
+    -3.009591970997478e-09,
+    0.046092289965933626,
+    -0.05320109162874226,
+    0.06608347241843113
+  ],
+  "jvp": [
+    -5.606474488885341e-12,
+    -3.009591970998153e-09,
+    0.04609228996593587,
+    -0.05320109162873952,
+    0.06608347241844041,
+    -0.006230188287068532,
+    -0.0073177319635669156
+  ],
+  "comparisons": {
+    "gradient": {
+      "array_equal": true,
+      "maximum_absolute_difference": 0.0
+    },
+    "jvp": {
+      "array_equal": true,
+      "maximum_absolute_difference": 0.0
+    },
+    "vjp_dot_products": {
+      "array_equal": true,
+      "maximum_absolute_difference": 0.0
+    }
+  },
+  "gradient_rtol": 1e-07,
+  "gradient_atol": 1e-18,
+  "maximum_jvp_vjp_absolute_difference": 9.284240043427872e-15,
+  "maximum_jvp_vjp_relative_nonzero_difference": 1.0807611017708295e-12,
+  "full_initialized_gradient": true,
+  "every_history_source_included": true,
+  "event_time_derivative_included": false,
+  "original_causal_audit": {
+    "status": "passed_original_causal_radau_equation_audit",
+    "maximum_residual_mpa": 1.620101670596341e-08,
+    "original_audit_tolerance_mpa": 0.0001,
+    "all_saved_stages_checked": true
+  },
+  "resource_closeout": {
+    "status": "failed",
+    "owner_error": "ValueError('Process CPU or monotonic wall clock moved backwards')",
+    "declared_side_budget_cores": 0.1,
+    "recorded_fresh_cpu_seconds": 20.9,
+    "recorded_fresh_wall_seconds": 56.06485579162836,
+    "recorded_fresh_actual_average_cores": 0.37278255165191737,
+    "main_was_waiting_for_ci": true,
+    "isolated_benchmark": false,
+    "numerical_programs_both_completed_before_wrapper_failure": true,
+    "total_four_core_budget_violation_observed": false,
+    "numerical_main_child_start_utc": "2026-11-04T03:30:07.915695+00:00",
+    "ad_summary_file_mtimes_utc": {
+      "fresh": "2026-11-04T03:26:12.702233+00:00",
+      "resumed": "2026-11-04T03:27:07.579775+00:00"
+    }
+  },
+  "corrected_controller_control": {
+    "exit_code": 0,
+    "seconds": 2.6132590426132083,
+    "final_wait4_cpu_seconds": 0.260614,
+    "charged_cpu_high_water_seconds": 0.260614,
+    "measured_average_cores": 0.09972757991086527,
+    "conservative_charged_average_cores": 0.09972757991086527,
+    "average_cpu_budget": 0.1,
+    "ps_counter_regressions": 1,
+    "maximum_ps_counter_drop_seconds": 0.020000000000000004,
+    "owned_stop_cycles": 2,
+    "final_cpu_debt_cooldown_seconds": 0.19109291676431894,
+    "full_cpu_debt_repaid": true,
+    "ownership": "Parent retains unreaped Popen child; wait4 collects final CPU. Regressing ps samples never reduce charged CPU."
+  },
+  "full_original_event_reproduced": false,
+  "same_accuracy_fem_advantage_verified": false,
+  "scope": "Complete initialized derivative of saved 128-step coarse diagnostic branch at fixed bulk and recorded loading; no material, geometry, endogenous stopping-time or full fine-event claim"
+}

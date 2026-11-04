@@ -10,9 +10,13 @@ cached 原速率事件在第 14451 步／28.902 ms 因平衡 residual 7.43595 MP
 已找到[通過原完整方程的局部根](docs/captured_radau_failure.md)，殘差約 `1.54e-11 MPa`；
 完整 CQ 恢復與全程 FEM 對照仍待完成。
 現已完成[原始初始化歷史與 14451 筆前綴驗證](docs/streamed_initialization.md)，
-重建的失敗 forcing 與全部未來歷史逐位相同；尚未接回完整時間推進。
+重建的失敗 forcing 與全部未來歷史逐位相同。
 新增[原迴圈續跑介面與求根備援](docs/recovered_radau_resume.md)，
 完整粗網格 CLI 直接執行／checkpoint 續跑／原版三者的全部保存陣列逐位相同。
+其[初始化 AD 對照](docs/recovered_radau_initialized_ad_results.json)的五參數梯度與七個 JVP
+亦逐位相同；舊管理程序收尾失敗及 CPU 記帳修正另有明列，這些時間不作 benchmark。
+2026-11-04：原細網格 `(64,128)` 全事件已從已驗證前綴啟動續跑，
+數值來源 `26e08ed` 的 CI 通過；尚待實際完成與原驗收門檻檢查。
 新增[保留局部 JAX AD 的切線組裝](docs/identity_stage_tangent.md)，
 完整粗網格解／初始化梯度與細網格代數控制通過；單項 CPU 改善尚非全程速度優勢。
 新的 [FEM dt/16 完整窗口](docs/fem_dt16_window.md)仍未通過參考解的時間收斂診斷：

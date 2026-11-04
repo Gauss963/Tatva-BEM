@@ -5,6 +5,13 @@
 [控制結果與來源](recovered_radau_resume_results.json)已保存。
 完整細網格 45 ms／FEM 一致性、初始化 AD、時間／空間收斂與同精度速度／穩定性優勢仍待完成。
 
+2026-11-04 11:47（台北）執行快照：數值來源 `26e08ed` 的
+[CI 已通過](https://github.com/Gauss963/Tatva-BEM/actions/runs/41765449855)，
+原細網格 `(64,128)` 案例已啟動，從驗證過的前綴接回完整 45 ms。
+後續 `(128,256)` 子步比較會從相同初始狀態重新計算。
+當時尚未產生完成軌跡；排程啟動不代表通過全事件驗收。
+四核心總預算中，數值子程序配額為平均 3.8 核心，其餘保留給管理程序。
+
 ## 如何恢復
 
 `radau_prefix_resume.py` 對原 `simulate_stages` 作三個 private AST 適配：
@@ -35,6 +42,27 @@
 第一次 CLI 控制在數值推進前被原 resource planner 拒絕：估算 1025.8 MiB 高於可用 1023 MiB。
 保留該紀錄，控制總預算改為 2048 MiB；沒有改變物理或接受門檻，已完成的 affine 準備也直接重用。
 所有本機控制平均 CPU 配額為 3.8；這些秒數不是隔離的全事件 benchmark。
+
+## 接續後的初始化 AD
+
+[獨立核對結果](recovered_radau_initialized_ad_results.json)：同一個完整 128 步雙 block 控制，
+直接計算與 checkpoint 接續的五參數梯度、七個 JVP 及對應 VJP 內積全部逐位相同。
+兩者均遍歷全部保存 stage，傳遞初始靜態場、初始 residual 與每筆完整歷史，
+沒有把 checkpoint 前的參數依賴視為常數。
+正反向最大絕對差 `9.2843e-15`，相對非零差 `1.0808e-12`，
+維持 `rtol=1e-7, atol=1e-18`。
+獨立原始因果 RK 方程核對也涵蓋全部 stage，最大 residual `1.6202e-8 MPa`。
+
+範圍是固定 bulk、五個接觸參數、selected healed preload 與已記錄的載入歷程。
+目前不包含 material／geometry 或 endogenous loading stop-time 導數，
+也不是完整細網格 event-16 的梯度收斂證明。
+
+這兩次 AD 數值程式都已寫出完成結果，但舊管理程序在收尾時遇到程序 CPU 計數回跳，
+因此其資源管理驗收失敗；舊低配額等待方式亦未確實遵守宣告的 0.1 核心額度。
+AD 期間完整事件仍在等待 CI，沒有與其數值推進重疊。上述時間不能作效能 benchmark。
+新完整事件的管理程序已改用單調 CPU 高水位、`wait4` 最終 CPU 計數及完整償還 CPU 等待額度。
+人工注入計數回跳的控制中，`0.260614 CPU s / 2.613259 wall s = 0.099728` 核心，
+通過 0.1 配額；這僅驗證記帳，不是物理解的穩定性結果。
 
 ## 原細網格命令
 

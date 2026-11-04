@@ -1,9 +1,29 @@
 # 近期文獻與 FEM 對照的實作決策
 
-檢索／閱讀日期：2026-10-24；補讀／核對至2026-11-03。範圍是有限彈性體的 fully dynamic 接觸、
+檢索／閱讀日期：2026-10-24；補讀／核對至2026-11-04。範圍是有限彈性體的 fully dynamic 接觸、
 時間域 BEM、卷積歷史加速與角落誤差；以下不是整個 BEM 領域的完整系統性回顧。
 目標是在相同物理模型與可量化誤差下重現 FEM，然後證明穩定性或總時間的優勢。
 目前尚未達成這個目標。
+
+2026-11-04 補讀 Aimi、Di Credico、Gimperlein、Guardasoni，
+[A space-time adaptive boundary element method for the wave equation](https://arxiv.org/html/2511.04265v1)
+§2–4、§5.2–5.4 與結論；[正式出版記錄](https://doi.org/10.1137/25M1782170)
+為 **2026-04-13**，arXiv 仍只有 2025-11-06 的 v1。
+此為二維外部 scalar acoustic Dirichlet 問題，使用局部空間／時間 tensor-product Galerkin 加密。
+Theorem 3.1 的 indicator 同時使用 residual 的空間與時間導數；
+小代數 residual 本身不能代替它。局部加密也會失去全域 Toeplitz 結構，
+只有自由度節省足以抵銷儲存／組裝代價時才會有實際效益。
+**本案推論**：波前與端點的局部誤差定位值得優先研究，
+但這不是目前 Radau CQ／有限彈性體／LSW 的誤差定理；尚未移植其 estimator 或 adaptive solver。
+目前先完成既有固定網格全事件與獨立收斂比較，再判斷局部加密能否降低同精度總成本。
+
+同日辨讀 You、Zheng、Li，
+[Energy-Controllable Time Integration for Elastodynamic Contact](https://arxiv.org/html/2602.08094v1)
+§1、§4.4–4.5 與 limitations；arXiv 頁仍列 2026-02-08 v1。
+這是 graphics FEM 的 A-search 能量目標／動量修正，採半隱式摩擦並以低頻動作為主要需求；
+其摩擦段落明列耗散力可能破壞原穩定性，方法仍是一階精度。
+**本案決策**：不將其能量修正或摩擦近似移入既有 LSW 波傳對照。
+比較仍檢查原方程、帶符號功與場誤差；較平滑或較少耗能的動畫不構成 Tatva 一致性證據。
 
 2026-11-04 再讀 Aimi、Di Credico、Gimperlein 的
 [dynamic frictional contact 全文 §3.2–3.4／Algorithm 1 與 §5](https://arxiv.org/html/2405.08566v1)，
