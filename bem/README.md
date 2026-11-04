@@ -19,6 +19,8 @@ cached 原速率事件在第 14451 步／28.902 ms 因平衡 residual 7.43595 MP
 數值來源 `26e08ed` 的 CI 通過；尚待實際完成與原驗收門檻檢查。
 新增[保留局部 JAX AD 的切線組裝](docs/identity_stage_tangent.md)，
 完整粗網格解／初始化梯度與細網格代數控制通過；單項 CPU 改善尚非全程速度優勢。
+另有[使用該組裝的完整初始化 AD 入口](docs/identity_radau_ad_check.md)：
+原因果方程與七方向控制全部通過，保留原容差與全部歷史；目前完整細網格排程未切換。
 新的 [FEM dt/16 完整窗口](docs/fem_dt16_window.md)仍未通過參考解的時間收斂診斷：
 dt/8 對 dt/16 的壓力／剪力時空差為 12.86%／9.94%，完整 BEM 對照門檻維持原設定。
 新增[原生接觸路徑觀測與最佳時間投影](docs/fem_native_contact_paths.md)：
@@ -27,6 +29,8 @@ dt/8 對 dt/16 的壓力／剪力時空差為 12.86%／9.94%，完整 BEM 對照
 新增[原質量／剛度的模態與原生頻譜診斷](docs/fem_modal_resolution.md)：
 兩段法向位移擾動皆有約 19.4 MHz peak；獨立 AD HVP 核對組裝矩陣。
 保守振子顯示時間穩定範圍與相位解析度不同，尚未證明非線性穩定性或唯一誤差原因。
+新增[FEM 剪切起點的已保存能量核對](docs/fem_shear_start_energy.md)：
+法向末端動能／儲能比約 `5.84e-20`；未保存 bulk velocity，不能宣稱逐點初速完全一致。
 新增 [K0/K1 共用評估與積分收縮](docs/paired_ray_galerkin.md)，通過完整粗網格滑動與
 selected initialized AD 對照；細網格三個模式的組裝計時不代表完整事件速度優勢。
 新增 [JAX batch 組裝控制](docs/jax_ray_galerkin.md)：相同 raw／Schur 門檻下，

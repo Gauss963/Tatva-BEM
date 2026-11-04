@@ -1,0 +1,193 @@
+{
+  "status": "passed_original_complete_initialized_ad_with_identity_tangent",
+  "utc": "2026-11-04T04:00:42.896393+00:00",
+  "seconds": 203.33357145823538,
+  "resource_receipt": {
+    "exit_code": 0,
+    "seconds": 203.1932189175859,
+    "final_wait4_cpu_seconds": 20.318318,
+    "charged_cpu_high_water_seconds": 20.318318,
+    "measured_average_cores": 0.0999950594229279,
+    "conservative_charged_average_cores": 0.0999950594229279,
+    "average_cpu_budget": 0.1,
+    "ps_counter_regressions": 0,
+    "maximum_ps_counter_drop_seconds": 0.0,
+    "owned_stop_cycles": 78,
+    "final_cpu_debt_cooldown_seconds": 1.0673589576035738,
+    "full_cpu_debt_repaid": true,
+    "ownership": "Parent retains unreaped Popen child; wait4 collects final CPU. Regressing ps samples never reduce charged CPU."
+  },
+  "comparisons": {
+    "gradient": {
+      "shape": [
+        5
+      ],
+      "array_equal": false,
+      "maximum_absolute_difference": 1.9852334701272664e-23
+    },
+    "actuator_gradient": {
+      "shape": [
+        129,
+        2
+      ],
+      "array_equal": true,
+      "maximum_absolute_difference": 0.0
+    },
+    "initial_state_cotangent": {
+      "shape": [
+        5,
+        2
+      ],
+      "array_equal": true,
+      "maximum_absolute_difference": 0.0
+    },
+    "initial_path_cotangent": {
+      "shape": [
+        11
+      ],
+      "array_equal": true,
+      "maximum_absolute_difference": 0.0
+    },
+    "initial_displacement_jacobian": {
+      "shape": [
+        11,
+        5
+      ],
+      "array_equal": true,
+      "maximum_absolute_difference": 0.0
+    },
+    "initial_plastic_jacobian": {
+      "shape": [
+        5,
+        5
+      ],
+      "array_equal": true,
+      "maximum_absolute_difference": 0.0
+    },
+    "initial_measured_force_jacobian": {
+      "shape": [
+        11,
+        5
+      ],
+      "array_equal": true,
+      "maximum_absolute_difference": 0.0
+    },
+    "jvp": {
+      "shape": [
+        7
+      ],
+      "array_equal": true,
+      "maximum_absolute_difference": 0.0
+    },
+    "vjp_dot_products": {
+      "shape": [
+        7
+      ],
+      "array_equal": false,
+      "maximum_absolute_difference": 1.9852334701272664e-23
+    }
+  },
+  "gradient_rtol": 1e-07,
+  "gradient_atol": 1e-18,
+  "all_four_reverse_forward_systems_use_identity_tangent": true,
+  "original_primal_and_audit_unchanged": true,
+  "main_original_full_event_not_paused_or_changed": true,
+  "full_original_event_reproduced": false,
+  "same_accuracy_fem_advantage_verified": false,
+  "isolated_benchmark": false,
+  "source_sha256": {
+    "bem/tools/check_identity_radau_ad.py": "f71a5f48d94f9b3c7e804545384f35a53666760700901d3f0ee28ff3f7c6ef3b",
+    "bem/tools/identity_stage_tangent.py": "2642bdb99c7548a8a9f1fcbc757d423810572daf67ee27253a1bde5b566ca60b",
+    "bem/outputs/identity-ad-check-20261104-v1/summary.json": "84ec0b1b2178a637ee06012da31b5f22688f5974da815c139c4d2d961a967a32",
+    "bem/outputs/identity-ad-check-20261104-v1/candidate/summary.json": "abfdc9d7880ed227c433518610d0f0f513eb03d5b369842bd9ebf0c711c2b141",
+    "bem/outputs/identity-ad-check-20261104-v1/resource_receipt.json": "4a88b24cc08c21385e24251a2d06b2ef234a58300e2604da260ea3f50a15ab09"
+  },
+  "original_causal_audit": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/resumed-coarse-ad-control-20261104-v1/operator-audit",
+  "checked_steps": 128,
+  "parameter_order": [
+    "normal_penalty",
+    "tangential_penalty",
+    "mu_s",
+    "mu_k",
+    "Dc"
+  ],
+  "gradient": [
+    -5.60647448889171e-12,
+    -3.009591970997498e-09,
+    0.046092289965933626,
+    -0.05320109162874226,
+    0.06608347241843113
+  ],
+  "jvp": [
+    -5.606474488885341e-12,
+    -3.009591970998153e-09,
+    0.04609228996593587,
+    -0.05320109162873952,
+    0.06608347241844041,
+    -0.006230188287068532,
+    -0.0073177319635669156
+  ],
+  "maximum_jvp_vjp_absolute_difference": 9.284240043427872e-15,
+  "maximum_jvp_vjp_relative_nonzero_difference": 1.1360886931692466e-12,
+  "full_initialized_gradient": true,
+  "event_time_derivative_included": false,
+  "optional_tangent_assembly": {
+    "policy": "exact_nodal_contact_scatter_with_original_local_jax_ad",
+    "source_sha256": {
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/check_identity_radau_ad.py": "f71a5f48d94f9b3c7e804545384f35a53666760700901d3f0ee28ff3f7c6ef3b",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/identity_stage_tangent.py": "2642bdb99c7548a8a9f1fcbc757d423810572daf67ee27253a1bde5b566ca60b"
+    },
+    "systems": [
+      {
+        "applied": true,
+        "contact_nodes": 5,
+        "stage_dofs": 22,
+        "contact_scatter_entries": 80,
+        "dense_contact_products_removed": 16,
+        "local_ad_unchanged": true,
+        "original_dense_bulk_retained": true,
+        "original_residual_and_root_unchanged": true,
+        "nonfinite_uses_original_tangent": true
+      },
+      {
+        "applied": true,
+        "contact_nodes": 5,
+        "stage_dofs": 22,
+        "contact_scatter_entries": 80,
+        "dense_contact_products_removed": 16,
+        "local_ad_unchanged": true,
+        "original_dense_bulk_retained": true,
+        "original_residual_and_root_unchanged": true,
+        "nonfinite_uses_original_tangent": true
+      },
+      {
+        "applied": true,
+        "contact_nodes": 5,
+        "stage_dofs": 22,
+        "contact_scatter_entries": 80,
+        "dense_contact_products_removed": 16,
+        "local_ad_unchanged": true,
+        "original_dense_bulk_retained": true,
+        "original_residual_and_root_unchanged": true,
+        "nonfinite_uses_original_tangent": true
+      },
+      {
+        "applied": true,
+        "contact_nodes": 5,
+        "stage_dofs": 22,
+        "contact_scatter_entries": 80,
+        "dense_contact_products_removed": 16,
+        "local_ad_unchanged": true,
+        "original_dense_bulk_retained": true,
+        "original_residual_and_root_unchanged": true,
+        "nonfinite_uses_original_tangent": true
+      }
+    ],
+    "original_full_equations_and_ad_checks_retained": true,
+    "original_initialization_gradient_mode_retained": true,
+    "every_history_source_retained": true,
+    "general_contact_maps_use_original_tangent": true,
+    "isolated_runtime_advantage_verified": false
+  },
+  "scope": "Complete saved RK history, selected healed-static/transient branches, fixed bulk/restart and recorded stage loading; no material/geometry/stop-time derivative or gradient convergence certificate"
+}
