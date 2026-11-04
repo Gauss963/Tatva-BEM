@@ -3,20 +3,21 @@
 二維平面應變、有限區域的 **fully elastodynamic BEM** 研究實作，目標是與 Tatva 的雙 PMMA block 摩擦模型交叉驗證。
 
 此版本已實作彈性波核、完整時間歷史、有限區域邊界、單向接觸、線性滑移弱化與剛性 platen／彈簧耦合。
-**已完成原載入歷程的 45 ms 粗網格推進，尚未完成原解析度的收斂重現。**
-2026-11-03：[原細網格完整 kernel 已完成](docs/full_original_radau_progress.md)，
-cached 原速率事件在第 14451 步／28.902 ms 因平衡 residual 7.43595 MPa 失敗，
-已保存前綴與方程；原基準後來也在相同步驟失敗，兩份 capture 的全部 members 逐 byte 相同。
-已找到[通過原完整方程的局部根](docs/captured_radau_failure.md)，殘差約 `1.54e-11 MPa`；
-完整 CQ 恢復與全程 FEM 對照仍待完成。
+**2026-11-04：原細網格第一組已完成 45 ms，完整 FEM 場比較仍未通過。**
+[全程結果與圖表](docs/recovered_full_event.md)：壓力／帶符號剪力／累積滑移的
+相對時空差為 29.77%／69.36%／86.81%，維持原 5% 門檻與全部端點。
+第二組較細接觸積分在第 14450 步失敗，已獨立驗證該步的局部根，正在驗證續跑歷史。
+原始因果 RK 的全程獨立稽核亦在進行；尚未證明同精度的速度或穩定性優勢。
+[原細網格完整 kernel](docs/full_original_radau_progress.md)與
+[第一組先前失敗點的局部根](docs/captured_radau_failure.md)保留來源與歷史紀錄。
 現已完成[原始初始化歷史與 14451 筆前綴驗證](docs/streamed_initialization.md)，
 重建的失敗 forcing 與全部未來歷史逐位相同。
 新增[原迴圈續跑介面與求根備援](docs/recovered_radau_resume.md)，
 完整粗網格 CLI 直接執行／checkpoint 續跑／原版三者的全部保存陣列逐位相同。
 其[初始化 AD 對照](docs/recovered_radau_initialized_ad_results.json)的五參數梯度與七個 JVP
 亦逐位相同；舊管理程序收尾失敗及 CPU 記帳修正另有明列，這些時間不作 benchmark。
-2026-11-04：原細網格 `(64,128)` 全事件已從已驗證前綴啟動續跑，
-數值來源 `26e08ed` 的 CI 通過；尚待實際完成與原驗收門檻檢查。
+原細網格 `(64,128)` 已從已驗證前綴完成全部 22500 步；數值來源 `26e08ed` 的 CI 通過。
+完成推進與小平衡 residual 尚不代表 FEM 一致性或收斂驗證通過。
 新增[保留局部 JAX AD 的切線組裝](docs/identity_stage_tangent.md)，
 完整粗網格解／初始化梯度與細網格代數控制通過；單項 CPU 改善尚非全程速度優勢。
 另有[使用該組裝的完整初始化 AD 入口](docs/identity_radau_ad_check.md)：
@@ -120,7 +121,8 @@ resolvent 現可直接建立新時間網格，並核對參數、載入及初始�
 亦通過解與原方程核對，但有一筆載入 cotangent guard 尚未通過。
 新增[短 lag RAM 快取](docs/history_prefix_cache.md) helper：保留全部原權重與完整轉置，
 可選 CLI 會先保留額外 RAM 配額；128 步 sliding／初始化 AD 及實際 CLI 輸出逐位相同，
-原 cached 全程事件在 28.902 ms 失敗；局部根及其完整歷史已核對，後續推進與全程效能仍待驗證。
+原 cached 全程事件曾在 28.902 ms 失敗；局部根與完整歷史核對後，第一組已完成 45 ms，
+FEM 場一致性與全程效能仍未達標。
 新增[原歷史存取成本控制](docs/history_access_cost.md)：六種快取配置的切片量與 FFT 呼叫均與原卷積器吻合，
 用於挑選下一組完整計時設定；切片量預估不是實際磁碟流量或全程加速倍數。
 新增 [指定容量的 FFT 歷史快取](docs/bounded_history.md)：完整粗網格 45 ms 的解與各種 cotangent

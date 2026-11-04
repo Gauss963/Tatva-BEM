@@ -1,0 +1,60 @@
+{
+  "status": "passed_published_local_fixture_replay",
+  "local_equation_original_members_byte_identical": true,
+  "full_capture_and_published_fixture_results_array_equal": {
+    "verified_candidate_roots.npz": {
+      "random_hybrid": true
+    },
+    "independent_state.npz": {
+      "response": true,
+      "residual": true
+    }
+  },
+  "candidate_audit": {
+    "status": "passed_captured_original_stage_candidate",
+    "capture": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/docs/diagnostics/radau_step14450_substeps128_256/equation.npz",
+    "capture_sha256": "5643c789c9b728ce0b61fb61df938971ccf7bffce8fe5992f721c16b55db9dcc",
+    "candidates": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/docs/diagnostics/radau_step14450_substeps128_256/candidate_roots.npz",
+    "candidates_sha256": "82ae4bf047aff1d97b54b6c0954ef3c87a3013892e9c6ef7dff033d82ce723f1",
+    "key": "random_hybrid",
+    "segment_substeps": [
+      128,
+      256
+    ],
+    "failed_step": 14450,
+    "original_jax_residual_mpa": 1.9918949744160978e-11,
+    "independent_numpy_residual_mpa": 1.9937291318511034e-11,
+    "maximum_absolute_local_response_difference": 7.951972413877684e-15,
+    "candidate_unchanged_by_original_root": true,
+    "minimum_pressure_mpa": 10.36088144194109,
+    "maximum_cumulative_slip_mm": 0.24638350711464452,
+    "micro_friction_work_mpa_mm2": 17.92730040322495,
+    "source_sha256": {
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/audit_captured_stage_candidate.py": "33232c1c8c525dd597b395c2fac915ec9d6b362ade6fbdced0fce6aefcacd6a2",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/diagnose_radau_root.py": "193a0e7d8a2d73a00d63252efdd89a0d5bfde0dff1f532507d8d2a253a15da6a",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/identity_stage_tangent.py": "2642bdb99c7548a8a9f1fcbc757d423810572daf67ee27253a1bde5b566ca60b",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/radau_contact_experiment.py": "d564ec6ea2311b783d52df83d2f567d640aa6e40a5c1236aad60c51112b023c6",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/substepped_contact_experiment.py": "d40fcb95f5fa29c0c8630a8901f8d5e63591bfc11ed1c9fbdee7c2ecc8d36225",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/friction.py": "1424c1639cdc1eb4dd8f780bfdc0433f33cf29752b07a17814a3a2f326d81086"
+    },
+    "no_physical_state_committed": true,
+    "full_original_event_reproduced": false,
+    "same_accuracy_fem_advantage_verified": false
+  },
+  "resource_receipt": {
+    "exit_code": 0,
+    "seconds": 63.27380512468517,
+    "final_wait4_cpu_seconds": 6.327056000000001,
+    "charged_cpu_high_water_seconds": 6.327056000000001,
+    "measured_average_cores": 0.09999487129835362,
+    "conservative_charged_average_cores": 0.09999487129835362,
+    "average_cpu_budget": 0.1,
+    "ps_counter_regressions": 0,
+    "maximum_ps_counter_drop_seconds": 0.0,
+    "owned_stop_cycles": 37,
+    "final_cpu_debt_cooldown_seconds": 0.4533795826137066,
+    "full_cpu_debt_repaid": true,
+    "ownership": "Parent retains unreaped Popen child; wait4 collects final CPU. Regressing ps samples never reduce charged CPU."
+  },
+  "scope": "Actual fine128/256 step14450; local validation only, no physical state advanced"
+}

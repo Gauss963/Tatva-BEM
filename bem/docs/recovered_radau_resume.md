@@ -1,5 +1,10 @@
 # 將已驗證的歷史接回原始 Radau 推進
 
+**2026-11-04 最新結果：**原細網格第一組已藉此介面完成 45 ms；
+[完整 FEM 接觸場比較](recovered_full_event.md)未通過原門檻。
+第二組較細接觸積分的局部根已驗證，自己的歷史前綴正在核對。
+下方啟動快照與 coarse 控制仍保留各自範圍，不能視為完整細網格物理驗收。
+
 2026-11-04：`tools/simulate_recovered_radau.py` 整合原 initializer cache、
 完整歷史恢復、局部 AD 切線組裝與原平衡方程的求根備援。
 [控制結果與來源](recovered_radau_resume_results.json)已保存。

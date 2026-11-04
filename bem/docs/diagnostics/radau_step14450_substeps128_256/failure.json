@@ -1,0 +1,29 @@
+{
+  "status": "failed_radau_nonlinear_equilibrium",
+  "failed_step": 14450,
+  "residual_mpa": 6.423194145599403,
+  "kernel": "/Volumes/Gauss-T7/Tatva-BEM-cache/fresh-radau2us-graded-q12-full45-20261028",
+  "segment_substeps": [
+    128,
+    256
+  ],
+  "completed_requested_horizon": false,
+  "failed_equilibrium_sha256": "5643c789c9b728ce0b61fb61df938971ccf7bffce8fe5992f721c16b55db9dcc",
+  "scope": "Exact local-equation NPY members from the full capture; accepted prefix omitted. Not a resumable CQ checkpoint.",
+  "original_full_capture_sha256": "674fd4b7f0691da3c93d6f6286369f7d3224e7aac12af5e0d83db85fc04b56c9",
+  "retained_npy_member_sha256": {
+    "matrix.npy": "7d9eb65af3ee7df8bc3d157f913cfc2b446faf3129d836395f19b508dda70190",
+    "forcing.npy": "861114012c718298a984d3c48feed0e8a5c5d132ef4fa669011288410245e0fe",
+    "failed_displacement.npy": "dfe82ab8167886865756df57913d8353fba55da8f37434c44256f55585e47d7f",
+    "previous_displacement.npy": "d9ed5680f904809d8d666820accaf4ef3b80a4727a978ca71904e85683d12a94",
+    "plastic_slip.npy": "602d5890294cc2936f59626ef7d5f5ff9d3c8383f327f6dcd22ae087ec021bc2",
+    "cumulative_slip.npy": "129425c0bd6ae6f1793555e2108aef25fe752b37399b23d99121179822f4e604",
+    "parameters.npy": "c3d6dbd9249fc028f1188320d7b35f27bb458e525980e8f6109998151087e798",
+    "base_dn.npy": "1d1542226fec19b33b0660f16afd8715765611ce23fd73f5b6c1a07225f03e11",
+    "base_ds.npy": "5737e471ecdddba2745b8d5cb101cd585d00593a84135680e7cfbc0c0b9e4f19",
+    "contact_weights.npy": "48dcbf5f711e80083dc9df8a3486ec65c5ceca903a093c8b8a0389a94bbc21b2",
+    "reduced_weights.npy": "ec3690dd55cb309033e4667949ade64be5d5345b7be00d0cd8125683ce5b0627",
+    "residual_mpa.npy": "7fbf04da76dad0a8aeba3968763de844f713d687876037c70b94930d7a0a6510",
+    "stage_time.npy": "65d1859c8a7afa839112e8fba4cb2097959412052fa3c1994640251423db3fe3"
+  }
+}

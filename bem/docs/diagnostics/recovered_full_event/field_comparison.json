@@ -1,0 +1,195 @@
+{
+  "status": "completed_float64_contact_space_time_comparison",
+  "bem_run": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/recovered-original-event-study-20261104-v2/complete_event_segments64-128",
+  "fem_run": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-radau-study-graded-h2-end015625-4c-f64-replayed",
+  "bem_time_method": "radau2",
+  "bem_loading_check": {
+    "actual_endpoint_loading_verified": true,
+    "first_coverage_endpoint_s": 0.028938,
+    "prescribed_diagnostic_excluded": true,
+    "no_fitted_time_shift": true
+  },
+  "frozen_input_sha256": {
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compare_float64_contact_history.py": "3d7621c3dc3f1ea677189c3ab11f41f612896fadc835718e3dd8044888b24547",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compare_refined_fem_history.py": "0779900b9556045208297bfc4cddca883a03fbb31bcb0aea24dabbd0d30a0540",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compare_fem_mesh.py": "a747c5b4ff52ad84556d5de0c91fb21e0612f3f3d71f165626058c22608b3e0b",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/fem_reference_io.py": "767d970d36ebb446d838af2bd3c5b252e38614cab8a374e2bcf376f5a6564264",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/replay_resolvent.py": "129d75f1dc47ba11f2da171a820e422c3bde36ccce6ed2624690230c9e66bafc",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/fem_contact_observations.py": "ca8727304aec9c38ea72f8f49e8dbeff0d90515ad907056bfc81d3b3baf80a7f",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/recovered-original-event-study-20261104-v2/complete_event_segments64-128/summary.json": "1c9859c648e4637dbc52276f8595c4e3322c11b377808b2ff1d6dc457bf7b9c5",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-radau-study-graded-h2-end015625-4c-f64-replayed/summary.json": "e47c95b2d26e9ea5c5f67ce48bc06534577c461cbdf44a691d919f8e739c93e4",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-radau-study-graded-h2-end015625-4c-f64-replayed/resolved_run_config.json": "c0b63b3aba0fdd32499459428eb51c653ed0563e8fdd66fe794c0880e8ec6488",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-radau-study-graded-h2-end015625-4c-f64-replayed/reference_manifest.json": "94f8129fa5a3627fc00780570558af0ab4290c2b99295ad20b4e275f30cf2f35"
+  },
+  "dataset_sha256": {
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/recovered-original-event-study-20261104-v2/complete_event_segments64-128/trajectory.npz": "20ab51b00ed0f4835ad60dc7f0bf33ef6acc03aceb8e0c652df21f2dfafbf6e5",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-radau-study-graded-h2-end015625-4c-f64-replayed/simulation.h5": "a38f08a4ee8a3066d45cf79cea5da56dd3508fe591b9ab7affa988601ec5a48c"
+  },
+  "field_errors": {
+    "pressure": {
+      "relative_space_time_p1_l2": 0.297677195932218,
+      "absolute_space_time_p1_l2": 31.909030874351824,
+      "reference_squared_space_time_integral": 11490.425104323906,
+      "error_squared_space_time_integral": 1018.186251340338,
+      "maximum_saved_interpolant_absolute_difference": 1347.265089938314,
+      "final_shared_time_relative_p1_l2": 0.8675675882734215,
+      "common_time_interval_s": [
+        1.9125812604139645e-09,
+        0.045
+      ],
+      "reference_saved_interval_s": [
+        1.9125812604139645e-09,
+        0.0450000017910803
+      ],
+      "actual_saved_interval_s": [
+        0.0,
+        0.045
+      ],
+      "temporal_union_knots": 31499,
+      "spatial_union_knots": 547,
+      "all_saved_knots_in_overlap_retained": true,
+      "fitted_time_shift_s": 0.0,
+      "extrapolation_used": false,
+      "scope": "Exact norms of saved P1 interpolants on the common interval; no unsaved-step error bound"
+    },
+    "elastic_shear": {
+      "relative_space_time_p1_l2": 0.6935631557866848,
+      "absolute_space_time_p1_l2": 35.02868864951537,
+      "reference_squared_space_time_integral": 2550.796017728706,
+      "error_squared_space_time_integral": 1227.0090285046867,
+      "maximum_saved_interpolant_absolute_difference": 1069.6601572274842,
+      "final_shared_time_relative_p1_l2": 4.110922811811055,
+      "common_time_interval_s": [
+        1.9125812604139645e-09,
+        0.045
+      ],
+      "reference_saved_interval_s": [
+        1.9125812604139645e-09,
+        0.0450000017910803
+      ],
+      "actual_saved_interval_s": [
+        0.0,
+        0.045
+      ],
+      "temporal_union_knots": 31499,
+      "spatial_union_knots": 547,
+      "all_saved_knots_in_overlap_retained": true,
+      "fitted_time_shift_s": 0.0,
+      "extrapolation_used": false,
+      "scope": "Exact norms of saved P1 interpolants on the common interval; no unsaved-step error bound"
+    },
+    "plastic_slip": {
+      "relative_space_time_p1_l2": 0.18427873701983966,
+      "absolute_space_time_p1_l2": 8.647955121186952,
+      "reference_squared_space_time_integral": 2202.299601208362,
+      "error_squared_space_time_integral": 74.78712777806362,
+      "maximum_saved_interpolant_absolute_difference": 3.8395758524534713,
+      "final_shared_time_relative_p1_l2": 0.2542544631009925,
+      "common_time_interval_s": [
+        1.9125812604139645e-09,
+        0.045
+      ],
+      "reference_saved_interval_s": [
+        1.9125812604139645e-09,
+        0.0450000017910803
+      ],
+      "actual_saved_interval_s": [
+        0.0,
+        0.045
+      ],
+      "temporal_union_knots": 31499,
+      "spatial_union_knots": 547,
+      "all_saved_knots_in_overlap_retained": true,
+      "fitted_time_shift_s": 0.0,
+      "extrapolation_used": false,
+      "scope": "Exact norms of saved P1 interpolants on the common interval; no unsaved-step error bound"
+    },
+    "cumulative_slip": {
+      "relative_space_time_p1_l2": 0.8681397714018608,
+      "absolute_space_time_p1_l2": 9.754858150449321,
+      "reference_squared_space_time_integral": 126.25907744916253,
+      "error_squared_space_time_integral": 95.15725753538756,
+      "maximum_saved_interpolant_absolute_difference": 69.30991189073923,
+      "final_shared_time_relative_p1_l2": 0.8693777492869754,
+      "common_time_interval_s": [
+        1.9125812604139645e-09,
+        0.045
+      ],
+      "reference_saved_interval_s": [
+        1.9125812604139645e-09,
+        0.0450000017910803
+      ],
+      "actual_saved_interval_s": [
+        0.0,
+        0.045
+      ],
+      "temporal_union_knots": 31499,
+      "spatial_union_knots": 547,
+      "all_saved_knots_in_overlap_retained": true,
+      "fitted_time_shift_s": 0.0,
+      "extrapolation_used": false,
+      "scope": "Exact norms of saved P1 interpolants on the common interval; no unsaved-step error bound"
+    },
+    "friction_coefficient": {
+      "relative_space_time_p1_l2": 0.004724435931662627,
+      "absolute_space_time_p1_l2": 0.016118626582996794,
+      "reference_squared_space_time_integral": 11.640084703519431,
+      "error_squared_space_time_integral": 0.0002598101229220909,
+      "maximum_saved_interpolant_absolute_difference": 0.2000000000000003,
+      "final_shared_time_relative_p1_l2": 3.969672840686718e-17,
+      "common_time_interval_s": [
+        1.9125812604139645e-09,
+        0.045
+      ],
+      "reference_saved_interval_s": [
+        1.9125812604139645e-09,
+        0.0450000017910803
+      ],
+      "actual_saved_interval_s": [
+        0.0,
+        0.045
+      ],
+      "temporal_union_knots": 31499,
+      "spatial_union_knots": 547,
+      "all_saved_knots_in_overlap_retained": true,
+      "fitted_time_shift_s": 0.0,
+      "extrapolation_used": false,
+      "scope": "Exact norms of saved P1 interpolants on the common interval; no unsaved-step error bound"
+    },
+    "friction_strength": {
+      "relative_space_time_p1_l2": 0.23605042170467494,
+      "absolute_space_time_p1_l2": 19.154820443219393,
+      "reference_squared_space_time_integral": 6584.860960773341,
+      "error_squared_space_time_integral": 366.9071462119756,
+      "maximum_saved_interpolant_absolute_difference": 808.3590539629884,
+      "final_shared_time_relative_p1_l2": 0.8675675882734215,
+      "common_time_interval_s": [
+        1.9125812604139645e-09,
+        0.045
+      ],
+      "reference_saved_interval_s": [
+        1.9125812604139645e-09,
+        0.0450000017910803
+      ],
+      "actual_saved_interval_s": [
+        0.0,
+        0.045
+      ],
+      "temporal_union_knots": 31499,
+      "spatial_union_knots": 547,
+      "all_saved_knots_in_overlap_retained": true,
+      "fitted_time_shift_s": 0.0,
+      "extrapolation_used": false,
+      "scope": "Exact norms of saved P1 interpolants on the common interval; no unsaved-step error bound"
+    }
+  },
+  "clock": "Shear phase integer step times actual dt; no fitted shift or float32 timestamp subtraction",
+  "omitted_initial_interval": "Before the first actual shear observation; pre-handoff normal state is not relabelled",
+  "shear_scope": "Signed endpoint kt*(jump - committed plastic offset), zero when open; BEM uses last constitutive microstep",
+  "friction_strength_scope": "Separate positive bound mu*pressure, never substituted for signed shear",
+  "integration_scope": "Exact norms of all saved P1 interpolants on their whole shared interface and time interval",
+  "stability_scope": "Saved output does not bound unsaved oscillations or prove nonlinear stability",
+  "comparison_seconds_including_hashes": 2.9530077911913395,
+  "same_accuracy_fem_advantage_verified": false,
+  "original_tatva_readonly": true
+}

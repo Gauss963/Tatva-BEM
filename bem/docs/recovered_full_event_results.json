@@ -1,0 +1,1661 @@
+{
+  "status": "first_original_fine_45ms_completed_fem_field_gates_failed",
+  "as_of": "2026-11-04T18:22:48.105660+08:00",
+  "numerical_source_revision": "26e08ede356c3fc23b7ca9be1001dd02ed73376c",
+  "current_preexisting_head": "743dcf19b6e7c68277f6c8fd7b1a5b199f5dfc46",
+  "source_ci": {
+    "url": "https://github.com/Gauss963/Tatva-BEM/actions/runs/41773559545",
+    "conclusion": "success"
+  },
+  "first_run_summary_sha256": "1c9859c648e4637dbc52276f8595c4e3322c11b377808b2ff1d6dc457bf7b9c5",
+  "trajectory_sha256": "20ab51b00ed0f4835ad60dc7f0bf33ef6acc03aceb8e0c652df21f2dfafbf6e5",
+  "first_run": {
+    "status": "completed_requested_horizon",
+    "dt_s": 2e-06,
+    "requested_steps": 22500,
+    "completed_steps": 22500,
+    "duration_s": 0.045,
+    "history_dofs": [
+      531
+    ],
+    "stage_dofs": 1062,
+    "contact_nodes": 265,
+    "cq_fft_size": 65536,
+    "all_history_retained": true,
+    "max_cumulative_slip_mm": 0.5814532167887366,
+    "max_boundary_contact_residual_mpa": 6.957875995745072e-08,
+    "actuator_hold_time_s": 0.028938,
+    "segment_substeps": [
+      64,
+      128
+    ],
+    "state_checks": {
+      "all_saved_stage_fields_finite": true,
+      "minimum_cumulative_increment_mm": 0.0,
+      "minimum_contact_pressure_mpa": 8.624465161416953,
+      "minimum_saved_stage_spring_gap_mm": 0.8102547235840118,
+      "maximum_strength_violation_mpa": 0.0,
+      "maximum_strength_ratio": 1.0
+    },
+    "micro_friction_work_mpa_mm2": 2696.604962233254,
+    "micro_fixed_pressure_integrated_strength_work_mpa_mm2": 2696.520123623718,
+    "micro_fixed_pressure_work_gap_mpa_mm2": 0.08483860953583644,
+    "online_fft_cache": {
+      "families": [
+        {
+          "channels": 2,
+          "capacity_bytes": 4194304,
+          "peak_retained_kernel_fft_bytes": 0,
+          "cached_levels": [],
+          "streamed_updates": 251,
+          "kernel_fft_builds": 33383,
+          "fft_rows": 4,
+          "all_history_terms_retained": true
+        },
+        {
+          "channels": 2,
+          "capacity_bytes": 4194304,
+          "peak_retained_kernel_fft_bytes": 0,
+          "cached_levels": [],
+          "streamed_updates": 251,
+          "kernel_fft_builds": 33383,
+          "fft_rows": 4,
+          "all_history_terms_retained": true
+        }
+      ],
+      "peak_retained_kernel_fft_bytes": 0,
+      "kernel_fft_builds": 66766,
+      "expanded_stage_time_weights_stored": false,
+      "finite_dft_shift_wrap_retained": true,
+      "all_history_terms_retained": true
+    },
+    "history_prefix_cache": {
+      "policy": "exact_readonly_short_lag_prefix",
+      "capacity_bytes": 150994944,
+      "cached_lags": 32,
+      "cached_bytes": 144364032,
+      "families": 2,
+      "layouts": [
+        {
+          "source_strides": [
+            8,
+            180008,
+            95584248
+          ],
+          "prefix_strides": [
+            8,
+            256,
+            135936
+          ]
+        },
+        {
+          "source_strides": [
+            8,
+            180008,
+            95584248
+          ],
+          "prefix_strides": [
+            8,
+            256,
+            135936
+          ]
+        }
+      ],
+      "additional_to_fft_cache_and_workspace": true,
+      "all_history_terms_retained": true,
+      "time_grid_unchanged": true,
+      "coefficient_approximation": false,
+      "cache_setup_seconds": 136.93223183229566
+    },
+    "initialization": {
+      "status": "reused_verified_original_body_lift",
+      "original_lift_sha256": "fb479087b28c402fc2a8c4d354cb0e4f2e3848657168898a33024b50f41a5e4c",
+      "original_static_reassembly_performed": false
+    },
+    "static_initialization": "fem-body-active-set",
+    "source_changed_during_run": false,
+    "timing_seconds": {
+      "static_lift_and_kernel_load": 113.95371779240668,
+      "time_stepping": 8813.30119341705,
+      "kernel_build": 263440.6718132496,
+      "total_excluding_output": 9064.401573000476,
+      "save_outputs": 1.3198804995045066,
+      "total_including_output": 9065.721464917064
+    },
+    "full_trajectory_substep_ad_validated": false
+  },
+  "field_comparison": {
+    "status": "completed_float64_contact_space_time_comparison",
+    "bem_run": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/recovered-original-event-study-20261104-v2/complete_event_segments64-128",
+    "fem_run": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-radau-study-graded-h2-end015625-4c-f64-replayed",
+    "bem_time_method": "radau2",
+    "bem_loading_check": {
+      "actual_endpoint_loading_verified": true,
+      "first_coverage_endpoint_s": 0.028938,
+      "prescribed_diagnostic_excluded": true,
+      "no_fitted_time_shift": true
+    },
+    "frozen_input_sha256": {
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compare_float64_contact_history.py": "3d7621c3dc3f1ea677189c3ab11f41f612896fadc835718e3dd8044888b24547",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compare_refined_fem_history.py": "0779900b9556045208297bfc4cddca883a03fbb31bcb0aea24dabbd0d30a0540",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compare_fem_mesh.py": "a747c5b4ff52ad84556d5de0c91fb21e0612f3f3d71f165626058c22608b3e0b",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/fem_reference_io.py": "767d970d36ebb446d838af2bd3c5b252e38614cab8a374e2bcf376f5a6564264",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/replay_resolvent.py": "129d75f1dc47ba11f2da171a820e422c3bde36ccce6ed2624690230c9e66bafc",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/fem_contact_observations.py": "ca8727304aec9c38ea72f8f49e8dbeff0d90515ad907056bfc81d3b3baf80a7f",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/recovered-original-event-study-20261104-v2/complete_event_segments64-128/summary.json": "1c9859c648e4637dbc52276f8595c4e3322c11b377808b2ff1d6dc457bf7b9c5",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-radau-study-graded-h2-end015625-4c-f64-replayed/summary.json": "e47c95b2d26e9ea5c5f67ce48bc06534577c461cbdf44a691d919f8e739c93e4",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-radau-study-graded-h2-end015625-4c-f64-replayed/resolved_run_config.json": "c0b63b3aba0fdd32499459428eb51c653ed0563e8fdd66fe794c0880e8ec6488",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-radau-study-graded-h2-end015625-4c-f64-replayed/reference_manifest.json": "94f8129fa5a3627fc00780570558af0ab4290c2b99295ad20b4e275f30cf2f35"
+    },
+    "dataset_sha256": {
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/recovered-original-event-study-20261104-v2/complete_event_segments64-128/trajectory.npz": "20ab51b00ed0f4835ad60dc7f0bf33ef6acc03aceb8e0c652df21f2dfafbf6e5",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-radau-study-graded-h2-end015625-4c-f64-replayed/simulation.h5": "a38f08a4ee8a3066d45cf79cea5da56dd3508fe591b9ab7affa988601ec5a48c"
+    },
+    "field_errors": {
+      "pressure": {
+        "relative_space_time_p1_l2": 0.297677195932218,
+        "absolute_space_time_p1_l2": 31.909030874351824,
+        "reference_squared_space_time_integral": 11490.425104323906,
+        "error_squared_space_time_integral": 1018.186251340338,
+        "maximum_saved_interpolant_absolute_difference": 1347.265089938314,
+        "final_shared_time_relative_p1_l2": 0.8675675882734215,
+        "common_time_interval_s": [
+          1.9125812604139645e-09,
+          0.045
+        ],
+        "reference_saved_interval_s": [
+          1.9125812604139645e-09,
+          0.0450000017910803
+        ],
+        "actual_saved_interval_s": [
+          0.0,
+          0.045
+        ],
+        "temporal_union_knots": 31499,
+        "spatial_union_knots": 547,
+        "all_saved_knots_in_overlap_retained": true,
+        "fitted_time_shift_s": 0.0,
+        "extrapolation_used": false,
+        "scope": "Exact norms of saved P1 interpolants on the common interval; no unsaved-step error bound"
+      },
+      "elastic_shear": {
+        "relative_space_time_p1_l2": 0.6935631557866848,
+        "absolute_space_time_p1_l2": 35.02868864951537,
+        "reference_squared_space_time_integral": 2550.796017728706,
+        "error_squared_space_time_integral": 1227.0090285046867,
+        "maximum_saved_interpolant_absolute_difference": 1069.6601572274842,
+        "final_shared_time_relative_p1_l2": 4.110922811811055,
+        "common_time_interval_s": [
+          1.9125812604139645e-09,
+          0.045
+        ],
+        "reference_saved_interval_s": [
+          1.9125812604139645e-09,
+          0.0450000017910803
+        ],
+        "actual_saved_interval_s": [
+          0.0,
+          0.045
+        ],
+        "temporal_union_knots": 31499,
+        "spatial_union_knots": 547,
+        "all_saved_knots_in_overlap_retained": true,
+        "fitted_time_shift_s": 0.0,
+        "extrapolation_used": false,
+        "scope": "Exact norms of saved P1 interpolants on the common interval; no unsaved-step error bound"
+      },
+      "plastic_slip": {
+        "relative_space_time_p1_l2": 0.18427873701983966,
+        "absolute_space_time_p1_l2": 8.647955121186952,
+        "reference_squared_space_time_integral": 2202.299601208362,
+        "error_squared_space_time_integral": 74.78712777806362,
+        "maximum_saved_interpolant_absolute_difference": 3.8395758524534713,
+        "final_shared_time_relative_p1_l2": 0.2542544631009925,
+        "common_time_interval_s": [
+          1.9125812604139645e-09,
+          0.045
+        ],
+        "reference_saved_interval_s": [
+          1.9125812604139645e-09,
+          0.0450000017910803
+        ],
+        "actual_saved_interval_s": [
+          0.0,
+          0.045
+        ],
+        "temporal_union_knots": 31499,
+        "spatial_union_knots": 547,
+        "all_saved_knots_in_overlap_retained": true,
+        "fitted_time_shift_s": 0.0,
+        "extrapolation_used": false,
+        "scope": "Exact norms of saved P1 interpolants on the common interval; no unsaved-step error bound"
+      },
+      "cumulative_slip": {
+        "relative_space_time_p1_l2": 0.8681397714018608,
+        "absolute_space_time_p1_l2": 9.754858150449321,
+        "reference_squared_space_time_integral": 126.25907744916253,
+        "error_squared_space_time_integral": 95.15725753538756,
+        "maximum_saved_interpolant_absolute_difference": 69.30991189073923,
+        "final_shared_time_relative_p1_l2": 0.8693777492869754,
+        "common_time_interval_s": [
+          1.9125812604139645e-09,
+          0.045
+        ],
+        "reference_saved_interval_s": [
+          1.9125812604139645e-09,
+          0.0450000017910803
+        ],
+        "actual_saved_interval_s": [
+          0.0,
+          0.045
+        ],
+        "temporal_union_knots": 31499,
+        "spatial_union_knots": 547,
+        "all_saved_knots_in_overlap_retained": true,
+        "fitted_time_shift_s": 0.0,
+        "extrapolation_used": false,
+        "scope": "Exact norms of saved P1 interpolants on the common interval; no unsaved-step error bound"
+      },
+      "friction_coefficient": {
+        "relative_space_time_p1_l2": 0.004724435931662627,
+        "absolute_space_time_p1_l2": 0.016118626582996794,
+        "reference_squared_space_time_integral": 11.640084703519431,
+        "error_squared_space_time_integral": 0.0002598101229220909,
+        "maximum_saved_interpolant_absolute_difference": 0.2000000000000003,
+        "final_shared_time_relative_p1_l2": 3.969672840686718e-17,
+        "common_time_interval_s": [
+          1.9125812604139645e-09,
+          0.045
+        ],
+        "reference_saved_interval_s": [
+          1.9125812604139645e-09,
+          0.0450000017910803
+        ],
+        "actual_saved_interval_s": [
+          0.0,
+          0.045
+        ],
+        "temporal_union_knots": 31499,
+        "spatial_union_knots": 547,
+        "all_saved_knots_in_overlap_retained": true,
+        "fitted_time_shift_s": 0.0,
+        "extrapolation_used": false,
+        "scope": "Exact norms of saved P1 interpolants on the common interval; no unsaved-step error bound"
+      },
+      "friction_strength": {
+        "relative_space_time_p1_l2": 0.23605042170467494,
+        "absolute_space_time_p1_l2": 19.154820443219393,
+        "reference_squared_space_time_integral": 6584.860960773341,
+        "error_squared_space_time_integral": 366.9071462119756,
+        "maximum_saved_interpolant_absolute_difference": 808.3590539629884,
+        "final_shared_time_relative_p1_l2": 0.8675675882734215,
+        "common_time_interval_s": [
+          1.9125812604139645e-09,
+          0.045
+        ],
+        "reference_saved_interval_s": [
+          1.9125812604139645e-09,
+          0.0450000017910803
+        ],
+        "actual_saved_interval_s": [
+          0.0,
+          0.045
+        ],
+        "temporal_union_knots": 31499,
+        "spatial_union_knots": 547,
+        "all_saved_knots_in_overlap_retained": true,
+        "fitted_time_shift_s": 0.0,
+        "extrapolation_used": false,
+        "scope": "Exact norms of saved P1 interpolants on the common interval; no unsaved-step error bound"
+      }
+    },
+    "clock": "Shear phase integer step times actual dt; no fitted shift or float32 timestamp subtraction",
+    "omitted_initial_interval": "Before the first actual shear observation; pre-handoff normal state is not relabelled",
+    "shear_scope": "Signed endpoint kt*(jump - committed plastic offset), zero when open; BEM uses last constitutive microstep",
+    "friction_strength_scope": "Separate positive bound mu*pressure, never substituted for signed shear",
+    "integration_scope": "Exact norms of all saved P1 interpolants on their whole shared interface and time interval",
+    "stability_scope": "Saved output does not bound unsaved oscillations or prove nonlinear stability",
+    "comparison_seconds_including_hashes": 2.9530077911913395,
+    "same_accuracy_fem_advantage_verified": false,
+    "original_tatva_readonly": true
+  },
+  "field_acceptance": {
+    "unchanged_relative_tolerance": 0.05,
+    "passing_fields": [
+      "friction_coefficient"
+    ],
+    "failed_fields": [
+      "pressure",
+      "elastic_shear",
+      "plastic_slip",
+      "cumulative_slip",
+      "friction_strength"
+    ],
+    "all_fields_pass": false
+  },
+  "second_run_failure": {
+    "status": "failed_radau_nonlinear_equilibrium",
+    "failed_step": 14450,
+    "residual_mpa": 6.423194145599403,
+    "kernel": "/Volumes/Gauss-T7/Tatva-BEM-cache/fresh-radau2us-graded-q12-full45-20261028",
+    "segment_substeps": [
+      128,
+      256
+    ],
+    "completed_requested_horizon": false,
+    "failed_equilibrium_sha256": "5643c789c9b728ce0b61fb61df938971ccf7bffce8fe5992f721c16b55db9dcc",
+    "scope": "Exact local-equation NPY members from the full capture; accepted prefix omitted. Not a resumable CQ checkpoint.",
+    "original_full_capture_sha256": "674fd4b7f0691da3c93d6f6286369f7d3224e7aac12af5e0d83db85fc04b56c9",
+    "retained_npy_member_sha256": {
+      "matrix.npy": "7d9eb65af3ee7df8bc3d157f913cfc2b446faf3129d836395f19b508dda70190",
+      "forcing.npy": "861114012c718298a984d3c48feed0e8a5c5d132ef4fa669011288410245e0fe",
+      "failed_displacement.npy": "dfe82ab8167886865756df57913d8353fba55da8f37434c44256f55585e47d7f",
+      "previous_displacement.npy": "d9ed5680f904809d8d666820accaf4ef3b80a4727a978ca71904e85683d12a94",
+      "plastic_slip.npy": "602d5890294cc2936f59626ef7d5f5ff9d3c8383f327f6dcd22ae087ec021bc2",
+      "cumulative_slip.npy": "129425c0bd6ae6f1793555e2108aef25fe752b37399b23d99121179822f4e604",
+      "parameters.npy": "c3d6dbd9249fc028f1188320d7b35f27bb458e525980e8f6109998151087e798",
+      "base_dn.npy": "1d1542226fec19b33b0660f16afd8715765611ce23fd73f5b6c1a07225f03e11",
+      "base_ds.npy": "5737e471ecdddba2745b8d5cb101cd585d00593a84135680e7cfbc0c0b9e4f19",
+      "contact_weights.npy": "48dcbf5f711e80083dc9df8a3486ec65c5ceca903a093c8b8a0389a94bbc21b2",
+      "reduced_weights.npy": "ec3690dd55cb309033e4667949ade64be5d5345b7be00d0cd8125683ce5b0627",
+      "residual_mpa.npy": "7fbf04da76dad0a8aeba3968763de844f713d687876037c70b94930d7a0a6510",
+      "stage_time.npy": "65d1859c8a7afa839112e8fba4cb2097959412052fa3c1994640251423db3fe3"
+    }
+  },
+  "second_local_candidate_audit": {
+    "status": "passed_captured_original_stage_candidate",
+    "capture": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/recovered-original-event-study-20261104-v2/complete_event_segments128-256/failed_equilibrium.npz",
+    "capture_sha256": "674fd4b7f0691da3c93d6f6286369f7d3224e7aac12af5e0d83db85fc04b56c9",
+    "candidates": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fine14450-extended-root-20261104-v1/control/candidate_roots.npz",
+    "candidates_sha256": "82ae4bf047aff1d97b54b6c0954ef3c87a3013892e9c6ef7dff033d82ce723f1",
+    "key": "random_hybrid",
+    "segment_substeps": [
+      128,
+      256
+    ],
+    "failed_step": 14450,
+    "original_jax_residual_mpa": 1.9918949744160978e-11,
+    "independent_numpy_residual_mpa": 1.9937291318511034e-11,
+    "maximum_absolute_local_response_difference": 7.951972413877684e-15,
+    "candidate_unchanged_by_original_root": true,
+    "minimum_pressure_mpa": 10.36088144194109,
+    "maximum_cumulative_slip_mm": 0.24638350711464452,
+    "micro_friction_work_mpa_mm2": 17.92730040322495,
+    "source_sha256": {
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/audit_captured_stage_candidate.py": "33232c1c8c525dd597b395c2fac915ec9d6b362ade6fbdced0fce6aefcacd6a2",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/diagnose_radau_root.py": "193a0e7d8a2d73a00d63252efdd89a0d5bfde0dff1f532507d8d2a253a15da6a",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/identity_stage_tangent.py": "2642bdb99c7548a8a9f1fcbc757d423810572daf67ee27253a1bde5b566ca60b",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/radau_contact_experiment.py": "d564ec6ea2311b783d52df83d2f567d640aa6e40a5c1236aad60c51112b023c6",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/substepped_contact_experiment.py": "d40fcb95f5fa29c0c8630a8901f8d5e63591bfc11ed1c9fbdee7c2ecc8d36225",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/friction.py": "1424c1639cdc1eb4dd8f780bfdc0433f33cf29752b07a17814a3a2f326d81086"
+    },
+    "no_physical_state_committed": true,
+    "full_original_event_reproduced": false,
+    "same_accuracy_fem_advantage_verified": false
+  },
+  "resource_receipts": [
+    {
+      "name": "complete_event_segments64-128",
+      "utc_start": "2026-11-04T03:37:33.252263+00:00",
+      "utc_end": "2026-11-04T06:08:40.643390+00:00",
+      "command": [
+        "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python",
+        "-B",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/simulate_recovered_radau.py",
+        "/Volumes/Gauss-T7/Tatva-BEM-cache/fresh-radau2us-graded-q12-full45-20261028",
+        "--output",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/recovered-original-event-study-20261104-v2/complete_event_segments64-128",
+        "--restart-seed",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/data/ev16_restart_float64.npz",
+        "--static-initialization",
+        "fem-body-active-set",
+        "--segment-substeps",
+        "64",
+        "128",
+        "--contact-root-recovery",
+        "--kinetic-root-seed",
+        "--fft-cache-mb",
+        "8",
+        "--fft-rows",
+        "4",
+        "--max-memory-mb",
+        "14336",
+        "--affine-cache",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/affine-cache-study-20261104-v1/affine",
+        "--initial-lift",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/prefix-cached-original-event-study-20261103/complete_event_segments64-128/initial_lift.npz",
+        "--history-prefix-cache-mb",
+        "144",
+        "--history-prefix-lags",
+        "32",
+        "--checkpoint",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/prefix-validation-study-20261104-v1/checkpoint",
+        "--recovered-root",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/docs/diagnostics/radau_step14451/candidate_roots.npz"
+      ],
+      "exit_code": 0,
+      "seconds": 9067.326141290367,
+      "final_wait4_cpu_seconds": 1623.711919,
+      "charged_cpu_high_water_seconds": 1623.711919,
+      "measured_average_cores": 0.17907284834566792,
+      "conservative_charged_average_cores": 0.17907284834566792,
+      "average_cpu_budget": 3.8,
+      "ps_counter_regressions": 0,
+      "maximum_ps_counter_drop_seconds": 0.0,
+      "owned_stop_cycles": 1,
+      "final_cpu_debt_cooldown_seconds": 2.4996697902679443e-06,
+      "full_cpu_debt_repaid": true,
+      "ownership": "Parent retains unreaped Popen child; wait4 collects final CPU. Regressing ps samples never reduce charged CPU."
+    },
+    {
+      "name": "complete_event_segments128-256",
+      "utc_start": "2026-11-04T06:08:40.663872+00:00",
+      "utc_end": "2026-11-04T06:25:43.734918+00:00",
+      "command": [
+        "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python",
+        "-B",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/simulate_recovered_radau.py",
+        "/Volumes/Gauss-T7/Tatva-BEM-cache/fresh-radau2us-graded-q12-full45-20261028",
+        "--output",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/recovered-original-event-study-20261104-v2/complete_event_segments128-256",
+        "--restart-seed",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/data/ev16_restart_float64.npz",
+        "--static-initialization",
+        "fem-body-active-set",
+        "--segment-substeps",
+        "128",
+        "256",
+        "--contact-root-recovery",
+        "--kinetic-root-seed",
+        "--fft-cache-mb",
+        "8",
+        "--fft-rows",
+        "4",
+        "--max-memory-mb",
+        "14336",
+        "--affine-cache",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/affine-cache-study-20261104-v1/affine",
+        "--initial-lift",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/prefix-cached-original-event-study-20261103/complete_event_segments64-128/initial_lift.npz",
+        "--history-prefix-cache-mb",
+        "144",
+        "--history-prefix-lags",
+        "32"
+      ],
+      "exit_code": 1,
+      "seconds": 1023.0479741254821,
+      "final_wait4_cpu_seconds": 777.288036,
+      "charged_cpu_high_water_seconds": 777.288036,
+      "measured_average_cores": 0.7597767217753775,
+      "conservative_charged_average_cores": 0.7597767217753775,
+      "average_cpu_budget": 3.8,
+      "ps_counter_regressions": 0,
+      "maximum_ps_counter_drop_seconds": 0.0,
+      "owned_stop_cycles": 2,
+      "final_cpu_debt_cooldown_seconds": 1.8756836652755737e-06,
+      "full_cpu_debt_repaid": true,
+      "ownership": "Parent retains unreaped Popen child; wait4 collects final CPU. Regressing ps samples never reduce charged CPU."
+    }
+  ],
+  "inherited_costs": {
+    "interrupted_preparation": {
+      "utc": "2026-11-04T03:33:46.345310+00:00",
+      "reason": "Replace incomplete CPU-credit waiting and nonmonotone ps accounting before any physical time step is advanced",
+      "owner_identity": "47241     1 Wed Nov  4 11:15:00 2026     Ss     0:06.51 /opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python -B /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/run-recovered-original-events-20261104-v1.py",
+      "child_identity": "48038 47241 Wed Nov  4 11:30:07 2026     S      1:06.67 /opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python -B /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/simulate_recovered_radau.py /Volumes/Gauss-T7/Tatva-BEM-cache/fresh-radau2us-graded-q12-full45-20261028 --output /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/recovered-original-event-study-20261104-v1/complete_event_segments64-128 --restart-seed /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/data/ev16_restart_float64.npz --static-initialization fem-body-active-set --segment-substeps 64 128 --contact-root-recovery --kinetic-root-seed --fft-cache-mb 8 --fft-rows 4 --max-memory-mb 14336 --affine-cache /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/affine-cache-study-20261104-v1/affine --initial-lift /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/prefix-cached-original-event-study-20261103/complete_event_segments64-128/initial_lift.npz --history-prefix-cache-mb 144 --history-prefix-lags 32 --checkpoint /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/prefix-validation-study-20261104-v1/checkpoint --recovered-root /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/docs/diagnostics/radau_step14451/candidate_roots.npz",
+      "prior_status": {
+        "phase": "complete_event_segments64-128",
+        "pid": 47241,
+        "utc": "2026-11-04T03:30:07.915695+00:00",
+        "elapsed_seconds": 907.671536709182,
+        "stages": [],
+        "goal_achieved": false,
+        "full_original_event_reproduced": false,
+        "same_accuracy_fem_advantage_verified": false,
+        "child_pid": 48038,
+        "child_identity": {
+          "start": "Wed Nov 4 11:30:07 2026",
+          "state": "R",
+          "cpu_seconds": 0.01,
+          "command": "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python -B /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/simulate_recovered_radau.py /Volumes/Gauss-T7/Tatva-BEM-cache/fresh-radau2us-graded-q12-full45-20261028 --output /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/recovered-original-event-study-20261104-v1/complete_event_segments64-128 --restart-seed /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/data/ev16_restart_float64.npz --static-initialization fem-body-active-set --segment-substeps 64 128 --contact-root-recovery --kinetic-root-seed --fft-cache-mb 8 --fft-rows 4 --max-memory-mb 14336 --affine-cache /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/affine-cache-study-20261104-v1/affine --initial-lift /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/prefix-cached-original-event-study-20261103/complete_event_segments64-128/initial_lift.npz --history-prefix-cache-mb 144 --history-prefix-lags 32 --checkpoint /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/prefix-validation-study-20261104-v1/checkpoint --recovered-root /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/docs/diagnostics/radau_step14451/candidate_roots.npz"
+        },
+        "average_cpu_budget": 3.8,
+        "command": [
+          "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python",
+          "-B",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/simulate_recovered_radau.py",
+          "/Volumes/Gauss-T7/Tatva-BEM-cache/fresh-radau2us-graded-q12-full45-20261028",
+          "--output",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/recovered-original-event-study-20261104-v1/complete_event_segments64-128",
+          "--restart-seed",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/data/ev16_restart_float64.npz",
+          "--static-initialization",
+          "fem-body-active-set",
+          "--segment-substeps",
+          "64",
+          "128",
+          "--contact-root-recovery",
+          "--kinetic-root-seed",
+          "--fft-cache-mb",
+          "8",
+          "--fft-rows",
+          "4",
+          "--max-memory-mb",
+          "14336",
+          "--affine-cache",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/affine-cache-study-20261104-v1/affine",
+          "--initial-lift",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/prefix-cached-original-event-study-20261103/complete_event_segments64-128/initial_lift.npz",
+          "--history-prefix-cache-mb",
+          "144",
+          "--history-prefix-lags",
+          "32",
+          "--checkpoint",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/prefix-validation-study-20261104-v1/checkpoint",
+          "--recovered-root",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/docs/diagnostics/radau_step14451/candidate_roots.npz"
+        ]
+      },
+      "files_before_stop": [
+        "initial_lift.npz"
+      ],
+      "cache_policy_callback_not_reached": true,
+      "original_accepted_prefix_and_full_kernel_retained": true,
+      "partial_preparation_cost_preserved": true
+    },
+    "interrupted_owner_status": {
+      "phase": "attention_required",
+      "pid": 47241,
+      "utc": "2026-11-04T03:33:46.538742+00:00",
+      "elapsed_seconds": 1126.2946480000392,
+      "stages": [],
+      "goal_achieved": false,
+      "full_original_event_reproduced": false,
+      "same_accuracy_fem_advantage_verified": false,
+      "reason": "InterruptedError('Resumed study received signal 15')",
+      "numerical_child_pid": 48038
+    },
+    "cpu_controller_test": {
+      "exit_code": 0,
+      "seconds": 2.6132590426132083,
+      "final_wait4_cpu_seconds": 0.260614,
+      "charged_cpu_high_water_seconds": 0.260614,
+      "measured_average_cores": 0.09972757991086527,
+      "conservative_charged_average_cores": 0.09972757991086527,
+      "average_cpu_budget": 0.1,
+      "ps_counter_regressions": 1,
+      "maximum_ps_counter_drop_seconds": 0.020000000000000004,
+      "owned_stop_cycles": 2,
+      "final_cpu_debt_cooldown_seconds": 0.19109291676431894,
+      "full_cpu_debt_repaid": true,
+      "ownership": "Parent retains unreaped Popen child; wait4 collects final CPU. Regressing ps samples never reduce charged CPU."
+    },
+    "original_queue": {
+      "phase": "attention_required",
+      "pid": 84733,
+      "utc": "2026-11-03T07:42:07.881603+00:00",
+      "elapsed_seconds": 24082.833923333324,
+      "stages": [
+        {
+          "name": "complete_event_segments64-128",
+          "exit_code": 1,
+          "seconds": 24082.825620708056,
+          "utc_start": "2026-11-03T01:00:45.057944+00:00",
+          "utc_end": "2026-11-03T07:42:07.878606+00:00",
+          "command": [
+            "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python",
+            "-B",
+            "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/simulate_compact_radau.py",
+            "/Volumes/Gauss-T7/Tatva-BEM-cache/fresh-radau2us-graded-q12-full45-20261028",
+            "--output",
+            "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/resumed-radau-event-study-20261103/complete_event_segments64-128",
+            "--restart-seed",
+            "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/data/ev16_restart_float64.npz",
+            "--static-initialization",
+            "fem-body-active-set",
+            "--segment-substeps",
+            "64",
+            "128",
+            "--contact-root-recovery",
+            "--kinetic-root-seed",
+            "--fft-cache-mb",
+            "8",
+            "--fft-rows",
+            "4",
+            "--max-memory-mb",
+            "14336"
+          ]
+        }
+      ],
+      "goal_achieved": false,
+      "full_original_event_reproduced": false,
+      "same_accuracy_fem_advantage_verified": false,
+      "reason": "RuntimeError('complete_event_segments64-128 failed; preserve all saved data and inspect its log')",
+      "numerical_child_pid": 84742
+    },
+    "original_inherited_costs": {
+      "previous_queue": {
+        "phase": "attention_required",
+        "pid": 57967,
+        "utc": "2026-11-01T20:26:02.929737+00:00",
+        "elapsed_seconds": 368469.4300609166,
+        "stages": [
+          {
+            "name": "resume_complete_radau_kernel",
+            "exit_code": 0,
+            "seconds": 263442.0097089587,
+            "utc_start": "2026-10-29T19:15:11.714268+00:00",
+            "utc_end": "2026-11-01T20:25:52.867388+00:00",
+            "command": [
+              "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python",
+              "-B",
+              "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/prepare_raw_radau_resolvent.py",
+              "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/cases/pmma_event16.toml",
+              "--output",
+              "/Volumes/Gauss-T7/Tatva-BEM-cache/fresh-radau2us-graded-q12-full45-20261028",
+              "--dt",
+              "2e-06",
+              "--duration",
+              "0.045",
+              "--workers",
+              "2",
+              "--primitive-partition",
+              "--weight-layout",
+              "fortran",
+              "--max-workspace-mb",
+              "10240",
+              "--max-memory-mb",
+              "18432",
+              "--durable-build",
+              "--resume",
+              "--resume-receipt",
+              "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-reference-recovery-20261028-1230/bem_prefix_recovery.json"
+            ]
+          },
+          {
+            "name": "complete_event_segments64-128",
+            "exit_code": 1,
+            "seconds": 10.021941832266748,
+            "utc_start": "2026-11-01T20:25:52.905184+00:00",
+            "utc_end": "2026-11-01T20:26:02.927149+00:00",
+            "command": [
+              "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python",
+              "-B",
+              "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/simulate_compact_radau.py",
+              "/Volumes/Gauss-T7/Tatva-BEM-cache/fresh-radau2us-graded-q12-full45-20261028",
+              "--output",
+              "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/resumed-radau-fine-study-20261028/complete_event_segments64-128",
+              "--restart-seed",
+              "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/data/ev16_restart_float64.npz",
+              "--static-initialization",
+              "fem-body-active-set",
+              "--segment-substeps",
+              "64",
+              "128",
+              "--contact-root-recovery",
+              "--kinetic-root-seed",
+              "--fft-cache-mb",
+              "8",
+              "--fft-rows",
+              "4",
+              "--max-memory-mb",
+              "12288"
+            ]
+          }
+        ],
+        "goal_achieved": false,
+        "full_original_event_reproduced": false,
+        "same_accuracy_fem_advantage_verified": false,
+        "reason": "RuntimeError('complete_event_segments64-128 failed; preserve all saved data and inspect its log')",
+        "numerical_child_pid": 22899
+      },
+      "previous_costs": {
+        "old_transition": {
+          "status": "retired_unfinished_bdf2_in_favor_of_fresh_radau",
+          "stopped_utc": "2026-10-28T07:30:58.995375+00:00",
+          "old_supervisor_status": {
+            "phase": "attention_required",
+            "pid": 48846,
+            "utc": "2026-10-28T07:30:58.995375+00:00",
+            "elapsed_seconds": 45679.29998550005,
+            "stages": [],
+            "inherited_paid_build_seconds": 35614.678303375746,
+            "reason": "Owned study received signal 15"
+          },
+          "prior_process_identities": {
+            "48846": "Wed Oct 28 02:49:39 2026 graded-full-event-study-20261028-v2.py",
+            "48857": "Wed Oct 28 02:49:40 2026 prepare_trace_raw_resolvent.py",
+            "48921": "Wed Oct 28 02:50:21 2026 graded-fem-event-study-20261028-v2.py",
+            "49007": "Wed Oct 28 02:51:30 2026 graded-fine-ad-study-20261028-v2.py"
+          },
+          "all_prior_frozen_inputs_unchanged": true,
+          "all_owned_prior_jobs_stopped": true,
+          "partial_kernel_preserved": "/Volumes/Gauss-T7/Tatva-BEM-cache/graded-end015625-trace-seeded-q12-degree16-full45-20261028-v2",
+          "last_progress": {
+            "phase": "raw_layer_sampling",
+            "sampling": {
+              "method": "raw_layers_before_condensation",
+              "source_evaluations": 963,
+              "transformed_grid_points": 4352,
+              "direct_grid_points": 128,
+              "interpolated_grid_points": 4224,
+              "accepted_intervals": 34,
+              "rejected_intervals": 0,
+              "maximum_raw_normalized_check": 0.001917180460849802,
+              "maximum_raw_normalized_tail": 0.0017033808403179428,
+              "maximum_output_normalized_check": 0.0016804440800558453,
+              "estimated_interpolation_array_bytes": 8979822336,
+              "provider_geometry_and_solver_workspace_excluded": true,
+              "certified_error_bound": false,
+              "all_fft_grid_points_emitted": false
+            },
+            "elapsed_seconds": 45641.141185625456
+          },
+          "immutable_prefix": {
+            "path": "/Volumes/Gauss-T7/Tatva-BEM-cache/graded-end015625-trace-seeded-q12-degree16-full45-20261028-v2/work-resolvent.npy",
+            "count": 1024,
+            "header_and_prefix_bytes": 4619649152,
+            "header_and_prefix_sha256": "281c2a4565a05a0db6f57e5ea8ab7b9e35bd3584181630b6f0b040558bec72f1",
+            "same_as_previously_verified_prefix": true,
+            "whole_kernel_verified": false
+          },
+          "previous_inherited_paid_seconds": 35614.678303375746,
+          "retired_constructor_reported_elapsed_seconds": 45679.29998550005,
+          "inherited_paid_build_seconds": 81293.9782888758,
+          "timing_scope": "Paid stage wall cost including the entire incomplete BDF2 attempt; overlapped probes and pilots are separate, not added twice. Fine transition overhead starts at the recorded stopped UTC.",
+          "transition_bookkeeping_failure": {
+            "phase": "attention_required",
+            "pid": 85949,
+            "utc": "2026-10-28T07:30:59.926331+00:00",
+            "elapsed_seconds": 365.74398616701365,
+            "stages": [],
+            "inherited_paid_build_seconds": null,
+            "full_original_event_reproduced": false,
+            "same_accuracy_fem_advantage_verified": false,
+            "reason": "module 'numpy.lib.format' has no attribute '_read_array_header'"
+          },
+          "recovered_utc": "2026-10-28T07:33:20.406258+00:00",
+          "rationale": "Same fine mesh at 10 kHz: BDF2 2us pressure response error 59.16%; Radau 2us 0.666%. Full fine nonlinear accuracy and FEM advantage still unverified.",
+          "fresh_builder_reuses_no_prior_frequency_values": true,
+          "original_tatva_readonly": true,
+          "transition_overhead_since_prior_stop_seconds": 203.017776,
+          "inherited_paid_build_and_transition_seconds": 81496.9960648758
+        },
+        "old_constructor_pause": {
+          "status": "owned_constructor_waiting_for_independent_fem_reference",
+          "constructor_pid": 86991,
+          "constructor_identity": "Wed Oct 28 15:34:22 2026     R    4721168 /opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python -B /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/prepare_raw_radau_resolvent.py /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/cases/pmma_event16.toml --output /Volumes/Gauss-T7/Tatva-BEM-cache/fresh-radau2us-graded-q12-full45-20261028 --dt 2e-06 --duration 0.045 --workers 2 --primitive-partition --weight-layout fortran --max-workspace-mb 10240 --max-memory-mb 18432",
+          "constructor_parent": 86975,
+          "progress_at_stop": {
+            "phase": "raw_radau_branch",
+            "branch": 0,
+            "sampling": {
+              "method": "raw_layers_before_condensation",
+              "source_evaluations": 195,
+              "transformed_grid_points": 256,
+              "direct_grid_points": 128,
+              "interpolated_grid_points": 128,
+              "accepted_intervals": 2,
+              "rejected_intervals": 0,
+              "maximum_raw_normalized_check": 0.002054797818835349,
+              "maximum_raw_normalized_tail": 0.0016556725894814257,
+              "maximum_output_normalized_check": 0.0018572433479889252,
+              "estimated_interpolation_array_bytes": 8979822336,
+              "provider_geometry_and_solver_workspace_excluded": true,
+              "certified_error_bound": false,
+              "all_fft_grid_points_emitted": false
+            },
+            "frequency_matrices_committed": 256,
+            "pending_buffer_matrices": 0,
+            "elapsed_seconds": 7230.15364999976
+          },
+          "stopped_utc": "2026-10-28T09:35:44.882894+00:00",
+          "same_constructor_will_resume": true,
+          "discarded_samples": false,
+          "goal_remains_active": true
+        },
+        "interrupted_fem": {
+          "utc_observed_missing": "2026-10-28T12:29:19.889500+00:00",
+          "old_processes": {
+            "95511": "",
+            "95590": "",
+            "86975": "",
+            "86991": "",
+            "96822": ""
+          },
+          "missing_exec_sessions": [
+            28807,
+            56253,
+            2613
+          ],
+          "cause": "not established; host did not reboot",
+          "last_proven_alive_utc": "2026-10-28T11:14:38.726619+00:00",
+          "completion_not_inferred": true,
+          "original_numerical_sources_unchanged": true,
+          "fem_checkpoint": {
+            "carry_count": 12,
+            "dt": 1.9125812604139645e-09,
+            "frame_count": 6,
+            "interface_frame_count": 109,
+            "phase_id": 2,
+            "pressure_steps": 1045708,
+            "saved_utc": 1793185509.585095,
+            "shear_steps": 23528413,
+            "step_id": 269300,
+            "total_frames": 69,
+            "total_interface_frames": 9005,
+            "version": 1
+          },
+          "checkpoint_time_s": 0.0025150596580944466,
+          "backups": {
+            "checkpoint.npz": {
+              "bytes": 2540423,
+              "sha256": "017473773551477fe275e4af30714fed31b2c5fb013c9c1be0211dc57e0f1198"
+            },
+            "simulation.h5": {
+              "bytes": 19902191,
+              "sha256": "df6b1f72c261bcd7b0f69d2898b8ea0b87980e83ee3af5197631405c3df6d533"
+            },
+            "reference_manifest.json": {
+              "bytes": 10197,
+              "sha256": "071b7e22bc6e8050e761f2873a78286925c6bee064ee9784a4b1f34dc61defdb"
+            },
+            "resolved_run_config.json": {
+              "bytes": 3436,
+              "sha256": "16847ecc9a83338fb10f271481032f22fc921db1a2afa5b2fbfb9e375c0cd63c"
+            },
+            "projected_restart.h5": {
+              "bytes": 1266480,
+              "sha256": "46ea1bfbf3a3b00d455d3ab54b0b729a82014f7d0baf8b6c3b146c4097616937"
+            },
+            "invocations.jsonl": {
+              "bytes": 80,
+              "sha256": "050bb56ed4c230afed048bde67e36896516279c7a8b8c6b90810290d08e6f664"
+            }
+          },
+          "original_invocation_has_no_end_event": true,
+          "do_not_fabricate_previous_exact_timings": true,
+          "recovery_directory": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-reference-recovery-20261028-1230",
+          "original_tatva_readonly": true
+        },
+        "failed_direct_fem_resume": {
+          "phase": "attention_required",
+          "pid": 28243,
+          "utc": "2026-10-28T12:34:37.465478+00:00",
+          "elapsed_seconds": 60.08129583392292,
+          "goal_achieved": false,
+          "full_original_event_reproduced": false,
+          "same_accuracy_fem_advantage_verified": false,
+          "reason": "RuntimeError('Resumed FEM exited 1; preserve checkpoint and inspect log')",
+          "fem_pid": 28244,
+          "checkpoint_requested": false
+        },
+        "resume_validation_controls": [
+          {
+            "utc_start": "2026-10-28T13:29:02.362197+00:00",
+            "four_core_serial_validation": true,
+            "fem_wait_included_in_its_wall_cost": true,
+            "both_stopped": {
+              "29340": "Wed Oct 28 20:56:56 2026     T    /opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python -B /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/limit_process_cpu.py --pid 29338 --expected-start Wed Oct 28 20:56:56 2026 --expected-command-fragment /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/run_checkpointed_fem_reference.py --cores 3.85 --output /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-reference-prefix-replay-20261028/cpu-quota",
+              "29338": "Wed Oct 28 20:56:56 2026     T    /opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python -B /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/run_checkpointed_fem_reference.py --output /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-radau-study-graded-h2-end015625-4c-f64-replayed --replay-checkpoint /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-reference-recovery-20261028-1230/input-backup/checkpoint.npz -- --cores 4 --mesh-size 2 --contact-end-size 0.015625 --time-step 0 --shear-duration 0.045 --normal-duration 0.002 --normal-frames 4 --shear-frames 64 --interface-normal-frames 4 --interface-shear-frames 9000 --float64-contact-observations --checkpoint-interval 600"
+            },
+            "exit_code": 1,
+            "seconds": 30.081792624667287,
+            "utc_end": "2026-10-28T13:29:32.443959+00:00",
+            "same_fem_resumed": true
+          },
+          {
+            "utc_start": "2026-10-28T13:31:11.030706+00:00",
+            "four_core_serial_validation": true,
+            "fem_wait_included_in_its_wall_cost": true,
+            "exit_code": 0,
+            "seconds": 30.10045116674155,
+            "utc_end": "2026-10-28T13:31:41.131135+00:00",
+            "same_fem_resumed": true
+          },
+          {
+            "utc_start": "2026-10-28T13:39:23.306424+00:00",
+            "four_core_serial_validation": true,
+            "fem_wait_included_in_its_wall_cost": true,
+            "pytest_exit_code": 0,
+            "fine_verify_exit_code": 0,
+            "seconds": 41.41418912447989,
+            "utc_end": "2026-10-28T13:40:04.722577+00:00",
+            "same_fem_resumed": true
+          },
+          {
+            "utc_start": "2026-10-28T13:52:10.986457+00:00",
+            "four_core_serial_validation": true,
+            "fem_wait_included_in_its_wall_cost": true,
+            "pytest_exit_code": 0,
+            "fine_verify_exit_code": 0,
+            "seconds": 41.09423320740461,
+            "utc_end": "2026-10-28T13:52:52.080882+00:00",
+            "same_fem_resumed": true
+          }
+        ],
+        "all_previously_paid_work_retained": true,
+        "interrupted_previous_invocation_exact_timing_unknown": true,
+        "cost_rule": "Use UTC interval unions for elapsed workflow costs; report productive constructor time separately. FEM wall time already contains serialized controls. No isolated same-accuracy speed claim."
+      },
+      "kernel_completed_without_rebuild": true,
+      "previous_resource_rejection_retained": true,
+      "all_prior_paid_work_and_pauses_retained": true,
+      "goal_achieved": false
+    },
+    "cached_queue": {
+      "phase": "attention_required",
+      "pid": 13504,
+      "utc": "2026-11-03T03:25:17.161418+00:00",
+      "elapsed_seconds": 3280.4114518333226,
+      "stages": [
+        {
+          "name": "complete_event_segments64-128",
+          "exit_code": 1,
+          "seconds": 3279.905019916594,
+          "utc_start": "2026-11-03T02:30:37.283118+00:00",
+          "utc_end": "2026-11-03T03:25:17.158892+00:00",
+          "command": [
+            "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python",
+            "-B",
+            "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/simulate_prefix_cached_radau.py",
+            "/Volumes/Gauss-T7/Tatva-BEM-cache/fresh-radau2us-graded-q12-full45-20261028",
+            "--output",
+            "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/prefix-cached-original-event-study-20261103/complete_event_segments64-128",
+            "--restart-seed",
+            "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/data/ev16_restart_float64.npz",
+            "--static-initialization",
+            "fem-body-active-set",
+            "--segment-substeps",
+            "64",
+            "128",
+            "--contact-root-recovery",
+            "--kinetic-root-seed",
+            "--fft-cache-mb",
+            "8",
+            "--fft-rows",
+            "4",
+            "--max-memory-mb",
+            "14336",
+            "--history-prefix-cache-mb",
+            "144",
+            "--history-prefix-lags",
+            "32"
+          ]
+        }
+      ],
+      "goal_achieved": false,
+      "full_original_event_reproduced": false,
+      "same_accuracy_fem_advantage_verified": false,
+      "reason": "RuntimeError('complete_event_segments64-128 failed; preserve all saved data and inspect its log')",
+      "numerical_child_pid": 13530
+    },
+    "baseline_pause_resume": {
+      "utc": "2026-11-03T03:25:17.200572+00:00",
+      "identities": {
+        "owner": {
+          "pid": 84733,
+          "start": "Tue Nov 3 09:00:44 2026",
+          "fragment": "resume-complete-radau-events-20261103-v2.py"
+        },
+        "numerical": {
+          "pid": 84742,
+          "start": "Tue Nov 3 09:00:45 2026",
+          "fragment": "simulate_compact_radau.py"
+        },
+        "quota": {
+          "pid": 84744,
+          "start": "Tue Nov 3 09:00:45 2026",
+          "fragment": "limit_process_cpu.py"
+        }
+      },
+      "before": {
+        "owner": {
+          "start": "Tue Nov 3 09:00:44 2026",
+          "state": "Ts",
+          "cpu_seconds": 3.7,
+          "command": "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python -B /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/resume-complete-radau-events-20261103-v2.py"
+        },
+        "quota": {
+          "start": "Tue Nov 3 09:00:45 2026",
+          "state": "T",
+          "cpu_seconds": 31.88,
+          "command": "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python -B /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/limit_process_cpu.py --pid 84742 --expected-start Tue Nov  3 09:00:45 2026 --expected-command-fragment /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/simulate_compact_radau.py --cores 3.85 --output /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/resumed-radau-event-study-20261103/complete_event_segments64-128-cpu-quota"
+        },
+        "numerical": {
+          "start": "Tue Nov 3 09:00:45 2026",
+          "state": "T",
+          "cpu_seconds": 2183.34,
+          "command": "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python -B /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/simulate_compact_radau.py /Volumes/Gauss-T7/Tatva-BEM-cache/fresh-radau2us-graded-q12-full45-20261028 --output /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/resumed-radau-event-study-20261103/complete_event_segments64-128 --restart-seed /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/data/ev16_restart_float64.npz --static-initialization fem-body-active-set --segment-substeps 64 128 --contact-root-recovery --kinetic-root-seed --fft-cache-mb 8 --fft-rows 4 --max-memory-mb 14336"
+        }
+      },
+      "resumed": [
+        "numerical",
+        "quota",
+        "owner"
+      ],
+      "pause_seconds": 3279.9821235006675,
+      "same_process_memory_retained": true,
+      "durable_checkpoint": false
+    },
+    "affine_preparation": {
+      "status": "completed",
+      "stages": [
+        {
+          "name": "tests",
+          "exit_code": 0,
+          "seconds": 0.46809987537562847,
+          "average_cpu_budget": 3.8,
+          "observed_child_cpu_seconds": 0.28,
+          "owned_stop_cycles": 0,
+          "ownership": "Parent retains Popen child until reaped; PID cannot be reused between live poll and signal. No wall-clock lstart equality used as process ownership."
+        },
+        {
+          "name": "public_root_replay",
+          "exit_code": 0,
+          "seconds": 2.5101841669529676,
+          "average_cpu_budget": 3.8,
+          "observed_child_cpu_seconds": 5.0,
+          "owned_stop_cycles": 0,
+          "ownership": "Parent retains Popen child until reaped; PID cannot be reused between live poll and signal. No wall-clock lstart equality used as process ownership."
+        },
+        {
+          "name": "affine_cache",
+          "exit_code": 0,
+          "seconds": 713.2298393342644,
+          "average_cpu_budget": 3.8,
+          "observed_child_cpu_seconds": 121.95,
+          "owned_stop_cycles": 0,
+          "ownership": "Parent retains Popen child until reaped; PID cannot be reused between live poll and signal. No wall-clock lstart equality used as process ownership."
+        }
+      ],
+      "seconds": 716.229321083054,
+      "all_frozen_sources_unchanged": true,
+      "complete_package_fingerprint_unchanged": true,
+      "full_original_event_reproduced": false
+    },
+    "prefix_validation": {
+      "status": "completed",
+      "stages": [
+        {
+          "name": "tests",
+          "exit_code": 0,
+          "seconds": 2.610847416333854,
+          "average_cpu_budget": 0.03,
+          "observed_child_cpu_seconds": 0.33,
+          "owned_stop_cycles": 4,
+          "ownership": "Parent retains Popen child until reaped; PID cannot be reused between live poll and signal. No wall-clock lstart equality used as process ownership."
+        },
+        {
+          "name": "validate_fine_prefix",
+          "exit_code": 0,
+          "seconds": 568.5288579585031,
+          "average_cpu_budget": 3.8,
+          "observed_child_cpu_seconds": 137.1,
+          "owned_stop_cycles": 0,
+          "ownership": "Parent retains Popen child until reaped; PID cannot be reused between live poll and signal. No wall-clock lstart equality used as process ownership."
+        }
+      ],
+      "seconds": 625.2217301661149,
+      "all_frozen_sources_unchanged": true,
+      "complete_package_fingerprint_unchanged": true,
+      "full_original_event_reproduced": false
+    },
+    "new_local_controls": [
+      {
+        "status": "completed",
+        "stages": [
+          {
+            "name": "tests",
+            "exit_code": 0,
+            "seconds": 5.213552459143102,
+            "average_cpu_budget": 3.8,
+            "observed_child_cpu_seconds": 8.7,
+            "owned_stop_cycles": 3,
+            "ownership": "Parent retains Popen child until reaped; PID cannot be reused between live poll and signal. No wall-clock lstart equality used as process ownership."
+          }
+        ],
+        "seconds": 5.219438875094056,
+        "all_frozen_sources_unchanged": true,
+        "complete_package_fingerprint_unchanged": true,
+        "full_original_event_reproduced": false
+      },
+      {
+        "status": "completed",
+        "stages": [
+          {
+            "name": "tests",
+            "exit_code": 0,
+            "seconds": 4.75748954154551,
+            "average_cpu_budget": 3.8,
+            "observed_child_cpu_seconds": 8.81,
+            "owned_stop_cycles": 2,
+            "ownership": "Parent retains Popen child until reaped; PID cannot be reused between live poll and signal. No wall-clock lstart equality used as process ownership."
+          }
+        ],
+        "seconds": 4.763844291679561,
+        "all_frozen_sources_unchanged": true,
+        "complete_package_fingerprint_unchanged": true,
+        "full_original_event_reproduced": false
+      },
+      {
+        "error": "RuntimeError('fresh_cli failed; preserve data')",
+        "stages": [
+          {
+            "name": "affine",
+            "exit_code": 0,
+            "seconds": 0.33172033354640007,
+            "average_cpu_budget": 3.8,
+            "observed_child_cpu_seconds": 0.19,
+            "owned_stop_cycles": 0,
+            "ownership": "Parent retains Popen child until reaped; PID cannot be reused between live poll and signal. No wall-clock lstart equality used as process ownership."
+          },
+          {
+            "name": "fresh_cli",
+            "exit_code": 1,
+            "seconds": 0.6732825003564358,
+            "average_cpu_budget": 3.8,
+            "observed_child_cpu_seconds": 0.52,
+            "owned_stop_cycles": 0,
+            "ownership": "Parent retains Popen child until reaped; PID cannot be reused between live poll and signal. No wall-clock lstart equality used as process ownership."
+          }
+        ],
+        "seconds": 1.017977417446673
+      },
+      {
+        "status": "passed_fresh_and_resumed_original_cli_full_coarse",
+        "comparisons": {
+          "stages.npz": {
+            "displacement": {
+              "original_fresh_array_equal": true,
+              "original_resumed_array_equal": true,
+              "maximum_absolute_fresh_difference": 0.0,
+              "maximum_absolute_resumed_difference": 0.0
+            },
+            "response": {
+              "original_fresh_array_equal": true,
+              "original_resumed_array_equal": true,
+              "maximum_absolute_fresh_difference": 0.0,
+              "maximum_absolute_resumed_difference": 0.0
+            },
+            "stage_time": {
+              "original_fresh_array_equal": true,
+              "original_resumed_array_equal": true,
+              "maximum_absolute_fresh_difference": 0.0,
+              "maximum_absolute_resumed_difference": 0.0
+            },
+            "actuator": {
+              "original_fresh_array_equal": true,
+              "original_resumed_array_equal": true,
+              "maximum_absolute_fresh_difference": 0.0,
+              "maximum_absolute_resumed_difference": 0.0
+            },
+            "initial_residual_force": {
+              "original_fresh_array_equal": true,
+              "original_resumed_array_equal": true,
+              "maximum_absolute_fresh_difference": 0.0,
+              "maximum_absolute_resumed_difference": 0.0
+            },
+            "initial_contact_force": {
+              "original_fresh_array_equal": true,
+              "original_resumed_array_equal": true,
+              "maximum_absolute_fresh_difference": 0.0,
+              "maximum_absolute_resumed_difference": 0.0
+            }
+          },
+          "trajectory.npz": {
+            "time": {
+              "original_fresh_array_equal": true,
+              "original_resumed_array_equal": true,
+              "maximum_absolute_fresh_difference": 0.0,
+              "maximum_absolute_resumed_difference": 0.0
+            },
+            "pressure": {
+              "original_fresh_array_equal": true,
+              "original_resumed_array_equal": true,
+              "maximum_absolute_fresh_difference": 0.0,
+              "maximum_absolute_resumed_difference": 0.0
+            },
+            "shear": {
+              "original_fresh_array_equal": true,
+              "original_resumed_array_equal": true,
+              "maximum_absolute_fresh_difference": 0.0,
+              "maximum_absolute_resumed_difference": 0.0
+            },
+            "friction_coefficient": {
+              "original_fresh_array_equal": true,
+              "original_resumed_array_equal": true,
+              "maximum_absolute_fresh_difference": 0.0,
+              "maximum_absolute_resumed_difference": 0.0
+            },
+            "plastic_slip": {
+              "original_fresh_array_equal": true,
+              "original_resumed_array_equal": true,
+              "maximum_absolute_fresh_difference": 0.0,
+              "maximum_absolute_resumed_difference": 0.0
+            },
+            "cumulative_slip": {
+              "original_fresh_array_equal": true,
+              "original_resumed_array_equal": true,
+              "maximum_absolute_fresh_difference": 0.0,
+              "maximum_absolute_resumed_difference": 0.0
+            },
+            "actuator": {
+              "original_fresh_array_equal": true,
+              "original_resumed_array_equal": true,
+              "maximum_absolute_fresh_difference": 0.0,
+              "maximum_absolute_resumed_difference": 0.0
+            },
+            "platen": {
+              "original_fresh_array_equal": true,
+              "original_resumed_array_equal": true,
+              "maximum_absolute_fresh_difference": 0.0,
+              "maximum_absolute_resumed_difference": 0.0
+            },
+            "normal_load": {
+              "original_fresh_array_equal": true,
+              "original_resumed_array_equal": true,
+              "maximum_absolute_fresh_difference": 0.0,
+              "maximum_absolute_resumed_difference": 0.0
+            },
+            "moving_starts": {
+              "original_fresh_array_equal": true,
+              "original_resumed_array_equal": true,
+              "maximum_absolute_fresh_difference": 0.0,
+              "maximum_absolute_resumed_difference": 0.0
+            },
+            "moving_ends": {
+              "original_fresh_array_equal": true,
+              "original_resumed_array_equal": true,
+              "maximum_absolute_fresh_difference": 0.0,
+              "maximum_absolute_resumed_difference": 0.0
+            },
+            "stationary_starts": {
+              "original_fresh_array_equal": true,
+              "original_resumed_array_equal": true,
+              "maximum_absolute_fresh_difference": 0.0,
+              "maximum_absolute_resumed_difference": 0.0
+            },
+            "stationary_ends": {
+              "original_fresh_array_equal": true,
+              "original_resumed_array_equal": true,
+              "maximum_absolute_fresh_difference": 0.0,
+              "maximum_absolute_resumed_difference": 0.0
+            },
+            "contact_y": {
+              "original_fresh_array_equal": true,
+              "original_resumed_array_equal": true,
+              "maximum_absolute_fresh_difference": 0.0,
+              "maximum_absolute_resumed_difference": 0.0
+            },
+            "moving_contact": {
+              "original_fresh_array_equal": true,
+              "original_resumed_array_equal": true,
+              "maximum_absolute_fresh_difference": 0.0,
+              "maximum_absolute_resumed_difference": 0.0
+            },
+            "stationary_contact": {
+              "original_fresh_array_equal": true,
+              "original_resumed_array_equal": true,
+              "maximum_absolute_fresh_difference": 0.0,
+              "maximum_absolute_resumed_difference": 0.0
+            },
+            "contact_weights": {
+              "original_fresh_array_equal": true,
+              "original_resumed_array_equal": true,
+              "maximum_absolute_fresh_difference": 0.0,
+              "maximum_absolute_resumed_difference": 0.0
+            },
+            "contact_jumps": {
+              "original_fresh_array_equal": true,
+              "original_resumed_array_equal": true,
+              "maximum_absolute_fresh_difference": 0.0,
+              "maximum_absolute_resumed_difference": 0.0
+            }
+          },
+          "initial_lift.npz": {
+            "retained_displacement": {
+              "original_fresh_array_equal": true,
+              "original_resumed_array_equal": true,
+              "maximum_absolute_fresh_difference": 0.0,
+              "maximum_absolute_resumed_difference": 0.0
+            },
+            "full_displacement": {
+              "original_fresh_array_equal": true,
+              "original_resumed_array_equal": true,
+              "maximum_absolute_fresh_difference": 0.0,
+              "maximum_absolute_resumed_difference": 0.0
+            },
+            "retained_bulk_force": {
+              "original_fresh_array_equal": true,
+              "original_resumed_array_equal": true,
+              "maximum_absolute_fresh_difference": 0.0,
+              "maximum_absolute_resumed_difference": 0.0
+            },
+            "plastic_slip": {
+              "original_fresh_array_equal": true,
+              "original_resumed_array_equal": true,
+              "maximum_absolute_fresh_difference": 0.0,
+              "maximum_absolute_resumed_difference": 0.0
+            },
+            "cumulative_slip": {
+              "original_fresh_array_equal": true,
+              "original_resumed_array_equal": true,
+              "maximum_absolute_fresh_difference": 0.0,
+              "maximum_absolute_resumed_difference": 0.0
+            },
+            "pressure": {
+              "original_fresh_array_equal": true,
+              "original_resumed_array_equal": true,
+              "maximum_absolute_fresh_difference": 0.0,
+              "maximum_absolute_resumed_difference": 0.0
+            },
+            "shear": {
+              "original_fresh_array_equal": true,
+              "original_resumed_array_equal": true,
+              "maximum_absolute_fresh_difference": 0.0,
+              "maximum_absolute_resumed_difference": 0.0
+            }
+          }
+        },
+        "stages": [
+          {
+            "name": "fresh_cli",
+            "exit_code": 0,
+            "seconds": 3.0803324580192566,
+            "average_cpu_budget": 3.8,
+            "observed_child_cpu_seconds": 6.14,
+            "owned_stop_cycles": 2,
+            "ownership": "Parent retains Popen child until reaped; PID cannot be reused between live poll and signal. No wall-clock lstart equality used as process ownership."
+          },
+          {
+            "name": "cut_completed_coarse",
+            "exit_code": 0,
+            "seconds": 0.5640122918412089,
+            "average_cpu_budget": 3.8,
+            "observed_child_cpu_seconds": 0.43,
+            "owned_stop_cycles": 0,
+            "ownership": "Parent retains Popen child until reaped; PID cannot be reused between live poll and signal. No wall-clock lstart equality used as process ownership."
+          },
+          {
+            "name": "checkpoint",
+            "exit_code": 0,
+            "seconds": 0.23275712504982948,
+            "average_cpu_budget": 3.8,
+            "observed_child_cpu_seconds": 0.12,
+            "owned_stop_cycles": 0,
+            "ownership": "Parent retains Popen child until reaped; PID cannot be reused between live poll and signal. No wall-clock lstart equality used as process ownership."
+          },
+          {
+            "name": "resume_cli",
+            "exit_code": 0,
+            "seconds": 3.0443129166960716,
+            "average_cpu_budget": 3.8,
+            "observed_child_cpu_seconds": 6.03,
+            "owned_stop_cycles": 2,
+            "ownership": "Parent retains Popen child until reaped; PID cannot be reused between live poll and signal. No wall-clock lstart equality used as process ownership."
+          }
+        ],
+        "seconds": 6.997831375338137,
+        "all_frozen_sources_unchanged": true,
+        "complete_package_fingerprint_unchanged": true,
+        "full_original_event_reproduced": false
+      }
+    ],
+    "kernel_rebuilt": false,
+    "all_prior_work_and_pauses_retained": true,
+    "overlapping_raw_wall_intervals_must_not_be_added_twice": true,
+    "isolated_same_accuracy_benchmark": false
+  },
+  "rigid_translation_control": {
+    "status": "completed_low_contour_rigid_translation_consistency_probe",
+    "moving_area_mm2": 99950.0,
+    "density": 1.148e-09,
+    "expected_low_frequency_mass_per_unit_thickness": 0.0001147426,
+    "platen_width_mm": 199.99999999999997,
+    "rows": [
+      {
+        "index": 0,
+        "s_real": 175.6733011623723,
+        "s_imag": 0.0,
+        "relative_solve_residual": 7.84569016424582e-16,
+        "effective_mass_real": [
+          [
+            0.00011472194438387224,
+            -6.831079402982155e-10
+          ],
+          [
+            -6.831060054898908e-10,
+            0.00011471807914173198
+          ]
+        ],
+        "effective_mass_imag": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "relative_difference_from_low_frequency_geometric_mass": 0.00019766897370957263,
+        "sample_sha256": [
+          "19e28b3c446efa74d6792ab076791fc750dc67c482e54f7d3a1241aafc4dafd6",
+          "71992db3237d037fa9ace71297f0323da8b173b3152885250ae21ccbc447645f"
+        ]
+      },
+      {
+        "index": 1,
+        "s_real": 175.67330116230593,
+        "s_imag": 47.9368996215332,
+        "relative_solve_residual": 7.470398306482819e-16,
+        "effective_mass_real": [
+          [
+            0.00011472348071674371,
+            -6.323256648668174e-10
+          ],
+          [
+            -6.323250204440044e-10,
+            0.0001147199022107348
+          ]
+        ],
+        "effective_mass_imag": [
+          [
+            -1.1271405831406843e-08,
+            -3.727015342390179e-10
+          ],
+          [
+            -3.727019142508061e-10,
+            -1.3378787097272187e-08
+          ]
+        ],
+        "relative_difference_from_low_frequency_geometric_mass": 0.0002123935065167864,
+        "sample_sha256": [
+          "7eeb7098529e4ad83720311d036c86da234c666fd1feea364089ac5e69aae0fd",
+          "e4bb79402e75d27503dbd69e4e7372170d4dc3df0cfdae9c6ada990175c2602f"
+        ]
+      },
+      {
+        "index": 4,
+        "s_real": 175.67330116176245,
+        "s_imag": 191.74759848561663,
+        "relative_solve_residual": 8.231314842176737e-16,
+        "effective_mass_real": [
+          [
+            0.00011474653378907238,
+            1.2970753035153505e-10
+          ],
+          [
+            1.2970746252830643e-10,
+            0.0001147472577986722
+          ]
+        ],
+        "effective_mass_imag": [
+          [
+            -4.510573798805016e-08,
+            -1.4919038701733066e-09
+          ],
+          [
+            -1.491904639941175e-09,
+            -5.3552351979293256e-08
+          ]
+        ],
+        "relative_difference_from_low_frequency_geometric_mass": 0.0004333124539684439,
+        "sample_sha256": [
+          "a921278a6ffd6b95818445878a39a625f2522976895ae9117d87c1e75d4a0515",
+          "e0d60c7c41088a2f2459f17ff98a35fe2e54e2571ff439d99b2dfb0b10d66fd2"
+        ]
+      },
+      {
+        "index": 16,
+        "s_real": 175.67330118876382,
+        "s_imag": 766.9903939094481,
+        "relative_solve_residual": 9.09528850682991e-16,
+        "effective_mass_real": [
+          [
+            0.00011511683101749894,
+            1.2398740456296975e-08
+          ],
+          [
+            1.2398740435163458e-08,
+            0.00011518756134082806
+          ]
+        ],
+        "effective_mass_imag": [
+          [
+            -1.8175234549811957e-07,
+            -6.038328113220237e-09
+          ],
+          [
+            -6.038328123437324e-09,
+            -2.1662879376587776e-07
+          ]
+        ],
+        "relative_difference_from_low_frequency_geometric_mass": 0.003986086297346715,
+        "sample_sha256": [
+          "18a85d383582c1e1336860a201b34344834ecb67158a4eeb8380ea6e9cae9eca",
+          "08dc81fb14061100e3ff23f7ab061834fd18705b4c23b7d0eac8a2e7b1be6350"
+        ]
+      }
+    ],
+    "source_expected_spectrum_records": [
+      {
+        "backend": "disk_half_spectrum",
+        "path": "/Volumes/Gauss-T7/Tatva-BEM-cache/fresh-radau2us-graded-q12-full45-20261028/compact-family0.npy",
+        "shape": [
+          32769,
+          531,
+          531
+        ],
+        "bytes": 147833280272,
+        "sha256": "91347da8916b0219497cfe65d05267c364a65452971f58f46b9b8ffb429527ae",
+        "implementation_sha256": "da2534ef95e95813a464ff04f78a092be374110650d1866cbc1fb8ea5b5105b2",
+        "all_frequency_matrices_written": true
+      },
+      {
+        "backend": "disk_half_spectrum",
+        "path": "/Volumes/Gauss-T7/Tatva-BEM-cache/fresh-radau2us-graded-q12-full45-20261028/compact-family1.npy",
+        "shape": [
+          32769,
+          531,
+          531
+        ],
+        "bytes": 147833280272,
+        "sha256": "66f19417f306aa48fdf20253ceb9c637f703bb326c4120332c4d257e0cc56feb",
+        "implementation_sha256": "da2534ef95e95813a464ff04f78a092be374110650d1866cbc1fb8ea5b5105b2",
+        "all_frequency_matrices_written": true
+      }
+    ],
+    "whole_spectrum_sha_not_recomputed_here": true,
+    "source_metadata_sha256": "85a1bba9e69384fbb57bd64d199d1bce2dd56ec9a915a23528fd1e88a9e3584a",
+    "scope": "Two admissible moving-body translations; elastic impedance inferred from existing resolvent modes after exact penalty/spring subtraction. Geometric mass is the s->0 limit; finite-s compliance corrections remain. Not a full nonlinear event, exact finite-s identity or stability theorem.",
+    "full_original_event_reproduced": false,
+    "same_accuracy_fem_advantage_verified": false
+  },
+  "pending": {
+    "first_original_causal_rk_audit": "running; not yet accepted",
+    "second_actual_prefix_validation": "running; no new physical step committed",
+    "full_second_event": "not complete",
+    "fine_initialized_ad": "not run; physical/refinement gates not passed",
+    "macro_time_and_space_convergence": "not verified",
+    "fem_reference_convergence": "not passed",
+    "same_accuracy_isolated_total_time_or_stability_advantage": "not verified"
+  },
+  "artifacts_sha256": {
+    "diagnostics/radau_step14450_substeps128_256/candidate_roots.npz": "82ae4bf047aff1d97b54b6c0954ef3c87a3013892e9c6ef7dff033d82ce723f1",
+    "diagnostics/radau_step14450_substeps128_256/equation.npz": "5643c789c9b728ce0b61fb61df938971ccf7bffce8fe5992f721c16b55db9dcc",
+    "diagnostics/radau_step14450_substeps128_256/failure.json": "4c7339c47c977d3a2ceaa2c829d54cf90e58869daae9d253f01b24bdd16a602a",
+    "diagnostics/radau_step14450_substeps128_256/original_full_capture_candidate_audit.json": "829b0da56e6fb18bd49b6cb25574e6766926f0d9998ec3489f29a675c0e28376",
+    "diagnostics/recovered_full_event/field_comparison.json": "443eea7b31e4006335ea6a6798cd35db0c8f32f837a060cd3dbe01d4d6c0296f",
+    "diagnostics/recovered_full_event/figure_manifest.json": "a9570c7b4bd439e311ab77435baa4a7c8aa4f234c9c04df3237529581f76c47f",
+    "diagnostics/recovered_full_event/plot_data.npz": "22175d8e6e7e8701be5287470475e7a1f7435fa0fd335900d33acde22fefc4ce",
+    "figures/recovered_full_event_profiles.png": "cff42aae4bb6be6a1b6af5af78be6de0956f12d3ad97cfdca93feb200955de0b",
+    "figures/recovered_full_event_time_traces.png": "e38ab9eab4f4368563c98b5ffe4eb6f516e659b3935e61ef276108d66fe65295",
+    "diagnostics/radau_step14450_substeps128_256/published_fixture_replay.json": "e3ebf2eadbda34d89a17e561bdbcbf7c2e3278030f580350d9efde383fb1c1f3"
+  },
+  "scope": "Saved-field comparison and local equation recovery; not FEM equivalence, nonlinear stability, branch uniqueness or full cold-run timing.",
+  "full_original_event_reproduced": false,
+  "same_accuracy_fem_advantage_verified": false,
+  "original_tatva_readonly": true,
+  "published_fixture_replay": {
+    "status": "passed_published_local_fixture_replay",
+    "local_equation_original_members_byte_identical": true,
+    "full_capture_and_published_fixture_results_array_equal": {
+      "verified_candidate_roots.npz": {
+        "random_hybrid": true
+      },
+      "independent_state.npz": {
+        "response": true,
+        "residual": true
+      }
+    },
+    "candidate_audit": {
+      "status": "passed_captured_original_stage_candidate",
+      "capture": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/docs/diagnostics/radau_step14450_substeps128_256/equation.npz",
+      "capture_sha256": "5643c789c9b728ce0b61fb61df938971ccf7bffce8fe5992f721c16b55db9dcc",
+      "candidates": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/docs/diagnostics/radau_step14450_substeps128_256/candidate_roots.npz",
+      "candidates_sha256": "82ae4bf047aff1d97b54b6c0954ef3c87a3013892e9c6ef7dff033d82ce723f1",
+      "key": "random_hybrid",
+      "segment_substeps": [
+        128,
+        256
+      ],
+      "failed_step": 14450,
+      "original_jax_residual_mpa": 1.9918949744160978e-11,
+      "independent_numpy_residual_mpa": 1.9937291318511034e-11,
+      "maximum_absolute_local_response_difference": 7.951972413877684e-15,
+      "candidate_unchanged_by_original_root": true,
+      "minimum_pressure_mpa": 10.36088144194109,
+      "maximum_cumulative_slip_mm": 0.24638350711464452,
+      "micro_friction_work_mpa_mm2": 17.92730040322495,
+      "source_sha256": {
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/audit_captured_stage_candidate.py": "33232c1c8c525dd597b395c2fac915ec9d6b362ade6fbdced0fce6aefcacd6a2",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/diagnose_radau_root.py": "193a0e7d8a2d73a00d63252efdd89a0d5bfde0dff1f532507d8d2a253a15da6a",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/identity_stage_tangent.py": "2642bdb99c7548a8a9f1fcbc757d423810572daf67ee27253a1bde5b566ca60b",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/radau_contact_experiment.py": "d564ec6ea2311b783d52df83d2f567d640aa6e40a5c1236aad60c51112b023c6",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/substepped_contact_experiment.py": "d40fcb95f5fa29c0c8630a8901f8d5e63591bfc11ed1c9fbdee7c2ecc8d36225",
+        "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/friction.py": "1424c1639cdc1eb4dd8f780bfdc0433f33cf29752b07a17814a3a2f326d81086"
+      },
+      "no_physical_state_committed": true,
+      "full_original_event_reproduced": false,
+      "same_accuracy_fem_advantage_verified": false
+    },
+    "resource_receipt": {
+      "exit_code": 0,
+      "seconds": 63.27380512468517,
+      "final_wait4_cpu_seconds": 6.327056000000001,
+      "charged_cpu_high_water_seconds": 6.327056000000001,
+      "measured_average_cores": 0.09999487129835362,
+      "conservative_charged_average_cores": 0.09999487129835362,
+      "average_cpu_budget": 0.1,
+      "ps_counter_regressions": 0,
+      "maximum_ps_counter_drop_seconds": 0.0,
+      "owned_stop_cycles": 37,
+      "final_cpu_debt_cooldown_seconds": 0.4533795826137066,
+      "full_cpu_debt_repaid": true,
+      "ownership": "Parent retains unreaped Popen child; wait4 collects final CPU. Regressing ps samples never reduce charged CPU."
+    },
+    "scope": "Actual fine128/256 step14450; local validation only, no physical state advanced"
+  }
+}
