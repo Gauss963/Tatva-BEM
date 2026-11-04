@@ -214,7 +214,8 @@ two workers has a 4.10 warm batch time ratio against the existing two-worker
 reference, with compilation charged separately. Full-kernel adoption remains open.
 An [optional durable JAX producer](bem/docs/jax_radau_producer.md) now passes
 independent dense-kernel, bitwise-resume and original-to-JAX prefix-copy controls.
-The original fine kernel is complete and the full nonlinear event is running;
+The original fine kernel is complete; both full nonlinear variants failed at
+28.902 ms. A local root and its full causal prefix have since been validated;
 its cache retains the original numerical backend.
 A [mixed-cache sliding and initialized-AD control](bem/docs/mixed_radau_ad.md)
 now reuses its actual saved time weights for all 128 coarse steps. Parameter and

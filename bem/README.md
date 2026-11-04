@@ -9,6 +9,8 @@ cached 原速率事件在第 14451 步／28.902 ms 因平衡 residual 7.43595 MP
 已保存前綴與方程；原基準後來也在相同步驟失敗，兩份 capture 的全部 members 逐 byte 相同。
 已找到[通過原完整方程的局部根](docs/captured_radau_failure.md)，殘差約 `1.54e-11 MPa`；
 完整 CQ 恢復與全程 FEM 對照仍待完成。
+現已完成[原始初始化歷史與 14451 筆前綴驗證](docs/streamed_initialization.md)，
+重建的失敗 forcing 與全部未來歷史逐位相同；尚未接回完整時間推進。
 新增[保留局部 JAX AD 的切線組裝](docs/identity_stage_tangent.md)，
 完整粗網格解／初始化梯度與細網格代數控制通過；單項 CPU 改善尚非全程速度優勢。
 新的 [FEM dt/16 完整窗口](docs/fem_dt16_window.md)仍未通過參考解的時間收斂診斷：
@@ -108,7 +110,7 @@ resolvent 現可直接建立新時間網格，並核對參數、載入及初始�
 亦通過解與原方程核對，但有一筆載入 cotangent guard 尚未通過。
 新增[短 lag RAM 快取](docs/history_prefix_cache.md) helper：保留全部原權重與完整轉置，
 可選 CLI 會先保留額外 RAM 配額；128 步 sliding／初始化 AD 及實際 CLI 輸出逐位相同，
-原 45 ms cached 事件已啟動，全程效能仍需量測。
+原 cached 全程事件在 28.902 ms 失敗；局部根及其完整歷史已核對，後續推進與全程效能仍待驗證。
 新增 [指定容量的 FFT 歷史快取](docs/bounded_history.md)：完整粗網格 45 ms 的解與各種 cotangent
 在 0／8 MiB 設定下逐位元相同。較細網格 adjoint 亦與原快取規則逐位元相同，
 但既有 L／原 Z 的單一載入梯度 guard 仍未通過，保留原容差與失敗紀錄。

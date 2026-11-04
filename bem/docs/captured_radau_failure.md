@@ -29,6 +29,10 @@ residual 同為 **7.435954410063236 MPa**。兩份 capture 的全部 15 個 NPY 
 都不構成完整軌跡的能量平衡、唯一性或穩定性證明。
 目前尚未提交該狀態或恢復完整 CQ 推進。
 
+後續[初始化與完整前綴驗證](streamed_initialization.md)已完成：14451 筆原平衡均通過，
+全部未來歷史與原逐步重播逐位相同，失敗步驟 forcing 也逐位相同。
+已保存恢復所需資料；接回時間推進及不中斷軌跡控制仍待完成。
+
 ## 可重播的小型輸入
 
 公開 [equation.npz](diagnostics/radau_step14451/equation.npz)約 8.49 MB，

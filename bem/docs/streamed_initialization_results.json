@@ -1,0 +1,297 @@
+{
+  "utc": "2026-11-04T02:46:00.488729+00:00",
+  "status": "complete_primal_affine_cache_and_original_prefix_validated",
+  "affine": {
+    "status": "completed_original_formula_column_streamed_primal_affine_cache",
+    "source_sha256": {
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/stream_initial_residual.py": "4b591ddc2af8694dc99a3937dcc7cfa895097244d71f3d99ae827bfb49bfc8db",
+      "/Volumes/Gauss-T7/Tatva-BEM-cache/fresh-radau2us-graded-q12-full45-20261028/summary.json": "85a1bba9e69384fbb57bd64d199d1bce2dd56ec9a915a23528fd1e88a9e3584a",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/prefix-cached-original-event-study-20261103/complete_event_segments64-128/initial_lift.npz": "fb479087b28c402fc2a8c4d354cb0e4f2e3848657168898a33024b50f41a5e4c",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/data/ev16_restart_float64.npz": "f09f9cfbe88d41cfba9daaffd1d901e66d1b33af2b6826ba8449fa05ef510901",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/radau_initialization.py": "43bf2227e934829ae11a8cf6b8b255e16faf6e22c9a16f9d54c9bd9a17589086",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/radau_experiment.py": "e616d36a766ba323d9967af04e0bd154f86a9e158902668df6a8291be9e36408",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/refined_contact.py": "c055f15f8c15d6c3da2f6792a97ec3ed44baa652478f6a24990fa1f478fa3741",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/restart_seed_experiment.py": "d9507983063a21db6849a1e8236f71e0d9585133c87576b18ea11b4b21879885"
+    },
+    "initial_lift_sha256": "fb479087b28c402fc2a8c4d354cb0e4f2e3848657168898a33024b50f41a5e4c",
+    "seed": {
+      "path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/data/ev16_restart_float64.npz",
+      "sha256": "f09f9cfbe88d41cfba9daaffd1d901e66d1b33af2b6826ba8449fa05ef510901",
+      "source_provenance": {
+        "status": "captured_original_float64_restart",
+        "seed_file_sha256": "f09f9cfbe88d41cfba9daaffd1d901e66d1b33af2b6826ba8449fa05ef510901",
+        "source_revision": "933ae1f3fe1c634391bdbd316e4efa5dbf0e6d5d",
+        "source_event": "local-mus08-muk06-gap0-v2-ev15",
+        "target_event": "local-mus08-muk06-gap0-v2-ev16",
+        "source_plastic_and_actuator_sha256": "097948bec467b2d81f31ea58a056c29785c9f0c22f3952515ff15940357dddc4",
+        "source_arrays_dtype": "float64",
+        "source_contact_nodes": 241,
+        "contact_interval_mm": [
+          0,
+          480
+        ],
+        "cumulative_slip_reset_to_zero": true,
+        "source_hdf5_size_and_mtime_unchanged": true,
+        "scope": "Original float64 event-15 plastic slip and actuator; healed memory reset as specified by event-16. Not a bulk checkpoint or evidence of BEM equivalence.",
+        "bulk_checkpoint_included": false,
+        "fem_hdf5_included": false
+      },
+      "provenance_path": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/data/ev16_restart_float64.json",
+      "provenance_sha256": "1d7a78135e62b274692dc9d93ab49029e944f1fedce5d0a3f4cf41ee82223861",
+      "maximum_plastic_change_from_packaged_mm": 4.761975702649579e-07,
+      "unchanged_knots_geometry_and_bulk_kernel": true,
+      "scope": "Explicit float64 values on the original seed knots; static lift is recomputed, complete time kernel is unchanged"
+    },
+    "initial_residual_force_sha256": "e8144ceff103b419bdeac2a4242673f92dc872770bee494951b053a79e6f9623",
+    "affine_sha256": "063e0b3eeca1d61677c4c9bc8b0ea6c1cabd29717b75498719aceec693c6f248",
+    "complete_kernel_weight_hashes_verified": true,
+    "all_lags_retained": true,
+    "steps": 22500,
+    "shape": [
+      22501,
+      2,
+      531
+    ],
+    "seconds": 712.9285977911204,
+    "cpu_seconds": 121.769355,
+    "peak_projection_payload_bytes": 477895752,
+    "original_full_event_reproduced": false,
+    "pde_resume_forcing_not_yet_validated": true,
+    "scope": "Primal affine cache for this exact initial force. Different summation layout; requires original failure-forcing and prefix validation before resume. Parameter-dependent initialization AD must retain derivatives through this operator."
+  },
+  "checkpoint": {
+    "status": "validated_original_fine_prefix_and_full_future_history",
+    "source_sha256": {
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/validate_captured_radau_prefix.py": "22410f28778ecf0192d80f60c40a9381be3d6929d3808a26ee47864b0c59e0d1",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/restore_compact_history.py": "e41a7339ddd8e51c17bc5ec7acb3304c1e60df5105866f1357a81a61772f3d1d",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/stream_initial_residual.py": "4b591ddc2af8694dc99a3937dcc7cfa895097244d71f3d99ae827bfb49bfc8db",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compact_radau_history.py": "85fb2c263a330b0b64d464017e2f67a6b5ff043c3cc52df48c388d14a6c70a3e",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/history_prefix_cache.py": "e8e0f7772e7d595d84cf32e6ca88780c220158c89a2863669ece9b87deffe0c0",
+      "/Volumes/Gauss-T7/Tatva-BEM-cache/fresh-radau2us-graded-q12-full45-20261028/summary.json": "85a1bba9e69384fbb57bd64d199d1bce2dd56ec9a915a23528fd1e88a9e3584a",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/affine-cache-study-20261104-v1/affine/summary.json": "8f009a9f4139e34b555ed3b280dcb99bbffd0862d434295bde3189357d8c5484",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/prefix-cached-original-event-study-20261103/complete_event_segments64-128/initial_lift.npz": "fb479087b28c402fc2a8c4d354cb0e4f2e3848657168898a33024b50f41a5e4c",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/data/ev16_restart_float64.npz": "f09f9cfbe88d41cfba9daaffd1d901e66d1b33af2b6826ba8449fa05ef510901"
+    },
+    "capture": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/prefix-cached-original-event-study-20261103/complete_event_segments64-128/failed_equilibrium.npz",
+    "capture_sha256": "17cd0164af4ad06bc386872b3c3cd42a4ac0b7d4e9ec41dc4570a516eb000c7d",
+    "affine_cache": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/affine-cache-study-20261104-v1/affine",
+    "affine_sha256": "063e0b3eeca1d61677c4c9bc8b0ea6c1cabd29717b75498719aceec693c6f248",
+    "history_state_sha256": "c53f472af91820dc0da8ef680c2c8309018b686db90c34801d311a280f9284be",
+    "kernel": "/Volumes/Gauss-T7/Tatva-BEM-cache/fresh-radau2us-graded-q12-full45-20261028",
+    "next_step": 14451,
+    "first_correction_step": 14065,
+    "local_history_next_step": 386,
+    "pending_stop": 512,
+    "maximum_inactive_source_force": 1.3628209671878722e-11,
+    "held_actuator": null,
+    "hold_time_s": null,
+    "maximum_prefix_residual_mpa": 6.957875995745072e-08,
+    "failed_forcing_normalized_difference_mpa": 0.0,
+    "failed_forcing_bitwise_equal": true,
+    "replay_and_restored_complete_future_bitwise_equal": true,
+    "history_prefix_cache": {
+      "policy": "exact_readonly_short_lag_prefix",
+      "capacity_bytes": 150994944,
+      "cached_lags": 32,
+      "cached_bytes": 144364032,
+      "families": 2,
+      "layouts": [
+        {
+          "source_strides": [
+            8,
+            180008,
+            95584248
+          ],
+          "prefix_strides": [
+            8,
+            256,
+            135936
+          ]
+        },
+        {
+          "source_strides": [
+            8,
+            180008,
+            95584248
+          ],
+          "prefix_strides": [
+            8,
+            256,
+            135936
+          ]
+        }
+      ],
+      "additional_to_fft_cache_and_workspace": true,
+      "all_history_terms_retained": true,
+      "time_grid_unchanged": true,
+      "coefficient_approximation": false
+    },
+    "restore_record": {
+      "accepted_inputs": 14451,
+      "first_active_index": 14065,
+      "active_history": {
+        "accepted_inputs": 386,
+        "family_frontiers": [
+          {
+            "accepted_inputs": 385,
+            "replayed_frontier_blocks": [
+              {
+                "size": 256,
+                "end": 256
+              },
+              {
+                "size": 128,
+                "end": 384
+              },
+              {
+                "size": 1,
+                "end": 385
+              }
+            ],
+            "consumed_pending_rows_restored": false,
+            "complete_future_history_retained": true,
+            "inherited_compute_cost_excluded_from_local_statistics": true
+          },
+          {
+            "accepted_inputs": 385,
+            "replayed_frontier_blocks": [
+              {
+                "size": 256,
+                "end": 256
+              },
+              {
+                "size": 128,
+                "end": 384
+              },
+              {
+                "size": 1,
+                "end": 385
+              }
+            ],
+            "consumed_pending_rows_restored": false,
+            "complete_future_history_retained": true,
+            "inherited_compute_cost_excluded_from_local_statistics": true
+          }
+        ],
+        "delayed_family_restored_by_original_append": true,
+        "complete_future_history_retained": true
+      },
+      "complete_future_history_retained": true
+    },
+    "seconds": 567.5216450002044,
+    "unavailable_original_newton_count_sentinel": -1,
+    "complete_event_resumed": false,
+    "scope": "Independent full-prefix force balance and exact future-history restoration only; no new root committed or time step advanced."
+  },
+  "execution_receipts": {
+    "affine": {
+      "status": "completed",
+      "stages": [
+        {
+          "name": "tests",
+          "exit_code": 0,
+          "seconds": 0.46809987537562847,
+          "average_cpu_budget": 3.8,
+          "observed_child_cpu_seconds": 0.28,
+          "owned_stop_cycles": 0,
+          "ownership": "Parent retains Popen child until reaped; PID cannot be reused between live poll and signal. No wall-clock lstart equality used as process ownership."
+        },
+        {
+          "name": "public_root_replay",
+          "exit_code": 0,
+          "seconds": 2.5101841669529676,
+          "average_cpu_budget": 3.8,
+          "observed_child_cpu_seconds": 5.0,
+          "owned_stop_cycles": 0,
+          "ownership": "Parent retains Popen child until reaped; PID cannot be reused between live poll and signal. No wall-clock lstart equality used as process ownership."
+        },
+        {
+          "name": "affine_cache",
+          "exit_code": 0,
+          "seconds": 713.2298393342644,
+          "average_cpu_budget": 3.8,
+          "observed_child_cpu_seconds": 121.95,
+          "owned_stop_cycles": 0,
+          "ownership": "Parent retains Popen child until reaped; PID cannot be reused between live poll and signal. No wall-clock lstart equality used as process ownership."
+        }
+      ],
+      "seconds": 716.229321083054,
+      "all_frozen_sources_unchanged": true,
+      "complete_package_fingerprint_unchanged": true,
+      "full_original_event_reproduced": false
+    },
+    "checkpoint": {
+      "status": "completed",
+      "stages": [
+        {
+          "name": "tests",
+          "exit_code": 0,
+          "seconds": 2.610847416333854,
+          "average_cpu_budget": 0.03,
+          "observed_child_cpu_seconds": 0.33,
+          "owned_stop_cycles": 4,
+          "ownership": "Parent retains Popen child until reaped; PID cannot be reused between live poll and signal. No wall-clock lstart equality used as process ownership."
+        },
+        {
+          "name": "validate_fine_prefix",
+          "exit_code": 0,
+          "seconds": 568.5288579585031,
+          "average_cpu_budget": 3.8,
+          "observed_child_cpu_seconds": 137.1,
+          "owned_stop_cycles": 0,
+          "ownership": "Parent retains Popen child until reaped; PID cannot be reused between live poll and signal. No wall-clock lstart equality used as process ownership."
+        }
+      ],
+      "seconds": 625.2217301661149,
+      "all_frozen_sources_unchanged": true,
+      "complete_package_fingerprint_unchanged": true,
+      "full_original_event_reproduced": false
+    }
+  },
+  "source_sha256": {
+    "bem/tools/stream_initial_residual.py": "4b591ddc2af8694dc99a3937dcc7cfa895097244d71f3d99ae827bfb49bfc8db",
+    "bem/tools/validate_captured_radau_prefix.py": "22410f28778ecf0192d80f60c40a9381be3d6929d3808a26ee47864b0c59e0d1",
+    "bem/tests/test_stream_initial_residual.py": "3d085142bce164c6a075b0a9653637d101e00024b7826ecf6f46e89624670b8c",
+    "bem/tests/test_captured_radau_prefix.py": "d435ffa8c82d50fd8a17129e590c6a421472f3326121297fe9c206d703dcfc9c"
+  },
+  "final_related_tests": {
+    "tests": 7,
+    "failures": 0,
+    "errors": 0,
+    "command": "python -B -m pytest -q bem/tests/test_stream_initial_residual.py bem/tests/test_captured_radau_prefix.py",
+    "junit_sha256": "a98eba50bf16e2d63ecafc2f26907e6f001fccc2657cac564085fbffb322749f"
+  },
+  "published_root_fixture_replay": {
+    "status": "completed",
+    "all_candidate_displacement_values_byte_equal": true,
+    "root_record": {
+      "index": 7,
+      "nfev": 45,
+      "reported_success": true,
+      "reduced_residual_mpa": 8.924416761146858e-12,
+      "full_residual_mpa": 1.5395092608135506e-11,
+      "all_stage_fields_finite": true,
+      "accepted": true
+    }
+  },
+  "ci_for_previous_root_and_history_sources": {
+    "id": 41759562717,
+    "head_sha": "d9f237c271b9a70d80a453f002da579ca5361176",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "id": 126343744259,
+        "python": "3.12",
+        "conclusion": "success"
+      },
+      {
+        "id": 126343744552,
+        "python": "3.11",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "complete_event_resumed": false,
+  "full_original_event_reproduced": false,
+  "same_accuracy_fem_advantage_verified": false
+}

@@ -479,11 +479,29 @@
   },
   "complete_event_resumed": false,
   "remaining_gates": [
-    "full CQ state reconstruction and forcing equality",
+    "Checkpoint read-back and coarse uninterrupted-trajectory equivalence before full resume",
     "complete event and 64/128 vs128/256 convergence",
     "original causal equation audit and full FEM fields",
     "macro-time / space / FEM reference convergence",
     "full initialized AD and gradient convergence",
     "isolated same-accuracy runtime or demonstrated stability advantage"
-  ]
+  ],
+  "root_and_history_source_ci": {
+    "id": 41759562717,
+    "head_sha": "d9f237c271b9a70d80a453f002da579ca5361176",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "id": 126343744259,
+        "python": "3.12",
+        "conclusion": "success"
+      },
+      {
+        "id": 126343744552,
+        "python": "3.11",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "validated_prefix_and_affine_results": "streamed_initialization_results.json"
 }
