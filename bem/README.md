@@ -121,6 +121,8 @@ resolvent 現可直接建立新時間網格，並核對參數、載入及初始�
 新增[短 lag RAM 快取](docs/history_prefix_cache.md) helper：保留全部原權重與完整轉置，
 可選 CLI 會先保留額外 RAM 配額；128 步 sliding／初始化 AD 及實際 CLI 輸出逐位相同，
 原 cached 全程事件在 28.902 ms 失敗；局部根及其完整歷史已核對，後續推進與全程效能仍待驗證。
+新增[原歷史存取成本控制](docs/history_access_cost.md)：六種快取配置的切片量與 FFT 呼叫均與原卷積器吻合，
+用於挑選下一組完整計時設定；切片量預估不是實際磁碟流量或全程加速倍數。
 新增 [指定容量的 FFT 歷史快取](docs/bounded_history.md)：完整粗網格 45 ms 的解與各種 cotangent
 在 0／8 MiB 設定下逐位元相同。較細網格 adjoint 亦與原快取規則逐位元相同，
 但既有 L／原 Z 的單一載入梯度 guard 仍未通過，保留原容差與失敗紀錄。

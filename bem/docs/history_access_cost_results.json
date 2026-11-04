@@ -1,0 +1,492 @@
+{
+  "utc": "2026-11-04T04:28:34.377755+00:00",
+  "status": "passed_actual_source_access_and_public_forecast_controls",
+  "source_sha256": {
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/history_access_cost.py": "dc7eef6a877d9d05d3924faac0f376e66d94db01828e7ada5ce603534b5dc298",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tests/test_history_access_cost.py": "491b76f9c3f289ee9761d012fb44f27cf0033a6912cd20f1e8dfee90dc24aa29",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/bounded_history.py": "bbf1d66ab1b1ff573a6ec613d249e86cd5dc460434ca3c9217cb064429273c55",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compact_radau_history.py": "85fb2c263a330b0b64d464017e2f67a6b5ff043c3cc52df48c388d14a6c70a3e",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/history_prefix_cache.py": "e8e0f7772e7d595d84cf32e6ca88780c220158c89a2863669ece9b87deffe0c0",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/history-access-plans-20261104-v1/control/summary.json": "431227c6f3a4b6f603ee4933c58e5822eb271db2a99bd936d22db3bdc4e314bc",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/history-access-plans-20261104-v1/summary.json": "054336a84f05f864bfc42a599b7dce5ea034122bac055992af0523b8101624da",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/history-cost-tests-20261104-v1/summary.json": "557bdae0f19c24eb130585cb3a2cd97fe4c71f117008df2e01b06ba34ee385a2",
+    "/Volumes/Gauss-T7/Tatva-BEM-cache/fresh-radau2us-graded-q12-full45-20261028/summary.json": "85a1bba9e69384fbb57bd64d199d1bce2dd56ec9a915a23528fd1e88a9e3584a"
+  },
+  "actual_small_control": {
+    "steps": 4096,
+    "dofs": 5,
+    "local_first": 386,
+    "local_last": 1696,
+    "columns": 2,
+    "families": 2,
+    "variants": [
+      {
+        "prefix_lags": 32,
+        "fine_equivalent_fft_cache_mb": 8,
+        "fft_rows": 4,
+        "measured_logical_source_coefficient_bytes_requested": 3609600,
+        "predicted_logical_source_coefficient_bytes_requested": 3609600,
+        "measured_kernel_fft_builds": 164,
+        "predicted_kernel_fft_builds": 164,
+        "retained_levels": [],
+        "outputs_array_equal": true,
+        "maximum_absolute_output_difference": 0.0
+      },
+      {
+        "prefix_lags": 512,
+        "fine_equivalent_fft_cache_mb": 8,
+        "fft_rows": 4,
+        "measured_logical_source_coefficient_bytes_requested": 1638400,
+        "predicted_logical_source_coefficient_bytes_requested": 1638400,
+        "measured_kernel_fft_builds": 164,
+        "predicted_kernel_fft_builds": 164,
+        "retained_levels": [],
+        "outputs_array_equal": true,
+        "maximum_absolute_output_difference": 0.0
+      },
+      {
+        "prefix_lags": 32,
+        "fine_equivalent_fft_cache_mb": 2048,
+        "fft_rows": 4,
+        "measured_logical_source_coefficient_bytes_requested": 2227200,
+        "predicted_logical_source_coefficient_bytes_requested": 2227200,
+        "measured_kernel_fft_builds": 26,
+        "predicted_kernel_fft_builds": 26,
+        "retained_levels": [
+          32,
+          64,
+          128
+        ],
+        "outputs_array_equal": true,
+        "maximum_absolute_output_difference": 0.0
+      },
+      {
+        "prefix_lags": 512,
+        "fine_equivalent_fft_cache_mb": 2048,
+        "fft_rows": 1,
+        "measured_logical_source_coefficient_bytes_requested": 1638400,
+        "predicted_logical_source_coefficient_bytes_requested": 1638400,
+        "measured_kernel_fft_builds": 56,
+        "predicted_kernel_fft_builds": 56,
+        "retained_levels": [
+          32,
+          64,
+          128
+        ],
+        "outputs_array_equal": true,
+        "maximum_absolute_output_difference": 0.0
+      },
+      {
+        "prefix_lags": 1024,
+        "fine_equivalent_fft_cache_mb": 8,
+        "fft_rows": 1,
+        "measured_logical_source_coefficient_bytes_requested": 819200,
+        "predicted_logical_source_coefficient_bytes_requested": 819200,
+        "measured_kernel_fft_builds": 410,
+        "predicted_kernel_fft_builds": 410,
+        "retained_levels": [],
+        "outputs_array_equal": true,
+        "maximum_absolute_output_difference": 0.0
+      },
+      {
+        "prefix_lags": 256,
+        "fine_equivalent_fft_cache_mb": 2048,
+        "fft_rows": 2,
+        "measured_logical_source_coefficient_bytes_requested": 2048000,
+        "predicted_logical_source_coefficient_bytes_requested": 2048000,
+        "measured_kernel_fft_builds": 36,
+        "predicted_kernel_fft_builds": 36,
+        "retained_levels": [
+          32,
+          64,
+          128
+        ],
+        "outputs_array_equal": true,
+        "maximum_absolute_output_difference": 0.0
+      }
+    ],
+    "actual_appended_local_indices": [
+      0,
+      1696
+    ],
+    "observed_local_indices": [
+      386,
+      1696
+    ],
+    "prepared_horizon_complete": false
+  },
+  "control_cpu_receipt": {
+    "exit_code": 0,
+    "seconds": 4.9414969580248,
+    "final_wait4_cpu_seconds": 0.49314499999999994,
+    "charged_cpu_high_water_seconds": 0.49314499999999994,
+    "measured_average_cores": 0.09979668189396566,
+    "conservative_charged_average_cores": 0.09979668189396566,
+    "average_cpu_budget": 0.1,
+    "ps_counter_regressions": 0,
+    "maximum_ps_counter_drop_seconds": 0.0,
+    "owned_stop_cycles": 5,
+    "final_cpu_debt_cooldown_seconds": 0.4266271246597171,
+    "full_cpu_debt_repaid": true,
+    "ownership": "Parent retains unreaped Popen child; wait4 collects final CPU. Regressing ps samples never reduce charged CPU."
+  },
+  "public_helper_tests": {
+    "status": "passed_original_history_cost_numerical_controls",
+    "resource_receipt": {
+      "exit_code": 0,
+      "seconds": 5.781603707931936,
+      "final_wait4_cpu_seconds": 0.5771559999999999,
+      "charged_cpu_high_water_seconds": 0.5771559999999999,
+      "measured_average_cores": 0.09982628162635641,
+      "conservative_charged_average_cores": 0.09982628162635641,
+      "average_cpu_budget": 0.1,
+      "ps_counter_regressions": 0,
+      "maximum_ps_counter_drop_seconds": 0.0,
+      "owned_stop_cycles": 6,
+      "final_cpu_debt_cooldown_seconds": 0.25778699945658445,
+      "full_cpu_debt_repaid": true,
+      "ownership": "Parent retains unreaped Popen child; wait4 collects final CPU. Regressing ps samples never reduce charged CPU."
+    },
+    "source_sha256": {
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/history_access_cost.py": "dc7eef6a877d9d05d3924faac0f376e66d94db01828e7ada5ce603534b5dc298",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tests/test_history_access_cost.py": "491b76f9c3f289ee9761d012fb44f27cf0033a6912cd20f1e8dfee90dc24aa29"
+    },
+    "full_original_event_reproduced": false,
+    "same_accuracy_fem_advantage_verified": false
+  },
+  "original_case": {
+    "full_steps": 22500,
+    "dofs": 531,
+    "dt_s": 2e-06,
+    "global_next_step": 14451,
+    "first_correction_step": 14065,
+    "first_local_index": 386,
+    "last_local_index": 8435,
+    "remaining_append_calls": 8050,
+    "segment_substeps": [
+      64,
+      128
+    ]
+  },
+  "fine_forecast": [
+    {
+      "prefix_lags": 32,
+      "prefix_capacity_mib": 144,
+      "fft_cache_mb": 8,
+      "fft_rows": 4,
+      "total_array_budget_mib": 14336,
+      "actual_prefix_coefficient_bytes": 144364032,
+      "actual_retained_fft_capacity_used_bytes": 0,
+      "original_planner_mib": 13294.008605957031,
+      "planner_slack_mib": 357.60123443603516,
+      "array_plan_fits": true,
+      "logical_source_coefficient_bytes_requested": 364952272896,
+      "logical_prefix_setup_bytes": 144364032,
+      "kernel_fft_builds": 66766,
+      "retained_levels_built": [],
+      "fft_updates_by_block": {
+        "32": 126,
+        "64": 63,
+        "512": 8,
+        "128": 31,
+        "256": 15,
+        "1024": 4,
+        "2048": 2,
+        "4096": 1,
+        "8192": 1
+      },
+      "public_helper_result": {
+        "families": 2,
+        "effective_prefix_lags": 32,
+        "logical_source_coefficient_bytes_requested": 364952272896,
+        "kernel_fft_builds": 66766,
+        "fft_updates_per_family": {
+          "32": 126,
+          "64": 63,
+          "512": 8,
+          "128": 31,
+          "256": 15,
+          "1024": 4,
+          "2048": 2,
+          "4096": 1,
+          "8192": 1
+        },
+        "retained_levels_built": [],
+        "retained_fft_bytes_at_end": 0,
+        "counts_unqueried_future_targets_of_original_implementation": true,
+        "physical_disk_read_or_runtime_forecast": false
+      }
+    },
+    {
+      "prefix_lags": 512,
+      "prefix_capacity_mib": 2304,
+      "fft_cache_mb": 8,
+      "fft_rows": 4,
+      "total_array_budget_mib": 16384,
+      "actual_prefix_coefficient_bytes": 2309824512,
+      "actual_retained_fft_capacity_used_bytes": 0,
+      "original_planner_mib": 13294.008605957031,
+      "planner_slack_mib": 245.60123443603516,
+      "array_plan_fits": true,
+      "logical_source_coefficient_bytes_requested": 221743153152,
+      "logical_prefix_setup_bytes": 2309824512,
+      "kernel_fft_builds": 66766,
+      "retained_levels_built": [],
+      "fft_updates_by_block": {
+        "32": 126,
+        "64": 63,
+        "512": 8,
+        "128": 31,
+        "256": 15,
+        "1024": 4,
+        "2048": 2,
+        "4096": 1,
+        "8192": 1
+      },
+      "public_helper_result": {
+        "families": 2,
+        "effective_prefix_lags": 512,
+        "logical_source_coefficient_bytes_requested": 221743153152,
+        "kernel_fft_builds": 66766,
+        "fft_updates_per_family": {
+          "32": 126,
+          "64": 63,
+          "512": 8,
+          "128": 31,
+          "256": 15,
+          "1024": 4,
+          "2048": 2,
+          "4096": 1,
+          "8192": 1
+        },
+        "retained_levels_built": [],
+        "retained_fft_bytes_at_end": 0,
+        "counts_unqueried_future_targets_of_original_implementation": true,
+        "physical_disk_read_or_runtime_forecast": false
+      }
+    },
+    {
+      "prefix_lags": 32,
+      "prefix_capacity_mib": 144,
+      "fft_cache_mb": 2048,
+      "fft_rows": 4,
+      "total_array_budget_mib": 16384,
+      "actual_prefix_coefficient_bytes": 144364032,
+      "actual_retained_fft_capacity_used_bytes": 2048164704,
+      "original_planner_mib": 15247.29067993164,
+      "planner_slack_mib": 452.3191604614258,
+      "array_plan_fits": true,
+      "logical_source_coefficient_bytes_requested": 258411617280,
+      "logical_prefix_setup_bytes": 144364032,
+      "kernel_fft_builds": 8252,
+      "retained_levels_built": [
+        32,
+        64,
+        128
+      ],
+      "fft_updates_by_block": {
+        "32": 126,
+        "64": 63,
+        "512": 8,
+        "128": 31,
+        "256": 15,
+        "1024": 4,
+        "2048": 2,
+        "4096": 1,
+        "8192": 1
+      },
+      "public_helper_result": {
+        "families": 2,
+        "effective_prefix_lags": 32,
+        "logical_source_coefficient_bytes_requested": 258411617280,
+        "kernel_fft_builds": 8252,
+        "fft_updates_per_family": {
+          "32": 126,
+          "64": 63,
+          "512": 8,
+          "128": 31,
+          "256": 15,
+          "1024": 4,
+          "2048": 2,
+          "4096": 1,
+          "8192": 1
+        },
+        "retained_levels_built": [
+          32,
+          64,
+          128
+        ],
+        "retained_fft_bytes_at_end": 2048164704,
+        "counts_unqueried_future_targets_of_original_implementation": true,
+        "physical_disk_read_or_runtime_forecast": false
+      }
+    },
+    {
+      "prefix_lags": 512,
+      "prefix_capacity_mib": 2304,
+      "fft_cache_mb": 2048,
+      "fft_rows": 1,
+      "total_array_budget_mib": 16384,
+      "actual_prefix_coefficient_bytes": 2309824512,
+      "actual_retained_fft_capacity_used_bytes": 2048164704,
+      "original_planner_mib": 12109.046325683594,
+      "planner_slack_mib": 1430.5635147094727,
+      "array_plan_fits": true,
+      "logical_source_coefficient_bytes_requested": 221743153152,
+      "logical_prefix_setup_bytes": 2309824512,
+      "kernel_fft_builds": 32928,
+      "retained_levels_built": [
+        32,
+        64,
+        128
+      ],
+      "fft_updates_by_block": {
+        "32": 126,
+        "64": 63,
+        "512": 8,
+        "128": 31,
+        "256": 15,
+        "1024": 4,
+        "2048": 2,
+        "4096": 1,
+        "8192": 1
+      },
+      "public_helper_result": {
+        "families": 2,
+        "effective_prefix_lags": 512,
+        "logical_source_coefficient_bytes_requested": 221743153152,
+        "kernel_fft_builds": 32928,
+        "fft_updates_per_family": {
+          "32": 126,
+          "64": 63,
+          "512": 8,
+          "128": 31,
+          "256": 15,
+          "1024": 4,
+          "2048": 2,
+          "4096": 1,
+          "8192": 1
+        },
+        "retained_levels_built": [
+          32,
+          64,
+          128
+        ],
+        "retained_fft_bytes_at_end": 2048164704,
+        "counts_unqueried_future_targets_of_original_implementation": true,
+        "physical_disk_read_or_runtime_forecast": false
+      }
+    },
+    {
+      "prefix_lags": 1024,
+      "prefix_capacity_mib": 4608,
+      "fft_cache_mb": 8,
+      "fft_rows": 1,
+      "total_array_budget_mib": 16384,
+      "actual_prefix_coefficient_bytes": 4619649024,
+      "actual_retained_fft_capacity_used_bytes": 0,
+      "original_planner_mib": 10107.814147949219,
+      "planner_slack_mib": 1127.7956924438477,
+      "array_plan_fits": true,
+      "logical_source_coefficient_bytes_requested": 184785960960,
+      "logical_prefix_setup_bytes": 4619649024,
+      "kernel_fft_builds": 266562,
+      "retained_levels_built": [],
+      "fft_updates_by_block": {
+        "32": 126,
+        "64": 63,
+        "512": 8,
+        "128": 31,
+        "256": 15,
+        "1024": 4,
+        "2048": 2,
+        "4096": 1,
+        "8192": 1
+      },
+      "public_helper_result": {
+        "families": 2,
+        "effective_prefix_lags": 1024,
+        "logical_source_coefficient_bytes_requested": 184785960960,
+        "kernel_fft_builds": 266562,
+        "fft_updates_per_family": {
+          "32": 126,
+          "64": 63,
+          "512": 8,
+          "128": 31,
+          "256": 15,
+          "1024": 4,
+          "2048": 2,
+          "4096": 1,
+          "8192": 1
+        },
+        "retained_levels_built": [],
+        "retained_fft_bytes_at_end": 0,
+        "counts_unqueried_future_targets_of_original_implementation": true,
+        "physical_disk_read_or_runtime_forecast": false
+      }
+    },
+    {
+      "prefix_lags": 256,
+      "prefix_capacity_mib": 1152,
+      "fft_cache_mb": 2048,
+      "fft_rows": 2,
+      "total_array_budget_mib": 16384,
+      "actual_prefix_coefficient_bytes": 1154912256,
+      "actual_retained_fft_capacity_used_bytes": 2048164704,
+      "original_planner_mib": 13123.161041259766,
+      "planner_slack_mib": 1568.4487991333008,
+      "array_plan_fits": true,
+      "logical_source_coefficient_bytes_requested": 256390520832,
+      "logical_prefix_setup_bytes": 1154912256,
+      "kernel_fft_builds": 16498,
+      "retained_levels_built": [
+        32,
+        64,
+        128
+      ],
+      "fft_updates_by_block": {
+        "32": 126,
+        "64": 63,
+        "512": 8,
+        "128": 31,
+        "256": 15,
+        "1024": 4,
+        "2048": 2,
+        "4096": 1,
+        "8192": 1
+      },
+      "public_helper_result": {
+        "families": 2,
+        "effective_prefix_lags": 256,
+        "logical_source_coefficient_bytes_requested": 256390520832,
+        "kernel_fft_builds": 16498,
+        "fft_updates_per_family": {
+          "32": 126,
+          "64": 63,
+          "512": 8,
+          "128": 31,
+          "256": 15,
+          "1024": 4,
+          "2048": 2,
+          "4096": 1,
+          "8192": 1
+        },
+        "retained_levels_built": [
+          32,
+          64,
+          128
+        ],
+        "retained_fft_bytes_at_end": 2048164704,
+        "counts_unqueried_future_targets_of_original_implementation": true,
+        "physical_disk_read_or_runtime_forecast": false
+      }
+    }
+  ],
+  "logical_reads_exclude_full_weight_sha_initialization_and_compilation": true,
+  "logical_reads_do_not_equal_physical_disk_traffic": true,
+  "original_full_kernel_and_active_queue_unchanged": true,
+  "simulation_equations_and_all_history_terms_unchanged": true,
+  "full_original_event_reproduced": false,
+  "same_accuracy_fem_advantage_verified": false,
+  "scope": "Logical coefficient slice requests and FFT call counts, not physical disk reads or runtime. Keeps the original unqueried future targets as implemented. Includes no kernel hash/initialization/compile cost; prefix setup listed separately. Mapped pages/OS caches excluded from array planning. No new fine simulation, timing or physical-accuracy claim."
+}
