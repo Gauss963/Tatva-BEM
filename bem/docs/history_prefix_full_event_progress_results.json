@@ -1,6 +1,6 @@
 {
   "utc": "2026-11-03T02:39:02.555463+00:00",
-  "status": "full_original_cases_running_with_exact_prefix_storage",
+  "status": "both_full_cases_failed_same_step_local_root_now_recovered",
   "goal_achieved": false,
   "full_original_event_reproduced": false,
   "same_accuracy_fem_advantage_verified": false,
@@ -1120,5 +1120,162 @@
   "queue_source": "\"\"\"Run original 45 ms cases with validated exact prefix storage, serially.\n\nPause/resume the existing owner/quota/numerical process group without changing\nits source, inputs or memory. The new queue keeps the original event/audit/AD\nsuffix and all gates. This is neither a durable checkpoint nor a speed claim.\n\"\"\"\nimport ast,copy,hashlib,importlib.metadata,json,os,platform,runpy,signal,subprocess,time,urllib.request\nfrom pathlib import Path\nfrom datetime import datetime,timezone\nROOT=Path('/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM')\nBASE=ROOT/'bem/outputs/resumed-radau-event-study-20261103'\nSOURCE=ROOT/'bem/outputs/resumed-radau-fine-study-20261028.py'\nOUT=ROOT/'bem/outputs/prefix-cached-original-event-study-20261103'\nAUDIT=Path('/Volumes/Gauss-T7/Tatva-BEM-cache/prefix-cached-original-causal-audit-20261103')\nKERNEL=Path('/Volumes/Gauss-T7/Tatva-BEM-cache/fresh-radau2us-graded-q12-full45-20261028')\nPDE=ROOT/'bem/outputs/prefix-pde-control-20261103-v2'\nCLI=ROOT/'bem/outputs/prefix-cli-control-20261103-v1'\nCOMMIT='983c377dcd1e62db03874804b7ffdb41ba2383c0'\nPYTHON='/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python'\nLIMIT=runpy.run_path(str(ROOT/'bem/tools/limit_process_cpu.py'))\nstarted=time.perf_counter();paused=[];identities={};baseline_pause=None;namespace=None\n\ndef now():return datetime.now(timezone.utc).isoformat()\ndef read(p):return json.loads(Path(p).read_text())\ndef sha(p):\n h=hashlib.sha256()\n with Path(p).open('rb')as f:\n  for b in iter(lambda:f.read(4*1024**2),b''):h.update(b)\n return h.hexdigest()\ndef write(name,value):\n p=OUT/name;temporary=p.with_suffix('.tmp');temporary.write_text(json.dumps(value,indent=2,allow_nan=False)+'\\n');temporary.replace(p)\ndef launcher(phase,**extra):write('launcher-status.json',dict(phase=phase,pid=os.getpid(),utc=now(),seconds=time.perf_counter()-started,goal_achieved=False,**extra))\ndef sample(role):\n identity=identities[role];current=LIMIT['sample_process'](identity['pid'])\n if not LIMIT['validate_identity'](current,identity['start'],identity['fragment']):raise RuntimeError('Owned baseline '+role+' is terminal; inspect before scheduling')\n return current\n\ndef stop_role(role):\n current=sample(role)\n if role!='numerical' and 'T'in current['state']:raise RuntimeError('Baseline '+role+' was already externally stopped')\n os.kill(identities[role]['pid'],signal.SIGSTOP);paused.append(role)\n for _ in range(100):\n  if 'T'in sample(role)['state']:return\n  time.sleep(.01)\n raise RuntimeError('Baseline '+role+' did not acknowledge pause')\n\ndef resume_baseline():\n if not paused:return\n before={role:sample(role)for role in paused}\n resumed=[]\n # Resume numerical first so the unchanged quota cannot observe an external\n # stop; owner resumes last so its child/controller handles remain live.\n for role in ['numerical','quota','owner']:\n  if role in paused:\n   sample(role);os.kill(identities[role]['pid'],signal.SIGCONT);resumed.append(role)\n write('baseline-resume.json',dict(utc=now(),identities=identities,before=before,resumed=resumed,\n  pause_seconds=None if baseline_pause is None else time.perf_counter()-baseline_pause,\n  same_process_memory_retained=True,durable_checkpoint=False))\n paused.clear()\n\nif OUT.exists()or AUDIT.exists():raise RuntimeError('Require fresh owned event/audit directories')\nOUT.mkdir();launcher('preflight')\ntry:\n frozen=read(BASE/'frozen_inputs.json')\n if any(sha(p)!=v for p,v in frozen.items()):raise RuntimeError('Original numerical/protected input changed')\n kernel=read(KERNEL/'summary.json')\n package={p.name:sha(p)for p in sorted((ROOT/'bem/src/finiteblock_bem').glob('*.py'))}\n if package!=kernel['environment']['source_sha256']:raise RuntimeError('Complete original package fingerprint changed')\n if kernel['status']!='completed_compact_radau_resolvent_kernel_only'or kernel['full_steps']!=22500 or kernel['correction_steps']!=22500 or kernel['dt_s']!=2e-6 or read(KERNEL/'sampling-journal.json')['phase']!='completed':raise RuntimeError('Require unchanged complete original kernel')\n for name in ['numpy','scipy']:\n  if importlib.metadata.version(name)!=kernel['environment'][name]:raise RuntimeError('Kernel runtime changed')\n context=read(ROOT/'bem/outputs/trace-policy-coarse-kernel-20261101-v1/jax-backend-context.json')['runtime']\n for name in ['jax','jaxlib']:\n  if importlib.metadata.version(name)!=context[name]:raise RuntimeError('Verified JAX runtime changed')\n if platform.platform()!=kernel['environment']['platform']:raise RuntimeError('Host platform changed')\n if subprocess.check_output(['git','status','--porcelain','--untracked-files=all','--','bem/tools','bem/src','bem/tests'],cwd=ROOT,text=True).strip():raise RuntimeError('Require clean numerical worktree')\n if subprocess.run(['git','diff','--quiet',COMMIT,'--','bem/tools','bem/src','bem/tests'],cwd=ROOT).returncode:raise RuntimeError('Numerical sources differ from verified commit')\n proof=read(PDE/'coarse/summary.json');cli=read(CLI/'summary.json')\n if proof['status']!='passed_complete_coarse_prefix_cache_sliding_and_initialized_ad'or not all(proof['array_bitwise_equality'].values())or proof['complete_causal_weight_relative_error']!=0:raise RuntimeError('Complete same-kernel primal/initialized AD proof missing')\n if cli['status']!='passed_actual_original_and_cached_complete_coarse_cli'or not all(all(v.values())for v in cli['array_member_bitwise_equality'].values()):raise RuntimeError('Actual complete CLI byte proof missing')\n for p,v in read(PDE/'frozen_inputs.json').items():\n  if sha(p)!=v:raise RuntimeError('Completed validation source changed')\n for p,v in read(CLI/'frozen_inputs.json').items():\n  if sha(p)!=v:raise RuntimeError('Completed actual CLI validation source changed')\n tree=ast.parse(SOURCE.read_text());boundary=next(i for i,n in enumerate(tree.body)if isinstance(n,ast.Expr)and ast.unparse(n)=='os.chdir(ROOT)')\n original=next(n for n in tree.body[boundary:]if isinstance(n,ast.Try));start=next(i for i,n in enumerate(original.body)if isinstance(n,ast.Assign)and ast.unparse(n)=='runs = []')\n tail=copy.deepcopy(original);tail.body=tail.body[start:];changes=0\n for node in ast.walk(tail):\n  if isinstance(node,ast.Call)and isinstance(node.func,ast.Name)and node.func.id=='execute'and len(node.args)>1 and isinstance(node.args[1],ast.Constant)and node.args[1].value=='simulate_compact_radau.py':\n   node.args[1]=ast.Constant(value='simulate_prefix_cached_radau.py')\n   found=0\n   for i,value in enumerate(node.args[:-1]):\n    if isinstance(value,ast.Constant)and value.value=='--max-memory-mb':\n     if not isinstance(node.args[i+1],ast.Constant)or node.args[i+1].value!=12288:raise RuntimeError('Original budget boundary changed')\n     node.args[i+1]=ast.Constant(value=14336);found+=1\n   if found!=1:raise RuntimeError('Require one shared simulation resource argument')\n   node.args.extend([ast.Constant(value=x)for x in ['--history-prefix-cache-mb',144,'--history-prefix-lags',32]]);changes+=1\n if changes!=1:raise RuntimeError('Require exactly the original shared simulation call')\n namespace={'__name__':'prefix_full_event_queue','__file__':str(Path(__file__).resolve())}\n exec(compile(ast.Module(body=tree.body[:boundary],type_ignores=[]),str(SOURCE)+'|helpers','exec'),namespace)\n namespace.update(STUDY=OUT,AUDIT=AUDIT,frozen=frozen.copy(),fem=read(namespace['FEM']/'summary.json'))\n for p in [Path(__file__),SOURCE,PDE/'summary.json',PDE/'coarse/summary.json',CLI/'summary.json',KERNEL/'summary.json',*list((ROOT/'bem/tools').glob('*.py'))]:namespace['frozen'][str(p.resolve())]=sha(p)\n write('frozen_inputs.json',namespace['frozen'])\n write('recovery_manifest.json',dict(utc=now(),source_queue=str(SOURCE),source_queue_sha256=sha(SOURCE),numerical_source_commit=COMMIT,\n  numerical_suffix_ast_sha256=hashlib.sha256(ast.dump(tail,include_attributes=False).encode()).hexdigest(),\n  full_horizon_and_all_gates_unchanged=True,steps=22500,duration_s=.045,dt_s=2e-6,\n  changes=dict(simulation_tool='simulate_prefix_cached_radau.py',max_memory_mb_before=12288,max_memory_mb_after=14336,history_prefix_cache_mb=144,history_prefix_lags=32),\n  fem_record_bound_for_existing_cost_finalizer=True,original_kernel_not_rebuilt_or_migrated=True,cpu_budget_cores=3.85,hard_rss_cap=False,goal_achieved=False))\n write('inherited_costs.json',dict(original_event_queue_status=read(BASE/'status.json'),original_queue_inherited_costs=read(BASE/'inherited_costs.json'),prefix_pde_control=read(PDE/'summary.json'),prefix_cli_control=cli,\n  all_previously_paid_work_retained=True,original_partial_event_memory_not_discarded=True,isolated_runtime_advantage=False,cost_rule='Retain constructor, validation, paused baseline and new simulation costs. Use UTC interval unions for workflow elapsed time; no nested stage intervals added twice.'))\n while True:\n  namespace['verify']()\n  request=urllib.request.Request('https://api.github.com/repos/Gauss963/Tatva-BEM/actions/runs?head_sha='+COMMIT+'&per_page=5',headers={'User-Agent':'Tatva-BEM-validation'})\n  with urllib.request.urlopen(request,timeout=20)as response:runs=json.load(response)['workflow_runs']\n  selected=[r for r in runs if r['head_sha']==COMMIT and r['name']=='BEM verification']\n  if selected and selected[0]['status']=='completed':\n   if selected[0]['conclusion']!='success':raise RuntimeError('Exact numerical-source CI failed; baseline left running')\n   write('ci.json',{k:selected[0][k]for k in ['id','head_sha','status','conclusion','html_url']});break\n  launcher('waiting_for_exact_source_ci_baseline_running',head_sha=COMMIT);time.sleep(30)\n # Require the known live baseline group. A changed stage/PID is inspected\n # separately; it is never mistaken for a reason to restart numerical work.\n base=read(BASE/'status.json')\n if base['pid']!=84733 or base['child_pid']!=84742 or base['controller_pid']!=84744:raise RuntimeError('Baseline advanced; inspect current handles before serializing')\n for role,pid,anchor,fragment in [\n  ('owner',84733,'Tue Nov 3 09:00:44 2026','resume-complete-radau-events-20261103-v2.py'),\n  ('numerical',84742,'Tue Nov 3 09:00:45 2026','simulate_compact_radau.py'),\n  ('quota',84744,'Tue Nov 3 09:00:45 2026','limit_process_cpu.py')]:\n  identities[role]=dict(pid=pid,start=anchor,fragment=fragment);sample(role)\n before={role:sample(role)for role in identities};baseline_pause=time.perf_counter()\n stop_role('owner');stop_role('quota');stop_role('numerical')\n write('baseline-pause.json',dict(utc=now(),identities=identities,before=before,after={role:sample(role)for role in identities},pause_order=paused.copy(),memory_preserved=True,durable_checkpoint=False,resume_guarantee='finally resumes same numerical/quota/owner identities; no source or original output modified'))\n original_verify=namespace['verify']\n def verify_serial():\n  original_verify()\n  if any('T'not in sample(role)['state']for role in identities):raise RuntimeError('Baseline group no longer held; stop new work before exceeding CPU budget')\n namespace['verify']=verify_serial\n launcher('running_original_full_cases_with_prefix_baseline_held',identities=identities)\n os.chdir(ROOT)\n exec(compile(ast.fix_missing_locations(ast.Module(body=[tail],type_ignores=[])),str(SOURCE)+'|prefix-full-events','exec'),namespace)\n launcher('full_cached_queue_terminal_resuming_baseline')\nexcept BaseException as error:\n launcher('attention_required',reason=repr(error))\n raise\nfinally:\n resume_baseline()\n",
   "queue_source_sha256": "892a90ff227d04a2b6f3fbf28c710e2ad9bc58875807f38c2c791a77dcb43cdc",
   "process_snapshot": "  PID  PPID STARTED                       ELAPSED      TIME  %CPU    RSS STAT COMMAND\n13504     1 Tue Nov  3 10:30:36 2026        08:26   0:01.06   0.0  19952 Ss   /opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python -B /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/run-prefix-cached-original-events-20261103-v1.py\n13530 13504 Tue Nov  3 10:30:37 2026        08:25   2:24.47   8.5 5582432 R    /opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python -B /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/simulate_prefix_cached_radau.py /Volumes/Gauss-T7/Tatva-BEM-cache/fresh-radau2us-graded-q12-full45-20261028 --output /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/prefix-cached-original-event-study-20261103/complete_event_segments64-128 --restart-seed /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/data/ev16_restart_float64.npz --static-initialization fem-body-active-set --segment-substeps 64 128 --contact-root-recovery --kinetic-root-seed --fft-cache-mb 8 --fft-rows 4 --max-memory-mb 14336 --history-prefix-cache-mb 144 --history-prefix-lags 32\n13532 13504 Tue Nov  3 10:30:37 2026        08:25   0:02.93   0.8  10048 S    /opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python -B /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/limit_process_cpu.py --pid 13530 --expected-start Tue Nov  3 10:30:37 2026 --expected-command-fragment /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/simulate_prefix_cached_radau.py --cores 3.85 --output /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/prefix-cached-original-event-study-20261103/complete_event_segments64-128-cpu-quota\n84733     1 Tue Nov  3 09:00:44 2026     01:38:18   0:03.70   0.0   3952 Ts   /opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python -B /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/resume-complete-radau-events-20261103-v2.py\n84742 84733 Tue Nov  3 09:00:45 2026     01:38:17  36:23.34   0.0   8800 T    /opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python -B /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/simulate_compact_radau.py /Volumes/Gauss-T7/Tatva-BEM-cache/fresh-radau2us-graded-q12-full45-20261028 --output /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/resumed-radau-event-study-20261103/complete_event_segments64-128 --restart-seed /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/data/ev16_restart_float64.npz --static-initialization fem-body-active-set --segment-substeps 64 128 --contact-root-recovery --kinetic-root-seed --fft-cache-mb 8 --fft-rows 4 --max-memory-mb 14336\n84744 84733 Tue Nov  3 09:00:45 2026     01:38:17   0:31.88   0.0   3168 T    /opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python -B /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/limit_process_cpu.py --pid 84742 --expected-start Tue Nov  3 09:00:45 2026 --expected-command-fragment /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/simulate_compact_radau.py --cores 3.85 --output /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/resumed-radau-event-study-20261103/complete_event_segments64-128-cpu-quota\n",
-  "remaining": "Both complete trajectories, original causal audit, contact/FEM whole fields, initialized AD gates; independent macro-time/space/FEM convergence, physical energy/events and same-accuracy stability or isolated total-time advantage remain unproven."
+  "remaining": "Both complete trajectories, original causal audit, contact/FEM whole fields, initialized AD gates; independent macro-time/space/FEM convergence, physical energy/events and same-accuracy stability or isolated total-time advantage remain unproven.",
+  "snapshot_status": "Historical launch snapshot; superseded by terminal_result below.",
+  "terminal_result": {
+    "study_status": {
+      "phase": "attention_required",
+      "pid": 13504,
+      "utc": "2026-11-03T03:25:17.161418+00:00",
+      "elapsed_seconds": 3280.4114518333226,
+      "stages": [
+        {
+          "name": "complete_event_segments64-128",
+          "exit_code": 1,
+          "seconds": 3279.905019916594,
+          "utc_start": "2026-11-03T02:30:37.283118+00:00",
+          "utc_end": "2026-11-03T03:25:17.158892+00:00",
+          "command": [
+            "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python",
+            "-B",
+            "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/simulate_prefix_cached_radau.py",
+            "/Volumes/Gauss-T7/Tatva-BEM-cache/fresh-radau2us-graded-q12-full45-20261028",
+            "--output",
+            "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/prefix-cached-original-event-study-20261103/complete_event_segments64-128",
+            "--restart-seed",
+            "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/data/ev16_restart_float64.npz",
+            "--static-initialization",
+            "fem-body-active-set",
+            "--segment-substeps",
+            "64",
+            "128",
+            "--contact-root-recovery",
+            "--kinetic-root-seed",
+            "--fft-cache-mb",
+            "8",
+            "--fft-rows",
+            "4",
+            "--max-memory-mb",
+            "14336",
+            "--history-prefix-cache-mb",
+            "144",
+            "--history-prefix-lags",
+            "32"
+          ]
+        }
+      ],
+      "goal_achieved": false,
+      "full_original_event_reproduced": false,
+      "same_accuracy_fem_advantage_verified": false,
+      "reason": "RuntimeError('complete_event_segments64-128 failed; preserve all saved data and inspect its log')",
+      "numerical_child_pid": 13530
+    },
+    "failure": {
+      "status": "failed_radau_nonlinear_equilibrium",
+      "failed_step": 14451,
+      "residual_mpa": 7.435954410063236,
+      "kernel": "/Volumes/Gauss-T7/Tatva-BEM-cache/fresh-radau2us-graded-q12-full45-20261028",
+      "segment_substeps": [
+        64,
+        128
+      ],
+      "completed_requested_horizon": false,
+      "failed_equilibrium_sha256": "17cd0164af4ad06bc386872b3c3cd42a4ac0b7d4e9ec41dc4570a516eb000c7d",
+      "scope": "Captured local coupled stage equation and accepted prefix; not a resumable history checkpoint"
+    },
+    "baseline_resume": {
+      "utc": "2026-11-03T03:25:17.200572+00:00",
+      "identities": {
+        "owner": {
+          "pid": 84733,
+          "start": "Tue Nov 3 09:00:44 2026",
+          "fragment": "resume-complete-radau-events-20261103-v2.py"
+        },
+        "numerical": {
+          "pid": 84742,
+          "start": "Tue Nov 3 09:00:45 2026",
+          "fragment": "simulate_compact_radau.py"
+        },
+        "quota": {
+          "pid": 84744,
+          "start": "Tue Nov 3 09:00:45 2026",
+          "fragment": "limit_process_cpu.py"
+        }
+      },
+      "before": {
+        "owner": {
+          "start": "Tue Nov 3 09:00:44 2026",
+          "state": "Ts",
+          "cpu_seconds": 3.7,
+          "command": "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python -B /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/resume-complete-radau-events-20261103-v2.py"
+        },
+        "quota": {
+          "start": "Tue Nov 3 09:00:45 2026",
+          "state": "T",
+          "cpu_seconds": 31.88,
+          "command": "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python -B /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/limit_process_cpu.py --pid 84742 --expected-start Tue Nov  3 09:00:45 2026 --expected-command-fragment /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/simulate_compact_radau.py --cores 3.85 --output /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/resumed-radau-event-study-20261103/complete_event_segments64-128-cpu-quota"
+        },
+        "numerical": {
+          "start": "Tue Nov 3 09:00:45 2026",
+          "state": "T",
+          "cpu_seconds": 2183.34,
+          "command": "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python -B /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/simulate_compact_radau.py /Volumes/Gauss-T7/Tatva-BEM-cache/fresh-radau2us-graded-q12-full45-20261028 --output /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/resumed-radau-event-study-20261103/complete_event_segments64-128 --restart-seed /Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/data/ev16_restart_float64.npz --static-initialization fem-body-active-set --segment-substeps 64 128 --contact-root-recovery --kinetic-root-seed --fft-cache-mb 8 --fft-rows 4 --max-memory-mb 14336"
+        }
+      },
+      "resumed": [
+        "numerical",
+        "quota",
+        "owner"
+      ],
+      "pause_seconds": 3279.9821235006675,
+      "same_process_memory_retained": true,
+      "durable_checkpoint": false
+    },
+    "capture_not_resumable_checkpoint": true,
+    "local_root_probe": "Original LM did not recover root. Fixed-seed multistart with all 13 unweakened nodes and normal coupling recovered the original full equation; full CQ state not yet resumed.",
+    "original_baseline_terminal": {
+      "phase": "attention_required",
+      "pid": 84733,
+      "utc": "2026-11-03T07:42:07.881603+00:00",
+      "elapsed_seconds": 24082.833923333324,
+      "stages": [
+        {
+          "name": "complete_event_segments64-128",
+          "exit_code": 1,
+          "seconds": 24082.825620708056,
+          "utc_start": "2026-11-03T01:00:45.057944+00:00",
+          "utc_end": "2026-11-03T07:42:07.878606+00:00",
+          "command": [
+            "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python",
+            "-B",
+            "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/simulate_compact_radau.py",
+            "/Volumes/Gauss-T7/Tatva-BEM-cache/fresh-radau2us-graded-q12-full45-20261028",
+            "--output",
+            "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/resumed-radau-event-study-20261103/complete_event_segments64-128",
+            "--restart-seed",
+            "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/data/ev16_restart_float64.npz",
+            "--static-initialization",
+            "fem-body-active-set",
+            "--segment-substeps",
+            "64",
+            "128",
+            "--contact-root-recovery",
+            "--kinetic-root-seed",
+            "--fft-cache-mb",
+            "8",
+            "--fft-rows",
+            "4",
+            "--max-memory-mb",
+            "14336"
+          ]
+        }
+      ],
+      "goal_achieved": false,
+      "full_original_event_reproduced": false,
+      "same_accuracy_fem_advantage_verified": false,
+      "reason": "RuntimeError('complete_event_segments64-128 failed; preserve all saved data and inspect its log')",
+      "numerical_child_pid": 84742
+    },
+    "local_root_result": "captured_radau_failure_results.json"
+  }
 }

@@ -5,7 +5,12 @@
 此版本已實作彈性波核、完整時間歷史、有限區域邊界、單向接觸、線性滑移弱化與剛性 platen／彈簧耦合。
 **已完成原載入歷程的 45 ms 粗網格推進，尚未完成原解析度的收斂重現。**
 2026-11-03：[原細網格完整 kernel 已完成](docs/full_original_radau_progress.md)，
-修正啟動前的記憶體預算門檻後，原速率 22500 步非線性事件正在執行；尚無全程 FEM 一致性結論。
+cached 原速率事件在第 14451 步／28.902 ms 因平衡 residual 7.43595 MPa 失敗，
+已保存前綴與方程；原基準後來也在相同步驟失敗，兩份 capture 的全部 members 逐 byte 相同。
+已找到[通過原完整方程的局部根](docs/captured_radau_failure.md)，殘差約 `1.54e-11 MPa`；
+完整 CQ 恢復與全程 FEM 對照仍待完成。
+新增[保留局部 JAX AD 的切線組裝](docs/identity_stage_tangent.md)，
+完整粗網格解／初始化梯度與細網格代數控制通過；單項 CPU 改善尚非全程速度優勢。
 新的 [FEM dt/16 完整窗口](docs/fem_dt16_window.md)仍未通過參考解的時間收斂診斷：
 dt/8 對 dt/16 的壓力／剪力時空差為 12.86%／9.94%，完整 BEM 對照門檻維持原設定。
 新增[原生接觸路徑觀測與最佳時間投影](docs/fem_native_contact_paths.md)：

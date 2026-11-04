@@ -1,0 +1,14 @@
+{
+  "status": "failed_radau_nonlinear_equilibrium",
+  "failed_step": 14451,
+  "residual_mpa": 7.435954410063236,
+  "kernel": "/Volumes/Gauss-T7/Tatva-BEM-cache/fresh-radau2us-graded-q12-full45-20261028",
+  "segment_substeps": [
+    64,
+    128
+  ],
+  "completed_requested_horizon": false,
+  "failed_equilibrium_sha256": "6d2bbf84486d108c597c42decf6b641bfc658bbdc41c6a12b8891bcc26ee3ddc",
+  "scope": "Local stage equation only; accepted prefix omitted from public artifact. Not a CQ checkpoint.",
+  "original_accepted_prefix_capture_sha256": "17cd0164af4ad06bc386872b3c3cd42a4ac0b7d4e9ec41dc4570a516eb000c7d"
+}

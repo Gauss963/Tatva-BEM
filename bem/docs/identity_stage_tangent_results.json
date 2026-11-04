@@ -1,0 +1,316 @@
+{
+  "status": "passed_identity_tangent_coarse_initialized_control",
+  "coarse": {
+    "status": "passed_complete_coarse_mixed_cache_sliding_and_initialized_ad",
+    "plan": {
+      "dt": 2e-06,
+      "steps": 128,
+      "dofs": 11,
+      "fft_size": 512,
+      "radius": 0.9560239010953075,
+      "estimated_peak_bytes": 990616,
+      "weight_bytes": 124872
+    },
+    "all_physical_contour_modes_checked": false,
+    "physical_contour_mode_evaluations": 0,
+    "additional_unique_lag_zero_modes": 0,
+    "maximum_raw_mixed_normalized_error": null,
+    "maximum_schur_relative_error": null,
+    "complete_causal_weight_relative_error": 0.0,
+    "saved_stage_relative_errors": {
+      "displacement": 0.0,
+      "response": 0.0,
+      "gradient": 2.966648443743638e-23,
+      "actuator_gradient": 0.0,
+      "jvp": 0.0
+    },
+    "initialized_gradient_mixed_normalized_errors": {
+      "gradient": 2.773867194772074e-07,
+      "actuator_gradient": 0.0,
+      "jvp": 0.0
+    },
+    "initialized_jvp_vjp_mixed_normalized_errors": {
+      "original": 4.454285848033672e-06,
+      "mixed": 4.731672567510757e-06
+    },
+    "final_max_cumulative_slip_mm": {
+      "original": 1.0338219799612165,
+      "mixed": 1.0338219799612165
+    },
+    "cached_input_validation_seconds": 1.6932607078924775,
+    "all_history_retained": true,
+    "fitted_time_shift_s": 0,
+    "cached_kernel_validation": {
+      "original": {
+        "folder": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/trace-policy-coarse-kernel-20261101-v1",
+        "summary_sha256": "ec8e7eb8a5dc07c8ab39548c006097a7468f8b7c7b97b98223c516e5b34a45f8",
+        "actual_saved_time_weights_used": true,
+        "unchanged_cached_numerical_repo_sources": 21,
+        "independent_spectral_inversion_tolerance": {
+          "rtol": 1e-08,
+          "atol": 1e-12
+        }
+      },
+      "mixed": {
+        "folder": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/trace-policy-coarse-kernel-20261101-v1",
+        "summary_sha256": "ec8e7eb8a5dc07c8ab39548c006097a7468f8b7c7b97b98223c516e5b34a45f8",
+        "actual_saved_time_weights_used": true,
+        "unchanged_cached_numerical_repo_sources": 21,
+        "independent_spectral_inversion_tolerance": {
+          "rtol": 1e-08,
+          "atol": 1e-12
+        }
+      }
+    },
+    "array_value_equality": {
+      "displacement": true,
+      "response": true,
+      "gradient": false,
+      "actuator_gradient": true,
+      "jvp": true
+    },
+    "maximum_absolute_array_difference": {
+      "displacement": 0.0,
+      "response": 0.0,
+      "gradient": 3.3087224502121107e-23,
+      "actuator_gradient": 0.0,
+      "jvp": 0.0
+    },
+    "policies": [
+      {
+        "applied": true,
+        "contact_nodes": 5,
+        "stage_dofs": 22,
+        "contact_scatter_entries": 80,
+        "dense_contact_products_removed": 16,
+        "local_ad_unchanged": true,
+        "original_dense_bulk_retained": true,
+        "original_residual_and_root_unchanged": true,
+        "nonfinite_uses_original_tangent": true
+      },
+      {
+        "applied": true,
+        "contact_nodes": 5,
+        "stage_dofs": 22,
+        "contact_scatter_entries": 80,
+        "dense_contact_products_removed": 16,
+        "local_ad_unchanged": true,
+        "original_dense_bulk_retained": true,
+        "original_residual_and_root_unchanged": true,
+        "nonfinite_uses_original_tangent": true
+      },
+      {
+        "applied": true,
+        "contact_nodes": 5,
+        "stage_dofs": 22,
+        "contact_scatter_entries": 80,
+        "dense_contact_products_removed": 16,
+        "local_ad_unchanged": true,
+        "original_dense_bulk_retained": true,
+        "original_residual_and_root_unchanged": true,
+        "nonfinite_uses_original_tangent": true
+      }
+    ],
+    "same_prefix_cache_in_both_variants": true,
+    "calls": {
+      "simulate": 2,
+      "ad": 4,
+      "history": 4
+    }
+  },
+  "fine": {
+    "policy": {
+      "applied": true,
+      "contact_nodes": 265,
+      "stage_dofs": 1062,
+      "contact_scatter_entries": 4240,
+      "dense_contact_products_removed": 16,
+      "local_ad_unchanged": true,
+      "original_dense_bulk_retained": true,
+      "original_residual_and_root_unchanged": true,
+      "nonfinite_uses_original_tangent": true
+    },
+    "probes": {
+      "initial": {
+        "matrix_relative_errors": {
+          "None": 0.0,
+          "inf": 0.0
+        },
+        "independent_jvp_relative_errors": {
+          "original": [
+            2.09820986150115e-16,
+            1.9580638419238324e-16,
+            2.2901686888122084e-16
+          ],
+          "candidate": [
+            2.09820986150115e-16,
+            1.9580638419238324e-16,
+            2.2901686888122084e-16
+          ]
+        },
+        "cpu_seconds": {
+          "original": [
+            0.11790999999999485,
+            0.10558500000000492,
+            0.10390299999999542
+          ],
+          "candidate": [
+            0.007330000000003167,
+            0.007300999999998226,
+            0.006408000000000413
+          ]
+        }
+      },
+      "sliding": {
+        "matrix_relative_errors": {
+          "None": 0.0,
+          "inf": 0.0
+        },
+        "independent_jvp_relative_errors": {
+          "original": [
+            2.09820986150115e-16,
+            1.9580638419238324e-16,
+            2.2901686888122084e-16
+          ],
+          "candidate": [
+            2.09820986150115e-16,
+            1.9580638419238324e-16,
+            2.2901686888122084e-16
+          ]
+        },
+        "cpu_seconds": {
+          "original": [
+            0.10537500000000222,
+            0.10127200000000158,
+            0.1093140000000048
+          ],
+          "candidate": [
+            0.006569999999996412,
+            0.006795000000003881,
+            0.0059749999999993975
+          ]
+        }
+      },
+      "opening": {
+        "matrix_relative_errors": {
+          "None": 0.0,
+          "inf": 0.0
+        },
+        "independent_jvp_relative_errors": {
+          "original": [
+            2.519015427981231e-16,
+            2.5172880836172574e-16,
+            2.5865650634993836e-16
+          ],
+          "candidate": [
+            2.519015427981231e-16,
+            2.5172880836172574e-16,
+            2.5865650634993836e-16
+          ]
+        },
+        "cpu_seconds": {
+          "original": [
+            0.11390700000000464,
+            0.10517899999999969,
+            0.10707799999999423
+          ],
+          "candidate": [
+            0.008996000000003335,
+            0.007837000000002092,
+            0.00722300000000331
+          ]
+        }
+      }
+    },
+    "warmup": {
+      "original": {
+        "cpu_seconds": 1.4722170000000006,
+        "wall_seconds": 14.781755208037794
+      },
+      "candidate": {
+        "cpu_seconds": 1.7139280000000028,
+        "wall_seconds": 12.6732121668756
+      }
+    },
+    "no_frequency_or_static_reassembly": true,
+    "original_initial_lift_sha256": "fb479087b28c402fc2a8c4d354cb0e4f2e3848657168898a33024b50f41a5e4c",
+    "physical_stage_impedance_sha256": "1c48787579472b29ff964df1581df192d01848bcd722113c2e93108b72971acb",
+    "scope": "Actual fine initialization/matrix and 64/128 local microsteps; algebraic trial-state probes, not fine trajectories or a four-core isolated runtime comparison."
+  },
+  "seconds": 361.8174033323303,
+  "original_full_event_reproduced": false,
+  "same_accuracy_fem_advantage_verified": false,
+  "date_utc": "2026-11-03T04:06:20.300163+00:00",
+  "numerical_source_commit": "9c974c716fcb65b670065069bc4ab0319de28116",
+  "source_sha256": {
+    "bem/tools/identity_stage_tangent.py": "2642bdb99c7548a8a9f1fcbc757d423810572daf67ee27253a1bde5b566ca60b",
+    "bem/tools/check_identity_stage_tangent.py": "6ac9f2d4cd50d43d98346a9dc445b27796030b831b2297898a801583f8775823",
+    "bem/tests/test_identity_stage_tangent.py": "771988dc577ee5ca880f5dd31e87cbdb97fdf927a760420cab10df916f640616"
+  },
+  "unit_tests": {
+    "status": "passed",
+    "exit_code": 0,
+    "seconds": 338.736708750017,
+    "all_frozen_inputs_unchanged": true,
+    "old_full_event_not_paused_or_modified": true,
+    "command": [
+      "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python",
+      "-B",
+      "-m",
+      "pytest",
+      "-q",
+      "bem/tests/test_identity_stage_tangent.py",
+      "--junitxml=/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/identity-stage-tangent-tests-20261103-v1/pytest.xml"
+    ],
+    "full_original_goal_achieved": false
+  },
+  "execution_receipt": {
+    "status": "passed_coarse_initialized_ad_and_actual_fine_algebraic_probes",
+    "stages": [
+      {
+        "name": "complete_coarse_and_fine_probes",
+        "exit_code": 0,
+        "seconds": 368.5509127918631,
+        "utc_start": "2026-11-03T03:24:53.693664+00:00",
+        "utc_end": "2026-11-03T03:31:02.243034+00:00",
+        "command": [
+          "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python",
+          "-B",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/check_identity_stage_tangent.py",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/trace-policy-coarse-kernel-20261101-v1",
+          "--output",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/identity-stage-tangent-control-20261103-v1/control",
+          "--fine-kernel",
+          "/Volumes/Gauss-T7/Tatva-BEM-cache/fresh-radau2us-graded-q12-full45-20261028",
+          "--fine-run",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/prefix-cached-original-event-study-20261103/complete_event_segments64-128"
+        ]
+      }
+    ],
+    "seconds": 368.5683449152857,
+    "all_frozen_sources_unchanged": true,
+    "complete_original_package_fingerprint_unchanged": true,
+    "original_full_event_not_paused_or_modified": true,
+    "full_original_goal_achieved": false,
+    "isolated_runtime_advantage": false
+  },
+  "runtime_scope": "Additional average CPU quota 0.1; concurrent original event quota 3.85. CPU operation timings are not isolated wall-time benchmarks.",
+  "ci": {
+    "id": 41572063502,
+    "url": "https://github.com/Gauss963/Tatva-BEM/actions/runs/41572063502",
+    "conclusion": "success",
+    "source_commit": "9c974c716fcb65b670065069bc4ab0319de28116"
+  },
+  "array_archives": {
+    "original": {
+      "path": "diagnostics/identity_stage_tangent_original.npz",
+      "sha256": "6c3d0f17f643c838c746595a808363e3faa2be76c05d7898824d5f24e43d725c",
+      "bytes": 98382
+    },
+    "mixed": {
+      "path": "diagnostics/identity_stage_tangent_mixed.npz",
+      "sha256": "5935335fe81cc9101af6064bb91ffcf7ec49d365914d9d6118240c41152a980e",
+      "bytes": 98382
+    }
+  }
+}

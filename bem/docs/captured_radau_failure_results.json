@@ -1,0 +1,489 @@
+{
+  "date_utc": "2026-11-04T02:14:01.757268+00:00",
+  "status": "original_and_cached_full_cases_failed_one_local_root_recovered",
+  "goal_achieved": false,
+  "original_baseline_status": {
+    "phase": "attention_required",
+    "pid": 84733,
+    "utc": "2026-11-03T07:42:07.881603+00:00",
+    "elapsed_seconds": 24082.833923333324,
+    "stages": [
+      {
+        "name": "complete_event_segments64-128",
+        "exit_code": 1,
+        "seconds": 24082.825620708056,
+        "utc_start": "2026-11-03T01:00:45.057944+00:00",
+        "utc_end": "2026-11-03T07:42:07.878606+00:00",
+        "command": [
+          "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python",
+          "-B",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/simulate_compact_radau.py",
+          "/Volumes/Gauss-T7/Tatva-BEM-cache/fresh-radau2us-graded-q12-full45-20261028",
+          "--output",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/resumed-radau-event-study-20261103/complete_event_segments64-128",
+          "--restart-seed",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/data/ev16_restart_float64.npz",
+          "--static-initialization",
+          "fem-body-active-set",
+          "--segment-substeps",
+          "64",
+          "128",
+          "--contact-root-recovery",
+          "--kinetic-root-seed",
+          "--fft-cache-mb",
+          "8",
+          "--fft-rows",
+          "4",
+          "--max-memory-mb",
+          "14336"
+        ]
+      }
+    ],
+    "goal_achieved": false,
+    "full_original_event_reproduced": false,
+    "same_accuracy_fem_advantage_verified": false,
+    "reason": "RuntimeError('complete_event_segments64-128 failed; preserve all saved data and inspect its log')",
+    "numerical_child_pid": 84742
+  },
+  "cached_baseline_status": {
+    "phase": "attention_required",
+    "pid": 13504,
+    "utc": "2026-11-03T03:25:17.161418+00:00",
+    "elapsed_seconds": 3280.4114518333226,
+    "stages": [
+      {
+        "name": "complete_event_segments64-128",
+        "exit_code": 1,
+        "seconds": 3279.905019916594,
+        "utc_start": "2026-11-03T02:30:37.283118+00:00",
+        "utc_end": "2026-11-03T03:25:17.158892+00:00",
+        "command": [
+          "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python",
+          "-B",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/simulate_prefix_cached_radau.py",
+          "/Volumes/Gauss-T7/Tatva-BEM-cache/fresh-radau2us-graded-q12-full45-20261028",
+          "--output",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/prefix-cached-original-event-study-20261103/complete_event_segments64-128",
+          "--restart-seed",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/data/ev16_restart_float64.npz",
+          "--static-initialization",
+          "fem-body-active-set",
+          "--segment-substeps",
+          "64",
+          "128",
+          "--contact-root-recovery",
+          "--kinetic-root-seed",
+          "--fft-cache-mb",
+          "8",
+          "--fft-rows",
+          "4",
+          "--max-memory-mb",
+          "14336",
+          "--history-prefix-cache-mb",
+          "144",
+          "--history-prefix-lags",
+          "32"
+        ]
+      }
+    ],
+    "goal_achieved": false,
+    "full_original_event_reproduced": false,
+    "same_accuracy_fem_advantage_verified": false,
+    "reason": "RuntimeError('complete_event_segments64-128 failed; preserve all saved data and inspect its log')",
+    "numerical_child_pid": 13530
+  },
+  "same_full_failure_capture": {
+    "all_npy_members_byte_equal": true,
+    "members": {
+      "matrix.npy": {
+        "bytes": 9022880,
+        "sha256": "7d9eb65af3ee7df8bc3d157f913cfc2b446faf3129d836395f19b508dda70190",
+        "byte_equal": true
+      },
+      "forcing.npy": {
+        "bytes": 8624,
+        "sha256": "25bc06f9f676712642c5f23fb4cd45be752ebe7c0ab7ec7345efb8985f79ed59",
+        "byte_equal": true
+      },
+      "failed_displacement.npy": {
+        "bytes": 8624,
+        "sha256": "bb93c322662d51d3cd3d0d5746e0d0e2024d2619aa02f7e2ccfe6181765d7acb",
+        "byte_equal": true
+      },
+      "previous_displacement.npy": {
+        "bytes": 4376,
+        "sha256": "4662c8f5215057451d088c0d4b51271560d8119ba86d0e70e28ae2cd7317a310",
+        "byte_equal": true
+      },
+      "plastic_slip.npy": {
+        "bytes": 2248,
+        "sha256": "3d9d0f649a4a4f32b5b41656bcd358364e086ad1df54acf104c1c364596e1e1a",
+        "byte_equal": true
+      },
+      "cumulative_slip.npy": {
+        "bytes": 2248,
+        "sha256": "b78f6f39c880921e70076946a4b7424fea52c82d69dd2b87fb76eab5d6c49820",
+        "byte_equal": true
+      },
+      "parameters.npy": {
+        "bytes": 168,
+        "sha256": "c3d6dbd9249fc028f1188320d7b35f27bb458e525980e8f6109998151087e798",
+        "byte_equal": true
+      },
+      "base_dn.npy": {
+        "bytes": 2248,
+        "sha256": "1d1542226fec19b33b0660f16afd8715765611ce23fd73f5b6c1a07225f03e11",
+        "byte_equal": true
+      },
+      "base_ds.npy": {
+        "bytes": 2248,
+        "sha256": "5737e471ecdddba2745b8d5cb101cd585d00593a84135680e7cfbc0c0b9e4f19",
+        "byte_equal": true
+      },
+      "contact_weights.npy": {
+        "bytes": 2248,
+        "sha256": "48dcbf5f711e80083dc9df8a3486ec65c5ceca903a093c8b8a0389a94bbc21b2",
+        "byte_equal": true
+      },
+      "reduced_weights.npy": {
+        "bytes": 4376,
+        "sha256": "ec3690dd55cb309033e4667949ade64be5d5345b7be00d0cd8125683ce5b0627",
+        "byte_equal": true
+      },
+      "residual_mpa.npy": {
+        "bytes": 136,
+        "sha256": "9b26809270492e762da57127d4a52fd92adca06873854c1daf2c4d45f5e96ad9",
+        "byte_equal": true
+      },
+      "stage_time.npy": {
+        "bytes": 144,
+        "sha256": "ece3343059ec7b19eaaf043d4d375f11bcc3053277134cef4e92261e25c0ec40",
+        "byte_equal": true
+      },
+      "accepted_displacement.npy": {
+        "bytes": 122775824,
+        "sha256": "5df5b38440199334c5faac222dde3bf07ee9b31ead3820b5297b4a9d998dacec",
+        "byte_equal": true
+      },
+      "accepted_response.npy": {
+        "bytes": 428905808,
+        "sha256": "55d72119a2309ee467e90b8be7830293c718bdf9837dd4b4f979ad62c3cda144",
+        "byte_equal": true
+      }
+    },
+    "seconds": 0.4579325830563903
+  },
+  "uncondensed_lm_probe": {
+    "status": "no_root_recovered",
+    "records": [
+      {
+        "name": "lm_previous",
+        "residual_mpa": 3.1330738692276583,
+        "accepted": false,
+        "reported_success": false,
+        "nfev": 200,
+        "seconds": 630.3213488329202,
+        "message": "The maximum number of function evaluations is exceeded."
+      },
+      {
+        "name": "lm_failed",
+        "residual_mpa": 3.206047837240436,
+        "accepted": false,
+        "reported_success": false,
+        "nfev": 200,
+        "seconds": 539.6344794584438,
+        "message": "The maximum number of function evaluations is exceeded."
+      }
+    ],
+    "accepted_root_distances_mm": {},
+    "acceptance_tolerance_mpa": 1e-07,
+    "segment_substeps": [
+      64,
+      128
+    ],
+    "seconds": 1183.8851552074775,
+    "original_state_and_forcing_unchanged": true,
+    "source_sha256": {
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/diagnose_radau_root.py": "193a0e7d8a2d73a00d63252efdd89a0d5bfde0dff1f532507d8d2a253a15da6a",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/identity_stage_tangent.py": "2642bdb99c7548a8a9f1fcbc757d423810572daf67ee27253a1bde5b566ca60b",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/diagnose_contact_root.py": "9cef3e1d7bca5b699550590bd2403d181f05ea8ad503b60ecafca3499b10083c",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/radau_contact_experiment.py": "d564ec6ea2311b783d52df83d2f567d640aa6e40a5c1236aad60c51112b023c6"
+    },
+    "full_original_event_reproduced": false,
+    "scope": "Captured local stage equation only. Full accepted prefix retained in the original capture; no CQ restart, physical state commit, uniqueness or trajectory stability proof."
+  },
+  "condensed_initial_control_failure": {
+    "error": "RuntimeError('Quota process failed; preserve numerical outputs but reject control')",
+    "stages": [
+      {
+        "name": "unit_tests",
+        "exit_code": 0,
+        "seconds": 76.33571562450379,
+        "utc_start": "2026-11-03T04:14:28.344510+00:00",
+        "utc_end": "2026-11-03T04:15:44.690179+00:00",
+        "command": [
+          "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python",
+          "-B",
+          "-m",
+          "pytest",
+          "-q",
+          "bem/tests/test_condensed_radau_root.py",
+          "--junitxml=/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/condensed-captured-radau-20261103-v1/pytest.xml"
+        ]
+      }
+    ],
+    "seconds": 128.2811037497595
+  },
+  "root_control": {
+    "status": "completed",
+    "stages": [
+      {
+        "name": "tests",
+        "exit_code": 0,
+        "seconds": 4.16685420833528,
+        "average_cpu_budget": 3.8,
+        "observed_child_cpu_seconds": 8.77,
+        "owned_stop_cycles": 0,
+        "ownership": "Parent retains Popen child until reaped; PID cannot be reused between live poll and signal. No wall-clock lstart equality used as process ownership."
+      },
+      {
+        "name": "forcing_continuation",
+        "exit_code": 0,
+        "seconds": 2.930487709119916,
+        "average_cpu_budget": 3.8,
+        "observed_child_cpu_seconds": 5.43,
+        "owned_stop_cycles": 0,
+        "ownership": "Parent retains Popen child until reaped; PID cannot be reused between live poll and signal. No wall-clock lstart equality used as process ownership."
+      }
+    ],
+    "seconds": 7.109668791294098,
+    "all_frozen_sources_unchanged": true,
+    "complete_package_fingerprint_unchanged": true,
+    "full_original_event_reproduced": false
+  },
+  "root_manifest": {
+    "source_sha256": {
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/diagnose_radau_branch_continuation.py": "9cac4932fc90bc296d9b54142b1ebfbe5da10400e4204eded2e7019ffa257f56",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/diagnose_condensed_radau_root.py": "f8b3aaa48cccae083996c5cb8a35a8e92c4588d9cb60f31391e6edf2cb2dab0c",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/diagnose_radau_root.py": "193a0e7d8a2d73a00d63252efdd89a0d5bfde0dff1f532507d8d2a253a15da6a",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/identity_stage_tangent.py": "2642bdb99c7548a8a9f1fcbc757d423810572daf67ee27253a1bde5b566ca60b",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/radau_contact_experiment.py": "d564ec6ea2311b783d52df83d2f567d640aa6e40a5c1236aad60c51112b023c6",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/substepped_contact_experiment.py": "d40fcb95f5fa29c0c8630a8901f8d5e63591bfc11ed1c9fbdee7c2ecc8d36225"
+    },
+    "capture_sha256": "17cd0164af4ad06bc386872b3c3cd42a4ac0b7d4e9ec41dc4570a516eb000c7d",
+    "nonlinear_nodes": [
+      252,
+      253,
+      254,
+      255,
+      256,
+      257,
+      258,
+      259,
+      260,
+      261,
+      262,
+      263,
+      264
+    ],
+    "retained_unknowns": 52,
+    "normal_force_corrections_retained": true,
+    "all_unweakened_nodes_retained": true,
+    "random_starts": 32,
+    "random_seed": 20261104,
+    "full_stage_dofs": 1062,
+    "original_failure_residual_mpa": 7.435954410063236,
+    "reduced_tangent_relative_error": 2.631337504792708e-14,
+    "linear_backward_error": 4.4992051714837004e-18,
+    "state_not_committed": true
+  },
+  "root_summary": {
+    "status": "found_root_of_original_captured_equation",
+    "records": [],
+    "seconds": 2.123913041315973,
+    "source_sha256": {
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/diagnose_radau_branch_continuation.py": "9cac4932fc90bc296d9b54142b1ebfbe5da10400e4204eded2e7019ffa257f56",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/diagnose_condensed_radau_root.py": "f8b3aaa48cccae083996c5cb8a35a8e92c4588d9cb60f31391e6edf2cb2dab0c",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/diagnose_radau_root.py": "193a0e7d8a2d73a00d63252efdd89a0d5bfde0dff1f532507d8d2a253a15da6a",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/identity_stage_tangent.py": "2642bdb99c7548a8a9f1fcbc757d423810572daf67ee27253a1bde5b566ca60b",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/radau_contact_experiment.py": "d564ec6ea2311b783d52df83d2f567d640aa6e40a5c1236aad60c51112b023c6",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/substepped_contact_experiment.py": "d40fcb95f5fa29c0c8630a8901f8d5e63591bfc11ed1c9fbdee7c2ecc8d36225"
+    },
+    "full_original_event_reproduced": false,
+    "scope": "Artificial-forcing continuation with original full-equation acceptance. No physical state commit, CQ restart, uniqueness or stability proof."
+  },
+  "multistart_trials": {
+    "seed": 20261104,
+    "records": [
+      {
+        "index": 0,
+        "nfev": 62,
+        "reported_success": false,
+        "reduced_residual_mpa": 6.808119995744001,
+        "full_residual_mpa": 6.808119995748527,
+        "all_stage_fields_finite": true,
+        "accepted": false
+      },
+      {
+        "index": 1,
+        "nfev": 81,
+        "reported_success": false,
+        "reduced_residual_mpa": 0.2213677687655604,
+        "full_residual_mpa": 0.22136776874960878,
+        "all_stage_fields_finite": true,
+        "accepted": false
+      },
+      {
+        "index": 2,
+        "nfev": 54,
+        "reported_success": false,
+        "reduced_residual_mpa": 0.8695508015730248,
+        "full_residual_mpa": 0.8695508015730357,
+        "all_stage_fields_finite": true,
+        "accepted": false
+      },
+      {
+        "index": 3,
+        "nfev": 46,
+        "reported_success": false,
+        "reduced_residual_mpa": 0.471693352505163,
+        "full_residual_mpa": 0.4716933525372655,
+        "all_stage_fields_finite": true,
+        "accepted": false
+      },
+      {
+        "index": 4,
+        "nfev": 66,
+        "reported_success": false,
+        "reduced_residual_mpa": 1.4200681166193203,
+        "full_residual_mpa": 1.4200681166193336,
+        "all_stage_fields_finite": true,
+        "accepted": false
+      },
+      {
+        "index": 5,
+        "nfev": 65,
+        "reported_success": false,
+        "reduced_residual_mpa": 3.4808698664397064,
+        "full_residual_mpa": 3.4808698664396855,
+        "all_stage_fields_finite": true,
+        "accepted": false
+      },
+      {
+        "index": 6,
+        "nfev": 46,
+        "reported_success": false,
+        "reduced_residual_mpa": 7.496259758087742,
+        "full_residual_mpa": 7.496259758090968,
+        "all_stage_fields_finite": true,
+        "accepted": false
+      },
+      {
+        "index": 7,
+        "nfev": 45,
+        "reported_success": true,
+        "reduced_residual_mpa": 8.924416761146858e-12,
+        "full_residual_mpa": 1.5395092608135506e-11,
+        "all_stage_fields_finite": true,
+        "accepted": true
+      }
+    ]
+  },
+  "independent_numpy_audit": {
+    "independent_numpy_residual_mpa": 1.972086074118095e-11,
+    "max_displacement_increment_mm": 0.02844197313373531,
+    "max_normal_increment_mm": 5.703912093302796e-05,
+    "max_shear_increment_mm": 0.02844197313373531,
+    "platen_increment_mm": [
+      0.00010018935513761429,
+      0.0002980471527041506
+    ],
+    "minimum_pressure_mpa": 10.355322897166676,
+    "max_cumulative_slip_mm": 0.24823610455895964,
+    "max_cumulative_increment_mm": 0.031115538162869154,
+    "weighted_dc_coverage": 0.9995561614583333,
+    "total_micro_friction_work_mpa_mm2": 20.588296379428712,
+    "minimum_local_micro_work": 0.0,
+    "branches": [
+      {
+        "final_sliding": 256,
+        "reverse_nodes": [],
+        "open_nodes": []
+      },
+      {
+        "final_sliding": 259,
+        "reverse_nodes": [],
+        "open_nodes": []
+      }
+    ],
+    "root_displacement_difference_from_failed_mm": 0.027114899517566543
+  },
+  "combined_previous_tests": {
+    "status": "completed",
+    "stages": [
+      {
+        "name": "tests",
+        "exit_code": 0,
+        "seconds": 17.296084917150438,
+        "average_cpu_budget": 3.8,
+        "observed_child_cpu_seconds": 40.91,
+        "owned_stop_cycles": 11,
+        "ownership": "Parent retains Popen child until reaped; PID cannot be reused between live poll and signal. No wall-clock lstart equality used as process ownership."
+      },
+      {
+        "name": "condensed_roots",
+        "exit_code": 0,
+        "seconds": 2.9495172072201967,
+        "average_cpu_budget": 3.8,
+        "observed_child_cpu_seconds": 4.57,
+        "owned_stop_cycles": 0,
+        "ownership": "Parent retains Popen child until reaped; PID cannot be reused between live poll and signal. No wall-clock lstart equality used as process ownership."
+      },
+      {
+        "name": "forcing_continuation",
+        "exit_code": 0,
+        "seconds": 3.937238249927759,
+        "average_cpu_budget": 3.8,
+        "observed_child_cpu_seconds": 6.04,
+        "owned_stop_cycles": 0,
+        "ownership": "Parent retains Popen child until reaped; PID cannot be reused between live poll and signal. No wall-clock lstart equality used as process ownership."
+      }
+    ],
+    "seconds": 24.202323082834482,
+    "all_frozen_sources_unchanged": true,
+    "complete_package_fingerprint_unchanged": true,
+    "full_original_event_reproduced": false
+  },
+  "restored_history_tests": {
+    "status": "passed",
+    "exit_code": 0,
+    "seconds": 30.33351158257574,
+    "all_frozen_sources_unchanged": true,
+    "original_full_event_not_paused": true,
+    "additional_average_cpu_budget": 0.03,
+    "full_original_event_reproduced": false
+  },
+  "published_artifacts": {
+    "diagnostics/radau_step14451/candidate_roots.npz": {
+      "bytes": 8776,
+      "sha256": "066060da6448fb7e1cf4ae88604ecb447b81c7ce4c97399759bccad7ae13b8f1"
+    },
+    "diagnostics/radau_step14451/equation.npz": {
+      "bytes": 8488136,
+      "sha256": "6d2bbf84486d108c597c42decf6b641bfc658bbdc41c6a12b8891bcc26ee3ddc"
+    },
+    "diagnostics/radau_step14451/failure.json": {
+      "bytes": 610,
+      "sha256": "114aa8d55c8a969fde3f00a4771e2ce23fdb851f2b3b44c84baff9ebd4944bca"
+    }
+  },
+  "complete_event_resumed": false,
+  "remaining_gates": [
+    "full CQ state reconstruction and forcing equality",
+    "complete event and 64/128 vs128/256 convergence",
+    "original causal equation audit and full FEM fields",
+    "macro-time / space / FEM reference convergence",
+    "full initialized AD and gradient convergence",
+    "isolated same-accuracy runtime or demonstrated stability advantage"
+  ]
+}

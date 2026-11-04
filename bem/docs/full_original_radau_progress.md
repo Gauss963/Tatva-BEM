@@ -1,8 +1,32 @@
-# 原細網格全程 Radau：核已完成，非線性事件執行中
+# 原細網格全程 Radau：核完成，兩版在相同步驟失敗
 
 狀態快照：2026-11-03。原 case 為 `local-mus08-muk06-gap0-v2-ev16`，
 完整時間 45 ms、dt=2 µs、22500 步、531 個 history DOF、265 個接觸節點。
 原 `/Volumes/Gauss-T7/tatva` 保持只讀；此頁不代表已通過 FEM 一致性或速度／穩定性門檻。
+
+**2026-11-04 更新：原基準也已在第 14451 步結束，與 cached 版有完全相同的
+失敗殘差及 15 個 capture members。** 全部相關原程序均已終止，不能再當作執行中工作。
+[局部求根與完整歷史恢復](captured_radau_failure.md)記錄新進展：保留 13 個未弱化點及
+法向耦合的固定 seed multistart 已找到原完整方程的根，JAX／獨立 NumPy 殘差約
+`1.54e-11`／`1.97e-11 MPa`。完整 CQ 尚未恢復，不能以此宣稱 45 ms 完成。
+下方 11 月 3 日的啟動、暫停與恢復敘述保留為歷史紀錄。
+
+**11:25（台北）結果更新：cached 的第一組 `(64,128)` 完整案例在第 14451 步、
+28.902 ms 失敗。** 平衡 residual 為 **7.435954410063236 MPa**，未達原 `1e-7 MPa`。
+已接受前綴與失敗方程保留為 535 MiB 的 `failed_equilibrium.npz`；
+目前這份檔案不是可直接續跑的完整 CQ checkpoint。沒有進入第二組細網格子步、
+原始因果 audit、全程 FEM 對照或 fine AD，不能宣稱全事件完成。
+
+失敗階段 wall time 3279.905 s，包含 prefix 建構 213.979 s；不是隔離效能比較。
+排程的 `finally` 已在 **11:25:17** 依序恢復原 numerical／quota／owner 的同一組程序，
+暫停共 3279.982 s。原基準繼續執行，不能預先假定它會得到相同失敗。
+[terminal result 與恢復 receipt](history_prefix_full_event_progress_results.json)保留實際結果；
+下方 10:30 的敘述是歷史啟動快照。
+
+失敗方程的局部重播已精確重現上述 residual，正在使用相同物理狀態、forcing、
+子步與原門檻診斷求根策略。這不會提交 trial state 或重新啟動 CQ。
+另有[保留局部 AD 的切線組裝](identity_stage_tangent.md)已通過粗網格完整解／初始化梯度
+及細網格代數控制；它尚未用於此次失敗的全程案例。
 
 10:30（台北）更新：在[完整 coarse primal／初始化 AD 及實際 CLI 核對](history_prefix_cache.md)
 與數值來源 `983c377` 完整 CI 通過後，啟動相同原始全程的可選短 lag cache。

@@ -5,7 +5,10 @@ developed alongside the Tatva-based PMMA finite-element model.
 
 **Research implementation: full event-16 agreement and a same-accuracy speed
 or stability advantage over FEM remain unverified.** The independent 2 us
-Radau kernel is complete on the graded fine mesh; full nonlinear cases are running. The
+Radau kernel is complete on the graded fine mesh. The cached full case failed
+at 28.902 ms with a 7.43595 MPa equilibrium residual; the original baseline
+then failed identically. A [local root has now been recovered](bem/docs/captured_radau_failure.md)
+at the unchanged full-equation tolerance; complete history restoration is pending. The
 [graded FEM reference completed all 45 ms](bem/docs/graded_fem_complete.md),
 but its [completed dt/16 time-step control still fails](bem/docs/fem_dt16_window.md):
 dt/8 versus dt/16 pressure and signed shear differ by 12.86% and 9.94% in
@@ -35,9 +38,13 @@ The graded FEM reference successfully replayed its damaged-output prefix
 and completed from the verified checkpoint. The BEM frequency prefix is
 preserved on disk and its [verified continuation](bem/docs/radau_sampling_checkpoint.md)
 has completed the fine kernel. The [full original nonlinear event](bem/docs/full_original_radau_progress.md)
-is now running with an optional [exact short-lag RAM cache](bem/docs/history_prefix_cache.md).
+includes an optional [exact short-lag RAM cache](bem/docs/history_prefix_cache.md);
+that full run failed, with its accepted prefix and equation preserved for diagnosis.
 The coarse complete sliding/initialized-AD and actual CLI outputs are bitwise unchanged;
 fine full-event FEM agreement and total-runtime benefits remain pending.
+An optional [contact-tangent assembly](bem/docs/identity_stage_tangent.md)
+preserves local JAX AD and passes complete coarse solution/gradient controls;
+its measured fine operation CPU savings do not establish full-event speed.
 See the [execution and measured CPU-budget record](bem/docs/reference_first.md).
 The [complete causal RK audit and conditional adjoint](bem/docs/radau_history_validation.md)
 pass real two-body short-run controls, including selected healed-preload

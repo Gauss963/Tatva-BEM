@@ -2,6 +2,11 @@
 
 2026-11-03：新增可選的 `tools/history_prefix_cache.py::cache_history_prefixes`。
 原排程仍使用原本 policy；本頁沒有宣稱全程加速或 FEM 一致性。
+
+**結果更新：cached 完整事件在 28.902 ms 因平衡 residual 7.43595 MPa 失敗，
+原基準已自動恢復。** 尚未完成 45 ms、完整 fine AD 或 FEM gates。
+[失敗與恢復紀錄](full_original_radau_progress.md)優先於下方歷史啟動快照。
+
 2026-11-03 10:30（台北）另啟動相同原始 45 ms／22500 步的 cached 排程；
 原排程的 owner／quota／numerical process 原地保留並暫停 CPU 工作，
 新排程結束或失敗後由 `finally` 恢復同一組程序。

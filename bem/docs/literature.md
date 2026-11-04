@@ -5,6 +5,15 @@
 目標是在相同物理模型與可量化誤差下重現 FEM，然後證明穩定性或總時間的優勢。
 目前尚未達成這個目標。
 
+2026-11-04 再讀 Aimi、Di Credico、Gimperlein 的
+[dynamic frictional contact 全文 §3.2–3.4／Algorithm 1 與 §5](https://arxiv.org/html/2405.08566v1)，
+並核對其版本頁。Uzawa 的 projection 保留法向與切向條件；該文嚴格的誤差估計
+仍針對 Tresca，不能直接替累積滑移弱化保證求根或解穩定。
+本案兩個完整排程在同一步失敗後，採取的[局部線性消去與 multistart](captured_radau_failure.md)
+是保留原方程的代數診斷，**不是移植該文的 Uzawa 或空間／時間離散**。
+保留全部未弱化點與法向耦合後找到原完整方程的根，不能因先前幾種 solver 失敗就宣稱無解。
+後續仍須完整歷史、帶符號功、時間／空間與 FEM 收斂控制。
+
 2026-11-03 補讀 Banjai、Ferrari，
 [Generalized convolution quadrature based on the trapezoidal rule，出版全文](https://doi.org/10.1093/imanum/draf141)
 §3–5，特別是 Theorem 6、Remarks 5–8 與 Table 1。
