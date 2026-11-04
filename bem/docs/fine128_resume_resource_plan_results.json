@@ -1,0 +1,99 @@
+{
+  "status": "preflight_only_actual_fine128_matching_prefix_not_a_speed_result",
+  "global_next_step": 14450,
+  "global_last_step": 22500,
+  "local_first": 385,
+  "local_last": 8435,
+  "prefix_maximum_original_residual_mpa": 7.451527304046901e-08,
+  "rows": [
+    {
+      "fft_cache_mib": 8,
+      "fft_rows": 4,
+      "history_prefix_mib": 144,
+      "history_prefix_lags": 32,
+      "capture_and_payload_reserve_bytes": 566610440,
+      "total_solver_budget_mib": 16384,
+      "estimated_accounted_mib": 13978.370429992676,
+      "slack_mib": 2405.629570007324,
+      "access_forecast": {
+        "families": 2,
+        "effective_prefix_lags": 32,
+        "logical_source_coefficient_bytes_requested": 364952272896,
+        "kernel_fft_builds": 66766,
+        "fft_updates_per_family": {
+          "32": 126,
+          "64": 63,
+          "512": 8,
+          "128": 31,
+          "256": 15,
+          "1024": 4,
+          "2048": 2,
+          "4096": 1,
+          "8192": 1
+        },
+        "retained_levels_built": [],
+        "retained_fft_bytes_at_end": 0,
+        "counts_unqueried_future_targets_of_original_implementation": true,
+        "physical_disk_read_or_runtime_forecast": false
+      }
+    },
+    {
+      "fft_cache_mib": 2048,
+      "fft_rows": 4,
+      "history_prefix_mib": 144,
+      "history_prefix_lags": 32,
+      "capture_and_payload_reserve_bytes": 566610440,
+      "total_solver_budget_mib": 16384,
+      "estimated_accounted_mib": 15931.652503967285,
+      "slack_mib": 452.34749603271484,
+      "access_forecast": {
+        "families": 2,
+        "effective_prefix_lags": 32,
+        "logical_source_coefficient_bytes_requested": 258411617280,
+        "kernel_fft_builds": 8252,
+        "fft_updates_per_family": {
+          "32": 126,
+          "64": 63,
+          "512": 8,
+          "128": 31,
+          "256": 15,
+          "1024": 4,
+          "2048": 2,
+          "4096": 1,
+          "8192": 1
+        },
+        "retained_levels_built": [
+          32,
+          64,
+          128
+        ],
+        "retained_fft_bytes_at_end": 2048164704,
+        "counts_unqueried_future_targets_of_original_implementation": true,
+        "physical_disk_read_or_runtime_forecast": false
+      }
+    }
+  ],
+  "required_dispatch_conditions": [
+    "complete original causal audit passed",
+    "signed-port diagnostic completed",
+    "fine spatial bulk diagnostic terminal and memory released",
+    "public recovery-budget option implemented and exact sources locally validated"
+  ],
+  "full_original_event_reproduced": false,
+  "same_accuracy_fem_advantage_verified": false,
+  "resource_receipt": {
+    "exit_code": 0,
+    "seconds": 2.4406966250389814,
+    "final_wait4_cpu_seconds": 0.243066,
+    "charged_cpu_high_water_seconds": 0.243066,
+    "measured_average_cores": 0.09958878031230854,
+    "conservative_charged_average_cores": 0.09958878031230854,
+    "average_cpu_budget": 0.1,
+    "ps_counter_regressions": 0,
+    "maximum_ps_counter_drop_seconds": 0.0,
+    "owned_stop_cycles": 2,
+    "final_cpu_debt_cooldown_seconds": 0.5175931677222252,
+    "full_cpu_debt_repaid": true,
+    "ownership": "Parent retains unreaped Popen child; wait4 collects final CPU. Regressing ps samples never reduce charged CPU."
+  }
+}

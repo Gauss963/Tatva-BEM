@@ -1,0 +1,99 @@
+{
+  "status": "validated_isolated_recovery_budget_candidate_not_activated",
+  "as_of": "2026-11-04T19:30:58.601532+08:00",
+  "control": {
+    "status": "passed_isolated_candidate_factory_and_parser",
+    "records": [
+      {
+        "label": "old_default32",
+        "counts": [
+          128,
+          256
+        ],
+        "random_budget": 32,
+        "converged": false,
+        "original_full_residual_mpa": 6.423194145599403,
+        "trials": 35,
+        "state_unchanged": true
+      },
+      {
+        "label": "candidate32",
+        "counts": [
+          128,
+          256
+        ],
+        "random_budget": 32,
+        "converged": false,
+        "original_full_residual_mpa": 6.423194145599403,
+        "trials": 35,
+        "state_unchanged": true
+      },
+      {
+        "label": "candidate512",
+        "counts": [
+          128,
+          256
+        ],
+        "random_budget": 512,
+        "converged": true,
+        "original_full_residual_mpa": 2.1386275692165467e-11,
+        "trials": 75,
+        "state_unchanged": true,
+        "independent_numpy_micro_friction_work_mpa_mm2": 17.92730040322495,
+        "maximum_jax_numpy_response_difference": 6.25888230132432e-15
+      },
+      {
+        "label": "candidate512_original64",
+        "counts": [
+          64,
+          128
+        ],
+        "random_budget": 512,
+        "converged": true,
+        "original_full_residual_mpa": 4.421786744311666e-11,
+        "trials": 11,
+        "state_unchanged": true,
+        "independent_numpy_micro_friction_work_mpa_mm2": 20.5882963794366,
+        "maximum_jax_numpy_response_difference": 4.816058662981959e-11
+      }
+    ],
+    "cli_help_and_negative_budget_guards_passed": true,
+    "public_source_files_not_modified": true,
+    "scope": "Replays captured Newton failures through the real factory, original full custom root and independent NumPy law; parser checked in isolated namespace. No physical step committed or live source changed.",
+    "same_accuracy_fem_advantage_verified": false
+  },
+  "source_manifest": {
+    "recovered_radau_equilibrium.py": {
+      "original_source_sha256": "3b91fcaa02cb2f429b7bd3d0cbb73f136561981d99ccc538c0cd3c21acc3b379",
+      "candidate_source_sha256": "5e97501b92e84ccb5870dad6b6b1d975a3072f06a08d64195c50317bbf90ef1a"
+    },
+    "simulate_recovered_radau.py": {
+      "original_source_sha256": "fded8559070b7ef9c349dbb39a11bfdb6497744baf303c2a620aeda7a656319b",
+      "candidate_source_sha256": "211c7f4b762cea66a0e5e90a19273c8959ed0c59235abee976d18684fc97520f"
+    }
+  },
+  "resource_receipt": {
+    "exit_code": 0,
+    "seconds": 257.3529933746904,
+    "final_wait4_cpu_seconds": 25.734297,
+    "charged_cpu_high_water_seconds": 25.734297,
+    "measured_average_cores": 0.09999610520376742,
+    "conservative_charged_average_cores": 0.09999610520376742,
+    "average_cpu_budget": 0.1,
+    "ps_counter_regressions": 0,
+    "maximum_ps_counter_drop_seconds": 0.0,
+    "owned_stop_cycles": 120,
+    "final_cpu_debt_cooldown_seconds": 0.930327707901597,
+    "full_cpu_debt_repaid": true,
+    "ownership": "Parent retains unreaped Popen child; wait4 collects final CPU. Regressing ps samples never reduce charged CPU."
+  },
+  "scope": "Candidate source files compiled in isolated namespaces with the original tool directory for imports. Captured Newton failures replayed through the real recovery factory; parser help and negative budget checked. Public live tool sources remain unchanged. Full CLI array equivalence check remains required after activation.",
+  "activation_requires": [
+    "all active owners freezing these public tools terminal",
+    "candidate bytes applied exactly to their public paths",
+    "focused full CLI validation of exact installed source"
+  ],
+  "full_original_event_reproduced": false,
+  "same_accuracy_fem_advantage_verified": false,
+  "original_tatva_readonly": true
+}

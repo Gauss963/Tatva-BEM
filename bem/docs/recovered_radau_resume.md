@@ -2,7 +2,7 @@
 
 **2026-11-04 最新結果：**原細網格第一組已藉此介面完成 45 ms；
 [完整 FEM 接觸場比較](recovered_full_event.md)未通過原門檻。
-第二組較細接觸積分的局部根已驗證，自己的歷史前綴正在核對。
+第二組較細接觸積分的局部根、自己的歷史前綴與全部未來項均已通過驗證。
 下方啟動快照與 coarse 控制仍保留各自範圍，不能視為完整細網格物理驗收。
 
 2026-11-04：`tools/simulate_recovered_radau.py` 整合原 initializer cache、
@@ -61,6 +61,22 @@
 範圍是固定 bulk、五個接觸參數、selected healed preload 與已記錄的載入歷程。
 目前不包含 material／geometry 或 endogenous loading stop-time 導數，
 也不是完整細網格 event-16 的梯度收斂證明。
+
+## 已驗證但尚未啟用的 recovery 配額選項
+
+`--recovery-random-starts` 的[候選 patch](diagnostics/recovery_random_budget_candidate.patch)
+已在隔離 namespace 驗證，[結果與來源](recovery_random_budget_candidate_results.json)另存。
+預設維持 32，僅增加可選的候選起始猜測上限，不更動原接受方程或容差。
+較細版本的捕捉失敗在原版／候選預設 32 下皆保持失敗（35 個候選）；
+設定 512 後，第 75 個候選通過完整 residual，並與獨立 NumPy 接觸律核對。
+這些 trial 不提交物理狀態；CLI help 與負配額拒絕亦已核對。
+
+目前執行中的稽核仍凍結原工具來源，因此尚未套用 patch。
+待所有相關 owner 結束，再安裝相同已測試 bytes 並完成完整短程 CLI 對照。
+[實際 fine128 前綴的資源預檢](fine128_resume_resource_plan_results.json)通過：
+32-lag prefix 加 2048 MiB FFT cache 在 16384 MiB array budget 下餘約 452 MiB。
+預測 kernel FFT 呼叫為 8252，原 8 MiB 設定為 66766；這是邏輯存取計數，
+不是實際磁碟流量或速度倍數。大型診斷釋出記憶體後才啟動續跑。
 
 這兩次 AD 數值程式都已寫出完成結果，但舊管理程序在收尾時遇到程序 CPU 計數回跳，
 因此其資源管理驗收失敗；舊低配額等待方式亦未確實遵守宣告的 0.1 核心額度。

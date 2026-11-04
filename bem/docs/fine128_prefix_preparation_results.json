@@ -1,0 +1,212 @@
+{
+  "status": "passed_actual_fine128_candidate_and_prefix_preparation",
+  "checkpoint": {
+    "status": "validated_original_fine_prefix_and_full_future_history",
+    "source_sha256": {
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/validate_captured_radau_prefix.py": "22410f28778ecf0192d80f60c40a9381be3d6929d3808a26ee47864b0c59e0d1",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/restore_compact_history.py": "e41a7339ddd8e51c17bc5ec7acb3304c1e60df5105866f1357a81a61772f3d1d",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/stream_initial_residual.py": "4b591ddc2af8694dc99a3937dcc7cfa895097244d71f3d99ae827bfb49bfc8db",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compact_radau_history.py": "85fb2c263a330b0b64d464017e2f67a6b5ff043c3cc52df48c388d14a6c70a3e",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/history_prefix_cache.py": "e8e0f7772e7d595d84cf32e6ca88780c220158c89a2863669ece9b87deffe0c0",
+      "/Volumes/Gauss-T7/Tatva-BEM-cache/fresh-radau2us-graded-q12-full45-20261028/summary.json": "85a1bba9e69384fbb57bd64d199d1bce2dd56ec9a915a23528fd1e88a9e3584a",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/affine-cache-study-20261104-v1/affine/summary.json": "8f009a9f4139e34b555ed3b280dcb99bbffd0862d434295bde3189357d8c5484",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/recovered-original-event-study-20261104-v2/complete_event_segments128-256/initial_lift.npz": "fb479087b28c402fc2a8c4d354cb0e4f2e3848657168898a33024b50f41a5e4c",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/resources/data/ev16_restart_float64.npz": "f09f9cfbe88d41cfba9daaffd1d901e66d1b33af2b6826ba8449fa05ef510901"
+    },
+    "capture": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/recovered-original-event-study-20261104-v2/complete_event_segments128-256/failed_equilibrium.npz",
+    "capture_sha256": "674fd4b7f0691da3c93d6f6286369f7d3224e7aac12af5e0d83db85fc04b56c9",
+    "affine_cache": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/affine-cache-study-20261104-v1/affine",
+    "affine_sha256": "063e0b3eeca1d61677c4c9bc8b0ea6c1cabd29717b75498719aceec693c6f248",
+    "history_state_sha256": "c700da8f213f78c33d26fa7c617ea17b636606b6e6aeb7785853ed417074f0ee",
+    "kernel": "/Volumes/Gauss-T7/Tatva-BEM-cache/fresh-radau2us-graded-q12-full45-20261028",
+    "next_step": 14450,
+    "first_correction_step": 14065,
+    "local_history_next_step": 385,
+    "pending_stop": 512,
+    "maximum_inactive_source_force": 1.3628209671878722e-11,
+    "held_actuator": null,
+    "hold_time_s": null,
+    "maximum_prefix_residual_mpa": 7.451527304046901e-08,
+    "failed_forcing_normalized_difference_mpa": 0.0,
+    "failed_forcing_bitwise_equal": true,
+    "replay_and_restored_complete_future_bitwise_equal": true,
+    "history_prefix_cache": {
+      "policy": "exact_readonly_short_lag_prefix",
+      "capacity_bytes": 150994944,
+      "cached_lags": 32,
+      "cached_bytes": 144364032,
+      "families": 2,
+      "layouts": [
+        {
+          "source_strides": [
+            8,
+            180008,
+            95584248
+          ],
+          "prefix_strides": [
+            8,
+            256,
+            135936
+          ]
+        },
+        {
+          "source_strides": [
+            8,
+            180008,
+            95584248
+          ],
+          "prefix_strides": [
+            8,
+            256,
+            135936
+          ]
+        }
+      ],
+      "additional_to_fft_cache_and_workspace": true,
+      "all_history_terms_retained": true,
+      "time_grid_unchanged": true,
+      "coefficient_approximation": false
+    },
+    "restore_record": {
+      "accepted_inputs": 14450,
+      "first_active_index": 14065,
+      "active_history": {
+        "accepted_inputs": 385,
+        "family_frontiers": [
+          {
+            "accepted_inputs": 384,
+            "replayed_frontier_blocks": [
+              {
+                "size": 256,
+                "end": 256
+              },
+              {
+                "size": 128,
+                "end": 384
+              }
+            ],
+            "consumed_pending_rows_restored": false,
+            "complete_future_history_retained": true,
+            "inherited_compute_cost_excluded_from_local_statistics": true
+          },
+          {
+            "accepted_inputs": 384,
+            "replayed_frontier_blocks": [
+              {
+                "size": 256,
+                "end": 256
+              },
+              {
+                "size": 128,
+                "end": 384
+              }
+            ],
+            "consumed_pending_rows_restored": false,
+            "complete_future_history_retained": true,
+            "inherited_compute_cost_excluded_from_local_statistics": true
+          }
+        ],
+        "delayed_family_restored_by_original_append": true,
+        "complete_future_history_retained": true
+      },
+      "complete_future_history_retained": true
+    },
+    "seconds": 4772.134003791027,
+    "unavailable_original_newton_count_sentinel": -1,
+    "complete_event_resumed": false,
+    "scope": "Independent full-prefix force balance and exact future-history restoration only; no new root committed or time step advanced."
+  },
+  "preparation": {
+    "status": "passed_fine128_original_candidate_and_actual_prefix_preparation",
+    "stages": [
+      {
+        "name": "independent_original_candidate",
+        "command": [
+          "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python",
+          "-B",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/audit_captured_stage_candidate.py",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/recovered-original-event-study-20261104-v2/complete_event_segments128-256/failed_equilibrium.npz",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fine14450-extended-root-20261104-v1/control/candidate_roots.npz",
+          "--output",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fine128-recovery-preparation-20261104-v1/candidate-audit"
+        ],
+        "exit_code": 0,
+        "seconds": 67.85598433297127,
+        "final_wait4_cpu_seconds": 6.785295,
+        "charged_cpu_high_water_seconds": 6.785295,
+        "measured_average_cores": 0.09999552827506504,
+        "conservative_charged_average_cores": 0.09999552827506504,
+        "average_cpu_budget": 0.1,
+        "ps_counter_regressions": 0,
+        "maximum_ps_counter_drop_seconds": 0.0,
+        "owned_stop_cycles": 40,
+        "final_cpu_debt_cooldown_seconds": 0.33786441665142775,
+        "full_cpu_debt_repaid": true,
+        "ownership": "Parent retains unreaped Popen child; wait4 collects final CPU. Regressing ps samples never reduce charged CPU."
+      },
+      {
+        "name": "validate_actual_fine_prefix",
+        "command": [
+          "/opt/homebrew/Caskroom/miniconda/base/envs/tatva/bin/python",
+          "-B",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/validate_captured_radau_prefix.py",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/recovered-original-event-study-20261104-v2/complete_event_segments128-256/failed_equilibrium.npz",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/affine-cache-study-20261104-v1/affine",
+          "--output",
+          "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fine128-recovery-preparation-20261104-v1/checkpoint"
+        ],
+        "exit_code": 0,
+        "seconds": 4780.102449124679,
+        "final_wait4_cpu_seconds": 265.917084,
+        "charged_cpu_high_water_seconds": 265.917084,
+        "measured_average_cores": 0.05562999681077842,
+        "conservative_charged_average_cores": 0.05562999681077842,
+        "average_cpu_budget": 0.1,
+        "ps_counter_regressions": 0,
+        "maximum_ps_counter_drop_seconds": 0.0,
+        "owned_stop_cycles": 1368,
+        "final_cpu_debt_cooldown_seconds": 0.6446861252188683,
+        "full_cpu_debt_repaid": true,
+        "ownership": "Parent retains unreaped Popen child; wait4 collects final CPU. Regressing ps samples never reduce charged CPU."
+      }
+    ],
+    "validated_prefix": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fine128-recovery-preparation-20261104-v1/checkpoint",
+    "candidate": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fine128-recovery-preparation-20261104-v1/candidate-audit/verified_candidate_roots.npz",
+    "full_original_event_reproduced": false,
+    "same_accuracy_fem_advantage_verified": false
+  },
+  "candidate": {
+    "status": "passed_captured_original_stage_candidate",
+    "capture": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/recovered-original-event-study-20261104-v2/complete_event_segments128-256/failed_equilibrium.npz",
+    "capture_sha256": "674fd4b7f0691da3c93d6f6286369f7d3224e7aac12af5e0d83db85fc04b56c9",
+    "candidates": "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fine14450-extended-root-20261104-v1/control/candidate_roots.npz",
+    "candidates_sha256": "82ae4bf047aff1d97b54b6c0954ef3c87a3013892e9c6ef7dff033d82ce723f1",
+    "key": "random_hybrid",
+    "segment_substeps": [
+      128,
+      256
+    ],
+    "failed_step": 14450,
+    "original_jax_residual_mpa": 1.9918949744160978e-11,
+    "independent_numpy_residual_mpa": 1.9937291318511034e-11,
+    "maximum_absolute_local_response_difference": 7.951972413877684e-15,
+    "candidate_unchanged_by_original_root": true,
+    "minimum_pressure_mpa": 10.36088144194109,
+    "maximum_cumulative_slip_mm": 0.24638350711464452,
+    "micro_friction_work_mpa_mm2": 17.92730040322495,
+    "source_sha256": {
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/audit_captured_stage_candidate.py": "33232c1c8c525dd597b395c2fac915ec9d6b362ade6fbdced0fce6aefcacd6a2",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/diagnose_radau_root.py": "193a0e7d8a2d73a00d63252efdd89a0d5bfde0dff1f532507d8d2a253a15da6a",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/identity_stage_tangent.py": "2642bdb99c7548a8a9f1fcbc757d423810572daf67ee27253a1bde5b566ca60b",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/radau_contact_experiment.py": "d564ec6ea2311b783d52df83d2f567d640aa6e40a5c1236aad60c51112b023c6",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/substepped_contact_experiment.py": "d40fcb95f5fa29c0c8630a8901f8d5e63591bfc11ed1c9fbdee7c2ecc8d36225",
+      "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/src/finiteblock_bem/friction.py": "1424c1639cdc1eb4dd8f780bfdc0433f33cf29752b07a17814a3a2f326d81086"
+    },
+    "no_physical_state_committed": true,
+    "full_original_event_reproduced": false,
+    "same_accuracy_fem_advantage_verified": false
+  },
+  "full_original_event_reproduced": false,
+  "same_accuracy_fem_advantage_verified": false,
+  "original_tatva_readonly": true
+}
