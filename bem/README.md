@@ -8,6 +8,8 @@
 相對時空差為 29.77%／69.36%／86.81%，維持原 5% 門檻與全部端點。
 第二組較細接觸積分在第 14450 步失敗，已獨立驗證該步的局部根，正在驗證續跑歷史。
 原始因果 RK 的全程獨立稽核亦在進行；尚未證明同精度的速度或穩定性優勢。
+新增[接觸狀態分歧診斷](docs/contact_state_divergence.md)：FEM 已保存場出現接觸張開與
+彈簧分離，首組 BEM 全程閉合；全部原精度門檻保留，尚未指定唯一原因。
 [原細網格完整 kernel](docs/full_original_radau_progress.md)與
 [第一組先前失敗點的局部根](docs/captured_radau_failure.md)保留來源與歷史紀錄。
 現已完成[原始初始化歷史與 14451 筆前綴驗證](docs/streamed_initialization.md)，

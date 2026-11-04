@@ -1,0 +1,32 @@
+{
+  "status": "passed",
+  "source_sha256": {
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tests/test_recovered_radau_equilibrium.py": "d342932f020bf53c59205531ec4efef930467bd3f2f467b2340973f5025987b7",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/recovered_radau_equilibrium.py": "3b91fcaa02cb2f429b7bd3d0cbb73f136561981d99ccc538c0cd3c21acc3b379",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/diagnose_condensed_radau_root.py": "f8b3aaa48cccae083996c5cb8a35a8e92c4588d9cb60f31391e6edf2cb2dab0c",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/identity_stage_tangent.py": "2642bdb99c7548a8a9f1fcbc757d423810572daf67ee27253a1bde5b566ca60b"
+  },
+  "resource_receipt": {
+    "exit_code": 0,
+    "seconds": 209.86454104073346,
+    "final_wait4_cpu_seconds": 20.986144,
+    "charged_cpu_high_water_seconds": 20.986144,
+    "measured_average_cores": 0.09999852236079612,
+    "conservative_charged_average_cores": 0.09999852236079612,
+    "average_cpu_budget": 0.1,
+    "ps_counter_regressions": 0,
+    "maximum_ps_counter_drop_seconds": 0.0,
+    "owned_stop_cycles": 105,
+    "final_cpu_debt_cooldown_seconds": 0.6504541663452983,
+    "full_cpu_debt_repaid": true,
+    "ownership": "Parent retains unreaped Popen child; wait4 collects final CPU. Regressing ps samples never reduce charged CPU."
+  },
+  "tests": "...                                                                      [100%]\n3 passed in 206.21s (0:03:26)\n",
+  "fixtures": [
+    "docs/diagnostics/radau_step14451/equation.npz",
+    "docs/diagnostics/radau_step14450_substeps128_256/equation.npz"
+  ],
+  "scope": "Both actual captured failure equations using unchanged recover_original_stage: (64,128) max_starts32 and (128,256) max_starts512. Original full residual and old-state immutability checked. Factory/CLI still use their existing default32; no full fine trajectory or unique branch proved.",
+  "full_original_event_reproduced": false,
+  "same_accuracy_fem_advantage_verified": false
+}

@@ -78,6 +78,9 @@ python -B bem/tools/audit_captured_stage_candidate.py \
 
 小型方程不包含 560 MB 的已接受前綴，不能直接當作 CQ checkpoint。
 局部控制不會提交接觸狀態或推進完整歷史。
+後續[兩個實際失敗方程的備援控制](extended_actual_recovery_controls_results.json)也通過：
+直接呼叫原 `recover_original_stage`，較細版本允許最多 512 個隨機起始猜測。
+目前 factory／CLI 仍使用既有的 32 個預設值；尚未更換執行中工作的來源。
 
 ## 耗時與下一步
 
@@ -100,3 +103,7 @@ FEM 的 **109028.208 s** 也不是隔離 benchmark。
 再追查破裂後平均響應差異並比較同精度成本。
 [完整粗網格的 initialized JAX JVP／VJP 控制](identity_radau_ad_check.md)已通過；
 目前尚未對未通過物理場門檻的完整細網格事件宣稱梯度收斂。
+
+新增[接觸張開、彈簧分離與塑性路徑診斷](contact_state_divergence.md)：
+FEM 在已保存的破裂後歷程出現張開及彈簧分離，首組 BEM 全程維持閉合；
+這是需要追查的動態分歧，尚未證明其唯一原因。

@@ -14,10 +14,15 @@ ROOT = Path(__file__).parents[1]
 TOOL = runpy.run_path(str(ROOT / "tools/recovered_radau_equilibrium.py"))
 
 
-def test_actual_captured_failure_recovers_without_committing_old_state():
-    with np.load(
-        ROOT / "docs/diagnostics/radau_step14451/equation.npz", allow_pickle=False
-    ) as saved:
+@pytest.mark.parametrize(
+    "fixture,counts,max_starts",
+    [
+        ("radau_step14451", (64, 128), 32),
+        ("radau_step14450_substeps128_256", (128, 256), 512),
+    ],
+)
+def test_actual_captured_failure_recovers_without_committing_old_state(fixture, counts, max_starts):
+    with np.load(ROOT / "docs/diagnostics" / fixture / "equation.npz", allow_pickle=False) as saved:
         data = {k: saved[k] for k in saved.files}
     n = len(data["plastic_slip"])
     ref = SimpleNamespace(
@@ -33,7 +38,7 @@ def test_actual_captured_failure_recovers_without_committing_old_state():
             reduced_weights=data["reduced_weights"],
         ),
     )
-    system = TOOL["POLICY"]["stage_equilibrium"](ref, data["matrix"], segment_substeps=(64, 128))
+    system = TOOL["POLICY"]["stage_equilibrium"](ref, data["matrix"], segment_substeps=counts)
     state = ContactState(data["plastic_slip"].copy(), data["cumulative_slip"].copy())
     original_z, original_c = state.plastic_slip.copy(), state.cumulative_slip.copy()
     failed = TOOL["POLICY"]["BASE"]["StageRootResult"](
@@ -48,6 +53,7 @@ def test_actual_captured_failure_recovers_without_committing_old_state():
         data["forcing"],
         data["previous_displacement"],
         failed,
+        max_starts=max_starts,
         on_recovery=reports.append,
     )
     assert answer.converged and answer.residual_mpa < 1e-7

@@ -1,0 +1,79 @@
+{
+  "status": "completed_saved_contact_and_spring_mode_diagnostic",
+  "records": {
+    "bem": {
+      "saved_samples": 22501,
+      "first_native_time_s": 0.0,
+      "last_native_time_s": 0.045,
+      "first_saved_contact_opening_time_s": null,
+      "maximum_saved_open_p1_length_fraction": 0.0,
+      "minimum_saved_normal_jump_mm": 0.00011256153956430374,
+      "first_saved_definite_spring_opening_time_s": null,
+      "minimum_saved_spring_gap_mm": 0.8102547235840127,
+      "maximum_spring_scalar_storage_roundoff_bound_mm": 0.0,
+      "shared_final_time_s": 0.045,
+      "shared_final_measures": {
+        "minimum_normal_jump_mm": 0.00014338627857358178,
+        "open_p1_length_fraction": 0.0,
+        "negative_shear_p1_length_fraction": 0.0,
+        "mean_signed_shear_mpa": 9.122704040874506,
+        "mean_absolute_shear_mpa": 9.122704040874506,
+        "mean_strength_mpa": 10.1652764293939,
+        "mean_cumulative_increment_mm": 0.5733707406739417,
+        "mean_absolute_net_plastic_increment_mm": 0.5733707406739208,
+        "mean_variation_excess_mm": 2.0872192862952943e-14
+      },
+      "maximum_saved_mean_variation_excess_mm": 2.120525977034049e-14
+    },
+    "fem": {
+      "saved_samples": 9000,
+      "first_native_time_s": 1.9125812604139645e-09,
+      "last_native_time_s": 0.0450000017910803,
+      "first_saved_contact_opening_time_s": 0.028888210694576946,
+      "maximum_saved_open_p1_length_fraction": 0.05969450638970279,
+      "minimum_saved_normal_jump_mm": -0.00376806307505545,
+      "first_saved_definite_spring_opening_time_s": 0.029308257528732843,
+      "minimum_saved_spring_gap_mm": -0.9355688095092773,
+      "maximum_spring_scalar_storage_roundoff_bound_mm": 5.651562105413177e-06,
+      "shared_final_time_s": 0.045,
+      "shared_final_measures": {
+        "minimum_normal_jump_mm": -0.00025760058711813246,
+        "open_p1_length_fraction": 4.1801944269175155e-05,
+        "negative_shear_p1_length_fraction": 0.3318953287749301,
+        "mean_signed_shear_mpa": 0.6501135593268734,
+        "mean_absolute_shear_mpa": 1.7039393982283864,
+        "mean_strength_mpa": 8.274102379212541,
+        "mean_cumulative_increment_mm": 3.9822766993509644,
+        "mean_absolute_net_plastic_increment_mm": 3.706491627025417,
+        "mean_variation_excess_mm": 0.2757850723255473
+      },
+      "maximum_saved_mean_variation_excess_mm": 0.2757850740214147
+    }
+  },
+  "frozen_inputs_sha256": {
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compare_float64_contact_history.py": "3d7621c3dc3f1ea677189c3ab11f41f612896fadc835718e3dd8044888b24547",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compare_refined_fem_history.py": "0779900b9556045208297bfc4cddca883a03fbb31bcb0aea24dabbd0d30a0540",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compare_fem_mesh.py": "a747c5b4ff52ad84556d5de0c91fb21e0612f3f3d71f165626058c22608b3e0b",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/fem_reference_io.py": "767d970d36ebb446d838af2bd3c5b252e38614cab8a374e2bcf376f5a6564264",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/replay_resolvent.py": "129d75f1dc47ba11f2da171a820e422c3bde36ccce6ed2624690230c9e66bafc",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/fem_contact_observations.py": "ca8727304aec9c38ea72f8f49e8dbeff0d90515ad907056bfc81d3b3baf80a7f",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/recovered-original-event-study-20261104-v2/complete_event_segments64-128/summary.json": "1c9859c648e4637dbc52276f8595c4e3322c11b377808b2ff1d6dc457bf7b9c5",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-radau-study-graded-h2-end015625-4c-f64-replayed/summary.json": "e47c95b2d26e9ea5c5f67ce48bc06534577c461cbdf44a691d919f8e739c93e4",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-radau-study-graded-h2-end015625-4c-f64-replayed/resolved_run_config.json": "c0b63b3aba0fdd32499459428eb51c653ed0563e8fdd66fe794c0880e8ec6488",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-radau-study-graded-h2-end015625-4c-f64-replayed/reference_manifest.json": "94f8129fa5a3627fc00780570558af0ab4290c2b99295ad20b4e275f30cf2f35",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/recovered-first-comparison-20261104-v1/comparison/summary.json": "443eea7b31e4006335ea6a6798cd35db0c8f32f837a060cd3dbe01d4d6c0296f",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/diagnose_contact_modes.py": "9f0f9fff09e11acedd218d546d83837f06677c99e6249f64b6cb91885dcdd364",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/plot_float64_contact_fields.py": "3275ed03a2afaa8ce219684ef7fd81ecf423baf78a0d53dbe2017b9d67eba21f"
+  },
+  "dataset_sha256": {
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/recovered-original-event-study-20261104-v2/complete_event_segments64-128/trajectory.npz": "20ab51b00ed0f4835ad60dc7f0bf33ef6acc03aceb8e0c652df21f2dfafbf6e5",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/outputs/fem-event16-radau-study-graded-h2-end015625-4c-f64-replayed/simulation.h5": "a38f08a4ee8a3066d45cf79cea5da56dd3508fe591b9ab7affa988601ec5a48c"
+  },
+  "all_contact_endpoints_retained": true,
+  "no_fitted_time_shift": true,
+  "no_temporal_smoothing": true,
+  "scope": "Opening and sign measures of saved spatial P1 interpolants, plastic variation relative to each first native sample. Negative shear does not by itself identify slip direction. FEM spring uses original stored scalar precision with an explicit storage bound. No bound on unsaved events, time-step convergence, causal mechanism or nonlinear stability.",
+  "full_original_event_reproduced": false,
+  "same_accuracy_fem_advantage_verified": false,
+  "original_tatva_readonly": true
+}
