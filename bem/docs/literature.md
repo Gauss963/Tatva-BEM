@@ -5,6 +5,9 @@
 目標是在相同物理模型與可量化誤差下重現 FEM，然後證明穩定性或總時間的優勢。
 目前尚未達成這個目標。
 
+同日新增[長時間穩定、二維直接時間核與 mCCSR 平行儲存的補查](literature_20261104_addendum.md)，
+明列閱讀範圍及不能直接移植至本例的條件。
+
 2026-11-04 補讀 Aimi、Di Credico、Gimperlein、Guardasoni，
 [A space-time adaptive boundary element method for the wave equation](https://arxiv.org/html/2511.04265v1)
 §2–4、§5.2–5.4 與結論；[正式出版記錄](https://doi.org/10.1137/25M1782170)

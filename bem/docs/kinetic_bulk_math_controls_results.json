@@ -1,0 +1,27 @@
+{
+  "status": "passed",
+  "source_sha256": {
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tools/compare_kinetic_bulk_response.py": "a4037ef5dd49467afdf1ecfdecc705cb6600759159f953dd36fa20be7a419cc6",
+    "/Users/b09501028/Downloads/bem2d.jl/Tatva-BEM/bem/tests/test_kinetic_bulk_response.py": "a1e57bbe8ee52bb3002b3d4c296e08df701e0e786a100d92dc1e32fb2dc0b505"
+  },
+  "resource_receipt": {
+    "exit_code": 0,
+    "seconds": 16.71199095901102,
+    "final_wait4_cpu_seconds": 1.670193,
+    "charged_cpu_high_water_seconds": 1.670193,
+    "measured_average_cores": 0.09993979796281786,
+    "conservative_charged_average_cores": 0.09993979796281786,
+    "average_cpu_budget": 0.1,
+    "ps_counter_regressions": 0,
+    "maximum_ps_counter_drop_seconds": 0.0,
+    "owned_stop_cycles": 19,
+    "final_cpu_debt_cooldown_seconds": 0.40228625014424324,
+    "full_cpu_debt_repaid": true,
+    "ownership": "Parent retains unreaped Popen child; wait4 collects final CPU. Regressing ps samples never reduce charged CPU."
+  },
+  "tests": "..                                                                       [100%]\n2 passed in 13.37s\n",
+  "scope": "Two mathematical/local constitutive controls only. Complete fine spatial-response comparison is queued, not yet accepted. No whole nonlinear event or same-accuracy performance advantage verified.",
+  "full_original_event_reproduced": false,
+  "same_accuracy_fem_advantage_verified": false,
+  "original_tatva_readonly": true
+}
