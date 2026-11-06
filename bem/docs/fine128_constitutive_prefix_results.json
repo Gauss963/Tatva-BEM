@@ -1,0 +1,541 @@
+{
+  "first_slip_steps": {
+    "coarse": 14065,
+    "finer": 14065
+  },
+  "last_accepted_time_s": 0.028898,
+  "field_errors": {
+    "pressure": {
+      "windows": {
+        "full_accepted_prefix": {
+          "relative_space_time_p1_l2": 9.88429725352271e-06,
+          "absolute_space_time_p1_l2": 0.0009215100674099237,
+          "reference_squared_space_time_integral": 8691.776957433889,
+          "error_squared_space_time_integral": 8.491808043378422e-07,
+          "maximum_saved_interpolant_absolute_difference": 0.7778288139577398,
+          "final_shared_time_relative_p1_l2": 0.00041408572330448707,
+          "common_time_interval_s": [
+            0.0,
+            0.028898
+          ],
+          "reference_saved_interval_s": [
+            0.0,
+            0.028898
+          ],
+          "actual_saved_interval_s": [
+            0.0,
+            0.028898
+          ],
+          "temporal_union_knots": 14450,
+          "spatial_union_knots": 265,
+          "all_saved_knots_in_overlap_retained": true,
+          "fitted_time_shift_s": 0.0,
+          "extrapolation_used": false,
+          "scope": "Exact norms of saved P1 interpolants on the common interval; no unsaved-step error bound"
+        },
+        "first_coarse_correction": {
+          "relative_space_time_p1_l2": 5.886229015050688e-05,
+          "absolute_space_time_p1_l2": 0.0009215100674099236,
+          "reference_squared_space_time_integral": 245.09015027779645,
+          "error_squared_space_time_integral": 8.491808043378419e-07,
+          "maximum_saved_interpolant_absolute_difference": 0.7778288139577398,
+          "final_shared_time_relative_p1_l2": 0.00041408572330448707,
+          "common_time_interval_s": [
+            0.02813,
+            0.028898
+          ],
+          "reference_saved_interval_s": [
+            0.02813,
+            0.028898
+          ],
+          "actual_saved_interval_s": [
+            0.02813,
+            0.028898
+          ],
+          "temporal_union_knots": 385,
+          "spatial_union_knots": 265,
+          "all_saved_knots_in_overlap_retained": true,
+          "fitted_time_shift_s": 0.0,
+          "extrapolation_used": false,
+          "scope": "Exact norms of saved P1 interpolants on the common interval; no unsaved-step error bound"
+        },
+        "last_98_microseconds": {
+          "relative_space_time_p1_l2": 0.0001490036273720497,
+          "absolute_space_time_p1_l2": 0.0008331606620030496,
+          "reference_squared_space_time_integral": 31.26538857535139,
+          "error_squared_space_time_integral": 6.941566887093599e-07,
+          "maximum_saved_interpolant_absolute_difference": 0.7778288139577398,
+          "final_shared_time_relative_p1_l2": 0.00041408572330448707,
+          "common_time_interval_s": [
+            0.0288,
+            0.028898
+          ],
+          "reference_saved_interval_s": [
+            0.0288,
+            0.028898
+          ],
+          "actual_saved_interval_s": [
+            0.0288,
+            0.028898
+          ],
+          "temporal_union_knots": 50,
+          "spatial_union_knots": 265,
+          "all_saved_knots_in_overlap_retained": true,
+          "fitted_time_shift_s": 0.0,
+          "extrapolation_used": false,
+          "scope": "Exact norms of saved P1 interpolants on the common interval; no unsaved-step error bound"
+        }
+      },
+      "absolute_maximum_step": 14447,
+      "absolute_maximum_y_mm": 480.0
+    },
+    "elastic_shear": {
+      "windows": {
+        "full_accepted_prefix": {
+          "relative_space_time_p1_l2": 0.0005759049547905766,
+          "absolute_space_time_p1_l2": 0.028789245830630295,
+          "reference_squared_space_time_integral": 2498.957938571695,
+          "error_squared_space_time_integral": 0.0008288206754964639,
+          "maximum_saved_interpolant_absolute_difference": 14.16548778963729,
+          "final_shared_time_relative_p1_l2": 0.040454426545643005,
+          "common_time_interval_s": [
+            0.0,
+            0.028898
+          ],
+          "reference_saved_interval_s": [
+            0.0,
+            0.028898
+          ],
+          "actual_saved_interval_s": [
+            0.0,
+            0.028898
+          ],
+          "temporal_union_knots": 14450,
+          "spatial_union_knots": 265,
+          "all_saved_knots_in_overlap_retained": true,
+          "fitted_time_shift_s": 0.0,
+          "extrapolation_used": false,
+          "scope": "Exact norms of saved P1 interpolants on the common interval; no unsaved-step error bound"
+        },
+        "first_coarse_correction": {
+          "relative_space_time_p1_l2": 0.0032787186939530985,
+          "absolute_space_time_p1_l2": 0.028789245830630292,
+          "reference_squared_space_time_integral": 77.09962444313379,
+          "error_squared_space_time_integral": 0.0008288206754964636,
+          "maximum_saved_interpolant_absolute_difference": 14.16548778963729,
+          "final_shared_time_relative_p1_l2": 0.040454426545643005,
+          "common_time_interval_s": [
+            0.02813,
+            0.028898
+          ],
+          "reference_saved_interval_s": [
+            0.02813,
+            0.028898
+          ],
+          "actual_saved_interval_s": [
+            0.02813,
+            0.028898
+          ],
+          "temporal_union_knots": 385,
+          "spatial_union_knots": 265,
+          "all_saved_knots_in_overlap_retained": true,
+          "fitted_time_shift_s": 0.0,
+          "extrapolation_used": false,
+          "scope": "Exact norms of saved P1 interpolants on the common interval; no unsaved-step error bound"
+        },
+        "last_98_microseconds": {
+          "relative_space_time_p1_l2": 0.009091600817849332,
+          "absolute_space_time_p1_l2": 0.028282144330528985,
+          "reference_squared_space_time_integral": 9.677071511925751,
+          "error_squared_space_time_integral": 0.0007998796879328728,
+          "maximum_saved_interpolant_absolute_difference": 14.16548778963729,
+          "final_shared_time_relative_p1_l2": 0.040454426545643005,
+          "common_time_interval_s": [
+            0.0288,
+            0.028898
+          ],
+          "reference_saved_interval_s": [
+            0.0288,
+            0.028898
+          ],
+          "actual_saved_interval_s": [
+            0.0288,
+            0.028898
+          ],
+          "temporal_union_knots": 50,
+          "spatial_union_knots": 265,
+          "all_saved_knots_in_overlap_retained": true,
+          "fitted_time_shift_s": 0.0,
+          "extrapolation_used": false,
+          "scope": "Exact norms of saved P1 interpolants on the common interval; no unsaved-step error bound"
+        }
+      },
+      "absolute_maximum_step": 14449,
+      "absolute_maximum_y_mm": 476.938614166976
+    },
+    "plastic_slip": {
+      "windows": {
+        "full_accepted_prefix": {
+          "relative_space_time_p1_l2": 2.9202785278642895e-06,
+          "absolute_space_time_p1_l2": 9.398852524031909e-05,
+          "reference_squared_space_time_integral": 1035.8601359973618,
+          "error_squared_space_time_integral": 8.833842876850098e-09,
+          "maximum_saved_interpolant_absolute_difference": 0.014863292642310455,
+          "final_shared_time_relative_p1_l2": 0.00010281628850250289,
+          "common_time_interval_s": [
+            0.0,
+            0.028898
+          ],
+          "reference_saved_interval_s": [
+            0.0,
+            0.028898
+          ],
+          "actual_saved_interval_s": [
+            0.0,
+            0.028898
+          ],
+          "temporal_union_knots": 14450,
+          "spatial_union_knots": 265,
+          "all_saved_knots_in_overlap_retained": true,
+          "fitted_time_shift_s": 0.0,
+          "extrapolation_used": false,
+          "scope": "Exact norms of saved P1 interpolants on the common interval; no unsaved-step error bound"
+        },
+        "first_coarse_correction": {
+          "relative_space_time_p1_l2": 1.7857941478596545e-05,
+          "absolute_space_time_p1_l2": 9.398852524031907e-05,
+          "reference_squared_space_time_integral": 27.7004535226339,
+          "error_squared_space_time_integral": 8.833842876850096e-09,
+          "maximum_saved_interpolant_absolute_difference": 0.014863292642310455,
+          "final_shared_time_relative_p1_l2": 0.00010281628850250289,
+          "common_time_interval_s": [
+            0.02813,
+            0.028898
+          ],
+          "reference_saved_interval_s": [
+            0.02813,
+            0.028898
+          ],
+          "actual_saved_interval_s": [
+            0.02813,
+            0.028898
+          ],
+          "temporal_union_knots": 385,
+          "spatial_union_knots": 265,
+          "all_saved_knots_in_overlap_retained": true,
+          "fitted_time_shift_s": 0.0,
+          "extrapolation_used": false,
+          "scope": "Exact norms of saved P1 interpolants on the common interval; no unsaved-step error bound"
+        },
+        "last_98_microseconds": {
+          "relative_space_time_p1_l2": 4.471748357603876e-05,
+          "absolute_space_time_p1_l2": 8.519128487674469e-05,
+          "reference_squared_space_time_integral": 3.629406599287876,
+          "error_squared_space_time_integral": 7.257555018950668e-09,
+          "maximum_saved_interpolant_absolute_difference": 0.014863292642310455,
+          "final_shared_time_relative_p1_l2": 0.00010281628850250289,
+          "common_time_interval_s": [
+            0.0288,
+            0.028898
+          ],
+          "reference_saved_interval_s": [
+            0.0288,
+            0.028898
+          ],
+          "actual_saved_interval_s": [
+            0.0288,
+            0.028898
+          ],
+          "temporal_union_knots": 50,
+          "spatial_union_knots": 265,
+          "all_saved_knots_in_overlap_retained": true,
+          "fitted_time_shift_s": 0.0,
+          "extrapolation_used": false,
+          "scope": "Exact norms of saved P1 interpolants on the common interval; no unsaved-step error bound"
+        }
+      },
+      "absolute_maximum_step": 14449,
+      "absolute_maximum_y_mm": 476.938614166976
+    },
+    "cumulative_slip": {
+      "windows": {
+        "full_accepted_prefix": {
+          "relative_space_time_p1_l2": 0.0023558382659922632,
+          "absolute_space_time_p1_l2": 9.398852524017624e-05,
+          "reference_squared_space_time_integral": 0.0015916908762934607,
+          "error_squared_space_time_integral": 8.833842876823246e-09,
+          "maximum_saved_interpolant_absolute_difference": 0.014863292642299712,
+          "final_shared_time_relative_p1_l2": 0.004430826904047821,
+          "common_time_interval_s": [
+            0.0,
+            0.028898
+          ],
+          "reference_saved_interval_s": [
+            0.0,
+            0.028898
+          ],
+          "actual_saved_interval_s": [
+            0.0,
+            0.028898
+          ],
+          "temporal_union_knots": 14450,
+          "spatial_union_knots": 265,
+          "all_saved_knots_in_overlap_retained": true,
+          "fitted_time_shift_s": 0.0,
+          "extrapolation_used": false,
+          "scope": "Exact norms of saved P1 interpolants on the common interval; no unsaved-step error bound"
+        },
+        "first_coarse_correction": {
+          "relative_space_time_p1_l2": 0.0023558382659922632,
+          "absolute_space_time_p1_l2": 9.398852524017623e-05,
+          "reference_squared_space_time_integral": 0.001591690876293461,
+          "error_squared_space_time_integral": 8.833842876823244e-09,
+          "maximum_saved_interpolant_absolute_difference": 0.014863292642299712,
+          "final_shared_time_relative_p1_l2": 0.004430826904047821,
+          "common_time_interval_s": [
+            0.02813,
+            0.028898
+          ],
+          "reference_saved_interval_s": [
+            0.02813,
+            0.028898
+          ],
+          "actual_saved_interval_s": [
+            0.02813,
+            0.028898
+          ],
+          "temporal_union_knots": 385,
+          "spatial_union_knots": 265,
+          "all_saved_knots_in_overlap_retained": true,
+          "fitted_time_shift_s": 0.0,
+          "extrapolation_used": false,
+          "scope": "Exact norms of saved P1 interpolants on the common interval; no unsaved-step error bound"
+        },
+        "last_98_microseconds": {
+          "relative_space_time_p1_l2": 0.0024667962881688176,
+          "absolute_space_time_p1_l2": 8.519128487644347e-05,
+          "reference_squared_space_time_integral": 0.0011926795267870043,
+          "error_squared_space_time_integral": 7.2575550188993465e-09,
+          "maximum_saved_interpolant_absolute_difference": 0.014863292642299712,
+          "final_shared_time_relative_p1_l2": 0.004430826904047821,
+          "common_time_interval_s": [
+            0.0288,
+            0.028898
+          ],
+          "reference_saved_interval_s": [
+            0.0288,
+            0.028898
+          ],
+          "actual_saved_interval_s": [
+            0.0288,
+            0.028898
+          ],
+          "temporal_union_knots": 50,
+          "spatial_union_knots": 265,
+          "all_saved_knots_in_overlap_retained": true,
+          "fitted_time_shift_s": 0.0,
+          "extrapolation_used": false,
+          "scope": "Exact norms of saved P1 interpolants on the common interval; no unsaved-step error bound"
+        }
+      },
+      "absolute_maximum_step": 14449,
+      "absolute_maximum_y_mm": 476.938614166976
+    },
+    "friction_coefficient": {
+      "windows": {
+        "full_accepted_prefix": {
+          "relative_space_time_p1_l2": 0.00023929635212935994,
+          "absolute_space_time_p1_l2": 0.0007121033364600707,
+          "reference_squared_space_time_integral": 8.855516259164496,
+          "error_squared_space_time_integral": 5.070911617975646e-07,
+          "maximum_saved_interpolant_absolute_difference": 0.20000000000000007,
+          "final_shared_time_relative_p1_l2": 0.012781133054329118,
+          "common_time_interval_s": [
+            0.0,
+            0.028898
+          ],
+          "reference_saved_interval_s": [
+            0.0,
+            0.028898
+          ],
+          "actual_saved_interval_s": [
+            0.0,
+            0.028898
+          ],
+          "temporal_union_knots": 14450,
+          "spatial_union_knots": 265,
+          "all_saved_knots_in_overlap_retained": true,
+          "fitted_time_shift_s": 0.0,
+          "extrapolation_used": false,
+          "scope": "Exact norms of saved P1 interpolants on the common interval; no unsaved-step error bound"
+        },
+        "first_coarse_correction": {
+          "relative_space_time_p1_l2": 0.0015394166022058185,
+          "absolute_space_time_p1_l2": 0.0007121033364600705,
+          "reference_squared_space_time_integral": 0.21398025917154545,
+          "error_squared_space_time_integral": 5.070911617975643e-07,
+          "maximum_saved_interpolant_absolute_difference": 0.20000000000000007,
+          "final_shared_time_relative_p1_l2": 0.012781133054329118,
+          "common_time_interval_s": [
+            0.02813,
+            0.028898
+          ],
+          "reference_saved_interval_s": [
+            0.02813,
+            0.028898
+          ],
+          "actual_saved_interval_s": [
+            0.02813,
+            0.028898
+          ],
+          "temporal_union_knots": 385,
+          "spatial_union_knots": 265,
+          "all_saved_knots_in_overlap_retained": true,
+          "fitted_time_shift_s": 0.0,
+          "extrapolation_used": false,
+          "scope": "Exact norms of saved P1 interpolants on the common interval; no unsaved-step error bound"
+        },
+        "last_98_microseconds": {
+          "relative_space_time_p1_l2": 0.004667531336046024,
+          "absolute_space_time_p1_l2": 0.0006330230725175068,
+          "reference_squared_space_time_integral": 0.018393509223136262,
+          "error_squared_space_time_integral": 4.0071821033950465e-07,
+          "maximum_saved_interpolant_absolute_difference": 0.20000000000000007,
+          "final_shared_time_relative_p1_l2": 0.012781133054329118,
+          "common_time_interval_s": [
+            0.0288,
+            0.028898
+          ],
+          "reference_saved_interval_s": [
+            0.0288,
+            0.028898
+          ],
+          "actual_saved_interval_s": [
+            0.0288,
+            0.028898
+          ],
+          "temporal_union_knots": 50,
+          "spatial_union_knots": 265,
+          "all_saved_knots_in_overlap_retained": true,
+          "fitted_time_shift_s": 0.0,
+          "extrapolation_used": false,
+          "scope": "Exact norms of saved P1 interpolants on the common interval; no unsaved-step error bound"
+        }
+      },
+      "absolute_maximum_step": 14447,
+      "absolute_maximum_y_mm": 473.96218376727296
+    },
+    "friction_strength": {
+      "windows": {
+        "full_accepted_prefix": {
+          "relative_space_time_p1_l2": 0.00042122465685484205,
+          "absolute_space_time_p1_l2": 0.03140562264100539,
+          "reference_squared_space_time_integral": 5558.879318774257,
+          "error_squared_space_time_integral": 0.0009863131334692302,
+          "maximum_saved_interpolant_absolute_difference": 17.78283830649162,
+          "final_shared_time_relative_p1_l2": 0.037471242525220584,
+          "common_time_interval_s": [
+            0.0,
+            0.028898
+          ],
+          "reference_saved_interval_s": [
+            0.0,
+            0.028898
+          ],
+          "actual_saved_interval_s": [
+            0.0,
+            0.028898
+          ],
+          "temporal_union_knots": 14450,
+          "spatial_union_knots": 265,
+          "all_saved_knots_in_overlap_retained": true,
+          "fitted_time_shift_s": 0.0,
+          "extrapolation_used": false,
+          "scope": "Exact norms of saved P1 interpolants on the common interval; no unsaved-step error bound"
+        },
+        "first_coarse_correction": {
+          "relative_space_time_p1_l2": 0.0025389960787586974,
+          "absolute_space_time_p1_l2": 0.03140562264100539,
+          "reference_squared_space_time_integral": 152.99976219853045,
+          "error_squared_space_time_integral": 0.0009863131334692302,
+          "maximum_saved_interpolant_absolute_difference": 17.78283830649162,
+          "final_shared_time_relative_p1_l2": 0.037471242525220584,
+          "common_time_interval_s": [
+            0.02813,
+            0.028898
+          ],
+          "reference_saved_interval_s": [
+            0.02813,
+            0.028898
+          ],
+          "actual_saved_interval_s": [
+            0.02813,
+            0.028898
+          ],
+          "temporal_union_knots": 385,
+          "spatial_union_knots": 265,
+          "all_saved_knots_in_overlap_retained": true,
+          "fitted_time_shift_s": 0.0,
+          "extrapolation_used": false,
+          "scope": "Exact norms of saved P1 interpolants on the common interval; no unsaved-step error bound"
+        },
+        "last_98_microseconds": {
+          "relative_space_time_p1_l2": 0.0073931740026018525,
+          "absolute_space_time_p1_l2": 0.0310054458487669,
+          "reference_squared_space_time_integral": 17.587904796804278,
+          "error_squared_space_time_integral": 0.0009613376722808166,
+          "maximum_saved_interpolant_absolute_difference": 17.78283830649162,
+          "final_shared_time_relative_p1_l2": 0.037471242525220584,
+          "common_time_interval_s": [
+            0.0288,
+            0.028898
+          ],
+          "reference_saved_interval_s": [
+            0.0288,
+            0.028898
+          ],
+          "actual_saved_interval_s": [
+            0.0288,
+            0.028898
+          ],
+          "temporal_union_knots": 50,
+          "spatial_union_knots": 265,
+          "all_saved_knots_in_overlap_retained": true,
+          "fitted_time_shift_s": 0.0,
+          "extrapolation_used": false,
+          "scope": "Exact norms of saved P1 interpolants on the common interval; no unsaved-step error bound"
+        }
+      },
+      "absolute_maximum_step": 14449,
+      "absolute_maximum_y_mm": 476.938614166976
+    }
+  },
+  "windows": {
+    "full_accepted_prefix": [
+      0.0,
+      0.028898
+    ],
+    "first_coarse_correction": [
+      0.02813,
+      0.028898
+    ],
+    "last_98_microseconds": [
+      0.0288,
+      0.028898
+    ]
+  },
+  "scope": "Both accepted full prefixes through step 14449. No recovered step, rest of event or FEM comparison.",
+  "source_digests": {
+    "candidate_64_128_completed_trajectory_sha256": "20ab51b00ed0f4835ad60dc7f0bf33ef6acc03aceb8e0c652df21f2dfafbf6e5",
+    "reference_128_256_failed_equilibrium_capture_sha256": "674fd4b7f0691da3c93d6f6286369f7d3224e7aac12af5e0d83db85fc04b56c9"
+  },
+  "metric_reference_segment_substeps": [
+    128,
+    256
+  ],
+  "metric_candidate_segment_substeps": [
+    64,
+    128
+  ],
+  "relative_gate": 0.01
+}
