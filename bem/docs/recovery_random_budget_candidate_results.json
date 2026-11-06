@@ -1,5 +1,5 @@
 {
-  "status": "validated_isolated_recovery_budget_candidate_not_activated",
+  "status": "activated_exact_candidate_after_bitwise_coarse_cli_check",
   "as_of": "2026-11-04T19:30:58.601532+08:00",
   "control": {
     "status": "passed_isolated_candidate_factory_and_parser",
@@ -95,5 +95,83 @@
   ],
   "full_original_event_reproduced": false,
   "same_accuracy_fem_advantage_verified": false,
-  "original_tatva_readonly": true
+  "original_tatva_readonly": true,
+  "activation_completed": "2026-11-06",
+  "coarse_cli_control": {
+    "status": "passed_isolated_full_cli512_fresh_resume_and_original_arrays_bitwise_equal",
+    "stages": [
+      {
+        "name": "fresh",
+        "exit_code": 0,
+        "seconds": 62.00761725008488,
+        "final_wait4_cpu_seconds": 6.199758999999999,
+        "charged_cpu_high_water_seconds": 6.199758999999999,
+        "measured_average_cores": 0.09998382900274261,
+        "conservative_charged_average_cores": 0.09998382900274261,
+        "average_cpu_budget": 0.1,
+        "ps_counter_regressions": 0,
+        "maximum_ps_counter_drop_seconds": 0.0,
+        "owned_stop_cycles": 29,
+        "final_cpu_debt_cooldown_seconds": 0.09147137496620417,
+        "full_cpu_debt_repaid": true,
+        "ownership": "Parent retains unreaped Popen child; wait4 collects final CPU. Regressing ps samples never reduce charged CPU."
+      },
+      {
+        "name": "resumed",
+        "exit_code": 0,
+        "seconds": 61.17428962420672,
+        "final_wait4_cpu_seconds": 6.116426,
+        "charged_cpu_high_water_seconds": 6.116426,
+        "measured_average_cores": 0.0999836048374761,
+        "conservative_charged_average_cores": 0.0999836048374761,
+        "average_cpu_budget": 0.1,
+        "ps_counter_regressions": 0,
+        "maximum_ps_counter_drop_seconds": 0.0,
+        "owned_stop_cycles": 26,
+        "final_cpu_debt_cooldown_seconds": 0.15904895775020123,
+        "full_cpu_debt_repaid": true,
+        "ownership": "Parent retains unreaped Popen child; wait4 collects final CPU. Regressing ps samples never reduce charged CPU."
+      }
+    ],
+    "all_array_members_equal": {
+      "initial_lift.npz": {
+        "retained_displacement": true,
+        "full_displacement": true,
+        "retained_bulk_force": true,
+        "plastic_slip": true,
+        "cumulative_slip": true,
+        "pressure": true,
+        "shear": true
+      },
+      "trajectory.npz": {
+        "time": true,
+        "pressure": true,
+        "shear": true,
+        "friction_coefficient": true,
+        "plastic_slip": true,
+        "cumulative_slip": true,
+        "actuator": true,
+        "platen": true,
+        "normal_load": true,
+        "moving_starts": true,
+        "moving_ends": true,
+        "stationary_starts": true,
+        "stationary_ends": true,
+        "contact_y": true,
+        "moving_contact": true,
+        "stationary_contact": true,
+        "contact_weights": true,
+        "contact_jumps": true
+      },
+      "stages.npz": {
+        "displacement": true,
+        "response": true,
+        "stage_time": true,
+        "actuator": true,
+        "initial_residual_force": true,
+        "initial_contact_force": true
+      }
+    },
+    "scope": "Exact candidate bytes in an isolated tool overlay with unchanged dependencies. Full 128-step diagnostic coarse run, not fine45ms or branch uniqueness."
+  }
 }

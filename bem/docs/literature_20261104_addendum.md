@@ -48,7 +48,8 @@ FEM／BEM 的黏著與正向完全滑動控制。滑動切線保留 `dτ/dδn = 
 不以對稱黏著 Hessian 代替它；這是原接觸律的切線，不是上述論文的新演算法。
 局部 2×2 AD／獨立 NumPy map，以及不同線權重下的直接 nodal-force 方程控制均通過。
 控制的[來源與實測資源紀錄](kinetic_bulk_math_controls_results.json)已保存。
-完整細網格響應已排程，會待前綴驗證釋出記憶體後啟動；
-尚未產生驗收結果，不能先指定全場差異的原因。
+完整細網格的[三模式、六組空間響應對照](kinetic_bulk_response.md)已完成，
+抽樣的壓力、剪力與 platen 差皆低於 5%；完整非線性事件仍未通過場門檻。
+這些結果尚未指定全場差異的原因。
 這些複數 s 的方程只是 frozen resolvent 控制；尚未定位滑動系統的 poles，
 也未證明所有取樣 s 都位於該滑動系統的 causal Laplace 收斂域。

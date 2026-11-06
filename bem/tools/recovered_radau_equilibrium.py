@@ -154,14 +154,26 @@ def recover_original_stage(
     )
 
 
-def recovering_stage_equilibrium(reference, matrix, *, segment_substeps=(1, 2), on_recovery=None):
+def recovering_stage_equilibrium(
+    reference, matrix, *, segment_substeps=(1, 2), max_starts=32, on_recovery=None
+):
+    if max_starts < 0:
+        raise ValueError("Require a nonnegative random recovery budget")
     system = POLICY["stage_equilibrium"](reference, matrix, segment_substeps=segment_substeps)
     original = system.solve
 
     def solve(old, forcing, guess, previous, **kwargs):
         answer = original(old, forcing, guess, previous, **kwargs)
         return recover_original_stage(
-            system, reference, matrix, old, forcing, previous, answer, on_recovery=on_recovery
+            system,
+            reference,
+            matrix,
+            old,
+            forcing,
+            previous,
+            answer,
+            max_starts=max_starts,
+            on_recovery=on_recovery,
         )
 
     system.solve = solve

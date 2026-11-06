@@ -62,7 +62,7 @@
 目前不包含 material／geometry 或 endogenous loading stop-time 導數，
 也不是完整細網格 event-16 的梯度收斂證明。
 
-## 已驗證但尚未啟用的 recovery 配額選項
+## Recovery 配額選項
 
 `--recovery-random-starts` 的[候選 patch](diagnostics/recovery_random_budget_candidate.patch)
 已在隔離 namespace 驗證，[結果與來源](recovery_random_budget_candidate_results.json)另存。
@@ -71,8 +71,8 @@
 設定 512 後，第 75 個候選通過完整 residual，並與獨立 NumPy 接觸律核對。
 這些 trial 不提交物理狀態；CLI help 與負配額拒絕亦已核對。
 
-目前執行中的稽核仍凍結原工具來源，因此尚未套用 patch。
-待所有相關 owner 結束，再安裝相同已測試 bytes 並完成完整短程 CLI 對照。
+隔離工具目錄以 512 配額跑完 128 步案例。直接執行、checkpoint 續跑與原版的
+位移、接觸狀態與其餘保存陣列逐位相同。11 月 6 日已安裝同一份通過驗證的原始碼。
 [實際 fine128 前綴的資源預檢](fine128_resume_resource_plan_results.json)通過：
 32-lag prefix 加 2048 MiB FFT cache 在 16384 MiB array budget 下餘約 452 MiB。
 預測 kernel FFT 呼叫為 8252，原 8 MiB 設定為 66766；這是邏輯存取計數，

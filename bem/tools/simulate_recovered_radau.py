@@ -45,6 +45,12 @@ def main():
     parser.add_argument("--checkpoint", type=Path)
     parser.add_argument("--recovered-root", type=Path)
     parser.add_argument("--root-key", default="random_hybrid")
+    parser.add_argument(
+        "--recovery-random-starts",
+        type=int,
+        default=32,
+        help="Maximum random condensed recovery guesses, after three deterministic guesses",
+    )
     parser.add_argument("--restart-seed", type=Path)
     parser.add_argument("--segment-substeps", type=int, nargs=2, default=[64, 128])
     parser.add_argument(
@@ -55,6 +61,8 @@ def main():
     parser.add_argument("--history-prefix-lags", type=int, default=32)
     parser.add_argument("--output", type=Path, required=True)
     args, forwarded = parser.parse_known_args()
+    if args.recovery_random_starts < 0:
+        raise ValueError("Require a nonnegative random recovery budget")
     output, kernel, cache = (
         args.output.resolve(),
         args.kernel.resolve(),
@@ -143,6 +151,7 @@ def main():
         prefix_capacity_bytes=capacity,
         checkpoint_reserved_bytes=capture_reserve,
         original_planner_memory_mb=remaining,
+        recovery_random_starts=args.recovery_random_starts,
         primal_only=True,
         full_original_goal_achieved=False,
         recoveries=[],
@@ -197,7 +206,7 @@ def main():
             CONTACT={
                 **original["CONTACT"],
                 "RadauContactEquilibrium": lambda *a, **k: RECOVER["recovering_stage_equilibrium"](
-                    *a, **k, on_recovery=recovery_report
+                    *a, **k, max_starts=args.recovery_random_starts, on_recovery=recovery_report
                 ),
             },
         ),

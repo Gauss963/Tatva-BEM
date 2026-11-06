@@ -7,9 +7,12 @@
 [全程結果與圖表](docs/recovered_full_event.md)：壓力／帶符號剪力／累積滑移的
 相對時空差為 29.77%／69.36%／86.81%，維持原 5% 門檻與全部端點。
 第二組較細接觸積分在第 14450 步失敗，局部根與自己的完整續跑歷史均已通過驗證。
-原始因果 RK 的全程獨立稽核亦在進行；尚未證明同精度的速度或穩定性優勢。
+首組的全程因果 RK 稽核已通過，第二組已從第 14450 步啟動續跑。
+同精度速度與穩定性優勢仍待驗證。
 新增[接觸狀態分歧診斷](docs/contact_state_divergence.md)：FEM 已保存場出現接觸張開與
 彈簧分離，首組 BEM 全程閉合；全部原精度門檻保留，尚未指定唯一原因。
+另已完成[黏著／滑動的三模式空間響應](docs/kinetic_bulk_response.md)：六個抽樣控制的
+壓力、剪力與 platen 差均低於 5%，其範圍尚未涵蓋完整非線性破裂事件。
 [原細網格完整 kernel](docs/full_original_radau_progress.md)與
 [第一組先前失敗點的局部根](docs/captured_radau_failure.md)保留來源與歷史紀錄。
 現已完成[原始初始化歷史與 14451 筆前綴驗證](docs/streamed_initialization.md)，
