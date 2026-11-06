@@ -6,8 +6,9 @@ from pathlib import Path
 
 import numpy as np
 import pytest
-from finiteblock_bem.cq import invert_spectrum, plan_cq
 from scipy.linalg import solve
+
+from finiteblock_bem.cq import invert_spectrum, plan_cq
 
 TOOLS = Path(__file__).resolve().parents[1] / "tools"
 
